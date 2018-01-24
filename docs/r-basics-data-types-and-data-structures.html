@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  
+  <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+<meta name="author" content="Paul M. Magwene">
+
+
+<meta name="date" content="2018-01-23">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="getting-started-with-r.html">
+<link rel="next" href="r-markdown-and-r-notebooks.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-to-use-these-lecture-notes"><i class="fa fa-check"></i><b>1.1</b> How to use these lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-rstudio"><i class="fa fa-check"></i><b>2.2</b> What is RStudio?</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#entering-commands-in-the-console"><i class="fa fa-check"></i><b>2.3</b> Entering commands in the console</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#comments"><i class="fa fa-check"></i><b>2.4</b> Comments</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types-in-r"><i class="fa fa-check"></i><b>2.6</b> Numeric data types in R</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment-in-r"><i class="fa fa-check"></i><b>2.7</b> Variable assignment in R</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.7.1</b> Valid variable names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#working-with-vectors-in-r"><i class="fa fa-check"></i><b>2.8</b> Working with Vectors in R</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-arithmetic"><i class="fa fa-check"></i><b>2.8.1</b> Vector Arithmetic</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-recycling"><i class="fa fa-check"></i><b>2.8.2</b> Vector recycling</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>2.8.3</b> Simple statistical functions for numeric vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.10</b> Packages</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.10.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.10.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.10.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.10.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.10.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.10.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-stringr-package"><i class="fa fa-check"></i><b>2.10.4</b> Install the stringr package</a></li>
+<li class="chapter" data-level="2.10.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.10.5</b> Loading packages with the <code>library()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html"><i class="fa fa-check"></i><b>3</b> R Basics: Data types and data structures</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-boolean-values"><i class="fa fa-check"></i><b>3.1</b> Logical (Boolean) values</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#comparison-operators-applied-to-numeric-vectors"><i class="fa fa-check"></i><b>3.1.1</b> Comparison operators applied to numeric vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-vectors"><i class="fa fa-check"></i><b>3.1.2</b> Logical vectors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-operators"><i class="fa fa-check"></i><b>3.1.3</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#character-strings"><i class="fa fa-check"></i><b>3.2</b> Character strings</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-stringr-package"><i class="fa fa-check"></i><b>3.2.1</b> The <code>stringr</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors"><i class="fa fa-check"></i><b>3.3</b> Vectors</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>3.3.1</b> Indexing Vectors</a></li>
+<li class="chapter" data-level="3.3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>3.3.2</b> Combining Indexing and Comparison of Vectors</a></li>
+<li class="chapter" data-level="3.3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>3.3.3</b> Vector manipulation</a></li>
+<li class="chapter" data-level="3.3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>3.3.4</b> Vectors from regular sequences</a></li>
+<li class="chapter" data-level="3.3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>3.3.5</b> Additional functions for working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>3.4.1</b> Length and type of lists</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>3.4.2</b> Indexing lists</a></li>
+<li class="chapter" data-level="3.4.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>3.4.3</b> Naming list elements</a></li>
+<li class="chapter" data-level="3.4.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-operator"><i class="fa fa-check"></i><b>3.4.4</b> The <code>$</code> operator</a></li>
+<li class="chapter" data-level="3.4.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>3.4.5</b> Changing and adding lists items</a></li>
+<li class="chapter" data-level="3.4.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-lists"><i class="fa fa-check"></i><b>3.4.6</b> Combining lists</a></li>
+<li class="chapter" data-level="3.4.7" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>3.4.7</b> Converting lists to vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> Data frames</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>3.5.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="3.5.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>3.5.2</b> Type and class for data frames</a></li>
+<li class="chapter" data-level="3.5.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>3.5.3</b> Length and dimension for data frames</a></li>
+<li class="chapter" data-level="3.5.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>3.5.4</b> Indexing and accessing data frames</a></li>
+<li class="chapter" data-level="3.5.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Logical indexing of data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>3.5.6</b> Adding columns to a data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>4</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>4.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>4.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.4.2</b> Code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.5</b> Running a code chunk</a></li>
+<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.6</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.8</b> Sharing your reproducible R Notebook</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.6.2</b> Faceting to depict categorical information</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.7</b> Density plots</a></li>
+<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.8</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.9</b> Boxplots</a></li>
+<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.10</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.11</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="5.11.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.11.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="5.11.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.11.2</b> Setting shared aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#gplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.12</b> gplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.13</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.14</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="5.14.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.14.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.15</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.16</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="5.16.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.16.1</b> Scatter plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.18</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.19</b> Density plots with fill</a></li>
+<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.20</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.21</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Biology 723: Statistical Computing for Biologists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r-basics-data-types-and-data-structures" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> R Basics: Data types and data structures</h1>
+<p>In the previous chapter we began our exploration of R with some simple numerical examples. We discussed the three basic numeric data types in R (doubles, integers, complex numbers), illustrated simple mathematical functions (<code>abs</code>, <code>log</code>, <code>cos</code>, etc), introduced the concept of variable assignment, and made use of a simple data structure called a vector.</p>
+<p>In this chapter we’re going to: 1) introduced two additional data types (logical and character types); 2) expand our knowledge of R vectors; and 3) introduce two new data structures (lists and data frames).</p>
+<div id="logical-boolean-values" class="section level2">
+<h2><span class="header-section-number">3.1</span> Logical (Boolean) values</h2>
+<p>The “logical” data type (know as “Booleans” in many other languages, after the mathematician George Bools) represent true or false values. These are written <code>TRUE</code> and <code>FALSE</code> in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)
+<span class="kw">typeof</span>(<span class="ot">FALSE</span>)</code></pre></div>
+<p>Logical values or returned by numeric comparison operations such as testing equality, less than, greater than, etc. This is illustrated below</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># less than</span>
+<span class="dv">10</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># greater than</span>
+<span class="dv">10</span> <span class="op">&lt;=</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># less than or equal to</span>
+<span class="dv">10</span> <span class="op">&gt;=</span><span class="st"> </span>pi <span class="co"># greater than or equal to</span>
+<span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">10</span> <span class="co"># equals</span>
+<span class="dv">10</span> <span class="op">!=</span><span class="st"> </span><span class="dv">10</span> <span class="co"># does not equal</span>
+<span class="dv">10</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Surprised by the result? See below.</span>
+<span class="dv">4</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Even more confused?</span></code></pre></div>
+<p>Be careful to distinguish between <code>==</code> (tests equality) and <code>=</code> (the alternative assignment operator equivalent to <code>&lt;-</code>). I encourage you to only use the <code>=</code> assignment operator in function calls, so as to help avoid confusion between testing for equality and assignment.</p>
+<p>How about the last two statement comparing two values to the square of their square roots? Mathematically we know that both <span class="math inline">\((\sqrt{10})^2 = 10\)</span> and <span class="math inline">\((\sqrt{4})^2 = 4\)</span> are true statements. Why does R tell us the first statement is false? What we’re running into here are the limits of computer precision. A computer can’t represent <span class="math inline">\(\sqrt 10\)</span> exactly, whereas <span class="math inline">\(\sqrt 4\)</span> can be exactly represented. Precision in numerical computing is a complex subject and a detailed discussion is beyond the scope of this course. Later in the course we’ll discuss some ways of implementing sanity checks to avoid situations like that illustrated above.</p>
+<div id="comparison-operators-applied-to-numeric-vectors" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Comparison operators applied to numeric vectors</h3>
+<p>Comparison operators can be applied to numeric vectors. As with other vector operations, the comparison operators are applied element by element, and the value returned is a vector of logical values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)
+x <span class="op">&gt;</span><span class="st"> </span>y  <span class="co"># compare each matching element</span></code></pre></div>
+</div>
+<div id="logical-vectors" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Logical vectors</h3>
+<p>As illustrated above, comparison operations applied to numeric vectors return logical vectors. You can create your own logical vectors with the <code>c()</code> function in the same way as we create numeric vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ww &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+zz &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="logical-operators" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Logical operators</h3>
+<p>Logical values support Boolean operations, like logical negation (“not”), “and”, “or”, “xor”, etc. This is illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+y &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+<span class="op">!</span>x  <span class="co"># logical negation</span>
+x <span class="op">&amp;</span><span class="st"> </span>y <span class="co"># AND: are x and y both TRUE?</span>
+x <span class="op">|</span><span class="st"> </span>y <span class="co"># OR: are either x or y TRUE?</span>
+<span class="kw">xor</span>(x,y)  <span class="co"># XOR: is either x or y TRUE, but not both?</span></code></pre></div>
+<p>The logical operators above work element-wise on logical vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xx &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)
+yy &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>)
+<span class="op">!</span>xx  <span class="co"># logical negation, element-wise</span>
+xx <span class="op">&amp;</span><span class="st"> </span>yy  <span class="co"># element-wise AND, note recycling of shorter vector</span></code></pre></div>
+<p>The function <code>isTRUE</code> is sometimes useful, especially when writing functions. <code>isTRUE</code> applies to length-one logical vectors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">5</span>
+y &lt;-<span class="st"> </span><span class="dv">10</span>
+z &lt;-<span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span>y
+<span class="kw">isTRUE</span>(z)</code></pre></div>
+</div>
+</div>
+<div id="character-strings" class="section level2">
+<h2><span class="header-section-number">3.2</span> Character strings</h2>
+<p>Character strings (“character”) represent single textual characters or longer string. They are created by wrapping text either single our double quotes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="st">&quot;a&quot;</span>)
+<span class="kw">typeof</span>(<span class="st">&quot;abc&quot;</span>)</code></pre></div>
+<p>Character strings have a length, which can be found using the <code>nchar</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">first.name &lt;-<span class="st"> &quot;jasmine&quot;</span>
+<span class="kw">nchar</span>(first.name)</code></pre></div>
+<p>There are a number of built-in functions for manipulating character strings. Here are some of the most common ones:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">last.name &lt;-<span class="st"> &#39;smith&#39;</span>
+<span class="kw">paste</span>(first.name, last.name)  <span class="co"># join strings</span>
+<span class="kw">substr</span>(first.name, <span class="dv">1</span>, <span class="dv">3</span>)      <span class="co"># get substrings</span></code></pre></div>
+<div id="the-stringr-package" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> The <code>stringr</code> package</h3>
+<p>The <a href="http://stringr.tidyverse.org"><code>stringr</code></a> package provides a variety of useful functions for working with character strings. You should have already installed the stringr package (see the Installing Packages handout), but do so now if you forgot. All of the functions in the <code>stringr</code> package are prefixed with <code>str_</code>. Here are some examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You don&#39;t need to reload packages if you already loaded </span>
+<span class="co"># them in your R session. This is just for completeness.</span>
+<span class="kw">library</span>(stringr) 
+
+darwin.quote &lt;-<span class="st"> &quot;There is grandeur in this view of life, with its several powers, having been originally breathed into a few forms or into one...&quot;</span>
+
+<span class="kw">str_length</span>(darwin.quote)  <span class="co"># equivalent to nchar</span>
+
+<span class="co"># how many times does the character &quot;s&quot; appear in the string?</span>
+<span class="kw">str_count</span>(darwin.quote, <span class="st">&quot;s&quot;</span>)
+
+<span class="co"># duplicate a string</span>
+<span class="kw">str_dup</span>(<span class="st">&quot;hello&quot;</span>, <span class="dv">3</span>)
+
+<span class="co"># other interesting functions</span>
+<span class="kw">str_to_title</span>(<span class="st">&quot;on the origin of species&quot;</span>)
+<span class="kw">str_to_upper</span>(<span class="st">&quot;loud and bombastic&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="vectors" class="section level2">
+<h2><span class="header-section-number">3.3</span> Vectors</h2>
+<p>We previously introduced the vector data structure in a previous hands-on document (see “Getting Started with R”). Here we’ll explore some additional operations on vectors.</p>
+<p>Just as a reminder, vectors store an ordered list of items all of the same type (e.g. numeric, logical, character). Vectors in R always have a length (accessed with the <code>length()</code> function) and a type (accessed with the <code>typeof()</code> function).</p>
+<div id="indexing-vectors" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Indexing Vectors</h3>
+<p>For a vector of length <span class="math inline">\(n\)</span>, we can access the elements by the indices <span class="math inline">\(1 \ldots n\)</span>. We say that R vectors (and other data structures like lists) are `one-indexed’. Many other programming languages, such as Python, C, and Java, use zero-indexing where the elements of a data structure are accessed by the indices <span class="math inline">\(0 \ldots n-1\)</span>. Indexing errors are a common source of bugs.</p>
+<p>Indexing a vector is done by specifying the index in square brackets as shown below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
+<span class="kw">length</span>(x)
+
+x[<span class="dv">1</span>]
+
+x[<span class="dv">4</span>]</code></pre></div>
+<p>Negative indices are used to exclude particular elements. <code>x[-1]</code> returns all elements of <code>x</code> except the first.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="op">-</span><span class="dv">1</span>]</code></pre></div>
+<p>You can get multiple elements of a vector by indexing by another vector. In the example below, <code>x[c(3,5)]</code> returns the third and fifth element of x`.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x[<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</code></pre></div>
+</div>
+<div id="combining-indexing-and-comparison-of-vectors" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Combining Indexing and Comparison of Vectors</h3>
+<p>A very powerful feature of R is the ability to combine the comparison operators with indexing. This facilitates data filtering and subsetting. Some examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
+x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>]
+x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>]</code></pre></div>
+<p>In the first example we retrieved all the elements of <code>x</code> that are larger than 5 (read as “x where x is greater than 5”). In the second example we retrieved those elements of <code>x</code> that were smaller than four <em>or</em> greater than six. Combining indexing and comparison is a powerful concept which we’ll use repeatedly in this course.</p>
+</div>
+<div id="vector-manipulation" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Vector manipulation</h3>
+<p>You can combine indexing with assignment to change the elements of a vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
+x[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">4</span> 
+x</code></pre></div>
+<p>You can also use indexing vectors to change multiple values at once:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
+x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  &lt;-<span class="st"> </span><span class="dv">6</span>
+x</code></pre></div>
+<p>Using logical vectors to manipulate the elements of a vector also works:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
+x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>] =<span class="st"> </span><span class="dv">5</span>    <span class="co"># truncate all values to have max value 5</span>
+x</code></pre></div>
+</div>
+<div id="vectors-from-regular-sequences" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> Vectors from regular sequences</h3>
+<p>There are a variety of functions for creating regular sequences in the form of vectors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>  <span class="co"># create a vector with the integer values from 1 to 10</span>
+<span class="dv">20</span><span class="op">:</span><span class="dv">11</span>  <span class="co"># a vector with the integer values from 20 to 11</span>
+
+<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)  <span class="co"># like 1:10</span>
+<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>) <span class="co"># 1:10, in steps of 2</span>
+<span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.25</span>) <span class="co"># 2 to 4, in steps of 0.25</span></code></pre></div>
+</div>
+<div id="additional-functions-for-working-with-vectors" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Additional functions for working with vectors</h3>
+<p>The function <code>unique()</code> returns the unique items in a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)
+<span class="kw">unique</span>(x)</code></pre></div>
+<p><code>rev()</code> returns the items in reverse order (without changing the input vector):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">rev</span>(x)
+y
+x  <span class="co"># x is still in original order</span></code></pre></div>
+<p>There are a number of useful functions related to sorting. Plain <code>sort()</code> returns a new vector with the items in sorted order:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sort</span>(x)  <span class="co"># returns items of x sorted</span>
+
+x        <span class="co"># but x remains in its unsorted state</span></code></pre></div>
+<p>The related function <code>order()</code> gives the indices which would rearrange the items into sorted order:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">order</span>(x)</code></pre></div>
+<p><code>order()</code> can be useful when you want to sort one list by the values of another:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">students &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;tabitha&quot;</span>, <span class="st">&quot;beatriz&quot;</span>, <span class="st">&quot;jose&quot;</span>)
+class.ranking &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)
+
+students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get the students sorted by their class.ranking</span></code></pre></div>
+<p><code>any()</code> and <code>all()</code>, return single boolean values based on a specified comparison provided as an argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>)
+
+<span class="kw">any</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if any of the elements are TRUE</span>
+
+<span class="kw">all</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if all of the elements are TRUE</span></code></pre></div>
+<p><code>which()</code> returns the <em>indices</em> of the vector for which the input is true:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</code></pre></div>
+</div>
+</div>
+<div id="lists" class="section level2">
+<h2><span class="header-section-number">3.4</span> Lists</h2>
+<p>R lists are like vectors, but unlike a vector where all the elements are of the same type, the elements of a list can have arbitrary types (even other lists). Lists are a powerful data structure for organizing information, because there are few constraints on the shape or types of the data included in a list.</p>
+<p>Lists are easy to create:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</code></pre></div>
+<p>Note that lists can contain arbitrary data. Lists can even contain other lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</code></pre></div>
+<p>Lists are displayed with a particular format, distinct from vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l</code></pre></div>
+<p>In the example above, the correspondence between the list and its display is obvious for the first three items. The fourth element may be a little confusing at first. Remember that the fourth item of <code>l</code> was another list. So what’s being shown in the output for the fourth item is the nested list.</p>
+<p>An alternative way to display a list is using the <code>str()</code> function (short for “structure”). <code>str()</code> provides a more compact representation that also tells us what type of data each element is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(l)</code></pre></div>
+<div id="length-and-type-of-lists" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Length and type of lists</h3>
+<p>Like vectors, lists have length:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(l)</code></pre></div>
+<p>But the type of a list is simply “list”, not the type of the items within the list. This makes sense because lists are allowed to be heterogeneous (i.e. hold data of different types).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(l)</code></pre></div>
+</div>
+<div id="indexing-lists" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Indexing lists</h3>
+<p>Lists have two indexing operators. Indexing a list with single brackets, like we did with vectors, returns a new list containing the element at index <span class="math inline">\(i\)</span>. Lists also support double bracket indexing (<code>x[[i]]</code>) which returns the <em>bare</em> element at index <span class="math inline">\(i\)</span> (i.e. the element without the enclosing list). <strong>This is a subtle but important point so make sure you understand the difference between these two forms of indexing.</strong></p>
+<div id="single-bracket-list-indexing" class="section level4">
+<h4><span class="header-section-number">3.4.2.1</span> Single bracket list indexing</h4>
+<p>First, let’s demonstrate single bracket indexing of the lists <code>l</code> we created above.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span>
+<span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span></code></pre></div>
+<p>When using single brackets, lists support indexing with ranges and numeric vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]
+l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</code></pre></div>
+</div>
+<div id="double-bracket-list-indexing" class="section level4">
+<h4><span class="header-section-number">3.4.2.2</span> Double bracket list indexing</h4>
+<p>If double bracket indexing is used, the object at the given index in a list is returned:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span>
+<span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span></code></pre></div>
+<p>Double bracket indexing does not support multiple indices, but you can chain together double bracket operators to pull out the items of sublists. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second item of the fourth item of the list</span>
+l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  </code></pre></div>
+</div>
+</div>
+<div id="naming-list-elements" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Naming list elements</h3>
+<p>The elements of a list can be given names when the list is created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</code></pre></div>
+<p>You can retrieve the names associated with a list using the <code>names</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(p)</code></pre></div>
+<p>If a list has named elements, you can retrieve the corresponding elements by indexing with the quoted name in either single or double brackets. Consistent with previous usage, single brackets return a list with the corresponding named element, whereas double brackets return the bare element.</p>
+<p>For example, make sure you understand the difference in the output generated by these two indexing calls:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p[<span class="st">&quot;first.name&quot;</span>]
+
+p[[<span class="st">&quot;first.name&quot;</span>]]</code></pre></div>
+</div>
+<div id="the-operator" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> The <code>$</code> operator</h3>
+<p>Retrieving named elements of lists (and data frames as we’ll see), turns out to be a pretty common task (especially when doing interactive data analysis) so R has a special operator to make this more convenient. This is the <code>$</code> operator, which is used as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span>
+p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span></code></pre></div>
+</div>
+<div id="changing-and-adding-lists-items" class="section level3">
+<h3><span class="header-section-number">3.4.5</span> Changing and adding lists items</h3>
+<p>Combining indexing and assignment allows you to change items in a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, 
+                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, 
+                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)
+
+suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span>
+suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span>
+suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span>
+
+<span class="kw">str</span>(suspect)</code></pre></div>
+<p>By combining assignment with a new name or an index past the end of the list you can add items to a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span>
+suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></code></pre></div>
+<p>Be careful when adding an item using indexing, because if you skip an index an intervening NULL value is created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># there are only five items in the list, what happens if we</span>
+<span class="co"># add a new item at position seven?</span>
+suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span>
+
+<span class="kw">str</span>(suspect)</code></pre></div>
+</div>
+<div id="combining-lists" class="section level3">
+<h3><span class="header-section-number">3.4.6</span> Combining lists</h3>
+<p>The <code>c</code> (combine) function we introduced to create vectors can also be used to combine lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)
+list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)
+list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)
+list.c</code></pre></div>
+</div>
+<div id="converting-lists-to-vectors" class="section level3">
+<h3><span class="header-section-number">3.4.7</span> Converting lists to vectors</h3>
+<p>Sometimes it’s useful to convert a list to a vector. The <code>unlist()</code> function takes care of this for us.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a homogeneous list</span>
+ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)
+<span class="kw">unlist</span>(ex1)</code></pre></div>
+<p>When you convert a list to a vector make sure you remember that vectors are homogeneous, so items within the new vector will be coerced to have the same type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a heterogeneous list</span>
+ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))
+<span class="kw">unlist</span>(ex2)</code></pre></div>
+<p>Note that <code>unlist()</code> also unpacks nested vectors and lists as shown in the second example above.</p>
+</div>
+</div>
+<div id="data-frames" class="section level2">
+<h2><span class="header-section-number">3.5</span> Data frames</h2>
+<p>Along with vectors and lists, data frames are one of the core data structures when working in R. A data frame is essentially a list which represents a data table, where each column in the table has the same number of rows and every item in the a column has to be of the same type. Unlike standard lists, the objects (columns) in a data frame must have names. We’ve seen data frames previously, for example when we loaded data sets using the <code>read_csv</code> function.</p>
+<div id="creating-a-data-frame" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Creating a data frame</h3>
+<p>While data frames will often be created by reading in a data set from a file, they can also be created directly in the console as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>)
+sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>), <span class="dv">5</span>)
+wt.in.kg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">67</span>, <span class="dv">66</span>, <span class="dv">56</span>, <span class="dv">74</span>, <span class="dv">71</span>, <span class="dv">60</span>, <span class="dv">52</span>, <span class="dv">72</span>)
+
+df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> age, <span class="dt">sex =</span> sex, <span class="dt">wt =</span> wt.in.kg)</code></pre></div>
+<p>Here we created a data frame with three columns, each of length 10.</p>
+</div>
+<div id="type-and-class-for-data-frames" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Type and class for data frames</h3>
+<p>Data frames can be thought of as specialized lists, and in fact the type of a data frame is “list” as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(df)</code></pre></div>
+<p>To distinguish a data frame from a generic list, we have to ask about it’s “class”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df) <span class="co"># the class of our data frame</span>
+<span class="kw">class</span>(l)  <span class="co"># compare to the class of our generic list</span></code></pre></div>
+<p>The term “class” comes from a style/approach to programming called “object oriented programming”. We won’t go into explicit detail about how object oriented programming works in this class, though we will exploit many of the features of objects that have a particular class.</p>
+</div>
+<div id="length-and-dimension-for-data-frames" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Length and dimension for data frames</h3>
+<p>Applying the <code>length()</code> function to a data frame returns the number of columns. This is consistent with the fact that data frames are specialized lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(df)</code></pre></div>
+<p>To get the dimensions (number of rows and columns) of a data frame, we use the <code>dim()</code> function. <code>dim()</code> returns a vector, whose first value is the number of rows and whose second value is the number of columns:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(df)</code></pre></div>
+<p>We can get the number of rows and columns individually using the <code>nrow()</code> and <code>ncol()</code> functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(df)  <span class="co"># number of rows</span>
+<span class="kw">ncol</span>(df)  <span class="co"># number of columsn</span></code></pre></div>
+</div>
+<div id="indexing-and-accessing-data-frames" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Indexing and accessing data frames</h3>
+<p>Data frames can be indexed by either column index, column name, row number, or a combination of row and column numbers.</p>
+<div id="single-bracket-indexing-of-the-columns-of-a-data-frame" class="section level4">
+<h4><span class="header-section-number">3.5.4.1</span> Single bracket indexing of the columns of a data frame</h4>
+<p>The <em>single bracket operator with a single numeric index</em> returns a data frame with the corresponding column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>]  <span class="co"># get the first column (=age) of the data frame</span></code></pre></div>
+<p>The <em>single bracket operator with multiple numeric indices</em> returns a data frame with the corresponding columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># first two columns</span>
+df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="co"># columns 1 (=age) and 3 (=wt)</span></code></pre></div>
+<p>Column names can be substituted for indices when using the single bracket operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="st">&quot;age&quot;</span>]  
+
+df[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]</code></pre></div>
+</div>
+<div id="single-bracket-indexing-of-the-rows-of-a-data-frame" class="section level4">
+<h4><span class="header-section-number">3.5.4.2</span> Single bracket indexing of the rows of a data frame</h4>
+<p>To get specific rows of a data frame, we use single bracket indexing with an additional comma following the index. For example to get the first row a data frame we would do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>,]    <span class="co"># first row</span></code></pre></div>
+<p>This syntax extends to multiple rows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,]  <span class="co"># first two rows</span>
+
+df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),]  <span class="co"># rows 1, 3 and 5</span></code></pre></div>
+</div>
+<div id="single-bracket-indexing-of-both-the-rows-and-columns-of-a-data-frame" class="section level4">
+<h4><span class="header-section-number">3.5.4.3</span> Single bracket indexing of both the rows and columns of a data frame</h4>
+<p>Single bracket indexing of data frames extends naturally to retrieve both rows and columns simultaneously:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># first row, second column</span>
+df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># first three rows, columns 2 and 3</span>
+
+<span class="co"># you can even mix numerical indexing (rows) with named indexing of columns</span>
+df[<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]  </code></pre></div>
+</div>
+<div id="double-bracket-and-indexing-of-data-frames" class="section level4">
+<h4><span class="header-section-number">3.5.4.4</span> Double bracket and <code>$</code> indexing of data frames</h4>
+<p>Whereas single bracket indexing of a data frame always returns a new data frame, double bracket indexing and indexing using the <code>$</code> operator, returns vectors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[[<span class="st">&quot;age&quot;</span>]]
+<span class="kw">typeof</span>(df[[<span class="st">&quot;age&quot;</span>]])
+
+df<span class="op">$</span>wt
+<span class="kw">typeof</span>(df<span class="op">$</span>wt)</code></pre></div>
+</div>
+</div>
+<div id="logical-indexing-of-data-frames" class="section level3">
+<h3><span class="header-section-number">3.5.5</span> Logical indexing of data frames</h3>
+<p>Logical indexing using boolean values works on data frames in much the same way it works on vectors. Typically, logical indexing of a data frame is used to filter the rows of a data frame.</p>
+<p>For example, to get all the subject in our example data frame who are older than 25 we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># </span><span class="al">NOTE</span><span class="co">: the comma after 25 is important to insure we&#39;re indexing rows!</span>
+df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>, ] </code></pre></div>
+<p>Similarly, to get all the individuals whose weight is between 60 and 70 kgs we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[(df<span class="op">$</span>wt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>wt <span class="op">&lt;=</span><span class="st"> </span><span class="dv">70</span>),]</code></pre></div>
+</div>
+<div id="adding-columns-to-a-data-frame" class="section level3">
+<h3><span class="header-section-number">3.5.6</span> Adding columns to a data frame</h3>
+<p>Adding columns to a data frame is similar to adding items to a list. The easiest way to do so is using named indexing. For example, to add a new column to our data frame that gives the individuals ages in number of days, we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df[[<span class="st">&quot;age.in.days&quot;</span>]] &lt;-<span class="st"> </span>df<span class="op">$</span>age <span class="op">*</span><span class="st"> </span><span class="dv">365</span>
+<span class="kw">dim</span>(df)</code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getting-started-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown-and-r-notebooks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

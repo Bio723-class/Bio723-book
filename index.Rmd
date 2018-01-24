@@ -3,7 +3,10 @@ title: "Biology 723: Statistical Computing for Biologists"
 author: "Paul M. Magwene"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output:
+  bookdown::gitbook:
+    highlight: tango
+    self_contained: true
 documentclass: book
 bibliography: [bio723-refs.bib]
 biblio-style: apalike

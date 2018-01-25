@@ -81,8 +81,15 @@ This is a numbered list:
   1. Item 1
   #. Item 2
   #. Item 3
-```
+  
+## Mathematics
 
+R Markdown supports mathematical equations, formatted according to LaTeX conventions. Dollar signs ($) are used to offset mathematics like so $x^2 + y^2 = z^2$.
+
+```
+#### Typeset mathematics
+
+R Markdown supports LaTeX style formatting of mathematical equations.  For example, `$x^2 + y^2 = z^2$` appears as $x^2 + y^2 = z^2$.
 
 ### Code blocks
 
@@ -93,6 +100,8 @@ Code blocks are delimited by matching sets of three backward ticks (```).  Every
 plot(cars)
 ```
 ```
+
+
 
 ## Running a code chunk
 

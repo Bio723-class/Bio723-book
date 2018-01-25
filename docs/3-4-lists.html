@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
+
+
+<meta name="author" content="Paul M. Magwene" />
+
+<meta name="date" content="2018-01-24" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
+
+<title>Biology 723: Statistical Computing for Biologists</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li class="has-sub"><a href="index.html#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
+<li><a href="1-1-how-to-use-these-lecture-notes.html#how-to-use-these-lecture-notes"><span class="toc-section-number">1.1</span> How to use these lecture notes</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-getting-started-with-r.html#getting-started-with-r"><span class="toc-section-number">2</span> Getting Started with R</a><ul>
+<li><a href="2-1-what-is-r.html#what-is-r"><span class="toc-section-number">2.1</span> What is R?</a></li>
+<li><a href="2-2-what-is-rstudio.html#what-is-rstudio"><span class="toc-section-number">2.2</span> What is RStudio?</a></li>
+<li><a href="2-3-entering-commands-in-the-console.html#entering-commands-in-the-console"><span class="toc-section-number">2.3</span> Entering commands in the console</a></li>
+<li><a href="2-4-comments.html#comments"><span class="toc-section-number">2.4</span> Comments</a></li>
+<li class="has-sub"><a href="2-5-using-r-as-a-calculator.html#using-r-as-a-calculator"><span class="toc-section-number">2.5</span> Using R as a Calculator</a><ul>
+<li><a href="2-5-using-r-as-a-calculator.html#common-mathematical-functions"><span class="toc-section-number">2.5.1</span> Common mathematical functions</a></li>
+</ul></li>
+<li><a href="2-6-numeric-data-types-in-r.html#numeric-data-types-in-r"><span class="toc-section-number">2.6</span> Numeric data types in R</a></li>
+<li class="has-sub"><a href="2-7-variable-assignment-in-r.html#variable-assignment-in-r"><span class="toc-section-number">2.7</span> Variable assignment in R</a><ul>
+<li><a href="2-7-variable-assignment-in-r.html#valid-variable-names"><span class="toc-section-number">2.7.1</span> Valid variable names</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-8-working-with-vectors-in-r.html#working-with-vectors-in-r"><span class="toc-section-number">2.8</span> Working with Vectors in R</a><ul>
+<li><a href="2-8-working-with-vectors-in-r.html#vector-arithmetic"><span class="toc-section-number">2.8.1</span> Vector Arithmetic</a></li>
+<li><a href="2-8-working-with-vectors-in-r.html#vector-recycling"><span class="toc-section-number">2.8.2</span> Vector recycling</a></li>
+<li><a href="2-8-working-with-vectors-in-r.html#simple-statistical-functions-for-numeric-vectors"><span class="toc-section-number">2.8.3</span> Simple statistical functions for numeric vectors</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-9-the-r-help-system.html#the-r-help-system"><span class="toc-section-number">2.9</span> The R Help System</a><ul>
+<li><a href="2-9-the-r-help-system.html#getting-help-from-the-console"><span class="toc-section-number">2.9.1</span> Getting help from the console</a></li>
+</ul></li>
+<li class="has-sub"><a href="2-10-packages.html#packages"><span class="toc-section-number">2.10</span> Packages</a><ul>
+<li><a href="2-10-packages.html#installing-packages-from-the-console"><span class="toc-section-number">2.10.1</span> Installing packages from the console</a></li>
+<li><a href="2-10-packages.html#install-the-tidyverse-package"><span class="toc-section-number">2.10.2</span> Install the tidyverse package</a></li>
+<li><a href="2-10-packages.html#installing-packages-from-the-rstudio-dialog"><span class="toc-section-number">2.10.3</span> Installing packages from the RStudio dialog</a></li>
+<li><a href="2-10-packages.html#install-the-stringr-package"><span class="toc-section-number">2.10.4</span> Install the stringr package</a></li>
+<li><a href="2-10-packages.html#loading-packages-with-the-library-function"><span class="toc-section-number">2.10.5</span> Loading packages with the <code>library()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-r-basics-data-types-and-data-structures.html#r-basics-data-types-and-data-structures"><span class="toc-section-number">3</span> R Basics: Data types and data structures</a><ul>
+<li class="has-sub"><a href="3-1-logical-boolean-values.html#logical-boolean-values"><span class="toc-section-number">3.1</span> Logical (Boolean) values</a><ul>
+<li><a href="3-1-logical-boolean-values.html#comparison-operators-applied-to-numeric-vectors"><span class="toc-section-number">3.1.1</span> Comparison operators applied to numeric vectors</a></li>
+<li><a href="3-1-logical-boolean-values.html#logical-vectors"><span class="toc-section-number">3.1.2</span> Logical vectors</a></li>
+<li><a href="3-1-logical-boolean-values.html#logical-operators"><span class="toc-section-number">3.1.3</span> Logical operators</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-2-character-strings.html#character-strings"><span class="toc-section-number">3.2</span> Character strings</a><ul>
+<li><a href="3-2-character-strings.html#the-stringr-package"><span class="toc-section-number">3.2.1</span> The <code>stringr</code> package</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-3-vectors.html#vectors"><span class="toc-section-number">3.3</span> Vectors</a><ul>
+<li><a href="3-3-vectors.html#indexing-vectors"><span class="toc-section-number">3.3.1</span> Indexing Vectors</a></li>
+<li><a href="3-3-vectors.html#combining-indexing-and-comparison-of-vectors"><span class="toc-section-number">3.3.2</span> Combining Indexing and Comparison of Vectors</a></li>
+<li><a href="3-3-vectors.html#vector-manipulation"><span class="toc-section-number">3.3.3</span> Vector manipulation</a></li>
+<li><a href="3-3-vectors.html#vectors-from-regular-sequences"><span class="toc-section-number">3.3.4</span> Vectors from regular sequences</a></li>
+<li><a href="3-3-vectors.html#additional-functions-for-working-with-vectors"><span class="toc-section-number">3.3.5</span> Additional functions for working with vectors</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-4-lists.html#lists"><span class="toc-section-number">3.4</span> Lists</a><ul>
+<li><a href="3-4-lists.html#length-and-type-of-lists"><span class="toc-section-number">3.4.1</span> Length and type of lists</a></li>
+<li><a href="3-4-lists.html#indexing-lists"><span class="toc-section-number">3.4.2</span> Indexing lists</a></li>
+<li><a href="3-4-lists.html#naming-list-elements"><span class="toc-section-number">3.4.3</span> Naming list elements</a></li>
+<li><a href="3-4-lists.html#the-operator"><span class="toc-section-number">3.4.4</span> The <code>$</code> operator</a></li>
+<li><a href="3-4-lists.html#changing-and-adding-lists-items"><span class="toc-section-number">3.4.5</span> Changing and adding lists items</a></li>
+<li><a href="3-4-lists.html#combining-lists"><span class="toc-section-number">3.4.6</span> Combining lists</a></li>
+<li><a href="3-4-lists.html#converting-lists-to-vectors"><span class="toc-section-number">3.4.7</span> Converting lists to vectors</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-5-data-frames.html#data-frames"><span class="toc-section-number">3.5</span> Data frames</a><ul>
+<li><a href="3-5-data-frames.html#creating-a-data-frame"><span class="toc-section-number">3.5.1</span> Creating a data frame</a></li>
+<li><a href="3-5-data-frames.html#type-and-class-for-data-frames"><span class="toc-section-number">3.5.2</span> Type and class for data frames</a></li>
+<li><a href="3-5-data-frames.html#length-and-dimension-for-data-frames"><span class="toc-section-number">3.5.3</span> Length and dimension for data frames</a></li>
+<li><a href="3-5-data-frames.html#indexing-and-accessing-data-frames"><span class="toc-section-number">3.5.4</span> Indexing and accessing data frames</a></li>
+<li><a href="3-5-data-frames.html#logical-indexing-of-data-frames"><span class="toc-section-number">3.5.5</span> Logical indexing of data frames</a></li>
+<li><a href="3-5-data-frames.html#adding-columns-to-a-data-frame"><span class="toc-section-number">3.5.6</span> Adding columns to a data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="4-r-markdown-and-r-notebooks.html#r-markdown-and-r-notebooks"><span class="toc-section-number">4</span> R Markdown and R Notebooks</a><ul>
+<li><a href="4-1-r-notebooks.html#r-notebooks"><span class="toc-section-number">4.1</span> R Notebooks</a></li>
+<li><a href="4-2-creating-an-r-notebook.html#creating-an-r-notebook"><span class="toc-section-number">4.2</span> Creating an R Notebook</a></li>
+<li><a href="4-3-the-default-r-notebook-template.html#the-default-r-notebook-template"><span class="toc-section-number">4.3</span> The default R Notebook template</a></li>
+<li class="has-sub"><a href="4-4-code-and-non-code-blocks.html#code-and-non-code-blocks"><span class="toc-section-number">4.4</span> Code and Non-code blocks</a><ul>
+<li><a href="4-4-code-and-non-code-blocks.html#non-code-blocks"><span class="toc-section-number">4.4.1</span> Non-code blocks</a></li>
+<li><a href="4-4-code-and-non-code-blocks.html#code-blocks"><span class="toc-section-number">4.4.2</span> Code blocks</a></li>
+</ul></li>
+<li><a href="4-5-running-a-code-chunk.html#running-a-code-chunk"><span class="toc-section-number">4.5</span> Running a code chunk</a></li>
+<li><a href="4-6-running-all-code-chunks-above.html#running-all-code-chunks-above"><span class="toc-section-number">4.6</span> Running all code chunks above</a></li>
+<li><a href="4-7-knitting-an-r-markdown-to-html.html#knitting-an-r-markdown-to-html"><span class="toc-section-number">4.7</span> “Knitting an” R Markdown to HTML</a></li>
+<li><a href="4-8-sharing-your-reproducible-r-notebook.html#sharing-your-reproducible-r-notebook"><span class="toc-section-number">4.8</span> Sharing your reproducible R Notebook</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-introduction-to-ggplot2.html#introduction-to-ggplot2"><span class="toc-section-number">5</span> Introduction to ggplot2</a><ul>
+<li><a href="5-1-loading-ggplot2.html#loading-ggplot2"><span class="toc-section-number">5.1</span> Loading ggplot2</a></li>
+<li><a href="5-2-example-data-set-andersons-iris-data.html#example-data-set-andersons-iris-data"><span class="toc-section-number">5.2</span> Example data set: Anderson’s Iris Data</a></li>
+<li><a href="5-3-template-for-single-layer-plots-in-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><span class="toc-section-number">5.3</span> Template for single layer plots in ggplot2</a></li>
+<li><a href="5-4-an-aside-about-function-arguments.html#an-aside-about-function-arguments"><span class="toc-section-number">5.4</span> An aside about function arguments</a></li>
+<li class="has-sub"><a href="5-5-strip-plots.html#strip-plots"><span class="toc-section-number">5.5</span> Strip plots</a><ul>
+<li><a href="5-5-strip-plots.html#jittering-data"><span class="toc-section-number">5.5.1</span> Jittering data</a></li>
+<li><a href="5-5-strip-plots.html#adding-categorical-information"><span class="toc-section-number">5.5.2</span> Adding categorical information</a></li>
+<li><a href="5-5-strip-plots.html#rotating-plot-coordinates"><span class="toc-section-number">5.5.3</span> Rotating plot coordinates</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-6-histograms.html#histograms"><span class="toc-section-number">5.6</span> Histograms</a><ul>
+<li><a href="5-6-histograms.html#variations-on-histograms-when-considering-categorical-data"><span class="toc-section-number">5.6.1</span> Variations on histograms when considering categorical data</a></li>
+</ul></li>
+<li><a href="5-7-faceting-to-depict-categorical-information.html#faceting-to-depict-categorical-information"><span class="toc-section-number">5.7</span> Faceting to depict categorical information</a></li>
+<li><a href="5-8-density-plots.html#density-plots"><span class="toc-section-number">5.8</span> Density plots</a></li>
+<li><a href="5-9-violin-or-beanplot.html#violin-or-beanplot"><span class="toc-section-number">5.9</span> Violin or Beanplot</a></li>
+<li><a href="5-10-boxplots.html#boxplots"><span class="toc-section-number">5.10</span> Boxplots</a></li>
+<li><a href="5-11-building-complex-visualizations-with-layers.html#building-complex-visualizations-with-layers"><span class="toc-section-number">5.11</span> Building complex visualizations with layers</a></li>
+<li class="has-sub"><a href="5-12-useful-combination-plots.html#useful-combination-plots"><span class="toc-section-number">5.12</span> Useful combination plots</a><ul>
+<li><a href="5-12-useful-combination-plots.html#boxplot-plus-strip-plot"><span class="toc-section-number">5.12.1</span> Boxplot plus strip plot</a></li>
+<li><a href="5-12-useful-combination-plots.html#setting-shared-aesthetics"><span class="toc-section-number">5.12.2</span> Setting shared aesthetics</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-13-gplot-layers-can-be-assigned-to-variables.html#gplot-layers-can-be-assigned-to-variables"><span class="toc-section-number">5.13</span> gplot layers can be assigned to variables</a><ul>
+<li><a href="5-13-gplot-layers-can-be-assigned-to-variables.html#violin-plot-plus-strip-plot"><span class="toc-section-number">5.13.1</span> Violin plot plus strip plot</a></li>
+</ul></li>
+<li><a href="5-14-adding-titles-and-tweaking-axis-labels.html#adding-titles-and-tweaking-axis-labels"><span class="toc-section-number">5.14</span> Adding titles and tweaking axis labels</a></li>
+<li class="has-sub"><a href="5-15-ggplot2-themes.html#ggplot2-themes"><span class="toc-section-number">5.15</span> ggplot2 themes</a><ul>
+<li><a href="5-15-ggplot2-themes.html#further-customization-with-ggplot2theme"><span class="toc-section-number">5.15.1</span> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li><a href="5-16-other-aspects-of-ggplots-can-be-assigned-to-variables.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><span class="toc-section-number">5.16</span> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="has-sub"><a href="5-17-bivariate-plots.html#bivariate-plots"><span class="toc-section-number">5.17</span> Bivariate plots</a><ul>
+<li><a href="5-17-bivariate-plots.html#scatter-plots"><span class="toc-section-number">5.17.1</span> Scatter plots</a></li>
+</ul></li>
+<li><a href="5-18-bivariate-density-plots.html#bivariate-density-plots"><span class="toc-section-number">5.18</span> Bivariate density plots</a></li>
+<li><a href="5-19-combining-scatter-plots-and-density-plots-with-categorical-information.html#combining-scatter-plots-and-density-plots-with-categorical-information"><span class="toc-section-number">5.19</span> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li><a href="5-20-density-plots-with-fill.html#density-plots-with-fill"><span class="toc-section-number">5.20</span> Density plots with fill</a></li>
+<li><a href="5-21-d-bin-and-hex-plots.html#d-bin-and-hex-plots"><span class="toc-section-number">5.21</span> 2D bin and hex plots</a></li>
+<li><a href="5-22-the-cowplot-package.html#the-cowplot-package"><span class="toc-section-number">5.22</span> The <code>cowplot</code> package</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="lists" class="section level2">
+<h2><span class="header-section-number">3.4</span> Lists</h2>
+<p>R lists are like vectors, but unlike a vector where all the elements are of the same type, the elements of a list can have arbitrary types (even other lists). Lists are a powerful data structure for organizing information, because there are few constraints on the shape or types of the data included in a list.</p>
+<p>Lists are easy to create:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</code></pre></div>
+<p>Note that lists can contain arbitrary data. Lists can even contain other lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</code></pre></div>
+<p>Lists are displayed with a particular format, distinct from vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l</code></pre></div>
+<p>In the example above, the correspondence between the list and its display is obvious for the first three items. The fourth element may be a little confusing at first. Remember that the fourth item of <code>l</code> was another list. So what’s being shown in the output for the fourth item is the nested list.</p>
+<p>An alternative way to display a list is using the <code>str()</code> function (short for “structure”). <code>str()</code> provides a more compact representation that also tells us what type of data each element is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(l)</code></pre></div>
+<div id="length-and-type-of-lists" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Length and type of lists</h3>
+<p>Like vectors, lists have length:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(l)</code></pre></div>
+<p>But the type of a list is simply “list”, not the type of the items within the list. This makes sense because lists are allowed to be heterogeneous (i.e. hold data of different types).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(l)</code></pre></div>
+</div>
+<div id="indexing-lists" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Indexing lists</h3>
+<p>Lists have two indexing operators. Indexing a list with single brackets, like we did with vectors, returns a new list containing the element at index <span class="math inline">\(i\)</span>. Lists also support double bracket indexing (<code>x[[i]]</code>) which returns the <em>bare</em> element at index <span class="math inline">\(i\)</span> (i.e. the element without the enclosing list). <strong>This is a subtle but important point so make sure you understand the difference between these two forms of indexing.</strong></p>
+<div id="single-bracket-list-indexing" class="section level4">
+<h4><span class="header-section-number">3.4.2.1</span> Single bracket list indexing</h4>
+<p>First, let’s demonstrate single bracket indexing of the lists <code>l</code> we created above.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span>
+<span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span></code></pre></div>
+<p>When using single brackets, lists support indexing with ranges and numeric vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]
+l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</code></pre></div>
+</div>
+<div id="double-bracket-list-indexing" class="section level4">
+<h4><span class="header-section-number">3.4.2.2</span> Double bracket list indexing</h4>
+<p>If double bracket indexing is used, the object at the given index in a list is returned:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span>
+<span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span></code></pre></div>
+<p>Double bracket indexing does not support multiple indices, but you can chain together double bracket operators to pull out the items of sublists. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second item of the fourth item of the list</span>
+l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  </code></pre></div>
+</div>
+</div>
+<div id="naming-list-elements" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Naming list elements</h3>
+<p>The elements of a list can be given names when the list is created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</code></pre></div>
+<p>You can retrieve the names associated with a list using the <code>names</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(p)</code></pre></div>
+<p>If a list has named elements, you can retrieve the corresponding elements by indexing with the quoted name in either single or double brackets. Consistent with previous usage, single brackets return a list with the corresponding named element, whereas double brackets return the bare element.</p>
+<p>For example, make sure you understand the difference in the output generated by these two indexing calls:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p[<span class="st">&quot;first.name&quot;</span>]
+
+p[[<span class="st">&quot;first.name&quot;</span>]]</code></pre></div>
+</div>
+<div id="the-operator" class="section level3">
+<h3><span class="header-section-number">3.4.4</span> The <code>$</code> operator</h3>
+<p>Retrieving named elements of lists (and data frames as we’ll see), turns out to be a pretty common task (especially when doing interactive data analysis) so R has a special operator to make this more convenient. This is the <code>$</code> operator, which is used as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span>
+p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span></code></pre></div>
+</div>
+<div id="changing-and-adding-lists-items" class="section level3">
+<h3><span class="header-section-number">3.4.5</span> Changing and adding lists items</h3>
+<p>Combining indexing and assignment allows you to change items in a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, 
+                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, 
+                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)
+
+suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span>
+suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span>
+suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span>
+
+<span class="kw">str</span>(suspect)</code></pre></div>
+<p>By combining assignment with a new name or an index past the end of the list you can add items to a list:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span>
+suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></code></pre></div>
+<p>Be careful when adding an item using indexing, because if you skip an index an intervening NULL value is created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># there are only five items in the list, what happens if we</span>
+<span class="co"># add a new item at position seven?</span>
+suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span>
+
+<span class="kw">str</span>(suspect)</code></pre></div>
+</div>
+<div id="combining-lists" class="section level3">
+<h3><span class="header-section-number">3.4.6</span> Combining lists</h3>
+<p>The <code>c</code> (combine) function we introduced to create vectors can also be used to combine lists:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)
+list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)
+list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)
+list.c</code></pre></div>
+</div>
+<div id="converting-lists-to-vectors" class="section level3">
+<h3><span class="header-section-number">3.4.7</span> Converting lists to vectors</h3>
+<p>Sometimes it’s useful to convert a list to a vector. The <code>unlist()</code> function takes care of this for us.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a homogeneous list</span>
+ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)
+<span class="kw">unlist</span>(ex1)</code></pre></div>
+<p>When you convert a list to a vector make sure you remember that vectors are homogeneous, so items within the new vector will be coerced to have the same type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a heterogeneous list</span>
+ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))
+<span class="kw">unlist</span>(ex2)</code></pre></div>
+<p>Note that <code>unlist()</code> also unpacks nested vectors and lists as shown in the second example above.</p>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="3-3-vectors.html"><button class="btn btn-default">Previous</button></a>
+<a href="3-5-data-frames.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+<!-- </html> -->

@@ -6,7 +6,6 @@ site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
     highlight: tango
-    self_contained: true
 documentclass: book
 bibliography: [bio723-refs.bib]
 biblio-style: apalike

@@ -206,7 +206,7 @@ ggplot(iris) +
                  bins = 12, position = "identity", alpha = 0.4)
 ```
 
-### Faceting to depict categorical information
+## Faceting to depict categorical information
 
 Yet another way to represent the histograms for the three species is to using faceting, the create subplots for each species.  Faceting is the operation of subsetting the data with respect to a discrete or categorical variable of interest, and generating the same plot type for each subset.  Here we use the "ncol" argument to the `facet_wrap` function to specify that the subplots should be drawn in a single vertical column to facilitate comparison of the distributions.
 

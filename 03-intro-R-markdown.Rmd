@@ -84,12 +84,13 @@ This is a numbered list:
   
 ## Mathematics
 
-R Markdown supports mathematical equations, formatted according to LaTeX conventions. Dollar signs ($) are used to offset mathematics like so $x^2 + y^2 = z^2$.
+R Markdown supports mathematical equations, formatted according to LaTeX
+conventions. Dollar signs ($) are used to offset mathematics 
+like so:  $x^2 + y^2 = z^2$.
 
 ```
-#### Typeset mathematics
 
-R Markdown supports LaTeX style formatting of mathematical equations.  For example, `$x^2 + y^2 = z^2$` appears as $x^2 + y^2 = z^2$.
+Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations.  For example, `$x^2 + y^2 = z^2$` appears as $x^2 + y^2 = z^2$.
 
 ### Code blocks
 

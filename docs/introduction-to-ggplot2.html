@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-01-25">
+<meta name="date" content="2018-01-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="r-markdown-and-r-notebooks.html">
-
+<link rel="next" href="introduction-to-the-dplyr-package.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -216,6 +216,36 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
 <li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
 <li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html"><i class="fa fa-check"></i><b>6</b> Introduction to the <code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.1</b> Example data: NC Births</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.2</b> Reading Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="6.5.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="6.5.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.9" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="6.6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="6.6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="6.6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="6.6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="6.6.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="6.6.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -651,8 +681,8 @@ plot.<span class="dv">3</span> &lt;-<span class="st"> </span>p <span class="op">
           </div>
         </div>
       </div>
-<a href="r-markdown-and-r-notebooks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="r-markdown-and-r-notebooks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-the-dplyr-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

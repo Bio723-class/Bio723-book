@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  
+  <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+<meta name="author" content="Paul M. Magwene">
+
+
+<meta name="date" content="2018-01-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-ggplot2.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-to-use-these-lecture-notes"><i class="fa fa-check"></i><b>1.1</b> How to use these lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-rstudio"><i class="fa fa-check"></i><b>2.2</b> What is RStudio?</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#entering-commands-in-the-console"><i class="fa fa-check"></i><b>2.3</b> Entering commands in the console</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#comments"><i class="fa fa-check"></i><b>2.4</b> Comments</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types-in-r"><i class="fa fa-check"></i><b>2.6</b> Numeric data types in R</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment-in-r"><i class="fa fa-check"></i><b>2.7</b> Variable assignment in R</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.7.1</b> Valid variable names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#working-with-vectors-in-r"><i class="fa fa-check"></i><b>2.8</b> Working with Vectors in R</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-arithmetic"><i class="fa fa-check"></i><b>2.8.1</b> Vector Arithmetic</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-recycling"><i class="fa fa-check"></i><b>2.8.2</b> Vector recycling</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>2.8.3</b> Simple statistical functions for numeric vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.10</b> Packages</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.10.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.10.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.10.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.10.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.10.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.10.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-stringr-package"><i class="fa fa-check"></i><b>2.10.4</b> Install the stringr package</a></li>
+<li class="chapter" data-level="2.10.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.10.5</b> Loading packages with the <code>library()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html"><i class="fa fa-check"></i><b>3</b> R Basics: Data types and data structures</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-boolean-values"><i class="fa fa-check"></i><b>3.1</b> Logical (Boolean) values</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#comparison-operators-applied-to-numeric-vectors"><i class="fa fa-check"></i><b>3.1.1</b> Comparison operators applied to numeric vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-vectors"><i class="fa fa-check"></i><b>3.1.2</b> Logical vectors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-operators"><i class="fa fa-check"></i><b>3.1.3</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#character-strings"><i class="fa fa-check"></i><b>3.2</b> Character strings</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-stringr-package"><i class="fa fa-check"></i><b>3.2.1</b> The <code>stringr</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors"><i class="fa fa-check"></i><b>3.3</b> Vectors</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>3.3.1</b> Indexing Vectors</a></li>
+<li class="chapter" data-level="3.3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>3.3.2</b> Combining Indexing and Comparison of Vectors</a></li>
+<li class="chapter" data-level="3.3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>3.3.3</b> Vector manipulation</a></li>
+<li class="chapter" data-level="3.3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>3.3.4</b> Vectors from regular sequences</a></li>
+<li class="chapter" data-level="3.3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>3.3.5</b> Additional functions for working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>3.4.1</b> Length and type of lists</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>3.4.2</b> Indexing lists</a></li>
+<li class="chapter" data-level="3.4.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>3.4.3</b> Naming list elements</a></li>
+<li class="chapter" data-level="3.4.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-operator"><i class="fa fa-check"></i><b>3.4.4</b> The <code>$</code> operator</a></li>
+<li class="chapter" data-level="3.4.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>3.4.5</b> Changing and adding lists items</a></li>
+<li class="chapter" data-level="3.4.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-lists"><i class="fa fa-check"></i><b>3.4.6</b> Combining lists</a></li>
+<li class="chapter" data-level="3.4.7" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>3.4.7</b> Converting lists to vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> Data frames</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>3.5.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="3.5.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>3.5.2</b> Type and class for data frames</a></li>
+<li class="chapter" data-level="3.5.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>3.5.3</b> Length and dimension for data frames</a></li>
+<li class="chapter" data-level="3.5.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>3.5.4</b> Indexing and accessing data frames</a></li>
+<li class="chapter" data-level="3.5.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Logical indexing of data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>3.5.6</b> Adding columns to a data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>4</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>4.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>4.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
+<li class="chapter" data-level="4.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.4.2</b> Code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.5</b> Running a code chunk</a></li>
+<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.6</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.8</b> Sharing your reproducible R Notebook</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
+<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
+<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#gplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> gplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html"><i class="fa fa-check"></i><b>6</b> Introduction to the<code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.1</b> Example data: NC Births</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.2</b> Reading Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="6.5.7" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="6.5.8" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.9" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="6.6.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="6.6.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="6.6.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="6.6.6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="6.6.7" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="6.6.8" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Biology 723: Statistical Computing for Biologists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-thedplyr-package" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Introduction to the<code>dplyr</code> package</h1>
+<p>In today’s class we introduce a new package, <code>dplyr</code>, which, along with ggplot2 will be used in almost every class session. We will also explore in a little more depth the <code>readr</code> package, for reading tabular data.</p>
+<div id="libraries" class="section level2">
+<h2><span class="header-section-number">6.1</span> Libraries</h2>
+<p>Both <code>readr</code> and <code>dplyr</code> are members of the tidyverse, so a single invocation of <code>library()</code> makes the functions defined in these two packages available for our use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)  </code></pre></div>
+</div>
+<div id="reading-data-with-the-readr-package" class="section level2">
+<h2><span class="header-section-number">6.2</span> Reading data with the <code>readr</code> package</h2>
+<p>The <a href="http://readr.tidyverse.org"><code>readr</code></a> package defines a number of functions for reading data tables from common file formats like Comma-Separated-Value (CSV) and Tab-Separated-Value (TSV) files.</p>
+<p>The two most frequently used <code>readr</code> functions we’ll use in this class are <code>read_csv()</code> and <code>read_tsv()</code> for reading CSV and TSV files respectively. There are some variants of these basic function, which you can read about by invoking the help system (<code>?read_csv</code>).</p>
+<div id="example-data-nc-births" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Example data: NC Births</h3>
+<p>For today’s hands on session we’ll use a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:</p>
+<ul>
+<li><a href="https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt" class="uri">https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt</a></li>
+</ul>
+<p>The births data is a TSV file, so we’ll use the <code>read_tsv()</code> function to read it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt&quot;</span>)</code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  fAge = col_integer(),
+  mAge = col_integer(),
+  weeks = col_integer(),
+  premature = col_character(),
+  visits = col_integer(),
+  gained = col_integer(),
+  weight = col_double(),
+  sexBaby = col_character(),
+  smoke = col_character()
+)</code></pre>
+<p>Notice that when you used <code>read_tsv()</code> the function printed information about how it “parsed” the data (i.e. the types it assigned to each of the columns).</p>
+<p>The variables in the data set are:</p>
+<ul>
+<li>father’s age (<code>fAge</code>),</li>
+<li>mother’s age (<code>mAge</code>),<br />
+</li>
+<li>weeks of gestation (<code>weeks</code>)</li>
+<li>whether the birth was premature or full term (<code>premature</code>)</li>
+<li>number of OB/GYN visits (<code>visits</code>)</li>
+<li>mother’s weight gained in pounds (<code>gained</code>)</li>
+<li>babies birth weight (<code>weight</code>)</li>
+<li>sex of the baby (<code>sexBaby</code>)</li>
+<li>whether the mother was a smoker (<code>smoke</code>).</li>
+</ul>
+<p>Notice too that we read the TSV file directly from a remote location via a URL. If instead, you wanted to load a local file on your computer you would specify the “path” – i.e. the location on your hard drive where you stored the file. For example, here is how I would load the same file if it was stored in the Downloads directory on my Mac laptop:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load the data from a local file</span>
+births &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&quot;/Users/pmagwene/Downloads/nc-births.txt&quot;</span>)</code></pre></div>
+</div>
+<div id="reading-excel-files" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Reading Excel files</h3>
+<p>The tidyverse also includes a package called <a href="http://readxl.tidyverse.org"><code>readxl</code></a> which can be used to read Excel spreadsheets (recent versions with <code>.xls</code> and <code>.xlsx</code> extensions). Excel files are somewhat more complicated to deal with because they can include separate “sheets”. We won’t use <code>readxl</code> in this class, but documentation and examples of how <code>readxl</code> is used can be found at the page linked above.</p>
+</div>
+</div>
+<div id="a-note-on-tibbles" class="section level2">
+<h2><span class="header-section-number">6.3</span> A note on “tibbles”</h2>
+<p>You may have noticed that most of the functions defined in tidyverse related packages return not data frames, but rather something called a “tibble”. You can think about tibbles as light-weight data frames. In fact if you ask about the “class” of a tibble you’ll see that it includes <code>data.frame</code> as one of it’s classes as well as <code>tbl</code> and <code>tbl_df</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(births)</code></pre></div>
+<p>There are some minor differences between data frame and tibbles. For example, tibbles print differently in the console and don’t automatically change variable names and types in the same way that standard data frames do. Usually tibbles can be used wherever a standard data frame is expected, but you may occasionally find a function that only works with a standard data frame. It’s easy to convert a tibble to a standard data frame using the <code>as.data.frame</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births.std.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(births)</code></pre></div>
+<p>For more details about tibbles, see the <a href="http://r4ds.had.co.nz/tibbles.html">Tibbles chapter in R for Data Analysis</a>.</p>
+</div>
+<div id="data-filtering-and-transformation-with-dplyr" class="section level2">
+<h2><span class="header-section-number">6.4</span> Data filtering and transformation with <code>dplyr</code></h2>
+<p><code>dplyr</code> is powerful tool for data filter and transformation. In the same way that <code>ggplot2</code> attempts to provide a “grammar of graphics”, <code>dplyr</code> aims to provide a “grammar of data manipulation”. In today’s material we will see how <code>dplyr</code> complements and simplifies standard data frame indexing and subsetting operations. However, <code>dplyr</code> is focused only on data frames and doesn’t completely replace the basic subsetting operations, and so being adept with both <code>dplyr</code> and the indexing approaches we’ve seen previously is important. If you’re curious about the name “dplyr”, the package’s originator Hadley Wickham says it’s supposed to invoke the idea of pliers for data frames (<a href="https://github.com/tidyverse/dplyr/issues/1857">Github: Meaning of dplyrs name</a>)</p>
+</div>
+<div id="dplyrs-verbs" class="section level2">
+<h2><span class="header-section-number">6.5</span> dplyr’s “verbs”</h2>
+<p>The primary functions in the <code>dplyr</code> package can be thought of as a set of “verbs”, each verb corresponding to a common data manipulation task. Some of the most frequently used verbs/functions in <code>dplyr</code> include:</p>
+<ul>
+<li><code>select</code> – select columns</li>
+<li><code>filter</code> – filter rows</li>
+<li><code>mutate</code> – create new columns</li>
+<li><code>arrange</code>– reorder rows</li>
+<li><code>summarize</code> – summarize values</li>
+<li><code>group_by</code> – split data frame on some grouping variable. Can be powerfully combined with <code>summarize</code></li>
+</ul>
+<p>All of these functions return new data frames rather than modifying the existing data frame (though some of the functions support in place modification of data frames via optional arguments).We illustrate these below by example using the NC births data.</p>
+<div id="select" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> <code>select</code></h3>
+<p>The <code>select</code> function subsets the columns (variables) of a data frame. For example, to select just the weeks and weight columns from the births data set we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wks.weight &lt;-<span class="st"> </span><span class="kw">select</span>(births, weeks, weight)
+<span class="kw">dim</span>(wks.weight)  <span class="co"># dim should be 50 x 2</span>
+<span class="kw">head</span>(wks.weight)</code></pre></div>
+<p>The equivalent using standard indexing would be:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wks.wt.alt &lt;-<span class="st"> </span>births[<span class="kw">c</span>(<span class="st">&quot;weeks&quot;</span>, <span class="st">&quot;weight&quot;</span>)]
+<span class="kw">dim</span>(wks.wt.alt)
+<span class="kw">head</span>(wks.wt.alt)</code></pre></div>
+<p><strong>Notes</strong>:<br />
+* The first argument to all of the <code>dplyr</code> functions is the data frame you’re operating on</p>
+<ul>
+<li>When using functions defined in <code>dplyr</code> and <code>ggplot2</code> variable names are (usually) not quoted or used with the <code>$</code> operator. This is a design feature of these libraries and makes it easier to carry out interactive analyes because it saves a fair amount of typing.</li>
+</ul>
+</div>
+<div id="filter" class="section level3">
+<h3><span class="header-section-number">6.5.2</span> <code>filter</code></h3>
+<p>The <code>filter</code> function returns those rows of the data set that meet the given logical criterion.</p>
+<p>For example, to get all the premature babies in the data set we could use filter as so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">premies &lt;-<span class="st"> </span><span class="kw">filter</span>(births, premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>)
+<span class="kw">dim</span>(premies)</code></pre></div>
+<p>The equivalent using standard indexing would be:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">premies.alt &lt;-<span class="st"> </span>births[births<span class="op">$</span>premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>,] </code></pre></div>
+<p>The <code>filter</code> function will work with more than one logical argument, and these are joined together using Boolean AND logic (i.e. intersection). For example, to find those babies that were premature <em>and</em> whose mothers were smokers we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">smoking.premies &lt;-<span class="st"> </span><span class="kw">filter</span>(births, premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>, smoke <span class="op">==</span><span class="st"> &quot;smoker&quot;</span>)</code></pre></div>
+<p>The equivalent call using standard indexing is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># don&#39;t forget the trailing comma to indicate rows!</span>
+smoking.premies.alt &lt;-<span class="st"> </span>births[(births<span class="op">$</span>premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>) <span class="op">&amp;</span><span class="st"> </span>(births<span class="op">$</span>smoke <span class="op">==</span><span class="st"> &quot;smoker&quot;</span>),]</code></pre></div>
+<p><code>filter</code> also accepts logical statements chained together using the standard Boolean operators. For example, to find babies who were premature <em>or</em> whose moms were older than 35 you could use the OR operator <code>|</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">premies.or.oldmom &lt;-<span class="st"> </span><span class="kw">filter</span>(births, premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span> <span class="op">|</span><span class="st"> </span>fAge <span class="op">&gt;</span><span class="st"> </span><span class="dv">35</span>)</code></pre></div>
+</div>
+<div id="mutate" class="section level3">
+<h3><span class="header-section-number">6.5.3</span> <code>mutate</code></h3>
+<p>The <code>mutate</code> function creates a new data frame that is the same as input data frame but with additional variables (columns) as specified by the function arguments. In the example below, I create two new variables, <code>weight.in.kg</code> and a <code>mom.smoked</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># to make code more readable it&#39;s sometime useful to spread out</span>
+<span class="co"># function arguments over multiple lines like I&#39;ve done here</span>
+births.plus &lt;-<span class="st"> </span><span class="kw">mutate</span>(births, 
+                      <span class="dt">weight.in.kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>,
+                      <span class="dt">mom.smoked =</span> (smoke <span class="op">==</span><span class="st"> &quot;smoker&quot;</span>))
+
+<span class="kw">head</span>(births.plus)</code></pre></div>
+<p>The equivalent using standard indexing would be to create a new data frame from <code>births</code>, appending the new variables to the end as so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births.plus.alt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(births,
+                              <span class="dt">weight.in.kg =</span> births<span class="op">$</span>weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>,
+                              <span class="dt">mom.smoked =</span> (births<span class="op">$</span>smoke <span class="op">==</span><span class="st"> &quot;smoker&quot;</span>))</code></pre></div>
+</div>
+<div id="arrange" class="section level3">
+<h3><span class="header-section-number">6.5.4</span> <code>arrange</code></h3>
+<p>Arrange creates a new data frame where the rows are sorted according to their values for one or more variables. For example, to sort by mothers age we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">young.moms.first &lt;-<span class="st"> </span><span class="kw">arrange</span>(births, mAge)
+<span class="kw">head</span>(young.moms.first)</code></pre></div>
+<p>The equivalent to <code>arrange</code> using standard indexing would be to use the information returned by the <code>order</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">young.moms.first.alt &lt;-<span class="st"> </span>births[<span class="kw">order</span>(births<span class="op">$</span>mAge),]
+<span class="kw">head</span>(young.moms.first.alt)</code></pre></div>
+<p>When using <code>arrange</code>, multiple sorting variables can be specified:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sorted.by.moms.and.dads &lt;-<span class="st"> </span><span class="kw">arrange</span>(births, mAge, fAge)
+<span class="kw">head</span>(sorted.by.moms.and.dads)</code></pre></div>
+<p>If you want to sort in descending order, you can combing <code>arrange</code> with the <code>desc</code> (=descend) function, also defined in <code>dplyr</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old.moms.first &lt;-<span class="st"> </span><span class="kw">arrange</span>(births, <span class="kw">desc</span>(mAge))
+<span class="kw">head</span>(old.moms.first)</code></pre></div>
+</div>
+<div id="summarize" class="section level3">
+<h3><span class="header-section-number">6.5.5</span> <code>summarize</code></h3>
+<p><code>summarize</code> applies a function of interest to one or more variables in a data frame, reducing a vector of values to a single value and returning the results in a data frame. This is most often used to calculate statistics like means, medians, count, etc. As we’ll see below, this is powerful when combined with the <code>group_by</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize</span>(births, 
+          <span class="dt">mean.wt =</span> <span class="kw">mean</span>(weight), 
+          <span class="dt">median.wks =</span> <span class="kw">median</span>(weeks))</code></pre></div>
+<p>You’ll need to be diligent if your data has missing values (NAs). For example, by default the <code>mean</code> function returns NA if any of the input values are NA:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize</span>(births, 
+          <span class="dt">mean.gained =</span> <span class="kw">mean</span>(gained))</code></pre></div>
+<p>However, if you read the <code>mean</code> docs (<code>?mean</code>) you’ll see that there is an <code>na.rm</code> argument that indicates whether NA values should be removed before computing the mean. This is what we want so we instead call summarize as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize</span>(births, 
+          <span class="dt">mean.gained =</span> <span class="kw">mean</span>(gained, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+</div>
+<div id="group_by" class="section level3">
+<h3><span class="header-section-number">6.5.6</span> <code>group_by</code></h3>
+<p>The <code>group_by</code> function implicitly adds grouping information to a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group the births by whether mom smoked or not</span>
+by_smoking &lt;-<span class="st"> </span><span class="kw">group_by</span>(births, smoke)</code></pre></div>
+<p>The object returned by <code>group_by</code> is a “grouped data frame”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(by_smoking)</code></pre></div>
+<p>Some functions, like <code>count()</code> and <code>summarize()</code> (see below) know how to use the grouping information. For example, to count the number of births conditional on mother smoking status we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">count</span>(by_smoking)</code></pre></div>
+<p><code>group_by</code> also works with multiple grouping variables, with each added grouping variable specified as an additional argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_smoking.and.mAge &lt;-<span class="st"> </span><span class="kw">group_by</span>(births, smoke, mAge <span class="op">&gt;</span><span class="st"> </span><span class="dv">35</span>)</code></pre></div>
+</div>
+<div id="combining-grouping-and-summarizing" class="section level3">
+<h3><span class="header-section-number">6.5.7</span> Combining grouping and summarizing</h3>
+<p>Grouped data frames can be combined with the <code>summarize</code> function we saw above. For example, if we wanted to calculate mean birth weight, broken down by whether the baby’s mother smoked or not we could call <code>summarize</code> with our <code>by_smoking</code> grouped data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize</span>(by_smoking, <span class="dt">mean.wt =</span> <span class="kw">mean</span>(weight))</code></pre></div>
+<p>Similarly to get the mean birth weight of children conditioned on mothers smoking status and age:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize</span>(by_smoking.and.mAge, <span class="kw">mean</span>(weight))</code></pre></div>
+</div>
+<div id="scoped-variants-of-mutate-and-summarize" class="section level3">
+<h3><span class="header-section-number">6.5.8</span> Scoped variants of <code>mutate</code> and <code>summarize</code></h3>
+<p>Both the <code>mutate()</code> and <code>summarize()</code> functions provide “scoped” alternatives, that allow us to apply the operation on a selection of variables. These variants are often used in combination with grouping. We’ll look at the <code>summarize</code> versions – <code>summarize_all()</code>, <code>summarize_at()</code>, and <code>summarize_if()</code>. See the documentation (<code>?mutate_all</code>) for descriptions of the <code>mutate</code> versions.</p>
+<div id="summarize_all" class="section level4">
+<h4><span class="header-section-number">6.5.8.1</span> <code>summarize_all()</code></h4>
+<p><code>summarize_all()</code> applies a one or more functions to all columns in a data frame. Here we illustrate a simple version of this with the iris data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group by species</span>
+by_species &lt;-<span class="st"> </span><span class="kw">group_by</span>(iris, Species)
+<span class="co"># calculate the mean of every variable, grouped by species</span>
+<span class="kw">summarize_all</span>(by_species, mean)  </code></pre></div>
+<p>Note that if we try and apply <code>summarize_all()</code> in the same way to the grouped data frame <code>by_smoking</code> we’ll get a bunch of warning messages:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarize_all</span>(by_smoking, mean)</code></pre></div>
+<p>Here’s an example of one of these warnings:</p>
+<pre><code>Warning messages:
+1: In mean.default(premature) :
+  argument is not numeric or logical: returning NA</code></pre>
+<p>This message is telling us that we can’t apply the <code>mean()</code> function to the data frame column <code>premature</code> because this is not a numerical or logical vector. Despite this and the other similar warnings, <code>summarize_all()</code> does return a result, but the means for any non-numeric values are replaced with NAs, as shown below:</p>
+<pre><code># A tibble: 2 x 9
+  smoke      fAge  mAge weeks premature visits gained weight sexBaby
+  &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 nonsmoker    NA  26.9  38.6        NA   NA       NA   7.18      NA
+2 smoker       NA  26.0  38.5        NA   10.8     NA   6.78      NA</code></pre>
+<p>If you examine the output above, you’ll see that there are several variables that are numeric, however we still got NAs when we calculated the grouped means. This is because those variables contain NA values. The <code>mean</code> function has an optional argument, <code>na.rm</code>, which tells the function to remove any missing data before calculating the mean. Thus we can modify our call to <code>summarize_all</code> as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate mean of all variables, grouped by smoking status</span>
+<span class="kw">summarize_all</span>(by_smoking, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Note that the non-numeric data columns still lead to NA values.</p>
+</div>
+<div id="summarize_if" class="section level4">
+<h4><span class="header-section-number">6.5.8.2</span> <code>summarize_if()</code></h4>
+<p><code>summarize_if()</code> is similar to <code>summarize_all()</code>, except it only applies the function of interest to those variables that match a particular predicate (i.e. are TRUE for a particular TRUE/FALSE test).</p>
+<p>Here we use <code>summarize_if()</code> to apply the <code>mean()</code> function to only those variables (columns) that are numeric.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate mean of all numeric variables, grouped by smoking status</span>
+<span class="kw">summarize_if</span>(by_smoking, is.numeric, mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="summarize_at" class="section level4">
+<h4><span class="header-section-number">6.5.8.3</span> <code>summarize_at()</code></h4>
+<p><code>summarize_at()</code> allows us to apply functions of interest only to specific variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate mean of gained and weight variables, grouped by smoking status</span>
+<span class="kw">summarize_at</span>(by_smoking, <span class="kw">c</span>(<span class="st">&quot;gained&quot;</span>, <span class="st">&quot;weight&quot;</span>), mean, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>All three of the scoped summarize functions can also be used to apply multiple functions, by wrapping the function names in a call to <code>dplyr::funs()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate mean and std deviation of </span>
+<span class="co"># gained and weight variables, grouped by smoking status</span>
+<span class="kw">summarize_at</span>(by_smoking, <span class="kw">c</span>(<span class="st">&quot;gained&quot;</span>, <span class="st">&quot;weight&quot;</span>), <span class="kw">funs</span>(mean, sd), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><code>summarize_at()</code> accepts as the the argument for variables a character vector of column names, a numeric vector of column positions, or a list of columns generated by the <code>dplyr::vars()</code> function, which can be be used as so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reformatted to promote readability of arguments</span>
+<span class="kw">summarize_at</span>(by_smoking, 
+             <span class="kw">vars</span>(gained, weight),
+             <span class="kw">funs</span>(mean, sd),
+             <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+</div>
+<div id="combining-summarize-with-grouping-aesthetics-in-ggplot2" class="section level3">
+<h3><span class="header-section-number">6.5.9</span> Combining summarize with grouping aesthetics in <code>ggplot2</code></h3>
+<p>We’ve already seen an instance of grouping (conditioning) when we used aesthetics like color or fill to distinguish subgroups in different types of statistical graphics. Below is an example where we integrate information from a <code>group_by</code>/<code>summarize</code> operation into a plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate mean weights, conditioned on smoking status</span>
+wt.by.smoking &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(by_smoking, <span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+<span class="co"># create density plot for all the data</span>
+<span class="co"># and then use geom_vline to draw vertical lines at the means for</span>
+<span class="co"># each group</span>
+<span class="kw">ggplot</span>(births) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> weight, <span class="dt">color =</span> smoke)) <span class="op">+</span><span class="st"> </span><span class="co"># data drawn from births</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">data =</span> wt.by.smoking,  <span class="co"># note use of different data frame!</span>
+             <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">xintercept =</span> mean_weight, <span class="dt">color =</span> smoke),
+             <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>)</code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-183-1.png" width="576" /></p>
+</div>
+</div>
+<div id="pipes" class="section level2">
+<h2><span class="header-section-number">6.6</span> Pipes</h2>
+<p><code>dplyr</code> includes a very useful operator available called a pipe available to us. Pipes are powerful because they allow us to chain together sets of operations in a very intuitive fashion while minimizing nested function calls. We can think of pipes as taking the output of one function and feeding it as the <em>first argument</em> to another function call, where we’ve already specified the subsequent arguments.</p>
+<p>Pipes are actually defined in another packaged called <code>magrittr</code>. We’ll look at the basic pipe operator and then look at a few additional “special” pipes that <code>magrittr</code> provides.</p>
+<div id="install-and-load-magrittr" class="section level3">
+<h3><span class="header-section-number">6.6.1</span> Install and load <code>magrittr</code></h3>
+<p>In magrittr in not already installed, install it via the command line or the RStudio GUI. Having done so, you will need to load magrittr via the <code>library()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)</code></pre></div>
+<pre><code>
+Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    set_names</code></pre>
+<pre><code>The following object is masked from &#39;package:tidyr&#39;:
+
+    extract</code></pre>
+</div>
+<div id="the-basic-pipe-operator" class="section level3">
+<h3><span class="header-section-number">6.6.2</span> The basic pipe operator</h3>
+<p>The pipe operator is designated by <code>%&gt;%</code>. Using pipes, the expression <code>x %&gt;% f()</code> is equivalent to <code>f(x)</code> and the expression <code>x %&gt;% f(y)</code> is equivalent to <code>f(x,y)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()   <span class="co"># same as head(births)</span>
+births <span class="op">%&gt;%</span><span class="st"> </span>head     <span class="co"># you can even leave the parentheses out</span>
+
+births <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">10</span>) <span class="co"># same as head(births, 10)</span></code></pre></div>
+<p>Multiple pipes can be chained together, such that <code>x %&gt;% f() %&gt;% g() %&gt;% h()</code> is equivalent to <code>h(g(f(x)))</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># equivalent to: head(arrange(births, weight), 10)</span>
+births <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(weight) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">10</span>) </code></pre></div>
+<p>The documentation on pipes (see <code>?magrittr</code>) uses the notation <code>lhs %&gt;% rhs</code> where <code>lhs</code> and <code>rhs</code> are short for “left-hand side” and “right-hand side” respectively. I’ll use this same notation in some of the explanations that follow.</p>
+</div>
+<div id="an-example-without-pipes" class="section level3">
+<h3><span class="header-section-number">6.6.3</span> An example without pipes</h3>
+<p>To illustrate how pipes help us, first let’s look at an example set of analysis steps without using pipes. Let’s say we wanted to explore the relationship between father’s age and baby’s birth weight. We’ll start this process of exploration by generating a bivariate scatter plot. Being good scientists we want to express our data in SI units, so we’ll need to converts pounds to kilograms. You’ll also recall that a number of the cases have missing data on father’s age, so we’ll want to remove those before we plot them. Here’s how we might accomplish these steps:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column for weight in kg</span>
+births.kg &lt;-<span class="st"> </span><span class="kw">mutate</span>(births, <span class="dt">weight.kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>)
+
+<span class="co"># filter out the NA fathers</span>
+filtered.births &lt;-<span class="st"> </span><span class="kw">filter</span>(births.kg, <span class="op">!</span><span class="kw">is.na</span>(fAge))
+
+<span class="co"># create our plot</span>
+<span class="kw">ggplot</span>(filtered.births, <span class="kw">aes</span>(<span class="dt">x =</span> fAge, <span class="dt">y =</span> weight.kg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Father&#39;s Age (years)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Birth Weight (kg)&quot;</span>)</code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-187-1.png" width="576" /></p>
+<p>Notice that we created two “temporary” data frames along the way – <code>births.kg</code> and <code>filtered.births</code>. These probably aren’t of particular interest to us, but we needed to generate them to build the plot we wanted. If you were particularly masochistic you could avoid these temporary data frames by using nested functions call like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You SHOULD NOT write nested code like this.</span>
+<span class="co"># Code like this is hard to debug and understand!</span>
+<span class="kw">ggplot</span>(<span class="kw">filter</span>(<span class="kw">mutate</span>(births, <span class="dt">weight.kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>), <span class="op">!</span><span class="kw">is.na</span>(fAge)), 
+       <span class="kw">aes</span>(<span class="dt">x =</span> fAge, <span class="dt">y =</span> weight.kg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Father&#39;s Age (years)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Birth Weight (kg)&quot;</span>)</code></pre></div>
+</div>
+<div id="the-same-example-using-pipes" class="section level3">
+<h3><span class="header-section-number">6.6.4</span> The same example using pipes</h3>
+<p>The pipe operator makes the output of one statement (<code>lhs</code>) as the first input of a following function (<code>rhs</code>). This simplifies the above example to:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight.kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(fAge)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> fAge, <span class="dt">y =</span> weight.kg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Father&#39;s Age (years)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Birth Weight (kg)&quot;</span>)</code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-189-1.png" width="576" /></p>
+<p>In the example above, we feed the data frame into the <code>mutate</code> function. <code>mutate</code> expects a data frame as a first argument, and subsequent arguments specify the new variables to be created. <code>births %&gt;% mutate(weight.kg = weight / 2.2)</code> is thus equivalent to <code>mutate(births, weight.kg = weight / 2.2))</code>. We then pipe the output to <code>filter</code>, removing NA fathers, and then pipe that output as the input to ggplot.</p>
+<p>It’s good coding style to write each discrete step as its own line when using piping. This make it easier to understand what the steps of the analysis are as well as facilitating changes to the code (commenting out lines, adding lines, etc)</p>
+</div>
+<div id="assigning-the-output-of-a-statement-involving-pipes-to-a-variable" class="section level3">
+<h3><span class="header-section-number">6.6.5</span> Assigning the output of a statement involving pipes to a variable</h3>
+<p>It’s important to recognize that pipes are simply a convenient way to chain together a series of expression. Just like any other compound expression, the output of a series of pipe statements can be assigned to a variable, like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats.old.moms &lt;-
+<span class="st">  </span>births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(mAge <span class="op">&gt;</span><span class="st"> </span><span class="dv">35</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">median.gestation =</span> <span class="kw">median</span>(weeks), <span class="dt">mean.weight =</span> <span class="kw">mean</span>(weight))
+
+stats.old.moms</code></pre></div>
+<p>Note that our summary table, <code>stats.old.moms</code>, is itself a data frame.</p>
+</div>
+<div id="compound-assignment-pipe-operator" class="section level3">
+<h3><span class="header-section-number">6.6.6</span> Compound assignment pipe operator</h3>
+<p>A fairly common operation when working interactively in R is to update an existing data frame. <code>magrittr</code> defines another pipe operator – <code>%&lt;&gt;%</code> – called the “compound assignment” pipe operator, to make facilitate this. The compound assignment pipe operator has the basic usage <code>lhs %&lt;&gt;% rhs</code>. This operator evaluates the function on the <code>rhs</code> using the <code>lhs</code> as the first argument, and <em>then</em> updates the <code>lhs</code> with the resulting value. This is simply shorthand for writing <code>lhs &lt;- lhs %&gt;% rhs</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats.old.moms <span class="op">%&lt;&gt;%</span><span class="st">  </span><span class="co"># note compound pipe operator!</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mean.weight.kg =</span> mean.weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>)</code></pre></div>
+</div>
+<div id="the-dot-operator-with-pipes" class="section level3">
+<h3><span class="header-section-number">6.6.7</span> The dot operator with pipes</h3>
+<p>When working with pipes, sometimes you’ll want to use the <code>lhs</code> in multiple places on the <code>rhs</code>, or as something other than the first argument to the <code>rhs</code>. <code>magrittr</code> provides for this situation by using the dot (<code>.</code>) operator as a placeholder. Using the dot operator, the expression <code>y %&gt;% f(x, .)</code> is equivalent to <code>f(x,y)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cakes&quot;</span>, <span class="st">&quot;sauce&quot;</span>, <span class="st">&quot;house&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># create a vector</span>
+<span class="st">  </span><span class="kw">sample</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># pick a random single element of that vector</span>
+<span class="st">  </span><span class="kw">str_c</span>(<span class="st">&quot;hot&quot;</span>, .)  <span class="co"># string concatenate the pick with the word &quot;hot&quot;</span></code></pre></div>
+</div>
+<div id="the-exposition-pipe-operator" class="section level3">
+<h3><span class="header-section-number">6.6.8</span> The exposition pipe operator</h3>
+<p><code>magrittr</code> defines another operator called the “exposition pipe operator”, designed <code>%$%</code>. This operator exposes the names in the <code>lhs</code> to the expression on the <code>rhs</code>.</p>
+<p>Here is an example of using the exposition pipe operator to simply return the vector of weights:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># note the different pipe operator!</span>
+<span class="st">  </span>weight</code></pre></div>
+<p>If we wanted to calculate the minimum and maximum weight of premature babies in the data set we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(mAge <span class="op">&gt;</span><span class="st"> </span><span class="dv">35</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># note the different pipe operator!</span>
+<span class="st">  </span><span class="kw">c</span>(<span class="kw">min</span>(weight), <span class="kw">max</span>(weight)) </code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-ggplot2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

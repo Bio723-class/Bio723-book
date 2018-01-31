@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  
+  <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+<meta name="author" content="Paul M. Magwene">
+
+
+<meta name="date" content="2018-01-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduction-to-thedplyr-package.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-to-use-these-lecture-notes"><i class="fa fa-check"></i><b>1.1</b> How to use these lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-rstudio"><i class="fa fa-check"></i><b>2.2</b> What is RStudio?</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#entering-commands-in-the-console"><i class="fa fa-check"></i><b>2.3</b> Entering commands in the console</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#comments"><i class="fa fa-check"></i><b>2.4</b> Comments</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types-in-r"><i class="fa fa-check"></i><b>2.6</b> Numeric data types in R</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment-in-r"><i class="fa fa-check"></i><b>2.7</b> Variable assignment in R</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.7.1</b> Valid variable names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#working-with-vectors-in-r"><i class="fa fa-check"></i><b>2.8</b> Working with Vectors in R</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-arithmetic"><i class="fa fa-check"></i><b>2.8.1</b> Vector Arithmetic</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-recycling"><i class="fa fa-check"></i><b>2.8.2</b> Vector recycling</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>2.8.3</b> Simple statistical functions for numeric vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.10</b> Packages</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.10.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.10.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.10.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.10.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.10.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.10.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-stringr-package"><i class="fa fa-check"></i><b>2.10.4</b> Install the stringr package</a></li>
+<li class="chapter" data-level="2.10.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.10.5</b> Loading packages with the <code>library()</code> function</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html"><i class="fa fa-check"></i><b>3</b> R Basics: Data types and data structures</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-boolean-values"><i class="fa fa-check"></i><b>3.1</b> Logical (Boolean) values</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#comparison-operators-applied-to-numeric-vectors"><i class="fa fa-check"></i><b>3.1.1</b> Comparison operators applied to numeric vectors</a></li>
+<li class="chapter" data-level="3.1.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-vectors"><i class="fa fa-check"></i><b>3.1.2</b> Logical vectors</a></li>
+<li class="chapter" data-level="3.1.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-operators"><i class="fa fa-check"></i><b>3.1.3</b> Logical operators</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#character-strings"><i class="fa fa-check"></i><b>3.2</b> Character strings</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-stringr-package"><i class="fa fa-check"></i><b>3.2.1</b> The <code>stringr</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors"><i class="fa fa-check"></i><b>3.3</b> Vectors</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>3.3.1</b> Indexing Vectors</a></li>
+<li class="chapter" data-level="3.3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>3.3.2</b> Combining Indexing and Comparison of Vectors</a></li>
+<li class="chapter" data-level="3.3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>3.3.3</b> Vector manipulation</a></li>
+<li class="chapter" data-level="3.3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>3.3.4</b> Vectors from regular sequences</a></li>
+<li class="chapter" data-level="3.3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>3.3.5</b> Additional functions for working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>3.4.1</b> Length and type of lists</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>3.4.2</b> Indexing lists</a></li>
+<li class="chapter" data-level="3.4.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>3.4.3</b> Naming list elements</a></li>
+<li class="chapter" data-level="3.4.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-operator"><i class="fa fa-check"></i><b>3.4.4</b> The <code>$</code> operator</a></li>
+<li class="chapter" data-level="3.4.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>3.4.5</b> Changing and adding lists items</a></li>
+<li class="chapter" data-level="3.4.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-lists"><i class="fa fa-check"></i><b>3.4.6</b> Combining lists</a></li>
+<li class="chapter" data-level="3.4.7" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>3.4.7</b> Converting lists to vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> Data frames</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>3.5.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="3.5.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>3.5.2</b> Type and class for data frames</a></li>
+<li class="chapter" data-level="3.5.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>3.5.3</b> Length and dimension for data frames</a></li>
+<li class="chapter" data-level="3.5.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>3.5.4</b> Indexing and accessing data frames</a></li>
+<li class="chapter" data-level="3.5.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Logical indexing of data frames</a></li>
+<li class="chapter" data-level="3.5.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>3.5.6</b> Adding columns to a data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>4</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>4.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>4.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#bullet-points-lists"><i class="fa fa-check"></i><b>4.5</b> Bullet points lists</a></li>
+<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#numbered-lists"><i class="fa fa-check"></i><b>4.6</b> Numbered lists</a></li>
+<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#mathematics"><i class="fa fa-check"></i><b>4.7</b> Mathematics</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.7.1</b> Code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.8</b> Running a code chunk</a></li>
+<li class="chapter" data-level="4.9" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.9</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="4.10" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.10</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="4.11" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.11</b> Sharing your reproducible R Notebook</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
+<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
+<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#gplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> gplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
+</ul></li>
+<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html"><i class="fa fa-check"></i><b>6</b> Introduction to the<code>dplyr</code> package</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.1</b> Example data: NC Births</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.2</b> Reading Excel files</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="6.5.7" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="6.5.8" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.9" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="6.6.3" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="6.6.4" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="6.6.5" data-path="introduction-to-thedplyr-package.html"><a href="introduction-to-thedplyr-package.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="compound-assignment-pipe-operator.html"><a href="compound-assignment-pipe-operator.html"><i class="fa fa-check"></i><b>7</b> Compound assignment pipe operator</a><ul>
+<li class="chapter" data-level="7.0.1" data-path="compound-assignment-pipe-operator.html"><a href="compound-assignment-pipe-operator.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.0.1</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="7.0.2" data-path="compound-assignment-pipe-operator.html"><a href="compound-assignment-pipe-operator.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.0.2</b> The exposition pipe operator</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Biology 723: Statistical Computing for Biologists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compound-assignment-pipe-operator" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Compound assignment pipe operator</h1>
+<p>A fairly common operation when working interactively in R is to update an existing data frame. <code>magrittr</code> defines another pipe operator – <code>%&lt;&gt;%</code> – called the “compound assignment” pipe operator, to make facilitate this. The compound assignment pipe operator has the basic usage <code>lhs %&lt;&gt;% rhs</code>. This operator evaluates the function on the <code>rhs</code> using the <code>lhs</code> as the first argument, and <em>then</em> updates the <code>lhs</code> with the resulting value. This is simply shorthand for writing <code>lhs &lt;- lhs %&gt;% rhs</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats.old.moms <span class="op">%&lt;&gt;%</span><span class="st">  </span><span class="co"># note compound pipe operator!</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">mean.weight.kg =</span> mean.weight <span class="op">/</span><span class="st"> </span><span class="fl">2.2</span>)</code></pre></div>
+<div id="the-dot-operator-with-pipes" class="section level3">
+<h3><span class="header-section-number">7.0.1</span> The dot operator with pipes</h3>
+<p>When working with pipes, sometimes you’ll want to use the <code>lhs</code> in multiple places on the <code>rhs</code>, or as something other than the first argument to the <code>rhs</code>. <code>magrittr</code> provides for this situation by using the dot (<code>.</code>) operator as a placeholder. Using the dot operator, the expression <code>y %&gt;% f(x, .)</code> is equivalent to <code>f(x,y)</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cakes&quot;</span>, <span class="st">&quot;sauce&quot;</span>, <span class="st">&quot;house&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span><span class="co"># create a vector</span>
+<span class="st">  </span><span class="kw">sample</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># pick a random single element of that vector</span>
+<span class="st">  </span><span class="kw">str_c</span>(<span class="st">&quot;hot&quot;</span>, .)  <span class="co"># string concatenate the pick with the word &quot;hot&quot;</span></code></pre></div>
+<pre><code>## [1] &quot;hothouse&quot;</code></pre>
+</div>
+<div id="the-exposition-pipe-operator" class="section level3">
+<h3><span class="header-section-number">7.0.2</span> The exposition pipe operator</h3>
+<p><code>magrittr</code> defines another operator called the “exposition pipe operator”, designed <code>%$%</code>. This operator exposes the names in the <code>lhs</code> to the expression on the <code>rhs</code>.</p>
+<p>Here is an example of using the exposition pipe operator to simply return the vector of weights:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(premature <span class="op">==</span><span class="st"> &quot;premie&quot;</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># note the different pipe operator!</span>
+<span class="st">  </span>weight</code></pre></div>
+<pre><code>##  [1] 1.63 5.50 2.69 6.50 7.81 4.75 3.75 2.19 6.81 4.69 6.75 4.50 5.94 4.50
+## [15] 5.06 5.69 1.69 6.31 2.63 5.88 3.63</code></pre>
+<p>If we wanted to calculate the minimum and maximum weight of premature babies in the data set we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">births <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(mAge <span class="op">&gt;</span><span class="st"> </span><span class="dv">35</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># note the different pipe operator!</span>
+<span class="st">  </span><span class="kw">c</span>(<span class="kw">min</span>(weight), <span class="kw">max</span>(weight)) </code></pre></div>
+<pre><code>## [1]  2.19 10.13</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-thedplyr-package.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

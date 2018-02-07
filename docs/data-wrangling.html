@@ -277,6 +277,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#rcolorbrewer"><i class="fa fa-check"></i><b>7.7.1</b> RColorBrewer</a></li>
 <li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#creating-a-heat-map-using-geom_tile"><i class="fa fa-check"></i><b>7.7.2</b> Creating a heat map using <code>geom_tile</code></a></li>
 <li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.7.3</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="7.7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-and-visualizing-genes-by-time-of-maximum-expression"><i class="fa fa-check"></i><b>7.7.4</b> Sorting and visualizing genes by time of maximum expression</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -743,6 +744,49 @@ fancy.plot &lt;-<span class="st"> </span><span class="kw">ggdraw</span>() <span 
 
 fancy.plot</code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-242-1.png" width="768" /></p>
+</div>
+<div id="sorting-and-visualizing-genes-by-time-of-maximum-expression" class="section level3">
+<h3><span class="header-section-number">7.7.4</span> Sorting and visualizing genes by time of maximum expression</h3>
+<p>In a time series data one might be interested in examing genes with respect to some property of their dynamic expression. Here we’ll focus on the 1000 most variable genes, sort the data from the alpha factor synchronization experiment by time of maximum expression.</p>
+<p>First let’s filter our tidy, long data frame to include only our top 1000 genes and the alpha factor measurements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1k.alpha.long &lt;-
+<span class="st">  </span>spellman.final <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>top.genes.1k, expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>)</code></pre></div>
+<p>To find the time of maximum expression we’ll employ the function <code>which.max</code> (<code>which.min</code>), which finds the index of the maximum (minimum) element of a vector. For example to find the index of the maximum expression measurement for YAL022C we could do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1k.alpha.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">==</span><span class="st"> &quot;YAL022C&quot;</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># note the exposition pipe operator!</span>
+<span class="st">  </span><span class="kw">which.max</span>(expression)</code></pre></div>
+<p>From the code above we find that the index of the observation at which YAL022C is maximal is 18. To get the corresponding time point we can do something like this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1k.alpha.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">==</span><span class="st"> &quot;YAL022C&quot;</span>) <span class="op">%$%</span><span class="st">  </span><span class="co"># again note the exposition pipe operator!</span>
+<span class="st">  </span>time[<span class="kw">which.max</span>(expression)]</code></pre></div>
+<p>Thus YAL022C expression peaks at 119 minutes in the alpha factor experiment.</p>
+<p>To find the index of maximal expression of all genes we can apply the <code>dplyr::group_by()</code> and <code>dplyr::summarize()</code> functions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">peak.expression &lt;-<span class="st"> </span>
+<span class="st">  </span>top1k.alpha.long <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(gene) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">peak =</span> <span class="kw">which.max</span>(expression))
+
+<span class="kw">dim</span>(peak.expression)
+<span class="kw">head</span>(peak.expression, <span class="dt">n =</span> <span class="dv">10</span>)</code></pre></div>
+<p>We can then generate a heatmap where we sort the rows (genes) of the heatmap by their time of peak expression. We introduce a new geom – <code>geom_raster</code> – which is like <code>geom_tile</code> but better suited for large data.</p>
+<p>The explicit sorting of the data by peak expression is carried out in the call to <code>scale_y_discrete</code> where the limits (and order) of this axis are set with the <code>limits</code> argument (see <code>scale_y_discrete</code> and <code>discrete_scale</code> in the ggplot2 docs).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">top1k.alpha.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span><span class="st">  </span><span class="co"># </span>
+<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">colors=</span>color.scheme) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_discrete</span>(<span class="dt">limits=</span>peak.expression<span class="op">$</span>gene[<span class="kw">rev</span>(<span class="kw">order</span>(peak.expression<span class="op">$</span>peak))]) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Time (mins)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Genes&quot;</span>, 
+       <span class="dt">title =</span> <span class="st">&quot;1000 most variable genes&quot;</span>,
+       <span class="dt">subtitle =</span> <span class="st">&quot;Sorted by time of peak expression&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># the following line suppresses tick and labels on y-axi</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_blank</span>(), <span class="dt">axis.ticks.y =</span> <span class="kw">element_blank</span>())</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-247"></span>
+<img src="bio723-book_files/figure-html/unnamed-chunk-247-1.png" alt="A Heatmap showing genes in the alpha-factor experiment, sorted by peak expression" width="576" />
+<p class="caption">
+Figure 7.1: A Heatmap showing genes in the alpha-factor experiment, sorted by peak expression
+</p>
+</div>
 
 </div>
 </div>

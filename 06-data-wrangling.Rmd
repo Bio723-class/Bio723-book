@@ -649,3 +649,68 @@ fancy.plot <- ggdraw() +
 
 fancy.plot
 ```
+
+
+
+### Sorting and visualizing genes by time of maximum expression
+
+In a time series data one might be interested in examing genes with respect to some property of their dynamic expression. Here we'll focus on the 1000 most variable genes, sort the data from the alpha factor synchronization experiment by time of maximum expression.
+
+First let's filter our tidy, long data frame to include only our top 1000 genes and the alpha factor measurements:
+
+```{r}
+top1k.alpha.long <-
+  spellman.final %>%
+  filter(gene %in% top.genes.1k, expt == "alpha")
+```
+
+To find the time of maximum expression we'll employ the function `which.max` (`which.min`), which finds the index of the maximum (minimum) element of a vector.  For example to find the index of the maximum expression measurement for YAL022C we could do:
+
+```{r}
+top1k.alpha.long %>%
+  filter(gene == "YAL022C") %$%  # note the exposition pipe operator!
+  which.max(expression)
+```
+
+From the code above we find that the index of the observation at which YAL022C is maximal is 18.  To get the corresponding time point we can do something like this:
+
+
+```{r}
+top1k.alpha.long %>%
+  filter(gene == "YAL022C") %$%  # again note the exposition pipe operator!
+  time[which.max(expression)]
+
+
+```
+
+Thus YAL022C expression peaks at 119 minutes in the alpha factor experiment.
+
+To find the index of maximal expression of all genes we can apply the `dplyr::group_by()` and `dplyr::summarize()` functions
+
+```{r}
+peak.expression <- 
+  top1k.alpha.long %>% 
+  group_by(gene) %>% 
+  summarise(peak = which.max(expression))
+
+dim(peak.expression)
+head(peak.expression, n = 10)
+```
+
+We can then generate a heatmap where we sort the rows (genes) of the heatmap by their time of peak expression.  We introduce a new geom -- `geom_raster` -- which is like `geom_tile` but better suited for large data.  
+
+The explicit sorting of the data by peak expression is carried out in the call to `scale_y_discrete` where the limits (and order) of this axis are set with the `limits` argument (see `scale_y_discrete` and `discrete_scale` in the ggplot2 docs).
+
+```{r, fig.height = 8, fig.width = 6, fig.cap = "A Heatmap showing genes in the alpha-factor experiment, sorted by peak expression", fig.align="center"}
+top1k.alpha.long %>%
+  ggplot(aes(x = time, y = gene)) +
+  geom_raster(aes(fill = expression)) +  # 
+  scale_fill_gradientn(limits=c(-2,2),colors=color.scheme) +
+  scale_y_discrete(limits=peak.expression$gene[rev(order(peak.expression$peak))]) + 
+  labs(x = "Time (mins)", y = "Genes", 
+       title = "1000 most variable genes",
+       subtitle = "Sorted by time of peak expression") +
+  # the following line suppresses tick and labels on y-axi
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+

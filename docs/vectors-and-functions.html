@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="r-basics-data-types-and-data-structures.html">
-<link rel="next" href="introduction-to-ggplot2.html">
+<link rel="prev" href="data-wrangling.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -310,134 +310,234 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-markdown-and-r-notebooks" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> R Markdown and R Notebooks</h1>
-<p>RStudio comes with a useful set of tools, collectively called R Markdown, for generating “literate” statistical analyses. The idea behind literate statistical computing is that we should try to carry out our analyses in a manner that is transparent, self-explanatory, and reproducible. Literate statistical computing helps to ensure your research is reproducible because:</p>
-<ol style="list-style-type: decimal">
-<li>The steps of your analyses are explicitly described, both as written text and the code and function calls used.</li>
-<li>Analyses can be more easily checked for correctness and reproduced from your literate code.</li>
-<li>Your literate code can serve as a template for future analyses, saving you time and the trouble of remembering all the gory details.</li>
-</ol>
-<p>As we’ll see, R Markdown will allow us to produce statistical documents that integrateprose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the other is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
-<p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This hands-on provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
-<div id="r-notebooks" class="section level2">
-<h2><span class="header-section-number">4.1</span> R Notebooks</h2>
-<p>We’re going to create a type of R Markdown document called an “R Notebook”. The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
+<div id="vectors-and-functions" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Vectors and Functions</h1>
+<div id="libraries-2" class="section level2">
+<h2><span class="header-section-number">8.1</span> Libraries</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(magrittr)</code></pre></div>
 </div>
-<div id="creating-an-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.2</span> Creating an R Notebook</h2>
-<p>To create an R Notebook select <code>File &gt; New File &gt; R Notebook</code> from the files menu in RStudio.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
-<img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="600px" />
-<p class="caption">
-Figure 4.1: Using the File menu to create a new R Notebook.
-</p>
-</div>
-</div>
-<div id="the-default-r-notebook-template" class="section level2">
-<h2><span class="header-section-number">4.3</span> The default R Notebook template</h2>
-<p>The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.</p>
-<pre><code>---
-title: &quot;R Notebook&quot;
-output: html_notebook
----</code></pre>
-<p>The header is followed by several example sections that illustrate a few of the capabilities of R Markdown. Delete these and replace them with your own code as necessary.</p>
-</div>
-<div id="code-and-non-code-blocks" class="section level2">
-<h2><span class="header-section-number">4.4</span> Code and Non-code blocks</h2>
-<p>R Markdown documents are divided into code blocks (also called “chunks”) and non-code blocks. Code blocks are sets of R commands that will be evalauted when the R Markdown document is run or “knitted” (see below). Non-code blocks include explanatory text, embedded images, etc. The default notebook template includes both code and non-code blocks.</p>
-<div id="non-code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Non-code blocks</h3>
-<p>The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:</p>
-<pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+<div id="vector-mathematics-in-r" class="section level2">
+<h2><span class="header-section-number">8.2</span> Vector Mathematics in R</h2>
+<p>R vectors support basic arithmetic operations that correspond to the same operations on geometric vectors. For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span>
+<span class="op">&gt;</span><span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">:</span><span class="dv">24</span>
+<span class="op">&gt;</span><span class="st"> </span>x
+ [<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>  <span class="dv">5</span>  <span class="dv">6</span>  <span class="dv">7</span>  <span class="dv">8</span>  <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span>
+<span class="op">&gt;</span><span class="st"> </span>y
+ [<span class="dv">1</span>] <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">23</span> <span class="dv">24</span>
+<span class="op">&gt;</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y <span class="co"># vector addition</span>
+ [<span class="dv">1</span>] <span class="dv">11</span> <span class="dv">13</span> <span class="dv">15</span> <span class="dv">17</span> <span class="dv">19</span> <span class="dv">21</span> <span class="dv">23</span> <span class="dv">25</span> <span class="dv">27</span> <span class="dv">29</span> <span class="dv">31</span> <span class="dv">33</span> <span class="dv">35</span> <span class="dv">37</span> <span class="dv">39</span>
+<span class="op">&gt;</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span>y <span class="co"># vector subtraction</span>
+ [<span class="dv">1</span>] <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span> <span class="op">-</span><span class="dv">9</span>
+<span class="op">&gt;</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="dv">3</span> <span class="co"># multiplication by a scalar</span>
+ [<span class="dv">1</span>]  <span class="dv">3</span>  <span class="dv">6</span>  <span class="dv">9</span> <span class="dv">12</span> <span class="dv">15</span> <span class="dv">18</span> <span class="dv">21</span> <span class="dv">24</span> <span class="dv">27</span> <span class="dv">30</span> <span class="dv">33</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">42</span> <span class="dv">45</span></code></pre></div>
+<p>R also has an operator for the dot product, denoted <code>%*%</code>. This operator also designates matrix multiplication, which we will discuss next week. By default this operator returns an object of the R matrix class. If you want a scalar (or the R equivalent of a scalar, i.e. a vector of length 1) you need to use the <code>drop()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>z &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>x
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">class</span>(z)      <span class="co"># note use of class() function</span>
+[<span class="dv">1</span>] <span class="st">&quot;matrix&quot;</span>
+<span class="op">&gt;</span><span class="st"> </span>z
+     [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="dv">1240</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">drop</span>(z)
+[<span class="dv">1</span>] <span class="dv">1240</span></code></pre></div>
+<p>In lecture we saw that many useful geometric properties of vectors could be expressed in the form of dot products. Let’s start with some two-dimensional vectors where the geometry is easy to visualize:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)   <span class="co"># the point (2,0)</span>
+<span class="op">&gt;</span><span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)   <span class="co"># the point (1,3)</span></code></pre></div>
+<p>To draw our vectors using ggplot, we’ll need to create a data frame with columns representing the x,y coordinates of the end-points of our vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x.end =</span> <span class="kw">c</span>(a[<span class="dv">1</span>], b[<span class="dv">1</span>]),
+                 <span class="dt">y.end =</span> <span class="kw">c</span>(a[<span class="dv">2</span>], b[<span class="dv">2</span>]),
+                 <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>))
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. </code></pre>
-<p>The text of non-code blocks can include lightweight markup information that can be used to format HTML or PDF output generated from the R Markdown document. Here are some examples:</p>
-<pre><code># Simple textual formatting 
-
-This is a paragraph with plain text.  Nothing fancy will happen here.
-
-This is a second paragraph with *italic*, **bold**, and `verbatim` text. 
-
-# Lists
-
-## Bullet points lists
-
-This is a list with bullet points:
-
-  * Item a
-  * Item b
-  * Item c
-
-## Numbered lists
-  
-This is a numbered list:
-
-  1. Item 1
-  #. Item 2
-  #. Item 3
-  
-## Mathematics
-
-R Markdown supports mathematical equations, formatted according to LaTeX
-conventions. Dollar signs ($) are used to offset mathematics 
-like so:  $x^2 + y^2 = z^2$.
-</code></pre>
-<p>Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations. For example, <code>$x^2 + y^2 = z^2$</code> appears as <span class="math inline">\(x^2 + y^2 = z^2\)</span>.</p>
+<span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> x.end, <span class="dt">yend =</span> y.end, <span class="dt">color=</span>label), 
+               <span class="dt">arrow =</span> <span class="kw">arrow</span>()) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;x-coordinate&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;y-coordinate&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co"># insures x and y axis scale are same</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-252-1.png" width="576" /></p>
+<p>Let’s see what the dot product can tell us about these vectors. First recall that we can calculate the length of a vector as the square-root of the dot product of the vector with itself (<span class="math inline">\(\vert\vec{a}\vert^2 = \vec{a} \cdot \vec{a}\)</span>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>len.a &lt;-<span class="st"> </span><span class="kw">drop</span>(<span class="kw">sqrt</span>(a <span class="op">%*%</span><span class="st"> </span>a))
+<span class="op">&gt;</span><span class="st"> </span>len.a
+[<span class="dv">1</span>] <span class="dv">2</span>
+<span class="op">&gt;</span><span class="st"> </span>len.b &lt;-<span class="st"> </span><span class="kw">drop</span>(<span class="kw">sqrt</span>(b <span class="op">%*%</span><span class="st"> </span>b))
+<span class="op">&gt;</span><span class="st"> </span>len.b
+[<span class="dv">1</span>] <span class="fl">3.162278</span></code></pre></div>
+<p>How about the angle between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>? First we can use the dot product and the previously calculated lengths to calculate the cosine of the angle between the vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cos.ab &lt;-<span class="st"> </span>(a <span class="op">%*%</span><span class="st"> </span>b)<span class="op">/</span>(len.a <span class="op">*</span><span class="st"> </span>len.b)
+<span class="op">&gt;</span><span class="st"> </span>cos.ab
+          [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.3162278</span></code></pre></div>
+<p>To go from the cosine of the angle to the angle (in radians) we need the arc-cosine function, <code>acos()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">acos</span>(cos.ab)  <span class="co"># given angle in radians</span>
+         [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">1.249046</span></code></pre></div>
 </div>
-<div id="code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Code blocks</h3>
-<p>Code blocks are delimited by matching sets of three backward ticks (```). Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here’s the first code block in the default notebook template:</p>
-<pre><code>```{r}
-plot(cars)
-```</code></pre>
+<div id="writing-your-own-functions-in-r" class="section level2">
+<h2><span class="header-section-number">8.3</span> Writing Your Own Functions in R</h2>
+<p>So far we’ve been using a variety of built in functions in R. However the real power of a programming language is the ability to write your own functions. Functions are a mechanism for organizing and abstracting a set of related computations. We usually write functions to represent sets of computations that we apply frequently, or to represent some conceptually coherent set of manipulations to data.</p>
+<p>The general form of an R function is as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">funcname &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2) {
+ <span class="co"># one or more expressions that operate on the fxn arguments</span>
+ <span class="co"># last expression is the object returned</span>
+ <span class="co"># or you can explicitly return an object</span>
+}</code></pre></div>
+<p>To make this concrete, here’s an example where we define a function to calculate the geometric length of a vector using dot products:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec.length &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">return</span>(<span class="kw">sqrt</span>(<span class="kw">drop</span>(x <span class="op">%*%</span><span class="st"> </span>x)))
+}</code></pre></div>
+<p>Since R returns the value of the last expression in the function, the <code>return</code> call is optional and we could have simply written:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec.length &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="kw">sqrt</span>(<span class="kw">drop</span>(x <span class="op">%*%</span><span class="st"> </span>x))
+}</code></pre></div>
+<p>Very short and concise functions are often written as a single line. Here’s a single line version in which I also use pipes to unpack the nested function calls</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec.length &lt;-<span class="st"> </span><span class="cf">function</span>(x) {(x <span class="op">%*%</span><span class="st"> </span>x) <span class="op">%&gt;%</span><span class="st"> </span>drop <span class="op">%&gt;%</span><span class="st"> </span>sqrt }</code></pre></div>
+<p>The <code>vec.length</code> function takes one argument, <code>x</code>, and calculates the length of the vector represented by <code>x</code>. Having defined the function we can immediately put it to use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vec.length</span>(b)</code></pre></div>
+<p>If you type a function name without parentheses R shows you the function’s definition. This works for built-in functions as well (thought sometimes these functions are defined in C code in which case R will tell you that the function is a <code>.Primitive</code>).</p>
 </div>
+<div id="function-arguments" class="section level2">
+<h2><span class="header-section-number">8.4</span> Function arguments</h2>
+<p>Function arguments can specify the data that a function operates on or parameters that the function uses. Function arguments can be either required or optional. In the case of optional arguments, a default value is assigned if the argument is not given.</p>
+<p>Take for example the <code>log</code> function. If you examine the help file for the <code>log</code> function (type <code>?log</code> now) you’ll see that it takes two arguments, refered to as <code>x</code> and <code>base</code>. The argument <code>x</code> represents the numeric vector you pass to the function and is a required argument (see what happens when you type <code>log()</code> without giving an argument). The argument <code>base</code> is optional. By default the value of <code>base</code> is <span class="math inline">\(e = 2.71828\ldots\)</span>. Therefore by default the <code>log</code> function returns natural logarithms. If you want logarithms to a different base you can change the <code>base</code> argument as in the following examples:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>) <span class="co"># log of 2, base e</span>
+[<span class="dv">1</span>] <span class="fl">0.6931472</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># log of 2, base 2</span>
+[<span class="dv">1</span>] <span class="dv">1</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">log</span>(<span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># log of 2, base 4</span>
+[<span class="dv">1</span>] <span class="fl">0.5</span></code></pre></div>
+<p>Because base 2 and base 10 logarithms are fairly commonly used, there are convenient aliases for calling <code>log</code> with these bases.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">log2</span>(<span class="dv">8</span>)
+[<span class="dv">1</span>] <span class="dv">3</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">log10</span>(<span class="dv">100</span>)
+[<span class="dv">1</span>] <span class="dv">2</span></code></pre></div>
 </div>
-<div id="running-a-code-chunk" class="section level2">
-<h2><span class="header-section-number">4.5</span> Running a code chunk</h2>
-<p>You can run a single code block by clicking the small green “Run” button in the upper right hand corner of the code block as shown in the image below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
-<img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="600px" />
-<p class="caption">
-Figure 4.2: Click the Run button to execute a code chunk.
-</p>
+<div id="writing-functions-with-optional-arguments" class="section level2">
+<h2><span class="header-section-number">8.5</span> Writing functions with optional arguments</h2>
+<p>To write a function that has an optional argument, you can simply specify the optional argument and its default value in the function definition as so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a function to substitute missing values in a vector</span>
+sub.missing &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sub.value =</span> <span class="op">-</span><span class="dv">99</span>){
+  x[<span class="kw">is.na</span>(x)] &lt;-<span class="st"> </span>sub.value
+  <span class="kw">return</span>(x)
+}</code></pre></div>
+<p>You can then use this function as so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">sub.missing</span>(m, <span class="op">-</span><span class="dv">999</span>)  <span class="co"># explicitly define sub.value</span>
+[<span class="dv">1</span>]    <span class="dv">1</span>    <span class="dv">2</span> <span class="op">-</span><span class="dv">999</span>    <span class="dv">4</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">sub.missing</span>(m, <span class="dt">sub.value =</span> <span class="op">-</span><span class="dv">333</span>) <span class="co"># more explicit syntax</span>
+[<span class="dv">1</span>]    <span class="dv">1</span>    <span class="dv">2</span> <span class="op">-</span><span class="dv">333</span>    <span class="dv">4</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">sub.missing</span>(m)   <span class="co"># use default sub.value</span>
+[<span class="dv">1</span>]   <span class="dv">1</span>   <span class="dv">2</span> <span class="op">-</span><span class="dv">99</span>   <span class="dv">4</span>
+<span class="op">&gt;</span><span class="st"> </span>m  <span class="co"># notice that m wasn&#39;t modified within the function</span>
+[<span class="dv">1</span>]  <span class="dv">1</span>  <span class="dv">2</span> <span class="ot">NA</span>  <span class="dv">4</span></code></pre></div>
+<p>Notice that when we called <code>sub.missing</code> with our vector <code>m</code>, the vector did <em>not</em> get modified in the function body. Rather a new vector, <code>x</code> was created within the function and returned. However, if you did the missing value subsitute outside of a function call, then the vector would be modified:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
+<span class="op">&gt;</span><span class="st"> </span>n[<span class="kw">is.na</span>(n)] &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">99</span>
+<span class="op">&gt;</span><span class="st"> </span>n
+[<span class="dv">1</span>]   <span class="dv">1</span>   <span class="dv">2</span> <span class="op">-</span><span class="dv">99</span>   <span class="dv">4</span></code></pre></div>
 </div>
-<p>If you click this button the commands within this code block are executed, and any generated output is shown below the code block.</p>
-<p>Try running the first code block in the default template now. After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-95"></span>
-<img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="600px" />
-<p class="caption">
-Figure 4.3: An R Notebook showing an embedded plot after executing a code chunk.
-</p>
-</div>
-</div>
-<div id="running-all-code-chunks-above" class="section level2">
-<h2><span class="header-section-number">4.6</span> Running all code chunks above</h2>
-<p>Next to the “Run” button in each code chunk is a button for “Run all chunks above” (see figure below). This is useful when the code chunk you’re working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
-<img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="600px" />
-<p class="caption">
-Figure 4.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
-</p>
-</div>
-</div>
-<div id="knitting-an-r-markdown-to-html" class="section level2">
-<h2><span class="header-section-number">4.7</span> “Knitting an” R Markdown to HTML</h2>
-<p>Save your R Notebook as <code>first_rnotebook.Rmd</code> (RStudio will automatically add the <code>.Rmd</code> extension so you don’t need to type it). You can generate an HTML version of your notebook by clicking the “Preview” menu on the Notebook taskbar and then choosing “Knit to HTML” (see image below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-97"></span>
-<img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="600px" />
-<p class="caption">
-Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
-</p>
-</div>
-<p>When an RMarkdown document is “knit”, all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
-<p>Knitting a document is a good way to make sure your analysis is reproducible. If your code compiles correctly when the document is knit, and produces the expected output, there’s a good chance that someone else will be able to reproduce your analyses independently starting with your R Notebook document (after accounting for differences in file locations).</p>
-</div>
-<div id="sharing-your-reproducible-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.8</span> Sharing your reproducible R Notebook</h2>
-<p>To share your R Notebook with someone else you just need to send them the source R Markdown file (i.e. the file with the <code>.Rmd</code> extension). Assuming they have access to the same source data, another user should be able to open the notebook file in RStudio and regenerate your analyses by evaluating the individual code chunks or knitting the document.</p>
-<p>In this course you will be submitting homework assignments in the form of R Notebook markdown files.</p>
+<div id="putting-r-functions-in-scripts" class="section level2">
+<h2><span class="header-section-number">8.6</span> Putting R functions in Scripts</h2>
+<p>When you define a function at the interactive prompt and then close the interpreter your function definition will be lost. If you put your functions in an R notebook, you have a record of your functions but you can’t use those function in another notebook without copying and pasting codeblock. The simple way around this is to define your R functions in a script that you can than access at any time.</p>
+<p>In RStudio choose <code>File &gt; New File &gt; R Script</code>. This will bring up a blank editor window. Type your function(s) into the editor. Everything in this file will be interpretted as R code, so you should not use the code block notation that is used in Markdown notebooks. Save the source file in your R working directory with a name like <code>vecgeom.R</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># functions defined in vecgeom.R</span>
 
+vec.length &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="co"># calculate the geometric length of a vecotr</span>
+  <span class="kw">sqrt</span>(<span class="kw">drop</span>(x <span class="op">%*%</span><span class="st"> </span>x))
+}
+
+unit.vector &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  <span class="co"># Return a unit vector in the same direction as x</span>
+  x<span class="op">/</span><span class="kw">vec.length</span>(x)
+}</code></pre></div>
+<p>Notice that it is possible (and in fact typical) to use one function you define in writing another function (in this case we used <code>vec.length()</code> to write <code>unit.vector()</code>)</p>
+<p>Once your functions are in a script file you can make them accesible by using the <code>source</code> function, which reads the named file as input and evaluates any definitions or statements in the input file (See also the <code>Source</code> button in the R Studio GUI):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;vecgeom.R&quot;</span>)</code></pre></div>
+<p>Note that if you change the source file, such as correcting a mistake or adding a new function, you need to call the <code>source</code> function again to make those changes available.</p>
+<p>Having sourced the file you can now use your functions like so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.4</span>)
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">vec.length</span>(x)
+[<span class="dv">1</span>] <span class="fl">1.077033</span>
+<span class="op">&gt;</span><span class="st"> </span>ux &lt;-<span class="st"> </span><span class="kw">unit.vector</span>(x)
+<span class="op">&gt;</span><span class="st"> </span>ux
+[<span class="dv">1</span>] <span class="fl">0.9284767</span> <span class="fl">0.3713907</span>
+<span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">vec.length</span>(a)
+[<span class="dv">1</span>] <span class="fl">7.416198</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">unit.vector</span>(a)
+[<span class="dv">1</span>] <span class="fl">0.1348400</span> <span class="fl">0.2696799</span> <span class="fl">0.4045199</span> <span class="fl">0.5393599</span> <span class="fl">0.6741999</span></code></pre></div>
+<p>Note that our functions, <code>vec.length()</code> and <code>unit.vector()</code>, work with vectors of arbitrary dimension.</p>
+</div>
+<div id="simple-statistics-in-vector-form" class="section level2">
+<h2><span class="header-section-number">8.7</span> Simple statistics in vector form</h2>
+<p>Now let’s turn our attention to seeing how to calculate a variety of simple statistics such as the mean, variance, etc. in terms of vector operations.</p>
+<p>To illustrate these oeprations we’ll use the I. setosa data from the <code>iris</code> examplar data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">setosa &lt;-<span class="st"> </span><span class="kw">filter</span>(iris, Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</code></pre></div>
+<div id="mean" class="section level3">
+<h3><span class="header-section-number">8.7.1</span> Mean</h3>
+<p>First let’s calculate the mean for the Sepal.Length variable. Referring back to the slides for today’s lecture, we see we can calculate the mean as: <span class="math display">\[
+\bar{x} = \frac{\vec{1} \cdot \vec{x}}{\vec{1} \cdot \vec{1}}
+\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>sepal.length &lt;-<span class="st"> </span>setosa<span class="op">$</span>Sepal.Length
+<span class="op">&gt;</span><span class="st"> </span>ones &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(sepal.length)) <span class="co"># 1-vector of length n</span>
+<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length &lt;-<span class="st"> </span>(ones <span class="op">%*%</span><span class="st"> </span>sepal.length)<span class="op">/</span>(ones <span class="op">%*%</span><span class="st"> </span>ones)
+<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length <span class="op">%&lt;&gt;%</span><span class="st"> </span>drop  <span class="co"># use drop to convert back to scalar</span>
+<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length
+[<span class="dv">1</span>] <span class="fl">5.006</span></code></pre></div>
+<p>Let’s compare our calculation against the built-in mean function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(sepal.length)
+[<span class="dv">1</span>] <span class="fl">5.006</span></code></pre></div>
+</div>
+<div id="variance-and-standard-deviation" class="section level3">
+<h3><span class="header-section-number">8.7.2</span> Variance and standard deviation</h3>
+<p>Now let’s create a mean centered vector from sepal.length, which we’ll refer to as the vector of deviates about the mean:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>sepal.length.deviates &lt;-<span class="st"> </span>sepal.length <span class="op">-</span><span class="st"> </span>mean.sepal.length</code></pre></div>
+<p>Using the vector of deviates we can easily calculate the variance and standard deviation of <code>sepal.length</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>n &lt;-<span class="st"> </span><span class="kw">length</span>(sepal.length.deviates)
+<span class="op">&gt;</span><span class="st"> </span>var.sepal.length &lt;-<span class="st"> </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.length.deviates)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)
+<span class="op">&gt;</span><span class="st"> </span>var.sepal.length
+         [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.124249</span>
+<span class="op">&gt;</span><span class="st"> </span>sd.sepal.length &lt;-<span class="st"> </span><span class="kw">sqrt</span>(var.sepal.length)
+<span class="op">&gt;</span><span class="st"> </span>sd.sepal.length
+          [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.3524897</span></code></pre></div>
+<p>Again, we can compare our calculations to the built-in <code>var()</code> and <code>sd()</code> functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">var</span>(sepal.length)
+[<span class="dv">1</span>] <span class="fl">0.124249</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">sd</span>(sepal.length)
+[<span class="dv">1</span>] <span class="fl">0.3524897</span></code></pre></div>
+</div>
+<div id="covariance-and-correlation" class="section level3">
+<h3><span class="header-section-number">8.7.3</span> Covariance and correlation</h3>
+<p>Now let’s consider the common measures of bivariate association, covariance and correlation. We’ll examine the relationship between sepal length and width:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sepal.width &lt;-<span class="st"> </span>setosa<span class="op">$</span>Sepal.Width
+mean.sepal.width &lt;-<span class="st">  </span><span class="kw">drop</span>((ones <span class="op">%*%</span><span class="st"> </span>sepal.width)<span class="op">/</span>(ones <span class="op">%*%</span><span class="st"> </span>ones))
+sepal.width.deviates &lt;-<span class="st"> </span>sepal.width <span class="op">-</span><span class="st"> </span>mean.sepal.width
+var.sepal.width &lt;-<span class="st"> </span><span class="kw">drop</span>((sepal.width.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>))
+sd.sepal.width &lt;-<span class="st"> </span><span class="kw">drop</span>(<span class="kw">sqrt</span>(var.sepal.width))</code></pre></div>
+<p>With the vector of sepal width deviates in hand we can now calculate covariances:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength &lt;-<span class="st"> </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates)<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)
+<span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength
+           [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.09921633</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">cov</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in covariance</span>
+[<span class="dv">1</span>] <span class="fl">0.09921633</span></code></pre></div>
+<p>And correlations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>corr.swidth.slength &lt;-<span class="st"> </span>
+<span class="op">+</span><span class="st">   </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates) <span class="op">/</span><span class="st"> </span>(<span class="kw">vec.length</span>(sepal.length.deviates) <span class="op">*</span><span class="st"> </span><span class="kw">vec.length</span>(sepal.width.deviates))
+<span class="op">&gt;</span><span class="st"> </span>corr.swidth.slength
+          [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.7425467</span>
+<span class="op">&gt;</span><span class="st"> </span><span class="kw">cor</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in correlation</span>
+[<span class="dv">1</span>] <span class="fl">0.7425467</span></code></pre></div>
+<p>Alternately, we could have calculated the correlation more simply as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength<span class="op">/</span>(sd.sepal.length <span class="op">*</span><span class="st"> </span>sd.sepal.width)
+          [,<span class="dv">1</span>]
+[<span class="dv">1</span>,] <span class="fl">0.7425467</span></code></pre></div>
+
+</div>
 </div>
 </div>
             </section>
@@ -445,8 +545,8 @@ Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R 
           </div>
         </div>
       </div>
-<a href="r-basics-data-types-and-data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

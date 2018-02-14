@@ -51,7 +51,7 @@ dim(spellman)
 
 The six types of cell cycle synchronization experiments are:
 
-1. synchronization by alpha-factor elutration = "alpha"
+1. synchronization by alpha-factor = "alpha"
 2. synchronization by cdc15 temperature sensitive mutants = "cdc15"
 3. synchronization by cdc28 temperature sensitive mutants = "cdc28"
 4. synchronization by elutration = "elu"

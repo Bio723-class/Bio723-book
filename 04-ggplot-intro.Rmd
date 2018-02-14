@@ -300,7 +300,7 @@ ggplot(iris, mapping = aes(x = Species, y = Sepal.Width)) +
   geom_jitter(aes(color = Species), width=0.2, height=0.05, alpha=0.5, size=0.75)
 ```
 
-## gplot layers  can be assigned to variables
+## ggplot layers  can be assigned to variables
 
 The function `ggplot()` returns a "plot object" that we can assign to a variable.  The following example illustrates this:
 
@@ -335,7 +335,7 @@ In this case we don't really gain anything by creating an intermediate variable,
 
 ### Violin plot plus strip plot
 
- Here is theprinciple of combining layers, applied to a combined violin plot + strip plot.  Again, we set shared aesthetic mappings in `ggplot` function call and this time we assign individual layers of the plot to variables.
+ Here is the principle of combining layers, applied to a combined violin plot + strip plot.  Again, we set shared aesthetic mappings in `ggplot` function call and this time we assign individual layers of the plot to variables.
 
 
 ```{r}
@@ -391,7 +391,7 @@ In addition to the eight complete themes, there is a `theme` function in ggplot2
 violin.plus.jitter + theme_classic() + theme(aspect.ratio = 1)
 ```
 
-Theme related function calls can be combined to generate new themes.  For example, let's create a theme will call `my.theme` by combining `theme_classic` with a call to `theme`:
+Theme related function calls can be combined to generate new themes.  For example, let's create a theme called `my.theme` by combining `theme_classic` with a call to `theme`:
 
 ```{r}
 my.theme <- theme_classic()  + theme(aspect.ratio = 1)

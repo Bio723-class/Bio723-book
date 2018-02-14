@@ -404,7 +404,7 @@ Pipes are actually defined in another packaged called `magrittr`.  We'll look at
 
 In magrittr in not already installed, install it via the command line or the RStudio GUI.  Having done so, you will need to load magrittr via the `library()` function:
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(magrittr)
 ```
 

@@ -309,7 +309,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomaugment"><i class="fa fa-check"></i><b>9.8.2</b> <code>broom::augment</code></a></li>
 <li class="chapter" data-level="9.8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomglance"><i class="fa fa-check"></i><b>9.8.3</b> <code>broom::glance</code></a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#lion-example"><i class="fa fa-check"></i><b>9.9</b> Lion example</a></li>
+<li class="chapter" data-level="9.9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-on-a-real-world-data-set"><i class="fa fa-check"></i><b>9.9</b> Bivariate linear regression on a real world data set</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="matrices-in-r.html"><a href="matrices-in-r.html"><i class="fa fa-check"></i><b>10</b> Matrices in R</a><ul>
 <li class="chapter" data-level="10.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#creating-matrices-in-r"><i class="fa fa-check"></i><b>10.1</b> Creating matrices in R</a></li>
@@ -530,8 +530,8 @@ R2</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(fit.xy)</code></pre></div>
 </div>
 </div>
-<div id="lion-example" class="section level2">
-<h2><span class="header-section-number">9.9</span> Lion example</h2>
+<div id="bivariate-linear-regression-on-a-real-world-data-set" class="section level2">
+<h2><span class="header-section-number">9.9</span> Bivariate linear regression on a real world data set</h2>
 <p>Having walked through a simulation example, let’s now turn to a real world data set. A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions. To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion), giving the bivariate relationship (and fitted model) shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-fall2017/raw/master/datasets/ABD-lion-noses.csv&quot;</span>)</code></pre></div>
 <pre><code>Parsed with column specification:

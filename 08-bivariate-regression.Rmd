@@ -288,7 +288,7 @@ ggplot(df.xy.augmented, aes(X, .resid)) +
 glance(fit.xy)
 ```
 
-## Lion example
+## Bivariate linear regression on a real world data set
 
 Having walked through a simulation example, let's now turn to a real world data set. A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions.  To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion), giving the bivariate relationship (and fitted model) shown below:
 

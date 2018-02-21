@@ -1,0 +1,180 @@
+
+# Matrices in R
+
+In R matrices are two-dimensional collections of elements all of which
+have the same mode or type. This is different than a data frame in which
+the columns of the frame can hold elements of different type (but all of
+the same length), or from a list which can hold objects of arbitrary
+type and length. Matrices are more efficient for carrying out most
+numerical operations, so if you're working with a very large data set
+that is amenable to representation by a matrix you should consider using
+this data structure.
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+
+## Creating matrices in R
+
+There are a number of different ways to create matrices in R. For
+creating small matrices at the command line you can use the
+`matrix()` function.
+
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+x <- matrix(1:5) # creates a column vector
+x
+X <- matrix(1:12, nrow=4) # creates a matr
+X
+dim(X) # give the shape of the matrix
+```
+
+`matrix()` takes a data vector as input and the shape of the
+matrix to be created is specified by using the `nrow` and
+`ncol` arguments. If the number of elements in the input data
+vector is less than `nrows` $\times$ `ncols` the
+elements will be 'recycled' as discussed in previous chapters. Without
+any shape arguments the `matrix()` function will create a
+column vector as shown above. By default the `matrix()`
+function fills in the matrix in a column-wise fashion. To fill in the
+matrix in a row-wise fashion use the argument `byrow=T`.
+
+If you have a pre-existing data set in a list or data frame you can use
+the `as.matrix()` function to convert it to a matrix.
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+iris.mtx <- as.matrix(iris)
+head(iris.mtx) # NOTE: the elements were all converted to character
+```
+
+Since all elements of an R matrix must be of the same type, when we passed the iris data frame to `as.matrix()`, everything was converted to a character due to the presence of the Species column in the data frame.
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+# This is probably more along the lines of what you want
+iris.mtx <- iris %>% select(-Species) %>% as.matrix
+head(iris.mtx)
+```
+
+You can use the various indexing operations to get particular rows,
+columns, or elements. Here are some examples:
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+X <- matrix(1:12, nrow=4)
+X
+X[1,] # get the first row
+X[,1] # get the first column
+X[1:2,] # get the first two rows
+X[,2:3] # get the second and third columns
+Y <- matrix(1:12, byrow=T, nrow=4)
+Y
+Y[4] # see explanation below
+Y[5]
+dim(Y) <- c(2,6)  # reshape Y
+Y
+Y[5]
+```
+
+The example above where we create a matrix `Y` is meant to
+show that matrices are stored internally in a column wise fashion (think
+of the columns stacked one atop the other), regardless of whether we use
+the `byrow=T` argument. Therefore using single indices returns
+the elements with respect to this arrangement. Note also the use of
+assignment operator in conjuction with the `dim()` function to
+reshape the matrix. Despite the reshaping, the internal representation
+in memory hasn't changed so `Y[5]` still gives the same
+element.
+
+You can use the `diag()` function to get the diagonal of a
+matrix or to create a diagonal matrix as show below:
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+Z <- matrix(rnorm(16), ncol=4)
+Z
+diag(Z)
+diag(5) # create the 5 x 5 identity matrix
+s <- sqrt(10:13)
+diag(s)
+```
+
+
+## Matrix arithmetic operations in R
+
+The standard mathematical operations of addition and subtraction and
+scalar multiplication work element-wise for matrices in the same way as
+they did for vectors. Matrix multiplication uses the operator
+`%*%` which you saw last week for the dot product. To get the
+transpose of a matrix use the function `t()`. 
+
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+A <- matrix(1:12, nrow=4)
+A
+
+B <- matrix(rnorm(12), nrow=4)
+B
+
+t(A)  # transpose
+A + B  # matrix addition
+A - B  # matrix subtraction
+5 * A  # multiplication by a scalar
+```
+
+When applying matrix multiplication, the dimensions of the matrices involved must be conformable. For example, you can't do this:
+
+```
+A %*% B  # do you understand why this generates an error?
+```
+
+But this works:
+```{r, prompt=TRUE, collapse=TRUE, results='markup'}
+A %*% t(B)
+```
+
+
+
+## Descriptive statistics as matrix functions
+
+Assume you have a data set represented as a $n \times p$ matrix, $X$, with
+observations in rows and variables in columns. Below I give formulae for
+calculating some descriptive statistics as matrix functions.
+
+### Mean vector and matrix
+
+You can calculate a row vector of means, $\mathbf{m}$, as: 
+$$
+\mathbf{m} = \frac{1}{n} \mathbf{1}^T  X
+$$ 
+where $1$ is a $n \times 1$ vector of ones.
+
+A $n \times p$ matrix $M$ where each column is filled with the mean
+value for that column is: 
+$$
+M = \mathbf{1}\mathbf{m}
+$$
+
+### Deviation matrix
+
+To re-express each value as the deviation from the variable means
+(i.e.~each columns is a mean centered vector) we calculate a deviation
+matrix: 
+$$
+D = X - M
+$$
+
+### Covariance matrix
+
+The $p \times p$ covariance matrix can be expressed as a matrix product of the deviation matrix:
+$$
+S = \frac{1}{n-1} D^T D
+$$
+
+### Correlation matrix
+
+The correlation matrix, $R$, can be calculated from the covariance
+matrix by: 
+$$
+R = V S V
+$$
+
+where $V$ is a $p \times p$ diagonal matrix where
+$V_{ii} = 1/\sqrt{S_{ii}}$.

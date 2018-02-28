@@ -86,12 +86,12 @@ The package `rgl` is another package that we can use for 3D visualization. `rgl`
 
 To make rgl plots work in HTML document, make your codeblock start with this header:
 ```
-{r, webgl=TRUE, results = "asis"}
+{r, results = "asis"}
 ```
 
 You can then create an interactive 3D plot as so:
 
-```{r, webgl=TRUE, results = "asis"}
+```{r, results = "asis"}
 library(rgl)
 
 # create 3D scatter, using spheres to draw points
@@ -134,7 +134,7 @@ p$plane3d(fit.trees, col='orangered')
 
 If instead of `scatterplot3d`, we wanted to use `rgl` to depict the model fit we can use the `rgl.planes` function as shown below.
 
-```{r, webgl=TRUE, results = "asis"}
+```{r, results = "asis"}
 coefs <- coef(fit.trees)
 b1 <- coefs["Girth"]
 b2 <- coefs["Height"]

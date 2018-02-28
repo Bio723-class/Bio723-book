@@ -178,3 +178,28 @@ $$
 
 where $V$ is a $p \times p$ diagonal matrix where
 $V_{ii} = 1/\sqrt{S_{ii}}$.
+
+
+## Matrix Inverse
+
+The function `solve()` can be used to find matrix inverses in R.
+
+```{r}
+A <- matrix(1:4, nrow=2)
+A
+
+Ainv <- solve(A)
+Ainv
+
+A %*% Ainv   # should give identity matrix
+Ainv %*% A   # should also result in identity matrix
+```
+
+Keep in mind that not all square matrices are invertible:
+
+```{r, error=TRUE}
+C <- matrix(1:16, nrow=4)
+C
+
+Cinv <- solve(C)
+```

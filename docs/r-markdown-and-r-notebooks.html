@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
   <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-02-21">
+<meta name="date" content="2018-02-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,6 +47,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.0/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.99.9/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -320,6 +327,26 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.3.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#covariance-matrix"><i class="fa fa-check"></i><b>10.3.3</b> Covariance matrix</a></li>
 <li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
 </ul></li>
+<li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>11</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="11.1" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>11.1</b> New Libraries to install</a></li>
+<li class="chapter" data-level="11.2" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>11.2</b> Libraries</a></li>
+<li class="chapter" data-level="11.3" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>11.3</b> Examplar data</a></li>
+<li class="chapter" data-level="11.4" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>11.4</b> Data exploration</a></li>
+<li class="chapter" data-level="11.5" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>11.5</b> 3D Plots</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>11.5.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="11.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>11.5.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>11.6</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>11.6.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>11.7</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="11.8" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>11.8</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="11.9" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>11.9</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="11.10" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>11.10</b> An alternate model</a></li>
+<li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
+<li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
 </ul></li>
 </ul>
 
@@ -492,10 +519,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
 "instapper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -519,9 +547,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

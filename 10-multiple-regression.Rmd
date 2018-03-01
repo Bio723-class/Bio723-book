@@ -91,7 +91,7 @@ To make rgl plots work in HTML document, make your codeblock start with this hea
 
 You can then create an interactive 3D plot as so:
 
-```{r, results = "asis"}
+```{r, eval=FALSE}
 library(rgl)
 
 # create 3D scatter, using spheres to draw points
@@ -134,7 +134,7 @@ p$plane3d(fit.trees, col='orangered')
 
 If instead of `scatterplot3d`, we wanted to use `rgl` to depict the model fit we can use the `rgl.planes` function as shown below.
 
-```{r, results = "asis"}
+```{r, eval=FALSE}
 coefs <- coef(fit.trees)
 b1 <- coefs["Girth"]
 b2 <- coefs["Height"]
@@ -207,10 +207,11 @@ Now let's look at the residuals from the regression. The residuals represent the
 ```{r}
 trees.augmented <- augment(fit.trees, trees)
 
-ggplot(trees.augmented, aes(x = Volume, y = .resid)) + 
+ggplot(trees.augmented, aes(x = Girth, y = .resid)) + 
   geom_point() + 
   geom_hline(yintercept = 0, color='red', linetype='dashed') +
-  labs(x = "Volume", y = "Residuals")
+  labs(x = "Girth", y = "Residuals")
+
 ```
 
 Ideally the residuals should be evenly scattered around zero, with no trends as we go from high to low values of the dependent variable.  As you can see, the residuals are somewhat u-shaped or j-shaped suggesting that there may be a non-linear aspect of the relationship that our model isn't capturing.
@@ -237,7 +238,7 @@ trees.cuberoot <- broom::augment(fit.trees.cuberoot, trees.cuberoot)
 ggplot(trees.cuberoot, aes(x = cuberoot.Volume, y = .resid)) + 
   geom_point() + 
   geom_hline(yintercept = 0, color='red', linetype='dashed') +
-  labs(x = "Volume^0.33", y = "Residuals")
+  labs(x = "Girth", y = "Residuals")
 ```
 
 As we can see the transformation we applied to the data did seem to make our residuals more uniform across the range of observations. 

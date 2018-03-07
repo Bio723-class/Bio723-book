@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-03-01">
+<meta name="date" content="2018-03-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -341,6 +341,20 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
 <li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
+<li class="chapter" data-level="12.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>12.2</b> Matrices as linear transformations</a></li>
+<li class="chapter" data-level="12.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>12.3</b> Eigenanalysis in R</a></li>
+<li class="chapter" data-level="12.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>12.4</b> Principal Components Analysis in R</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>12.4.1</b> Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>12.4.2</b> PCA of the Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>12.4.3</b> Calculating Factor Loadings</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>12.5</b> Drawing Figures to Represent PCA</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>12.5.1</b> PC Score Plots</a></li>
+<li class="chapter" data-level="12.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>12.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -559,18 +573,35 @@ R = V S V
 <p>The function <code>solve()</code> can be used to find matrix inverses in R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
 A
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">3</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">4</span>
 
 Ainv &lt;-<span class="st"> </span><span class="kw">solve</span>(A)
 Ainv
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]   <span class="op">-</span><span class="dv">2</span>  <span class="fl">1.5</span>
+[<span class="dv">2</span>,]    <span class="dv">1</span> <span class="op">-</span><span class="fl">0.5</span>
 
 A <span class="op">%*%</span><span class="st"> </span>Ainv   <span class="co"># should give identity matrix</span>
-Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span></code></pre></div>
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>
+[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span>
+Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span>
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">0</span>
+[<span class="dv">2</span>,]    <span class="dv">0</span>    <span class="dv">1</span></code></pre></div>
 <p>Keep in mind that not all square matrices are invertible:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">nrow=</span><span class="dv">4</span>)
 C
+     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]
+[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">5</span>    <span class="dv">9</span>   <span class="dv">13</span>
+[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">6</span>   <span class="dv">10</span>   <span class="dv">14</span>
+[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">7</span>   <span class="dv">11</span>   <span class="dv">15</span>
+[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span>
 
-Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)</code></pre></div>
-<pre><code>Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</code></pre>
+Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)
+Error <span class="cf">in</span> <span class="kw">solve.default</span>(C)<span class="op">:</span><span class="st"> </span>Lapack routine dgesv<span class="op">:</span><span class="st"> </span>system is exactly singular<span class="op">:</span><span class="st"> </span>U[<span class="dv">3</span>,<span class="dv">3</span>] =<span class="st"> </span><span class="dv">0</span></code></pre></div>
 
 </div>
 </div>

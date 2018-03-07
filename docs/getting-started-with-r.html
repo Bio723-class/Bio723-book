@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-03-01">
+<meta name="date" content="2018-03-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -341,6 +341,20 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
 <li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
+<li class="chapter" data-level="12.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>12.2</b> Matrices as linear transformations</a></li>
+<li class="chapter" data-level="12.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>12.3</b> Eigenanalysis in R</a></li>
+<li class="chapter" data-level="12.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>12.4</b> Principal Components Analysis in R</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>12.4.1</b> Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>12.4.2</b> PCA of the Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>12.4.3</b> Calculating Factor Loadings</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>12.5</b> Drawing Figures to Represent PCA</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>12.5.1</b> PC Score Plots</a></li>
+<li class="chapter" data-level="12.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>12.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -380,9 +394,13 @@ Figure 2.1: RStudio window with the panes labeled
 <p>You can type commands directly in the console. When you hit Return (Enter) on your keyboard the text you typed is evaluated by the R interpreter. This means that the R program reads your commands, makes sure there are no syntax errors, and then carries out any commands that were specified.</p>
 <p>Try evaluating the following arithmetic commands in the console:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+[<span class="dv">1</span>] <span class="dv">15</span>
 <span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
+[<span class="dv">1</span>] <span class="dv">5</span>
 <span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span>
-<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span></code></pre></div>
+[<span class="dv">1</span>] <span class="dv">2</span>
+<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>
+[<span class="dv">1</span>] <span class="dv">50</span></code></pre></div>
 <p>If you type an incomplete command and then hit Return on your keyboard, the console will show a continuation line marked by a <code>+</code> symbol. For example enter the incomplete statement <code>(10 + 5</code> and then hit Enter. You should see something like this.</p>
 <pre><code>&gt; (10 + 5
 +</code></pre>
@@ -392,7 +410,8 @@ Figure 2.1: RStudio window with the panes labeled
 <h2><span class="header-section-number">2.4</span> Comments</h2>
 <p>When working in the R console, or writing R code, the pound symbol (<code>#</code>) indicates the start of a comment. Anything after the <code>#</code>, up to the end of the current line, is ignored by the R interpretter.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This line will be ignored</span>
-<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span></code></pre></div>
+<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span>
+[<span class="dv">1</span>] <span class="dv">9</span></code></pre></div>
 <p>Throughout this course I will often include short explanatory comments in my code examples.</p>
 </div>
 <div id="using-r-as-a-calculator" class="section level2">
@@ -409,25 +428,40 @@ pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span>
 <span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></code></pre></div>
 <p>Be aware that certain operators have precedence over others. For example multiplication and division have higher precedence than addition and subtraction. Use parentheses to disambiguate potentially confusing statements.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4</span><span class="op">-</span><span class="dv">5</span>   <span class="co"># was the output what you expected?</span>
-(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4</span><span class="op">-</span><span class="dv">5</span>) <span class="co"># compare the answer to the above</span></code></pre></div>
+[<span class="dv">1</span>] <span class="op">-</span><span class="dv">2</span>
+(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4</span><span class="op">-</span><span class="dv">5</span>) <span class="co"># compare the answer to the above</span>
+[<span class="dv">1</span>] <span class="op">-</span><span class="dv">12</span></code></pre></div>
 <p>Division by zero produces an object that represents infinite numbers. Infinite values can be either positive or negative</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># Inf</span>
-<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> <span class="co"># -Inf</span></code></pre></div>
+[<span class="dv">1</span>] <span class="ot">Inf</span>
+<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> <span class="co"># -Inf</span>
+[<span class="dv">1</span>] <span class="op">-</span><span class="ot">Inf</span></code></pre></div>
 <p>Invalid calculations produce a objected called <code>NaN</code> which is short for “Not a Number”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span>
+[<span class="dv">1</span>] <span class="ot">NaN</span></code></pre></div>
 <div id="common-mathematical-functions" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Common mathematical functions</h3>
 <p>Many commonly used mathematical functions are built into R. Here are some examples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span>
+[<span class="dv">1</span>] <span class="dv">3</span>
 <span class="kw">abs</span>(<span class="dv">3</span>)
+[<span class="dv">1</span>] <span class="dv">3</span>
 <span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span>
+[<span class="dv">1</span>] <span class="fl">0.5</span>
 <span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span>
+[<span class="dv">1</span>] <span class="fl">0.8660254</span>
 <span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span>
+[<span class="dv">1</span>] <span class="fl">2.302585</span>
 <span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span>
+[<span class="dv">1</span>] <span class="dv">1</span>
 <span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span>
+[<span class="dv">1</span>] <span class="fl">3.321928</span>
 <span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span>
+[<span class="dv">1</span>] <span class="fl">2.718282</span>
 <span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span>
-<span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="fl">0.5</span>  <span class="co"># same as square root</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">3.162278</span>
+<span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="fl">0.5</span>  <span class="co"># same as square root</span>
+[<span class="dv">1</span>] <span class="fl">3.162278</span></code></pre></div>
 </div>
 </div>
 <div id="numeric-data-types-in-r" class="section level2">
@@ -436,13 +470,19 @@ pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span>
 <ol style="list-style-type: decimal">
 <li><p>“double” – this is the default numeric data type, and is used to represent both real numbers and whole numbers (unless you explicitly ask for integers, see below). “double” is short for “double precision floating point value”. All of the previous computations you’ve seen up until this point used data of type double.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span>
-<span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span></code></pre></div></li>
+[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span>
+<span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span>
+[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></code></pre></div></li>
 <li><p>“integer” – when your numeric data involves only whole numbers, you can get slighly better performance using the integer data type. You must explicitly ask for numbers to be treated as integers.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span></code></pre></div></li>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span>
+[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></code></pre></div></li>
 <li><p>“complex” – R has a built-in data type to represent complex numbers – numbers with a “real” and “imaginary” component. We won’t encounter the use of complex numbers in this course, but they do have many important uses in mathematics and engineering and also have some interesting applications in biology.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)
+[<span class="dv">1</span>] <span class="st">&quot;complex&quot;</span>
 <span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span>
-<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span></code></pre></div></li>
+[<span class="dv">1</span>] <span class="ot">NaN</span>
+<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span>
+[<span class="dv">1</span>] <span class="dv">0</span><span class="op">+</span>1i</code></pre></div></li>
 </ol>
 </div>
 <div id="variable-assignment-in-r" class="section level2">
@@ -451,8 +491,10 @@ pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span>
 <p>Variable assignment in R is accomplished with the assignment operator, which is designated as <code>&lt;-</code> (left arrow, constructed from a left angular brack and the minus sign). This is illustrated below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span>
 <span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span>
+[<span class="dv">1</span>] <span class="op">-</span><span class="fl">0.5440211</span>
 x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span>
-<span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span></code></pre></div>
+<span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span>
+[<span class="dv">1</span>] <span class="fl">1.224647e-16</span></code></pre></div>
 <div id="valid-variable-names" class="section level3">
 <h3><span class="header-section-number">2.7.1</span> Valid variable names</h3>
 <p>As described in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html">R documentation</a>, “A syntactically valid name consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number. Names such as ‘.2way’ are not valid, and neither are the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">reserved words</a>.”</p>
@@ -473,7 +515,9 @@ _x &lt;- 10
 <p>The simplest way to create a vector at the interactive prompt is to use the <code>c()</code> function, which is short hand for <code>combine' or</code>concatenate’.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>)  <span class="co"># create a vector, assignn it the variable name `x`</span>
 <span class="kw">length</span>(x)
-<span class="kw">typeof</span>(x)</code></pre></div>
+[<span class="dv">1</span>] <span class="dv">4</span>
+<span class="kw">typeof</span>(x)
+[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></code></pre></div>
 <p>You can also use <code>c()</code> to concatenate two or more vectors together.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>)  <span class="co"># create another vector, labeled y</span>
 xy &lt;-<span class="st"> </span><span class="kw">c</span>(x,y)  <span class="co"># combine two vectors</span>
@@ -485,25 +529,36 @@ xyz &lt;-<span class="st"> </span><span class="kw">c</span>(x, y, z)  <span clas
 <p>The basic R arithmetic operations work on vectors as well as on single numbers (in fact single numbers <em>are</em> vectors).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
 x <span class="op">*</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># multiply each element of x by 2</span>
+[<span class="dv">1</span>]  <span class="dv">4</span>  <span class="dv">8</span> <span class="dv">12</span> <span class="dv">16</span> <span class="dv">20</span>
 x <span class="op">-</span><span class="st"> </span>pi <span class="co"># subtract pi from each element of x</span>
+[<span class="dv">1</span>] <span class="op">-</span><span class="fl">1.1415927</span>  <span class="fl">0.8584073</span>  <span class="fl">2.8584073</span>  <span class="fl">4.8584073</span>  <span class="fl">6.8584073</span>
 
 y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>)
 x <span class="op">+</span><span class="st"> </span>y  <span class="co"># add together each matching element of x and y</span>
+[<span class="dv">1</span>]  <span class="dv">2</span>  <span class="dv">5</span>  <span class="dv">9</span> <span class="dv">13</span> <span class="dv">19</span>
 x <span class="op">*</span><span class="st"> </span>y <span class="co"># multiply each matching element of x and y</span>
-x<span class="op">/</span>y <span class="co"># divide each matching element of x and y</span></code></pre></div>
+[<span class="dv">1</span>]  <span class="dv">0</span>  <span class="dv">4</span> <span class="dv">18</span> <span class="dv">40</span> <span class="dv">90</span>
+x<span class="op">/</span>y <span class="co"># divide each matching element of x and y</span>
+[<span class="dv">1</span>]      <span class="ot">Inf</span> <span class="fl">4.000000</span> <span class="fl">2.000000</span> <span class="fl">1.600000</span> <span class="fl">1.111111</span></code></pre></div>
 <p>Basic numerical functions operate element-wise on numerical vectors:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sin</span>(x)
+[<span class="dv">1</span>]  <span class="fl">0.9092974</span> <span class="op">-</span><span class="fl">0.7568025</span> <span class="op">-</span><span class="fl">0.2794155</span>  <span class="fl">0.9893582</span> <span class="op">-</span><span class="fl">0.5440211</span>
 <span class="kw">cos</span>(x <span class="op">*</span><span class="st"> </span>pi)
-<span class="kw">log</span>(x)</code></pre></div>
+[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>
+<span class="kw">log</span>(x)
+[<span class="dv">1</span>] <span class="fl">0.6931472</span> <span class="fl">1.3862944</span> <span class="fl">1.7917595</span> <span class="fl">2.0794415</span> <span class="fl">2.3025851</span></code></pre></div>
 </div>
 <div id="vector-recycling" class="section level3">
 <h3><span class="header-section-number">2.8.2</span> Vector recycling</h3>
 <p>When vectors are not of the same length R `recycles’ the elements of the shorter vector to make the lengths conform.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
 <span class="kw">length</span>(x)
+[<span class="dv">1</span>] <span class="dv">5</span>
 z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">11</span>)
 <span class="kw">length</span>(z)
-x <span class="op">+</span><span class="st"> </span>z</code></pre></div>
+[<span class="dv">1</span>] <span class="dv">4</span>
+x <span class="op">+</span><span class="st"> </span>z
+[<span class="dv">1</span>]  <span class="dv">3</span>  <span class="dv">8</span> <span class="dv">13</span> <span class="dv">19</span> <span class="dv">11</span></code></pre></div>
 <p>In the example above <code>z</code> was treated as if it was the vector <code>(1, 4, 7, 11, 1)</code>.</p>
 </div>
 <div id="simple-statistical-functions-for-numeric-vectors" class="section level3">
@@ -513,13 +568,21 @@ x <span class="op">+</span><span class="st"> </span>z</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len.name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">5</span>)</code></pre></div>
 <p>Some common statistics of interest include minimum, maximum, mean, median, variance, and standard deviation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(len.name)
+[<span class="dv">1</span>] <span class="dv">2</span>
 <span class="kw">max</span>(len.name)
+[<span class="dv">1</span>] <span class="dv">10</span>
 <span class="kw">mean</span>(len.name)
+[<span class="dv">1</span>] <span class="fl">6.6</span>
 <span class="kw">median</span>(len.name)
+[<span class="dv">1</span>] <span class="dv">7</span>
 <span class="kw">var</span>(len.name)  <span class="co"># variance</span>
-<span class="kw">sd</span>(len.name)   <span class="co"># standard deviation</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">6.044444</span>
+<span class="kw">sd</span>(len.name)   <span class="co"># standard deviation</span>
+[<span class="dv">1</span>] <span class="fl">2.458545</span></code></pre></div>
 <p>The <code>summary()</code> function applied to a vector of doubles produce a useful table of some of these key statistics:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(len.name)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(len.name)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   <span class="fl">2.00</span>    <span class="fl">5.25</span>    <span class="fl">7.00</span>    <span class="fl">6.60</span>    <span class="fl">8.50</span>   <span class="fl">10.00</span> </code></pre></div>
 </div>
 </div>
 <div id="the-r-help-system" class="section level2">
@@ -541,9 +604,38 @@ Figure 2.2: The RStudio Help tab
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</code></pre></div>
 <p>In this case <code>help.search(&quot;log&quot;)</code> returns all the functions with the string <code>log</code> in them. For more on <code>help.search</code> type <code>?help.search</code>.</p>
 <p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)
+ [<span class="dv">1</span>] <span class="st">&quot;as.data.frame.logical&quot;</span> <span class="st">&quot;as.logical&quot;</span>           
+ [<span class="dv">3</span>] <span class="st">&quot;as.logical.factor&quot;</span>     <span class="st">&quot;dlogis&quot;</span>               
+ [<span class="dv">5</span>] <span class="st">&quot;is.logical&quot;</span>            <span class="st">&quot;log&quot;</span>                  
+ [<span class="dv">7</span>] <span class="st">&quot;log10&quot;</span>                 <span class="st">&quot;log1p&quot;</span>                
+ [<span class="dv">9</span>] <span class="st">&quot;log2&quot;</span>                  <span class="st">&quot;logb&quot;</span>                 
+[<span class="dv">11</span>] <span class="st">&quot;Logic&quot;</span>                 <span class="st">&quot;logical&quot;</span>              
+[<span class="dv">13</span>] <span class="st">&quot;logLik&quot;</span>                <span class="st">&quot;loglin&quot;</span>               
+[<span class="dv">15</span>] <span class="st">&quot;plogis&quot;</span>                <span class="st">&quot;qlogis&quot;</span>               
+[<span class="dv">17</span>] <span class="st">&quot;rlogis&quot;</span>                <span class="st">&quot;SSlogis&quot;</span>              </code></pre></div>
 <p><code>example()</code> provides examples of how a function is used.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(log)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(log)
+
+log<span class="op">&gt;</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">exp</span>(<span class="dv">3</span>))
+[<span class="dv">1</span>] <span class="dv">3</span>
+
+log<span class="op">&gt;</span><span class="st"> </span><span class="kw">log10</span>(<span class="fl">1e7</span>) <span class="co"># = 7</span>
+[<span class="dv">1</span>] <span class="dv">7</span>
+
+log<span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^-</span>(<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)
+
+log<span class="op">&gt;</span><span class="st"> </span><span class="kw">cbind</span>(x, <span class="kw">log</span>(<span class="dv">1</span><span class="op">+</span>x), <span class="kw">log1p</span>(x), <span class="kw">exp</span>(x)<span class="op">-</span><span class="dv">1</span>, <span class="kw">expm1</span>(x))
+          x                                                    
+ [<span class="dv">1</span>,] <span class="fl">1e-03</span> <span class="fl">9.995003e-04</span> <span class="fl">9.995003e-04</span> <span class="fl">1.000500e-03</span> <span class="fl">1.000500e-03</span>
+ [<span class="dv">2</span>,] <span class="fl">1e-05</span> <span class="fl">9.999950e-06</span> <span class="fl">9.999950e-06</span> <span class="fl">1.000005e-05</span> <span class="fl">1.000005e-05</span>
+ [<span class="dv">3</span>,] <span class="fl">1e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span>
+ [<span class="dv">4</span>,] <span class="fl">1e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span>
+ [<span class="dv">5</span>,] <span class="fl">1e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span>
+ [<span class="dv">6</span>,] <span class="fl">1e-13</span> <span class="fl">9.992007e-14</span> <span class="fl">1.000000e-13</span> <span class="fl">9.992007e-14</span> <span class="fl">1.000000e-13</span>
+ [<span class="dv">7</span>,] <span class="fl">1e-15</span> <span class="fl">1.110223e-15</span> <span class="fl">1.000000e-15</span> <span class="fl">1.110223e-15</span> <span class="fl">1.000000e-15</span>
+ [<span class="dv">8</span>,] <span class="fl">1e-17</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-17</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-17</span>
+ [<span class="dv">9</span>,] <span class="fl">1e-19</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-19</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-19</span></code></pre></div>
 </div>
 </div>
 <div id="packages" class="section level2">

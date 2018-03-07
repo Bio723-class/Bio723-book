@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-03-01">
+<meta name="date" content="2018-03-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -341,6 +341,20 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
 <li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
+<li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
+<li class="chapter" data-level="12.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>12.2</b> Matrices as linear transformations</a></li>
+<li class="chapter" data-level="12.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>12.3</b> Eigenanalysis in R</a></li>
+<li class="chapter" data-level="12.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>12.4</b> Principal Components Analysis in R</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>12.4.1</b> Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>12.4.2</b> PCA of the Bioenv dataset</a></li>
+<li class="chapter" data-level="12.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>12.4.3</b> Calculating Factor Loadings</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>12.5</b> Drawing Figures to Represent PCA</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>12.5.1</b> PC Score Plots</a></li>
+<li class="chapter" data-level="12.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>12.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -424,14 +438,45 @@ p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span clas
 <p>The first argument to <code>lm</code> is an R “formula”, the second argument is a data frame.</p>
 <p>Formulas are R’s way of specifying models, though they find other uses as well (e.g. we saw the formula syntax when we introduced the <code>facet_wrap</code> and <code>facet_grid</code> functions from ggplot). The general form of a formula in R is <code>response variable ~ explanatory variables</code>. In the code example above, we have only a single explanatory variable, and thus our response variable is Y and our explanatory variable is X. We’ll see more advanced R formulas in later lectures, but for now just remember that the variable to the left of the tilde is the one you’re trying to predict and the variable to the right is the explanatory variable.</p>
 <p>The <code>lm</code> function returns a list with a number of different components. The ones of most interest to us are <code>fitted.values</code>, <code>coefficients</code>, <code>residuals</code>, and (see the <code>lm</code> documentation for full details.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.xy</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.xy
+
+Call<span class="op">:</span>
+<span class="kw">lm</span>(<span class="dt">formula =</span> Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> df.xy)
+
+Coefficients<span class="op">:</span>
+(Intercept)            X  
+     <span class="fl">0.7688</span>       <span class="fl">1.5511</span>  </code></pre></div>
 <p>Calling <code>summary</code> on a fit model provides more detailed output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit.xy)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit.xy)
+
+Call<span class="op">:</span>
+<span class="kw">lm</span>(<span class="dt">formula =</span> Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> df.xy)
+
+Residuals<span class="op">:</span>
+<span class="st">    </span>Min      1Q  Median      3Q     Max 
+<span class="op">-</span><span class="fl">4.3723</span> <span class="op">-</span><span class="fl">1.2391</span> <span class="op">-</span><span class="fl">0.1677</span>  <span class="fl">1.4593</span>  <span class="fl">3.1808</span> 
+
+Coefficients<span class="op">:</span>
+<span class="st">            </span>Estimate Std. Error t value <span class="kw">Pr</span>(<span class="op">&gt;</span><span class="er">|</span>t<span class="op">|</span>)    
+(Intercept)   <span class="fl">0.7688</span>     <span class="fl">0.5755</span>   <span class="fl">1.336</span>    <span class="fl">0.188</span>    
+X             <span class="fl">1.5511</span>     <span class="fl">0.1699</span>   <span class="fl">9.129</span> <span class="fl">4.58e-12</span> <span class="op">**</span><span class="er">*</span>
+<span class="op">---</span>
+Signif. codes<span class="op">:</span><span class="st">  </span><span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span>
+
+Residual standard error<span class="op">:</span><span class="st"> </span><span class="fl">1.772</span> on <span class="dv">48</span> degrees of freedom
+Multiple R<span class="op">-</span>squared<span class="op">:</span><span class="st">  </span><span class="fl">0.6345</span>,    Adjusted R<span class="op">-</span>squared<span class="op">:</span><span class="st">  </span><span class="fl">0.6269</span> 
+F<span class="op">-</span>statistic<span class="op">:</span><span class="st"> </span><span class="fl">83.34</span> on <span class="dv">1</span> and <span class="dv">48</span> DF,  p<span class="op">-</span>value<span class="op">:</span><span class="st"> </span><span class="fl">4.581e-12</span></code></pre></div>
 <p>The model fit object is actually a list,</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(fit.xy)
-<span class="kw">names</span>(fit.xy)</code></pre></div>
+[<span class="dv">1</span>] <span class="st">&quot;list&quot;</span>
+<span class="kw">names</span>(fit.xy)
+ [<span class="dv">1</span>] <span class="st">&quot;coefficients&quot;</span>  <span class="st">&quot;residuals&quot;</span>     <span class="st">&quot;effects&quot;</span>       <span class="st">&quot;rank&quot;</span>         
+ [<span class="dv">5</span>] <span class="st">&quot;fitted.values&quot;</span> <span class="st">&quot;assign&quot;</span>        <span class="st">&quot;qr&quot;</span>            <span class="st">&quot;df.residual&quot;</span>  
+ [<span class="dv">9</span>] <span class="st">&quot;xlevels&quot;</span>       <span class="st">&quot;call&quot;</span>          <span class="st">&quot;terms&quot;</span>         <span class="st">&quot;model&quot;</span>        </code></pre></div>
 <p>For example, to get back the list of regression coefficients (intercept and slope) as a vector we can index this list with the appropriate name:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.xy<span class="op">$</span>coefficients</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit.xy<span class="op">$</span>coefficients
+(Intercept)           X 
+  <span class="fl">0.7687897</span>   <span class="fl">1.5510691</span> </code></pre></div>
 <div id="fitted-values" class="section level3">
 <h3><span class="header-section-number">9.4.1</span> Fitted values</h3>
 <p>The component <code>fitted.values</code> gives the predicted values of <span class="math inline">\(Y\)</span> (<span class="math inline">\(\hat{Y}\)</span> in the equations above) for each observed value of <span class="math inline">\(X\)</span>. We can plot these predicted values of <span class="math inline">\(Y\)</span>, as shown below:</p>
@@ -506,8 +551,8 @@ R^2 = \left( 1 - \frac{SS_{residuals}}{SS_{total}} \right)
 \]</span></p>
 <p>For this particular example we can estimate <span class="math inline">\(R^2\)</span> as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="fl">1.0</span> <span class="op">-</span><span class="st"> </span>(ss.residuals<span class="op">/</span>ss.Y)
-R2</code></pre></div>
-<pre><code>[1] 0.6345462</code></pre>
+R2
+[<span class="dv">1</span>] <span class="fl">0.6345462</span></code></pre></div>
 <p>In this particular example, we find our linear model accounts for about 63% of the variance in <span class="math inline">\(Y\)</span>. Note that the coefficient of determination is also reported when you apply the <code>summary</code> function to a linear model.</p>
 </div>
 <div id="broom-a-library-for-converting-model-results-into-data-frames" class="section level2">
@@ -524,13 +569,30 @@ R2</code></pre></div>
 <div id="broomtidy" class="section level3">
 <h3><span class="header-section-number">9.8.1</span> <code>broom::tidy</code></h3>
 <p><code>tidy</code> applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values. For now we’re just interested in the estiamtes, the other values will be described in detail when we get to statistical inference.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(fit.xy)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(fit.xy)
+         term  estimate std.error statistic      p.value
+<span class="dv">1</span> (Intercept) <span class="fl">0.7687897</span> <span class="fl">0.5754650</span>  <span class="fl">1.335945</span> <span class="fl">1.878668e-01</span>
+<span class="dv">2</span>           X <span class="fl">1.5510691</span> <span class="fl">0.1699007</span>  <span class="fl">9.129269</span> <span class="fl">4.580723e-12</span></code></pre></div>
 </div>
 <div id="broomaugment" class="section level3">
 <h3><span class="header-section-number">9.8.2</span> <code>broom::augment</code></h3>
 <p><code>augment</code> creates a data frame that combines the original data with related information from the model fit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.xy.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(fit.xy, df.xy)
-<span class="kw">head</span>(df.xy.augmented)</code></pre></div>
+<span class="kw">head</span>(df.xy.augmented)
+          X            Y  .fitted   .se.fit     .resid       .hat   .sigma
+<span class="dv">1</span> <span class="fl">2.0862011</span>  <span class="fl">3.025964557</span> <span class="fl">4.004632</span> <span class="fl">0.2993053</span> <span class="op">-</span><span class="fl">0.9786672</span> <span class="fl">0.02851475</span> <span class="fl">1.785365</span>
+<span class="dv">2</span> <span class="fl">1.1202086</span>  <span class="fl">1.809581474</span> <span class="fl">2.506311</span> <span class="fl">0.4125607</span> <span class="op">-</span><span class="fl">0.6967292</span> <span class="fl">0.05417720</span> <span class="fl">1.788179</span>
+<span class="dv">3</span> <span class="fl">1.8077907</span>  <span class="fl">4.985202523</span> <span class="fl">3.572798</span> <span class="fl">0.3275579</span>  <span class="fl">1.4124045</span> <span class="fl">0.03415207</span> <span class="fl">1.778921</span>
+<span class="dv">4</span> <span class="fl">1.3753651</span>  <span class="fl">3.227592763</span> <span class="fl">2.902076</span> <span class="fl">0.3790450</span>  <span class="fl">0.3255168</span> <span class="fl">0.04573224</span> <span class="fl">1.790570</span>
+<span class="dv">5</span> <span class="fl">1.0030005</span> <span class="op">-</span><span class="fl">0.009990412</span> <span class="fl">2.324513</span> <span class="fl">0.4285481</span> <span class="op">-</span><span class="fl">2.3345032</span> <span class="fl">0.05845748</span> <span class="fl">1.756516</span>
+<span class="dv">6</span> <span class="fl">0.8915551</span> <span class="op">-</span><span class="fl">0.944425977</span> <span class="fl">2.151653</span> <span class="fl">0.4440440</span> <span class="op">-</span><span class="fl">3.0960792</span> <span class="fl">0.06276144</span> <span class="fl">1.729420</span>
+       .cooksd .std.resid
+<span class="dv">1</span> <span class="fl">0.0046055129</span> <span class="op">-</span><span class="fl">0.5601926</span>
+<span class="dv">2</span> <span class="fl">0.0046788147</span> <span class="op">-</span><span class="fl">0.4041844</span>
+<span class="dv">3</span> <span class="fl">0.0116232759</span>  <span class="fl">0.8108213</span>
+<span class="dv">4</span> <span class="fl">0.0008469145</span>  <span class="fl">0.1880004</span>
+<span class="dv">5</span> <span class="fl">0.0571952511</span> <span class="op">-</span><span class="fl">1.3573596</span>
+<span class="dv">6</span> <span class="fl">0.1090002740</span> <span class="op">-</span><span class="fl">1.8042944</span></code></pre></div>
 <p>Now, in addition to the <code>X</code> and <code>Y</code> variables of the original data, we have columns like <code>.fitted</code> (value of Y predicted by the model for the corresponding value of X), <code>.resid</code> (difference between the actual Y and the predicted value), and a variety of other information for evalulating model uncertainty.</p>
 <p>One thing we can do with this “augmented” data frame is to use it to better visualize and explore the model. For example, if we wanted to generate a figure highlighting the deviations from the model using vertical lines emanating from the regression line, we could do something like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, Y)) <span class="op">+</span><span class="st"> </span>
@@ -547,24 +609,36 @@ R2</code></pre></div>
 <div id="broomglance" class="section level3">
 <h3><span class="header-section-number">9.8.3</span> <code>broom::glance</code></h3>
 <p><code>glance()</code> provides summary information about the goodness of fit of the model. Most relevant for our current discussion is the column giving the coefficient of determination (<code>r.squared</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(fit.xy)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(fit.xy)
+  r.squared adj.r.squared    sigma statistic      p.value df    logLik
+<span class="dv">1</span> <span class="fl">0.6345462</span>     <span class="fl">0.6269326</span> <span class="fl">1.772473</span>  <span class="fl">83.34355</span> <span class="fl">4.580723e-12</span>  <span class="dv">2</span> <span class="op">-</span><span class="fl">98.54516</span>
+       AIC      BIC deviance df.residual
+<span class="dv">1</span> <span class="fl">203.0903</span> <span class="fl">208.8264</span> <span class="fl">150.7997</span>          <span class="dv">48</span></code></pre></div>
 </div>
 </div>
 <div id="bivariate-linear-regression-on-a-real-world-data-set" class="section level2">
 <h2><span class="header-section-number">9.9</span> Bivariate linear regression on a real world data set</h2>
 <p>Having walked through a simulation example, let’s now turn to a real world data set. A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions. To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion), giving the bivariate relationship (and fitted model) shown below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-fall2017/raw/master/datasets/ABD-lion-noses.csv&quot;</span>)</code></pre></div>
-<pre><code>Parsed with column specification:
-cols(
-  proportionBlack = col_double(),
-  ageInYears = col_double()
-)</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lions, <span class="kw">aes</span>(<span class="dt">x =</span> proportionBlack, <span class="dt">y =</span> ageInYears)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-fall2017/raw/master/datasets/ABD-lion-noses.csv&quot;</span>)
+Parsed with column specification<span class="op">:</span>
+<span class="kw">cols</span>(
+  <span class="dt">proportionBlack =</span> <span class="kw">col_double</span>(),
+  <span class="dt">ageInYears =</span> <span class="kw">col_double</span>()
+)
+
+<span class="kw">ggplot</span>(lions, <span class="kw">aes</span>(<span class="dt">x =</span> proportionBlack, <span class="dt">y =</span> ageInYears)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-300-1.png" width="576" /></p>
 <p>By eye, the linear model looks like a pretty good fit. Let’s take a look at the quantitative values of the regression model, using the various Broom functions to produce nice output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lion.model &lt;-<span class="st"> </span><span class="kw">lm</span>(ageInYears <span class="op">~</span><span class="st"> </span>proportionBlack, <span class="dt">data =</span> lions)
-<span class="kw">tidy</span>(lion.model)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lion.model)</code></pre></div>
+<span class="kw">tidy</span>(lion.model)
+             term   estimate std.error statistic      p.value
+<span class="dv">1</span>     (Intercept)  <span class="fl">0.8790062</span> <span class="fl">0.5688171</span>  <span class="fl">1.545323</span> <span class="fl">1.327530e-01</span>
+<span class="dv">2</span> proportionBlack <span class="fl">10.6471194</span> <span class="fl">1.5095005</span>  <span class="fl">7.053406</span> <span class="fl">7.677005e-08</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lion.model)
+  r.squared adj.r.squared    sigma statistic      p.value df    logLik
+<span class="dv">1</span>  <span class="fl">0.623827</span>     <span class="fl">0.6112879</span> <span class="fl">1.668764</span>  <span class="fl">49.75053</span> <span class="fl">7.677005e-08</span>  <span class="dv">2</span> <span class="op">-</span><span class="fl">60.76008</span>
+       AIC      BIC deviance df.residual
+<span class="dv">1</span> <span class="fl">127.5202</span> <span class="fl">131.9174</span> <span class="fl">83.54321</span>          <span class="dv">30</span></code></pre></div>
 <p>We then augment our data set with information from the model fit and plots a residual plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lions.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(lion.model, lions)
 <span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(proportionBlack, .resid)) <span class="op">+</span><span class="st"> </span>

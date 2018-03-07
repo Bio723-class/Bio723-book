@@ -16,7 +16,8 @@ description: "Hands-on materials for Bio 723 course at Duke University."
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, prompt = FALSE, eval = TRUE, 
                       warning = FALSE, comment=NA, cache = FALSE,
-                      fig.width = 6, fig.height = 4, results = "hide")
+                      fig.width = 6, fig.height = 4, #results = "hide",
+                      collapse=TRUE, results='markup')
 ```
 
 # Introduction 

@@ -281,7 +281,7 @@ abundance.loadings <- V %*% L
 abundance.loadings
 ```
 
-The magnitude of the factor loadings is what you want to focus on. For example, species `a` and `b` contribute most to the first PC, while species `c' has the largest influence on PC2.
+The magnitude of the factor loadings is what you want to focus on. For example, species `a` and `b` contribute most to the first PC, while species `c` has the largest influence on PC2.
 
 You can think of the factor loadings, as defined above, as the components (i.e lengths of the projected vectors) of the original variables with respect to the PC basis vectors.  Since vector length is proportional to the standard deviation of the variables they represent, you can think of the loadings as giving the standard deviation of the original variables with respect the PC axes. This implies that the loadings squared sum to the total variance in the original data, as illustrated below.
 
@@ -343,7 +343,7 @@ loadings.1and2
 
 With this data frame in hand, we can now draw a set of vector to represent the original variables projected into the subspace defined by PCs 1 and 2:
 
-```{r}
+```{r, fig.width=8}
 pc1v2.biplot <-
   pc1v2 +
   geom_segment(data=loadings.1and2,
@@ -359,7 +359,7 @@ pc1v2.biplot
 ```
 
 
-The figure above is called a "biplot"", as it simultaneously depicts both the observations and variables in the same space.  From this biplot we can immediately see that variable `a` is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable `c` is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves -- for example `b' and `d' are fairly strongly correlated, but weakly correlated with `c'.  Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.
+The figure above is called a "biplot"", as it simultaneously depicts both the observations and variables in the same space.  From this biplot we can immediately see that variable `a` is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable `c` is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves -- for example `b` and `d` are fairly strongly correlated, but weakly correlated with `c`.  Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.
 
 The biplot is a generally useful tool for multivariate analyses and there are a number of different ways to define biplots. We'll study biplots more formally in a few weeks after we've covered singular value decomposition.
 

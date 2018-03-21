@@ -485,7 +485,7 @@ ggplot(filtered.df, aes(x = sample.sd, y = ..density.., fill = sample.sz)) +
   
 ```
 
-There's very clear indication that the the sampling distribution of standard deviations is not centered around the rule value for $n=3$ and for $n=5$, however with samples of size 30 the sampling distribution of the standard deviation appears fairly well centered around the true value of the underlying population.
+There's very clear indication that the the sampling distribution of standard deviations is not centered around the true value for $n=3$ and for $n=5$, however with samples of size 30 the sampling distribution of the standard deviation appears fairly well centered around the true value of the underlying population.
 
 
 ### Underestimates of the standard deviation given small $n$ lead to understimates of the SE of the mean

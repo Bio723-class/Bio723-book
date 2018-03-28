@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="r-basics-data-types-and-data-structures.html">
-<link rel="next" href="introduction-to-ggplot2.html">
+<link rel="prev" href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -171,12 +171,16 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
 <li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
 <li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
-<li class="chapter" data-level="4.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.4.2</b> Code blocks</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.5</b> Running a code chunk</a></li>
-<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.6</b> Running all code chunks above</a></li>
-<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.7</b> “Knitting an” R Markdown to HTML</a></li>
-<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.8</b> Sharing your reproducible R Notebook</a></li>
+<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#bullet-points-lists"><i class="fa fa-check"></i><b>4.5</b> Bullet points lists</a></li>
+<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#numbered-lists"><i class="fa fa-check"></i><b>4.6</b> Numbered lists</a></li>
+<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#mathematics"><i class="fa fa-check"></i><b>4.7</b> Mathematics</a><ul>
+<li class="chapter" data-level="4.7.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.7.1</b> Code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.8</b> Running a code chunk</a></li>
+<li class="chapter" data-level="4.9" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.9</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="4.10" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.10</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="4.11" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.11</b> Sharing your reproducible R Notebook</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
 <li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
@@ -340,6 +344,7 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.10" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>11.10</b> An alternate model</a></li>
 <li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
 <li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+<li class="chapter" data-level="11.13" data-path="multiple-regression.html"><a href="multiple-regression.html#jittered-variables-are-highly-correlatd-with-original-variables"><i class="fa fa-check"></i><b>11.13</b> jittered variables are highly correlatd with original variables</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
 <li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
@@ -380,16 +385,19 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="13.8" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>13.8</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>14</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="14.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#libraries-7"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
-<li class="chapter" data-level="14.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>14.2</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="14.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calibrating-confidence-intervals"><i class="fa fa-check"></i><b>14.3</b> Calibrating confidence intervals</a></li>
-<li class="chapter" data-level="14.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#standard-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>14.4</b> Standard formulation for confidence intervals</a></li>
-<li class="chapter" data-level="14.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulating-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>14.5</b> Simulating confidence intervals for the mean</a></li>
-<li class="chapter" data-level="14.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#sample-estimate-of-the-standard-error-of-the-mean"><i class="fa fa-check"></i><b>14.6</b> Sample estimate of the standard error of the mean</a></li>
-<li class="chapter" data-level="14.7" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#ci-of-mean-simulation"><i class="fa fa-check"></i><b>14.7</b> CI of mean simulation</a></li>
-<li class="chapter" data-level="14.8" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generating-a-table-of-cis-and-corresponding-margins-of-error"><i class="fa fa-check"></i><b>14.8</b> Generating a table of CIs and corresponding margins of error</a></li>
-<li class="chapter" data-level="14.9" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#interpreting-our-simulation"><i class="fa fa-check"></i><b>14.9</b> Interpreting our simulation</a></li>
+<li class="chapter" data-level="14" data-path="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><i class="fa fa-check"></i><b>14</b> Simulating confidence intervals and Introducing the Jackknife and Bootstrap</a><ul>
+<li class="chapter" data-level="14.1" data-path="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html#libraries-7"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
+<li class="chapter" data-level="14.2" data-path="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html#confidence-intervals"><i class="fa fa-check"></i><b>14.2</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="14.3" data-path="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html#calibrating-confidence-intervals"><i class="fa fa-check"></i><b>14.3</b> Calibrating confidence intervals</a></li>
+<li class="chapter" data-level="14.4" data-path="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html"><a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html#standard-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>14.4</b> Standard formulation for confidence intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html"><i class="fa fa-check"></i><b>15</b> Simulating confidence intervals for the mean</a><ul>
+<li class="chapter" data-level="15.1" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#sample-estimate-of-the-standard-error-of-the-mean"><i class="fa fa-check"></i><b>15.1</b> Sample estimate of the standard error of the mean</a></li>
+<li class="chapter" data-level="15.2" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#ci-of-mean-simulation"><i class="fa fa-check"></i><b>15.2</b> CI of mean simulation</a></li>
+<li class="chapter" data-level="15.3" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#generating-a-table-of-cis-and-corresponding-margins-of-error"><i class="fa fa-check"></i><b>15.3</b> Generating a table of CIs and corresponding margins of error</a></li>
+<li class="chapter" data-level="15.4" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#conditions-for-sampling-distribution-of-the-mean-to-be-nearly-normal"><i class="fa fa-check"></i><b>15.4</b> Conditions for sampling distribution of the mean to be nearly normal</a></li>
+<li class="chapter" data-level="15.5" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#interpreting-our-simulation"><i class="fa fa-check"></i><b>15.5</b> Interpreting our simulation</a></li>
+<li class="chapter" data-level="15.6" data-path="simulating-confidence-intervals-for-the-mean.html"><a href="simulating-confidence-intervals-for-the-mean.html#in-class-assignment-1"><i class="fa fa-check"></i><b>15.6</b> <font color='red'> In-class Assignment #1</font></a></li>
 </ul></li>
 </ul>
 
@@ -408,133 +416,155 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-markdown-and-r-notebooks" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> R Markdown and R Notebooks</h1>
-<p>RStudio comes with a useful set of tools, collectively called R Markdown, for generating “literate” statistical analyses. The idea behind literate statistical computing is that we should try to carry out our analyses in a manner that is transparent, self-explanatory, and reproducible. Literate statistical computing helps to ensure your research is reproducible because:</p>
-<ol style="list-style-type: decimal">
-<li>The steps of your analyses are explicitly described, both as written text and the code and function calls used.</li>
-<li>Analyses can be more easily checked for correctness and reproduced from your literate code.</li>
-<li>Your literate code can serve as a template for future analyses, saving you time and the trouble of remembering all the gory details.</li>
+<div id="simulating-confidence-intervals-for-the-mean" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Simulating confidence intervals for the mean</h1>
+<p>To make the idea of a confidence interval more concrete, let’s carry out a simulation based on confidence intervals for the mean. In our simulation we will explore how varying the value of <span class="math inline">\(z\)</span> changes the percentage of times that the confidence interval brackets the true population mean.</p>
+<div id="sample-estimate-of-the-standard-error-of-the-mean" class="section level2">
+<h2><span class="header-section-number">15.1</span> Sample estimate of the standard error of the mean</h2>
+<p>Recall that if a variable <span class="math inline">\(X\)</span>is normally distributed in a population of interest, <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>, then the sampling distribution of the mean is also normally distributed with mean <span class="math inline">\(\sim μ\)</span>, and standard error <span class="math inline">\({SE}_\overline{X} = \frac{\sigma}{\sqrt{n}}\)</span>:</p>
+<p><span class="math display">\[
+\overline{X} \sim N \left( \mu, \frac{\sigma}{\sqrt{n}}\ \right)
+\]</span></p>
+<p>The above formula requires us to know the true population standard deviation, <span class="math inline">\(\sigma\)</span> in order to calculate <span class="math inline">\({SE}_\overline{X}\)</span>. In the absence of this information, the best we can do is use our “best guess” for <span class="math inline">\(\sigma\)</span> – the sample standard deviation <span class="math inline">\(s_X\)</span> that we calculate from the sample in hand. If we’re comfortable making the assumption that the sampling distribution of the mean is approximately normal than we can estimate the standard error of the mean as: <span class="math display">\[
+{SE}_{\overline{X}} = \frac{s_X}{\sqrt{n}}
+\]</span></p>
+<p>We’ll revisit this assumption of approximate normality of the sampling distribution of the mean when we discuss the t-distribution.</p>
+</div>
+<div id="ci-of-mean-simulation" class="section level2">
+<h2><span class="header-section-number">15.2</span> CI of mean simulation</h2>
+<p>In our simulation we’re going to generate a large number of samples, and for each sample we will calculate the sample estimate of the standard error of the mean, and the CI of the mean for a range of <span class="math inline">\(z\)</span> values. We will then ask, “for what fraction of the samples did our CI overlap the true population mean”? This will give us a sense of how well different confidence intervals, expressed in terms of multiples <span class="math inline">\(z\)</span> of the sample standard errors, do in terms providing a plausible range for the mean.</p>
+<p>First, we’ll setup a utitity function to generate random samples and calculate stats of interest:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">20180328</span>)
+
+rsample.stats &lt;-<span class="st"> </span><span class="cf">function</span>(x, n, var.name) {
+  sample_x &lt;-<span class="st"> </span><span class="kw">sample_n</span>(x, n)
+  <span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n, 
+             <span class="dt">sample.mean =</span> <span class="kw">mean</span>(sample_x[[var.name]]), 
+             <span class="dt">sample.sd =</span> <span class="kw">sd</span>(sample_x[[var.name]]),
+             <span class="dt">sample.se =</span> sample.sd<span class="op">/</span><span class="kw">sqrt</span>(n))
+}</code></pre></div>
+<p>Now we’ll generate 1000 random samples of size 50.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">height.data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-fall2017/raw/master/datasets/simulated-US-male-height.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   height = col_double()
+## )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">true.values &lt;-<span class="st"> </span>
+<span class="st">  </span>height.data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(height), 
+            <span class="dt">sd =</span> <span class="kw">sd</span>(height))
+
+samples.of.<span class="dv">50</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">1000</span>,  <span class="kw">rsample.stats</span>(height.data, <span class="dv">50</span>, <span class="st">&quot;height&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()</code></pre></div>
+<p>Using those 1000 random sample, we consider different values of <span class="math inline">\(z\)</span> to calculate confidence intervals. For each value of <span class="math inline">\(z\)</span> we determine what percent of the confidence intervals included the true mean.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.values &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.05</span>)
+
+perc.in.CI &lt;-<span class="st"> </span><span class="kw">c</span>()
+
+<span class="cf">for</span> (z <span class="cf">in</span> z.values) {
+  CI.left &lt;-<span class="st"> </span>samples.of.<span class="dv">50</span><span class="op">$</span>sample.mean <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>samples.of.<span class="dv">50</span><span class="op">$</span>sample.se
+  CI.right &lt;-<span class="st"> </span>samples.of.<span class="dv">50</span><span class="op">$</span>sample.mean <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>samples.of.<span class="dv">50</span><span class="op">$</span>sample.se
+  mean.in.CI &lt;-<span class="st"> </span>(CI.left <span class="op">&lt;=</span><span class="st"> </span>true.values<span class="op">$</span>mean) <span class="op">&amp;</span><span class="st"> </span>(CI.right <span class="op">&gt;=</span><span class="st"> </span>true.values<span class="op">$</span>mean)
+  perc.in.CI &lt;-<span class="st"> </span><span class="kw">c</span>(perc.in.CI, <span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(mean.in.CI)<span class="op">/</span><span class="kw">length</span>(mean.in.CI))
+}
+
+CI.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">z =</span> z.values, <span class="dt">perc.brackets.mean =</span> perc.in.CI)
+
+CI.df</code></pre></div>
+<pre><code>## # A tibble: 41 x 2
+##        z perc.brackets.mean
+##    &lt;dbl&gt;              &lt;dbl&gt;
+##  1  1.00               69.2
+##  2  1.05               71.0
+##  3  1.10               73.9
+##  4  1.15               76.1
+##  5  1.20               77.6
+##  6  1.25               78.8
+##  7  1.30               80.7
+##  8  1.35               81.7
+##  9  1.40               83.5
+## 10  1.45               85.0
+## # ... with 31 more rows</code></pre>
+<p>We then plot our results. Since the sampling distribution of the mean is approximately normally distributed, we can also use the distribution function of a normal distribution to calculate the proportion of samples that would include the true mean as we change the size of our confidence intervals (by changing <span class="math inline">\(z\)</span>). This theoretical expectation is shown as the red dashed line in the figure below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># theoretical expectation from the fact that sampling distribution of mean is</span>
+<span class="co"># normally distributed</span>
+theory.frac.overlap &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(z.values))
+
+<span class="kw">ggplot</span>(CI.df, <span class="kw">aes</span>(<span class="dt">x =</span> z, <span class="dt">y =</span> perc.brackets.mean)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> z.values, <span class="dt">y =</span> theory.frac.overlap <span class="op">*</span><span class="st"> </span><span class="dv">100</span>), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;z in CI =  sample mean ± z × SE&quot;</span>,
+       <span class="dt">y =</span> <span class="st">&quot;% of CIs that include </span><span class="ch">\n</span><span class="st">true population mean&quot;</span>)</code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>How should we interpret the results above? We found as we increased the scaling of our confidence intervals (larger <span class="math inline">\(z\)</span>), the true mean was within sample confidence intervals a greater proportion of the time. For example, when <span class="math inline">\(z = 1\)</span> we found that the true mean was within our CIs roughly 70% of the time, while at <span class="math inline">\(z = 2\)</span> the true mean was within our confidence intervals approximately 95% of the time.</p>
+</div>
+<div id="generating-a-table-of-cis-and-corresponding-margins-of-error" class="section level2">
+<h2><span class="header-section-number">15.3</span> Generating a table of CIs and corresponding margins of error</h2>
+<p>The table below gives the percent CI and the corresponding <strong>margin of error</strong> (the appropriate <span class="math inline">\(z\)</span> to use in <span class="math inline">\(z \times {SE}\)</span>) for that confidence interval based on the assumption that the sampling distribution of the statistic of interest is normal (NOTE: not all sampling distributions are normal, so this doesn’t always apply).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">percent &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>, <span class="fl">0.997</span>)
+zval &lt;-<span class="st"> </span><span class="op">-</span><span class="kw">qnorm</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>percent)<span class="op">/</span><span class="dv">2</span>) <span class="co"># account for two tails of the sampling distn</span>
+
+z.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ci.percent =</span> percent, <span class="dt">margin.of.error =</span> zval)
+z.df</code></pre></div>
+<pre><code>##   ci.percent margin.of.error
+## 1      0.800        1.281552
+## 2      0.900        1.644854
+## 3      0.950        1.959964
+## 4      0.990        2.575829
+## 5      0.997        2.967738</code></pre>
+<p>Using this table we can lookup the appropriate margin of error (<span class="math inline">\(z\)</span>) to use to get correspnoding confidence intervals.</p>
+<p>For example:</p>
+<ul>
+<li><p>To calculate the for the 95% CIs of the mean, we look up the corresponding row of the table which tells us the appropriate confidence interval is given by: <span class="math inline">\(\overline{X} \pm 1.96 \times {SE}_\overline{X}\)</span></p></li>
+<li><p>For 99% CIs of the mean: <span class="math inline">\(\overline{X} \pm 2.58 \times {SE}_\overline{X}\)</span></p></li>
+</ul>
+</div>
+<div id="conditions-for-sampling-distribution-of-the-mean-to-be-nearly-normal" class="section level2">
+<h2><span class="header-section-number">15.4</span> Conditions for sampling distribution of the mean to be nearly normal</h2>
+<p>For the sampling distribution of the mean to be nearly normal, and hence <span class="math inline">\({SE}_\overline{x}\)</span> to be accurate, the following conditions should hold:</p>
+<ul>
+<li>Sample observations are independent</li>
+<li>Sample size is large (<span class="math inline">\(n \geq 30\)</span> is good rule of thumb)</li>
+<li>Population distribution is not strongly skewed</li>
+</ul>
+</div>
+<div id="interpreting-our-simulation" class="section level2">
+<h2><span class="header-section-number">15.5</span> Interpreting our simulation</h2>
+<p>Let’s review exactly what we mean by a “95% confidence interval”. This means if we took many samples and built a confidence interval for each sample using the equation above, then about 95% of those intervals would contain the true mean, μ. Note that this is exactly what we did in our simulation!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">samples.of.<span class="dv">50</span> <span class="op">%&lt;&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ci.95.left =</span> (sample.mean <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>sample.se),
+         <span class="dt">ci.95.right =</span> (sample.mean <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>sample.se),
+         <span class="dt">ci.includes.mean =</span> (ci.<span class="fl">95.</span>left <span class="op">&lt;=</span><span class="st"> </span>true.values<span class="op">$</span>mean) <span class="op">&amp;</span><span class="st"> </span>(ci.<span class="fl">95.</span>right <span class="op">&gt;=</span><span class="st"> </span>true.values<span class="op">$</span>mean))
+
+n.draw &lt;-<span class="st"> </span><span class="dv">100</span>
+
+samples.of.<span class="dv">50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sample_n</span>(n.draw) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> sample.mean, <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dv">1</span>,n.draw), <span class="dt">color =</span> ci.includes.mean)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.values<span class="op">$</span>mean, <span class="dt">color =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.75</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_errorbarh</span>(<span class="kw">aes</span>(<span class="dt">xmin =</span> ci.<span class="fl">95.</span>left, <span class="dt">xmax =</span> ci.<span class="fl">95.</span>right)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;mean x and estimated CI&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;sample&quot;</span>, 
+         <span class="dt">title =</span> <span class="st">&quot;95% CI: mean ± 1.96×SE</span><span class="ch">\n</span><span class="st">for 100 samples of size 50&quot;</span>)  </code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-7-1.png" width="422.4" style="display: block; margin: auto;" /></p>
+</div>
+<div id="in-class-assignment-1" class="section level2">
+<h2><span class="header-section-number">15.6</span> <font color='red'> In-class Assignment #1</font></h2>
+<p>The questions below use the csv-delimited <a href="https://raw.githubusercontent.com/bio304-class/bio304-fall2017/master/datasets/possums.csv">possums data set</a> that contains morphological measurements on 104 brushtail possums. This data set contains information on variables such as sex, age, head length, skull width, etc.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Create a vertically facetted plot (i.e. the facets should go in the vertical direction) showing density histograms of total length (<code>totlngth</code>) faceted by population (<code>Pop</code>). Make sure to label your axes, add titles to the plots as necessary, and use an appropriate number of bins in your visualization. [1 pt]</p></li>
+<li><p>Calculate the mean total length for a) possums from the Victoria (<code>Vic</code>) population; b) possums from all other populations (<code>other</code>) [0.5 pt]</p></li>
+<li><p>Calculate 95% confidence intervals for mean total length for: a) the Victoria population of possums; b) all other possums [1 pt]</p></li>
+<li><p>Do the 95% CIs for mean body length overlap when comparing the Victoria possums to possums from other populations? [0.5 pt]</p></li>
+<li><p>Create a vertically facetted plot (i.e. the facets should go in the vertical direction) showing density histograms of tail length (<code>taill</code>) faceted by population. Make sure to label your axes, add titles to the plots as necessary, and use an appropriate number of bins in your visualization. [1 pt]</p></li>
+<li><p>Calculate the mean tail length for a) possums from the Victoria population; b) possums from all other populations [0.5 pt]</p></li>
+<li><p>Calculate 95% confidence intervals for mean tail length for: a) the Victoria population of possums; b) all other possums [1 pt]</p></li>
+<li><p>Do the 95% CIs for mean tail length overlap when comparing the Victoria possums to possums from other populations? [0.5 pt]</p></li>
+<li><p>Based on your analyses of the two variables (total length and tail length) you examined above, do you have any evidence that the Victoria possums are morphologically distinct from other populations? [2 pts]</p></li>
+<li><p>The standard formula for the standard error of the median (assuming the underlying data is normally distributed) is: <span class="math inline">\(SE_\mbox{median(X)} = 1.253 \frac{s_X}{\sqrt{n}}\)</span>. Assuming the sampling distribution of the median is normally distributed, calculate 95% and 99% confidence intervals of the median total length and median tail length for the Victoria population [2 pts]</p></li>
 </ol>
-<p>As we’ll see, R Markdown will allow us to produce statistical documents that integrateprose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the other is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
-<p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This hands-on provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
-<div id="r-notebooks" class="section level2">
-<h2><span class="header-section-number">4.1</span> R Notebooks</h2>
-<p>We’re going to create a type of R Markdown document called an “R Notebook”. The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
-</div>
-<div id="creating-an-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.2</span> Creating an R Notebook</h2>
-<p>To create an R Notebook select <code>File &gt; New File &gt; R Notebook</code> from the files menu in RStudio.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
-<img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="600px" />
-<p class="caption">
-Figure 4.1: Using the File menu to create a new R Notebook.
-</p>
-</div>
-</div>
-<div id="the-default-r-notebook-template" class="section level2">
-<h2><span class="header-section-number">4.3</span> The default R Notebook template</h2>
-<p>The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.</p>
-<pre><code>---
-title: &quot;R Notebook&quot;
-output: html_notebook
----</code></pre>
-<p>The header is followed by several example sections that illustrate a few of the capabilities of R Markdown. Delete these and replace them with your own code as necessary.</p>
-</div>
-<div id="code-and-non-code-blocks" class="section level2">
-<h2><span class="header-section-number">4.4</span> Code and Non-code blocks</h2>
-<p>R Markdown documents are divided into code blocks (also called “chunks”) and non-code blocks. Code blocks are sets of R commands that will be evalauted when the R Markdown document is run or “knitted” (see below). Non-code blocks include explanatory text, embedded images, etc. The default notebook template includes both code and non-code blocks.</p>
-<div id="non-code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Non-code blocks</h3>
-<p>The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:</p>
-<pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. </code></pre>
-<p>The text of non-code blocks can include lightweight markup information that can be used to format HTML or PDF output generated from the R Markdown document. Here are some examples:</p>
-<pre><code># Simple textual formatting 
-
-This is a paragraph with plain text.  Nothing fancy will happen here.
-
-This is a second paragraph with *italic*, **bold**, and `verbatim` text. 
-
-# Lists
-
-## Bullet points lists
-
-This is a list with bullet points:
-
-  * Item a
-  * Item b
-  * Item c
-
-## Numbered lists
-  
-This is a numbered list:
-
-  1. Item 1
-  #. Item 2
-  #. Item 3
-  
-## Mathematics
-
-R Markdown supports mathematical equations, formatted according to LaTeX
-conventions. Dollar signs ($) are used to offset mathematics 
-like so:  $x^2 + y^2 = z^2$.
-</code></pre>
-<p>Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations. For example, <code>$x^2 + y^2 = z^2$</code> appears as <span class="math inline">\(x^2 + y^2 = z^2\)</span>.</p>
-</div>
-<div id="code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Code blocks</h3>
-<p>Code blocks are delimited by matching sets of three backward ticks (```). Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here’s the first code block in the default notebook template:</p>
-<pre><code>```{r}
-plot(cars)
-```</code></pre>
-</div>
-</div>
-<div id="running-a-code-chunk" class="section level2">
-<h2><span class="header-section-number">4.5</span> Running a code chunk</h2>
-<p>You can run a single code block by clicking the small green “Run” button in the upper right hand corner of the code block as shown in the image below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
-<img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="600px" />
-<p class="caption">
-Figure 4.2: Click the Run button to execute a code chunk.
-</p>
-</div>
-<p>If you click this button the commands within this code block are executed, and any generated output is shown below the code block.</p>
-<p>Try running the first code block in the default template now. After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-95"></span>
-<img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="600px" />
-<p class="caption">
-Figure 4.3: An R Notebook showing an embedded plot after executing a code chunk.
-</p>
-</div>
-</div>
-<div id="running-all-code-chunks-above" class="section level2">
-<h2><span class="header-section-number">4.6</span> Running all code chunks above</h2>
-<p>Next to the “Run” button in each code chunk is a button for “Run all chunks above” (see figure below). This is useful when the code chunk you’re working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
-<img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="600px" />
-<p class="caption">
-Figure 4.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
-</p>
-</div>
-</div>
-<div id="knitting-an-r-markdown-to-html" class="section level2">
-<h2><span class="header-section-number">4.7</span> “Knitting an” R Markdown to HTML</h2>
-<p>Save your R Notebook as <code>first_rnotebook.Rmd</code> (RStudio will automatically add the <code>.Rmd</code> extension so you don’t need to type it). You can generate an HTML version of your notebook by clicking the “Preview” menu on the Notebook taskbar and then choosing “Knit to HTML” (see image below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-97"></span>
-<img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="600px" />
-<p class="caption">
-Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
-</p>
-</div>
-<p>When an RMarkdown document is “knit”, all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
-<p>Knitting a document is a good way to make sure your analysis is reproducible. If your code compiles correctly when the document is knit, and produces the expected output, there’s a good chance that someone else will be able to reproduce your analyses independently starting with your R Notebook document (after accounting for differences in file locations).</p>
-</div>
-<div id="sharing-your-reproducible-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.8</span> Sharing your reproducible R Notebook</h2>
-<p>To share your R Notebook with someone else you just need to send them the source R Markdown file (i.e. the file with the <code>.Rmd</code> extension). Assuming they have access to the same source data, another user should be able to open the notebook file in RStudio and regenerate your analyses by evaluating the individual code chunks or knitting the document.</p>
-<p>In this course you will be submitting homework assignments in the form of R Notebook markdown files.</p>
 
 </div>
 </div>
@@ -543,8 +573,8 @@ Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R 
           </div>
         </div>
       </div>
-<a href="r-basics-data-types-and-data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simulating-confidence-intervals-and-introducing-the-jackknife-and-bootstrap.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

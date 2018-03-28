@@ -1,0 +1,142 @@
+
+# Simulating confidence intervals and Introducing the Jackknife and Bootstrap
+
+
+Recall the concept of the **sampling distribution of a statistic** -- this is simply the probability distribution of the statistic of interest you would observe if you took a large number of random samples of a given size from a population of interest and calculated that statistic for each of the samples. In the previous lecture you used simulation to approximate the sampling distribution a number of different statistics.
+
+To use simulation to approximate a sampling distribution we carried out the following steps:
+
+1. Made some assumptions about the distributional properties of the underlying population 
+2. Simulate drawing random samples of a given size from that population
+3. For each simulated random sample, calculate the statistic(s) of interest
+4. Treat the simulated distribution of the statistics of interest as the sampling distribution
+
+You learned that the standard deviation of the sampling distribution of a statistic has a special name -- the **standard error** of that statistic.  The standard error of a statistic provides a way to quantify the uncertainty of a statistic across random samples.   Here we show how to use information about the standard error of a statistic to calculate confidence intervals for a statistic based on a set of observed data.
+
+
+## Libraries
+
+```{r, warning=FALSE,message=FALSE}
+library(tidyverse)
+library(magrittr)
+```
+
+## Confidence Intervals
+
+We know that given a random sample from a population of interest, the value of a statistic of interest is unlikely to be exactly equally to the true population value of that statistics.  However, our simulations have taught us a number of things:
+
+  1. As sample size increases, the sample estimate of the given statistic is more likely to be close to the true value of that statistic
+  
+  2. As sample size increases, the standard error of the statistic decreases
+
+We can use this knowledge to calculate a _plausible ranges of values_ for the statistic of interest.  We call such ranges **confidence intervals** for the statistic of interest. 
+
+## Calibrating confidence intervals
+
+How are we to calibrate "plausible ranges"? We will define an "X% percent confidence interval for a statistic of interest", as an interval that when calculated from a random sample, would include the true population value of the statistic X% of the time.
+
+ This quote from the [NIST page on confidence intervals](http://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm) helps to make this concrete regarding confidence intervals for he mean:
+
+> As a technical note, a 95 % confidence interval does not mean that there is a 95 % probability that the interval contains the true mean. The interval computed from a given sample either contains the true mean or it does not. Instead, **the level of confidence is associated with the method of calculating the interval** ... That is, for a 95% confidence interval, if many samples are collected and the confidence interval computed, in the long run about 95% of these intervals would contain the true mean.
+
+
+## Standard formulation for confidence intervals
+
+We define the $(100\times\beta)$% confidence interval for the statistic $\phi$ as the interval:
+
+\[
+CI_\beta = \phi_{i,n} \pm (z \times {SE}_{\phi,n})
+\]
+
+Where:
+
+* $\phi_i,n$ is the statistic of interest in a random sample of size $n$
+* ${SE}_{\phi,n}$ is the standard error of the statistic $\phi$ (via simulation or analytical solution)
+
+And the value of $z$ is chosen so that:
+
+* across many different random samples of size $n$, the true value of the $\phi$ in the population of interest would fall within the interval approximately $CI_\beta$ $(100\times\beta)$% of the time
+
+So rather than estimating a single value of $\phi$ from our data, we will use our observed data plus knowledge about the sampling distribution of $\phi$ to estimate a range of plausible values for $\phi$. The size of this interval will be chosen so that if we considered many possible random samples, the true population value of $\phi$ would be bracketed by the interval in $(100\times\beta)$%  of the samples.
+
+
+## Example
+
+
+```{r}
+
+set.seed(20180328)
+
+# Assume underlying population
+mu = 4
+
+sample.distn.mean <- replicate(10000, mean(rpois(25, mu)))
+
+df <- data_frame(means = sample.distn.mean)
+```
+
+
+```{r}
+ggplot(df, aes(x = means)) +
+  geom_histogram(bins=25)
+```
+
+
+```{r}
+
+sample.sizes <- c(3:10, seq(12,30,by=2), seq(40,100,by=10))
+
+
+simulated.samples <- 
+  sample.sizes %>%
+  map(function(x) rerun(5000, rpois(x, mu))) %>%
+  flatten
+
+simulated.stats <-
+  simulated.samples %>%
+  map_dfr(function(x) list(n = length(x), mean=mean(x), sd = sd(x)))
+
+stats.of.sampling.distns <-
+  simulated.stats %>%
+  group_by(n) %>%
+  summarize(se.mean = sd(mean), se.sd = sd(sd))
+
+
+```
+
+
+
+
+```{r}
+
+
+simulate.poisson.sampling.distn <- function(mu, ssizes, nsims = 1000) {
+  simulated.samples <- 
+    ssizes %>%
+    map(function(x) rerun(nsims, rpois(x, mu))) %>%
+    flatten
+
+  simulated.stats <-
+    simulated.samples %>%
+    map_dfr(function(x) list(true.mu = mu, n = length(x), mean=mean(x), sd = sd(x)))
+
+  stats.of.sampling.distns <-
+    simulated.stats %>%
+    group_by(n) %>%
+    summarize(true.mu = as.integer(mean(true.mu)), se.mean = sd(mean), se.sd = sd(sd))
+  
+  return(stats.of.sampling.distns)
+}
+```
+
+
+```{r}
+
+sample.sizes <- c(3:10, seq(12,30,by=2), seq(40,100,by=10))
+means <- 1:10
+
+
+w <- means %>%
+  map(function(x) simulate.poisson.sampling.distn(x, sample.sizes, nsims=5000)) %>%
+  bind_rows
+```

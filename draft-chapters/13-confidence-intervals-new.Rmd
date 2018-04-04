@@ -86,7 +86,6 @@ ggplot(df, aes(x = means)) +
 
 sample.sizes <- c(3:10, seq(12,30,by=2), seq(40,100,by=10))
 
-
 simulated.samples <- 
   sample.sizes %>%
   map(function(x) rerun(5000, rpois(x, mu))) %>%
@@ -123,7 +122,8 @@ simulate.poisson.sampling.distn <- function(mu, ssizes, nsims = 1000) {
   stats.of.sampling.distns <-
     simulated.stats %>%
     group_by(n) %>%
-    summarize(true.mu = as.integer(mean(true.mu)), se.mean = sd(mean), se.sd = sd(sd))
+    summarize(true.mu = mean(true.mu), se.mean = sd(mean), se.sd = sd(sd),
+              mean.mean = mean(mean), mean.sd = mean(sd))
   
   return(stats.of.sampling.distns)
 }
@@ -131,12 +131,10 @@ simulate.poisson.sampling.distn <- function(mu, ssizes, nsims = 1000) {
 
 
 ```{r}
-
 sample.sizes <- c(3:10, seq(12,30,by=2), seq(40,100,by=10))
-means <- 1:10
-
+means <- 1:20
 
 w <- means %>%
-  map(function(x) simulate.poisson.sampling.distn(x, sample.sizes, nsims=5000)) %>%
+  map(function(x) simulate.poisson.sampling.distn(x, sample.sizes, nsims=1000)) %>%
   bind_rows
 ```

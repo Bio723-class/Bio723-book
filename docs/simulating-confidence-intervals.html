@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-03-28">
+<meta name="date" content="2018-04-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="simulating-sampling-distributions.html">
-
+<link rel="next" href="randomization-jackknife-and-bootstrap.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -391,6 +391,23 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.8" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generating-a-table-of-cis-and-corresponding-margins-of-error"><i class="fa fa-check"></i><b>14.8</b> Generating a table of CIs and corresponding margins of error</a></li>
 <li class="chapter" data-level="14.9" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#interpreting-our-simulation"><i class="fa fa-check"></i><b>14.9</b> Interpreting our simulation</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html"><i class="fa fa-check"></i><b>15</b> Randomization, Jackknife, and Bootstrap</a><ul>
+<li class="chapter" data-level="15.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#libraries-8"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
+<li class="chapter" data-level="15.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#randomization"><i class="fa fa-check"></i><b>15.2</b> Randomization</a></li>
+<li class="chapter" data-level="15.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-a-difference-in-means"><i class="fa fa-check"></i><b>15.3</b> Using randomization to test for a difference in means</a></li>
+<li class="chapter" data-level="15.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-equality-of-variances"><i class="fa fa-check"></i><b>15.4</b> Using randomization to test for equality of variances</a></li>
+<li class="chapter" data-level="15.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#jackknifing-in-r"><i class="fa fa-check"></i><b>15.5</b> Jackknifing in R</a></li>
+<li class="chapter" data-level="15.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bootstrapping-in-r"><i class="fa fa-check"></i><b>15.6</b> Bootstrapping in R</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#a-more-sophisticated-application-of-the-bootstrap"><i class="fa fa-check"></i><b>15.6.1</b> A more sophisticated application of the bootstrap</a></li>
+<li class="chapter" data-level="15.6.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#about-logistic-regression"><i class="fa fa-check"></i><b>15.6.2</b> About logistic regression</a></li>
+<li class="chapter" data-level="15.6.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bumpus-house-sparrow-data-set"><i class="fa fa-check"></i><b>15.6.3</b> Bumpus house sparrow data set</a></li>
+<li class="chapter" data-level="15.6.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#predicting-survival-as-a-function-of-body-weight"><i class="fa fa-check"></i><b>15.6.4</b> Predicting survival as a function of body weight</a></li>
+<li class="chapter" data-level="15.6.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#fitting-the-logistic-regression"><i class="fa fa-check"></i><b>15.6.5</b> Fitting the logistic regression</a></li>
+<li class="chapter" data-level="15.6.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#defining-an-appropriate-function-for-boot"><i class="fa fa-check"></i><b>15.6.6</b> Defining an appropriate function for <code>boot</code></a></li>
+<li class="chapter" data-level="15.6.7" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#calculating-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.7</b> Calculating bootstrap confidence intervals</a></li>
+<li class="chapter" data-level="15.6.8" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#visualizing-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.8</b> Visualizing bootstrap confidence intervals</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -586,19 +603,13 @@ samples.of.<span class="dv">50</span> <span class="op">%&gt;%</span>
 
 </div>
 </div>
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="simulating-sampling-distributions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="simulating-sampling-distributions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="randomization-jackknife-and-bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

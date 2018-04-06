@@ -89,7 +89,6 @@ mean.diff <- function(x1, x2) {
 Now let's write a generic randomization function:
 
 ```{r}
-set.seed(20161204)
 randomization <- function(x1, x2, fxn,nsamples=100){
   stats <- c()  # will hold our randomized stats
   orig <- c(x1,x2)
@@ -101,7 +100,7 @@ randomization <- function(x1, x2, fxn,nsamples=100){
 }
 ```
 
-We can then use the `randomization` function we wrote as follows to evaluate the significance of the observed difference in means in the original sample. First we generate 1000 random samples, where the group membership has been randomized with respect to measurements, and calculate the mean difference between the groups:
+We can then use the `randomization()` function we wrote as follows to evaluate the significance of the observed difference in means in the original sample. First we generate 1000 random samples, where the group membership has been randomized with respect to the measurements, and calculate the mean difference between the groups for each of those randomized samples:
 
 ```{r}
 # generate 1000  samples of the mean.diff for randomized data
@@ -128,7 +127,7 @@ ngreater <- sum(rsample >= 4.8)
 ngreater
 ```
 
-So our conclusion is that the probability of getting a mean difference between samples of this size is about $3/1000=0.003$.  Note that we can't generalize this to golden jackals as a whole because we know nothing about whether these samples actually represent random samples of the golden jackal population or biases that might have been imposed on the collection (e.g. maybe the collectors liked to single out particularly large males). However, if we saw a similar trend (males larger than females) in multiple museum collections we might see this as supporting evidence that the trend holds true in general.
+So our conclusion is that the probability of getting a mean difference between samples of this size is about `r ngreater`/1000 = `r ngreater/1000`.  Note that we can't generalize this to golden jackals as a whole because we know nothing about whether these samples actually represent random samples of the golden jackal population or biases that might have been imposed on the collection (e.g. maybe the collectors liked to single out particularly large males). However, if we saw a similar trend (males larger than females) in multiple museum collections we might see this as supporting evidence that the trend holds true in general.
 
 ## Using randomization to test for equality of variances
 
@@ -199,9 +198,10 @@ jknife <- function(x, fxn, ci=0.95) {
     alpha = 1-ci
     CI <- qt(alpha/2,n-1,lower.tail=FALSE)*jack.se
     jack.ci <- c(jack.est - CI, jack.est + CI)
-    list(est=jack.est, se=jack.se, ci=jack.ci)
+    list(est=jack.est, se=jack.se, ci=jack.ci, pseudos = pseudos, partials=partials)
 }
 ```
+
 
 The `bootstrap` package contains a very similar implementation of a jackknife function (`jackknife()`).
 
@@ -555,13 +555,16 @@ ggplot() +
   lims(x = c(22,32), y = c(0,1))
 ```
 
-We can compare our bootstrap 95% CIs to the confidence intervals calculated by `geom_smooth`, which uses an asymptotic approximation to calculate confidence intervals for the logistic regression:
+In the next plot we directly compare our bootstrap 95% CIs to the confidence intervals calculated by `geom_smooth`, which uses an asymptotic approximation to calculate confidence intervals for the logistic regression. 
 
 ```{r}
 # draw the regression plot
-ggplot(bumpus, aes(x=weight.g, y=survived)) + 
-  geom_jitter(width = 0, height = 0.1) +
-  geom_smooth(method="glm", method.args = list(family="binomial"), se=TRUE) + 
+ggplot() + 
+  geom_jitter(mapping = aes(x=weight.g, y=survived), data = bumpus, width = 0, height = 0.1) +
+  geom_smooth(mapping = aes(x=weight.g, y=survived), data = bumpus, method="glm", method.args = list(family="binomial"), se=TRUE) + 
+  geom_line(mapping = aes(x = x, y = map_dbl(predicted.mtx.df, quantile.975)), color='red', linetype='dashed', data = NULL) +
+  geom_line(mapping = aes(x = x, y = map_dbl(predicted.mtx.df, quantile.025)), color='red', linetype='dashed', data = NULL) +
   labs(x = "Weight (g)", y = "Prob. Survival")
 ```
 
+Our plot indicates that the asymptotic estimates of the logistic regression CIs and the bootstrap estimates of the CIs are very similar.

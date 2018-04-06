@@ -494,8 +494,7 @@ jackals &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span c
   <span class="kw">mean</span>(x1) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x2)
 }</code></pre></div>
 <p>Now let’s write a generic randomization function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">20161204</span>)
-randomization &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2, fxn,<span class="dt">nsamples=</span><span class="dv">100</span>){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">randomization &lt;-<span class="st"> </span><span class="cf">function</span>(x1, x2, fxn,<span class="dt">nsamples=</span><span class="dv">100</span>){
   stats &lt;-<span class="st"> </span><span class="kw">c</span>()  <span class="co"># will hold our randomized stats</span>
   orig &lt;-<span class="st"> </span><span class="kw">c</span>(x1,x2)
   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>nsamples){
@@ -504,7 +503,7 @@ randomization &lt;-<span class="st"> </span><span class="cf">function</span>(x1,
   }
   <span class="kw">return</span> (stats)
 }</code></pre></div>
-<p>We can then use the <code>randomization</code> function we wrote as follows to evaluate the significance of the observed difference in means in the original sample. First we generate 1000 random samples, where the group membership has been randomized with respect to measurements, and calculate the mean difference between the groups:</p>
+<p>We can then use the <code>randomization()</code> function we wrote as follows to evaluate the significance of the observed difference in means in the original sample. First we generate 1000 random samples, where the group membership has been randomized with respect to the measurements, and calculate the mean difference between the groups for each of those randomized samples:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate 1000  samples of the mean.diff for randomized data</span>
 rsample &lt;-<span class="st"> </span><span class="kw">randomization</span>(male.mandibles, 
                          female.mandibles, 
@@ -519,8 +518,8 @@ rsample &lt;-<span class="st"> </span><span class="kw">randomization</span>(male
 <p>We then pose the questions “In how many of the random samples is the mean difference between the two groups as great or larger than the observed difference in our original samples?”</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ngreater &lt;-<span class="st"> </span><span class="kw">sum</span>(rsample <span class="op">&gt;=</span><span class="st"> </span><span class="fl">4.8</span>)
 ngreater
-[<span class="dv">1</span>] <span class="dv">3</span></code></pre></div>
-<p>So our conclusion is that the probability of getting a mean difference between samples of this size is about <span class="math inline">\(3/1000=0.003\)</span>. Note that we can’t generalize this to golden jackals as a whole because we know nothing about whether these samples actually represent random samples of the golden jackal population or biases that might have been imposed on the collection (e.g. maybe the collectors liked to single out particularly large males). However, if we saw a similar trend (males larger than females) in multiple museum collections we might see this as supporting evidence that the trend holds true in general.</p>
+[<span class="dv">1</span>] <span class="dv">1</span></code></pre></div>
+<p>So our conclusion is that the probability of getting a mean difference between samples of this size is about 1/1000 = 0.001. Note that we can’t generalize this to golden jackals as a whole because we know nothing about whether these samples actually represent random samples of the golden jackal population or biases that might have been imposed on the collection (e.g. maybe the collectors liked to single out particularly large males). However, if we saw a similar trend (males larger than females) in multiple museum collections we might see this as supporting evidence that the trend holds true in general.</p>
 </div>
 <div id="using-randomization-to-test-for-equality-of-variances" class="section level2">
 <h2><span class="header-section-number">15.4</span> Using randomization to test for equality of variances</h2>
@@ -541,12 +540,12 @@ ngreater
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-418-1.png" width="576" /></p>
 <p>The mean ratio of variances in our randomized sample is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(vsample)
-[<span class="dv">1</span>] <span class="fl">1.276531</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.277209</span></code></pre></div>
 <p>The number and fraction of times our randomized samples are greater than that observed for our actual samples is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(vsample <span class="op">&gt;=</span><span class="st"> </span><span class="fl">2.68</span>)  <span class="co"># number of times </span>
-[<span class="dv">1</span>] <span class="dv">75</span>
+[<span class="dv">1</span>] <span class="dv">79</span>
 <span class="kw">sum</span>(vsample <span class="op">&gt;=</span><span class="st"> </span><span class="fl">2.68</span>)<span class="op">/</span><span class="dv">1000</span>. <span class="co"># fraction of times </span>
-[<span class="dv">1</span>] <span class="fl">0.075</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">0.079</span></code></pre></div>
 <p>In this case the observed ratio of variances is at roughly the 92.5% percentile of the distribution. This doesn’t quite meet the conventional 95% threshold for “significance” but it is suggests some support to doubt the null hypothesis of equal variances.</p>
 <p>Let’s make one more comparison. From your intro biostats course you should be recall that ratios of variances have an <span class="math inline">\(F\)</span>-distribution so let’s compare the distribution of ratios of variances from our randomized sample to that of a sample of the same size drawn from the <span class="math inline">\(F\)</span>-distribution with the same degrees of freedom.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">randomF &lt;-<span class="st"> </span><span class="kw">rf</span>(<span class="dv">1000</span>, <span class="dv">9</span>, <span class="dv">9</span>) <span class="co"># see help(rf)</span>
@@ -581,12 +580,12 @@ ngreater
 <p>First we draw a random sample from Poisson distribution with <span class="math inline">\(\lambda = 4\)</span>. Since we’re simulating a random sample we know what the “true” value is.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psample &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">25</span>,<span class="dv">4</span>) <span class="co"># 25 observations from poisson with lambda = 4</span>
 psample  <span class="co"># your sample will be different unless you used the same seed as I did</span>
- [<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">3</span></code></pre></div>
+ [<span class="dv">1</span>] <span class="dv">9</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">2</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">3</span> <span class="dv">8</span> <span class="dv">2</span></code></pre></div>
 <p>Our sample estimates of the mean and variance are:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(psample)
-[<span class="dv">1</span>] <span class="fl">3.4</span>
+[<span class="dv">1</span>] <span class="fl">4.44</span>
 <span class="kw">var</span>(psample)
-[<span class="dv">1</span>] <span class="fl">2.833333</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">5.34</span></code></pre></div>
 <p>We now jackknifing to estimate standard errors and confidence intervals for the mean and variance:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jack.means &lt;-<span class="st"> </span><span class="kw">jknife</span>(psample, mean)
 jack.vars &lt;-<span class="st"> </span><span class="kw">jknife</span>(psample, var)</code></pre></div>
@@ -594,7 +593,7 @@ jack.vars &lt;-<span class="st"> </span><span class="kw">jknife</span>(psample, 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">jack.means<span class="op">$</span>cin <span class="co"># 95% bootstreap CI for mean</span>
 <span class="ot">NULL</span>
 jack.vars<span class="op">$</span>ci <span class="co"># 95% boostrap CI for vars</span>
-[<span class="dv">1</span>] <span class="fl">0.7038268</span> <span class="fl">4.9628399</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">2.982004</span> <span class="fl">7.697996</span></code></pre></div>
 <p>In both cases above, the true mean and variance were contained within the 95% confidence intervals estimated by the jackknife.</p>
 <p>Let’s do a little experiment to see how often that’s true for samples of this size:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create 500 samples of size 25 drawn from Poisson w/lambda=4</span>
@@ -611,16 +610,16 @@ j.mean &lt;-<span class="st"> </span><span class="kw">apply</span>(psamples, <sp
 <span class="co"># make matrix that holds 95% confidence intervals of mean</span>
 mean.ci &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(j.mean, get.ci))
 mean.ci[<span class="dv">1</span>,]
-[<span class="dv">1</span>] <span class="fl">3.217846</span> <span class="fl">5.022154</span>
+[<span class="dv">1</span>] <span class="fl">3.684721</span> <span class="fl">5.515279</span>
 mean.ci[<span class="dv">2</span>,]
-[<span class="dv">1</span>] <span class="fl">2.569013</span> <span class="fl">4.070987</span>
+[<span class="dv">1</span>] <span class="fl">2.844251</span> <span class="fl">4.275749</span>
 
 <span class="co"># check how often true mean is w/in CI</span>
 includes.true.mean &lt;-<span class="st"> </span><span class="kw">sum</span>(mean.ci[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="dv">4</span>, mean.ci[,<span class="dv">2</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">4</span>)
 includes.true.mean
-[<span class="dv">1</span>] <span class="dv">962</span>
+[<span class="dv">1</span>] <span class="dv">983</span>
 includes.true.mean<span class="op">/</span><span class="dv">500</span>  <span class="co"># true mean is w/in estimated 95% CI about 93% of the time.</span>
-[<span class="dv">1</span>] <span class="fl">1.924</span>
+[<span class="dv">1</span>] <span class="fl">1.966</span>
 
 
 <span class="co"># now the same for variances</span>
@@ -628,9 +627,9 @@ j.var &lt;-<span class="st"> </span><span class="kw">apply</span>(psamples, <spa
 var.ci &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">sapply</span>(j.var, get.ci))
 includes.true.var &lt;-<span class="st"> </span><span class="kw">sum</span>(var.ci[,<span class="dv">1</span>] <span class="op">&lt;=</span><span class="dv">4</span>, var.ci[,<span class="dv">2</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">4</span>)
 includes.true.var
-[<span class="dv">1</span>] <span class="dv">938</span>
+[<span class="dv">1</span>] <span class="dv">950</span>
 includes.true.var<span class="op">/</span><span class="dv">500</span>  <span class="co"># true variance is w/in 95% CI only 88% of time</span>
-[<span class="dv">1</span>] <span class="fl">1.876</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.9</span></code></pre></div>
 <p>In the case of the confidence intervals for the mean, the jacknife estimator did a decent job – the true mean is with the 95% confidence interval about 93% of the time. In the case of the variance it did less well. The jackknife confidence intervals work well when the estimator is normally distributed. This suggests that one way we might improve the jackknife CIs is by using a normalizing transformation, like the logarithm function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.var &lt;-<span class="st"> </span><span class="cf">function</span>(x){<span class="kw">log</span>(<span class="kw">var</span>(x))}
 j.log.var &lt;-<span class="st"> </span><span class="kw">apply</span>(psamples, <span class="dv">1</span>, jknife, log.var)
@@ -639,7 +638,7 @@ includes.true.var.transformed &lt;-<span class="st"> </span><span class="kw">sum
 
 <span class="co"># an improvement in the performance of the 95% CIs</span>
 includes.true.var.transformed<span class="op">/</span><span class="dv">500</span>  
-[<span class="dv">1</span>] <span class="fl">1.914</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">1.944</span></code></pre></div>
 <p>This illustrates the type of simulation study you might do to check the robustness of the jackknife for a statistic of interest for a given class of distributions.</p>
 </div>
 <div id="bootstrapping-in-r" class="section level2">
@@ -659,7 +658,7 @@ b &lt;-<span class="st"> </span>bootstrap<span class="op">::</span><span class="
 <p>The <code>bootstrap::bootstrap()</code> function returns a list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(b)
 List of <span class="dv">5</span>
- <span class="op">$</span><span class="st"> </span>thetastar     <span class="op">:</span><span class="st"> </span>num [<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>] <span class="fl">1.42</span> <span class="fl">3.31</span> <span class="fl">3.17</span> <span class="fl">1.03</span> <span class="fl">1.49</span> ...
+ <span class="op">$</span><span class="st"> </span>thetastar     <span class="op">:</span><span class="st"> </span>num [<span class="dv">1</span><span class="op">:</span><span class="dv">1000</span>] <span class="fl">3.42</span> <span class="fl">6.06</span> <span class="fl">4.06</span> <span class="fl">3.56</span> <span class="fl">4.79</span> ...
  <span class="op">$</span><span class="st"> </span>func.thetastar<span class="op">:</span><span class="st"> </span><span class="ot">NULL</span>
  <span class="op">$</span><span class="st"> </span>jack.boot.val <span class="op">:</span><span class="st"> </span><span class="ot">NULL</span>
  <span class="op">$</span><span class="st"> </span>jack.boot.se  <span class="op">:</span><span class="st"> </span><span class="ot">NULL</span>
@@ -674,12 +673,12 @@ bstar &lt;-<span class="st"> </span>b<span class="op">$</span>thetastar
 ci.multiplier =<span class="st"> </span><span class="kw">abs</span>(<span class="kw">qt</span>(<span class="fl">0.025</span>, <span class="dt">df=</span><span class="dv">24</span>))  <span class="co"># cutoff of t-distn w/24 df</span>
 <span class="kw">c</span>(<span class="kw">mean</span>(bstar)<span class="op">-</span>ci.multiplier<span class="op">*</span><span class="kw">sd</span>(bstar),
   <span class="kw">mean</span>(bstar)<span class="op">+</span>ci.multiplier<span class="op">*</span><span class="kw">sd</span>(bstar))
-[<span class="dv">1</span>] <span class="fl">0.7643748</span> <span class="fl">4.5554652</span></code></pre></div>
+[<span class="dv">1</span>] <span class="fl">2.905821</span> <span class="fl">7.357725</span></code></pre></div>
 <p>Another approach is to use “percentile confidence limits” based on percentiles of the bootstrap distribution itself:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># estimate the bootstrap percentile confidence limits</span>
 <span class="kw">quantile</span>(b<span class="op">$</span>thetastar,<span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))
     <span class="fl">2.5</span><span class="op">%    97.5%</span><span class="st"> </span>
-<span class="fl">1.076667</span> <span class="fl">4.473750</span> </code></pre></div>
+<span class="fl">3.009167</span> <span class="fl">7.177500</span> </code></pre></div>
 <div id="a-more-sophisticated-application-of-the-bootstrap" class="section level3">
 <h3><span class="header-section-number">15.6.1</span> A more sophisticated application of the bootstrap</h3>
 <p>Now let’s use the bootstrap to look at the distribution of a more complicated pair of statistics – the intercept and coefficients of a logistic regression. This time we’ll use the <code>boot</code> package to do the analysis, which is more flexible than the <code>bootstrap</code> package. <strong>Install the <code>boot</code> package as necessary.</strong></p>
@@ -808,13 +807,13 @@ reg.boot &lt;-<span class="st"> </span><span class="kw">boot</span>(bumpus, logi
 <span class="co"># the second column to the coefficient w/respect to the explanatory</span>
 <span class="co"># variable.</span>
 <span class="kw">head</span>(reg.boot<span class="op">$</span>t)
-           [,<span class="dv">1</span>]        [,<span class="dv">2</span>]
-[<span class="dv">1</span>,] <span class="fl">10.8034161</span> <span class="op">-</span><span class="fl">0.41449457</span>
-[<span class="dv">2</span>,]  <span class="fl">0.6442959</span> <span class="op">-</span><span class="fl">0.01243621</span>
-[<span class="dv">3</span>,]  <span class="fl">3.2320697</span> <span class="op">-</span><span class="fl">0.13034090</span>
-[<span class="dv">4</span>,]  <span class="fl">5.2845534</span> <span class="op">-</span><span class="fl">0.21219583</span>
-[<span class="dv">5</span>,]  <span class="fl">3.9750815</span> <span class="op">-</span><span class="fl">0.14176999</span>
-[<span class="dv">6</span>,]  <span class="fl">8.6478766</span> <span class="op">-</span><span class="fl">0.34080961</span></code></pre></div>
+         [,<span class="dv">1</span>]       [,<span class="dv">2</span>]
+[<span class="dv">1</span>,] <span class="fl">8.669596</span> <span class="op">-</span><span class="fl">0.3460843</span>
+[<span class="dv">2</span>,] <span class="fl">6.868043</span> <span class="op">-</span><span class="fl">0.2724601</span>
+[<span class="dv">3</span>,] <span class="fl">6.721286</span> <span class="op">-</span><span class="fl">0.2632590</span>
+[<span class="dv">4</span>,] <span class="fl">5.428487</span> <span class="op">-</span><span class="fl">0.2139940</span>
+[<span class="dv">5</span>,] <span class="fl">9.621277</span> <span class="op">-</span><span class="fl">0.3587585</span>
+[<span class="dv">6</span>,] <span class="fl">8.132526</span> <span class="op">-</span><span class="fl">0.3169114</span></code></pre></div>
 <p>We can look at histograms of the bootstrap estimates of the intercept and regression coefficient. First the intercept:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quickplot</span>(reg.boot<span class="op">$</span>t[,<span class="dv">1</span>], <span class="dt">bins =</span> <span class="dv">25</span>, <span class="dt">xlab=</span><span class="st">&quot;Regression Intercept&quot;</span>)</code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-442-1.png" width="576" /></p>
@@ -834,12 +833,11 @@ CALL <span class="op">:</span><span class="st"> </span>
 
 Intervals <span class="op">:</span><span class="st"> </span>
 Level      Normal              Basic         
-<span class="dv">95</span>%   ( <span class="fl">1.142</span>, <span class="fl">14.506</span> )   ( <span class="fl">0.645</span>, <span class="fl">14.338</span> )  
+<span class="dv">95</span>%   ( <span class="fl">1.378</span>, <span class="fl">14.564</span> )   ( <span class="fl">1.359</span>, <span class="fl">14.759</span> )  
 
 Level     Percentile            BCa          
-<span class="dv">95</span>%   ( <span class="fl">1.753</span>, <span class="fl">15.447</span> )   ( <span class="fl">0.836</span>, <span class="fl">15.073</span> )  
-Calculations and Intervals on Original Scale
-Some BCa intervals may be unstable</code></pre></div>
+<span class="dv">95</span>%   ( <span class="fl">1.332</span>, <span class="fl">14.733</span> )   ( <span class="fl">1.311</span>, <span class="fl">14.699</span> )  
+Calculations and Intervals on Original Scale</code></pre></div>
 <p>The <code>boot.ci()</code> function returns information on Bootstrap CI’s calculated using four different approaches. The “Basic” CIs are based on using bootstrap standard errors and the t-distribution to estimate CIs. The “Normal” CIs are based on a normal approximation of the bootstrap distribution. The “Percentile” CIs are based on simple percentile intervals of the bootstrap distribution (as we did earlier), and the “BCa” CIs are based on an approach called “bias corrected and accelerated” (we won’t go into the details about this).</p>
 <p>Which one of these CIs should you use? The answer unfortunately depends on the class of problem, sample sizes, and the form of the underlying distribution, etc. In general, my recommendation is to use bootstrap CIs (similarly Jackknife CIs) as “guides” about the nature of uncertainty in statistical estimates, not hard and fast rules. For example, when the original sample size is small, bootstrap CIs often tend to be too narrow for the desired level of confidence, and so it’s wise to consider that the CIs are “at least this wide”, and interpret your results accordingly.</p>
 </div>
@@ -885,13 +883,16 @@ quantile.<span class="dv">025</span> &lt;-<span class="st"> </span><span class="
        <span class="dt">title=</span><span class="st">&quot;Bumpus Survival Data</span><span class="ch">\n</span><span class="st">Logistic Regression and Bootstrap 95% CI&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">lims</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">22</span>,<span class="dv">32</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-450-1.png" width="576" /></p>
-<p>We can compare our bootstrap 95% CIs to the confidence intervals calculated by <code>geom_smooth</code>, which uses an asymptotic approximation to calculate confidence intervals for the logistic regression:</p>
+<p>In the next plot we directly compare our bootstrap 95% CIs to the confidence intervals calculated by <code>geom_smooth</code>, which uses an asymptotic approximation to calculate confidence intervals for the logistic regression.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># draw the regression plot</span>
-<span class="kw">ggplot</span>(bumpus, <span class="kw">aes</span>(<span class="dt">x=</span>weight.g, <span class="dt">y=</span>survived)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>), <span class="dt">se=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>weight.g, <span class="dt">y=</span>survived), <span class="dt">data =</span> bumpus, <span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>weight.g, <span class="dt">y=</span>survived), <span class="dt">data =</span> bumpus, <span class="dt">method=</span><span class="st">&quot;glm&quot;</span>, <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>), <span class="dt">se=</span><span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> <span class="kw">map_dbl</span>(predicted.mtx.df, quantile.<span class="dv">975</span>)), <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">data =</span> <span class="ot">NULL</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> <span class="kw">map_dbl</span>(predicted.mtx.df, quantile.<span class="dv">025</span>)), <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">data =</span> <span class="ot">NULL</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Weight (g)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Prob. Survival&quot;</span>)</code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-451-1.png" width="576" /></p>
+<p>Our plot indicates that the asymptotic estimates of the logistic regression CIs and the bootstrap estimates of the CIs are very similar.</p>
 
 </div>
 </div>

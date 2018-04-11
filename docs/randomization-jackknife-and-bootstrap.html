@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-04-04">
+<meta name="date" content="2018-04-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="simulating-confidence-intervals.html">
-
+<link rel="next" href="anova.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -408,6 +408,36 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.6.8" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#visualizing-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.8</b> Visualizing bootstrap confidence intervals</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>16</b> ANOVA</a><ul>
+<li class="chapter" data-level="16.1" data-path="anova.html"><a href="anova.html#libraries-9"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
+<li class="chapter" data-level="16.2" data-path="anova.html"><a href="anova.html#example-data-set-the-effect-of-light-treatments-on-circadian-rhythms"><i class="fa fa-check"></i><b>16.2</b> Example data set: The effect of light treatments on circadian rhythms</a></li>
+<li class="chapter" data-level="16.3" data-path="anova.html"><a href="anova.html#visualizing-the-data"><i class="fa fa-check"></i><b>16.3</b> Visualizing the data</a></li>
+<li class="chapter" data-level="16.4" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>16.4</b> Analysis of Variance</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="anova.html"><a href="anova.html#hypotheses-for-anova"><i class="fa fa-check"></i><b>16.4.1</b> Hypotheses for ANOVA</a></li>
+<li class="chapter" data-level="16.4.2" data-path="anova.html"><a href="anova.html#anova-assumptions"><i class="fa fa-check"></i><b>16.4.2</b> ANOVA, assumptions</a></li>
+<li class="chapter" data-level="16.4.3" data-path="anova.html"><a href="anova.html#anova-key-idea"><i class="fa fa-check"></i><b>16.4.3</b> ANOVA, key idea</a></li>
+<li class="chapter" data-level="16.4.4" data-path="anova.html"><a href="anova.html#partioning-of-sum-of-squares"><i class="fa fa-check"></i><b>16.4.4</b> Partioning of sum of squares</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="anova.html"><a href="anova.html#the-aov-function"><i class="fa fa-check"></i><b>16.5</b> The <code>aov</code> function</a></li>
+<li class="chapter" data-level="16.6" data-path="anova.html"><a href="anova.html#anova-calculations-step-by-step"><i class="fa fa-check"></i><b>16.6</b> ANOVA calculations: Step-by-step</a><ul>
+<li class="chapter" data-level="16.6.1" data-path="anova.html"><a href="anova.html#total-sum-of-squares"><i class="fa fa-check"></i><b>16.6.1</b> Total sum of squares</a></li>
+<li class="chapter" data-level="16.6.2" data-path="anova.html"><a href="anova.html#group-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.2</b> Group sum of squares and mean square</a></li>
+<li class="chapter" data-level="16.6.3" data-path="anova.html"><a href="anova.html#error-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.3</b> Error sum of squares and mean square</a></li>
+<li class="chapter" data-level="16.6.4" data-path="anova.html"><a href="anova.html#calculating-the-f-statistic"><i class="fa fa-check"></i><b>16.6.4</b> Calculating the F-statistic</a></li>
+<li class="chapter" data-level="16.6.5" data-path="anova.html"><a href="anova.html#the-f-distribution"><i class="fa fa-check"></i><b>16.6.5</b> The F-distribution</a></li>
+<li class="chapter" data-level="16.6.6" data-path="anova.html"><a href="anova.html#critical-values-of-the-f-distribution"><i class="fa fa-check"></i><b>16.6.6</b> Critical values of the F-distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="16.7" data-path="anova.html"><a href="anova.html#combined-visualization"><i class="fa fa-check"></i><b>16.7</b> Combined visualization</a></li>
+<li class="chapter" data-level="16.8" data-path="anova.html"><a href="anova.html#which-pairs-of-group-means-are-different"><i class="fa fa-check"></i><b>16.8</b> Which pairs of group means are different?</a><ul>
+<li class="chapter" data-level="16.8.1" data-path="anova.html"><a href="anova.html#tukey-kramer-test"><i class="fa fa-check"></i><b>16.8.1</b> Tukey-Kramer test</a></li>
+</ul></li>
+<li class="chapter" data-level="16.9" data-path="anova.html"><a href="anova.html#anova-as-regression"><i class="fa fa-check"></i><b>16.9</b> ANOVA as Regression</a><ul>
+<li class="chapter" data-level="16.9.1" data-path="anova.html"><a href="anova.html#treating-a-variable-as-a-factor"><i class="fa fa-check"></i><b>16.9.1</b> Treating a variable as a factor</a></li>
+<li class="chapter" data-level="16.9.2" data-path="anova.html"><a href="anova.html#factor-coding"><i class="fa fa-check"></i><b>16.9.2</b> Factor coding</a></li>
+<li class="chapter" data-level="16.9.3" data-path="anova.html"><a href="anova.html#fitting-the-anova-using-lm"><i class="fa fa-check"></i><b>16.9.3</b> Fitting the ANOVA using <code>lm</code></a></li>
+<li class="chapter" data-level="16.9.4" data-path="anova.html"><a href="anova.html#changing-the-factor-coding"><i class="fa fa-check"></i><b>16.9.4</b> Changing the factor coding</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -458,8 +488,8 @@ jackals &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span c
 <span class="co"># A tibble: 2 x 2</span>
   sex   mean.mandible.length
   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">                </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span>
-<span class="dv">1</span> f                     <span class="dv">109</span>.
-<span class="dv">2</span> m                     <span class="dv">113</span>.</code></pre></div>
+<span class="dv">1</span> f                    <span class="fl">108.6</span>
+<span class="dv">2</span> m                    <span class="fl">113.4</span></code></pre></div>
 <p>The difference in the mean mandible length is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(male.mandibles) <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(female.mandibles) 
 [<span class="dv">1</span>] <span class="fl">4.8</span></code></pre></div>
@@ -573,7 +603,7 @@ ngreater
     alpha =<span class="st"> </span><span class="dv">1</span><span class="op">-</span>ci
     CI &lt;-<span class="st"> </span><span class="kw">qt</span>(alpha<span class="op">/</span><span class="dv">2</span>,n<span class="op">-</span><span class="dv">1</span>,<span class="dt">lower.tail=</span><span class="ot">FALSE</span>)<span class="op">*</span>jack.se
     jack.ci &lt;-<span class="st"> </span><span class="kw">c</span>(jack.est <span class="op">-</span><span class="st"> </span>CI, jack.est <span class="op">+</span><span class="st"> </span>CI)
-    <span class="kw">list</span>(<span class="dt">est=</span>jack.est, <span class="dt">se=</span>jack.se, <span class="dt">ci=</span>jack.ci)
+    <span class="kw">list</span>(<span class="dt">est=</span>jack.est, <span class="dt">se=</span>jack.se, <span class="dt">ci=</span>jack.ci, <span class="dt">pseudos =</span> pseudos, <span class="dt">partials=</span>partials)
 }</code></pre></div>
 <p>The <code>bootstrap</code> package contains a very similar implementation of a jackknife function (<code>jackknife()</code>).</p>
 <p>Let’s illustrate our jackknife function using samples drawn from a Poisson distribution. The Poisson is a discrete probability distribution that is often used to describe the probability of a number of events occuring in a fixed period of time, where the events are independent and occur with an average rate <span class="math inline">\(\lambda\)</span>. The Poisson distribution is used to model processes like mutations in DNA sequences or atomic decay. Both the mean and variance of a Poisson distribution are equal to <span class="math inline">\(\lambda\)</span>. Let’s see how well the jackknife does at estimating confidence intervals for the mean and variance of a modest number of samples drawn from a Poisson.</p>
@@ -897,19 +927,13 @@ quantile.<span class="dv">025</span> &lt;-<span class="st"> </span><span class="
 </div>
 </div>
 </div>
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="simulating-confidence-intervals.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="simulating-confidence-intervals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anova.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

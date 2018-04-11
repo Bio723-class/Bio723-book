@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = TRUE, prompt = FALSE, eval = TRUE,
                       fig.width = 6, fig.height = 4, #results = "hide",
                       collapse=TRUE, results='markup')
 
+options(pillar.sigfig = 4)
 ```
 
 # Introduction 

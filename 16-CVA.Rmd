@@ -113,7 +113,7 @@ Using similar reasoning the $100(1-\alpha)$ "tolerance regions" for the whole po
 To calculate these confidence regions you could look up the appropriate value of the the  $\chi^2$ distribution in a book of statistical tables, or we can use the |qchisq()| function which gives the inverse cumulative probability distribution for the $\chi^2$ function:
 
 ```{r}
-chi2 = qchisq(0.05,2, lower.tail=F)
+chi2 = qchisq(0.05,2, lower.tail=FALSE)
 chi2
 
 CIregions.mean.and.pop <-
@@ -129,7 +129,7 @@ CIregions.mean.and.pop
 
 ### Drawing the CVA confidence regions
 
-Surprisingly, `ggplot2` has no built-in functions for drawing circles, despite having `geom_rect()` and `geom_polygon()` function.  Instead we turn to a package called [ggforce](https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html) which provides a convenient `geom_circle()` function as well as a number of other useful extensions of ggplot.  Install "ggforce" through the normal package installation mechanism and then load it.
+Surprisingly, `ggplot2` has no built-in functions for drawing circles, despite having `geom_rect()` and `geom_polygon()` functions.  Instead we turn to a package called [ggforce](https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html) which provides a convenient `geom_circle()` function as well as a number of other useful extensions of ggplot.  Install "ggforce" through the normal package installation mechanism and then load it.
 
 ```{r}
 library(ggforce)

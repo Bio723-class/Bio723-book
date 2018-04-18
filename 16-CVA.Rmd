@@ -121,7 +121,7 @@ CIregions.mean.and.pop <-
   group_by(Species) %>%
   summarize(CV1.mean = mean(LD1),
             CV2.mean = mean(LD2),
-            mean.radii = chi2/n(),
+            mean.radii = sqrt(chi2/n()),
             popn.radii = sqrt(chi2))
 
 CIregions.mean.and.pop

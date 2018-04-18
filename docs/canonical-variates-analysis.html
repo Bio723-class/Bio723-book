@@ -577,16 +577,16 @@ CIregions.mean.and.pop &lt;-
 <span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">CV1.mean =</span> <span class="kw">mean</span>(LD1),
             <span class="dt">CV2.mean =</span> <span class="kw">mean</span>(LD2),
-            <span class="dt">mean.radii =</span> chi2<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">mean.radii =</span> <span class="kw">sqrt</span>(chi2<span class="op">/</span><span class="kw">n</span>()),
             <span class="dt">popn.radii =</span> <span class="kw">sqrt</span>(chi2))
 
 CIregions.mean.and.pop
 <span class="co"># A tibble: 3 x 5</span>
   Species    CV1.mean CV2.mean mean.radii popn.radii
   <span class="op">&lt;</span>fct<span class="op">&gt;</span><span class="st">         </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span>
-<span class="dv">1</span> setosa        <span class="fl">5.502</span>    <span class="fl">6.877</span>     <span class="fl">0.1198</span>      <span class="fl">2.448</span>
-<span class="dv">2</span> versicolor   <span class="op">-</span><span class="fl">3.930</span>    <span class="fl">5.934</span>     <span class="fl">0.1198</span>      <span class="fl">2.448</span>
-<span class="dv">3</span> virginica    <span class="op">-</span><span class="fl">7.888</span>    <span class="fl">7.174</span>     <span class="fl">0.1198</span>      <span class="fl">2.448</span></code></pre></div>
+<span class="dv">1</span> setosa        <span class="fl">5.502</span>    <span class="fl">6.877</span>     <span class="fl">0.3462</span>      <span class="fl">2.448</span>
+<span class="dv">2</span> versicolor   <span class="op">-</span><span class="fl">3.930</span>    <span class="fl">5.934</span>     <span class="fl">0.3462</span>      <span class="fl">2.448</span>
+<span class="dv">3</span> virginica    <span class="op">-</span><span class="fl">7.888</span>    <span class="fl">7.174</span>     <span class="fl">0.3462</span>      <span class="fl">2.448</span></code></pre></div>
 <div id="drawing-the-cva-confidence-regions" class="section level3">
 <h3><span class="header-section-number">17.3.1</span> Drawing the CVA confidence regions</h3>
 <p>Surprisingly, <code>ggplot2</code> has no built-in functions for drawing circles, despite having <code>geom_rect()</code> and <code>geom_polygon()</code> function. Instead we turn to a package called <a href="https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html">ggforce</a> which provides a convenient <code>geom_circle()</code> function as well as a number of other useful extensions of ggplot. Install “ggforce” through the normal package installation mechanism and then load it.</p>

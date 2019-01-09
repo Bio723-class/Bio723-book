@@ -7,10 +7,10 @@ RStudio comes with a useful set of tools, collectively called R Markdown, for ge
  2. Analyses can be more easily checked for correctness and reproduced from your literate code.
  3. Your literate code can serve as a template for future analyses, saving you time and the trouble of remembering all the gory details.
 
-As we'll see, R Markdown will allow us to produce statistical documents that integrateprose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others.  Sometimes those "others" are advisors, supervisors, or collaborators; sometimes the other is you six months from now.  For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.
+As we'll see, R Markdown will allow us to produce statistical documents that integrate prose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others.  Sometimes those "others" are advisors, supervisors, or collaborators; sometimes the "other" is you six months from now.  For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.
 
 
-R Markdown documents are written in a light-weight markup language called Markdown.  Markdown provides simple plain text "formatting" commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes.  This hands-on provides a brief introduction to the capabilities of R Markdown.  For more complete details, including lots of examples, see the [R Markdown Website](http://rmarkdown.rstudio.com/index.html).
+R Markdown documents are written in a light-weight markup language called Markdown.  Markdown provides simple plain text "formatting" commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes.  This chaptern provides a brief introduction to the capabilities of R Markdown.  For more complete details, including lots of examples, see the [R Markdown Website](http://rmarkdown.rstudio.com/index.html).
 
 ## R Notebooks
 
@@ -20,15 +20,13 @@ We're going to create a type of R Markdown document called an "R Notebook". The 
 
 To create an R Notebook select `File > New File > R Notebook` from the files menu in RStudio.
 
-```{r, echo = FALSE, out.width = "600px", fig.align = "center", fig.cap = "Using the File menu to create a new R Notebook.", results="markup"}
+```{r, echo = FALSE, out.width = "75%", fig.align = "center", fig.cap = "Using the File menu to create a new R Notebook.", results="markup"}
 knitr::include_graphics("./figures/fig-create-rnotebook.png")
 ```
 
 ## The default R Notebook template
 
-The standard template that RStudio creates for you includes a header section
-like the following where you can specify document properties such as 
-the title, author, and change the look and feel of the generated HTML document.
+The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.
 
 ```
 ---
@@ -50,9 +48,12 @@ R Markdown documents are divided into code blocks (also called "chunks") and non
 The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:
 
 ```
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
+When you execute code within the notebook, the results appear
+beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+Try executing this chunk by clicking the *Run* button within the chunk 
+or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
 ```
 
 The text of non-code blocks can include lightweight markup information that can be used to format HTML or PDF output generated from the R Markdown document.  Here are some examples:
@@ -96,11 +97,14 @@ Notice from the example above that R Markdown supports LaTeX style formatting of
 
 Code blocks are delimited by matching sets of three backward ticks (```).  Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here's the first code block in the default notebook template:
 
+
+````
 ```
-```{r}
+{r}
 plot(cars)
-```
 ```
+````
+
 
 
 
@@ -108,7 +112,7 @@ plot(cars)
 
 You can run a single code block by clicking the small green "Run" button in the upper right hand corner of the code block as shown in the image below.  
 
-```{r, echo = FALSE, out.width = "600px", fig.align = "center", fig.cap = "Click the Run button to execute a code chunk.", results="markup"}
+```{r, echo = FALSE, out.width = "75%", fig.align = "center", fig.cap = "Click the Run button to execute a code chunk.", results="markup"}
 knitr::include_graphics("./figures/fig-run-code-chunk.png")
 ```
 
@@ -116,7 +120,7 @@ If you click this button the commands within this code block are executed, and a
 
 Try running the first code block in the default template now.  After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:
 
-```{r, echo = FALSE, out.width = "600px", fig.align = "center", fig.cap = "An R Notebook showing an embedded plot after executing a code chunk.", results="markup"}
+```{r, echo = FALSE, out.width = "60%", fig.align = "center", fig.cap = "An R Notebook showing an embedded plot after executing a code chunk.", results="markup"}
 knitr::include_graphics("./figures/fig-rstudio-after-run-chunk.png")
 ```
 
@@ -124,7 +128,7 @@ knitr::include_graphics("./figures/fig-rstudio-after-run-chunk.png")
 
 Next to the "Run" button in each code chunk is a button for "Run all chunks above" (see figure below).  This is useful when the code chunk you're working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.  
 
-```{r, echo = FALSE, out.width = "600px", fig.align = "center", fig.cap = "Use the 'Run all chunks above' button to evaluate all previous code chunks.", results="markup"}
+```{r, echo = FALSE, out.width = "75%", fig.align = "center", fig.cap = "Use the 'Run all chunks above' button to evaluate all previous code chunks.", results="markup"}
 knitr::include_graphics("./figures/fig-code-chunk-runall.png")
 ```
 
@@ -134,7 +138,7 @@ knitr::include_graphics("./figures/fig-code-chunk-runall.png")
 
 Save your R Notebook as `first_rnotebook.Rmd` (RStudio will automatically add the `.Rmd` extension so you don't need to type it).  You can generate an HTML version of your notebook by clicking the "Preview" menu on the Notebook taskbar and then choosing "Knit to HTML" (see image below).
 
-```{r, echo = FALSE, out.width = "600px", fig.align = "center", fig.cap = "Use the 'Knit to HTML' menu to generate HTML output from your R Notebook", results="markup"}
+```{r, echo = FALSE, out.width = "75%", fig.align = "center", fig.cap = "Use the 'Knit to HTML' menu to generate HTML output from your R Notebook", results="markup"}
 knitr::include_graphics("./figures/fig-rstudio-knit-to-html.png")
 ```
 

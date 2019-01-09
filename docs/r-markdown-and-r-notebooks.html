@@ -25,15 +25,15 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2019-01-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="r-basics-data-types-and-data-structures.html">
-<link rel="next" href="introduction-to-ggplot2.html">
+<link rel="prev" href="getting-started-with-r.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -111,345 +136,36 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types-in-r"><i class="fa fa-check"></i><b>2.6</b> Numeric data types in R</a></li>
-<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment-in-r"><i class="fa fa-check"></i><b>2.7</b> Variable assignment in R</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.7.1</b> Valid variable names</a></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment"><i class="fa fa-check"></i><b>2.6</b> Variable assignment</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.6.1</b> Valid variable names</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#working-with-vectors-in-r"><i class="fa fa-check"></i><b>2.8</b> Working with Vectors in R</a><ul>
-<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-arithmetic"><i class="fa fa-check"></i><b>2.8.1</b> Vector Arithmetic</a></li>
-<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-recycling"><i class="fa fa-check"></i><b>2.8.2</b> Vector recycling</a></li>
-<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>2.8.3</b> Simple statistical functions for numeric vectors</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.7</b> Data types</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types"><i class="fa fa-check"></i><b>2.7.1</b> Numeric data types</a></li>
+<li class="chapter" data-level="2.7.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#logical-values"><i class="fa fa-check"></i><b>2.7.2</b> Logical values</a></li>
+<li class="chapter" data-level="2.7.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#character-strings"><i class="fa fa-check"></i><b>2.7.3</b> Character strings</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.8</b> Packages</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.8.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.8.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.8.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.8.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.8.4</b> Loading packages with the <code>library()</code> function</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
 <li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.10</b> Packages</a><ul>
-<li class="chapter" data-level="2.10.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.10.1</b> Installing packages from the console</a></li>
-<li class="chapter" data-level="2.10.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.10.2</b> Install the tidyverse package</a></li>
-<li class="chapter" data-level="2.10.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.10.3</b> Installing packages from the RStudio dialog</a></li>
-<li class="chapter" data-level="2.10.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-stringr-package"><i class="fa fa-check"></i><b>2.10.4</b> Install the stringr package</a></li>
-<li class="chapter" data-level="2.10.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.10.5</b> Loading packages with the <code>library()</code> function</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>3</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>3.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>3.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="3.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>3.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="3.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>3.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>3.4.1</b> Non-code blocks</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>3.4.2</b> Code blocks</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html"><i class="fa fa-check"></i><b>3</b> R Basics: Data types and data structures</a><ul>
-<li class="chapter" data-level="3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-boolean-values"><i class="fa fa-check"></i><b>3.1</b> Logical (Boolean) values</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#comparison-operators-applied-to-numeric-vectors"><i class="fa fa-check"></i><b>3.1.1</b> Comparison operators applied to numeric vectors</a></li>
-<li class="chapter" data-level="3.1.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-vectors"><i class="fa fa-check"></i><b>3.1.2</b> Logical vectors</a></li>
-<li class="chapter" data-level="3.1.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-operators"><i class="fa fa-check"></i><b>3.1.3</b> Logical operators</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#character-strings"><i class="fa fa-check"></i><b>3.2</b> Character strings</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-stringr-package"><i class="fa fa-check"></i><b>3.2.1</b> The <code>stringr</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors"><i class="fa fa-check"></i><b>3.3</b> Vectors</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>3.3.1</b> Indexing Vectors</a></li>
-<li class="chapter" data-level="3.3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>3.3.2</b> Combining Indexing and Comparison of Vectors</a></li>
-<li class="chapter" data-level="3.3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>3.3.3</b> Vector manipulation</a></li>
-<li class="chapter" data-level="3.3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>3.3.4</b> Vectors from regular sequences</a></li>
-<li class="chapter" data-level="3.3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>3.3.5</b> Additional functions for working with vectors</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>3.4.1</b> Length and type of lists</a></li>
-<li class="chapter" data-level="3.4.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>3.4.2</b> Indexing lists</a></li>
-<li class="chapter" data-level="3.4.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>3.4.3</b> Naming list elements</a></li>
-<li class="chapter" data-level="3.4.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-operator"><i class="fa fa-check"></i><b>3.4.4</b> The <code>$</code> operator</a></li>
-<li class="chapter" data-level="3.4.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>3.4.5</b> Changing and adding lists items</a></li>
-<li class="chapter" data-level="3.4.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-lists"><i class="fa fa-check"></i><b>3.4.6</b> Combining lists</a></li>
-<li class="chapter" data-level="3.4.7" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>3.4.7</b> Converting lists to vectors</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> Data frames</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>3.5.1</b> Creating a data frame</a></li>
-<li class="chapter" data-level="3.5.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>3.5.2</b> Type and class for data frames</a></li>
-<li class="chapter" data-level="3.5.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>3.5.3</b> Length and dimension for data frames</a></li>
-<li class="chapter" data-level="3.5.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>3.5.4</b> Indexing and accessing data frames</a></li>
-<li class="chapter" data-level="3.5.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Logical indexing of data frames</a></li>
-<li class="chapter" data-level="3.5.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>3.5.6</b> Adding columns to a data frame</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>4</b> R Markdown and R Notebooks</a><ul>
-<li class="chapter" data-level="4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>4.1</b> R Notebooks</a></li>
-<li class="chapter" data-level="4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>4.2</b> Creating an R Notebook</a></li>
-<li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
-<li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
-<li class="chapter" data-level="4.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.4.2</b> Code blocks</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.5</b> Running a code chunk</a></li>
-<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.6</b> Running all code chunks above</a></li>
-<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.7</b> “Knitting an” R Markdown to HTML</a></li>
-<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.8</b> Sharing your reproducible R Notebook</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html"><i class="fa fa-check"></i><b>6</b> Introduction to the <code>dplyr</code> package</a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.1</b> Example data: NC Births</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.2</b> Reading Excel files</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.5</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.5.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.5.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.5.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.5.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.5.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.5.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.5.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.5.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.5.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frame-rows"><i class="fa fa-check"></i><b>7.5.5</b> Combining data frame rows</a></li>
-<li class="chapter" data-level="7.5.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.5.6</b> Sorting data frame rows</a></li>
-<li class="chapter" data-level="7.5.7" data-path="data-wrangling.html"><a href="data-wrangling.html#collapsing-columns-using-tidyrunite"><i class="fa fa-check"></i><b>7.5.7</b> Collapsing columns using <code>tidyr::unite</code></a></li>
-<li class="chapter" data-level="7.5.8" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns-using-tidyrseparate"><i class="fa fa-check"></i><b>7.5.8</b> Splitting columns using <code>tidyr::separate</code></a></li>
-<li class="chapter" data-level="7.5.9" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.5.9</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.6</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.6.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.6.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.6.3</b> Exploring bivariate relationships using “wide” data</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#calculating-correlations-between-genes"><i class="fa fa-check"></i><b>7.6.4</b> Calculating correlations between genes</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Adding new columns and combining filtered data frames</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7</b> Heat maps</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#rcolorbrewer"><i class="fa fa-check"></i><b>7.7.1</b> RColorBrewer</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#creating-a-heat-map-using-geom_tile"><i class="fa fa-check"></i><b>7.7.2</b> Creating a heat map using <code>geom_tile</code></a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.7.3</b> A “fancy” figure</a></li>
-<li class="chapter" data-level="7.7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-and-visualizing-genes-by-time-of-maximum-expression"><i class="fa fa-check"></i><b>7.7.4</b> Sorting and visualizing genes by time of maximum expression</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html"><i class="fa fa-check"></i><b>8</b> Vectors and Functions</a><ul>
-<li class="chapter" data-level="8.1" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#libraries-2"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
-<li class="chapter" data-level="8.2" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#vector-mathematics-in-r"><i class="fa fa-check"></i><b>8.2</b> Vector Mathematics in R</a></li>
-<li class="chapter" data-level="8.3" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#writing-your-own-functions-in-r"><i class="fa fa-check"></i><b>8.3</b> Writing Your Own Functions in R</a></li>
-<li class="chapter" data-level="8.4" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>8.4</b> Function arguments</a></li>
-<li class="chapter" data-level="8.5" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.5</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.6" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.6</b> Putting R functions in Scripts</a></li>
-<li class="chapter" data-level="8.7" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#simple-statistics-in-vector-form"><i class="fa fa-check"></i><b>8.7</b> Simple statistics in vector form</a><ul>
-<li class="chapter" data-level="8.7.1" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#mean"><i class="fa fa-check"></i><b>8.7.1</b> Mean</a></li>
-<li class="chapter" data-level="8.7.2" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#variance-and-standard-deviation"><i class="fa fa-check"></i><b>8.7.2</b> Variance and standard deviation</a></li>
-<li class="chapter" data-level="8.7.3" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#covariance-and-correlation"><i class="fa fa-check"></i><b>8.7.3</b> Covariance and correlation</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Bivariate Linear Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#regression-terminology"><i class="fa fa-check"></i><b>9.1</b> Regression terminology</a></li>
-<li class="chapter" data-level="9.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#libraries-3"><i class="fa fa-check"></i><b>9.2</b> Libraries</a></li>
-<li class="chapter" data-level="9.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>9.3</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="9.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>9.4</b> Specifying Regression Models in R</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#fitted-values"><i class="fa fa-check"></i><b>9.4.1</b> Fitted values</a></li>
-<li class="chapter" data-level="9.4.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>9.4.2</b> Getting the model coefficients</a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#residuals"><i class="fa fa-check"></i><b>9.5</b> Residuals</a></li>
-<li class="chapter" data-level="9.6" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>9.6</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="9.7" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>9.7</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="9.8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>9.8</b> Broom: a library for converting model results into data frames</a><ul>
-<li class="chapter" data-level="9.8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomtidy"><i class="fa fa-check"></i><b>9.8.1</b> <code>broom::tidy</code></a></li>
-<li class="chapter" data-level="9.8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomaugment"><i class="fa fa-check"></i><b>9.8.2</b> <code>broom::augment</code></a></li>
-<li class="chapter" data-level="9.8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomglance"><i class="fa fa-check"></i><b>9.8.3</b> <code>broom::glance</code></a></li>
-</ul></li>
-<li class="chapter" data-level="9.9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-on-a-real-world-data-set"><i class="fa fa-check"></i><b>9.9</b> Bivariate linear regression on a real world data set</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="matrices-in-r.html"><a href="matrices-in-r.html"><i class="fa fa-check"></i><b>10</b> Matrices in R</a><ul>
-<li class="chapter" data-level="10.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#creating-matrices-in-r"><i class="fa fa-check"></i><b>10.1</b> Creating matrices in R</a></li>
-<li class="chapter" data-level="10.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-arithmetic-operations-in-r"><i class="fa fa-check"></i><b>10.2</b> Matrix arithmetic operations in R</a></li>
-<li class="chapter" data-level="10.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#descriptive-statistics-as-matrix-functions"><i class="fa fa-check"></i><b>10.3</b> Descriptive statistics as matrix functions</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#mean-vector-and-matrix"><i class="fa fa-check"></i><b>10.3.1</b> Mean vector and matrix</a></li>
-<li class="chapter" data-level="10.3.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#deviation-matrix"><i class="fa fa-check"></i><b>10.3.2</b> Deviation matrix</a></li>
-<li class="chapter" data-level="10.3.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#covariance-matrix"><i class="fa fa-check"></i><b>10.3.3</b> Covariance matrix</a></li>
-<li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>11</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>11.1</b> New Libraries to install</a></li>
-<li class="chapter" data-level="11.2" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>11.2</b> Libraries</a></li>
-<li class="chapter" data-level="11.3" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>11.3</b> Examplar data</a></li>
-<li class="chapter" data-level="11.4" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>11.4</b> Data exploration</a></li>
-<li class="chapter" data-level="11.5" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>11.5</b> 3D Plots</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>11.5.1</b> scatterplot3d</a></li>
-<li class="chapter" data-level="11.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>11.5.2</b> rgl</a></li>
-</ul></li>
-<li class="chapter" data-level="11.6" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>11.6</b> Fitting the regression model</a><ul>
-<li class="chapter" data-level="11.6.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>11.6.1</b> Visualizing the regression model in scatterplot3d</a></li>
-</ul></li>
-<li class="chapter" data-level="11.7" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>11.7</b> Interpretting the regression model</a></li>
-<li class="chapter" data-level="11.8" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>11.8</b> Exploring the Vector Geometry of the Regression Model</a></li>
-<li class="chapter" data-level="11.9" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>11.9</b> Exploring the Residuals from the Model Fit</a></li>
-<li class="chapter" data-level="11.10" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>11.10</b> An alternate model</a></li>
-<li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
-<li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
-<li class="chapter" data-level="12.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>12.2</b> Matrices as linear transformations</a></li>
-<li class="chapter" data-level="12.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>12.3</b> Eigenanalysis in R</a></li>
-<li class="chapter" data-level="12.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>12.4</b> Principal Components Analysis in R</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>12.4.1</b> Bioenv dataset</a></li>
-<li class="chapter" data-level="12.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>12.4.2</b> PCA of the Bioenv dataset</a></li>
-<li class="chapter" data-level="12.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>12.4.3</b> Calculating Factor Loadings</a></li>
-</ul></li>
-<li class="chapter" data-level="12.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>12.5</b> Drawing Figures to Represent PCA</a><ul>
-<li class="chapter" data-level="12.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>12.5.1</b> PC Score Plots</a></li>
-<li class="chapter" data-level="12.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>12.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html"><i class="fa fa-check"></i><b>13</b> Simulating Sampling Distributions</a><ul>
-<li class="chapter" data-level="13.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#libraries-6"><i class="fa fa-check"></i><b>13.1</b> Libraries</a></li>
-<li class="chapter" data-level="13.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#data-set-simulated-male-heights"><i class="fa fa-check"></i><b>13.2</b> Data set: Simulated male heights</a><ul>
-<li class="chapter" data-level="13.2.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>13.2.1</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="13.2.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#generating-the-simulated-population"><i class="fa fa-check"></i><b>13.2.2</b> Generating the simulated population</a></li>
-<li class="chapter" data-level="13.2.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#properties-of-the-simulated-population"><i class="fa fa-check"></i><b>13.2.3</b> Properties of the simulated population</a></li>
-</ul></li>
-<li class="chapter" data-level="13.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>13.3</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>13.3.1</b> Another random sample</a></li>
-<li class="chapter" data-level="13.3.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>13.3.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="13.3.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>13.3.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="13.3.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>13.3.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="13.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>13.4</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="13.4.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>13.4.1</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="13.4.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>13.4.2</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="13.5" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>13.5</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="13.6" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>13.6</b> Sampling Distribution of the Standard Deviation</a></li>
-<li class="chapter" data-level="13.7" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>13.7</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="13.7.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>13.7.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="13.7.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#underestimates-of-the-standard-deviation-given-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>13.7.2</b> Underestimates of the standard deviation given small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="13.8" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>13.8</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>14</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="14.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#libraries-7"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
-<li class="chapter" data-level="14.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>14.2</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="14.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calibrating-confidence-intervals"><i class="fa fa-check"></i><b>14.3</b> Calibrating confidence intervals</a></li>
-<li class="chapter" data-level="14.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#standard-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>14.4</b> Standard formulation for confidence intervals</a></li>
-<li class="chapter" data-level="14.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulating-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>14.5</b> Simulating confidence intervals for the mean</a></li>
-<li class="chapter" data-level="14.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#sample-estimate-of-the-standard-error-of-the-mean"><i class="fa fa-check"></i><b>14.6</b> Sample estimate of the standard error of the mean</a></li>
-<li class="chapter" data-level="14.7" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#ci-of-mean-simulation"><i class="fa fa-check"></i><b>14.7</b> CI of mean simulation</a></li>
-<li class="chapter" data-level="14.8" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generating-a-table-of-cis-and-corresponding-margins-of-error"><i class="fa fa-check"></i><b>14.8</b> Generating a table of CIs and corresponding margins of error</a></li>
-<li class="chapter" data-level="14.9" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#interpreting-our-simulation"><i class="fa fa-check"></i><b>14.9</b> Interpreting our simulation</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html"><i class="fa fa-check"></i><b>15</b> Randomization, Jackknife, and Bootstrap</a><ul>
-<li class="chapter" data-level="15.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#libraries-8"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
-<li class="chapter" data-level="15.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#randomization"><i class="fa fa-check"></i><b>15.2</b> Randomization</a></li>
-<li class="chapter" data-level="15.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-a-difference-in-means"><i class="fa fa-check"></i><b>15.3</b> Using randomization to test for a difference in means</a></li>
-<li class="chapter" data-level="15.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-equality-of-variances"><i class="fa fa-check"></i><b>15.4</b> Using randomization to test for equality of variances</a></li>
-<li class="chapter" data-level="15.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#jackknifing-in-r"><i class="fa fa-check"></i><b>15.5</b> Jackknifing in R</a></li>
-<li class="chapter" data-level="15.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bootstrapping-in-r"><i class="fa fa-check"></i><b>15.6</b> Bootstrapping in R</a><ul>
-<li class="chapter" data-level="15.6.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#a-more-sophisticated-application-of-the-bootstrap"><i class="fa fa-check"></i><b>15.6.1</b> A more sophisticated application of the bootstrap</a></li>
-<li class="chapter" data-level="15.6.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#about-logistic-regression"><i class="fa fa-check"></i><b>15.6.2</b> About logistic regression</a></li>
-<li class="chapter" data-level="15.6.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bumpus-house-sparrow-data-set"><i class="fa fa-check"></i><b>15.6.3</b> Bumpus house sparrow data set</a></li>
-<li class="chapter" data-level="15.6.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#predicting-survival-as-a-function-of-body-weight"><i class="fa fa-check"></i><b>15.6.4</b> Predicting survival as a function of body weight</a></li>
-<li class="chapter" data-level="15.6.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#fitting-the-logistic-regression"><i class="fa fa-check"></i><b>15.6.5</b> Fitting the logistic regression</a></li>
-<li class="chapter" data-level="15.6.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#defining-an-appropriate-function-for-boot"><i class="fa fa-check"></i><b>15.6.6</b> Defining an appropriate function for <code>boot</code></a></li>
-<li class="chapter" data-level="15.6.7" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#calculating-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.7</b> Calculating bootstrap confidence intervals</a></li>
-<li class="chapter" data-level="15.6.8" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#visualizing-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.8</b> Visualizing bootstrap confidence intervals</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>16</b> ANOVA</a><ul>
-<li class="chapter" data-level="16.1" data-path="anova.html"><a href="anova.html#libraries-9"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
-<li class="chapter" data-level="16.2" data-path="anova.html"><a href="anova.html#example-data-set-the-effect-of-light-treatments-on-circadian-rhythms"><i class="fa fa-check"></i><b>16.2</b> Example data set: The effect of light treatments on circadian rhythms</a></li>
-<li class="chapter" data-level="16.3" data-path="anova.html"><a href="anova.html#visualizing-the-data"><i class="fa fa-check"></i><b>16.3</b> Visualizing the data</a></li>
-<li class="chapter" data-level="16.4" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>16.4</b> Analysis of Variance</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="anova.html"><a href="anova.html#hypotheses-for-anova"><i class="fa fa-check"></i><b>16.4.1</b> Hypotheses for ANOVA</a></li>
-<li class="chapter" data-level="16.4.2" data-path="anova.html"><a href="anova.html#anova-assumptions"><i class="fa fa-check"></i><b>16.4.2</b> ANOVA, assumptions</a></li>
-<li class="chapter" data-level="16.4.3" data-path="anova.html"><a href="anova.html#anova-key-idea"><i class="fa fa-check"></i><b>16.4.3</b> ANOVA, key idea</a></li>
-<li class="chapter" data-level="16.4.4" data-path="anova.html"><a href="anova.html#partioning-of-sum-of-squares"><i class="fa fa-check"></i><b>16.4.4</b> Partioning of sum of squares</a></li>
-</ul></li>
-<li class="chapter" data-level="16.5" data-path="anova.html"><a href="anova.html#the-aov-function"><i class="fa fa-check"></i><b>16.5</b> The <code>aov</code> function</a></li>
-<li class="chapter" data-level="16.6" data-path="anova.html"><a href="anova.html#anova-calculations-step-by-step"><i class="fa fa-check"></i><b>16.6</b> ANOVA calculations: Step-by-step</a><ul>
-<li class="chapter" data-level="16.6.1" data-path="anova.html"><a href="anova.html#total-sum-of-squares"><i class="fa fa-check"></i><b>16.6.1</b> Total sum of squares</a></li>
-<li class="chapter" data-level="16.6.2" data-path="anova.html"><a href="anova.html#group-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.2</b> Group sum of squares and mean square</a></li>
-<li class="chapter" data-level="16.6.3" data-path="anova.html"><a href="anova.html#error-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.3</b> Error sum of squares and mean square</a></li>
-<li class="chapter" data-level="16.6.4" data-path="anova.html"><a href="anova.html#calculating-the-f-statistic"><i class="fa fa-check"></i><b>16.6.4</b> Calculating the F-statistic</a></li>
-<li class="chapter" data-level="16.6.5" data-path="anova.html"><a href="anova.html#the-f-distribution"><i class="fa fa-check"></i><b>16.6.5</b> The F-distribution</a></li>
-<li class="chapter" data-level="16.6.6" data-path="anova.html"><a href="anova.html#critical-values-of-the-f-distribution"><i class="fa fa-check"></i><b>16.6.6</b> Critical values of the F-distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="16.7" data-path="anova.html"><a href="anova.html#combined-visualization"><i class="fa fa-check"></i><b>16.7</b> Combined visualization</a></li>
-<li class="chapter" data-level="16.8" data-path="anova.html"><a href="anova.html#which-pairs-of-group-means-are-different"><i class="fa fa-check"></i><b>16.8</b> Which pairs of group means are different?</a><ul>
-<li class="chapter" data-level="16.8.1" data-path="anova.html"><a href="anova.html#tukey-kramer-test"><i class="fa fa-check"></i><b>16.8.1</b> Tukey-Kramer test</a></li>
-</ul></li>
-<li class="chapter" data-level="16.9" data-path="anova.html"><a href="anova.html#anova-as-regression"><i class="fa fa-check"></i><b>16.9</b> ANOVA as Regression</a><ul>
-<li class="chapter" data-level="16.9.1" data-path="anova.html"><a href="anova.html#treating-a-variable-as-a-factor"><i class="fa fa-check"></i><b>16.9.1</b> Treating a variable as a factor</a></li>
-<li class="chapter" data-level="16.9.2" data-path="anova.html"><a href="anova.html#factor-coding"><i class="fa fa-check"></i><b>16.9.2</b> Factor coding</a></li>
-<li class="chapter" data-level="16.9.3" data-path="anova.html"><a href="anova.html#fitting-the-anova-using-lm"><i class="fa fa-check"></i><b>16.9.3</b> Fitting the ANOVA using <code>lm</code></a></li>
-<li class="chapter" data-level="16.9.4" data-path="anova.html"><a href="anova.html#changing-the-factor-coding"><i class="fa fa-check"></i><b>16.9.4</b> Changing the factor coding</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>17</b> Canonical Variates Analysis</a><ul>
-<li class="chapter" data-level="17.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-10"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>17.2</b> Discriminant Analysis in R</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>17.2.1</b> Shorthand Formulae in R</a></li>
-<li class="chapter" data-level="17.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>17.2.2</b> Working with the output of <code>lda()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="17.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>17.3</b> Estimating confidence regions for group means in CVA</a><ul>
-<li class="chapter" data-level="17.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>17.3.1</b> Drawing the CVA confidence regions</a></li>
-</ul></li>
-<li class="chapter" data-level="17.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>17.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
-<li class="chapter" data-level="17.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>17.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
-</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>3.5</b> Running a code chunk</a></li>
+<li class="chapter" data-level="3.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>3.6</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="3.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>3.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="3.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>3.8</b> Sharing your reproducible R Notebook</a></li>
 </ul></li>
 </ul>
 
@@ -469,31 +185,31 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="r-markdown-and-r-notebooks" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> R Markdown and R Notebooks</h1>
+<h1><span class="header-section-number">Chapter 3</span> R Markdown and R Notebooks</h1>
 <p>RStudio comes with a useful set of tools, collectively called R Markdown, for generating “literate” statistical analyses. The idea behind literate statistical computing is that we should try to carry out our analyses in a manner that is transparent, self-explanatory, and reproducible. Literate statistical computing helps to ensure your research is reproducible because:</p>
 <ol style="list-style-type: decimal">
 <li>The steps of your analyses are explicitly described, both as written text and the code and function calls used.</li>
 <li>Analyses can be more easily checked for correctness and reproduced from your literate code.</li>
 <li>Your literate code can serve as a template for future analyses, saving you time and the trouble of remembering all the gory details.</li>
 </ol>
-<p>As we’ll see, R Markdown will allow us to produce statistical documents that integrateprose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the other is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
-<p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This hands-on provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
+<p>As we’ll see, R Markdown will allow us to produce statistical documents that integrate prose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the “other” is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
+<p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This chaptern provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
 <div id="r-notebooks" class="section level2">
-<h2><span class="header-section-number">4.1</span> R Notebooks</h2>
+<h2><span class="header-section-number">3.1</span> R Notebooks</h2>
 <p>We’re going to create a type of R Markdown document called an “R Notebook”. The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
 </div>
 <div id="creating-an-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.2</span> Creating an R Notebook</h2>
+<h2><span class="header-section-number">3.2</span> Creating an R Notebook</h2>
 <p>To create an R Notebook select <code>File &gt; New File &gt; R Notebook</code> from the files menu in RStudio.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-93"></span>
-<img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="600px" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-37"></span>
+<img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="75%" />
 <p class="caption">
-Figure 4.1: Using the File menu to create a new R Notebook.
+Figure 3.1: Using the File menu to create a new R Notebook.
 </p>
 </div>
 </div>
 <div id="the-default-r-notebook-template" class="section level2">
-<h2><span class="header-section-number">4.3</span> The default R Notebook template</h2>
+<h2><span class="header-section-number">3.3</span> The default R Notebook template</h2>
 <p>The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.</p>
 <pre><code>---
 title: &quot;R Notebook&quot;
@@ -502,14 +218,17 @@ output: html_notebook
 <p>The header is followed by several example sections that illustrate a few of the capabilities of R Markdown. Delete these and replace them with your own code as necessary.</p>
 </div>
 <div id="code-and-non-code-blocks" class="section level2">
-<h2><span class="header-section-number">4.4</span> Code and Non-code blocks</h2>
+<h2><span class="header-section-number">3.4</span> Code and Non-code blocks</h2>
 <p>R Markdown documents are divided into code blocks (also called “chunks”) and non-code blocks. Code blocks are sets of R commands that will be evalauted when the R Markdown document is run or “knitted” (see below). Non-code blocks include explanatory text, embedded images, etc. The default notebook template includes both code and non-code blocks.</p>
 <div id="non-code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Non-code blocks</h3>
+<h3><span class="header-section-number">3.4.1</span> Non-code blocks</h3>
 <p>The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:</p>
-<pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+<pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
+When you execute code within the notebook, the results appear
+beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. </code></pre>
+Try executing this chunk by clicking the *Run* button within the chunk 
+or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. </code></pre>
 <p>The text of non-code blocks can include lightweight markup information that can be used to format HTML or PDF output generated from the R Markdown document. Here are some examples:</p>
 <pre><code># Simple textual formatting 
 
@@ -544,55 +263,56 @@ like so:  $x^2 + y^2 = z^2$.
 <p>Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations. For example, <code>$x^2 + y^2 = z^2$</code> appears as <span class="math inline">\(x^2 + y^2 = z^2\)</span>.</p>
 </div>
 <div id="code-blocks" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Code blocks</h3>
+<h3><span class="header-section-number">3.4.2</span> Code blocks</h3>
 <p>Code blocks are delimited by matching sets of three backward ticks (```). Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here’s the first code block in the default notebook template:</p>
-<pre><code>```{r}
+<pre><code>```
+{r}
 plot(cars)
-```</code></pre>
+```</code></pre>
 </div>
 </div>
 <div id="running-a-code-chunk" class="section level2">
-<h2><span class="header-section-number">4.5</span> Running a code chunk</h2>
+<h2><span class="header-section-number">3.5</span> Running a code chunk</h2>
 <p>You can run a single code block by clicking the small green “Run” button in the upper right hand corner of the code block as shown in the image below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
-<img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="600px" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-38"></span>
+<img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="75%" />
 <p class="caption">
-Figure 4.2: Click the Run button to execute a code chunk.
+Figure 3.2: Click the Run button to execute a code chunk.
 </p>
 </div>
 <p>If you click this button the commands within this code block are executed, and any generated output is shown below the code block.</p>
 <p>Try running the first code block in the default template now. After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-95"></span>
-<img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="600px" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-39"></span>
+<img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="60%" />
 <p class="caption">
-Figure 4.3: An R Notebook showing an embedded plot after executing a code chunk.
+Figure 3.3: An R Notebook showing an embedded plot after executing a code chunk.
 </p>
 </div>
 </div>
 <div id="running-all-code-chunks-above" class="section level2">
-<h2><span class="header-section-number">4.6</span> Running all code chunks above</h2>
+<h2><span class="header-section-number">3.6</span> Running all code chunks above</h2>
 <p>Next to the “Run” button in each code chunk is a button for “Run all chunks above” (see figure below). This is useful when the code chunk you’re working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-96"></span>
-<img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="600px" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
+<img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="75%" />
 <p class="caption">
-Figure 4.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
+Figure 3.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
 </p>
 </div>
 </div>
 <div id="knitting-an-r-markdown-to-html" class="section level2">
-<h2><span class="header-section-number">4.7</span> “Knitting an” R Markdown to HTML</h2>
+<h2><span class="header-section-number">3.7</span> “Knitting an” R Markdown to HTML</h2>
 <p>Save your R Notebook as <code>first_rnotebook.Rmd</code> (RStudio will automatically add the <code>.Rmd</code> extension so you don’t need to type it). You can generate an HTML version of your notebook by clicking the “Preview” menu on the Notebook taskbar and then choosing “Knit to HTML” (see image below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-97"></span>
-<img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="600px" />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-41"></span>
+<img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="75%" />
 <p class="caption">
-Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
+Figure 3.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
 </p>
 </div>
 <p>When an RMarkdown document is “knit”, all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
 <p>Knitting a document is a good way to make sure your analysis is reproducible. If your code compiles correctly when the document is knit, and produces the expected output, there’s a good chance that someone else will be able to reproduce your analyses independently starting with your R Notebook document (after accounting for differences in file locations).</p>
 </div>
 <div id="sharing-your-reproducible-r-notebook" class="section level2">
-<h2><span class="header-section-number">4.8</span> Sharing your reproducible R Notebook</h2>
+<h2><span class="header-section-number">3.8</span> Sharing your reproducible R Notebook</h2>
 <p>To share your R Notebook with someone else you just need to send them the source R Markdown file (i.e. the file with the <code>.Rmd</code> extension). Assuming they have access to the same source data, another user should be able to open the notebook file in RStudio and regenerate your analyses by evaluating the individual code chunks or knitting the document.</p>
 <p>In this course you will be submitting homework assignments in the form of R Notebook markdown files.</p>
 
@@ -603,8 +323,8 @@ Figure 4.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R 
           </div>
         </div>
       </div>
-<a href="r-basics-data-types-and-data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="getting-started-with-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -639,7 +359,10 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
+"collapse": "section"
+},
+"toolbar": {
+"position": "fixed"
 }
 });
 });
@@ -650,7 +373,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

@@ -3,9 +3,20 @@ title: "Biology 723: Statistical Computing for Biologists"
 author: "Paul M. Magwene"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+always_allow_html: yes
 output:
   bookdown::gitbook:
     highlight: tango
+    df_print: tibble
+    config:
+      toc:
+        collapse: section
+      fontsettings:
+        theme: white
+        family: sans
+        size: 2 
+      toolbar:
+        position: fixed     
 documentclass: book
 bibliography: [bio723-refs.bib]
 biblio-style: apalike
@@ -15,9 +26,9 @@ description: "Hands-on materials for Bio 723 course at Duke University."
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, prompt = FALSE, eval = TRUE, 
-                      warning = FALSE, comment=NA, cache = FALSE,
+                      warning = FALSE, comment="##", cache = TRUE,
                       fig.width = 6, fig.height = 4, #results = "hide",
-                      collapse=TRUE, results='markup')
+                      collapse=TRUE, results='markup', max.print=6)
 
 options(pillar.sigfig = 4)
 ```
@@ -31,7 +42,6 @@ knitr::include_graphics('./figures/fig-title-page.png', dpi = NA)
 Bio 723 (formerly Bio 313) is a course I offer at Duke University.  The focus of this course is statistical computing for the biological sciences with an emphasis on common multivariate statistical methods and techniques for exploratory data analysis. A major goal of the course is to help graduate students in the biological sciences develop practical insights into methods that they are likely to encounter in their own research, and the potential advantages and pitfalls that come with their use. 
 
 In terms of mathematical perspectives, the course emphasize a geometric approach to understanding multivariate statistics.  I try to help students develop an intuition for the geometry of vector spaces and discuss topics like correlation, regression, and principal components analysis in terms of angles between vectors, dot products, and projection.
-
 
 
 

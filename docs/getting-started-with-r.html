@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2018-04-18">
+<meta name="date" content="2019-01-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="r-basics-data-types-and-data-structures.html">
+<link rel="next" href="r-markdown-and-r-notebooks.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,41 +50,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-pre, code { background-color: #f8f8f8; }
-code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code > span.dt { color: #204a87; } /* DataType */
-code > span.dv { color: #0000cf; } /* DecVal */
-code > span.bn { color: #0000cf; } /* BaseN */
-code > span.fl { color: #0000cf; } /* Float */
-code > span.ch { color: #4e9a06; } /* Char */
-code > span.st { color: #4e9a06; } /* String */
-code > span.co { color: #8f5902; font-style: italic; } /* Comment */
-code > span.ot { color: #8f5902; } /* Other */
-code > span.al { color: #ef2929; } /* Alert */
-code > span.fu { color: #000000; } /* Function */
-code > span.er { color: #a40000; font-weight: bold; } /* Error */
-code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #000000; } /* Constant */
-code > span.sc { color: #000000; } /* SpecialChar */
-code > span.vs { color: #4e9a06; } /* VerbatimString */
-code > span.ss { color: #4e9a06; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #000000; } /* Variable */
-code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code > span.ex { } /* Extension */
-code > span.at { color: #c4a000; } /* Attribute */
-code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -111,345 +136,36 @@ code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types-in-r"><i class="fa fa-check"></i><b>2.6</b> Numeric data types in R</a></li>
-<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment-in-r"><i class="fa fa-check"></i><b>2.7</b> Variable assignment in R</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.7.1</b> Valid variable names</a></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment"><i class="fa fa-check"></i><b>2.6</b> Variable assignment</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.6.1</b> Valid variable names</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#working-with-vectors-in-r"><i class="fa fa-check"></i><b>2.8</b> Working with Vectors in R</a><ul>
-<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-arithmetic"><i class="fa fa-check"></i><b>2.8.1</b> Vector Arithmetic</a></li>
-<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#vector-recycling"><i class="fa fa-check"></i><b>2.8.2</b> Vector recycling</a></li>
-<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>2.8.3</b> Simple statistical functions for numeric vectors</a></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.7</b> Data types</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types"><i class="fa fa-check"></i><b>2.7.1</b> Numeric data types</a></li>
+<li class="chapter" data-level="2.7.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#logical-values"><i class="fa fa-check"></i><b>2.7.2</b> Logical values</a></li>
+<li class="chapter" data-level="2.7.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#character-strings"><i class="fa fa-check"></i><b>2.7.3</b> Character strings</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.8</b> Packages</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.8.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.8.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.8.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.8.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.8.4</b> Loading packages with the <code>library()</code> function</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
 <li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.10</b> Packages</a><ul>
-<li class="chapter" data-level="2.10.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.10.1</b> Installing packages from the console</a></li>
-<li class="chapter" data-level="2.10.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.10.2</b> Install the tidyverse package</a></li>
-<li class="chapter" data-level="2.10.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.10.3</b> Installing packages from the RStudio dialog</a></li>
-<li class="chapter" data-level="2.10.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-stringr-package"><i class="fa fa-check"></i><b>2.10.4</b> Install the stringr package</a></li>
-<li class="chapter" data-level="2.10.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.10.5</b> Loading packages with the <code>library()</code> function</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>3</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>3.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>3.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="3.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>3.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="3.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>3.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>3.4.1</b> Non-code blocks</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>3.4.2</b> Code blocks</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html"><i class="fa fa-check"></i><b>3</b> R Basics: Data types and data structures</a><ul>
-<li class="chapter" data-level="3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-boolean-values"><i class="fa fa-check"></i><b>3.1</b> Logical (Boolean) values</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#comparison-operators-applied-to-numeric-vectors"><i class="fa fa-check"></i><b>3.1.1</b> Comparison operators applied to numeric vectors</a></li>
-<li class="chapter" data-level="3.1.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-vectors"><i class="fa fa-check"></i><b>3.1.2</b> Logical vectors</a></li>
-<li class="chapter" data-level="3.1.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-operators"><i class="fa fa-check"></i><b>3.1.3</b> Logical operators</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#character-strings"><i class="fa fa-check"></i><b>3.2</b> Character strings</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-stringr-package"><i class="fa fa-check"></i><b>3.2.1</b> The <code>stringr</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors"><i class="fa fa-check"></i><b>3.3</b> Vectors</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>3.3.1</b> Indexing Vectors</a></li>
-<li class="chapter" data-level="3.3.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>3.3.2</b> Combining Indexing and Comparison of Vectors</a></li>
-<li class="chapter" data-level="3.3.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>3.3.3</b> Vector manipulation</a></li>
-<li class="chapter" data-level="3.3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>3.3.4</b> Vectors from regular sequences</a></li>
-<li class="chapter" data-level="3.3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>3.3.5</b> Additional functions for working with vectors</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#lists"><i class="fa fa-check"></i><b>3.4</b> Lists</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>3.4.1</b> Length and type of lists</a></li>
-<li class="chapter" data-level="3.4.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>3.4.2</b> Indexing lists</a></li>
-<li class="chapter" data-level="3.4.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>3.4.3</b> Naming list elements</a></li>
-<li class="chapter" data-level="3.4.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#the-operator"><i class="fa fa-check"></i><b>3.4.4</b> The <code>$</code> operator</a></li>
-<li class="chapter" data-level="3.4.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>3.4.5</b> Changing and adding lists items</a></li>
-<li class="chapter" data-level="3.4.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#combining-lists"><i class="fa fa-check"></i><b>3.4.6</b> Combining lists</a></li>
-<li class="chapter" data-level="3.4.7" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>3.4.7</b> Converting lists to vectors</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#data-frames"><i class="fa fa-check"></i><b>3.5</b> Data frames</a><ul>
-<li class="chapter" data-level="3.5.1" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>3.5.1</b> Creating a data frame</a></li>
-<li class="chapter" data-level="3.5.2" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>3.5.2</b> Type and class for data frames</a></li>
-<li class="chapter" data-level="3.5.3" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>3.5.3</b> Length and dimension for data frames</a></li>
-<li class="chapter" data-level="3.5.4" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>3.5.4</b> Indexing and accessing data frames</a></li>
-<li class="chapter" data-level="3.5.5" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>3.5.5</b> Logical indexing of data frames</a></li>
-<li class="chapter" data-level="3.5.6" data-path="r-basics-data-types-and-data-structures.html"><a href="r-basics-data-types-and-data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>3.5.6</b> Adding columns to a data frame</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>4</b> R Markdown and R Notebooks</a><ul>
-<li class="chapter" data-level="4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>4.1</b> R Notebooks</a></li>
-<li class="chapter" data-level="4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>4.2</b> Creating an R Notebook</a></li>
-<li class="chapter" data-level="4.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>4.3</b> The default R Notebook template</a></li>
-<li class="chapter" data-level="4.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>4.4</b> Code and Non-code blocks</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>4.4.1</b> Non-code blocks</a></li>
-<li class="chapter" data-level="4.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>4.4.2</b> Code blocks</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>4.5</b> Running a code chunk</a></li>
-<li class="chapter" data-level="4.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>4.6</b> Running all code chunks above</a></li>
-<li class="chapter" data-level="4.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>4.7</b> “Knitting an” R Markdown to HTML</a></li>
-<li class="chapter" data-level="4.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>4.8</b> Sharing your reproducible R Notebook</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html"><i class="fa fa-check"></i><b>6</b> Introduction to the <code>dplyr</code> package</a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.1</b> Example data: NC Births</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.2</b> Reading Excel files</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-the-dplyr-package.html"><a href="introduction-to-the-dplyr-package.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.5</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.5.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.5.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.5.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.5.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.5.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.5.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.5.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.5.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.5.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frame-rows"><i class="fa fa-check"></i><b>7.5.5</b> Combining data frame rows</a></li>
-<li class="chapter" data-level="7.5.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.5.6</b> Sorting data frame rows</a></li>
-<li class="chapter" data-level="7.5.7" data-path="data-wrangling.html"><a href="data-wrangling.html#collapsing-columns-using-tidyrunite"><i class="fa fa-check"></i><b>7.5.7</b> Collapsing columns using <code>tidyr::unite</code></a></li>
-<li class="chapter" data-level="7.5.8" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns-using-tidyrseparate"><i class="fa fa-check"></i><b>7.5.8</b> Splitting columns using <code>tidyr::separate</code></a></li>
-<li class="chapter" data-level="7.5.9" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.5.9</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.6</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.6.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.6.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.6.3</b> Exploring bivariate relationships using “wide” data</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#calculating-correlations-between-genes"><i class="fa fa-check"></i><b>7.6.4</b> Calculating correlations between genes</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Adding new columns and combining filtered data frames</a></li>
-</ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7</b> Heat maps</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#rcolorbrewer"><i class="fa fa-check"></i><b>7.7.1</b> RColorBrewer</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#creating-a-heat-map-using-geom_tile"><i class="fa fa-check"></i><b>7.7.2</b> Creating a heat map using <code>geom_tile</code></a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.7.3</b> A “fancy” figure</a></li>
-<li class="chapter" data-level="7.7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-and-visualizing-genes-by-time-of-maximum-expression"><i class="fa fa-check"></i><b>7.7.4</b> Sorting and visualizing genes by time of maximum expression</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html"><i class="fa fa-check"></i><b>8</b> Vectors and Functions</a><ul>
-<li class="chapter" data-level="8.1" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#libraries-2"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
-<li class="chapter" data-level="8.2" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#vector-mathematics-in-r"><i class="fa fa-check"></i><b>8.2</b> Vector Mathematics in R</a></li>
-<li class="chapter" data-level="8.3" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#writing-your-own-functions-in-r"><i class="fa fa-check"></i><b>8.3</b> Writing Your Own Functions in R</a></li>
-<li class="chapter" data-level="8.4" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#function-arguments"><i class="fa fa-check"></i><b>8.4</b> Function arguments</a></li>
-<li class="chapter" data-level="8.5" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.5</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.6" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.6</b> Putting R functions in Scripts</a></li>
-<li class="chapter" data-level="8.7" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#simple-statistics-in-vector-form"><i class="fa fa-check"></i><b>8.7</b> Simple statistics in vector form</a><ul>
-<li class="chapter" data-level="8.7.1" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#mean"><i class="fa fa-check"></i><b>8.7.1</b> Mean</a></li>
-<li class="chapter" data-level="8.7.2" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#variance-and-standard-deviation"><i class="fa fa-check"></i><b>8.7.2</b> Variance and standard deviation</a></li>
-<li class="chapter" data-level="8.7.3" data-path="vectors-and-functions.html"><a href="vectors-and-functions.html#covariance-and-correlation"><i class="fa fa-check"></i><b>8.7.3</b> Covariance and correlation</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Bivariate Linear Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#regression-terminology"><i class="fa fa-check"></i><b>9.1</b> Regression terminology</a></li>
-<li class="chapter" data-level="9.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#libraries-3"><i class="fa fa-check"></i><b>9.2</b> Libraries</a></li>
-<li class="chapter" data-level="9.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>9.3</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="9.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>9.4</b> Specifying Regression Models in R</a><ul>
-<li class="chapter" data-level="9.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#fitted-values"><i class="fa fa-check"></i><b>9.4.1</b> Fitted values</a></li>
-<li class="chapter" data-level="9.4.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>9.4.2</b> Getting the model coefficients</a></li>
-</ul></li>
-<li class="chapter" data-level="9.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#residuals"><i class="fa fa-check"></i><b>9.5</b> Residuals</a></li>
-<li class="chapter" data-level="9.6" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>9.6</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="9.7" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>9.7</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="9.8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>9.8</b> Broom: a library for converting model results into data frames</a><ul>
-<li class="chapter" data-level="9.8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomtidy"><i class="fa fa-check"></i><b>9.8.1</b> <code>broom::tidy</code></a></li>
-<li class="chapter" data-level="9.8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomaugment"><i class="fa fa-check"></i><b>9.8.2</b> <code>broom::augment</code></a></li>
-<li class="chapter" data-level="9.8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#broomglance"><i class="fa fa-check"></i><b>9.8.3</b> <code>broom::glance</code></a></li>
-</ul></li>
-<li class="chapter" data-level="9.9" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-on-a-real-world-data-set"><i class="fa fa-check"></i><b>9.9</b> Bivariate linear regression on a real world data set</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="matrices-in-r.html"><a href="matrices-in-r.html"><i class="fa fa-check"></i><b>10</b> Matrices in R</a><ul>
-<li class="chapter" data-level="10.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#creating-matrices-in-r"><i class="fa fa-check"></i><b>10.1</b> Creating matrices in R</a></li>
-<li class="chapter" data-level="10.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-arithmetic-operations-in-r"><i class="fa fa-check"></i><b>10.2</b> Matrix arithmetic operations in R</a></li>
-<li class="chapter" data-level="10.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#descriptive-statistics-as-matrix-functions"><i class="fa fa-check"></i><b>10.3</b> Descriptive statistics as matrix functions</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#mean-vector-and-matrix"><i class="fa fa-check"></i><b>10.3.1</b> Mean vector and matrix</a></li>
-<li class="chapter" data-level="10.3.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#deviation-matrix"><i class="fa fa-check"></i><b>10.3.2</b> Deviation matrix</a></li>
-<li class="chapter" data-level="10.3.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#covariance-matrix"><i class="fa fa-check"></i><b>10.3.3</b> Covariance matrix</a></li>
-<li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>11</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="11.1" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>11.1</b> New Libraries to install</a></li>
-<li class="chapter" data-level="11.2" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>11.2</b> Libraries</a></li>
-<li class="chapter" data-level="11.3" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>11.3</b> Examplar data</a></li>
-<li class="chapter" data-level="11.4" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>11.4</b> Data exploration</a></li>
-<li class="chapter" data-level="11.5" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>11.5</b> 3D Plots</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>11.5.1</b> scatterplot3d</a></li>
-<li class="chapter" data-level="11.5.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>11.5.2</b> rgl</a></li>
-</ul></li>
-<li class="chapter" data-level="11.6" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>11.6</b> Fitting the regression model</a><ul>
-<li class="chapter" data-level="11.6.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>11.6.1</b> Visualizing the regression model in scatterplot3d</a></li>
-</ul></li>
-<li class="chapter" data-level="11.7" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>11.7</b> Interpretting the regression model</a></li>
-<li class="chapter" data-level="11.8" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>11.8</b> Exploring the Vector Geometry of the Regression Model</a></li>
-<li class="chapter" data-level="11.9" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>11.9</b> Exploring the Residuals from the Model Fit</a></li>
-<li class="chapter" data-level="11.10" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>11.10</b> An alternate model</a></li>
-<li class="chapter" data-level="11.11" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>11.11</b> Fitting a curvilinear model using lm()</a></li>
-<li class="chapter" data-level="11.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>11.12</b> Exploring the impact of nearly collinear predictors on regression</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>12</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="12.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>12.1</b> Libraries</a></li>
-<li class="chapter" data-level="12.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>12.2</b> Matrices as linear transformations</a></li>
-<li class="chapter" data-level="12.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>12.3</b> Eigenanalysis in R</a></li>
-<li class="chapter" data-level="12.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>12.4</b> Principal Components Analysis in R</a><ul>
-<li class="chapter" data-level="12.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>12.4.1</b> Bioenv dataset</a></li>
-<li class="chapter" data-level="12.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>12.4.2</b> PCA of the Bioenv dataset</a></li>
-<li class="chapter" data-level="12.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>12.4.3</b> Calculating Factor Loadings</a></li>
-</ul></li>
-<li class="chapter" data-level="12.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>12.5</b> Drawing Figures to Represent PCA</a><ul>
-<li class="chapter" data-level="12.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>12.5.1</b> PC Score Plots</a></li>
-<li class="chapter" data-level="12.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>12.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html"><i class="fa fa-check"></i><b>13</b> Simulating Sampling Distributions</a><ul>
-<li class="chapter" data-level="13.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#libraries-6"><i class="fa fa-check"></i><b>13.1</b> Libraries</a></li>
-<li class="chapter" data-level="13.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#data-set-simulated-male-heights"><i class="fa fa-check"></i><b>13.2</b> Data set: Simulated male heights</a><ul>
-<li class="chapter" data-level="13.2.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>13.2.1</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="13.2.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#generating-the-simulated-population"><i class="fa fa-check"></i><b>13.2.2</b> Generating the simulated population</a></li>
-<li class="chapter" data-level="13.2.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#properties-of-the-simulated-population"><i class="fa fa-check"></i><b>13.2.3</b> Properties of the simulated population</a></li>
-</ul></li>
-<li class="chapter" data-level="13.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>13.3</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>13.3.1</b> Another random sample</a></li>
-<li class="chapter" data-level="13.3.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>13.3.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="13.3.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>13.3.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="13.3.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>13.3.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="13.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>13.4</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="13.4.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>13.4.1</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="13.4.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>13.4.2</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="13.5" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>13.5</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="13.6" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>13.6</b> Sampling Distribution of the Standard Deviation</a></li>
-<li class="chapter" data-level="13.7" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>13.7</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="13.7.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>13.7.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="13.7.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#underestimates-of-the-standard-deviation-given-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>13.7.2</b> Underestimates of the standard deviation given small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="13.8" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>13.8</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>14</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="14.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#libraries-7"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
-<li class="chapter" data-level="14.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>14.2</b> Confidence Intervals</a></li>
-<li class="chapter" data-level="14.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calibrating-confidence-intervals"><i class="fa fa-check"></i><b>14.3</b> Calibrating confidence intervals</a></li>
-<li class="chapter" data-level="14.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#standard-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>14.4</b> Standard formulation for confidence intervals</a></li>
-<li class="chapter" data-level="14.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulating-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>14.5</b> Simulating confidence intervals for the mean</a></li>
-<li class="chapter" data-level="14.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#sample-estimate-of-the-standard-error-of-the-mean"><i class="fa fa-check"></i><b>14.6</b> Sample estimate of the standard error of the mean</a></li>
-<li class="chapter" data-level="14.7" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#ci-of-mean-simulation"><i class="fa fa-check"></i><b>14.7</b> CI of mean simulation</a></li>
-<li class="chapter" data-level="14.8" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generating-a-table-of-cis-and-corresponding-margins-of-error"><i class="fa fa-check"></i><b>14.8</b> Generating a table of CIs and corresponding margins of error</a></li>
-<li class="chapter" data-level="14.9" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#interpreting-our-simulation"><i class="fa fa-check"></i><b>14.9</b> Interpreting our simulation</a></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html"><i class="fa fa-check"></i><b>15</b> Randomization, Jackknife, and Bootstrap</a><ul>
-<li class="chapter" data-level="15.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#libraries-8"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
-<li class="chapter" data-level="15.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#randomization"><i class="fa fa-check"></i><b>15.2</b> Randomization</a></li>
-<li class="chapter" data-level="15.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-a-difference-in-means"><i class="fa fa-check"></i><b>15.3</b> Using randomization to test for a difference in means</a></li>
-<li class="chapter" data-level="15.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-equality-of-variances"><i class="fa fa-check"></i><b>15.4</b> Using randomization to test for equality of variances</a></li>
-<li class="chapter" data-level="15.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#jackknifing-in-r"><i class="fa fa-check"></i><b>15.5</b> Jackknifing in R</a></li>
-<li class="chapter" data-level="15.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bootstrapping-in-r"><i class="fa fa-check"></i><b>15.6</b> Bootstrapping in R</a><ul>
-<li class="chapter" data-level="15.6.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#a-more-sophisticated-application-of-the-bootstrap"><i class="fa fa-check"></i><b>15.6.1</b> A more sophisticated application of the bootstrap</a></li>
-<li class="chapter" data-level="15.6.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#about-logistic-regression"><i class="fa fa-check"></i><b>15.6.2</b> About logistic regression</a></li>
-<li class="chapter" data-level="15.6.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bumpus-house-sparrow-data-set"><i class="fa fa-check"></i><b>15.6.3</b> Bumpus house sparrow data set</a></li>
-<li class="chapter" data-level="15.6.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#predicting-survival-as-a-function-of-body-weight"><i class="fa fa-check"></i><b>15.6.4</b> Predicting survival as a function of body weight</a></li>
-<li class="chapter" data-level="15.6.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#fitting-the-logistic-regression"><i class="fa fa-check"></i><b>15.6.5</b> Fitting the logistic regression</a></li>
-<li class="chapter" data-level="15.6.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#defining-an-appropriate-function-for-boot"><i class="fa fa-check"></i><b>15.6.6</b> Defining an appropriate function for <code>boot</code></a></li>
-<li class="chapter" data-level="15.6.7" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#calculating-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.7</b> Calculating bootstrap confidence intervals</a></li>
-<li class="chapter" data-level="15.6.8" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#visualizing-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>15.6.8</b> Visualizing bootstrap confidence intervals</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>16</b> ANOVA</a><ul>
-<li class="chapter" data-level="16.1" data-path="anova.html"><a href="anova.html#libraries-9"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
-<li class="chapter" data-level="16.2" data-path="anova.html"><a href="anova.html#example-data-set-the-effect-of-light-treatments-on-circadian-rhythms"><i class="fa fa-check"></i><b>16.2</b> Example data set: The effect of light treatments on circadian rhythms</a></li>
-<li class="chapter" data-level="16.3" data-path="anova.html"><a href="anova.html#visualizing-the-data"><i class="fa fa-check"></i><b>16.3</b> Visualizing the data</a></li>
-<li class="chapter" data-level="16.4" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>16.4</b> Analysis of Variance</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="anova.html"><a href="anova.html#hypotheses-for-anova"><i class="fa fa-check"></i><b>16.4.1</b> Hypotheses for ANOVA</a></li>
-<li class="chapter" data-level="16.4.2" data-path="anova.html"><a href="anova.html#anova-assumptions"><i class="fa fa-check"></i><b>16.4.2</b> ANOVA, assumptions</a></li>
-<li class="chapter" data-level="16.4.3" data-path="anova.html"><a href="anova.html#anova-key-idea"><i class="fa fa-check"></i><b>16.4.3</b> ANOVA, key idea</a></li>
-<li class="chapter" data-level="16.4.4" data-path="anova.html"><a href="anova.html#partioning-of-sum-of-squares"><i class="fa fa-check"></i><b>16.4.4</b> Partioning of sum of squares</a></li>
-</ul></li>
-<li class="chapter" data-level="16.5" data-path="anova.html"><a href="anova.html#the-aov-function"><i class="fa fa-check"></i><b>16.5</b> The <code>aov</code> function</a></li>
-<li class="chapter" data-level="16.6" data-path="anova.html"><a href="anova.html#anova-calculations-step-by-step"><i class="fa fa-check"></i><b>16.6</b> ANOVA calculations: Step-by-step</a><ul>
-<li class="chapter" data-level="16.6.1" data-path="anova.html"><a href="anova.html#total-sum-of-squares"><i class="fa fa-check"></i><b>16.6.1</b> Total sum of squares</a></li>
-<li class="chapter" data-level="16.6.2" data-path="anova.html"><a href="anova.html#group-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.2</b> Group sum of squares and mean square</a></li>
-<li class="chapter" data-level="16.6.3" data-path="anova.html"><a href="anova.html#error-sum-of-squares-and-mean-square"><i class="fa fa-check"></i><b>16.6.3</b> Error sum of squares and mean square</a></li>
-<li class="chapter" data-level="16.6.4" data-path="anova.html"><a href="anova.html#calculating-the-f-statistic"><i class="fa fa-check"></i><b>16.6.4</b> Calculating the F-statistic</a></li>
-<li class="chapter" data-level="16.6.5" data-path="anova.html"><a href="anova.html#the-f-distribution"><i class="fa fa-check"></i><b>16.6.5</b> The F-distribution</a></li>
-<li class="chapter" data-level="16.6.6" data-path="anova.html"><a href="anova.html#critical-values-of-the-f-distribution"><i class="fa fa-check"></i><b>16.6.6</b> Critical values of the F-distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="16.7" data-path="anova.html"><a href="anova.html#combined-visualization"><i class="fa fa-check"></i><b>16.7</b> Combined visualization</a></li>
-<li class="chapter" data-level="16.8" data-path="anova.html"><a href="anova.html#which-pairs-of-group-means-are-different"><i class="fa fa-check"></i><b>16.8</b> Which pairs of group means are different?</a><ul>
-<li class="chapter" data-level="16.8.1" data-path="anova.html"><a href="anova.html#tukey-kramer-test"><i class="fa fa-check"></i><b>16.8.1</b> Tukey-Kramer test</a></li>
-</ul></li>
-<li class="chapter" data-level="16.9" data-path="anova.html"><a href="anova.html#anova-as-regression"><i class="fa fa-check"></i><b>16.9</b> ANOVA as Regression</a><ul>
-<li class="chapter" data-level="16.9.1" data-path="anova.html"><a href="anova.html#treating-a-variable-as-a-factor"><i class="fa fa-check"></i><b>16.9.1</b> Treating a variable as a factor</a></li>
-<li class="chapter" data-level="16.9.2" data-path="anova.html"><a href="anova.html#factor-coding"><i class="fa fa-check"></i><b>16.9.2</b> Factor coding</a></li>
-<li class="chapter" data-level="16.9.3" data-path="anova.html"><a href="anova.html#fitting-the-anova-using-lm"><i class="fa fa-check"></i><b>16.9.3</b> Fitting the ANOVA using <code>lm</code></a></li>
-<li class="chapter" data-level="16.9.4" data-path="anova.html"><a href="anova.html#changing-the-factor-coding"><i class="fa fa-check"></i><b>16.9.4</b> Changing the factor coding</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>17</b> Canonical Variates Analysis</a><ul>
-<li class="chapter" data-level="17.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-10"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>17.2</b> Discriminant Analysis in R</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>17.2.1</b> Shorthand Formulae in R</a></li>
-<li class="chapter" data-level="17.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>17.2.2</b> Working with the output of <code>lda()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="17.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>17.3</b> Estimating confidence regions for group means in CVA</a><ul>
-<li class="chapter" data-level="17.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>17.3.1</b> Drawing the CVA confidence regions</a></li>
-</ul></li>
-<li class="chapter" data-level="17.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>17.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
-<li class="chapter" data-level="17.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>17.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
-</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>3.5</b> Running a code chunk</a></li>
+<li class="chapter" data-level="3.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>3.6</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="3.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>3.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="3.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>3.8</b> Sharing your reproducible R Notebook</a></li>
 </ul></li>
 </ul>
 
@@ -489,14 +205,10 @@ Figure 2.1: RStudio window with the panes labeled
 <h2><span class="header-section-number">2.3</span> Entering commands in the console</h2>
 <p>You can type commands directly in the console. When you hit Return (Enter) on your keyboard the text you typed is evaluated by the R interpreter. This means that the R program reads your commands, makes sure there are no syntax errors, and then carries out any commands that were specified.</p>
 <p>Try evaluating the following arithmetic commands in the console:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
-[<span class="dv">1</span>] <span class="dv">15</span>
-<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
-[<span class="dv">1</span>] <span class="dv">5</span>
-<span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span>
-[<span class="dv">1</span>] <span class="dv">2</span>
-<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>
-[<span class="dv">1</span>] <span class="dv">50</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
 <p>If you type an incomplete command and then hit Return on your keyboard, the console will show a continuation line marked by a <code>+</code> symbol. For example enter the incomplete statement <code>(10 + 5</code> and then hit Enter. You should see something like this.</p>
 <pre><code>&gt; (10 + 5
 +</code></pre>
@@ -505,94 +217,74 @@ Figure 2.1: RStudio window with the panes labeled
 <div id="comments" class="section level2">
 <h2><span class="header-section-number">2.4</span> Comments</h2>
 <p>When working in the R console, or writing R code, the pound symbol (<code>#</code>) indicates the start of a comment. Anything after the <code>#</code>, up to the end of the current line, is ignored by the R interpretter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This line will be ignored</span>
-<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span>
-[<span class="dv">1</span>] <span class="dv">9</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># This line will be ignored</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span></a></code></pre></div>
 <p>Throughout this course I will often include short explanatory comments in my code examples.</p>
+<p>When I want to display the output generated by an R statement typed at the console I will generally use a display convention in which I prepend the results with the symbols <code>##</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># same as above but with output displayed</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">## [1] 9</span></a></code></pre></div>
 </div>
 <div id="using-r-as-a-calculator" class="section level2">
 <h2><span class="header-section-number">2.5</span> Using R as a Calculator</h2>
-<p>The simplest way to use R is as a fancy calculator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="co"># addition</span>
-<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># subtraction</span>
-<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="co"># multiplication</span>
-<span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co"># division</span>
-<span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="co"># exponentiation</span>
-<span class="dv">10</span> <span class="op">**</span><span class="st"> </span><span class="dv">2</span> <span class="co"># alternate exponentiation</span>
-pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># R knows about some constants such as Pi</span>
-<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># modulus operator -- gives remainder after division</span>
-<span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></code></pre></div>
+<p>The simplest way to use R is as a fancy calculator. Evaluate each of the following statements in the console.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="co"># addition</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># subtraction</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="co"># multiplication</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co"># division</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="co"># exponentiation</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="dv">10</span> <span class="op">**</span><span class="st"> </span><span class="dv">2</span> <span class="co"># alternate exponentiation</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># R knows about some constants such as Pi</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># modulus operator -- gives remainder after division</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></a></code></pre></div>
 <p>Be aware that certain operators have precedence over others. For example multiplication and division have higher precedence than addition and subtraction. Use parentheses to disambiguate potentially confusing statements.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4</span><span class="op">-</span><span class="dv">5</span>   <span class="co"># was the output what you expected?</span>
-[<span class="dv">1</span>] <span class="op">-</span><span class="dv">2</span>
-(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4</span><span class="op">-</span><span class="dv">5</span>) <span class="co"># compare the answer to the above</span>
-[<span class="dv">1</span>] <span class="op">-</span><span class="dv">12</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4-5</span>   <span class="co"># was the output what you expected?</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4-5</span>) <span class="co"># compare the answer to the above</span></a></code></pre></div>
 <p>Division by zero produces an object that represents infinite numbers. Infinite values can be either positive or negative</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># Inf</span>
-[<span class="dv">1</span>] <span class="ot">Inf</span>
-<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> <span class="co"># -Inf</span>
-[<span class="dv">1</span>] <span class="op">-</span><span class="ot">Inf</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">## [1] Inf</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="dv">-1</span><span class="op">/</span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">## [1] -Inf</span></a></code></pre></div>
 <p>Invalid calculations produce a objected called <code>NaN</code> which is short for “Not a Number”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span>
-[<span class="dv">1</span>] <span class="ot">NaN</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">## [1] NaN</span></a></code></pre></div>
 <div id="common-mathematical-functions" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Common mathematical functions</h3>
 <p>Many commonly used mathematical functions are built into R. Here are some examples:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span>
-[<span class="dv">1</span>] <span class="dv">3</span>
-<span class="kw">abs</span>(<span class="dv">3</span>)
-[<span class="dv">1</span>] <span class="dv">3</span>
-<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span>
-[<span class="dv">1</span>] <span class="fl">0.5</span>
-<span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span>
-[<span class="dv">1</span>] <span class="fl">0.8660254</span>
-<span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span>
-[<span class="dv">1</span>] <span class="fl">2.302585</span>
-<span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span>
-[<span class="dv">1</span>] <span class="dv">1</span>
-<span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span>
-[<span class="dv">1</span>] <span class="fl">3.321928</span>
-<span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span>
-[<span class="dv">1</span>] <span class="fl">2.718282</span>
-<span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span>
-[<span class="dv">1</span>] <span class="fl">3.162278</span>
-<span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="fl">0.5</span>  <span class="co"># same as square root</span>
-[<span class="dv">1</span>] <span class="fl">3.162278</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">## [1] 3</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">## [1] 0.5</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">## [1] 0.8660254</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">## [1] 2.302585</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">## [1] 1</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">## [1] 3.321928</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">## [1] 2.718282</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">## [1] 3.162278</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="dv">10</span><span class="op">^</span><span class="fl">0.5</span>  <span class="co"># same as square root</span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">## [1] 3.162278</span></a></code></pre></div>
 </div>
 </div>
-<div id="numeric-data-types-in-r" class="section level2">
-<h2><span class="header-section-number">2.6</span> Numeric data types in R</h2>
-<p>There are three standard types of numbers in R. You can use the function <code>typeof()</code> to get information about an objects type in R.</p>
-<ol style="list-style-type: decimal">
-<li><p>“double” – this is the default numeric data type, and is used to represent both real numbers and whole numbers (unless you explicitly ask for integers, see below). “double” is short for “double precision floating point value”. All of the previous computations you’ve seen up until this point used data of type double.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span>
-[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span>
-<span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span>
-[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></code></pre></div></li>
-<li><p>“integer” – when your numeric data involves only whole numbers, you can get slighly better performance using the integer data type. You must explicitly ask for numbers to be treated as integers.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span>
-[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></code></pre></div></li>
-<li><p>“complex” – R has a built-in data type to represent complex numbers – numbers with a “real” and “imaginary” component. We won’t encounter the use of complex numbers in this course, but they do have many important uses in mathematics and engineering and also have some interesting applications in biology.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)
-[<span class="dv">1</span>] <span class="st">&quot;complex&quot;</span>
-<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span>
-[<span class="dv">1</span>] <span class="ot">NaN</span>
-<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span>
-[<span class="dv">1</span>] <span class="dv">0</span><span class="op">+</span>1i</code></pre></div></li>
-</ol>
-</div>
-<div id="variable-assignment-in-r" class="section level2">
-<h2><span class="header-section-number">2.7</span> Variable assignment in R</h2>
+<div id="variable-assignment" class="section level2">
+<h2><span class="header-section-number">2.6</span> Variable assignment</h2>
 <p>An important programming concept in all programming languages is that of “variable assignment”. Variable assignment is the act of creating labels that point to particular data values in a computers memory, which allows us to apply operations to the labels rather than directly to specific. Variable assignment is an important mechanism of abstracting and generalizing computational operations.</p>
 <p>Variable assignment in R is accomplished with the assignment operator, which is designated as <code>&lt;-</code> (left arrow, constructed from a left angular brack and the minus sign). This is illustrated below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span>
-<span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span>
-[<span class="dv">1</span>] <span class="op">-</span><span class="fl">0.5440211</span>
-x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span>
-<span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span>
-[<span class="dv">1</span>] <span class="fl">1.224647e-16</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">## [1] -0.5440211</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">## [1] 1.224647e-16</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">         <span class="co"># note that sin(pi) == 0, but R returns a floating point value very </span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">         <span class="co"># very close to but not zero</span></a></code></pre></div>
 <div id="valid-variable-names" class="section level3">
-<h3><span class="header-section-number">2.7.1</span> Valid variable names</h3>
+<h3><span class="header-section-number">2.6.1</span> Valid variable names</h3>
 <p>As described in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html">R documentation</a>, “A syntactically valid name consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number. Names such as ‘.2way’ are not valid, and neither are the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">reserved words</a>.”</p>
 <p>Here are some examples of valid and invalid variable names. Mentally evaluate these based on the definition above, and then evaluate these in the R interpetter to confirm your understanding :</p>
 <pre><code>x &lt;- 10
@@ -605,177 +297,224 @@ _x &lt;- 10
 2.x &lt;- 2 * x</code></pre>
 </div>
 </div>
-<div id="working-with-vectors-in-r" class="section level2">
-<h2><span class="header-section-number">2.8</span> Working with Vectors in R</h2>
-<p>Vectors are the core data structure in R. Vectors store an ordered lists of items, <em>all of the same type</em>. Learning to compute effectively with vectors and one of the keys to efficient R programming. Vectors in R always have a type (accessed with the <code>typeof()</code> function) and a length (accessed with the <code>length()</code> function).</p>
-<p>The simplest way to create a vector at the interactive prompt is to use the <code>c()</code> function, which is short hand for <code>combine' or</code>concatenate’.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>)  <span class="co"># create a vector, assignn it the variable name `x`</span>
-<span class="kw">length</span>(x)
-[<span class="dv">1</span>] <span class="dv">4</span>
-<span class="kw">typeof</span>(x)
-[<span class="dv">1</span>] <span class="st">&quot;double&quot;</span></code></pre></div>
-<p>You can also use <code>c()</code> to concatenate two or more vectors together.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>)  <span class="co"># create another vector, labeled y</span>
-xy &lt;-<span class="st"> </span><span class="kw">c</span>(x,y)  <span class="co"># combine two vectors</span>
-
-z &lt;-<span class="st"> </span><span class="kw">c</span>(pi<span class="op">/</span><span class="dv">4</span>, pi<span class="op">/</span><span class="dv">2</span>, pi, <span class="dv">2</span><span class="op">*</span>pi)
-xyz &lt;-<span class="st"> </span><span class="kw">c</span>(x, y, z)  <span class="co"># combine three vectors</span></code></pre></div>
-<div id="vector-arithmetic" class="section level3">
-<h3><span class="header-section-number">2.8.1</span> Vector Arithmetic</h3>
-<p>The basic R arithmetic operations work on vectors as well as on single numbers (in fact single numbers <em>are</em> vectors).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-x <span class="op">*</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># multiply each element of x by 2</span>
-[<span class="dv">1</span>]  <span class="dv">4</span>  <span class="dv">8</span> <span class="dv">12</span> <span class="dv">16</span> <span class="dv">20</span>
-x <span class="op">-</span><span class="st"> </span>pi <span class="co"># subtract pi from each element of x</span>
-[<span class="dv">1</span>] <span class="op">-</span><span class="fl">1.1415927</span>  <span class="fl">0.8584073</span>  <span class="fl">2.8584073</span>  <span class="fl">4.8584073</span>  <span class="fl">6.8584073</span>
-
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>)
-x <span class="op">+</span><span class="st"> </span>y  <span class="co"># add together each matching element of x and y</span>
-[<span class="dv">1</span>]  <span class="dv">2</span>  <span class="dv">5</span>  <span class="dv">9</span> <span class="dv">13</span> <span class="dv">19</span>
-x <span class="op">*</span><span class="st"> </span>y <span class="co"># multiply each matching element of x and y</span>
-[<span class="dv">1</span>]  <span class="dv">0</span>  <span class="dv">4</span> <span class="dv">18</span> <span class="dv">40</span> <span class="dv">90</span>
-x<span class="op">/</span>y <span class="co"># divide each matching element of x and y</span>
-[<span class="dv">1</span>]      <span class="ot">Inf</span> <span class="fl">4.000000</span> <span class="fl">2.000000</span> <span class="fl">1.600000</span> <span class="fl">1.111111</span></code></pre></div>
-<p>Basic numerical functions operate element-wise on numerical vectors:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sin</span>(x)
-[<span class="dv">1</span>]  <span class="fl">0.9092974</span> <span class="op">-</span><span class="fl">0.7568025</span> <span class="op">-</span><span class="fl">0.2794155</span>  <span class="fl">0.9893582</span> <span class="op">-</span><span class="fl">0.5440211</span>
-<span class="kw">cos</span>(x <span class="op">*</span><span class="st"> </span>pi)
-[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>
-<span class="kw">log</span>(x)
-[<span class="dv">1</span>] <span class="fl">0.6931472</span> <span class="fl">1.3862944</span> <span class="fl">1.7917595</span> <span class="fl">2.0794415</span> <span class="fl">2.3025851</span></code></pre></div>
+<div id="data-types" class="section level2">
+<h2><span class="header-section-number">2.7</span> Data types</h2>
+<p>The phrase “data types” refers to the representations of information that a programming language provides. In R, there are three core data types representing numbes, logical values, and strings. You can use the function <code>typeof()</code> to get information about an objects type in R.</p>
+<div id="numeric-data-types" class="section level3">
+<h3><span class="header-section-number">2.7.1</span> Numeric data types</h3>
+<p>There are three standard types of numbers in R.</p>
+<ol style="list-style-type: decimal">
+<li><p>“double” – this is the default numeric data type, and is used to represent both real numbers and whole numbers (unless you explicitly ask for integers, see below). “double” is short for “double precision floating point value”. All of the previous computations you’ve seen up until this point used data of type double.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">## [1] &quot;double&quot;</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div></li>
+<li><p>“integer” – when your numeric data involves only whole numbers, you can get slighly better performance using the integer data type. You must explicitly ask for numbers to be treated as integers.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">## [1] &quot;integer&quot;</span></a></code></pre></div></li>
+<li><p>“complex” – R has a built-in data type to represent complex numbers – numbers with a “real” and “imaginary” component. We won’t encounter the use of complex numbers in this course, but they do have many important uses in mathematics and engineering and also have some interesting applications in biology.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">## [1] &quot;complex&quot;</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">## [1] NaN</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">## [1] 0+1i</span></a></code></pre></div></li>
+</ol>
 </div>
-<div id="vector-recycling" class="section level3">
-<h3><span class="header-section-number">2.8.2</span> Vector recycling</h3>
-<p>When vectors are not of the same length R `recycles’ the elements of the shorter vector to make the lengths conform.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-<span class="kw">length</span>(x)
-[<span class="dv">1</span>] <span class="dv">5</span>
-z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">11</span>)
-<span class="kw">length</span>(z)
-[<span class="dv">1</span>] <span class="dv">4</span>
-x <span class="op">+</span><span class="st"> </span>z
-[<span class="dv">1</span>]  <span class="dv">3</span>  <span class="dv">8</span> <span class="dv">13</span> <span class="dv">19</span> <span class="dv">11</span></code></pre></div>
-<p>In the example above <code>z</code> was treated as if it was the vector <code>(1, 4, 7, 11, 1)</code>.</p>
+<div id="logical-values" class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Logical values</h3>
+<p>When we compare values to each other, our calculations no longer return “doubles” but rather <code>TRUE</code> and <code>FALSE</code> values. This is illustrated below:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">10</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 less than 9?</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="dv">10</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 greater than 9?</span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="dv">10</span> <span class="op">&lt;=</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># less than or equal to?</span></a>
+<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="dv">10</span> <span class="op">&gt;=</span><span class="st"> </span>pi <span class="co"># greater than or equal to?</span></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">10</span> <span class="co"># equals?</span></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="dv">10</span> <span class="op">!=</span><span class="st"> </span><span class="dv">10</span> <span class="co"># does not equal?</span></a>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">## [1] FALSE</span></a></code></pre></div>
+<p><code>TRUE</code> and <code>FALSE</code> objects are of “logical” data type (known as “Booleans” in many other languages, after the mathematician George Boole).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">typeof</span>(<span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw">typeof</span>(x)  <span class="co"># x points to a logical</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="kw">typeof</span>(x)  <span class="co"># the variable x no longer points to a logical</span></a></code></pre></div>
+<p>When working with numerical data, tests of equality can be tricky. For example, consider the following two comparisons:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Surprised by the result? See below.</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="dv">4</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Even more confused?</span></a></code></pre></div>
+<p>Mathematically we know that both <span class="math inline">\((\sqrt{10})^2 = 10\)</span> and <span class="math inline">\((\sqrt{4})^2 = 4\)</span> are true statements. Why does R tell us the first statement is false? What we’re running into here are the limits of computer precision. A computer can’t represent <span class="math inline">\(\sqrt 10\)</span> exactly, whereas <span class="math inline">\(\sqrt 4\)</span> can be exactly represented.
+Precision in numerical computing is a complex subject and a detailed discussion is beyond the scope of this course. However, it’s important to be aware of this limitation (this limitation is true of any programming language, not just R).</p>
+<p>To test “near equality” R provides a function called <code>all.equal()</code>. This function takes two inputs – the numerical values to be compared – and returns <code>TRUE</code> if their values are equal up to a certain level of tolerance (defined by the built-in numerical precision of your computer).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">all.equal</span>(<span class="dv">10</span>, <span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<p>Here’s another example where the simple equality operator returns an unexpected result, but <code>all.equal()</code> produces the comparison we’re likely after.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">sin</span>(pi) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  </a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
+<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">all.equal</span>(<span class="kw">sin</span>(pi), <span class="dv">0</span>)  </a>
+<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div id="logical-operators" class="section level4">
+<h4><span class="header-section-number">2.7.2.1</span> Logical operators</h4>
+<p>Logical values support Boolean operations, like logical negation (“not”), “and”, “or”, “xor”, etc. This is illustrated below:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="op">!</span><span class="ot">TRUE</span>  <span class="co"># logical negation -- reads as &quot;not x&quot;</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># AND: are x and y both TRUE?</span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">## [1] FALSE</span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="ot">TRUE</span> <span class="op">|</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># OR: are either x or y TRUE?</span></a>
+<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="kw">xor</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)  <span class="co"># XOR: is either x or y TRUE, but not both?</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<p>The function <code>isTRUE</code> can be useful for evaluating the state of a variable:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span>) <span class="co"># sample a random number in the range 1 to 10</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">isTRUE</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)  <span class="co"># was the random number picked greater than 5?</span></a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">## [1] FALSE</span></a></code></pre></div>
 </div>
-<div id="simple-statistical-functions-for-numeric-vectors" class="section level3">
-<h3><span class="header-section-number">2.8.3</span> Simple statistical functions for numeric vectors</h3>
-<p>Now that we’ve introduced vectors as the simplest data structure for holding collections of numerical values, we can introduce a few of the most common statistical functions that operate on such vectors.</p>
-<p>First let’s create a vector to hold our sample data of interest. Here I’ve taken a random sample of the lengths of the last names of students enrolled in Bio 723 during Spring 2018.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len.name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">5</span>)</code></pre></div>
-<p>Some common statistics of interest include minimum, maximum, mean, median, variance, and standard deviation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(len.name)
-[<span class="dv">1</span>] <span class="dv">2</span>
-<span class="kw">max</span>(len.name)
-[<span class="dv">1</span>] <span class="dv">10</span>
-<span class="kw">mean</span>(len.name)
-[<span class="dv">1</span>] <span class="fl">6.6</span>
-<span class="kw">median</span>(len.name)
-[<span class="dv">1</span>] <span class="dv">7</span>
-<span class="kw">var</span>(len.name)  <span class="co"># variance</span>
-[<span class="dv">1</span>] <span class="fl">6.044444</span>
-<span class="kw">sd</span>(len.name)   <span class="co"># standard deviation</span>
-[<span class="dv">1</span>] <span class="fl">2.458545</span></code></pre></div>
-<p>The <code>summary()</code> function applied to a vector of doubles produce a useful table of some of these key statistics:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(len.name)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-   <span class="fl">2.00</span>    <span class="fl">5.25</span>    <span class="fl">7.00</span>    <span class="fl">6.60</span>    <span class="fl">8.50</span>   <span class="fl">10.00</span> </code></pre></div>
+</div>
+<div id="character-strings" class="section level3">
+<h3><span class="header-section-number">2.7.3</span> Character strings</h3>
+<p>Character strings (“character”) represent single textual characters or a longer sequence of characters. They are created by enclosing the characters in text either single our double quotes.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">typeof</span>(<span class="st">&quot;abc&quot;</span>)  <span class="co"># double quotes </span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">## [1] &quot;character&quot;</span></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">typeof</span>(<span class="st">&#39;abc&#39;</span>)  <span class="co"># single quotes</span></a>
+<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
+<p>Character strings have a length, which can be found using the <code>nchar</code> function:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">first.name &lt;-<span class="st"> &quot;jasmine&quot;</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">nchar</span>(first.name)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">## [1] 7</span></a>
+<a class="sourceLine" id="cb23-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">last.name &lt;-<span class="st"> &#39;smith&#39;</span></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="kw">nchar</span>(last.name)</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">## [1] 5</span></a></code></pre></div>
+<p>There are a number of built-in functions for manipulating character strings. Here are some of the most common ones.</p>
+<div id="joining-strings" class="section level4">
+<h4><span class="header-section-number">2.7.3.1</span> Joining strings</h4>
+<p>The <code>paste()</code> function joins two characters strings together:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">paste</span>(first.name, last.name)  <span class="co"># join two strings</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="co">## [1] &quot;jasmine smith&quot;</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>)</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">## [1] &quot;abc def&quot;</span></a></code></pre></div>
+<p>Notice that <code>paste()</code> adds a space between the strings? If we didn’t want the space we can call the <code>paste()</code> function with an optional argument called <code>sep</code> (short for separator) which specifies the character(s) that are inserted between the joined strings.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)  <span class="co"># join with no space; &quot;&quot; is an empty string</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">## [1] &quot;abcdef&quot;</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">## [1] &quot;abc|def&quot;</span></a></code></pre></div>
+</div>
+<div id="splitting-strings" class="section level4">
+<h4><span class="header-section-number">2.7.3.2</span> Splitting strings</h4>
+<p>The <code>strsplit()</code> function allows us to split a character string into substrings according to matches to a specified split string (see <code>?strsplit</code> for details). For example, we could break a sentence into it’s constituent words as follows:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">sentence &lt;-<span class="st"> &quot;Call me Ishmael.&quot;</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">words &lt;-<span class="st"> </span><span class="kw">strsplit</span>(sentence, <span class="st">&quot; &quot;</span>)  <span class="co"># split on space</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">words</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">## [1] &quot;Call&quot;     &quot;me&quot;       &quot;Ishmael.&quot;</span></a></code></pre></div>
+<p>Notice that <code>strsplit()</code> is the reverse of <code>paste()</code>.</p>
+</div>
+<div id="substrings" class="section level4">
+<h4><span class="header-section-number">2.7.3.3</span> Substrings</h4>
+<p>The <code>substr()</code> function allows us to extract a substring from a character object by specifying the first and last positions (indices) to use in the extraction:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">5</span>)  <span class="co"># get substring from characters 2 to 5</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co">## [1] &quot;bcde&quot;</span></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">substr</span>(first.name, <span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># get substring from characters 1 to       </span></a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">## [1] &quot;jas&quot;</span></a></code></pre></div>
+</div>
+</div>
+</div>
+<div id="packages" class="section level2">
+<h2><span class="header-section-number">2.8</span> Packages</h2>
+<p>Packages are libraries of R functions and data that provide additional capabilities and tools beyond the standard library of functions included with R. Hundreds of people around the world have developed packages for R that provide functions and related data structures for conducting many different types of analyses.</p>
+<p>Throughout this course you’ll need to install a variety of packages. Here I show the basic procedure for installing new packages from the console as well as from the R Studio interface.</p>
+<div id="installing-packages-from-the-console" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> Installing packages from the console</h3>
+<p>The function <code>install.packages()</code> provides a quick and conveniet way to install packages from the R console.</p>
+</div>
+<div id="install-the-tidyverse-package" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Install the tidyverse package</h3>
+<p>To illustrate the use of <code>install.packages()</code>, we’ll install a collection of packages (a “meta-package”) called the <a href="http://www.tidyverse.org">tidyverse</a>. Here’s how to install the tidyverse meta-package from the R console:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>The first argument to <code>install.packages</code> gives the names of the package we want to install. The second argument, <code>dependencies = TRUE</code>, tells R to install any additional packages that tidyverse depends on.</p>
+</div>
+<div id="installing-packages-from-the-rstudio-dialog" class="section level3">
+<h3><span class="header-section-number">2.8.3</span> Installing packages from the RStudio dialog</h3>
+<p>You can also install packages using a graphical dialog provided by RStudio. To do so pick the <code>Packages</code> tab in RStudio, and then click the <code>Install</code> button.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
+<img src="figures/fig-rstudio-packages-tab.png" alt="The Packages tab in RStudio" width="600px" />
+<p class="caption">
+Figure 2.2: The Packages tab in RStudio
+</p>
+</div>
+<p>In the packages entry box you can type the name of the package you wish to install. Let’s install another useful package called “stringr”. Type the package name in the “Packages” field, make sure the “Install dependencies” check box is checked, and then press the “Install” button.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-30"></span>
+<img src="figures/fig-rstudio-package-install-stringr.png" alt="Package Install Dialog" width="300px" />
+<p class="caption">
+Figure 2.3: Package Install Dialog
+</p>
+</div>
+</div>
+<div id="loading-packages-with-the-library-function" class="section level3">
+<h3><span class="header-section-number">2.8.4</span> Loading packages with the <code>library()</code> function</h3>
+<p>Once a package is installed on your computer, the package can be loaded into your R session using the <code>library</code> function. To insure our previous install commands worked correctly, let’s load one of the packages we just installed.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<p>Since the tidyverse pacakge is a “meta-package” it provides some additional info about the sub-packages that got loaded.</p>
+<p>When you load tidyverse, you will also see a message about “Conflicts” as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the “stats” package which usually gets automically loaded when you start R. The conflicting funcdtions are <code>filter</code> and <code>lag</code>. The conflicting functions in the stats package are <code>lag</code> and <code>filter</code> which are used in time series analysis. The <code>dplyr</code> functions are more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. <code>stats::filter</code>).</p>
+<p>We will use the “tidyverse” package for almost every class session and assignment in this class. Get in the habit of including the <code>library(tidyverse)</code> statement in all of your R documents.</p>
 </div>
 </div>
 <div id="the-r-help-system" class="section level2">
 <h2><span class="header-section-number">2.9</span> The R Help System</h2>
 <p>R comes with fairly extensive documentation and a simple help system. You can access HTML versions of the R documentation under the Help tab in Rstudio. The HTML documentation also includes information on any packages you’ve installed. Take a few minutes to browse through the R HTML documentation. In addition to the HTML documentation there is also a search box where you can enter a term to search on (see red arrow in figure below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-22"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-32"></span>
 <img src="figures/fig-rstudio-help.png" alt="The RStudio Help tab" width="600px" />
 <p class="caption">
-Figure 2.2: The RStudio Help tab
+Figure 2.4: The RStudio Help tab
 </p>
 </div>
 <div id="getting-help-from-the-console" class="section level3">
 <h3><span class="header-section-number">2.9.1</span> Getting help from the console</h3>
 <p>In addition to getting help from the RStudio help tab, you can directly search for help from the console. The help system can be invoked using the <code>help</code> function or the <code>?</code> operator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;log&quot;</span>)
-?log</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;log&quot;</span>)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">?log</a></code></pre></div>
 <p>If you are using RStudio, the help results will appear in the “Help” tab of the Files/Plots/Packages/Help/Viewer (lower right window by default).</p>
 <p>What if you don’t know the name of the function you want? You can use the <code>help.search()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</code></pre></div>
-<p>In this case <code>help.search(&quot;log&quot;)</code> returns all the functions with the string <code>log</code> in them. For more on <code>help.search</code> type <code>?help.search</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</a></code></pre></div>
+<p>In this case <code>help.search(&quot;log&quot;)</code> returns all the functions with
+the string <code>log</code> in them. For more on <code>help.search</code> type
+<code>?help.search</code>.</p>
 <p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)
- [<span class="dv">1</span>] <span class="st">&quot;as.data.frame.logical&quot;</span> <span class="st">&quot;as.logical&quot;</span>           
- [<span class="dv">3</span>] <span class="st">&quot;as.logical.factor&quot;</span>     <span class="st">&quot;dlogis&quot;</span>               
- [<span class="dv">5</span>] <span class="st">&quot;is.logical&quot;</span>            <span class="st">&quot;log&quot;</span>                  
- [<span class="dv">7</span>] <span class="st">&quot;log10&quot;</span>                 <span class="st">&quot;log1p&quot;</span>                
- [<span class="dv">9</span>] <span class="st">&quot;log2&quot;</span>                  <span class="st">&quot;logb&quot;</span>                 
-[<span class="dv">11</span>] <span class="st">&quot;Logic&quot;</span>                 <span class="st">&quot;logical&quot;</span>              
-[<span class="dv">13</span>] <span class="st">&quot;logLik&quot;</span>                <span class="st">&quot;loglin&quot;</span>               
-[<span class="dv">15</span>] <span class="st">&quot;plogis&quot;</span>                <span class="st">&quot;qlogis&quot;</span>               
-[<span class="dv">17</span>] <span class="st">&quot;rlogis&quot;</span>                <span class="st">&quot;SSlogis&quot;</span>              </code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co">##  [1] &quot;as.data.frame.logical&quot; &quot;as.logical&quot;           </span></a>
+<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">##  [3] &quot;as.logical.factor&quot;     &quot;dlogis&quot;               </span></a>
+<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">##  [5] &quot;is.logical&quot;            &quot;log&quot;                  </span></a>
+<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">##  [7] &quot;log10&quot;                 &quot;log1p&quot;                </span></a>
+<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">##  [9] &quot;log2&quot;                  &quot;logb&quot;                 </span></a>
+<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="co">## [11] &quot;Logic&quot;                 &quot;logical&quot;              </span></a>
+<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="co">## [13] &quot;logLik&quot;                &quot;loglin&quot;               </span></a>
+<a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co">## [15] &quot;plogis&quot;                &quot;qlogis&quot;               </span></a>
+<a class="sourceLine" id="cb32-10" data-line-number="10"><span class="co">## [17] &quot;rlogis&quot;                &quot;SSlogis&quot;</span></a></code></pre></div>
 <p><code>example()</code> provides examples of how a function is used.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(log)
-
-log<span class="op">&gt;</span><span class="st"> </span><span class="kw">log</span>(<span class="kw">exp</span>(<span class="dv">3</span>))
-[<span class="dv">1</span>] <span class="dv">3</span>
-
-log<span class="op">&gt;</span><span class="st"> </span><span class="kw">log10</span>(<span class="fl">1e7</span>) <span class="co"># = 7</span>
-[<span class="dv">1</span>] <span class="dv">7</span>
-
-log<span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^-</span>(<span class="dv">1</span><span class="op">+</span><span class="dv">2</span><span class="op">*</span><span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)
-
-log<span class="op">&gt;</span><span class="st"> </span><span class="kw">cbind</span>(x, <span class="kw">log</span>(<span class="dv">1</span><span class="op">+</span>x), <span class="kw">log1p</span>(x), <span class="kw">exp</span>(x)<span class="op">-</span><span class="dv">1</span>, <span class="kw">expm1</span>(x))
-          x                                                    
- [<span class="dv">1</span>,] <span class="fl">1e-03</span> <span class="fl">9.995003e-04</span> <span class="fl">9.995003e-04</span> <span class="fl">1.000500e-03</span> <span class="fl">1.000500e-03</span>
- [<span class="dv">2</span>,] <span class="fl">1e-05</span> <span class="fl">9.999950e-06</span> <span class="fl">9.999950e-06</span> <span class="fl">1.000005e-05</span> <span class="fl">1.000005e-05</span>
- [<span class="dv">3</span>,] <span class="fl">1e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span> <span class="fl">1.000000e-07</span>
- [<span class="dv">4</span>,] <span class="fl">1e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span> <span class="fl">1.000000e-09</span>
- [<span class="dv">5</span>,] <span class="fl">1e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span> <span class="fl">1.000000e-11</span>
- [<span class="dv">6</span>,] <span class="fl">1e-13</span> <span class="fl">9.992007e-14</span> <span class="fl">1.000000e-13</span> <span class="fl">9.992007e-14</span> <span class="fl">1.000000e-13</span>
- [<span class="dv">7</span>,] <span class="fl">1e-15</span> <span class="fl">1.110223e-15</span> <span class="fl">1.000000e-15</span> <span class="fl">1.110223e-15</span> <span class="fl">1.000000e-15</span>
- [<span class="dv">8</span>,] <span class="fl">1e-17</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-17</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-17</span>
- [<span class="dv">9</span>,] <span class="fl">1e-19</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-19</span> <span class="fl">0.000000e+00</span> <span class="fl">1.000000e-19</span></code></pre></div>
-</div>
-</div>
-<div id="packages" class="section level2">
-<h2><span class="header-section-number">2.10</span> Packages</h2>
-<p>Packages are libraries of R functions and data that provide additional capabilities and tools beyond the standard library of functions included with R. Hundreds of people around the world have developed packages for R that provide functions and related data structures for conducting many different types of analyses.</p>
-<p>Throughout this course you’ll need to install a variety of packages. Here I show the basic procedure for installing new packages from the console as well as from the R Studio interface.</p>
-<div id="installing-packages-from-the-console" class="section level3">
-<h3><span class="header-section-number">2.10.1</span> Installing packages from the console</h3>
-<p>The built-in function <code>install.packages</code> provides a quick and conveniet way to install packages from the R console.</p>
-</div>
-<div id="install-the-tidyverse-package" class="section level3">
-<h3><span class="header-section-number">2.10.2</span> Install the tidyverse package</h3>
-<p>To illustrate the use of <code>install.package</code>, we’ll install a collection of packages (a “meta-package”) called the <a href="http://www.tidyverse.org">tidyverse</a>. Here’s how to install the tidyverse meta-package from the R console:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>The first argument to <code>install.packages</code> gives the names of the package we want to install. The second argument, <code>dependencies = TRUE</code>, tells R to install any additional packages that tidyverse depends on.</p>
-</div>
-<div id="installing-packages-from-the-rstudio-dialog" class="section level3">
-<h3><span class="header-section-number">2.10.3</span> Installing packages from the RStudio dialog</h3>
-<p>You can also install packages using a graphical dialog provided by RStudio. To do so pick the <code>Packages</code> tab in RStudio, and then click the <code>Install</code> button.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-28"></span>
-<img src="figures/fig-rstudio-packages-tab.png" alt="The Packages tab in RStudio" width="600px" />
-<p class="caption">
-Figure 2.3: The Packages tab in RStudio
-</p>
-</div>
-<p>In the packages entry box you can type the name of the package you wish to install.</p>
-</div>
-<div id="install-the-stringr-package" class="section level3">
-<h3><span class="header-section-number">2.10.4</span> Install the stringr package</h3>
-<p>Let’s install another useful package called “stringr”. Type the package name in the “Packages” field, make sure the “Install dependencies” check box is checked, and then press the “Install” button.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
-<img src="figures/fig-rstudio-package-install-stringr.png" alt="Package Install Dialog" width="300px" />
-<p class="caption">
-Figure 2.4: Package Install Dialog
-</p>
-</div>
-</div>
-<div id="loading-packages-with-the-library-function" class="section level3">
-<h3><span class="header-section-number">2.10.5</span> Loading packages with the <code>library()</code> function</h3>
-<p>Once a package is installed on your computer, the package can be loaded into your R session using the <code>library</code> function. To insure our previous install commands worked correctly, let’s load the packages we just installed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
-<span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>Since the tidyverse pacakge is a “meta-package” it provides some additional info about the sub-packages that got loaded.</p>
-<p>When you load tidyverse, you will also see a message about “Conflicts” as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the “stats” package which usually gets automically loaded when you start R. The conflicting funcdtions are <code>filter</code> and <code>lag</code>. The conflicting functions in the stats package are <code>lag</code> and <code>filter</code> which are used in time series analysis. The <code>dplyr</code> functions are more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. <code>stats::filter</code>).</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">example</span>(log)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="co">## </span></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="co">## log&gt; log(exp(3))</span></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co">## [1] 3</span></a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="co">## </span></a>
+<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="co">## log&gt; log10(1e7) # = 7</span></a>
+<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="co">## [1] 7</span></a>
+<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co">## </span></a>
+<a class="sourceLine" id="cb33-9" data-line-number="9"><span class="co">## log&gt; x &lt;- 10^-(1+2*1:9)</span></a>
+<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb33-11" data-line-number="11"><span class="co">## log&gt; cbind(x, log(1+x), log1p(x), exp(x)-1, expm1(x))</span></a>
+<a class="sourceLine" id="cb33-12" data-line-number="12"><span class="co">##           x                                                    </span></a>
+<a class="sourceLine" id="cb33-13" data-line-number="13"><span class="co">##  [1,] 1e-03 9.995003e-04 9.995003e-04 1.000500e-03 1.000500e-03</span></a>
+<a class="sourceLine" id="cb33-14" data-line-number="14"><span class="co">##  [2,] 1e-05 9.999950e-06 9.999950e-06 1.000005e-05 1.000005e-05</span></a>
+<a class="sourceLine" id="cb33-15" data-line-number="15"><span class="co">##  [3,] 1e-07 1.000000e-07 1.000000e-07 1.000000e-07 1.000000e-07</span></a>
+<a class="sourceLine" id="cb33-16" data-line-number="16"><span class="co">##  [4,] 1e-09 1.000000e-09 1.000000e-09 1.000000e-09 1.000000e-09</span></a>
+<a class="sourceLine" id="cb33-17" data-line-number="17"><span class="co">##  [5,] 1e-11 1.000000e-11 1.000000e-11 1.000000e-11 1.000000e-11</span></a>
+<a class="sourceLine" id="cb33-18" data-line-number="18"><span class="co">##  [6,] 1e-13 9.992007e-14 1.000000e-13 9.992007e-14 1.000000e-13</span></a>
+<a class="sourceLine" id="cb33-19" data-line-number="19"><span class="co">##  [7,] 1e-15 1.110223e-15 1.000000e-15 1.110223e-15 1.000000e-15</span></a>
+<a class="sourceLine" id="cb33-20" data-line-number="20"><span class="co">##  [8,] 1e-17 0.000000e+00 1.000000e-17 0.000000e+00 1.000000e-17</span></a>
+<a class="sourceLine" id="cb33-21" data-line-number="21"><span class="co">##  [9,] 1e-19 0.000000e+00 1.000000e-19 0.000000e+00 1.000000e-19</span></a></code></pre></div>
 
 </div>
 </div>
@@ -786,7 +525,7 @@ Figure 2.4: Package Install Dialog
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-basics-data-types-and-data-structures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-markdown-and-r-notebooks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -821,7 +560,10 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
+"collapse": "section"
+},
+"toolbar": {
+"position": "fixed"
 }
 });
 });
@@ -832,7 +574,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

@@ -1,0 +1,614 @@
+
+# Data structures
+
+In computer science, the term "data structure" refers to the ways that data are stored, retrieved, and organized in a computer's memory.  Common examples include lists, hash tables (also called dictionaries), sets, queues, and trees. Different types of data structures are used to support different types of operations on data.
+
+In R, the three basic data structures are vectors, lists, and data frames.
+
+## Vectors
+
+Vectors are the core data structure in R. Vectors store an ordered lists of items, *all of the same type* (i.e. the data in a vector are "homogenous" with respect to their type).
+
+The simplest way to create a vector at the interactive prompt is to use the `c()` function, which is short hand for "combine" or "concatenate".
+
+```{r}
+x <- c(2,4,6,8)  # create a vector, assignn it the variable name `x`
+x
+```
+
+Vectors in R always have a type (accessed with the `typeof()` function) and a length (accessed with the `length()` function).
+
+```{r}
+length(x)
+typeof(x)
+```
+
+Vectors don't have to be numerical; logical and character vectors work just as well.
+
+```{r}
+y <- c(TRUE, TRUE, FALSE, TRUE, FALSE, FALSE)
+y
+typeof(y)
+length(y)
+
+z <- c("How", "now", "brown", "cow")
+z
+typeof(z)
+length(z)
+```
+
+You can also use `c()` to concatenate two or more vectors together.
+
+```{r}
+x <- c(2, 4, 6, 8)
+y <- c(1, 3, 5, 7, 9)  # create another vector, labeled y
+xy <- c(x,y)  # combine two vectors
+xy
+
+z <- c(pi/4, pi/2, pi, 2*pi)
+xyz <- c(x, y, z)  # combine three vectors
+xyz
+```
+
+### Vector Arithmetic
+
+The basic R arithmetic operations work on numeric vectors as well as on single numbers (in fact, behind the scenes in R single numbers *are* vectors!).
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+x * 2  # multiply each element of x by 2
+x - pi # subtract pi from each element of x
+
+y <- c(0, 1, 3, 5, 9)
+x + y  # add together each matching element of x and y
+x * y # multiply each matching element of x and y
+x/y # divide each matching element of x and y
+```
+
+Basic numerical functions operate element-wise on numerical vectors:
+
+```{r}
+sin(x)
+cos(x * pi)
+log(x)
+```
+
+### Vector recycling
+
+When vectors are not of the same length R `recycles' the elements of the shorter vector to make the lengths conform. 
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+length(x)
+z <- c(1, 4, 7, 11)
+length(z)
+x + z
+```
+
+In the example above `z` was treated as if it was the vector `(1, 4, 7, 11, 1)`.
+
+### Simple statistical functions for numeric vectors
+
+Now that we've introduced vectors as the simplest data structure for holding collections of numerical values, we can introduce a few of the most common statistical functions that operate on such vectors.
+
+First let's create a vector to hold our sample data of interest. Here I've taken a random sample of the lengths of the last names of students enrolled in Bio 723 during Spring 2018.
+
+```{r}
+len.name <- c(7, 7, 6, 2, 9, 9, 7, 4, 10, 5)
+```
+
+Some common statistics of interest include minimum, maximum, mean, median, variance, and standard deviation:
+
+```{r}
+sum(len.name)
+min(len.name)
+max(len.name)
+mean(len.name)
+median(len.name)
+var(len.name)  # variance
+sd(len.name)   # standard deviation
+```
+
+The `summary()` function applied to a vector of doubles produce a useful table of some of these key statistics:
+
+```{r}
+summary(len.name)
+```
+
+
+### Indexing Vectors
+
+Accessing the element of a vector is called "indexing".  Indexing is the process of specifying the numerical positions (indices) that you want to take access from the vector.
+
+For a vector of length $n$, we can access the elements by the indices $1 \ldots n$. We say that R vectors (and other data structures like lists) are `one-indexed'. Many other programming languages, such as Python, C, and Java, use zero-indexing where the elements of a data structure are accessed by the indices $0 \ldots n-1$. Indexing errors are a common source of bugs. 
+
+Indexing a vector is done by specifying the index in square brackets as shown below:
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+length(x)
+
+x[1]  # return the 1st element of x
+
+x[4]  # return the 4th element of x
+```
+
+Negative indices are used to exclude particular elements. `x[-1]` returns all elements of `x` except the first. 
+
+```{r}
+x[-1]
+```
+
+You can get multiple elements of a vector by indexing by another vector. In the example below, `x[c(3,5)]` returns the third and fifth element of x`.
+
+```{r}
+x[c(3,5)]
+```
+
+### Comparison operators applied to vectors
+
+When the comparison operators, such as"greater than" (`>`), "less than or equal to" (`<=`), equality (`==`), etc. are applied tonumeric vectors, they return logical vectors:
+
+```{r}
+x <- c(2, 4, 6, 8, 10, 12)
+x < 8  # returns TRUE for all elements lass than 8
+```
+
+Here's a fancier example:
+
+```{r}
+x > 4 & x < 10  # greater than 4 AND less than 10
+```
+
+
+
+### Combining Indexing and Comparison of Vectors
+
+A very powerful feature of R is the ability to combine the comparison operators (which return TRUE or FALSE values) with indexing. This facilitates data filtering and subsetting. 
+
+Here's an example:
+```{r}
+x <- c(2, 4, 6, 8, 10) 
+x[x > 5]
+```
+
+In the first example we retrieved all the elements of `x` that are larger than 5 (read as "x where x is greater than 5"). Notice how we got back all the elements where the statement in the brackets was `TRUE`.
+
+You can string together comparisons for more complex filtering.
+
+```{r}
+x[x < 4 | x > 8]  # less than four OR greater than 8
+```
+
+In the second example we retrieved those elements of `x` that were smaller than four  *or* greater than six. Combining indexing and comparison is a powerful concept which we'll use repeatedly in this course.
+
+
+### Vector manipulation
+
+You can combine indexing with assignment to change the elements of a vectors:
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+x[2] <- -4 
+x
+```
+
+You can also use indexing vectors to change multiple values at once:
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+x[c(1, 3, 5)]  <- 6
+x
+```
+
+Using logical vectors to manipulate the elements of a vector also works:
+
+```{r}
+x <- c(2, 4, 6, 8, 10)
+x[x > 5] = 5    # truncate all values to have max value 5
+x
+```
+
+
+
+### Vectors from regular sequences
+
+There are a variety of functions for creating regular sequences in the form of vectors.
+
+```{r}
+1:10  # create a vector with the integer values from 1 to 10
+20:11  # a vector with the integer values from 20 to 11
+
+seq(1, 10)  # like 1:10
+seq(1, 10, by = 2) # 1:10, in steps of 2
+seq(2, 4, by = 0.25) # 2 to 4, in steps of 0.25
+```
+
+### Additional functions for working with vectors
+
+The function `unique()` returns the unique items in a vector:
+
+```{r}
+x <- c(5, 2, 1, 4, 6, 9, 8, 5, 7, 9)
+unique(x)
+```
+
+`rev()` returns the items in reverse order (without changing the input vector):
+
+```{r}
+y <- rev(x)
+y
+x  # x is still in original order
+```
+
+There are a number of useful functions related to sorting. Plain `sort()` returns a new vector with the items in sorted order:
+
+```{r}
+sorted.x <- sort(x)  # returns items of x sorted
+sorted.x
+
+x        # but x remains in its unsorted state
+```
+
+The related function `order()` gives the indices which would rearrange the items into sorted order:
+
+```{r}
+order(x)
+```
+
+`order()` can be useful when you want to sort one list by the values of another:
+
+```{r}
+students <- c("fred", "tabitha", "beatriz", "jose")
+class.ranking <- c(4, 2, 1, 3)
+
+students[order(class.ranking)]  # get the students sorted by their class.ranking
+```
+
+`any()` and `all()`, return single boolean values based on a specified comparison provided as an argument:
+
+```{r}
+y <- c(2, 4, 5, 6, 8)
+
+any(y > 5) # returns TRUE if any of the elements are TRUE
+
+all(y > 5) # returns TRUE if all of the elements are TRUE
+```
+
+`which()` returns the *indices* of the vector for which the input is true:
+```{r}
+which(y > 5)
+```
+
+
+## Lists
+
+R lists are like vectors, but unlike a vector where all the elements are of the same type, the elements of a list can have arbitrary types (even other lists). Lists are a powerful data structure for organizing information, because there are few constraints on the shape or types of the data included in a list.  
+
+Lists are easy to create:
+
+```{r}
+l <- list('Bob', pi, 10)
+```
+
+Note that lists can contain arbitrary data. Lists can even contain other lists:
+
+```{r}
+l <- list('Bob', pi, 10, list("foo", "bar", "baz", "qux"))
+```
+
+Lists are displayed with a particular format, distinct from vectors:
+
+```{r}
+l
+```
+
+In the example above, the correspondence between the list and its display is obvious for the first three items.  The fourth element may be a little confusing at first.  Remember that the fourth item of `l` was another list.  So what's being shown in the output for the fourth item is the nested list.
+
+An alternative way to display a list is using the `str()` function (short for "structure"). `str()` provides a more compact representation that also tells us what type of data each element is:
+
+```{r}
+str(l)
+```
+
+
+### Length and type of lists
+
+Like vectors, lists have length:
+
+```{r}
+length(l)
+```
+
+But the type of a list is simply "list", not the type of the items within the list. This makes sense because lists are allowed to be heterogeneous (i.e. hold data of different types).
+
+```{r}
+typeof(l)
+```
+
+### Indexing lists
+
+Lists have two indexing operators.  Indexing a list with single brackets, like we did with vectors, returns a new list containing the element at index $i$.  Lists also support double bracket indexing (`x[[i]]`) which returns the *bare* element at index $i$ (i.e. the element without the enclosing list).  **This is a subtle but important point so make sure you understand the difference between these two forms of indexing.**
+
+#### Single bracket list indexing
+
+First, let's demonstrate single bracket indexing of the lists `l` we created above.
+
+```{r}
+l[1]           # single brackets, returns list('Bob') 
+typeof(l[1])   # notice the list type
+```
+
+When using single brackets, lists support indexing with ranges and numeric vectors:
+
+```{r}
+l[3:4]
+l[c(1, 3, 5)]
+```
+
+#### Double bracket list indexing
+
+If double bracket indexing is used, the object at the given index in a list is returned:
+
+```{r}
+l[[1]]         # double brackets, return plain 'Bob'
+typeof(l[[1]]) # notice the 'character' type
+```
+
+Double bracket indexing does not support multiple indices, but you can chain together double bracket operators to pull out the items of sublists.  For example:
+
+```{r}
+# second item of the fourth item of the list
+l[[4]][[2]]  
+```
+
+### Naming list elements
+
+The elements of a list can be given names when the list is created:
+
+```{r}
+p <- list(first.name='Alice', last.name="Qux", age=27, years.in.school=10)
+```
+
+You can retrieve the names associated with a list using the `names` function:
+
+```{r}
+names(p)
+```
+
+If a list has named elements, you can retrieve the corresponding elements by indexing with the quoted name in either single or double brackets. Consistent with previous usage, single brackets return a list with the corresponding named element, whereas double brackets return the bare element.
+
+For example, make sure you understand the difference in the output generated by these two indexing calls:
+```{r}
+p["first.name"]
+
+p[["first.name"]]
+```
+
+### The `$` operator
+
+Retrieving named elements of lists (and data frames as we'll see), turns out to be a pretty common task (especially when doing interactive data analysis) so R has a special operator to make this more convenient.  This is the `$` operator, which is used as illustrated below:
+
+```{r}
+p$first.name  # equivalent to p[["first.name"]]
+p$age         # equivalent to p[["age"]]
+```
+
+### Changing and adding lists items
+
+Combining indexing and assignment allows you to change items in a list:
+
+```{r}
+suspect <- list(first.name = "unknown", 
+                last.name = "unknown", 
+                aka = "little")
+
+suspect$first.name <- "Bo"
+suspect$last.name <- "Peep"
+suspect[[3]] <- "LITTLE"
+
+str(suspect)
+```
+
+By combining assignment with a new name or an index past the end of the list you can add items to a list:
+
+```{r}
+suspect$age <- 17  # add a new item named age
+suspect[[5]] <- "shepardess"   # create an unnamed item at position 5
+```
+
+Be careful when adding an item using indexing, because if you skip an index an intervening NULL value is created:
+
+```{r}
+# there are only five items in the list, what happens if we
+# add a new item at position seven?
+suspect[[7]] <- "wanted for sheep stealing"
+
+str(suspect)
+```
+
+### Combining lists
+
+The `c` (combine) function we introduced to create vectors can also be used to combine lists:
+
+```{r}
+list.a <- list("little", "bo", "peep")
+list.b <- list("has lost", "her", "sheep")
+list.c <- c(list.a, list.b)
+list.c
+```
+
+
+### Converting lists to vectors
+
+Sometimes it's useful to convert a list to a vector. The `unlist()` function takes care of this for us.  
+
+```{r}
+# a homogeneous list
+ex1 <- list(2, 4, 6, 8)
+unlist(ex1)
+```
+
+When you convert a list to a vector make sure you remember that vectors are homogeneous, so items within the new vector will be "coerced" to have the same type.  
+
+```{r}
+# a heterogeneous list
+ex2 <- list(2, 4, 6, c("bob", "fred"), list(1 + 0i, 'foo'))
+unlist(ex2)
+```
+
+Note that `unlist()` also unpacks nested vectors and lists as shown in the second example above.
+
+
+
+## Data frames
+
+Along with vectors and lists, data frames are one of the core data structures when working in R.  A data frame is essentially a list which represents a data table, where each column in the table has the same number of rows and every item in the a column has to be of the same type.  Unlike standard lists, the objects (columns) in a data frame must have names.  We've seen data frames previously, for example when we loaded data sets using the `read_csv` function.
+
+### Creating a data frame
+
+While data frames will often be created by reading in a data set from a file, they can also be created directly in the console as illustrated below:
+
+```{r}
+age <- c(30, 26, 21, 29, 25, 22, 28, 24, 23, 20)
+sex <- rep(c("M","F"), 5)
+wt.in.kg <- c(88, 76, 67, 66, 56, 74, 71, 60, 52, 72)
+
+df <- data.frame(age = age, sex = sex, wt = wt.in.kg)
+```
+
+Here we created a data frame with three columns, each of length 10.
+
+### Type and class for data frames
+
+Data frames can be thought of as specialized lists, and in fact the type of a data frame is "list" as illustrated below:
+
+```{r}
+typeof(df)
+```
+
+To distinguish a data frame from a generic list, we have to ask about it's "class".  
+
+```{r}
+class(df) # the class of our data frame
+class(l)  # compare to the class of our generic list
+```
+
+The term "class" comes from a style/approach to programming called "object oriented programming".  We won't go into explicit detail about how object oriented programming works in this class, though we will exploit many of the features of objects that have a particular class. 
+
+
+### Length and dimension for data frames
+
+Applying the `length()` function to a data frame returns the number of columns. This is consistent with the fact that data frames are specialized lists:
+
+```{r}
+length(df)
+```
+
+To get the dimensions (number of rows and columns) of a data frame, we use the `dim()` function. `dim()` returns a vector, whose first value is the number of rows and whose second value is the number of columns:
+
+```{r}
+dim(df)
+```
+
+We can get the number of rows and columns individually using the `nrow()` and `ncol()` functions:
+
+```{r}
+nrow(df)  # number of rows
+ncol(df)  # number of columsn
+```
+
+
+### Indexing and accessing data frames
+
+Data frames can be indexed by either column index, column name, row number, or a combination of row and column numbers.
+
+#### Single bracket indexing of the columns of a data frame
+
+The *single bracket operator with a single numeric index* returns a data frame with the corresponding column.
+
+```{r}
+df[1]  # get the first column (=age) of the data frame
+```
+
+The *single bracket operator with multiple numeric indices* returns a data frame with the corresponding columns.
+
+```{r}
+df[1:2]  # first two columns
+df[c(1, 3)]  # columns 1 (=age) and 3 (=wt)
+```
+
+Column names can be substituted for indices when using the single bracket operator:
+
+```{r}
+df["age"]  
+
+df[c("age", "wt")]
+```
+
+#### Single bracket indexing of the rows of a data frame
+
+To get specific rows of a data frame, we use single bracket indexing with an additional comma following the index.  For example to get the first row a data frame we would do:
+
+```{r}
+df[1,]    # first row
+```
+
+This syntax extends to multiple rows:
+
+```{r}
+df[1:2,]  # first two rows
+
+df[c(1, 3, 5),]  # rows 1, 3 and 5
+```
+
+#### Single bracket indexing of both the rows and columns of a data frame
+
+Single bracket indexing of data frames extends naturally to retrieve both rows and columns simultaneously:
+
+```{r}
+df[1, 2]  # first row, second column
+df[1:3, 2:3] # first three rows, columns 2 and 3
+
+# you can even mix numerical indexing (rows) with named indexing of columns
+df[5:10, c("age", "wt")]  
+```
+
+#### Double bracket and `$` indexing of data frames
+
+Whereas single bracket indexing of a data frame always returns a new data frame, double bracket indexing and indexing using the `$` operator, returns vectors.
+
+```{r}
+df[["age"]]
+typeof(df[["age"]])
+
+df$wt
+typeof(df$wt)
+```
+
+### Logical indexing of data frames
+
+Logical indexing using boolean values works on data frames in much the same way it works on vectors.  Typically, logical indexing of a data frame is used to filter the rows of a data frame.
+
+For example, to get all the subject in our example data frame who are older than 25 we could do:
+```{r}
+ # NOTE: the comma after 25 is important to insure we're indexing rows!
+df[df$age > 25, ] 
+```
+
+Similarly, to get all the individuals whose weight is between 60 and 70 kgs we could do:
+
+```{r}
+df[(df$wt >= 60 & df$wt <= 70),]
+```
+
+
+### Adding columns to a data frame
+
+Adding columns to a data frame is similar to adding items to a list. The easiest way to do so is using named indexing. For example, to add a new column to our data frame that gives the individuals ages in number of days, we could do:
+
+```{r}
+df[["age.in.days"]] <- df$age * 365
+dim(df)
+```
+

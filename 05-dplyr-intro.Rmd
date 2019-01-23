@@ -1,8 +1,8 @@
 
 
-# Introduction to the `dplyr` package
+# Introduction to `dplyr`
 
-In today's class we introduce a new package, `dplyr`, which, along with ggplot2 will be used in almost every class session.  We will also explore in a little more depth the `readr` package, for reading tabular data.
+In today's class we introduce a new package, `dplyr`, which, along with ggplot2 will be used in almost every class session.  We will also introduce the `readr` package, for reading tabular data.
 
 ## Libraries
 
@@ -19,6 +19,9 @@ The [`readr`](http://readr.tidyverse.org) package defines a number of functions 
 
 The two most frequently used `readr` functions we'll use in this class are `read_csv()` and `read_tsv()` for reading CSV and TSV files respectively.  There are some variants of these basic function, which you can read about by invoking the help system (`?read_csv`).
 
+### Reading Excel files
+
+The tidyverse also includes a package called [`readxl`](http://readxl.tidyverse.org) which can be used to read Excel spreadsheets (recent versions with `.xls` and `.xlsx` extensions).  Excel files are somewhat more complicated to deal with because they can include separate "sheets".  We won't use `readxl` in this class, but documentation and examples of how `readxl` is used can be found at the page linked above.
 
 
 ### Example data: NC Births
@@ -55,9 +58,6 @@ Notice too that we read the TSV file directly from a remote location via a URL. 
 births <- read_tsv("/Users/pmagwene/Downloads/nc-births.txt")
 ```
 
-### Reading Excel files
-
-The tidyverse also includes a package called [`readxl`](http://readxl.tidyverse.org) which can be used to read Excel spreadsheets (recent versions with `.xls` and `.xlsx` extensions).  Excel files are somewhat more complicated to deal with because they can include separate "sheets".  We won't use `readxl` in this class, but documentation and examples of how `readxl` is used can be found at the page linked above.
 
 
 ## A note on "tibbles"

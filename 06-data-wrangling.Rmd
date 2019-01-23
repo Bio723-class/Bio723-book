@@ -24,12 +24,11 @@ library(cowplot)
 
 ## Data
 
-To illustrate a standard data wrangling pipeline, we're going to use a gene expression microarray data set, based on the following paper:
+To illustrate a data wrangling pipeline, we're going to use a gene expression microarray data set, based on the following paper:
 
 * Spellman PT, et al. 1998. Comprehensive identification of cell cycle-regulated genes of the yeast Saccharomyces cerevisiae by microarray hybridization. Mol Biol Cell 9(12): 3273-97.
 
 In this paper, Spellman and colleagues tried to identify all the genes in the yeast genome (>6000 genes) that exhibited oscillatory behaviors suggestive of cell cycle regulation.  To do so, they combined gene expression measurements from six different types of cell cycle synchronization experiments.
-
 
 *Download the Spellman data to your filesystem* from [this link](https://github.com/Bio723-class/example-datasets/blob/master/spellman-combined.txt) (right-click the "Download" button and save to your Downloads folder or similar).  
 
@@ -49,7 +48,7 @@ dim(spellman)
 ```
 
 
-The six types of cell cycle synchronization experiments are:
+The six types of cell cycle synchronization experiments included in this data set are:
 
 1. synchronization by alpha-factor = "alpha"
 2. synchronization by cdc15 temperature sensitive mutants = "cdc15"
@@ -63,7 +62,7 @@ The six types of cell cycle synchronization experiments are:
 
 Notice that when we imported the data we got a warning message: `Missing column names filled in: 'X1' [1]`.  In a data frame, every column must have a name. The first column of our data set did not have a name in the header, so `read_tsv` automatically gave it the name `X1`.  
 
-Our first task is to give the first column a more meaningful name.  This column gives "systematic gene names" -- a standardized naming scheme for genes in the yeast genome.  We'll use `dplyr::rename` to do rename `X1` to `gene`.  Note that `rename` can take multiple arguments if you need to rename multiple columns simultaneously.
+Our first task is to give the first column a more meaningful name.  This column gives "systematic gene names" -- a standardized naming scheme for genes in the yeast genome.  We'll use `dplyr::rename` to rename `X1` to `gene`.  Note that `rename` can take multiple arguments if you need to rename multiple columns simultaneously.
 
 ```{r}
 spellman.clean <- 
@@ -71,12 +70,14 @@ spellman.clean <-
   rename(gene = X1)
 ```
 
+Note the use of the compound assingment operator -- `%<>%` -- from the `magrittr` package, which we introduced in our last class session.
+
 
 ## Dropping unneeded columns
 
-Take a look at the Spellman data again in your spreadsheet program (or the R Studio data viewer).  You'll notice there are some blank columns.  These are simply visual organizing elements that the creator of the spreadsheet added to separate the different experiments that are included in the data set. 
+Take a look at the Spellman data again in your spreadsheet program (or the RStudio data viewer).  You'll notice there are some blank columns.  For example there is a column with the header "alpha" that has no entries.  These are simply visual organizing elements that the creator of the spreadsheet added to separate the different experiments that are included in the data set. 
 
-We can use `dplyr::select` to drop columns by prependingcolumn names with the negative sign:
+We can use `dplyr::select()` to drop columns by prepending column names with the negative sign:
 
 ```{r}
 # drop the alpha column keeping all others
@@ -137,7 +138,7 @@ spellman.clean %<>%
 
 Only two time points from the cln3 and clb2 experiments were reported in the original publication. Since complete time series are unavailable for these two experimental conditions we will drop them from further consideration.  
 
-`select()` can be called be called with a number of "helper function" (`?select_helpers`). Here we'll illustrate the `matches()` helper function which matches column names to a "regular expression".  Regular expressions (also referred to as "regex" or "regexp") are a way of specifying patterns in string. For the purposes of this document we'll illustrate  regexs by example; for a more detailed explanation of regular expressions see the the regex help(`?regex`) and the [Chapter on Strings in "R for Data Analysis"](http://r4ds.had.co.nz/strings.html): 
+`select()` can be called be called with a number of "helper function" (`?select_helpers`). Here we'll illustrate the `matches()` helper function which matches column names to a "regular expression".  Regular expressions (also referred to as "regex" or "regexp") are a way of specifying patterns in strings. For the purposes of this document we'll illustrate  regexs by example; for a more detailed explanation of regular expressions see the the regex help(`?regex`) and the [Chapter on Strings in "R for Data Analysis"](http://r4ds.had.co.nz/strings.html): 
 
 Let's see how to drop all the "cln3" and "clb2" columns from the data frame using `matches()`:
 
@@ -157,29 +158,65 @@ spellman.clean %<>%
 In this second example, the character "|" is specifing an OR match within the regular expression, so this regular expression matches column names that contain "cln3" OR "clb2".
 
 
+## Merging data frames
+
+Often you'll find yourself in the situation where you want to combine information from multiple data sources.  The usual requirement is that the data sources have one or more shared columns, that allow you to relate the entities or observations (rows) between the data sets. `dplyr` provides a variety of `join` functions to handle different data merging operators.
+
+To illustrating merging or joining data sources, we'll add information about each genes "common name" and a description of the gene functions to our Spellman data set.  I've prepared a file with this info based on info I downloaded from the [Saccharomyces Genome Database](https://www.yeastgenome.org).
+
+
+```{r}
+gene.info <- read_csv("https://github.com/bio304-class/bio304-course-notes/raw/master/datasets/yeast-ORF-info.csv")
+```
+
+Having loaded the data, let's get a quick overview of it's structure:
+
+```{r}
+names(gene.info)
+dim(gene.info)
+head(gene.info)
+```
+
+In `gene.info`, the `ftr.name` column corresponds to the `gene` column in our Spellman data set.  The `std.name` column gives the "common" gene name (not every gene has a common name so there are lots of NAs).  The `description` column gives a brief textual description of what the gene product does.
+
+To combine `spellmean.clean` with `gene.info` we use the `left_join` function defined in dplyr.  As noted in the description of the function, `left_join(x, y)` returns "all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns." In addition, we have to specify the column to join by using the `by` argument to `left_join`.  
+
+```{r}
+spellman.merged <-
+  left_join(spellman.clean, gene.info, by = c("gene" = "ftr.name"))
+```
+
+By default, the joined columns are merged at the end of the data frame, so we'll reorder variables to bring the `std.name` and `description` to the second and thirds columns, preserving the order of all the other colums.
+
+```{r}
+spellman.merged %<>%
+  select(gene, std.name, description, everything())
+
+spellman.merged
+```
 
 
 ## Reshaping data with tidyr
 
 The `tidyr` package provides functions for reshaping or tidying data frames.  `tidyr` is yet another component of the tidyverse, and thus was loaded by the `library(tidyverse)`. 
 
-Today we're going to look at two functions `tidyr::gather()` and `tidyr::extract()`, and how they can be combined with now familiar `dplyr` functions we've seen previously.  The reading assignment for today's class session covers a variety of other functions defined in `tidyr`.
+We're going to look at two functions `tidyr::gather()` and `tidyr::extract()`, and how they can be combined with now familiar `dplyr` functions we've seen previously.  The reading assignment for today's class session covers a variety of other functions defined in `tidyr`.
  
 The Spellman data, as I provided it to you, is in what we would call "wide" format.  Each column (besides the `gene` column) corresponds to an experimental condition *and* time point.  For example, "alpha0" is the alpha-factor experiment at time point 0 mins; "alpha7" is the alpha-factor experiment at time point 7 mins, etc.  The cells within each column correspond to the expression of a corresponding gene (given by the first column which we renamed `gene`) in that particular experiment at that particular time point.
 
-In every column (except "gene"), the cellsrepresents the same abstract property of interest -- the expression of a gene of interest in a particular experiment/time point.  Our first task will be to rearrange our "wide" data frame that consists of many different columns representing gene expression into a "long" data frame with just a single column representing expression.  We'll also create a new column to keep track of the which experiment and time point the measurement came from.
+In every column (except "gene"), the cells represents the same abstract property of interest -- the expression of a gene of interest in a particular experiment/time point.  Our first task will be to rearrange our "wide" data frame that consists of many different columns representing gene expression into a "long" data frame with just a single column representing expression.  We'll also create a new column to keep track of  which experiment and time point the measurement came from.
 
 ### Wide to long conversions using `tidyr::gather`
 
-`tidyr::gather()` takes multiple columns, and collapses them together into a smaller number of new columns.  When using `gather()` you give the names of the *new *columns to create, as well as the names of any existing columns `gather` should *not* collect together.
+`tidyr::gather()` takes multiple columns, and collapses them together into a smaller number of new columns.  When using `gather()` you give the names of the *new* columns to create, as well as the names of any existing columns `gather()` should *not* collect together.
 
-Here we want to collapse all 73 or the expression columns -- "alpha0" to "elu390" -- into two columns: 1) a column to represent the expt/time point of the measurement, and 2) a column to represent the corresponding expression value.  The only column we don't want to touch is the `gene` column with our gene names.
+Here we want to collapse all 73 or the expression columns -- "alpha0" to "elu390" -- into two columns: 1) a column to represent the expt/time point of the measurement, and 2) a column to represent the corresponding expression value.  The column we don't want to touch are the `gene`, `std.name`, and `description`.
 
 ```{r}
 # convert "wide" data to "long"
 spellman.long <-
-  spellman.clean %>%
-  gather(expt.and.time, expression, -gene)
+  spellman.merged %>%
+  gather(expt.and.time, expression, -gene, -std.name, -description)
 ```
 
 Take a moment to look at the data in the "long format":
@@ -191,11 +228,11 @@ head(spellman.long)
 And compare the dimensions of the wide data to the new data:
 
 ```{r}
-dim(spellman.clean)  # for comparison
+dim(spellman.merged)  # for comparison
 dim(spellman.long)
 ```
 
-As you see, we've gone from a data frame with `r nrow(spellman.clean)` rows and `r ncol(spellman.clean)` columns (wide format), to a new data frame with `r nrow(spellman.long)` rows and `r ncol(spellman.long)` columns (long format). 
+As you see, we've gone from a data frame with `r nrow(spellman.merged)` rows and `r ncol(spellman.merged)` columns (wide format), to a new data frame with `r nrow(spellman.long)` rows and `r ncol(spellman.long)` columns (long format). 
 
 ### Extracting information from combined variables using `tidyr::extract`
 
@@ -282,11 +319,9 @@ cdc.long <-
 The regex -- `"(cdc15|cdc28)_([[:digit:]]+)"` -- is slightly fancier in this example. As before there are two parts we're extracting: `(cdc15|cdc28)` and `([[:digit:]]+)`.  The first parenthesized regexp is an "OR" -- i.e. match "cdc15" *or* "cdc28".  The second parenthesized regexp is the same as we saw previously.  Separating the two parenthesized regexps is an underscore (`_`).  The underscore isn't parenthesized because we only want to use it to make a match *not* to extract the corresponding match.
 
 
+### Combining data frames
 
-
-### Combining data frame rows
-
-If you have two or more data frames with identical columns, the rows of the data frame can be combined using `rbind` (defined in the `base` package).  For example, to reassemble the `alpha.long`, `elu.long`, and `cdc.long` data frames into a single data frame we do:
+If you have two or more data frames with identical columns, the rows of the data frames can be combined into a single data frame using `rbind` (defined in the `base` package).  For example, to reassemble the `alpha.long`, `elu.long`, and `cdc.long` data frames into a single data frame we do:
 
 ```{r}
 spellman.final <- rbind(alpha.long, elu.long, cdc.long)
@@ -312,54 +347,6 @@ spellman.final %<>%
 # look again at the rearranged data
 head(spellman.final, n = 10)
 ```
-
-
-### Collapsing columns using `tidyr::unite` 
-
-`unite` combines the data from multiple columns into one, separating the column data with a consistent separator character (the underscore character "_" by default).  For example, if we wanted to combined the experiment and time columns again (recall that we previously separated with with `extract`) we could do:
-
-```{r}
-spellman.recombined <-
-  spellman.final %>%
-  unite(expt.and.time, expt, time)  # give new column name first
-                                    # then give columns to combine
-
-dim(spellman.recombined)
-head(spellman.recombined, n = 10)
-```
-
-### Splitting columns using `tidyr::separate`
-
-`separate` splits a column into multiple columns.  It's very much like `extract` except that it only takes a single regex for the separator, which by default is any non-alphabetic or non-numeric character. For example, to re-split `expt.and.time` in `spellman.recombined` we could do:
-
-```{r}
-spellman.respread <- 
-  spellman.recombined %>%
-  separate(expt.and.time, c("expt", "time"), convert = TRUE)
-
-dim(spellman.respread)
-head(spellman.respread,n= 10)
-```
-
-Faced with the task of splitting columns, try `tidyr::separate` first and only consider `tidyr::extract` if you need to defines more sophisticated rules for splitting.
-
-### Long-to-wide conversion using `tidyr::spread`
-
-`tidyr::spread` is the inverse of `tidyr::gather`.  `gather()` took multiple columns and collapsed them together into a smaller number of new columns.  The `tidyr` documentation calls this "collapsing into key-value pairs".  By contrast, `spread()` creates new columns by spreading "key-value pairs" (a column representing the "keys" and a column reprsenting the "values") into multiple columns.  
-
-Here let's use spread to use the gene names (the "key") and expression measures (the "values") to create a new data frame where the genes are the primary variables (columns) of the data. 
-
-```{r}
-spellman.gene.focused <-
-  spellman.final %>%
-  spread(gene, expression)
-
-dim(spellman.gene.focused)
-```
-
-
-Both "long" and "wide" tidy versions of the same data are useful, depending on the specific analyses and/or visualiztions you want to accomplish. We'll look at applications of both in the sections that follow.
-
 
 ## Using your tidy data
 
@@ -391,6 +378,7 @@ spellman.final %>%
     labs(x = "Time (mins)", y = "Normalized expression",
          title = "Expression of multiple genes\nfollowing synchronization by alpha factor")
 ```
+
 By employing `facet_wrap()` we can visualize the relationship between this set of genes in each of the experiment types:
 
 ```{r}
@@ -418,7 +406,7 @@ spellman.final %>%
 
 ### Finding the most variable genes
 
-When dealing with vary large data sets, one ad hoc filtering criteria that is often employed is to focus on those variables that exhibit that greatest variation.  To do this, we first need to order our variables (genes) by their variation.  Let's see how we can accomplish this using our long data frame:
+When dealing with vary large data sets, one ad hoc filtering criteria that is often employed is to focus on those variables that exhibit that greatest variation (variation is measure of the spread of data; we will give a precise definition in a later lecture).  To do this, we first need to order our variables (genes) by their variation.  Let's see how we can accomplish this using our long data frame:
 
 ```{r}
 by.variance <-
@@ -430,7 +418,7 @@ by.variance <-
 head(by.variance)
 ```
 
-The code above calculates variance but ignores the fact that we have different experimental conditions.  To take into account the experimental design of the data at hand, let's calculate the average variance across the experimental conditions:
+The code above calculates the variance of each gene but ignores the fact that we have different experimental conditions.  To take into account the experimental design of the data at hand, let's calculate the average variance across the experimental conditions:
 
 ```{r}
 by.avg.variance <-
@@ -452,195 +440,425 @@ top.genes.1k <- by.avg.variance[1:1000,]$gene
 head(top.genes.1k)
 ```
 
-### Exploring bivariate relationships using "wide" data
 
-The "long" version of our data frame proved useful for exploring how gene expression changed over time.  By contrast, our "wide" data frame is more convient for exploring how pairs of genes covary together.  For example, we can generate bivariate scatter plots depicting the relationship between two genes in the four different experimental conditions:
 
-```{r}
-spellman.gene.focused %>%
-  filter(!is.na(YAL022C) & !is.na(YAR018C)) %>%  # filter any missing values
-  ggplot(aes(x = YAL022C, y = YAR018C)) + 
-    geom_point() + 
-    theme(aspect.ratio = 1) + 
-    facet_wrap(~expt, nrow = 2, ncol = 2) 
+
+
+### Heat maps
+
+In our prior visualizations we've used line plots to depict how gene expression changes over time.  For example here are line plots for 15 genes in the data set, in the cdc28 experimental conditions:
+
+```{r, warning=FALSE, message=FALSE}
+genes.of.interest <- c("YHR084W", "YBR083W", "YPL049C", "YDR480W",
+                       "YGR040W", "YLR229C", "YDL159W", "YBL016W",
+                       "YDR103W", "YJL157C", "YNL271C", "YDR461W",
+                       "YHL007C", "YHR005C", "YJR086W")
+
+spellman.final %>%
+  filter(expt == "cdc28", gene %in% genes.of.interest) %>%
+  ggplot(aes(x = time, y = expression, color=gene)) + 
+    geom_line() +
+    labs(x = "Time (min)", y = "Expression")
 ```
 
-### Calculating correlations between genes
+Even with just 10 overlapping line plots, this figure is quite busy and it's hard to make out the individual behavior of each gene.
 
-
-Let's explore more global bivariate relationships by calculating all the pairwise correlations between genes, focusing our attention on only the top 1000 most variable genes (as calculated previously).
-
-Correlation is a measure of linear association between a pair of variables, and ranges from -1 to 1. A value near zero indicates the variables are uncorrelated (no linear association), while values approaching +1 indicate a strong positive association (the variables tend to get bigger or smaller together) while values near -1 indicate strong negative association (when one variable is larger, the other tends to be small).  
-
-First, let's reduce our "wide" data frame to including only the top 1000 genes:
+An alternative approach to depicting such data is a "heat map" which depicts the same information in a grid like form, with the expression values indicated by color.  Heat maps are good for depicting large amounts of data and providing a coarse "10,000 foot view".  We can create a heat map using `geom_tile` as follows:
 
 ```{r}
-top.1k.wide <-
-  spellman.gene.focused %>%
-  # get expt and time column plus top 1000 genes
-  select(expt, time, top.genes.1k) 
-
-dim(top.1k.wide)
+spellman.final %>%
+  filter(expt == "cdc28", gene %in% genes.of.interest) %>%
+  ggplot(aes(x = time, y = gene)) + 
+    geom_tile(aes(fill = expression)) +
+    xlab("Time (mins)")
 ```
-Now, we calculate the correlations between all those genes. We need to drop two columns from the data frame, corresponding to "expt" and "time", and we then use the `cor` function to calculate the pairwise correlations. Since there is missing data (indicated with NAs) we also need to tell the `cor` function to only use pairwise complete observations when calculating correlations.
+
+This figure represents the same information as our line plot, but now there is row for each gene, and the expression of that gene at a given time point is represented by  color (scale given on the right). Missing data is shown as gray boxes.  Unfortunately, the default color scale used by ggplot is a very subtle gradient from light to dark blue.  This make it hard to distinguish patterns of change. Let's now see how we can improve that.
+
+#### Better color schemes with RColorBrewer
+
+The `RColorBrewer` packages provides nice color schemes that are useful for creating heat maps. RColorBrewer defines a set of color palettes that have been optimized for color discrimination, many of which are color blind friendly, etc.  Install the RColorBrewer package using the command line or the RStudio GUI.
+
+Once you've installed the RColorBrewer package you can see the available color palettes as so:
 
 ```{r}
-spellman.cor <- 
-  top.1k.wide %>%
+library(RColorBrewer)
+
+# show representations of the palettes
+par(cex = 0.5) # reduce size of text in the following plot
+display.brewer.all()  
+```
+
+We'll use the Red-to-Blue ("RdBu") color scheme defined in RColorBrewer, however we'll reverse the scheme so blues represent low expression and reds represent high expression.  We'll divide the range of color values into 9 discrete bins.
+
+```{r}
+# displays the RdBu color scheme divided into a palette of 9 colors
+display.brewer.pal(9, "RdBu")  
+
+# assign the reversed (blue to red) RdBu palette
+color.scheme <- rev(brewer.pal(9,"RdBu"))
+```
+
+Now let's regenerate the heat map we created previously with this new color scheme. To do this we specify a gradient color scale using the `scale_fill_gradientn()` function from ggplot.  In addition to specifying the color scale, we also constrain the limits of the scale to insure it's symmetric about zero.
+
+```{r}
+spellman.final %>%
+  filter(expt == "cdc28", gene %in% genes.of.interest) %>%
+  ggplot(aes(x = time, y = gene)) + 
+    geom_tile(aes(fill = expression)) +
+    scale_fill_gradientn(colors=color.scheme,
+                         limits = c(-2.5, 2.5)) + 
+    xlab("Time (mins)")
+```
+
+#### Looking for patterns using sorted data and heat maps
+
+The real power of heat maps becomes apparent when you you rearrange the rows of the heat map to emphasize patterns of interest.
+
+For example, let's create a heat map in which we sort genes by the time of their maximal expression.  This is one way to identify genes that reach their peak expression at similar times, which is one criteria one might use to identify genes acting in concert. 
+
+For simplicities sake we will restrict our attention to the cdc28 experiment, and only consider the 1000 most variables genes with no more than one missing observation in this experimental condition.
+
+```{r}
+cdc28 <-
+  spellman.final %>%
+  filter(expt == "cdc28") %>%
+  group_by(gene) %>%
+  filter(sum(is.na(expression)) <= 1) %>%
+  ungroup   # removes grouping information from data frame
+
+top1k.genes <-
+  cdc28 %>%
+  group_by(gene) %>%
+  summarize(expression.var = var(expression, na.rm = TRUE)) %>%
+  arrange(desc(expression.var)) %$%
+  gene[1:1000]
+    
+top1k.cdc28 <- 
+  cdc28 %>%
+  filter(gene %in% top1k.genes)
+```
+
+
+To find the time of maximum expression we'll employ the function `which.max` (`which.min`), which finds the index of the maximum (minimum) element of a vector.  For example to find the index of the maximum expression measurement for YAR018C we could do:
+
+```{r}
+top1k.cdc28 %>%
+  filter(gene == "YAR018C") %$%  # note the exposition pipe operator!
+  which.max(expression)
+```
+
+From the code above we find that the index of the observation at which YAR018C is maximal at 8.  To get the corresponding time point we can do something like this:
+
+
+```{r}
+top1k.cdc28 %>%
+  filter(gene == "YAR018C") %$%  # again note the exposition pipe operator!
+  time[which.max(expression)]
+
+
+```
+
+Thus YAR018C expression peaks at 70 minutes in the cdc28 experiment.
+
+To find the index of maximal expression of all genes we can apply the `dplyr::group_by()` and `dplyr::summarize()` functions
+
+```{r}
+peak.expression.cdc28 <- 
+  top1k.cdc28 %>% 
+  group_by(gene) %>% 
+  summarise(peak = which.max(expression))
+
+head(peak.expression.cdc28)
+```
+
+Let's sort the order of genes by their peak expression:
+
+```{r}
+peak.expression.cdc28 %<>% arrange(peak)
+```
+
+We can then generate a heatmap where we sort the rows (genes) of the heatmap by their time of peak expression.  We introduce a new geom -- `geom_raster` -- which is like `geom_tile` but better suited for large data (hundreds to thousands of rows)  
+
+The explicit sorting of the data by peak expression is carried out in the call to `scale_y_discrete()` where the limits (and order) of this axis are set with the `limits` argument (see `scale_y_discrete` and `discrete_scale` in the ggplot2 docs).
+
+```{r, fig.height = 8, fig.width = 6, fig.cap = "A Heatmap showing genes in the cdc28 experiment, sorted by peak expression", fig.align="center"}
+
+# we reverse the ordering because geom_raster (and geom_tile)
+# draw from the bottom row up, whereas we want to depict the
+# earliest peaking genes at the top of the figure
+gene.ordering <- rev(peak.expression.cdc28$gene)
+
+top1k.cdc28 %>%
+  ggplot(aes(x = time, y = gene)) +
+  geom_raster(aes(fill = expression)) +  # 
+  scale_fill_gradientn(limits=c(-2.5, 2.5),
+                       colors=color.scheme) +
+  scale_y_discrete(limits=gene.ordering) + 
+  labs(x = "Time (mins)", y = "Genes", 
+       title = "1000 most variable genes",
+       subtitle = "Sorted by time of peak expression") +
+  # the following line suppresses tick and labels on y-axis
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+The brightest red regions in each row of the heat map correspond to the times of peak expression, and the sorting of the rows helps to highlight those gene whose peak expression times are similar.  
+
+
+
+
+
+## Long-to-wide conversion using `tidyr::spread`
+
+Our long data frame consists of four variables -- `gene`, `expt`, `time`, and `expression`.  This made it easy to create visualizations and summaries where time and expression were the primaries variables of interest, and gene and experiment type were categories we could condition on.
+
+To facilitate analyses that emphasize comparison between genes, we want to create a new data frame in which each gene is itself treated as a variable of interest along with time, and experiment type remains a categorical variable.  In this new data frame rather than just four columns in our data frame, we'll have several thousand columns -- one for each gene.
+
+To accomplish this reshaping of data, we'll use the function `tidyr::spread()`.  `tidyr::spread()` is the inverse of `tidyr::gather()`.  `gather()` took multiple columns and collapsed them together into a smaller number of new columns.  The `tidyr` documentation calls this "collapsing into key-value pairs".  By contrast, `spread()` creates new columns by spreading "key-value pairs" (a column representing the "keys" and a column reprsenting the "values") into multiple columns.  
+
+Here let's use `spread()` to use the gene names (the "key") and expression measures (the "values") to create a new data frame where the genes are the primary variables (columns) of the data. 
+
+```{r}
+spellman.wide <-
+  spellman.final %>%
+  select(-std.name, -description) %>% # drop unneeded columns
+  spread(gene, expression)
+```
+
+Now let's examine the dimensions of this wide version of the data:
+
+```{r}
+dim(spellman.wide)
+```
+
+And here's a visual view of the first few rows and columns of the wide data:
+
+```{r}
+spellman.wide[1:5, 1:8]
+```
+
+From this view we infer that the rows of the data set represent the various combination of experimental condition and time points, and the  columns represents the 6178 genes in the data set plus the two columns for `expt` and `time`.
+
+
+## Exploring bivariate relationships using "wide" data
+
+The "long" version of our data frame proved useful for exploring how gene expression changed over time.  By contrast, our "wide" data frame is more convient for exploring how pairs of genes covary together.  For example, we can generate bivariate scatter plots depicting the relationship between two genes of interest:
+
+```{r}
+two.gene.plot <-
+  spellman.wide %>%
+  filter(!is.na(YAR018C) & !is.na(YAL022C)) %>%  # remove NAs
+  ggplot(aes(x = YAR018C, y = YAL022C)) +
+  geom_point() + 
+  theme(aspect.ratio = 1)
+
+two.gene.plot
+```
+
+From the scatter plot we infer that the two genes are "positively correlated" with each other, meaning that high values of one tend to be associated with high values of the other (and the same for low values).
+
+We can easily extend this visualization to facet the plot based on the experimental conditions:
+
+```{r}
+two.gene.plot + facet_wrap(~expt, nrow = 2, ncol = 2) 
+```
+
+A statistic we use to measure the degree of association between pairs of continuous variables is called the "correlation coefficient". Briefly, correlation is a measure of linear association between a pair of variables, and ranges from -1 to 1. A value near zero indicates the variables are uncorrelated (no linear association), while values approaching +1 indicate a strong positive association (the variables tend to get bigger or smaller together) while values near -1 indicate strong negative association (when one variable is larger, the other tends to be small).  
+
+Let's calculate the correlation between YAR018C and YAL022C:
+
+```{r}
+spellman.wide %>%
+  filter(!is.na(YAR018C) & !is.na(YAL022C)) %>%  
+  summarize(cor = cor(YAR018C, YAL022C))
+```
+
+The value of the correlation coefficient for YAR018C and YAL022C, ~0.69, indicates a fairly strong association between the two genes.
+
+As we did for our visualization, we can also calculate the correlation coefficients for the two genes under each experimental condition:
+
+```{r}
+spellman.wide %>%
+  filter(!is.na(YAR018C) & !is.na(YAL022C)) %>%  
+  group_by(expt) %>%
+  summarize(cor = cor(YAR018C, YAL022C))
+```
+
+This table suggests that the the strength of correlation between YAR018C and YAL022C may depend on the experimental conditions, with the highest correlations evident in the cdc28 and elu experiments.
+
+### Large scale patterns of correlations
+
+Now we'll move from considering the correlation between two specific genes to looking at the correlation between many pairs of genes.  As we did in the previous section, we'll focus specifically onthe 1000 most variable genes in the cdc28 experiment.
+
+
+First we filter our wide data set to only consider the cdc28 experiment and those genes in the top 1000 most variable genes in cdc28:
+
+```{r}
+top1k.cdc28.wide <- 
+  top1k.cdc28 %>%
+  select(-std.name, -description) %>%
+  spread(gene, expression)
+```
+
+With this restricted data set, we can then calculate the correlations between every pair of genes as follows:
+
+```{r}
+cdc28.correlations <- 
+  top1k.cdc28.wide %>%
   select(-expt, -time)  %>% # drop expt and time
   cor(use = "pairwise.complete.obs")
 ```
 
-The correlation matrix is a square matrix with the number of rows and columns equal to the number of variables: 
+The argument `use = "pairwise.complete.obs"` tells the correlation function that for each pair of genes to use only the pariwse where there is a value for both genes (i.e. neither one can be NA).  
+
+Given $n$ genes, there are $n \times n$ pairs of correlations, as seen by the dimensions of the correlation matrix.
 
 ```{r}
-dim(spellman.cor)
+dim(cdc28.correlations)
 ```
 
-To get the correlations with a gene of interest, we can index with the gene name on the rows of the correlation matrix. For example, to get all the correlations between the gene YAL022C and the other genes in the top 1000 set:
+To get the correlations with a gene of interest, we can index with the gene name on the rows of the correlation matrix. For example, to get the correlations between the gene YAR018C and the first 10 genes in the top 1000 set:
 
 ```{r}
-spellman.cor["YAL022C",]  
+cdc28.correlations["YAR018C",1:10]  
 ```
 
-
-In the next statement we extract the names of the genes that have correlations with YAL022C greater than 0.6.   First we test genes to see if they have a correlation with YAL022C greater than 0.6, which returns a vector of TRUE or FALSE values.  This vector of Boolean values is than used to index into the rownames of the correlation matrix, pulling out the gene names where the statement was true.
+In the next statement we extract the names of the genes that have correlations with YAR018C greater than 0.6.   First we test genes to see if they have a correlation with YAR018C greater than 0.6, which returns a vector of TRUE or FALSE values.  This vector of Boolean values is than used to index into the rownames of the correlation matrix, pulling out the gene names where the statement was true.
 
 ```{r}
-pos.corr.YAL022C <- rownames(spellman.cor)[spellman.cor["YAL022C",] > 0.6]
-length(pos.corr.YAL022C)
+pos.corr.YAR018C <- rownames(cdc28.correlations)[cdc28.correlations["YAR018C",] > 0.6]
+length(pos.corr.YAR018C)
 ```
-We then return to our wide data to show this set of genes that are strongly positively correlated with YAL022C, using faceted line graphs:
+
+We then return to our long data to show this set of genes that are strongly positively correlated with YAR018C.  
 
 ```{r}
-spellman.final %>%
-  filter(gene %in% pos.corr.YAL022C) %>%
-  ggplot(aes(x = time, y = expression, color = expt, group = gene)) + 
+top1k.cdc28 %>%
+  filter(gene %in% pos.corr.YAR018C) %>%
+  ggplot(aes(x = time, y = expression, group = gene)) + 
     geom_line(alpha = 0.33) +
-    facet_wrap(~ expt, scales = "free_x", nrow = 2, ncol = 2) +
     theme(legend.position = "none")
 ```
 
+As is expected, genes with strong positive correlations with YAR018C. show similar temporal patterns with YAR018C. 
 
-We can similarly filter for genes that have negative correlations with YAL022C. 
+
+We can similarly filter for genes that have negative correlations with YAR018C. 
 
 ```{r}
-neg.corr.YAL022C <- colnames(spellman.cor)[spellman.cor["YAL022C",] <= -0.4]
+neg.corr.YAR018C <- colnames(cdc28.correlations)[cdc28.correlations["YAR018C",] <= -0.6]
 ```
 
-As before we generate a faceted line plot showing these genes by experiment:
+As before we generate a line plot showing these genes:
 
 ```{r}
-spellman.final %>%
-  filter(gene %in% neg.corr.YAL022C) %>%
-  ggplot(aes(x = time, y = expression, color = expt, group = gene)) +
+top1k.cdc28 %>%
+  filter(gene %in% neg.corr.YAR018C) %>%
+  ggplot(aes(x = time, y = expression, group = gene)) +
     geom_line(alpha = 0.33) +
-    facet_wrap(~ expt, scales = "free_x", nrow = 2, ncol = 2) +
     theme(legend.position = "none")  
 ```
 
 
-
 ### Adding new columns and combining filtered data frames
 
-Now let's create a new data frame by: 1) filtering on our list of genes that have strong positive and negative correlations with YAL022C; and 2) creating a new variable, "corr.with.YAL022C", which indicates the sign of the correlation.  We'll use this new variable to group genes when we create the plot.
+Now let's create a new data frame by: 1) filtering on our list of genes that have strong positive and negative correlations with YAR018C; and 2) creating a new variable, "corr.with.YAR018C", which indicates the sign of the correlation.  We'll use this new variable to group genes when we create the plot.
 
 ```{r}
-pos.corr.df <- spellman.final %>%
-  filter(gene %in% pos.corr.YAL022C) %>%
-  mutate(corr.with.YAL022C = "positive")
+pos.corr.df <- 
+  top1k.cdc28 %>%
+  filter(gene %in% pos.corr.YAR018C) %>%
+  mutate(corr.with.YAR018C = "positive")
 
-neg.corr.df <- spellman.final %>%
-  filter(gene %in% neg.corr.YAL022C) %>%
-  mutate(corr.with.YAL022C = "negative")
+neg.corr.df <- 
+  top1k.cdc28 %>%
+  filter(gene %in% neg.corr.YAR018C) %>%
+  mutate(corr.with.YAR018C = "negative")
 
 combined.pos.neg <- rbind(pos.corr.df, neg.corr.df)
 ```
 
-Finally, we plot the data, colored according to the correlation with YAL022C. 
+Finally, we plot the data, colored according to the correlation with YAR018C: 
 
-```{r, fig.width = 8, fig.height=6}
+```{r, fig.width = 8, fig.height=6, warning=FALSE}
 ggplot(combined.pos.neg, 
        aes(x = time, y = expression,  group = gene,
-           color = corr.with.YAL022C)) + 
-  geom_line(alpha=0.5) + 
-  facet_wrap(~ expt, nrow =2, ncol = 2, scales = "free_x") +
-  # changes legend title for discrete color legends
-  scale_color_discrete(name = "Correlation with YAL022C") 
+           color = corr.with.YAR018C)) + 
+  geom_line(alpha=0.25) + 
+  geom_line(aes(x = time, y = expression),
+            data = filter(top1k.cdc28, gene == "YAR018C"),
+            color = "DarkRed", size = 2,alpha=0.5) +
+  # changes legend title and values for color sclae
+  scale_color_manual(name = "Correlation with YAR018C",
+                       values = c("blue", "red"))  + 
+  labs(title = "Genes strongly positively and negatively correlated with YAR018C",
+       subtitle = "YAR018C shown in dark red",
+       x = "Time (mins)", y = "Expression")
 ```
 
 
 
+### A heat mapped sorted by correlations
 
-## Heat maps
+In our previous heat map example figure, we sorted genes according to peak expression.  Now let's generate a heat map for the genes that are strongly correlated (both positive and negative) with YAR018C.  We will sort the genes according to the sign of their correlation.
 
-Line plots can become  visually busy very quickly, and hence aren't very useful for more than a few tens of genes.  An alternative is  a "heat map" which depicts data in a grid or table like form, with values indicated by color.  Heat maps are good for depicting large amounts of data and providing a coarse "10,000 foot view".  We'll be looking at lots of heat maps when we get into clustering, but here's a simple example based on the genes that were positively and negatively correlated with YAL022C.
-
-
-### RColorBrewer
-
-The `RColorBrewer` packages provides nice color schemes that are useful for creating heat maps. RColorBrewer defines a set of color palettes that have been optimized for color discrimination, to be color blind friendly, etc. Once you've installed the RColorBrewer package you can see the available color palettes as so:
-
-```{r}
-library(RColorBrewer)
-# show representations of the palettes
-par(cex = 0.5) # reduce size of text in the follow plot
-display.brewer.all()  
-```
-
-### Creating a heat map using `geom_tile`
-
-We'll use the `geom_tile` geom to create the heat map.  We'll depict genes in rows, time points in columns, and expression values by the fill color of each tile. We'll use the Red-to-Blue ("RdBu") color scheme defined in RColorBrewer, however we'll reverse the scheme so blues represent low expression and reds represent high expression.
-
-```{r}
-# generate the color scheme to use
-color.scheme <- rev(brewer.pal(8,"RdBu"))
-
+```{r, fig.width=12, fig.height=12}
 # re-factor gene names so positive and negative genes are spatially distinct in plot
 combined.pos.neg$gene <- 
   factor(combined.pos.neg$gene, 
-         levels = c(pos.corr.YAL022C, neg.corr.YAL022C))
+         levels = c(pos.corr.YAR018C, neg.corr.YAR018C))
 
 combined.pos.neg %>%
-  filter(expt == "cdc28") %>%  # focus only on one condition
   ggplot(aes(x = time, y = gene)) + 
     geom_tile(aes(fill = expression)) +
     scale_fill_gradientn(colors=color.scheme) + 
     xlab("Time (mins)")
 ```
 
-Can you visually see the breakpoint between the positively and negatively correlated sets of genes?
+The breakpoint between the positively and negatively correlated sets of genes is quite obvious in this figure.
 
 ### A "fancy" figure
 
-If we want to get really fancy, we can use cowplot's `draw_plot` function that allows us to place plots at arbitrary locations and at arbitrary sizes onto the canvas. The coordinates of the canvas  run from 0 to 1, and the point (0, 0) is in the lower left corner of the canvas. We'll use `draw_plot` to draw a complex figure with a heatmap on the left, and two smaller line plots on the right.
+Recall that we introduced the `cowplot` library in Chapter 6, as a way to combine different ggplot outputs into subfigures such as you might find in a published paper.  Here we'll make further use cowplot to combine our heat map and line plot visualizations of genes that covary with YAR018C.
 
-```{r, fig.width = 8, fig.height = 5}
+```{r, message=FALSE}
+library(cowplot)
+```
 
-cdc28.filtered <- filter(combined.pos.neg, expt == "cdc28")
+cowplot's `draw_plot()` function allows us to place plots at arbitrary locations and with arbitrary sizes onto the canvas. The coordinates of the canvas  run from 0 to 1, and the point (0, 0) is in the lower left corner of the canvas. We'll use `draw_plot` to draw a complex figure with a heatmap on the left, and two smaller line plots on the right.
 
-pos.corr.lineplot <-  cdc28.filtered %>%
-  filter(gene %in% pos.corr.YAL022C) %>%
+```{r}
+pos.corr.lineplot <-  
+  combined.pos.neg %>%
+  filter(gene %in% pos.corr.YAR018C) %>%
   ggplot(aes(x = time, y = expression, group = gene)) +
     geom_line(alpha = 0.33, color = 'red') +
     labs(x = "Time (mins)", y = "Expression", 
-      title = "Genes Positively correlated\nwith YAL022C")
+      title = "Genes Positively correlated\nwith YAR018C")
 
-neg.corr.lineplot <-  cdc28.filtered %>%
-  filter(gene %in% neg.corr.YAL022C) %>%
+neg.corr.lineplot <- 
+  combined.pos.neg %>%
+  filter(gene %in% neg.corr.YAR018C) %>%
   ggplot(aes(x = time, y = expression, group = gene)) +
     geom_line(alpha = 0.33, color = 'blue') +
     labs(x = "Time (mins)", y = "Expression", 
-      title = "Genes negatively correlated\nwith YAL022C")
+      title = "Genes negatively correlated\nwith YAR018C")
 
 
 heat.map <- 
-  ggplot(cdc28.filtered, aes(x = time, y = gene)) + 
+  ggplot(combined.pos.neg, aes(x = time, y = gene)) + 
     geom_tile(aes(fill = expression)) +
     scale_fill_gradientn(colors=color.scheme) + 
     labs(x = "Time (mins)", y = "Gene") +
     theme(legend.position = "none")
+```
 
+
+The coordinates of the canvas  run from 0 to 1, and the point (0, 0) is in the lower left corner of the canvas. We'll use `draw_plot` to draw a complex figure with a heatmap on the left, and two smaller line plots on the right.
+
+I determined the coordinates below by experimentation to create a visually pleasing layout.
+
+```{r, fig.width = 16, fig.height = 12}
 fancy.plot <- ggdraw() + 
   draw_plot(heat.map, 0, 0, width = 0.6) + 
   draw_plot(neg.corr.lineplot, 0.6, 0.5, width = 0.4, height = 0.5) +
@@ -648,69 +866,5 @@ fancy.plot <- ggdraw() +
   draw_plot_label(c("A", "B", "C"), c(0, 0.6, 0.6), c(1, 1, 0.5), size = 15)
 
 fancy.plot
-```
-
-
-
-### Sorting and visualizing genes by time of maximum expression
-
-In a time series data one might be interested in examing genes with respect to some property of their dynamic expression. Here we'll focus on the 1000 most variable genes, sort the data from the alpha factor synchronization experiment by time of maximum expression.
-
-First let's filter our tidy, long data frame to include only our top 1000 genes and the alpha factor measurements:
-
-```{r}
-top1k.alpha.long <-
-  spellman.final %>%
-  filter(gene %in% top.genes.1k, expt == "alpha")
-```
-
-To find the time of maximum expression we'll employ the function `which.max` (`which.min`), which finds the index of the maximum (minimum) element of a vector.  For example to find the index of the maximum expression measurement for YAL022C we could do:
-
-```{r}
-top1k.alpha.long %>%
-  filter(gene == "YAL022C") %$%  # note the exposition pipe operator!
-  which.max(expression)
-```
-
-From the code above we find that the index of the observation at which YAL022C is maximal is 18.  To get the corresponding time point we can do something like this:
-
-
-```{r}
-top1k.alpha.long %>%
-  filter(gene == "YAL022C") %$%  # again note the exposition pipe operator!
-  time[which.max(expression)]
-
-
-```
-
-Thus YAL022C expression peaks at 119 minutes in the alpha factor experiment.
-
-To find the index of maximal expression of all genes we can apply the `dplyr::group_by()` and `dplyr::summarize()` functions
-
-```{r}
-peak.expression <- 
-  top1k.alpha.long %>% 
-  group_by(gene) %>% 
-  summarise(peak = which.max(expression))
-
-dim(peak.expression)
-head(peak.expression, n = 10)
-```
-
-We can then generate a heatmap where we sort the rows (genes) of the heatmap by their time of peak expression.  We introduce a new geom -- `geom_raster` -- which is like `geom_tile` but better suited for large data.  
-
-The explicit sorting of the data by peak expression is carried out in the call to `scale_y_discrete` where the limits (and order) of this axis are set with the `limits` argument (see `scale_y_discrete` and `discrete_scale` in the ggplot2 docs).
-
-```{r, fig.height = 8, fig.width = 6, fig.cap = "A Heatmap showing genes in the alpha-factor experiment, sorted by peak expression", fig.align="center"}
-top1k.alpha.long %>%
-  ggplot(aes(x = time, y = gene)) +
-  geom_raster(aes(fill = expression)) +  # 
-  scale_fill_gradientn(limits=c(-2,2),colors=color.scheme) +
-  scale_y_discrete(limits=peak.expression$gene[rev(order(peak.expression$peak))]) + 
-  labs(x = "Time (mins)", y = "Genes", 
-       title = "1000 most variable genes",
-       subtitle = "Sorted by time of peak expression") +
-  # the following line suppresses tick and labels on y-axi
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 ```
 

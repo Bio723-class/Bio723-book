@@ -1,3 +1,7 @@
+body .page-wrapper{
+max-width: 2000px;
+}
+
 p.caption {
   color: #777;
   margin-top: 10px;

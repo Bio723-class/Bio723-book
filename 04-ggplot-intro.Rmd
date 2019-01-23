@@ -661,7 +661,7 @@ plot_grid(plot.1, plot.2, plot.3)
 
 If instead, we wanted to layout the plots in a single row we could change the call to `plot_grid` as so:
 
-```{r, fig.width=12, fig.height=4}
+```{r, fig.width=15, fig.height=4}
 plot_grid(plot.1, plot.2, plot.3, 
           nrow = 1, labels = c("A", "B", "C"))
 ```

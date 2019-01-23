@@ -345,7 +345,7 @@ Once a package is installed on your computer, the package can be loaded into you
 library(tidyverse)
 ```
 
-Since the tidyverse pacakge is a "meta-package" it provides some additional info about the sub-packages that got loaded.  
+Since the tidyverse pacakge is a "meta-package" it provides some additional info about the sub-packages that got loaded.
 
 When you load tidyverse, you will also see a message about "Conflicts" as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the "stats" package which usually gets automically loaded when you start R.  The conflicting funcdtions are `filter` and `lag`. The conflicting functions in the stats package are `lag` and `filter` which are used in time series analysis.  The `dplyr` functions are  more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. `stats::filter`).
 
@@ -382,7 +382,7 @@ In this case `help.search("log")` returns all the functions with
 the string `log` in them. For more on `help.search` type
 `?help.search`. 
 
-Other useful help related functions include `apropos()` and `example()`.  `apropos` returns a list of all objects (including function names) in the current session that match the input string.
+Other useful help related functions include `apropos()` and `example()`, `vignette()`.  `apropos` returns a list of all objects (including function names) in the current session that match the input string.
 
 ```{r}
 apropos("log")
@@ -392,5 +392,11 @@ apropos("log")
 
 ```{r}
 example(log)
+```
+
+The `vignette()` function gives longer,  more detailed documentation about libraries.  Not all libraries include vignettes, but for those that do it's usually a good place to get started.  For example, the stringr package (which we installed above) includes a vignette. To read it's vignette, type the following at the console
+
+```
+vignette("stringr")
 ```
 

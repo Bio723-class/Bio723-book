@@ -612,7 +612,7 @@ Figure 2.4: The RStudio Help tab
 <p>In this case <code>help.search(&quot;log&quot;)</code> returns all the functions with
 the string <code>log</code> in them. For more on <code>help.search</code> type
 <code>?help.search</code>.</p>
-<p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
+<p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>, <code>vignette()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</a>
 <a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co">##  [1] &quot;as.data.frame.logical&quot; &quot;as.logical&quot;           </span></a>
 <a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">##  [3] &quot;as.logical.factor&quot;     &quot;dlogis&quot;               </span></a>
@@ -645,6 +645,8 @@ the string <code>log</code> in them. For more on <code>help.search</code> type
 <a class="sourceLine" id="cb33-19" data-line-number="19"><span class="co">##  [7,] 1e-15 1.110223e-15 1.000000e-15 1.110223e-15 1.000000e-15</span></a>
 <a class="sourceLine" id="cb33-20" data-line-number="20"><span class="co">##  [8,] 1e-17 0.000000e+00 1.000000e-17 0.000000e+00 1.000000e-17</span></a>
 <a class="sourceLine" id="cb33-21" data-line-number="21"><span class="co">##  [9,] 1e-19 0.000000e+00 1.000000e-19 0.000000e+00 1.000000e-19</span></a></code></pre></div>
+<p>The <code>vignette()</code> function gives longer, more detailed documentation about libraries. Not all libraries include vignettes, but for those that do it’s usually a good place to get started. For example, the stringr package (which we installed above) includes a vignette. To read it’s vignette, type the following at the console</p>
+<pre><code>vignette(&quot;stringr&quot;)</code></pre>
 
 </div>
 </div>

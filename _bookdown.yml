@@ -6,4 +6,4 @@ delete_merged_file: true
 output_dir: "docs"
 rmd_files: ["index.Rmd", "01-getting-started-R.Rmd", "02-intro-R-markdown.Rmd",
             "03-data-structures.Rmd", "04-ggplot-intro.Rmd", "05-dplyr-intro.Rmd",
-"06-data-wrangling.Rmd"]
+"06-data-wrangling.Rmd", "07-functions-and-control-flow.Rmd"]

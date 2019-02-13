@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="getting-started-with-r.html">
-<link rel="next" href="data-structures.html">
+<link rel="prev" href="vectors-algebra.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -357,137 +357,281 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-markdown-and-r-notebooks" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> R Markdown and R Notebooks</h1>
-<p>RStudio comes with a useful set of tools, collectively called R Markdown, for generating “literate” statistical analyses. The idea behind literate statistical computing is that we should try to carry out our analyses in a manner that is transparent, self-explanatory, and reproducible. Literate statistical computing helps to ensure your research is reproducible because:</p>
-<ol style="list-style-type: decimal">
-<li>The steps of your analyses are explicitly described, both as written text and the code and function calls used.</li>
-<li>Analyses can be more easily checked for correctness and reproduced from your literate code.</li>
-<li>Your literate code can serve as a template for future analyses, saving you time and the trouble of remembering all the gory details.</li>
-</ol>
-<p>As we’ll see, R Markdown will allow us to produce statistical documents that integrate prose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the “other” is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
-<p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This chaptern provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
-<div id="r-notebooks" class="section level2">
-<h2><span class="header-section-number">3.1</span> R Notebooks</h2>
-<p>We’re going to create a type of R Markdown document called an “R Notebook”. The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
+<div id="matrices-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Matrices in R</h1>
+<p>In R matrices are two-dimensional collections of elements all of which
+have the same mode or type. This is different than a data frame in which
+the columns of the frame can hold elements of different type (but all of
+the same length), or from a list which can hold objects of arbitrary
+type and length. Matrices are more efficient for carrying out most
+numerical operations, so if you’re working with a very large data set
+that is amenable to representation by a matrix you should consider using
+this data structure.</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb333-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div id="creating-matrices-in-r" class="section level2">
+<h2><span class="header-section-number">10.1</span> Creating matrices in R</h2>
+<p>There are a number of different ways to create matrices in R. For
+creating small matrices at the command line you can use the
+<code>matrix()</code> function.</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb334-3" data-line-number="3"><span class="co">##      [,1]</span></a>
+<a class="sourceLine" id="cb334-4" data-line-number="4"><span class="co">## [1,]    1</span></a>
+<a class="sourceLine" id="cb334-5" data-line-number="5"><span class="co">## [2,]    2</span></a>
+<a class="sourceLine" id="cb334-6" data-line-number="6"><span class="co">## [3,]    3</span></a>
+<a class="sourceLine" id="cb334-7" data-line-number="7"><span class="co">## [4,]    4</span></a>
+<a class="sourceLine" id="cb334-8" data-line-number="8"><span class="co">## [5,]    5</span></a>
+<a class="sourceLine" id="cb334-9" data-line-number="9"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></a>
+<a class="sourceLine" id="cb334-10" data-line-number="10"><span class="op">&gt;</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb334-11" data-line-number="11"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb334-12" data-line-number="12"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb334-13" data-line-number="13"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb334-14" data-line-number="14"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb334-15" data-line-number="15"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb334-16" data-line-number="16"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(X) <span class="co"># give the shape of the matrix</span></a>
+<a class="sourceLine" id="cb334-17" data-line-number="17"><span class="co">## [1] 4 3</span></a></code></pre></div>
+<p><code>matrix()</code> takes a data vector as input and the shape of the
+matrix to be created is specified by using the <code>nrow</code> and
+<code>ncol</code> arguments. If the number of elements in the input data
+vector is less than <code>nrows</code> <span class="math inline">\(\times\)</span> <code>ncols</code> the
+elements will be ‘recycled’ as discussed in previous chapters. Without
+any shape arguments the <code>matrix()</code> function will create a
+column vector as shown above. By default the <code>matrix()</code>
+function fills in the matrix in a column-wise fashion. To fill in the
+matrix in a row-wise fashion use the argument <code>byrow=T</code>.</p>
+<p>If you have a pre-existing data set in a list or data frame you can use
+the <code>as.matrix()</code> function to convert it to a matrix.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris)</a>
+<a class="sourceLine" id="cb335-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></a>
+<a class="sourceLine" id="cb335-3" data-line-number="3"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></a>
+<a class="sourceLine" id="cb335-4" data-line-number="4"><span class="co">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb335-5" data-line-number="5"><span class="co">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb335-6" data-line-number="6"><span class="co">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb335-7" data-line-number="7"><span class="co">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb335-8" data-line-number="8"><span class="co">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb335-9" data-line-number="9"><span class="co">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></a></code></pre></div>
+<p>Since all elements of an R matrix must be of the same type, when we passed the iris data frame to <code>as.matrix()</code>, everything was converted to a character due to the presence of the Species column in the data frame.</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="co"># This is probably more along the lines of what you want</span></a>
+<a class="sourceLine" id="cb336-2" data-line-number="2"><span class="er">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix</a>
+<a class="sourceLine" id="cb336-3" data-line-number="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx)</a>
+<a class="sourceLine" id="cb336-4" data-line-number="4"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb336-5" data-line-number="5"><span class="co">## [1,]          5.1         3.5          1.4         0.2</span></a>
+<a class="sourceLine" id="cb336-6" data-line-number="6"><span class="co">## [2,]          4.9         3.0          1.4         0.2</span></a>
+<a class="sourceLine" id="cb336-7" data-line-number="7"><span class="co">## [3,]          4.7         3.2          1.3         0.2</span></a>
+<a class="sourceLine" id="cb336-8" data-line-number="8"><span class="co">## [4,]          4.6         3.1          1.5         0.2</span></a>
+<a class="sourceLine" id="cb336-9" data-line-number="9"><span class="co">## [5,]          5.0         3.6          1.4         0.2</span></a>
+<a class="sourceLine" id="cb336-10" data-line-number="10"><span class="co">## [6,]          5.4         3.9          1.7         0.4</span></a></code></pre></div>
+<p>You can use the various indexing operations to get particular rows,
+columns, or elements. Here are some examples:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb337-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb337-3" data-line-number="3"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb337-4" data-line-number="4"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb337-5" data-line-number="5"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb337-6" data-line-number="6"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb337-7" data-line-number="7"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb337-8" data-line-number="8"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span>,] <span class="co"># get the first row</span></a>
+<a class="sourceLine" id="cb337-9" data-line-number="9"><span class="co">## [1] 1 5 9</span></a>
+<a class="sourceLine" id="cb337-10" data-line-number="10"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">1</span>] <span class="co"># get the first column</span></a>
+<a class="sourceLine" id="cb337-11" data-line-number="11"><span class="co">## [1] 1 2 3 4</span></a>
+<a class="sourceLine" id="cb337-12" data-line-number="12"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></a>
+<a class="sourceLine" id="cb337-13" data-line-number="13"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb337-14" data-line-number="14"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb337-15" data-line-number="15"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb337-16" data-line-number="16"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></a>
+<a class="sourceLine" id="cb337-17" data-line-number="17"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb337-18" data-line-number="18"><span class="co">## [1,]    5    9</span></a>
+<a class="sourceLine" id="cb337-19" data-line-number="19"><span class="co">## [2,]    6   10</span></a>
+<a class="sourceLine" id="cb337-20" data-line-number="20"><span class="co">## [3,]    7   11</span></a>
+<a class="sourceLine" id="cb337-21" data-line-number="21"><span class="co">## [4,]    8   12</span></a>
+<a class="sourceLine" id="cb337-22" data-line-number="22"><span class="op">&gt;</span><span class="st"> </span>Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span>T, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb337-23" data-line-number="23"><span class="op">&gt;</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb337-24" data-line-number="24"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb337-25" data-line-number="25"><span class="co">## [1,]    1    2    3</span></a>
+<a class="sourceLine" id="cb337-26" data-line-number="26"><span class="co">## [2,]    4    5    6</span></a>
+<a class="sourceLine" id="cb337-27" data-line-number="27"><span class="co">## [3,]    7    8    9</span></a>
+<a class="sourceLine" id="cb337-28" data-line-number="28"><span class="co">## [4,]   10   11   12</span></a>
+<a class="sourceLine" id="cb337-29" data-line-number="29"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></a>
+<a class="sourceLine" id="cb337-30" data-line-number="30"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb337-31" data-line-number="31"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb337-32" data-line-number="32"><span class="co">## [1] 2</span></a>
+<a class="sourceLine" id="cb337-33" data-line-number="33"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></a>
+<a class="sourceLine" id="cb337-34" data-line-number="34"><span class="op">&gt;</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb337-35" data-line-number="35"><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
+<a class="sourceLine" id="cb337-36" data-line-number="36"><span class="co">## [1,]    1    7    2    8    3    9</span></a>
+<a class="sourceLine" id="cb337-37" data-line-number="37"><span class="co">## [2,]    4   10    5   11    6   12</span></a>
+<a class="sourceLine" id="cb337-38" data-line-number="38"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb337-39" data-line-number="39"><span class="co">## [1] 2</span></a></code></pre></div>
+<p>The example above where we create a matrix <code>Y</code> is meant to
+show that matrices are stored internally in a column wise fashion (think
+of the columns stacked one atop the other), regardless of whether we use
+the <code>byrow=T</code> argument. Therefore using single indices returns
+the elements with respect to this arrangement. Note also the use of
+assignment operator in conjuction with the <code>dim()</code> function to
+reshape the matrix. Despite the reshaping, the internal representation
+in memory hasn’t changed so <code>Y[5]</code> still gives the same
+element.</p>
+<p>You can use the <code>diag()</code> function to get the diagonal of a
+matrix or to create a diagonal matrix as show below:</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">16</span>), <span class="dt">ncol=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb338-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>Z</a>
+<a class="sourceLine" id="cb338-3" data-line-number="3"><span class="co">##            [,1]       [,2]       [,3]       [,4]</span></a>
+<a class="sourceLine" id="cb338-4" data-line-number="4"><span class="co">## [1,] -0.7604560 -0.7049837 -1.1389794  0.6118085</span></a>
+<a class="sourceLine" id="cb338-5" data-line-number="5"><span class="co">## [2,] -1.6120674 -1.2184164 -0.7987722 -0.4013683</span></a>
+<a class="sourceLine" id="cb338-6" data-line-number="6"><span class="co">## [3,] -0.1735049 -0.7839579 -0.5113565 -0.4020452</span></a>
+<a class="sourceLine" id="cb338-7" data-line-number="7"><span class="co">## [4,] -0.9982792 -0.8059817  1.1039252 -0.5774929</span></a>
+<a class="sourceLine" id="cb338-8" data-line-number="8"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(Z)</a>
+<a class="sourceLine" id="cb338-9" data-line-number="9"><span class="co">## [1] -0.7604560 -1.2184164 -0.5113565 -0.5774929</span></a>
+<a class="sourceLine" id="cb338-10" data-line-number="10"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></a>
+<a class="sourceLine" id="cb338-11" data-line-number="11"><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></a>
+<a class="sourceLine" id="cb338-12" data-line-number="12"><span class="co">## [1,]    1    0    0    0    0</span></a>
+<a class="sourceLine" id="cb338-13" data-line-number="13"><span class="co">## [2,]    0    1    0    0    0</span></a>
+<a class="sourceLine" id="cb338-14" data-line-number="14"><span class="co">## [3,]    0    0    1    0    0</span></a>
+<a class="sourceLine" id="cb338-15" data-line-number="15"><span class="co">## [4,]    0    0    0    1    0</span></a>
+<a class="sourceLine" id="cb338-16" data-line-number="16"><span class="co">## [5,]    0    0    0    0    1</span></a>
+<a class="sourceLine" id="cb338-17" data-line-number="17"><span class="op">&gt;</span><span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">13</span>)</a>
+<a class="sourceLine" id="cb338-18" data-line-number="18"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(s)</a>
+<a class="sourceLine" id="cb338-19" data-line-number="19"><span class="co">##          [,1]     [,2]     [,3]     [,4]</span></a>
+<a class="sourceLine" id="cb338-20" data-line-number="20"><span class="co">## [1,] 3.162278 0.000000 0.000000 0.000000</span></a>
+<a class="sourceLine" id="cb338-21" data-line-number="21"><span class="co">## [2,] 0.000000 3.316625 0.000000 0.000000</span></a>
+<a class="sourceLine" id="cb338-22" data-line-number="22"><span class="co">## [3,] 0.000000 0.000000 3.464102 0.000000</span></a>
+<a class="sourceLine" id="cb338-23" data-line-number="23"><span class="co">## [4,] 0.000000 0.000000 0.000000 3.605551</span></a></code></pre></div>
 </div>
-<div id="creating-an-r-notebook" class="section level2">
-<h2><span class="header-section-number">3.2</span> Creating an R Notebook</h2>
-<p>To create an R Notebook select <code>File &gt; New File &gt; R Notebook</code> from the files menu in RStudio.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-37"></span>
-<img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="75%" />
-<p class="caption">
-Figure 3.1: Using the File menu to create a new R Notebook.
-</p>
+<div id="matrix-arithmetic-operations-in-r" class="section level2">
+<h2><span class="header-section-number">10.2</span> Matrix arithmetic operations in R</h2>
+<p>The standard mathematical operations of addition and subtraction and
+scalar multiplication work element-wise for matrices in the same way as
+they did for vectors. Matrix multiplication uses the operator
+<code>%*%</code> which you saw last week for the dot product. To get the
+transpose of a matrix use the function <code>t()</code>.</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb339-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>A</a>
+<a class="sourceLine" id="cb339-3" data-line-number="3"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb339-4" data-line-number="4"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb339-5" data-line-number="5"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb339-6" data-line-number="6"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb339-7" data-line-number="7"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb339-8" data-line-number="8"><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb339-9" data-line-number="9"><span class="er">&gt;</span><span class="st"> </span>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb339-10" data-line-number="10"><span class="op">&gt;</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb339-11" data-line-number="11"><span class="co">##            [,1]       [,2]       [,3]</span></a>
+<a class="sourceLine" id="cb339-12" data-line-number="12"><span class="co">## [1,] -0.7967739  0.2684857 -0.2599345</span></a>
+<a class="sourceLine" id="cb339-13" data-line-number="13"><span class="co">## [2,] -0.5440986  1.2338023  1.4380429</span></a>
+<a class="sourceLine" id="cb339-14" data-line-number="14"><span class="co">## [3,] -0.5675714  1.0708879  0.9276622</span></a>
+<a class="sourceLine" id="cb339-15" data-line-number="15"><span class="co">## [4,] -0.4048636 -0.2447343  0.5091978</span></a>
+<a class="sourceLine" id="cb339-16" data-line-number="16"><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb339-17" data-line-number="17"><span class="er">&gt;</span><span class="st"> </span><span class="kw">t</span>(A)  <span class="co"># transpose</span></a>
+<a class="sourceLine" id="cb339-18" data-line-number="18"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
+<a class="sourceLine" id="cb339-19" data-line-number="19"><span class="co">## [1,]    1    2    3    4</span></a>
+<a class="sourceLine" id="cb339-20" data-line-number="20"><span class="co">## [2,]    5    6    7    8</span></a>
+<a class="sourceLine" id="cb339-21" data-line-number="21"><span class="co">## [3,]    9   10   11   12</span></a>
+<a class="sourceLine" id="cb339-22" data-line-number="22"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B  <span class="co"># matrix addition</span></a>
+<a class="sourceLine" id="cb339-23" data-line-number="23"><span class="co">##           [,1]     [,2]      [,3]</span></a>
+<a class="sourceLine" id="cb339-24" data-line-number="24"><span class="co">## [1,] 0.2032261 5.268486  8.740065</span></a>
+<a class="sourceLine" id="cb339-25" data-line-number="25"><span class="co">## [2,] 1.4559014 7.233802 11.438043</span></a>
+<a class="sourceLine" id="cb339-26" data-line-number="26"><span class="co">## [3,] 2.4324286 8.070888 11.927662</span></a>
+<a class="sourceLine" id="cb339-27" data-line-number="27"><span class="co">## [4,] 3.5951364 7.755266 12.509198</span></a>
+<a class="sourceLine" id="cb339-28" data-line-number="28"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">-</span><span class="st"> </span>B  <span class="co"># matrix subtraction</span></a>
+<a class="sourceLine" id="cb339-29" data-line-number="29"><span class="co">##          [,1]     [,2]      [,3]</span></a>
+<a class="sourceLine" id="cb339-30" data-line-number="30"><span class="co">## [1,] 1.796774 4.731514  9.259935</span></a>
+<a class="sourceLine" id="cb339-31" data-line-number="31"><span class="co">## [2,] 2.544099 4.766198  8.561957</span></a>
+<a class="sourceLine" id="cb339-32" data-line-number="32"><span class="co">## [3,] 3.567571 5.929112 10.072338</span></a>
+<a class="sourceLine" id="cb339-33" data-line-number="33"><span class="co">## [4,] 4.404864 8.244734 11.490802</span></a>
+<a class="sourceLine" id="cb339-34" data-line-number="34"><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>A  <span class="co"># multiplication by a scalar</span></a>
+<a class="sourceLine" id="cb339-35" data-line-number="35"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb339-36" data-line-number="36"><span class="co">## [1,]    5   25   45</span></a>
+<a class="sourceLine" id="cb339-37" data-line-number="37"><span class="co">## [2,]   10   30   50</span></a>
+<a class="sourceLine" id="cb339-38" data-line-number="38"><span class="co">## [3,]   15   35   55</span></a>
+<a class="sourceLine" id="cb339-39" data-line-number="39"><span class="co">## [4,]   20   40   60</span></a></code></pre></div>
+<p>When applying matrix multiplication, the dimensions of the matrices involved must be conformable. For example, you can’t do this:</p>
+<pre><code>A %*% B  # do you understand why this generates an error?</code></pre>
+<p>But this works:</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(B)</a>
+<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="co">##           [,1]     [,2]     [,3]     [,4]</span></a>
+<a class="sourceLine" id="cb341-3" data-line-number="3"><span class="co">## [1,] -1.793756 18.56730 13.13583 2.954245</span></a>
+<a class="sourceLine" id="cb341-4" data-line-number="4"><span class="co">## [2,] -2.581979 20.69505 14.56681 2.813845</span></a>
+<a class="sourceLine" id="cb341-5" data-line-number="5"><span class="co">## [3,] -3.370201 22.82279 15.99779 2.673444</span></a>
+<a class="sourceLine" id="cb341-6" data-line-number="6"><span class="co">## [4,] -4.158424 24.95054 17.42876 2.533044</span></a></code></pre></div>
+</div>
+<div id="descriptive-statistics-as-matrix-functions" class="section level2">
+<h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions</h2>
+<p>Assume you have a data set represented as a <span class="math inline">\(n \times p\)</span> matrix, <span class="math inline">\(X\)</span>, with
+observations in rows and variables in columns. Below I give formulae for
+calculating some descriptive statistics as matrix functions.</p>
+<div id="mean-vector-and-matrix" class="section level3">
+<h3><span class="header-section-number">10.3.1</span> Mean vector and matrix</h3>
+<p>You can calculate a row vector of means, <span class="math inline">\(\mathbf{m}\)</span>, as:
+<span class="math display">\[
+\mathbf{m} = \frac{1}{n} \mathbf{1}^T  X
+\]</span>
+where <span class="math inline">\(1\)</span> is a <span class="math inline">\(n \times 1\)</span> vector of ones.</p>
+<p>A <span class="math inline">\(n \times p\)</span> matrix <span class="math inline">\(M\)</span> where each column is filled with the mean
+value for that column is:
+<span class="math display">\[
+M = \mathbf{1}\mathbf{m}
+\]</span></p>
+</div>
+<div id="deviation-matrix" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> Deviation matrix</h3>
+<p>To re-express each value as the deviation from the variable means
+(i.e.~each columns is a mean centered vector) we calculate a deviation
+matrix:
+<span class="math display">\[
+D = X - M
+\]</span></p>
+</div>
+<div id="covariance-matrix" class="section level3">
+<h3><span class="header-section-number">10.3.3</span> Covariance matrix</h3>
+<p>The <span class="math inline">\(p \times p\)</span> covariance matrix can be expressed as a matrix product of the deviation matrix:
+<span class="math display">\[
+S = \frac{1}{n-1} D^T D
+\]</span></p>
+</div>
+<div id="correlation-matrix" class="section level3">
+<h3><span class="header-section-number">10.3.4</span> Correlation matrix</h3>
+<p>The correlation matrix, <span class="math inline">\(R\)</span>, can be calculated from the covariance
+matrix by:
+<span class="math display">\[
+R = V S V
+\]</span></p>
+<p>where <span class="math inline">\(V\)</span> is a <span class="math inline">\(p \times p\)</span> diagonal matrix where
+<span class="math inline">\(V_{ii} = 1/\sqrt{S_{ii}}\)</span>.</p>
 </div>
 </div>
-<div id="the-default-r-notebook-template" class="section level2">
-<h2><span class="header-section-number">3.3</span> The default R Notebook template</h2>
-<p>The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.</p>
-<pre><code>---
-title: &quot;R Notebook&quot;
-output: html_notebook
----</code></pre>
-<p>The header is followed by several example sections that illustrate a few of the capabilities of R Markdown. Delete these and replace them with your own code as necessary.</p>
-</div>
-<div id="code-and-non-code-blocks" class="section level2">
-<h2><span class="header-section-number">3.4</span> Code and Non-code blocks</h2>
-<p>R Markdown documents are divided into code blocks (also called “chunks”) and non-code blocks. Code blocks are sets of R commands that will be evalauted when the R Markdown document is run or “knitted” (see below). Non-code blocks include explanatory text, embedded images, etc. The default notebook template includes both code and non-code blocks.</p>
-<div id="non-code-blocks" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> Non-code blocks</h3>
-<p>The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:</p>
-<pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
-When you execute code within the notebook, the results appear
-beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk 
-or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. </code></pre>
-<p>The text of non-code blocks can include lightweight markup information that can be used to format HTML or PDF output generated from the R Markdown document. Here are some examples:</p>
-<pre><code># Simple textual formatting 
-
-This is a paragraph with plain text.  Nothing fancy will happen here.
-
-This is a second paragraph with *italic*, **bold**, and `verbatim` text. 
-
-# Lists
-
-## Bullet points lists
-
-This is a list with bullet points:
-
-  * Item a
-  * Item b
-  * Item c
-
-## Numbered lists
-  
-This is a numbered list:
-
-  1. Item 1
-  #. Item 2
-  #. Item 3
-  
-## Mathematics
-
-R Markdown supports mathematical equations, formatted according to LaTeX
-conventions. Dollar signs ($) are used to offset mathematics 
-like so:  $x^2 + y^2 = z^2$.
-</code></pre>
-<p>Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations. For example, <code>$x^2 + y^2 = z^2$</code> appears as <span class="math inline">\(x^2 + y^2 = z^2\)</span>.</p>
-</div>
-<div id="code-blocks" class="section level3">
-<h3><span class="header-section-number">3.4.2</span> Code blocks</h3>
-<p>Code blocks are delimited by matching sets of three backward ticks (```). Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here’s the first code block in the default notebook template:</p>
-<pre><code>```
-{r}
-plot(cars)
-```</code></pre>
-</div>
-</div>
-<div id="running-a-code-chunk" class="section level2">
-<h2><span class="header-section-number">3.5</span> Running a code chunk</h2>
-<p>You can run a single code block by clicking the small green “Run” button in the upper right hand corner of the code block as shown in the image below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-38"></span>
-<img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="75%" />
-<p class="caption">
-Figure 3.2: Click the Run button to execute a code chunk.
-</p>
-</div>
-<p>If you click this button the commands within this code block are executed, and any generated output is shown below the code block.</p>
-<p>Try running the first code block in the default template now. After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-39"></span>
-<img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="60%" />
-<p class="caption">
-Figure 3.3: An R Notebook showing an embedded plot after executing a code chunk.
-</p>
-</div>
-</div>
-<div id="running-all-code-chunks-above" class="section level2">
-<h2><span class="header-section-number">3.6</span> Running all code chunks above</h2>
-<p>Next to the “Run” button in each code chunk is a button for “Run all chunks above” (see figure below). This is useful when the code chunk you’re working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
-<img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="75%" />
-<p class="caption">
-Figure 3.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
-</p>
-</div>
-</div>
-<div id="knitting-an-r-markdown-to-html" class="section level2">
-<h2><span class="header-section-number">3.7</span> “Knitting an” R Markdown to HTML</h2>
-<p>Save your R Notebook as <code>first_rnotebook.Rmd</code> (RStudio will automatically add the <code>.Rmd</code> extension so you don’t need to type it). You can generate an HTML version of your notebook by clicking the “Preview” menu on the Notebook taskbar and then choosing “Knit to HTML” (see image below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-41"></span>
-<img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="75%" />
-<p class="caption">
-Figure 3.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
-</p>
-</div>
-<p>When an RMarkdown document is “knit”, all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
-<p>Knitting a document is a good way to make sure your analysis is reproducible. If your code compiles correctly when the document is knit, and produces the expected output, there’s a good chance that someone else will be able to reproduce your analyses independently starting with your R Notebook document (after accounting for differences in file locations).</p>
-</div>
-<div id="sharing-your-reproducible-r-notebook" class="section level2">
-<h2><span class="header-section-number">3.8</span> Sharing your reproducible R Notebook</h2>
-<p>To share your R Notebook with someone else you just need to send them the source R Markdown file (i.e. the file with the <code>.Rmd</code> extension). Assuming they have access to the same source data, another user should be able to open the notebook file in RStudio and regenerate your analyses by evaluating the individual code chunks or knitting the document.</p>
-<p>In this course you will be submitting homework assignments in the form of R Notebook markdown files.</p>
+<div id="matrix-inverse" class="section level2">
+<h2><span class="header-section-number">10.4</span> Matrix Inverse</h2>
+<p>The function <code>solve()</code> can be used to find matrix inverses in R.</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb342-2" data-line-number="2">A</a>
+<a class="sourceLine" id="cb342-3" data-line-number="3"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb342-4" data-line-number="4"><span class="co">## [1,]    1    3</span></a>
+<a class="sourceLine" id="cb342-5" data-line-number="5"><span class="co">## [2,]    2    4</span></a>
+<a class="sourceLine" id="cb342-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb342-7" data-line-number="7">Ainv &lt;-<span class="st"> </span><span class="kw">solve</span>(A)</a>
+<a class="sourceLine" id="cb342-8" data-line-number="8">Ainv</a>
+<a class="sourceLine" id="cb342-9" data-line-number="9"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb342-10" data-line-number="10"><span class="co">## [1,]   -2  1.5</span></a>
+<a class="sourceLine" id="cb342-11" data-line-number="11"><span class="co">## [2,]    1 -0.5</span></a>
+<a class="sourceLine" id="cb342-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb342-13" data-line-number="13">A <span class="op">%*%</span><span class="st"> </span>Ainv   <span class="co"># should give identity matrix</span></a>
+<a class="sourceLine" id="cb342-14" data-line-number="14"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb342-15" data-line-number="15"><span class="co">## [1,]    1    0</span></a>
+<a class="sourceLine" id="cb342-16" data-line-number="16"><span class="co">## [2,]    0    1</span></a>
+<a class="sourceLine" id="cb342-17" data-line-number="17">Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span></a>
+<a class="sourceLine" id="cb342-18" data-line-number="18"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb342-19" data-line-number="19"><span class="co">## [1,]    1    0</span></a>
+<a class="sourceLine" id="cb342-20" data-line-number="20"><span class="co">## [2,]    0    1</span></a></code></pre></div>
+<p>Keep in mind that not all square matrices are invertible:</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb343-2" data-line-number="2">C</a>
+<a class="sourceLine" id="cb343-3" data-line-number="3"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
+<a class="sourceLine" id="cb343-4" data-line-number="4"><span class="co">## [1,]    1    5    9   13</span></a>
+<a class="sourceLine" id="cb343-5" data-line-number="5"><span class="co">## [2,]    2    6   10   14</span></a>
+<a class="sourceLine" id="cb343-6" data-line-number="6"><span class="co">## [3,]    3    7   11   15</span></a>
+<a class="sourceLine" id="cb343-7" data-line-number="7"><span class="co">## [4,]    4    8   12   16</span></a>
+<a class="sourceLine" id="cb343-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb343-9" data-line-number="9">Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)</a>
+<a class="sourceLine" id="cb343-10" data-line-number="10"><span class="co">## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</span></a></code></pre></div>
 
 </div>
 </div>
@@ -496,8 +640,8 @@ Figure 3.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R 
           </div>
         </div>
       </div>
-<a href="getting-started-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-structures.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="vectors-algebra.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

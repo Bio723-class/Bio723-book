@@ -25,7 +25,7 @@ creating small matrices at the command line you can use the
 ```{r, prompt=TRUE, collapse=TRUE, results='markup'}
 x <- matrix(1:5) # creates a column vector
 x
-X <- matrix(1:12, nrow=4) # creates a matr
+X <- matrix(1:12, nrow=4) # creates a matrix
 X
 dim(X) # give the shape of the matrix
 ```

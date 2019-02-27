@@ -606,7 +606,7 @@ coin.flip.literal &lt;-<span class="st"> </span><span class="cf">function</span>
 }
 
 sign.x
-<span class="co">## [1] &quot;Positive&quot;</span></code></pre>
+<span class="co">## [1] &quot;Negative&quot;</span></code></pre>
 </div>
 </div>
 <div id="for-loops" class="section level3">
@@ -623,9 +623,9 @@ sign.x
   flips &lt;-<span class="st"> </span><span class="kw">c</span>(flips, <span class="kw">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span>
 }
 flips
-<span class="co">##  [1] &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span>
-<span class="co">##  [9] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot;</span>
-<span class="co">## [17] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot;</span></code></pre>
+<span class="co">##  [1] &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span>
+<span class="co">##  [9] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span>
+<span class="co">## [17] &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot;</span></code></pre>
 <p>Let’s use a <code>for</code> loop to create a <code>multi.coin.flip</code> function thats accepts an optional argument <code>n</code> that specifies the number of coin flips to carry out:</p>
 <pre class="sourceCode r"><code class="sourceCode r">multi.coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">1</span>) {
   <span class="co"># create an empty character vector of length n</span>
@@ -639,11 +639,11 @@ flips
 }</code></pre>
 <p>With this new definition, a single call of <code>coin.flip</code> returns a single outcome:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">multi.coin.flip</span>()
-<span class="co">## [1] &quot;tails&quot;</span></code></pre>
+<span class="co">## [1] &quot;heads&quot;</span></code></pre>
 <p>And calling <code>multi.coin.flip</code> with a numeric argument returns multiple coin flips:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">multi.coin.flip</span>(<span class="dt">n=</span><span class="dv">10</span>)
-<span class="co">##  [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span>
-<span class="co">##  [9] &quot;heads&quot; &quot;tails&quot;</span></code></pre>
+<span class="co">##  [1] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot;</span>
+<span class="co">##  [9] &quot;heads&quot; &quot;heads&quot;</span></code></pre>
 </div>
 <div id="break-statement" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> <code>break</code> statement</h3>
@@ -660,7 +660,9 @@ flips
 }
 
 random.numbers
-<span class="co">## [1] 0.9944038</span></code></pre>
+<span class="co">##  [1] 0.51867465 0.79064411 0.73236657 0.64387547 0.04589707 0.47608781</span>
+<span class="co">##  [7] 0.37579590 0.10782591 0.13373318 0.94555359 0.30829904 0.01843081</span>
+<span class="co">## [13] 0.12574475 0.99739168</span></code></pre>
 </div>
 <div id="repeat-loops" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> <code>repeat</code> loops</h3>
@@ -675,7 +677,7 @@ random.numbers
 }
 
 ct
-<span class="co">## [1] 1</span></code></pre>
+<span class="co">## [1] 2</span></code></pre>
 </div>
 <div id="next-statement" class="section level3">
 <h3><span class="header-section-number">8.2.5</span> <code>next</code> statement</h3>
@@ -776,18 +778,18 @@ df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(a, b, c)
 <span class="co">## # A tibble: 6 x 3</span>
 <span class="co">##         a b     c    </span>
 <span class="co">##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">## 1 -1.279  a     u    </span>
-<span class="co">## 2  0.2065 b     v    </span>
-<span class="co">## 3  1.638  c     w    </span>
-<span class="co">## 4 -1.065  d     x    </span>
-<span class="co">## 5 -1.305  e     y    </span>
-<span class="co">## 6 -0.8510 f     z</span>
+<span class="co">## 1 -0.2777 a     u    </span>
+<span class="co">## 2 -0.4215 b     v    </span>
+<span class="co">## 3  0.8979 c     w    </span>
+<span class="co">## 4  1.055  d     x    </span>
+<span class="co">## 5  1.733  e     y    </span>
+<span class="co">## 6 -0.3426 f     z</span>
 
 df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df, is.character, str_to_upper)
 df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df2, is.numeric, abs)
 <span class="kw">head</span>(df2)
 <span class="co">## $a</span>
-<span class="co">## [1] 1.2792127 0.2065470 1.6384239 1.0648522 1.3050499 0.8509577</span>
+<span class="co">## [1] 0.2776511 0.4214726 0.8978563 1.0545509 1.7326149 0.3425678</span>
 <span class="co">## </span>
 <span class="co">## $b</span>
 <span class="co">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span>
@@ -801,12 +803,12 @@ df3 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(df2)
 <span class="co">## # A tibble: 6 x 3</span>
 <span class="co">##        a b     c    </span>
 <span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">## 1 1.279  A     U    </span>
-<span class="co">## 2 0.2065 B     V    </span>
-<span class="co">## 3 1.638  C     W    </span>
-<span class="co">## 4 1.065  D     X    </span>
-<span class="co">## 5 1.305  E     Y    </span>
-<span class="co">## 6 0.8510 F     Z</span></code></pre>
+<span class="co">## 1 0.2777 A     U    </span>
+<span class="co">## 2 0.4215 B     V    </span>
+<span class="co">## 3 0.8979 C     W    </span>
+<span class="co">## 4 1.055  D     X    </span>
+<span class="co">## 5 1.733  E     Y    </span>
+<span class="co">## 6 0.3426 F     Z</span></code></pre>
 <hr />
 <p>Note that if our goal is to apply functions to the columns of a data frame, it may be easier with <code>dplyr::mutate()</code>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">
@@ -819,12 +821,12 @@ df4 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="
 <span class="co">## # A tibble: 6 x 3</span>
 <span class="co">##        a b     c    </span>
 <span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
-<span class="co">## 1 1.279  A     U    </span>
-<span class="co">## 2 0.2065 B     V    </span>
-<span class="co">## 3 1.638  C     W    </span>
-<span class="co">## 4 1.065  D     X    </span>
-<span class="co">## 5 1.305  E     Y    </span>
-<span class="co">## 6 0.8510 F     Z</span></code></pre>
+<span class="co">## 1 0.2777 A     U    </span>
+<span class="co">## 2 0.4215 B     V    </span>
+<span class="co">## 3 0.8979 C     W    </span>
+<span class="co">## 4 1.055  D     X    </span>
+<span class="co">## 5 1.733  E     Y    </span>
+<span class="co">## 6 0.3426 F     Z</span></code></pre>
 <hr />
 </div>
 <div id="mapping-in-parallel-using-map2" class="section level3">
@@ -873,8 +875,8 @@ b &lt;-<span class="st"> </span><span class="kw">map_chr</span>(letters[<span cl
 df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>))
 
 <span class="kw">map_dbl</span>(df, median) <span class="co"># median of each column of df</span>
-<span class="co">##          a          b          c </span>
-<span class="co">## 0.11527573 0.04767397 0.04763637</span></code></pre>
+<span class="co">##           a           b           c </span>
+<span class="co">## -0.12040277 -0.05548228  0.03676577</span></code></pre>
 
 </div>
 </div>

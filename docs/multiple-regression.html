@@ -463,7 +463,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="subject-space-representation" class="section level2">
 <h2><span class="header-section-number">12.3</span> Subject space representation</h2>
 <p>The subject space (vector geometric) representation of multiple regression is shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-366"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-367"></span>
 <img src="figures/fig-vector-multiple-regression.png" alt="A vector representation of multiple regression." width="40%" />
 <p class="caption">
 Figure 12.1: A vector representation of multiple regression.
@@ -523,7 +523,7 @@ Figure 12.1: A vector representation of multiple regression.
 <p>We’ll use the <code>GGally::ggpairs()</code> function introduced in problem set 01 to create a scatterplot matrix depicting the pairwise relationships between all the variables</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GGally)
 <span class="kw">ggpairs</span>(trees)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-369-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-370-1.png" width="576" /></p>
 <p>As one might expect for morphological measurements related to size, the scatterplot matrix shows that all the variables are positively correlated, and girth and volume have a particularly strong correlation.</p>
 </div>
 <div id="d-plots" class="section level2">
@@ -534,13 +534,13 @@ Figure 12.1: A vector representation of multiple regression.
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(scatterplot3d)  <span class="co"># install this package first if needed</span>
 <span class="kw">scatterplot3d</span>(trees,
               <span class="dt">main =</span> <span class="st">&#39;Tree Volume as</span><span class="ch">\n</span><span class="st">a function of Girth and Height&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-370-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-371-1.png" width="576" /></p>
 <p>The argument <code>pch</code> sets the type of plotting character to use in the plot (for a graphical key of the available plotting characters see <a href="https://www.statmethods.net/advgraphs/parameters.html">this link</a>) and <code>color</code> sets plotting character colors. We can change the angle of the 3D plot using the <code>angle</code> argument:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatterplot3d</span>(trees, 
               <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">color=</span><span class="st">&quot;steelblue&quot;</span>,
               <span class="dt">angle=</span><span class="dv">75</span>,
               <span class="dt">main =</span> <span class="st">&#39;Tree Volume as</span><span class="ch">\n</span><span class="st">a function of Girth and Height&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-371-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-372-1.png" width="576" /></p>
 <p>We can add vertical lines to the plot using the <code>type</code> argument and remove the box around the plot:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatterplot3d</span>(trees, 
               <span class="dt">pch =</span> <span class="dv">16</span>, 
@@ -549,7 +549,7 @@ Figure 12.1: A vector representation of multiple regression.
               <span class="dt">box =</span> <span class="ot">FALSE</span>,
               <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>,
               <span class="dt">main =</span> <span class="st">&#39;Tree Volume as</span><span class="ch">\n</span><span class="st">a function of Girth and Height&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-372-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-373-1.png" width="576" /></p>
 <p>For more examples of how you can modify plots generated with the <code>scatterplot3d</code> package see <a href="http://www.sthda.com/english/wiki/scatterplot3d-3d-graphics-r-software-and-data-visualization#change-the-global-appearance-of-the-graph">this web page</a>).</p>
 </div>
 <div id="rgl" class="section level3">
@@ -605,7 +605,7 @@ Figure 12.1: A vector representation of multiple regression.
 
 <span class="co"># add a plane representing the fit of the model</span>
 p<span class="op">$</span><span class="kw">plane3d</span>(fit.trees, <span class="dt">col=</span><span class="st">&#39;orangered&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-375-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-376-1.png" width="576" /></p>
 <p>If instead of <code>scatterplot3d</code>, we wanted to use <code>rgl</code> to depict the model fit we can use the <code>rgl.planes</code> function as shown below.</p>
 <pre class="sourceCode r"><code class="sourceCode r">coefs &lt;-<span class="st"> </span><span class="kw">coef</span>(fit.trees)
 b1 &lt;-<span class="st"> </span>coefs[<span class="st">&quot;Girth&quot;</span>]
@@ -683,7 +683,7 @@ a &lt;-<span class="st"> </span>coefs[<span class="st">&quot;(Intercept)&quot;</
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Girth&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-381-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-382-1.png" width="576" /></p>
 <p>Ideally the residuals should be evenly scattered around zero, with no trends as we go from high to low values of the dependent variable. As you can see, the residuals are somewhat u-shaped or j-shaped suggesting that there may be a non-linear aspect of the relationship that our model isn’t capturing.</p>
 </div>
 <div id="an-alternate-model" class="section level2">
@@ -713,7 +713,7 @@ broom<span class="op">::</span><span class="kw">glance</span>(fit.trees.cuberoot
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Girth&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-383-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-384-1.png" width="576" /></p>
 <p>As we can see the transformation we applied to the data did seem to make our residuals more uniform across the range of observations.</p>
 </div>
 <div id="fitting-a-curvilinear-model-using-lm" class="section level2">
@@ -740,7 +740,7 @@ broom<span class="op">::</span><span class="kw">glance</span>(fit.curvilinear)
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, 
               <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">3</span>),
               <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-385-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-386-1.png" width="576" /></p>
 <p>The <code>I()</code> function used above requires a little explanation. Normally, the R formula syntax (see <code>?formula</code>) treats the carat symbol, <code>^</code>, as short-hand for factor crossing to the specified degree. For example, the formula <code>(a+b+c)^2</code> would be interpretted as the model with main effects and all second order interaction terms, i.e. <code>a + b + c + a:b + a:c + b:c</code> where the colons indicate interactions. The <code>I()</code> function `protects’ the object in it’s argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth.</p>
 </div>
 <div id="exploring-the-impact-of-nearly-collinear-predictors-on-regression" class="section level2">
@@ -826,7 +826,7 @@ p<span class="op">$</span><span class="kw">plane3d</span>(fit.Height, <span clas
 
 <span class="co"># jittered model</span>
 p<span class="op">$</span><span class="kw">plane3d</span>(fit.Height.jitter, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-391-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-392-1.png" width="576" /></p>
 <p>Let’s do the same comparison for the multiple regression of Volume on Height and Girth. In this case the predictor variables are  nearly collinear.</p>
 <pre class="sourceCode r"><code class="sourceCode r">fit.Volume &lt;-<span class="st"> </span><span class="kw">lm</span>(Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data =</span> trees)
 fit.Volume.jitter &lt;-<span class="st"> </span><span class="kw">lm</span>(Volume <span class="op">~</span><span class="st"> </span>Girth <span class="op">+</span><span class="st"> </span>Height, <span class="dt">data =</span> jitter.trees)
@@ -844,7 +844,7 @@ fit.Volume.jitter &lt;-<span class="st"> </span><span class="kw">lm</span>(Volum
                      <span class="dt">angle=</span><span class="dv">55</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">pch=</span><span class="st">&#39;.&#39;</span>)
 p<span class="op">$</span><span class="kw">plane3d</span>(fit.Volume, <span class="dt">col=</span><span class="st">&#39;orangered&#39;</span>)
 p<span class="op">$</span><span class="kw">plane3d</span>(fit.Volume.jitter, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-393-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-394-1.png" width="576" /></p>
 <p>Finally, let’s do some vector calculations to quantify how the angular deviation between the fit data and the predictor variables changes between the original and jittered data set for the two different multiple regressions:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write a quickie fxn to express angle between vectors in degrees</span>
 vec.angle &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) { <span class="kw">acos</span>(<span class="kw">cor</span>(x,y)) <span class="op">*</span><span class="st"> </span>(<span class="dv">180</span><span class="op">/</span>pi)}
@@ -974,7 +974,7 @@ polls &lt;-
        <span class="dt">title =</span> <span class="st">&quot;Barack Obama&#39;s Approval Ratings, 2008-2011&quot;</span>)
 
 polls.plot</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-399-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-400-1.png" width="576" /></p>
 <p>We can fit the LOESS as so, and get back the predicted values using the <code>predict()</code> function:</p>
 <pre class="sourceCode r"><code class="sourceCode r">loess.approval &lt;-<span class="st"> </span><span class="kw">loess</span>(Approve <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(date), <span class="dt">data =</span> polls)
 loess.predicted.values &lt;-<span class="st"> </span><span class="kw">predict</span>(loess.approval)
@@ -983,11 +983,11 @@ loess.predicted.values &lt;-<span class="st"> </span><span class="kw">predict</s
 <p>Usually we’ll want to visualize the LOESS regression, which we can conveniently do with <code>ggplot::geom_smooth</code> without having to explicitly calculate the LOESS:</p>
 <pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-401-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-402-1.png" width="576" /></p>
 <p>Here’s the same data fit with a smaller <code>span</code> (the paramater that controls the “local neighborhood” size in LOESS):</p>
 <pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">span=</span><span class="fl">0.1</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-402-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-403-1.png" width="576" /></p>
 <p>The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.</p>
 <p>For example, we can zoom in on 2011:</p>
 <pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
@@ -995,7 +995,7 @@ loess.predicted.values &lt;-<span class="st"> </span><span class="kw">predict</s
 <span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="kw">ymd</span>(<span class="dv">20110101</span>), <span class="kw">ymd</span>(<span class="dv">20110901</span>)), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">35</span>,<span class="dv">65</span>)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="dt">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-403-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-404-1.png" width="576" /></p>
 <p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.</p>
 
 </div>

@@ -487,7 +487,7 @@ male.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(male, <sp
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)
 
 <span class="kw">plot_grid</span>(female.plot, male.plot)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-407-1.png" width="864" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-408-1.png" width="864" /></p>
 <p>The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.</p>
 </div>
 <div id="fitting-the-logistic-regression-model" class="section level2">
@@ -535,7 +535,7 @@ male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</s
             <span class="dt">color =</span> mcolor, <span class="dt">size =</span> <span class="dv">1</span>)
 
 <span class="kw">plot_grid</span>(female.logistic.plot, male.logistic.plot)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-411-1.png" width="864" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-412-1.png" width="864" /></p>
 <p>We see that for the female passengers, the logistic regression predicts that the probability of survival <em>increases</em> with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age. For the male passengers, the data is consistent with “children first”; for female passengers this model doesn’t seem to hold. However, there are other factors to consider as we’ll see below.</p>
 <div id="quick-and-easy-visualization" class="section level3">
 <h3><span class="header-section-number">13.6.1</span> Quick and easy visualization</h3>
@@ -546,7 +546,7 @@ male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</s
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-412-1.png" width="864" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-413-1.png" width="864" /></p>
 </div>
 </div>
 <div id="impact-of-sex-and-passenger-class-on-the-models" class="section level2">
@@ -559,7 +559,7 @@ male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</s
 <span class="st">  </span><span class="kw">facet_grid</span>(pclass <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_few</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-413-1.png" width="864" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-414-1.png" width="864" /></p>
 <p>Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival. Almost all first class female passengers survived, regardless of age. For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age. The negative relationship between age and survival is stronger still for third class females. Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.</p>
 </div>
 <div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level2">

@@ -544,13 +544,13 @@ element.</p>
 matrix or to create a diagonal matrix as show below:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">16</span>), <span class="dt">ncol=</span><span class="dv">4</span>)
 <span class="op">&gt;</span><span class="st"> </span>Z
-<span class="co">##             [,1]       [,2]        [,3]       [,4]</span>
-<span class="co">## [1,] -0.12925638 -1.5984424 -0.69995724  1.4827355</span>
-<span class="co">## [2,]  0.30900056 -0.2730642  0.16325313  0.3108888</span>
-<span class="co">## [3,]  1.07257002  0.7092221 -0.06727899 -0.8152262</span>
-<span class="co">## [4,]  0.06605624 -0.7281151 -0.26129216  0.5033185</span>
+<span class="co">##            [,1]       [,2]       [,3]        [,4]</span>
+<span class="co">## [1,] 1.24339355 1.09798719 -0.4329977 -0.91014488</span>
+<span class="co">## [2,] 1.46063438 0.09478473  0.8611494 -0.05255224</span>
+<span class="co">## [3,] 0.77395870 2.12077892  0.6208266 -0.73148269</span>
+<span class="co">## [4,] 0.08746849 0.20324673 -0.6107474 -0.22385690</span>
 <span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(Z)
-<span class="co">## [1] -0.12925638 -0.27306423 -0.06727899  0.50331850</span>
+<span class="co">## [1]  1.24339355  0.09478473  0.62082659 -0.22385690</span>
 <span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span>
 <span class="co">##      [,1] [,2] [,3] [,4] [,5]</span>
 <span class="co">## [1,]    1    0    0    0    0</span>
@@ -583,11 +583,11 @@ transpose of a matrix use the function <code>t()</code>.</p>
 <span class="op">&gt;</span><span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">4</span>)
 <span class="op">&gt;</span><span class="st"> </span>B
-<span class="co">##              [,1]       [,2]       [,3]</span>
-<span class="co">## [1,] -0.410442912 -0.6789418 0.04501172</span>
-<span class="co">## [2,] -1.499562813 -0.6479520 0.39799599</span>
-<span class="co">## [3,] -0.009173909  1.0065360 0.22678030</span>
-<span class="co">## [4,] -1.500950398 -0.8116105 2.10630397</span>
+<span class="co">##             [,1]       [,2]       [,3]</span>
+<span class="co">## [1,] -0.04072615  0.6294336 -1.3056798</span>
+<span class="co">## [2,] -1.64579784 -0.5126328 -0.4374571</span>
+<span class="co">## [3,] -0.33985613 -2.2758961  0.4015807</span>
+<span class="co">## [4,] -0.17164442  0.9197156 -1.9247242</span>
 <span class="op">&gt;</span><span class="st"> </span>
 <span class="er">&gt;</span><span class="st"> </span><span class="kw">t</span>(A)  <span class="co"># transpose</span>
 <span class="co">##      [,1] [,2] [,3] [,4]</span>
@@ -596,16 +596,16 @@ transpose of a matrix use the function <code>t()</code>.</p>
 <span class="co">## [3,]    9   10   11   12</span>
 <span class="op">&gt;</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B  <span class="co"># matrix addition</span>
 <span class="co">##           [,1]     [,2]      [,3]</span>
-<span class="co">## [1,] 0.5895571 4.321058  9.045012</span>
-<span class="co">## [2,] 0.5004372 5.352048 10.397996</span>
-<span class="co">## [3,] 2.9908261 8.006536 11.226780</span>
-<span class="co">## [4,] 2.4990496 7.188390 14.106304</span>
+<span class="co">## [1,] 0.9592739 5.629434  7.694320</span>
+<span class="co">## [2,] 0.3542022 5.487367  9.562543</span>
+<span class="co">## [3,] 2.6601439 4.724104 11.401581</span>
+<span class="co">## [4,] 3.8283556 8.919716 10.075276</span>
 <span class="op">&gt;</span><span class="st"> </span>A <span class="op">-</span><span class="st"> </span>B  <span class="co"># matrix subtraction</span>
-<span class="co">##          [,1]     [,2]      [,3]</span>
-<span class="co">## [1,] 1.410443 5.678942  8.954988</span>
-<span class="co">## [2,] 3.499563 6.647952  9.602004</span>
-<span class="co">## [3,] 3.009174 5.993464 10.773220</span>
-<span class="co">## [4,] 5.500950 8.811610  9.893696</span>
+<span class="co">##          [,1]     [,2]     [,3]</span>
+<span class="co">## [1,] 1.040726 4.370566 10.30568</span>
+<span class="co">## [2,] 3.645798 6.512633 10.43746</span>
+<span class="co">## [3,] 3.339856 9.275896 10.59842</span>
+<span class="co">## [4,] 4.171644 7.080284 13.92472</span>
 <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>A  <span class="co"># multiplication by a scalar</span>
 <span class="co">##      [,1] [,2] [,3]</span>
 <span class="co">## [1,]    5   25   45</span>
@@ -616,11 +616,11 @@ transpose of a matrix use the function <code>t()</code>.</p>
 <pre><code>A %*% B  # do you understand why this generates an error?</code></pre>
 <p>But this works:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(B)
-<span class="co">##           [,1]      [,2]      [,3]     [,4]</span>
-<span class="co">## [1,] -3.400046 -1.157359  7.064529 13.39773</span>
-<span class="co">## [2,] -4.444419 -2.906878  8.288671 13.19148</span>
-<span class="co">## [3,] -5.488792 -4.656396  9.512814 12.98522</span>
-<span class="co">## [4,] -6.533165 -6.405915 10.736956 12.77896</span></code></pre>
+<span class="co">##            [,1]       [,2]      [,3]      [,4]</span>
+<span class="co">## [1,]  -8.644677  -8.146076  -8.10511 -12.89558</span>
+<span class="co">## [2,]  -9.361649 -10.741963 -10.31928 -14.07224</span>
+<span class="co">## [3,] -10.078622 -13.337851 -12.53345 -15.24889</span>
+<span class="co">## [4,] -10.795594 -15.933739 -14.74762 -16.42554</span></code></pre>
 </div>
 <div id="descriptive-statistics-as-matrix-functions" class="section level2">
 <h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions</h2>

@@ -574,20 +574,19 @@ Figure 11.3: Observed (black) and predicted (red) values in a linear regression 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>fit.xy<span class="op">$</span>coefficients
 <span class="co">## (Intercept)           X </span>
 <span class="co">##    1.819327    1.197603</span></code></pre>
-<p>As shown above, the estimated slope is 1.1976026 and the estimated intercept is 1.8193273. The model estimated by our linear regression is thus <span class="math inline">\(\widehat{Y} = 0.769 + 1.55X\)</span>.</p>
-<p>Recall that because this is a synthetic example, we know the “true” underlying model, which is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_x\)</span>. On the face of it, it appears our regression model is doing a decent job of estimating the true model.</p>
-<p>With this information in hand we can draw the regression line as so:</p>
+<p>As shown above, the estimated slope is 1.20 and the estimated intercept is 1.82. The model estimated by our linear regression is thus <span class="math inline">\(\widehat{Y} = 1.82 + 1.20X\)</span>. Since this is a synthetic example, we know the “true” underlying model, which is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_x\)</span>.</p>
+<p>With the slope and intercept in hand we can draw the regression line as so:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span><span class="st">     </span><span class="co"># observed data</span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">2</span>]],
               <span class="dt">intercept =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">1</span>]],
               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-349-1.png" width="576" /></p>
-<p>Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, <code>geom_smooth</code>, that will fit a linear model for us and generate the corresponding regression plot.</p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-350-1.png" width="576" /></p>
+<p>Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, <code>geom_smooth()</code>, that will fit a linear model (as well as other models, see below) for us and generate the corresponding regression plot.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-350-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-351-1.png" width="576" /></p>
 <p>By default, <code>geom_smooth</code> draws confidence intervals for the regression model (the shaded gray area around the regression line). Note that confidence intervals for a linear regression model are wider far away from the mean values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 </div>
 </div>
@@ -602,7 +601,7 @@ Figure 11.3: Observed (black) and predicted (red) values in a linear regression 
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fit.xy<span class="op">$</span>residuals)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-351-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-352-1.png" width="576" /></p>
 <p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of <span class="math inline">\(X\)</span>.</p>
 </div>
 <div id="regression-as-sum-of-squares-decomposition" class="section level2">
@@ -673,13 +672,13 @@ R2
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, Y)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>,<span class="dt">se=</span><span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> .fitted), <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-357-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-358-1.png" width="576" /></p>
 <p>An another example, we can recreate our residual plot using the augmented data frame as so:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, .resid)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Residual plot for synthetic data example.&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-358-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-359-1.png" width="576" /></p>
 </div>
 <div id="broomglance" class="section level3">
 <h3><span class="header-section-number">11.11.3</span> <code>broom::glance</code></h3>
@@ -700,7 +699,7 @@ R2
 <span class="kw">ggplot</span>(lions, <span class="kw">aes</span>(<span class="dt">x =</span> proportionBlack, <span class="dt">y =</span> ageInYears)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-360-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-361-1.png" width="576" /></p>
 <p>By eye, the linear model looks like a pretty good fit. Let’s take a look at the quantitative values of the regression model, using the various Broom functions to produce nice output.</p>
 <pre class="sourceCode r"><code class="sourceCode r">lion.model &lt;-<span class="st"> </span><span class="kw">lm</span>(ageInYears <span class="op">~</span><span class="st"> </span>proportionBlack, <span class="dt">data =</span> lions)
 <span class="kw">tidy</span>(lion.model)
@@ -720,13 +719,13 @@ R2
 <span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(proportionBlack, .resid)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-363-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-364-1.png" width="576" /></p>
 <p>From this plot, there may be some indication of greater variance of residuals for larger values of the predictor variable.</p>
 <p>Let’s check how normal the residuals look using a QQ-plot. Here we construct the QQ-plot using “standardized residuals” which are just z-scores for the residuals.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(<span class="dt">sample =</span> .std.resid)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_qq</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-364-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-365-1.png" width="576" /></p>
 <p>Based on the QQ-plot, the residuals seem to diverge somewhat from a normal distirbution, as there’s noticeable curvature in the QQ-plot. When we test for the normality of the residuals using Shapiro-Wilk’s test for normality, we fail to reject the null hypothesis of normality at a significance threshold of <span class="math inline">\(\alpha=0.05\)</span>:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(lions.augmented<span class="op">$</span>.resid)
 <span class="co">## </span>

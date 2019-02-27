@@ -160,11 +160,16 @@ The `coefficients` components gives the value of the model parameters, namely th
 fit.xy$coefficients
 ```
 
-As shown above, the estimated slope is `r fit.xy$coefficients[[2]]` and the estimated intercept is `r fit.xy$coefficients[[1]]`.  The model estimated by our linear regression is thus $\widehat{Y} = 0.769 + 1.55X$.
+```{r, echo=FALSE}
+rounded.slope <- sprintf("%.2f", fit.xy$coefficients[[2]])
+rounded.intercept <- sprintf("%.2f", fit.xy$coefficients[[1]])
+```
 
-Recall that because this is a synthetic example, we know the "true" underlying model, which is $Y = 1.5X + 1.0 + \epsilon_x$. On the face of it, it appears our regression model is doing a decent job of estimating the true model.
 
-With this information in hand we can draw the regression line as so:
+
+As shown above, the estimated slope is `r rounded.slope` and the estimated intercept is `r rounded.intercept`.  The model estimated by our linear regression is thus $\widehat{Y} = `r rounded.intercept` + `r rounded.slope`X$. Since this is a synthetic example, we know the "true" underlying model, which is $Y = 1.5X + 1.0 + \epsilon_x$. 
+
+With the slope and intercept in hand we can draw the regression line as so:
 
 ```{r}
 ggplot(df.xy, aes(x = X, y = Y)) + 
@@ -174,7 +179,7 @@ ggplot(df.xy, aes(x = X, y = Y)) +
               color='red', alpha=0.5)
 ```
 
-Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, `geom_smooth`, that will fit a linear model for us and generate the corresponding regression plot.
+Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, `geom_smooth()`, that will fit a linear model (as well as other models, see below) for us and generate the corresponding regression plot.
 
 ```{r}
 ggplot(df.xy, aes(x = X, y = Y)) + 

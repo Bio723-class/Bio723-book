@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="getting-started-with-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,6 +48,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -67,7 +75,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -340,6 +348,67 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
+<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
+<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
+<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
+<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
+<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
+<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
+<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
+<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
+<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
+<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
+<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -359,11 +428,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Biology 723: Statistical Computing for Biologists</h1>
-<h4 class="author"><em>Paul M. Magwene</em></h4>
-<h4 class="date"><em>2019-02-13</em></h4>
+<p class="author"><em>Paul M. Magwene</em></p>
+<p class="date"><em>2019-02-27</em></p>
 </div>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p><img src="figures/fig-title-page.png" style="display: block; margin: auto;" /></p>
 <p>Bio 723 (formerly Bio 313) is a course I offer at Duke University. The focus of this course is statistical computing for the biological sciences with an emphasis on common multivariate statistical methods and techniques for exploratory data analysis. A major goal of the course is to help graduate students in the biological sciences develop practical insights into methods that they are likely to encounter in their own research, and the potential advantages and pitfalls that come with their use.</p>
 <p>In terms of mathematical perspectives, the course emphasize a geometric approach to understanding multivariate statistics. I try to help students develop an intuition for the geometry of vector spaces and discuss topics like correlation, regression, and principal components analysis in terms of angles between vectors, dot products, and projection.</p>
 <p>This course also provides an introduction to the R language/statistical computing environment.</p>
@@ -401,7 +471,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -411,6 +481,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -431,7 +505,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

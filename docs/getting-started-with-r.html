@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="r-markdown-and-r-notebooks.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,6 +48,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -67,7 +75,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -340,6 +348,67 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
+<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
+<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
+<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
+<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
+<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
+<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
+<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
+<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
+<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
+<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
+<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -378,10 +447,10 @@ Figure 2.1: RStudio window with the panes labeled
 <h2><span class="header-section-number">2.3</span> Entering commands in the console</h2>
 <p>You can type commands directly in the console. When you hit Return (Enter) on your keyboard the text you typed is evaluated by the R interpreter. This means that the R program reads your commands, makes sure there are no syntax errors, and then carries out any commands that were specified.</p>
 <p>Try evaluating the following arithmetic commands in the console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span>
+<span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span>
+<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span></code></pre>
 <p>If you type an incomplete command and then hit Return on your keyboard, the console will show a continuation line marked by a <code>+</code> symbol. For example enter the incomplete statement <code>(10 + 5</code> and then hit Enter. You should see something like this.</p>
 <pre><code>&gt; (10 + 5
 +</code></pre>
@@ -390,72 +459,72 @@ Figure 2.1: RStudio window with the panes labeled
 <div id="comments" class="section level2">
 <h2><span class="header-section-number">2.4</span> Comments</h2>
 <p>When working in the R console, or writing R code, the pound symbol (<code>#</code>) indicates the start of a comment. Anything after the <code>#</code>, up to the end of the current line, is ignored by the R interpretter.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># This line will be ignored</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This line will be ignored</span>
+<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span></code></pre>
 <p>Throughout this course I will often include short explanatory comments in my code examples.</p>
 <p>When I want to display the output generated by an R statement typed at the console I will generally use a display convention in which I prepend the results with the symbols <code>##</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># same as above but with output displayed</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">## [1] 9</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># same as above but with output displayed</span>
+<span class="co">## [1] 9</span></code></pre>
 </div>
 <div id="using-r-as-a-calculator" class="section level2">
 <h2><span class="header-section-number">2.5</span> Using R as a Calculator</h2>
 <p>The simplest way to use R is as a fancy calculator. Evaluate each of the following statements in the console.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="co"># addition</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># subtraction</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="co"># multiplication</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co"># division</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="co"># exponentiation</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="dv">10</span> <span class="op">**</span><span class="st"> </span><span class="dv">2</span> <span class="co"># alternate exponentiation</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># R knows about some constants such as Pi</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># modulus operator -- gives remainder after division</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="co"># addition</span>
+<span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># subtraction</span>
+<span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="co"># multiplication</span>
+<span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co"># division</span>
+<span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="co"># exponentiation</span>
+<span class="dv">10</span> <span class="op">**</span><span class="st"> </span><span class="dv">2</span> <span class="co"># alternate exponentiation</span>
+pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># R knows about some constants such as Pi</span>
+<span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># modulus operator -- gives remainder after division</span>
+<span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></code></pre>
 <p>Be aware that certain operators have precedence over others. For example multiplication and division have higher precedence than addition and subtraction. Use parentheses to disambiguate potentially confusing statements.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4-5</span>   <span class="co"># was the output what you expected?</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4-5</span>) <span class="co"># compare the answer to the above</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4-5</span>   <span class="co"># was the output what you expected?</span>
+(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4-5</span>) <span class="co"># compare the answer to the above</span></code></pre>
 <p>Division by zero produces an object that represents infinite numbers. Infinite values can be either positive or negative</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> </a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">## [1] Inf</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="dv">-1</span><span class="op">/</span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">## [1] -Inf</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> 
+<span class="co">## [1] Inf</span>
+<span class="dv">-1</span><span class="op">/</span><span class="dv">0</span>
+<span class="co">## [1] -Inf</span></code></pre>
 <p>Invalid calculations produce a objected called <code>NaN</code> which is short for “Not a Number”:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">## [1] NaN</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span>
+<span class="co">## [1] NaN</span></code></pre>
 <div id="common-mathematical-functions" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Common mathematical functions</h3>
 <p>Many commonly used mathematical functions are built into R. Here are some examples:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">## [1] 0.5</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">## [1] 0.8660254</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">## [1] 2.302585</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">## [1] 1</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">## [1] 3.321928</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">## [1] 2.718282</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">## [1] 3.162278</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="dv">10</span><span class="op">^</span><span class="fl">0.5</span>  <span class="co"># same as square root</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">## [1] 3.162278</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span>
+<span class="co">## [1] 3</span>
+<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span>
+<span class="co">## [1] 0.5</span>
+<span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span>
+<span class="co">## [1] 0.8660254</span>
+<span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span>
+<span class="co">## [1] 2.302585</span>
+<span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span>
+<span class="co">## [1] 1</span>
+<span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span>
+<span class="co">## [1] 3.321928</span>
+<span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span>
+<span class="co">## [1] 2.718282</span>
+<span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span>
+<span class="co">## [1] 3.162278</span>
+<span class="dv">10</span><span class="op">^</span><span class="fl">0.5</span>  <span class="co"># same as square root</span>
+<span class="co">## [1] 3.162278</span></code></pre>
 </div>
 </div>
 <div id="variable-assignment" class="section level2">
 <h2><span class="header-section-number">2.6</span> Variable assignment</h2>
 <p>An important programming concept in all programming languages is that of “variable assignment”. Variable assignment is the act of creating labels that point to particular data values in a computers memory, which allows us to apply operations to the labels rather than directly to specific. Variable assignment is an important mechanism of abstracting and generalizing computational operations.</p>
 <p>Variable assignment in R is accomplished with the assignment operator, which is designated as <code>&lt;-</code> (left arrow, constructed from a left angular brack and the minus sign). This is illustrated below:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">## [1] -0.5440211</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">## [1] 1.224647e-16</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">         <span class="co"># note that sin(pi) == 0, but R returns a floating point value very </span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">         <span class="co"># very close to but not zero</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span>
+<span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span>
+<span class="co">## [1] -0.5440211</span>
+
+x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span>
+<span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span>
+<span class="co">## [1] 1.224647e-16</span>
+         <span class="co"># note that sin(pi) == 0, but R returns a floating point value very </span>
+         <span class="co"># very close to but not zero</span></code></pre>
 <div id="valid-variable-names" class="section level3">
 <h3><span class="header-section-number">2.6.1</span> Valid variable names</h3>
 <p>As described in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html">R documentation</a>, “A syntactically valid name consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number. Names such as ‘.2way’ are not valid, and neither are the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">reserved words</a>.”</p>
@@ -478,120 +547,120 @@ _x &lt;- 10
 <p>There are three standard types of numbers in R.</p>
 <ol style="list-style-type: decimal">
 <li><p>“double” – this is the default numeric data type, and is used to represent both real numbers and whole numbers (unless you explicitly ask for integers, see below). “double” is short for “double precision floating point value”. All of the previous computations you’ve seen up until this point used data of type double.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">## [1] &quot;double&quot;</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div></li>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span>
+<span class="co">## [1] &quot;double&quot;</span>
+<span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span>
+<span class="co">## [1] &quot;double&quot;</span></code></pre></li>
 <li><p>“integer” – when your numeric data involves only whole numbers, you can get slighly better performance using the integer data type. You must explicitly ask for numbers to be treated as integers.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span></a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">## [1] &quot;integer&quot;</span></a></code></pre></div></li>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span>
+<span class="co">## [1] &quot;integer&quot;</span></code></pre></li>
 <li><p>“complex” – R has a built-in data type to represent complex numbers – numbers with a “real” and “imaginary” component. We won’t encounter the use of complex numbers in this course, but they do have many important uses in mathematics and engineering and also have some interesting applications in biology.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">## [1] &quot;complex&quot;</span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">## [1] NaN</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">## [1] 0+1i</span></a></code></pre></div></li>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)
+<span class="co">## [1] &quot;complex&quot;</span>
+<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span>
+<span class="co">## [1] NaN</span>
+<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span>
+<span class="co">## [1] 0+1i</span></code></pre></li>
 </ol>
 </div>
 <div id="logical-values" class="section level3">
 <h3><span class="header-section-number">2.7.2</span> Logical values</h3>
 <p>When we compare values to each other, our calculations no longer return “doubles” but rather <code>TRUE</code> and <code>FALSE</code> values. This is illustrated below:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="dv">10</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 less than 9?</span></a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="dv">10</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 greater than 9?</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="dv">10</span> <span class="op">&lt;=</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># less than or equal to?</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="dv">10</span> <span class="op">&gt;=</span><span class="st"> </span>pi <span class="co"># greater than or equal to?</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">10</span> <span class="co"># equals?</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="dv">10</span> <span class="op">!=</span><span class="st"> </span><span class="dv">10</span> <span class="co"># does not equal?</span></a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">## [1] FALSE</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 less than 9?</span>
+<span class="co">## [1] FALSE</span>
+<span class="dv">10</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 greater than 9?</span>
+<span class="co">## [1] TRUE</span>
+<span class="dv">10</span> <span class="op">&lt;=</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># less than or equal to?</span>
+<span class="co">## [1] TRUE</span>
+<span class="dv">10</span> <span class="op">&gt;=</span><span class="st"> </span>pi <span class="co"># greater than or equal to?</span>
+<span class="co">## [1] TRUE</span>
+<span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">10</span> <span class="co"># equals?</span>
+<span class="co">## [1] TRUE</span>
+<span class="dv">10</span> <span class="op">!=</span><span class="st"> </span><span class="dv">10</span> <span class="co"># does not equal?</span>
+<span class="co">## [1] FALSE</span></code></pre>
 <p><code>TRUE</code> and <code>FALSE</code> objects are of “logical” data type (known as “Booleans” in many other languages, after the mathematician George Boole).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">typeof</span>(<span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3">x &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="kw">typeof</span>(x)  <span class="co"># x points to a logical</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="kw">typeof</span>(x)  <span class="co"># the variable x no longer points to a logical</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)
+<span class="kw">typeof</span>(<span class="ot">FALSE</span>)
+x &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+<span class="kw">typeof</span>(x)  <span class="co"># x points to a logical</span>
+x &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">typeof</span>(x)  <span class="co"># the variable x no longer points to a logical</span></code></pre>
 <p>When working with numerical data, tests of equality can be tricky. For example, consider the following two comparisons:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Surprised by the result? See below.</span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="dv">4</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Even more confused?</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Surprised by the result? See below.</span>
+<span class="dv">4</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Even more confused?</span></code></pre>
 <p>Mathematically we know that both <span class="math inline">\((\sqrt{10})^2 = 10\)</span> and <span class="math inline">\((\sqrt{4})^2 = 4\)</span> are true statements. Why does R tell us the first statement is false? What we’re running into here are the limits of computer precision. A computer can’t represent <span class="math inline">\(\sqrt 10\)</span> exactly, whereas <span class="math inline">\(\sqrt 4\)</span> can be exactly represented.
 Precision in numerical computing is a complex subject and a detailed discussion is beyond the scope of this course. However, it’s important to be aware of this limitation (this limitation is true of any programming language, not just R).</p>
 <p>To test “near equality” R provides a function called <code>all.equal()</code>. This function takes two inputs – the numerical values to be compared – and returns <code>TRUE</code> if their values are equal up to a certain level of tolerance (defined by the built-in numerical precision of your computer).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">all.equal</span>(<span class="dv">10</span>, <span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="dv">10</span>, <span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>)
+<span class="co">## [1] TRUE</span></code></pre>
 <p>Here’s another example where the simple equality operator returns an unexpected result, but <code>all.equal()</code> produces the comparison we’re likely after.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">sin</span>(pi) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  </a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb19-3" data-line-number="3"><span class="kw">all.equal</span>(<span class="kw">sin</span>(pi), <span class="dv">0</span>)  </a>
-<a class="sourceLine" id="cb19-4" data-line-number="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sin</span>(pi) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  
+<span class="co">## [1] FALSE</span>
+<span class="kw">all.equal</span>(<span class="kw">sin</span>(pi), <span class="dv">0</span>)  
+<span class="co">## [1] TRUE</span></code></pre>
 <div id="logical-operators" class="section level4">
 <h4><span class="header-section-number">2.7.2.1</span> Logical operators</h4>
 <p>Logical values support Boolean operations, like logical negation (“not”), “and”, “or”, “xor”, etc. This is illustrated below:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="op">!</span><span class="ot">TRUE</span>  <span class="co"># logical negation -- reads as &quot;not x&quot;</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># AND: are x and y both TRUE?</span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="ot">TRUE</span> <span class="op">|</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># OR: are either x or y TRUE?</span></a>
-<a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="kw">xor</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)  <span class="co"># XOR: is either x or y TRUE, but not both?</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="op">!</span><span class="ot">TRUE</span>  <span class="co"># logical negation -- reads as &quot;not x&quot;</span>
+<span class="co">## [1] FALSE</span>
+<span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># AND: are x and y both TRUE?</span>
+<span class="co">## [1] FALSE</span>
+<span class="ot">TRUE</span> <span class="op">|</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># OR: are either x or y TRUE?</span>
+<span class="co">## [1] TRUE</span>
+<span class="kw">xor</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)  <span class="co"># XOR: is either x or y TRUE, but not both?</span>
+<span class="co">## [1] TRUE</span></code></pre>
 <p>The function <code>isTRUE</code> can be useful for evaluating the state of a variable:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span>) <span class="co"># sample a random number in the range 1 to 10</span></a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">isTRUE</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)  <span class="co"># was the random number picked greater than 5?</span></a>
-<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span>) <span class="co"># sample a random number in the range 1 to 10</span>
+<span class="kw">isTRUE</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)  <span class="co"># was the random number picked greater than 5?</span>
+<span class="co">## [1] TRUE</span></code></pre>
 </div>
 </div>
 <div id="character-strings" class="section level3">
 <h3><span class="header-section-number">2.7.3</span> Character strings</h3>
 <p>Character strings (“character”) represent single textual characters or a longer sequence of characters. They are created by enclosing the characters in text either single our double quotes.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">typeof</span>(<span class="st">&quot;abc&quot;</span>)  <span class="co"># double quotes </span></a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">typeof</span>(<span class="st">&#39;abc&#39;</span>)  <span class="co"># single quotes</span></a>
-<a class="sourceLine" id="cb22-4" data-line-number="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="st">&quot;abc&quot;</span>)  <span class="co"># double quotes </span>
+<span class="co">## [1] &quot;character&quot;</span>
+<span class="kw">typeof</span>(<span class="st">&#39;abc&#39;</span>)  <span class="co"># single quotes</span>
+<span class="co">## [1] &quot;character&quot;</span></code></pre>
 <p>Character strings have a length, which can be found using the <code>nchar</code> function:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">first.name &lt;-<span class="st"> &quot;jasmine&quot;</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">nchar</span>(first.name)</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="co">## [1] 7</span></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5">last.name &lt;-<span class="st"> &#39;smith&#39;</span></a>
-<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="kw">nchar</span>(last.name)</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="co">## [1] 5</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">first.name &lt;-<span class="st"> &quot;jasmine&quot;</span>
+<span class="kw">nchar</span>(first.name)
+<span class="co">## [1] 7</span>
+
+last.name &lt;-<span class="st"> &#39;smith&#39;</span>
+<span class="kw">nchar</span>(last.name)
+<span class="co">## [1] 5</span></code></pre>
 <p>There are a number of built-in functions for manipulating character strings. Here are some of the most common ones.</p>
 <div id="joining-strings" class="section level4">
 <h4><span class="header-section-number">2.7.3.1</span> Joining strings</h4>
 <p>The <code>paste()</code> function joins two characters strings together:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">paste</span>(first.name, last.name)  <span class="co"># join two strings</span></a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="co">## [1] &quot;jasmine smith&quot;</span></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>)</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="co">## [1] &quot;abc def&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(first.name, last.name)  <span class="co"># join two strings</span>
+<span class="co">## [1] &quot;jasmine smith&quot;</span>
+<span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>)
+<span class="co">## [1] &quot;abc def&quot;</span></code></pre>
 <p>Notice that <code>paste()</code> adds a space between the strings? If we didn’t want the space we can call the <code>paste()</code> function with an optional argument called <code>sep</code> (short for separator) which specifies the character(s) that are inserted between the joined strings.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)  <span class="co"># join with no space; &quot;&quot; is an empty string</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co">## [1] &quot;abcdef&quot;</span></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co">## [1] &quot;abc|def&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)  <span class="co"># join with no space; &quot;&quot; is an empty string</span>
+<span class="co">## [1] &quot;abcdef&quot;</span>
+<span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span>
+<span class="co">## [1] &quot;abc|def&quot;</span></code></pre>
 </div>
 <div id="splitting-strings" class="section level4">
 <h4><span class="header-section-number">2.7.3.2</span> Splitting strings</h4>
 <p>The <code>strsplit()</code> function allows us to split a character string into substrings according to matches to a specified split string (see <code>?strsplit</code> for details). For example, we could break a sentence into it’s constituent words as follows:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">sentence &lt;-<span class="st"> &quot;Call me Ishmael.&quot;</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">words &lt;-<span class="st"> </span><span class="kw">strsplit</span>(sentence, <span class="st">&quot; &quot;</span>)  <span class="co"># split on space</span></a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">words</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="co">## [1] &quot;Call&quot;     &quot;me&quot;       &quot;Ishmael.&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sentence &lt;-<span class="st"> &quot;Call me Ishmael.&quot;</span>
+words &lt;-<span class="st"> </span><span class="kw">strsplit</span>(sentence, <span class="st">&quot; &quot;</span>)  <span class="co"># split on space</span>
+words
+<span class="co">## [[1]]</span>
+<span class="co">## [1] &quot;Call&quot;     &quot;me&quot;       &quot;Ishmael.&quot;</span></code></pre>
 <p>Notice that <code>strsplit()</code> is the reverse of <code>paste()</code>.</p>
 </div>
 <div id="substrings" class="section level4">
 <h4><span class="header-section-number">2.7.3.3</span> Substrings</h4>
 <p>The <code>substr()</code> function allows us to extract a substring from a character object by specifying the first and last positions (indices) to use in the extraction:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">5</span>)  <span class="co"># get substring from characters 2 to 5</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="co">## [1] &quot;bcde&quot;</span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">substr</span>(first.name, <span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># get substring from characters 1 to       </span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="co">## [1] &quot;jas&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">5</span>)  <span class="co"># get substring from characters 2 to 5</span>
+<span class="co">## [1] &quot;bcde&quot;</span>
+<span class="kw">substr</span>(first.name, <span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># get substring from characters 1 to       </span>
+<span class="co">## [1] &quot;jas&quot;</span></code></pre>
 </div>
 </div>
 </div>
@@ -606,7 +675,7 @@ Precision in numerical computing is a complex subject and a detailed discussion 
 <div id="install-the-tidyverse-package" class="section level3">
 <h3><span class="header-section-number">2.8.2</span> Install the tidyverse package</h3>
 <p>To illustrate the use of <code>install.packages()</code>, we’ll install a collection of packages (a “meta-package”) called the <a href="http://www.tidyverse.org">tidyverse</a>. Here’s how to install the tidyverse meta-package from the R console:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</code></pre>
 <p>The first argument to <code>install.packages</code> gives the names of the package we want to install. The second argument, <code>dependencies = TRUE</code>, tells R to install any additional packages that tidyverse depends on.</p>
 </div>
 <div id="installing-packages-from-the-rstudio-dialog" class="section level3">
@@ -629,9 +698,9 @@ Figure 2.3: Package Install Dialog
 <div id="loading-packages-with-the-library-function" class="section level3">
 <h3><span class="header-section-number">2.8.4</span> Loading packages with the <code>library()</code> function</h3>
 <p>Once a package is installed on your computer, the package can be loaded into your R session using the <code>library</code> function. To insure our previous install commands worked correctly, let’s load one of the packages we just installed.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
 <p>Since the tidyverse pacakge is a “meta-package” it provides some additional info about the sub-packages that got loaded.</p>
-<p>When you load tidyverse, you will also see a message about “Conflicts” as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the “stats” package which usually gets automically loaded when you start R. The conflicting funcdtions are <code>filter</code> and <code>lag</code>. The conflicting functions in the stats package are <code>lag</code> and <code>filter</code> which are used in time series analysis. The <code>dplyr</code> functions are more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. <code>stats::filter</code>).</p>
+<p>When you load tidyverse, you will also see a message about “Conflicts” as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the “stats” package which usually gets automically loaded when you start R. The conflicting funcdtions are <code>filter</code> and <code>lag</code>. The conflicting functions in the stats package are <code>lag</code> and <code>filter</code> which are used in time series analysis. The <code>dplyr</code> functions are more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. <code>stats::filter</code>).</p>
 <p>We will use the “tidyverse” package for almost every class session and assignment in this class. Get in the habit of including the <code>library(tidyverse)</code> statement in all of your R documents.</p>
 </div>
 </div>
@@ -647,47 +716,47 @@ Figure 2.4: The RStudio Help tab
 <div id="getting-help-from-the-console" class="section level3">
 <h3><span class="header-section-number">2.9.1</span> Getting help from the console</h3>
 <p>In addition to getting help from the RStudio help tab, you can directly search for help from the console. The help system can be invoked using the <code>help</code> function or the <code>?</code> operator.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">help</span>(<span class="st">&quot;log&quot;</span>)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2">?log</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;log&quot;</span>)
+?log</code></pre>
 <p>If you are using RStudio, the help results will appear in the “Help” tab of the Files/Plots/Packages/Help/Viewer (lower right window by default).</p>
 <p>What if you don’t know the name of the function you want? You can use the <code>help.search()</code> function.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</a></code></pre></div>
-<p>In this case <code>help.search(&quot;log&quot;)</code> returns all the functions with
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</code></pre>
+<p>In this case <code>help.search("log")</code> returns all the functions with
 the string <code>log</code> in them. For more on <code>help.search</code> type
 <code>?help.search</code>.</p>
 <p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>, <code>vignette()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="co">##  [1] &quot;as.data.frame.logical&quot; &quot;as.logical&quot;           </span></a>
-<a class="sourceLine" id="cb32-3" data-line-number="3"><span class="co">##  [3] &quot;as.logical.factor&quot;     &quot;dlogis&quot;               </span></a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"><span class="co">##  [5] &quot;is.logical&quot;            &quot;log&quot;                  </span></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="co">##  [7] &quot;log10&quot;                 &quot;log1p&quot;                </span></a>
-<a class="sourceLine" id="cb32-6" data-line-number="6"><span class="co">##  [9] &quot;log2&quot;                  &quot;logb&quot;                 </span></a>
-<a class="sourceLine" id="cb32-7" data-line-number="7"><span class="co">## [11] &quot;Logic&quot;                 &quot;logical&quot;              </span></a>
-<a class="sourceLine" id="cb32-8" data-line-number="8"><span class="co">## [13] &quot;logLik&quot;                &quot;loglin&quot;               </span></a>
-<a class="sourceLine" id="cb32-9" data-line-number="9"><span class="co">## [15] &quot;plogis&quot;                &quot;qlogis&quot;               </span></a>
-<a class="sourceLine" id="cb32-10" data-line-number="10"><span class="co">## [17] &quot;rlogis&quot;                &quot;SSlogis&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)
+<span class="co">##  [1] &quot;as.data.frame.logical&quot; &quot;as.logical&quot;           </span>
+<span class="co">##  [3] &quot;as.logical.factor&quot;     &quot;dlogis&quot;               </span>
+<span class="co">##  [5] &quot;is.logical&quot;            &quot;log&quot;                  </span>
+<span class="co">##  [7] &quot;log10&quot;                 &quot;log1p&quot;                </span>
+<span class="co">##  [9] &quot;log2&quot;                  &quot;logb&quot;                 </span>
+<span class="co">## [11] &quot;Logic&quot;                 &quot;logical&quot;              </span>
+<span class="co">## [13] &quot;logLik&quot;                &quot;loglin&quot;               </span>
+<span class="co">## [15] &quot;plogis&quot;                &quot;qlogis&quot;               </span>
+<span class="co">## [17] &quot;rlogis&quot;                &quot;SSlogis&quot;</span></code></pre>
 <p><code>example()</code> provides examples of how a function is used.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">example</span>(log)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="co">## log&gt; log(exp(3))</span></a>
-<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="co">## log&gt; log10(1e7) # = 7</span></a>
-<a class="sourceLine" id="cb33-7" data-line-number="7"><span class="co">## [1] 7</span></a>
-<a class="sourceLine" id="cb33-8" data-line-number="8"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-9" data-line-number="9"><span class="co">## log&gt; x &lt;- 10^-(1+2*1:9)</span></a>
-<a class="sourceLine" id="cb33-10" data-line-number="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-11" data-line-number="11"><span class="co">## log&gt; cbind(x, log(1+x), log1p(x), exp(x)-1, expm1(x))</span></a>
-<a class="sourceLine" id="cb33-12" data-line-number="12"><span class="co">##           x                                                    </span></a>
-<a class="sourceLine" id="cb33-13" data-line-number="13"><span class="co">##  [1,] 1e-03 9.995003e-04 9.995003e-04 1.000500e-03 1.000500e-03</span></a>
-<a class="sourceLine" id="cb33-14" data-line-number="14"><span class="co">##  [2,] 1e-05 9.999950e-06 9.999950e-06 1.000005e-05 1.000005e-05</span></a>
-<a class="sourceLine" id="cb33-15" data-line-number="15"><span class="co">##  [3,] 1e-07 1.000000e-07 1.000000e-07 1.000000e-07 1.000000e-07</span></a>
-<a class="sourceLine" id="cb33-16" data-line-number="16"><span class="co">##  [4,] 1e-09 1.000000e-09 1.000000e-09 1.000000e-09 1.000000e-09</span></a>
-<a class="sourceLine" id="cb33-17" data-line-number="17"><span class="co">##  [5,] 1e-11 1.000000e-11 1.000000e-11 1.000000e-11 1.000000e-11</span></a>
-<a class="sourceLine" id="cb33-18" data-line-number="18"><span class="co">##  [6,] 1e-13 9.992007e-14 1.000000e-13 9.992007e-14 1.000000e-13</span></a>
-<a class="sourceLine" id="cb33-19" data-line-number="19"><span class="co">##  [7,] 1e-15 1.110223e-15 1.000000e-15 1.110223e-15 1.000000e-15</span></a>
-<a class="sourceLine" id="cb33-20" data-line-number="20"><span class="co">##  [8,] 1e-17 0.000000e+00 1.000000e-17 0.000000e+00 1.000000e-17</span></a>
-<a class="sourceLine" id="cb33-21" data-line-number="21"><span class="co">##  [9,] 1e-19 0.000000e+00 1.000000e-19 0.000000e+00 1.000000e-19</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(log)
+<span class="co">## </span>
+<span class="co">## log&gt; log(exp(3))</span>
+<span class="co">## [1] 3</span>
+<span class="co">## </span>
+<span class="co">## log&gt; log10(1e7) # = 7</span>
+<span class="co">## [1] 7</span>
+<span class="co">## </span>
+<span class="co">## log&gt; x &lt;- 10^-(1+2*1:9)</span>
+<span class="co">## </span>
+<span class="co">## log&gt; cbind(x, log(1+x), log1p(x), exp(x)-1, expm1(x))</span>
+<span class="co">##           x                                                    </span>
+<span class="co">##  [1,] 1e-03 9.995003e-04 9.995003e-04 1.000500e-03 1.000500e-03</span>
+<span class="co">##  [2,] 1e-05 9.999950e-06 9.999950e-06 1.000005e-05 1.000005e-05</span>
+<span class="co">##  [3,] 1e-07 1.000000e-07 1.000000e-07 1.000000e-07 1.000000e-07</span>
+<span class="co">##  [4,] 1e-09 1.000000e-09 1.000000e-09 1.000000e-09 1.000000e-09</span>
+<span class="co">##  [5,] 1e-11 1.000000e-11 1.000000e-11 1.000000e-11 1.000000e-11</span>
+<span class="co">##  [6,] 1e-13 9.992007e-14 1.000000e-13 9.992007e-14 1.000000e-13</span>
+<span class="co">##  [7,] 1e-15 1.110223e-15 1.000000e-15 1.110223e-15 1.000000e-15</span>
+<span class="co">##  [8,] 1e-17 0.000000e+00 1.000000e-17 0.000000e+00 1.000000e-17</span>
+<span class="co">##  [9,] 1e-19 0.000000e+00 1.000000e-19 0.000000e+00 1.000000e-19</span></code></pre>
 <p>The <code>vignette()</code> function gives longer, more detailed documentation about libraries. Not all libraries include vignettes, but for those that do it’s usually a good place to get started. For example, the stringr package (which we installed above) includes a vignette. To read it’s vignette, type the following at the console</p>
 <pre><code>vignette(&quot;stringr&quot;)</code></pre>
 
@@ -720,7 +789,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -730,6 +799,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -750,7 +823,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

@@ -7,4 +7,5 @@ output_dir: "docs"
 rmd_files: ["index.Rmd", "01-getting-started-R.Rmd", "02-intro-R-markdown.Rmd",
             "03-data-structures.Rmd", "04-ggplot-intro.Rmd", "05-dplyr-intro.Rmd",
 "06-data-wrangling.Rmd", "07-functions-and-control-flow.Rmd", "08-vector-algebra.Rmd",
-"09-matrices.Rmd"]
+"09-matrices.Rmd", "10-regression-in-R.Rmd", "11-multiple-regression.Rmd",
+"12-logistic-regression.Rmd"]

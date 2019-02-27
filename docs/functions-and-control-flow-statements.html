@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 8 Functions and control flow statements | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 8 Functions and control flow statements | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 8 Functions and control flow statements | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Paul M. Magwene">
 
 
-<meta name="date" content="2019-02-13">
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="vectors-algebra.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,6 +48,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -67,7 +75,7 @@ a.sourceLine { text-indent: -1em; padding-left: 1em; }
 pre.numberSource a.sourceLine
   { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
     border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
@@ -340,6 +348,67 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
 </ul></li>
+<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
+<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
+<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
+<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
+<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
+<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
+<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
+<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
+<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
+<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
+<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
+<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -363,28 +432,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Writing your own functions</h2>
 <p>So far we’ve been using a variety of built in functions in R. However the real power of a programming language is the ability to write your own functions. Functions are a mechanism for organizing and abstracting a set of related computations. We usually write functions to represent sets of computations that we apply frequently, or to represent some conceptually coherent set of manipulations to data.</p>
 <p>The general form of an R function is as follows:</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb275-1" data-line-number="1">funcname &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2) {</a>
-<a class="sourceLine" id="cb275-2" data-line-number="2"> <span class="co"># one or more expressions that operate on the fxn arguments</span></a>
-<a class="sourceLine" id="cb275-3" data-line-number="3"> <span class="co"># last expression is the object returned</span></a>
-<a class="sourceLine" id="cb275-4" data-line-number="4"> <span class="co"># or you can explicitly return an object</span></a>
-<a class="sourceLine" id="cb275-5" data-line-number="5">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">funcname &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2) {
+ <span class="co"># one or more expressions that operate on the fxn arguments</span>
+ <span class="co"># last expression is the object returned</span>
+ <span class="co"># or you can explicitly return an object</span>
+}</code></pre>
 <p>To make this concrete, here’s an example where we define a function to calculate the area of a circle:</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb276-1" data-line-number="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){</a>
-<a class="sourceLine" id="cb276-2" data-line-number="2">  <span class="kw">return</span>(pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb276-3" data-line-number="3">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){
+  <span class="kw">return</span>(pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>)
+}</code></pre>
 <p>Since R returns the value of the last expression in the function, the <code>return</code> call is optional and we could have simply written:</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){</a>
-<a class="sourceLine" id="cb277-2" data-line-number="2">  pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb277-3" data-line-number="3">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){
+  pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>
+}</code></pre>
 <p>Very short and concise functions are often written as a single line. In practice I’d probably write the above function as:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}</code></pre>
 <p>The <code>area.of.circle</code> function takes one argument, <code>r</code>, and calculates the area of a circle with radius r. Having defined the function we can immediately put it to use:</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1"><span class="kw">area.of.circle</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb279-2" data-line-number="2"><span class="co">## [1] 28.27433</span></a>
-<a class="sourceLine" id="cb279-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb279-4" data-line-number="4">radius &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb279-5" data-line-number="5"><span class="kw">area.of.circle</span>(radius)</a>
-<a class="sourceLine" id="cb279-6" data-line-number="6"><span class="co">## [1] 50.26548</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">area.of.circle</span>(<span class="dv">3</span>)
+<span class="co">## [1] 28.27433</span>
+
+radius &lt;-<span class="st"> </span><span class="dv">4</span>
+<span class="kw">area.of.circle</span>(radius)
+<span class="co">## [1] 50.26548</span></code></pre>
 <p>If you type a function name without parentheses R shows you the
 function’s definition. This works for built-in functions as well
 (thought sometimes these functions are defined in C code in which case R
@@ -394,69 +463,69 @@ will tell you that the function is a <code>.Primitive</code>).</p>
 <p>Function arguments can specify the data that a function operates on or parameters that the function uses. Function arguments can be either required or optional. In the case of optional arguments, a default value is assigned if the argument is not given.</p>
 <p>Take for example the <code>log</code> function. If you examine the help file for the <code>log</code> function (type <code>?log</code> now) you’ll see that it takes two arguments, refered to as <code>x</code> and <code>base</code>. The
 argument <code>x</code> represents the numeric vector you pass to the function and is a required argument (see what happens when you type <code>log()</code> without giving an argument). The argument <code>base</code> is optional. By default the value of <code>base</code> is <span class="math inline">\(e = 2.71828\ldots\)</span>. Therefore by default the <code>log</code> function returns natural logarithms. If you want logarithms to a different base you can change the <code>base</code> argument as in the following examples:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">2</span>) <span class="co"># log of 2, base e</span></a>
-<a class="sourceLine" id="cb280-2" data-line-number="2"><span class="co">## [1] 0.6931472</span></a>
-<a class="sourceLine" id="cb280-3" data-line-number="3"><span class="kw">log</span>(<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># log of 2, base 2</span></a>
-<a class="sourceLine" id="cb280-4" data-line-number="4"><span class="co">## [1] 1</span></a>
-<a class="sourceLine" id="cb280-5" data-line-number="5"><span class="kw">log</span>(<span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># log of 2, base 4</span></a>
-<a class="sourceLine" id="cb280-6" data-line-number="6"><span class="co">## [1] 0.5</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">2</span>) <span class="co"># log of 2, base e</span>
+<span class="co">## [1] 0.6931472</span>
+<span class="kw">log</span>(<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># log of 2, base 2</span>
+<span class="co">## [1] 1</span>
+<span class="kw">log</span>(<span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># log of 2, base 4</span>
+<span class="co">## [1] 0.5</span></code></pre>
 <p>Because base 2 and base 10 logarithms are fairly commonly used, there are convenient aliases for calling <code>log</code> with these bases.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb281-1" data-line-number="1"><span class="kw">log2</span>(<span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb281-2" data-line-number="2"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb281-3" data-line-number="3"><span class="kw">log10</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb281-4" data-line-number="4"><span class="co">## [1] 2</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log2</span>(<span class="dv">8</span>)
+<span class="co">## [1] 3</span>
+<span class="kw">log10</span>(<span class="dv">100</span>)
+<span class="co">## [1] 2</span></code></pre>
 </div>
 <div id="writing-functions-with-optional-arguments" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Writing functions with optional arguments</h3>
 <p>To write a function that has an optional argument, you can simply specify the optional argument and its default value in the function definition as so:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb282-1" data-line-number="1"><span class="co"># a function to substitute missing values in a vector</span></a>
-<a class="sourceLine" id="cb282-2" data-line-number="2">sub.missing &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sub.value =</span> <span class="dv">-99</span>){</a>
-<a class="sourceLine" id="cb282-3" data-line-number="3">  x[<span class="kw">is.na</span>(x)] &lt;-<span class="st"> </span>sub.value</a>
-<a class="sourceLine" id="cb282-4" data-line-number="4">  <span class="kw">return</span>(x)</a>
-<a class="sourceLine" id="cb282-5" data-line-number="5">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a function to substitute missing values in a vector</span>
+sub.missing &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sub.value =</span> <span class="dv">-99</span>){
+  x[<span class="kw">is.na</span>(x)] &lt;-<span class="st"> </span>sub.value
+  <span class="kw">return</span>(x)
+}</code></pre>
 <p>You can then use this function as so:</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb283-2" data-line-number="2"><span class="kw">sub.missing</span>(m, <span class="dv">-999</span>)  <span class="co"># explicitly define sub.value</span></a>
-<a class="sourceLine" id="cb283-3" data-line-number="3"><span class="co">## [1]    1    2 -999    4</span></a>
-<a class="sourceLine" id="cb283-4" data-line-number="4"><span class="kw">sub.missing</span>(m, <span class="dt">sub.value =</span> <span class="dv">-333</span>) <span class="co"># more explicit syntax</span></a>
-<a class="sourceLine" id="cb283-5" data-line-number="5"><span class="co">## [1]    1    2 -333    4</span></a>
-<a class="sourceLine" id="cb283-6" data-line-number="6"><span class="kw">sub.missing</span>(m)   <span class="co"># use default sub.value</span></a>
-<a class="sourceLine" id="cb283-7" data-line-number="7"><span class="co">## [1]   1   2 -99   4</span></a>
-<a class="sourceLine" id="cb283-8" data-line-number="8">m  <span class="co"># notice that m wasn&#39;t modified within the function</span></a>
-<a class="sourceLine" id="cb283-9" data-line-number="9"><span class="co">## [1]  1  2 NA  4</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
+<span class="kw">sub.missing</span>(m, <span class="dv">-999</span>)  <span class="co"># explicitly define sub.value</span>
+<span class="co">## [1]    1    2 -999    4</span>
+<span class="kw">sub.missing</span>(m, <span class="dt">sub.value =</span> <span class="dv">-333</span>) <span class="co"># more explicit syntax</span>
+<span class="co">## [1]    1    2 -333    4</span>
+<span class="kw">sub.missing</span>(m)   <span class="co"># use default sub.value</span>
+<span class="co">## [1]   1   2 -99   4</span>
+m  <span class="co"># notice that m wasn&#39;t modified within the function</span>
+<span class="co">## [1]  1  2 NA  4</span></code></pre>
 <p>Notice that when we called <code>sub.missing</code> with our vector <code>m</code>, the vector did <em>not</em> get modified in the function body. Rather a new vector, <code>x</code> was created within the function and returned. However, if you did the missing value subsitute outside of a function call, then the vector would be modified:</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb284-1" data-line-number="1">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb284-2" data-line-number="2">n[<span class="kw">is.na</span>(n)] &lt;-<span class="st"> </span><span class="dv">-99</span></a>
-<a class="sourceLine" id="cb284-3" data-line-number="3">n</a>
-<a class="sourceLine" id="cb284-4" data-line-number="4"><span class="co">## [1]   1   2 -99   4</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)
+n[<span class="kw">is.na</span>(n)] &lt;-<span class="st"> </span><span class="dv">-99</span>
+n
+<span class="co">## [1]   1   2 -99   4</span></code></pre>
 </div>
 <div id="putting-r-functions-in-scripts" class="section level3">
 <h3><span class="header-section-number">8.1.3</span> Putting R functions in Scripts</h3>
 <p>When you define a function at the interactive prompt and then close the interpreter your function definition will be lost. The simple way around this is to define your R functions in a script that you can than access at any time.</p>
 <p>In RStudio choose <code>File &gt; New File &gt; R Script</code>. This will bring up a blank editor window. Type your function(s) into the editor. Everything in this file will be interpretted as R code, so you should not use the code block notation that is used in Markdown notebooks. Save the source file in your R working directory with a name like
 <code>myfxns.R</code>.</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1"><span class="co"># functions defined in myfxns.R</span></a>
-<a class="sourceLine" id="cb285-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb285-3" data-line-number="3">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}</a>
-<a class="sourceLine" id="cb285-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb285-5" data-line-number="5">area.of.rectangle &lt;-<span class="st"> </span><span class="cf">function</span>(l, w) {l <span class="op">*</span><span class="st"> </span>w}</a>
-<a class="sourceLine" id="cb285-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb285-7" data-line-number="7">area.of.triangle &lt;-<span class="st"> </span><span class="cf">function</span>(b, h) {<span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>h }</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># functions defined in myfxns.R</span>
+
+area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}
+
+area.of.rectangle &lt;-<span class="st"> </span><span class="cf">function</span>(l, w) {l <span class="op">*</span><span class="st"> </span>w}
+
+area.of.triangle &lt;-<span class="st"> </span><span class="cf">function</span>(b, h) {<span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>h }</code></pre>
 <p>Once your functions are in a script file you can make them accesible by using the <code>source</code> function, which reads the named file as input and evaluates any definitions or statements in the input file (See also the <code>Source</code> button in the R Studio GUI):</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;myfxns.R&quot;</span>)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;myfxns.R&quot;</span>)</code></pre>
 <p>Having sourced the file you can now use your functions like so:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1">radius &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb287-2" data-line-number="2">len &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb287-3" data-line-number="3">width &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb287-4" data-line-number="4">base &lt;-<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb287-5" data-line-number="5">height &lt;-<span class="st"> </span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb287-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb287-7" data-line-number="7"><span class="kw">area.of.circle</span>(radius)</a>
-<a class="sourceLine" id="cb287-8" data-line-number="8"><span class="co">## [1] 28.27433</span></a>
-<a class="sourceLine" id="cb287-9" data-line-number="9"><span class="kw">area.of.rectangle</span>(len, width)</a>
-<a class="sourceLine" id="cb287-10" data-line-number="10"><span class="co">## [1] 20</span></a>
-<a class="sourceLine" id="cb287-11" data-line-number="11"><span class="kw">area.of.triangle</span>(base, height)</a>
-<a class="sourceLine" id="cb287-12" data-line-number="12"><span class="co">## [1] 21</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">radius &lt;-<span class="st"> </span><span class="dv">3</span>
+len &lt;-<span class="st"> </span><span class="dv">4</span>
+width &lt;-<span class="st"> </span><span class="dv">5</span>
+base &lt;-<span class="st"> </span><span class="dv">6</span>
+height &lt;-<span class="st"> </span><span class="dv">7</span>
+
+<span class="kw">area.of.circle</span>(radius)
+<span class="co">## [1] 28.27433</span>
+<span class="kw">area.of.rectangle</span>(len, width)
+<span class="co">## [1] 20</span>
+<span class="kw">area.of.triangle</span>(base, height)
+<span class="co">## [1] 21</span></code></pre>
 <p>Note that if you change the source file, such as correcting a mistake or adding a new function, you need to call the <code>source</code> function again to make those changes available.</p>
 </div>
 </div>
@@ -472,14 +541,14 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Boolean expression is true
 }</code></pre>
 <p>Here’s a simple <code>if</code> expression in which we check whether a number is less than 0.5, and if so assign a values to a variable.</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)  <span class="co"># runif generates a random number between 0 and 1</span></a>
-<a class="sourceLine" id="cb289-2" data-line-number="2">face &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># set face to a NULL value</span></a>
-<a class="sourceLine" id="cb289-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb289-4" data-line-number="4"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb289-5" data-line-number="5">  face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb289-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb289-7" data-line-number="7">face</a>
-<a class="sourceLine" id="cb289-8" data-line-number="8"><span class="co">## [1] &quot;heads&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)  <span class="co"># runif generates a random number between 0 and 1</span>
+face &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># set face to a NULL value</span>
+
+<span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {
+  face &lt;-<span class="st"> &quot;heads&quot;</span>
+}
+face
+<span class="co">## NULL</span></code></pre>
 <p>The <code>else</code> clause specifies what to do in the event that the <code>if</code> statement is <em>not</em> true. The combined general for of an <code>if-else</code> expression is:</p>
 <pre><code>if (Boolean expression) {
   Code to execute if 
@@ -489,55 +558,55 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Boolean expression is false
 }</code></pre>
 <p>Our previous example makes more sense if we include an <code>else</code> clause.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb291-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb291-3" data-line-number="3"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb291-4" data-line-number="4">  face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb291-5" data-line-number="5">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb291-6" data-line-number="6">  face &lt;-<span class="st"> &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb291-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb291-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb291-9" data-line-number="9">face</a>
-<a class="sourceLine" id="cb291-10" data-line-number="10"><span class="co">## [1] &quot;tails&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+
+<span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {
+  face &lt;-<span class="st"> &quot;heads&quot;</span>
+} <span class="cf">else</span> {
+  face &lt;-<span class="st"> &quot;tails&quot;</span>
+}
+
+face
+<span class="co">## [1] &quot;heads&quot;</span></code></pre>
 <p>With the addition of the <code>else</code> statement, this simple code block can be thought of as simulating the toss of a coin.</p>
 <div id="if-else-in-a-function" class="section level4">
 <h4><span class="header-section-number">8.2.1.1</span> <code>if-else</code> in a function</h4>
 <p>Let’s take our “if-else” example above and turn it into a function we’ll call <code>coin.flip</code>. A literal re-interpretation of our previous code in the context of a function is something like this:</p>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1"><span class="co"># coin.flip.literal takes no arguments</span></a>
-<a class="sourceLine" id="cb292-2" data-line-number="2">coin.flip.literal &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb292-3" data-line-number="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb292-4" data-line-number="4">  <span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb292-5" data-line-number="5">    face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb292-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb292-7" data-line-number="7">    face &lt;-<span class="st"> &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb292-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb292-9" data-line-number="9">  face</a>
-<a class="sourceLine" id="cb292-10" data-line-number="10">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># coin.flip.literal takes no arguments</span>
+coin.flip.literal &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+  <span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {
+    face &lt;-<span class="st"> &quot;heads&quot;</span>
+  } <span class="cf">else</span> {
+    face &lt;-<span class="st"> &quot;tails&quot;</span>
+  }
+  face
+}</code></pre>
 <p><code>coin.flip.literal</code> is pretty long for what it does — we created a temporary variable <code>x</code> that is only used once, and we created the variable <code>face</code> to hold the results of our <code>if-else</code> statement, but then immediately returned the result. This is inefficient and decreases readability of our function. A much more compact implementation of this function is as follows:</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb293-1" data-line-number="1">coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb293-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb293-3" data-line-number="3">    <span class="kw">return</span>(<span class="st">&quot;heads&quot;</span>)</a>
-<a class="sourceLine" id="cb293-4" data-line-number="4">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb293-5" data-line-number="5">    <span class="kw">return</span>(<span class="st">&quot;tails&quot;</span>)</a>
-<a class="sourceLine" id="cb293-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb293-7" data-line-number="7">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {
+    <span class="kw">return</span>(<span class="st">&quot;heads&quot;</span>)
+  } <span class="cf">else</span> {
+    <span class="kw">return</span>(<span class="st">&quot;tails&quot;</span>)
+  }
+}</code></pre>
 <p>Note that in our new version of <code>coin.flip</code> we don’t bother to create temporary the variables <code>x</code> and <code>face</code> and we immediately return the results within the <code>if-else</code> statement.</p>
 </div>
 <div id="multiple-if-else-statements" class="section level4">
 <h4><span class="header-section-number">8.2.1.2</span> Multiple <code>if-else</code> statements</h4>
 <p>When there are more than two possible outcomes of interest, multiple <code>if-else</code> statements can be chained together. Here is an example with three outcomes:</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span>)  <span class="co"># sample a random integer between -5 and 5</span></a>
-<a class="sourceLine" id="cb294-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb294-3" data-line-number="3"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb294-4" data-line-number="4">  sign.x &lt;-<span class="st"> &quot;Negative&quot;</span></a>
-<a class="sourceLine" id="cb294-5" data-line-number="5">} <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb294-6" data-line-number="6">  sign.x &lt;-<span class="st"> &quot;Positive&quot;</span></a>
-<a class="sourceLine" id="cb294-7" data-line-number="7">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb294-8" data-line-number="8">  sign.x &lt;-<span class="st"> &quot;Zero&quot;</span></a>
-<a class="sourceLine" id="cb294-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb294-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb294-11" data-line-number="11">sign.x</a>
-<a class="sourceLine" id="cb294-12" data-line-number="12"><span class="co">## [1] &quot;Negative&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span>)  <span class="co"># sample a random integer between -5 and 5</span>
+
+<span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {
+  sign.x &lt;-<span class="st"> &quot;Negative&quot;</span>
+} <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {
+  sign.x &lt;-<span class="st"> &quot;Positive&quot;</span>
+} <span class="cf">else</span> {
+  sign.x &lt;-<span class="st"> &quot;Zero&quot;</span>
+}
+
+sign.x
+<span class="co">## [1] &quot;Negative&quot;</span></code></pre>
 </div>
 </div>
 <div id="for-loops" class="section level3">
@@ -549,114 +618,113 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Evaluate one or more expressions
 }</code></pre>
 <p>As an example, say we wanted to call our <code>coin.flip</code> function multiple times. We could use a for loop to do so as follows:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb296-1" data-line-number="1">flips &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># empty vector to hold outcomes of coin flips</span></a>
-<a class="sourceLine" id="cb296-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb296-3" data-line-number="3">  flips &lt;-<span class="st"> </span><span class="kw">c</span>(flips, <span class="kw">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span></a>
-<a class="sourceLine" id="cb296-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb296-5" data-line-number="5">flips</a>
-<a class="sourceLine" id="cb296-6" data-line-number="6"><span class="co">##  [1] &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb296-7" data-line-number="7"><span class="co">##  [9] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb296-8" data-line-number="8"><span class="co">## [17] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">flips &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># empty vector to hold outcomes of coin flips</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {
+  flips &lt;-<span class="st"> </span><span class="kw">c</span>(flips, <span class="kw">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span>
+}
+flips
+<span class="co">##  [1] &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span>
+<span class="co">##  [9] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span>
+<span class="co">## [17] &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot;</span></code></pre>
 <p>Let’s use a <code>for</code> loop to create a <code>multi.coin.flip</code> function thats accepts an optional argument <code>n</code> that specifies the number of coin flips to carry out:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">multi.coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb297-2" data-line-number="2">  <span class="co"># create an empty character vector of length n</span></a>
-<a class="sourceLine" id="cb297-3" data-line-number="3">  <span class="co"># it&#39;s more efficient to create an empty vector of the right</span></a>
-<a class="sourceLine" id="cb297-4" data-line-number="4">  <span class="co"># length than to &quot;grow&quot; a vector with each iteration</span></a>
-<a class="sourceLine" id="cb297-5" data-line-number="5">  flips &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode=</span><span class="st">&quot;character&quot;</span>, <span class="dt">length=</span>n)  </a>
-<a class="sourceLine" id="cb297-6" data-line-number="6">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
-<a class="sourceLine" id="cb297-7" data-line-number="7">    flips[i] &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()</a>
-<a class="sourceLine" id="cb297-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb297-9" data-line-number="9">  flips</a>
-<a class="sourceLine" id="cb297-10" data-line-number="10">}</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">multi.coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">1</span>) {
+  <span class="co"># create an empty character vector of length n</span>
+  <span class="co"># it&#39;s more efficient to create an empty vector of the right</span>
+  <span class="co"># length than to &quot;grow&quot; a vector with each iteration</span>
+  flips &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode=</span><span class="st">&quot;character&quot;</span>, <span class="dt">length=</span>n)  
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {
+    flips[i] &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()
+  }
+  flips
+}</code></pre>
 <p>With this new definition, a single call of <code>coin.flip</code> returns a single outcome:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1"><span class="kw">multi.coin.flip</span>()</a>
-<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="co">## [1] &quot;tails&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">multi.coin.flip</span>()
+<span class="co">## [1] &quot;heads&quot;</span></code></pre>
 <p>And calling <code>multi.coin.flip</code> with a numeric argument returns multiple coin flips:</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="kw">multi.coin.flip</span>(<span class="dt">n=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="co">##  [1] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb299-3" data-line-number="3"><span class="co">##  [9] &quot;tails&quot; &quot;tails&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">multi.coin.flip</span>(<span class="dt">n=</span><span class="dv">10</span>)
+<span class="co">##  [1] &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot;</span>
+<span class="co">##  [9] &quot;heads&quot; &quot;heads&quot;</span></code></pre>
 </div>
 <div id="break-statement" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> <code>break</code> statement</h3>
 <p>A <code>break</code> statement allows you to exit a loop even if it hasn’t completed. This is useful for ending a control statement when some criteria has been satisfied. <code>break</code> statements are usually nested in <code>if</code> statements.</p>
 <p>In the following example we use a <code>break</code> statement inside a <code>for</code> loop. In this example, we pick random real numbers between 0 and 1, accumulating them in a vector (<code>random.numbers</code>). The <code>for</code> loop insures that we never pick more than 20 random numbers before the loop ends. However, the <code>break</code> statement allows the loop to end prematurely if the number picked is greater than 0.95.</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1">random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
-<a class="sourceLine" id="cb300-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb300-4" data-line-number="4">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb300-5" data-line-number="5">  random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>(random.numbers, x)</a>
-<a class="sourceLine" id="cb300-6" data-line-number="6">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.95</span>) {</a>
-<a class="sourceLine" id="cb300-7" data-line-number="7">    <span class="cf">break</span></a>
-<a class="sourceLine" id="cb300-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb300-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb300-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb300-11" data-line-number="11">random.numbers</a>
-<a class="sourceLine" id="cb300-12" data-line-number="12"><span class="co">##  [1] 0.40629016 0.44539564 0.09267735 0.50340046 0.37309817 0.71448214</span></a>
-<a class="sourceLine" id="cb300-13" data-line-number="13"><span class="co">##  [7] 0.13269999 0.72368355 0.43852633 0.04768040 0.40807347 0.45565471</span></a>
-<a class="sourceLine" id="cb300-14" data-line-number="14"><span class="co">## [13] 0.49891810 0.86156426 0.50421336 0.78109904 0.35684013 0.30358850</span></a>
-<a class="sourceLine" id="cb300-15" data-line-number="15"><span class="co">## [19] 0.10271993 0.30218003</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>()
+
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {
+  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
+  random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>(random.numbers, x)
+  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.95</span>) {
+    <span class="cf">break</span>
+  }
+}
+
+random.numbers
+<span class="co">##  [1] 0.51867465 0.79064411 0.73236657 0.64387547 0.04589707 0.47608781</span>
+<span class="co">##  [7] 0.37579590 0.10782591 0.13373318 0.94555359 0.30829904 0.01843081</span>
+<span class="co">## [13] 0.12574475 0.99739168</span></code></pre>
 </div>
 <div id="repeat-loops" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> <code>repeat</code> loops</h3>
 <p>A <code>repeat</code> loop will loop indefinitely until we explicitly break out of the loop with a <code>break</code> statement. For example, here’s an example of how we can use <code>repeat</code> and <code>break</code> to simulate flipping coins until we get a head:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">ct &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb301-2" data-line-number="2"><span class="cf">repeat</span> {</a>
-<a class="sourceLine" id="cb301-3" data-line-number="3">  flip &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()</a>
-<a class="sourceLine" id="cb301-4" data-line-number="4">  ct &lt;-<span class="st"> </span>ct <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb301-5" data-line-number="5">  <span class="cf">if</span> (flip <span class="op">==</span><span class="st"> &quot;heads&quot;</span>){</a>
-<a class="sourceLine" id="cb301-6" data-line-number="6">    <span class="cf">break</span></a>
-<a class="sourceLine" id="cb301-7" data-line-number="7">  }</a>
-<a class="sourceLine" id="cb301-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb301-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb301-10" data-line-number="10">ct</a>
-<a class="sourceLine" id="cb301-11" data-line-number="11"><span class="co">## [1] 2</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">ct &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">repeat</span> {
+  flip &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()
+  ct &lt;-<span class="st"> </span>ct <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+  <span class="cf">if</span> (flip <span class="op">==</span><span class="st"> &quot;heads&quot;</span>){
+    <span class="cf">break</span>
+  }
+}
+
+ct
+<span class="co">## [1] 2</span></code></pre>
 </div>
 <div id="next-statement" class="section level3">
 <h3><span class="header-section-number">8.2.5</span> <code>next</code> statement</h3>
 <p>A <code>next</code> satement allows you to halt the processing of the current iteration of a loop and immediately move to the next item of the loop. This is useful when you want to skip calculations for certain elements of a sequence:</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1">sum.not.div3 &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb302-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb302-3" data-line-number="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb302-4" data-line-number="4">  <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) { <span class="co"># skip summing values that are evenly divisible by three</span></a>
-<a class="sourceLine" id="cb302-5" data-line-number="5">    <span class="cf">next</span></a>
-<a class="sourceLine" id="cb302-6" data-line-number="6">  }</a>
-<a class="sourceLine" id="cb302-7" data-line-number="7">  sum.not.div3 &lt;-<span class="st"> </span>sum.not.div3 <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb302-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb302-9" data-line-number="9">sum.not.div3</a>
-<a class="sourceLine" id="cb302-10" data-line-number="10"><span class="co">## [1] 147</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">sum.not.div3 &lt;-<span class="st"> </span><span class="dv">0</span>
+
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {
+  <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) { <span class="co"># skip summing values that are evenly divisible by three</span>
+    <span class="cf">next</span>
+  }
+  sum.not.div3 &lt;-<span class="st"> </span>sum.not.div3 <span class="op">+</span><span class="st"> </span>i
+}
+sum.not.div3
+<span class="co">## [1] 147</span></code></pre>
 </div>
 <div id="while-statements" class="section level3">
 <h3><span class="header-section-number">8.2.6</span> while statements</h3>
 <p>A <code>while</code> statement iterates as long as the condition statement it contains is true. In the following example, the <code>while</code> loop calls <code>coin.flip</code> until “heads” is the result, and keeps track of the number of flips. Note that this represents the same logic as the <code>repeat-break</code> example we saw earlier, but in a a more compact form.</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1">first.head &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb303-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb303-3" data-line-number="3"><span class="cf">while</span>(<span class="kw">coin.flip</span>() <span class="op">==</span><span class="st"> &quot;tails&quot;</span>){</a>
-<a class="sourceLine" id="cb303-4" data-line-number="4">  first.head &lt;-<span class="st"> </span>first.head <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb303-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb303-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb303-7" data-line-number="7">first.head</a>
-<a class="sourceLine" id="cb303-8" data-line-number="8"><span class="co">## [1] 2</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">first.head &lt;-<span class="st"> </span><span class="dv">1</span>
+
+<span class="cf">while</span>(<span class="kw">coin.flip</span>() <span class="op">==</span><span class="st"> &quot;tails&quot;</span>){
+  first.head &lt;-<span class="st"> </span>first.head <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+
+first.head
+<span class="co">## [1] 3</span></code></pre>
 </div>
 <div id="ifelse" class="section level3">
 <h3><span class="header-section-number">8.2.7</span> <code>ifelse</code></h3>
 <p>The <code>ifelse</code> function is equivalent to a <code>for</code>-loop with a nested <code>if-else</code> statement. <code>ifelse</code> applies the specified test to each element of a vector, and returns different values depending on if the test is true or false.</p>
 <p>Here’s an example of using <code>ifelse</code> to replace <code>NA</code> elements in a vector with zeros.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb304-2" data-line-number="2">newx &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), <span class="dv">0</span>, x)</a>
-<a class="sourceLine" id="cb304-3" data-line-number="3">newx</a>
-<a class="sourceLine" id="cb304-4" data-line-number="4"><span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)
+newx &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), <span class="dv">0</span>, x)
+newx
+<span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></code></pre>
 <p>The equivalent for-loop could be written as:</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb305-2" data-line-number="2">newx &lt;-<span class="st"> </span><span class="kw">c</span>()  <span class="co"># create an empty vector</span></a>
-<a class="sourceLine" id="cb305-3" data-line-number="3"><span class="cf">for</span> (elem <span class="cf">in</span> x) {</a>
-<a class="sourceLine" id="cb305-4" data-line-number="4">  <span class="cf">if</span> (<span class="kw">is.na</span>(elem)) {</a>
-<a class="sourceLine" id="cb305-5" data-line-number="5">    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, <span class="dv">0</span>)  <span class="co"># append zero to newx</span></a>
-<a class="sourceLine" id="cb305-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb305-7" data-line-number="7">    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, elem)  <span class="co"># append elem to newx</span></a>
-<a class="sourceLine" id="cb305-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb305-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb305-10" data-line-number="10">newx</a>
-<a class="sourceLine" id="cb305-11" data-line-number="11"><span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)
+newx &lt;-<span class="st"> </span><span class="kw">c</span>()  <span class="co"># create an empty vector</span>
+<span class="cf">for</span> (elem <span class="cf">in</span> x) {
+  <span class="cf">if</span> (<span class="kw">is.na</span>(elem)) {
+    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, <span class="dv">0</span>)  <span class="co"># append zero to newx</span>
+  } <span class="cf">else</span> {
+    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, elem)  <span class="co"># append elem to newx</span>
+  }
+}
+newx
+<span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></code></pre>
 <p>The <code>ifelse</code> function is clearly a more compact and readable way to accomplish this.</p>
 </div>
 </div>
@@ -664,118 +732,118 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <h2><span class="header-section-number">8.3</span> <code>map</code> and related tools</h2>
 <p>Another common situation is applying a function to every element of a list or vector. Again, we could use a <code>for</code> loop, but the <code>map</code> functions often are better alternatives.</p>
 <p>NOTE: <code>map</code> is a relative newcomer to R and must be loaded with the <code>purrr</code> package (<code>purrr</code> is loaded when we load <code>tidyverse</code>). Although base R has a complicated series of “apply” functions (<code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>vapply</code>, <code>mapply</code>), <code>map</code> provides similar functionality with a more consistent interface. We won’t use the <code>apply</code> functions in this class, but you may see them in older code.</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
 <hr />
 <div id="basic-map" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> basic <code>map</code></h3>
 <p>Typically, <code>map</code> takes two arguments – a sequence (a vector, list, or data frame) and a function. It then applies the function to each element of the sequence, returning the results as a list.</p>
 <p>To illustrate <code>map</code>, let’s consider an example with a list of 2-vectors, where each vector gives the min and max values of some variable of interest for individuals in a sample (e.g. resting heart rate and maximum heart rate during exercise). We can use the <code>map</code> function to quickly generate the difference between the resting and maximum heart rates:</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb307-1" data-line-number="1">heart.rates &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">bob =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">120</span>), <span class="dt">fred =</span> <span class="kw">c</span>(<span class="dv">79</span>, <span class="dv">150</span>), <span class="dt">jim =</span> <span class="kw">c</span>(<span class="dv">66</span>, <span class="dv">110</span>))</a>
-<a class="sourceLine" id="cb307-2" data-line-number="2">diff.fxn &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>x[<span class="dv">1</span>]}</a>
-<a class="sourceLine" id="cb307-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb307-4" data-line-number="4"><span class="kw">map</span>(heart.rates, diff.fxn)</a>
-<a class="sourceLine" id="cb307-5" data-line-number="5"><span class="co">## $bob</span></a>
-<a class="sourceLine" id="cb307-6" data-line-number="6"><span class="co">## [1] 60</span></a>
-<a class="sourceLine" id="cb307-7" data-line-number="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb307-8" data-line-number="8"><span class="co">## $fred</span></a>
-<a class="sourceLine" id="cb307-9" data-line-number="9"><span class="co">## [1] 71</span></a>
-<a class="sourceLine" id="cb307-10" data-line-number="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb307-11" data-line-number="11"><span class="co">## $jim</span></a>
-<a class="sourceLine" id="cb307-12" data-line-number="12"><span class="co">## [1] 44</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">heart.rates &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">bob =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">120</span>), <span class="dt">fred =</span> <span class="kw">c</span>(<span class="dv">79</span>, <span class="dv">150</span>), <span class="dt">jim =</span> <span class="kw">c</span>(<span class="dv">66</span>, <span class="dv">110</span>))
+diff.fxn &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>x[<span class="dv">1</span>]}
+
+<span class="kw">map</span>(heart.rates, diff.fxn)
+<span class="co">## $bob</span>
+<span class="co">## [1] 60</span>
+<span class="co">## </span>
+<span class="co">## $fred</span>
+<span class="co">## [1] 71</span>
+<span class="co">## </span>
+<span class="co">## $jim</span>
+<span class="co">## [1] 44</span></code></pre>
 <p>As a second example, here’s how we could use <code>map</code> to get the class of each object in a list:</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="kw">list</span>(<span class="dt">lead =</span> <span class="st">&quot;Michael&quot;</span>, <span class="dt">keyboard =</span> <span class="st">&quot;Jermaine&quot;</span>))</a>
-<a class="sourceLine" id="cb308-2" data-line-number="2"><span class="kw">map</span>(x, class)</a>
-<a class="sourceLine" id="cb308-3" data-line-number="3"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb308-4" data-line-number="4"><span class="co">## [1] &quot;numeric&quot;</span></a>
-<a class="sourceLine" id="cb308-5" data-line-number="5"><span class="co">## </span></a>
-<a class="sourceLine" id="cb308-6" data-line-number="6"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb308-7" data-line-number="7"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb308-8" data-line-number="8"><span class="co">## </span></a>
-<a class="sourceLine" id="cb308-9" data-line-number="9"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb308-10" data-line-number="10"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb308-11" data-line-number="11"><span class="co">## </span></a>
-<a class="sourceLine" id="cb308-12" data-line-number="12"><span class="co">## [[4]]</span></a>
-<a class="sourceLine" id="cb308-13" data-line-number="13"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="kw">list</span>(<span class="dt">lead =</span> <span class="st">&quot;Michael&quot;</span>, <span class="dt">keyboard =</span> <span class="st">&quot;Jermaine&quot;</span>))
+<span class="kw">map</span>(x, class)
+<span class="co">## [[1]]</span>
+<span class="co">## [1] &quot;numeric&quot;</span>
+<span class="co">## </span>
+<span class="co">## [[2]]</span>
+<span class="co">## [1] &quot;character&quot;</span>
+<span class="co">## </span>
+<span class="co">## [[3]]</span>
+<span class="co">## [1] &quot;character&quot;</span>
+<span class="co">## </span>
+<span class="co">## [[4]]</span>
+<span class="co">## [1] &quot;list&quot;</span></code></pre>
 <hr />
 </div>
 <div id="map_if-and-map_at" class="section level3">
 <h3><span class="header-section-number">8.3.2</span> <code>map_if</code> and <code>map_at</code></h3>
 <p><code>map_if</code> is a variant of <code>map</code> that takes a predicate function (a function that evaluates to TRUE or FALSE) to determine which elements of the input sequence are transformed by the map function. All elements of the sequence that do not meet the predicate are left un-transformed. Like <code>map</code>, <code>map_if</code> always returns a list.</p>
 <p>Here’s an example where we use <code>map_if</code> to apply the <code>stringr::str_to_upper</code> function to those columns of a data frame that are character vectors, and apply <code>abs</code> to obtain the absolute value of a numeric column:</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb309-2" data-line-number="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>)</a>
-<a class="sourceLine" id="cb309-3" data-line-number="3">c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;u&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;w&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</a>
-<a class="sourceLine" id="cb309-4" data-line-number="4">df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(a, b, c)</a>
-<a class="sourceLine" id="cb309-5" data-line-number="5"><span class="kw">head</span>(df)</a>
-<a class="sourceLine" id="cb309-6" data-line-number="6"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb309-7" data-line-number="7"><span class="co">##         a b     c    </span></a>
-<a class="sourceLine" id="cb309-8" data-line-number="8"><span class="co">##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb309-9" data-line-number="9"><span class="co">## 1 -1.326  a     u    </span></a>
-<a class="sourceLine" id="cb309-10" data-line-number="10"><span class="co">## 2 -0.9839 b     v    </span></a>
-<a class="sourceLine" id="cb309-11" data-line-number="11"><span class="co">## 3  0.4977 c     w    </span></a>
-<a class="sourceLine" id="cb309-12" data-line-number="12"><span class="co">## 4 -0.5922 d     x    </span></a>
-<a class="sourceLine" id="cb309-13" data-line-number="13"><span class="co">## 5 -1.348  e     y    </span></a>
-<a class="sourceLine" id="cb309-14" data-line-number="14"><span class="co">## 6  1.623  f     z</span></a>
-<a class="sourceLine" id="cb309-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb309-16" data-line-number="16">df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df, is.character, str_to_upper)</a>
-<a class="sourceLine" id="cb309-17" data-line-number="17">df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df2, is.numeric, abs)</a>
-<a class="sourceLine" id="cb309-18" data-line-number="18"><span class="kw">head</span>(df2)</a>
-<a class="sourceLine" id="cb309-19" data-line-number="19"><span class="co">## $a</span></a>
-<a class="sourceLine" id="cb309-20" data-line-number="20"><span class="co">## [1] 1.3261243 0.9838550 0.4977489 0.5921978 1.3481485 1.6227424</span></a>
-<a class="sourceLine" id="cb309-21" data-line-number="21"><span class="co">## </span></a>
-<a class="sourceLine" id="cb309-22" data-line-number="22"><span class="co">## $b</span></a>
-<a class="sourceLine" id="cb309-23" data-line-number="23"><span class="co">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></a>
-<a class="sourceLine" id="cb309-24" data-line-number="24"><span class="co">## </span></a>
-<a class="sourceLine" id="cb309-25" data-line-number="25"><span class="co">## $c</span></a>
-<a class="sourceLine" id="cb309-26" data-line-number="26"><span class="co">## [1] &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">6</span>)
+b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>)
+c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;u&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;w&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)
+df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(a, b, c)
+<span class="kw">head</span>(df)
+<span class="co">## # A tibble: 6 x 3</span>
+<span class="co">##         a b     c    </span>
+<span class="co">##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">## 1 -0.2777 a     u    </span>
+<span class="co">## 2 -0.4215 b     v    </span>
+<span class="co">## 3  0.8979 c     w    </span>
+<span class="co">## 4  1.055  d     x    </span>
+<span class="co">## 5  1.733  e     y    </span>
+<span class="co">## 6 -0.3426 f     z</span>
+
+df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df, is.character, str_to_upper)
+df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df2, is.numeric, abs)
+<span class="kw">head</span>(df2)
+<span class="co">## $a</span>
+<span class="co">## [1] 0.2776511 0.4214726 0.8978563 1.0545509 1.7326149 0.3425678</span>
+<span class="co">## </span>
+<span class="co">## $b</span>
+<span class="co">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span>
+<span class="co">## </span>
+<span class="co">## $c</span>
+<span class="co">## [1] &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</span></code></pre>
 <p>Note that <code>df2</code> is a list, not a data frame. We can convert <code>df2</code> to a data frame <code>df3</code>, using the <code>as_data_frame()</code> function:</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1"><span class="co"># Next, create data frame df3 </span></a>
-<a class="sourceLine" id="cb310-2" data-line-number="2">df3 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(df2)</a>
-<a class="sourceLine" id="cb310-3" data-line-number="3"><span class="kw">head</span>(df3)</a>
-<a class="sourceLine" id="cb310-4" data-line-number="4"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb310-5" data-line-number="5"><span class="co">##        a b     c    </span></a>
-<a class="sourceLine" id="cb310-6" data-line-number="6"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb310-7" data-line-number="7"><span class="co">## 1 1.326  A     U    </span></a>
-<a class="sourceLine" id="cb310-8" data-line-number="8"><span class="co">## 2 0.9839 B     V    </span></a>
-<a class="sourceLine" id="cb310-9" data-line-number="9"><span class="co">## 3 0.4977 C     W    </span></a>
-<a class="sourceLine" id="cb310-10" data-line-number="10"><span class="co">## 4 0.5922 D     X    </span></a>
-<a class="sourceLine" id="cb310-11" data-line-number="11"><span class="co">## 5 1.348  E     Y    </span></a>
-<a class="sourceLine" id="cb310-12" data-line-number="12"><span class="co">## 6 1.623  F     Z</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Next, create data frame df3 </span>
+df3 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(df2)
+<span class="kw">head</span>(df3)
+<span class="co">## # A tibble: 6 x 3</span>
+<span class="co">##        a b     c    </span>
+<span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">## 1 0.2777 A     U    </span>
+<span class="co">## 2 0.4215 B     V    </span>
+<span class="co">## 3 0.8979 C     W    </span>
+<span class="co">## 4 1.055  D     X    </span>
+<span class="co">## 5 1.733  E     Y    </span>
+<span class="co">## 6 0.3426 F     Z</span></code></pre>
 <hr />
 <p>Note that if our goal is to apply functions to the columns of a data frame, it may be easier with <code>dplyr::mutate()</code>:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb311-2" data-line-number="2">df4 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb311-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">a =</span> <span class="kw">abs</span>(a),</a>
-<a class="sourceLine" id="cb311-4" data-line-number="4">         <span class="dt">b =</span> <span class="kw">str_to_upper</span>(b),</a>
-<a class="sourceLine" id="cb311-5" data-line-number="5">         <span class="dt">c =</span> <span class="kw">str_to_upper</span>(c))</a>
-<a class="sourceLine" id="cb311-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb311-7" data-line-number="7"><span class="kw">head</span>(df4)</a>
-<a class="sourceLine" id="cb311-8" data-line-number="8"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb311-9" data-line-number="9"><span class="co">##        a b     c    </span></a>
-<a class="sourceLine" id="cb311-10" data-line-number="10"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb311-11" data-line-number="11"><span class="co">## 1 1.326  A     U    </span></a>
-<a class="sourceLine" id="cb311-12" data-line-number="12"><span class="co">## 2 0.9839 B     V    </span></a>
-<a class="sourceLine" id="cb311-13" data-line-number="13"><span class="co">## 3 0.4977 C     W    </span></a>
-<a class="sourceLine" id="cb311-14" data-line-number="14"><span class="co">## 4 0.5922 D     X    </span></a>
-<a class="sourceLine" id="cb311-15" data-line-number="15"><span class="co">## 5 1.348  E     Y    </span></a>
-<a class="sourceLine" id="cb311-16" data-line-number="16"><span class="co">## 6 1.623  F     Z</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">
+df4 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">a =</span> <span class="kw">abs</span>(a),
+         <span class="dt">b =</span> <span class="kw">str_to_upper</span>(b),
+         <span class="dt">c =</span> <span class="kw">str_to_upper</span>(c))
+
+<span class="kw">head</span>(df4)
+<span class="co">## # A tibble: 6 x 3</span>
+<span class="co">##        a b     c    </span>
+<span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span>
+<span class="co">## 1 0.2777 A     U    </span>
+<span class="co">## 2 0.4215 B     V    </span>
+<span class="co">## 3 0.8979 C     W    </span>
+<span class="co">## 4 1.055  D     X    </span>
+<span class="co">## 5 1.733  E     Y    </span>
+<span class="co">## 6 0.3426 F     Z</span></code></pre>
 <hr />
 </div>
 <div id="mapping-in-parallel-using-map2" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> mapping in parallel using <code>map2</code></h3>
 <p>The <code>map2</code> function applies a transformation function to two sequences in parallel. The following example illustrates this:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Fred&quot;</span>)</a>
-<a class="sourceLine" id="cb312-2" data-line-number="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Smith&quot;</span>, <span class="st">&quot;Hernandez&quot;</span>, <span class="st">&quot;Kidogo&quot;</span>)</a>
-<a class="sourceLine" id="cb312-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb312-4" data-line-number="4"><span class="kw">map2</span>(first.names, last.names, str_c, <span class="dt">sep=</span><span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb312-5" data-line-number="5"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb312-6" data-line-number="6"><span class="co">## [1] &quot;John Smith&quot;</span></a>
-<a class="sourceLine" id="cb312-7" data-line-number="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb312-8" data-line-number="8"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb312-9" data-line-number="9"><span class="co">## [1] &quot;Mary Hernandez&quot;</span></a>
-<a class="sourceLine" id="cb312-10" data-line-number="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb312-11" data-line-number="11"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb312-12" data-line-number="12"><span class="co">## [1] &quot;Fred Kidogo&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Fred&quot;</span>)
+last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Smith&quot;</span>, <span class="st">&quot;Hernandez&quot;</span>, <span class="st">&quot;Kidogo&quot;</span>)
+
+<span class="kw">map2</span>(first.names, last.names, str_c, <span class="dt">sep=</span><span class="st">&quot; &quot;</span>)
+<span class="co">## [[1]]</span>
+<span class="co">## [1] &quot;John Smith&quot;</span>
+<span class="co">## </span>
+<span class="co">## [[2]]</span>
+<span class="co">## [1] &quot;Mary Hernandez&quot;</span>
+<span class="co">## </span>
+<span class="co">## [[3]]</span>
+<span class="co">## [1] &quot;Fred Kidogo&quot;</span></code></pre>
 <p>Note how we can specify arguments to the transformation function as additional arguments to <code>map2</code> (i.e., the <code>sep</code> argument gets passed to <code>str_c</code>)</p>
 <hr />
 </div>
@@ -788,27 +856,27 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <li><code>map_int</code> (integer vectors)</li>
 <li><code>map_dbl</code> (double vectors)</li>
 </ul>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb313-1" data-line-number="1"><span class="co"># compare the outputs of map and map_chr</span></a>
-<a class="sourceLine" id="cb313-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="kw">map</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)</a>
-<a class="sourceLine" id="cb313-3" data-line-number="3"><span class="kw">str</span>(a)</a>
-<a class="sourceLine" id="cb313-4" data-line-number="4"><span class="co">## List of 6</span></a>
-<a class="sourceLine" id="cb313-5" data-line-number="5"><span class="co">##  $ : chr &quot;A&quot;</span></a>
-<a class="sourceLine" id="cb313-6" data-line-number="6"><span class="co">##  $ : chr &quot;B&quot;</span></a>
-<a class="sourceLine" id="cb313-7" data-line-number="7"><span class="co">##  $ : chr &quot;C&quot;</span></a>
-<a class="sourceLine" id="cb313-8" data-line-number="8"><span class="co">##  $ : chr &quot;D&quot;</span></a>
-<a class="sourceLine" id="cb313-9" data-line-number="9"><span class="co">##  $ : chr &quot;E&quot;</span></a>
-<a class="sourceLine" id="cb313-10" data-line-number="10"><span class="co">##  $ : chr &quot;F&quot;</span></a>
-<a class="sourceLine" id="cb313-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb313-12" data-line-number="12">b &lt;-<span class="st"> </span><span class="kw">map_chr</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)</a>
-<a class="sourceLine" id="cb313-13" data-line-number="13"><span class="kw">str</span>(b) <span class="co"># a vector</span></a>
-<a class="sourceLine" id="cb313-14" data-line-number="14"><span class="co">##  chr [1:6] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compare the outputs of map and map_chr</span>
+a &lt;-<span class="st"> </span><span class="kw">map</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)
+<span class="kw">str</span>(a)
+<span class="co">## List of 6</span>
+<span class="co">##  $ : chr &quot;A&quot;</span>
+<span class="co">##  $ : chr &quot;B&quot;</span>
+<span class="co">##  $ : chr &quot;C&quot;</span>
+<span class="co">##  $ : chr &quot;D&quot;</span>
+<span class="co">##  $ : chr &quot;E&quot;</span>
+<span class="co">##  $ : chr &quot;F&quot;</span>
+
+b &lt;-<span class="st"> </span><span class="kw">map_chr</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)
+<span class="kw">str</span>(b) <span class="co"># a vector</span>
+<span class="co">##  chr [1:6] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></code></pre>
 <p>Here’s an example using <code>map_dbl</code>, where we create a data frame with three columns, and compute the median of each column:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="co"># Make data frame for analysis</span></a>
-<a class="sourceLine" id="cb314-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>))</a>
-<a class="sourceLine" id="cb314-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb314-4" data-line-number="4"><span class="kw">map_dbl</span>(df, median) <span class="co"># median of each column of df</span></a>
-<a class="sourceLine" id="cb314-5" data-line-number="5"><span class="co">##           a           b           c </span></a>
-<a class="sourceLine" id="cb314-6" data-line-number="6"><span class="co">## -0.05041396 -0.08749741 -0.02389172</span></a></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make data frame for analysis</span>
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>))
+
+<span class="kw">map_dbl</span>(df, median) <span class="co"># median of each column of df</span>
+<span class="co">##           a           b           c </span>
+<span class="co">## -0.12040277 -0.05548228  0.03676577</span></code></pre>
 
 </div>
 </div>
@@ -839,7 +907,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -849,6 +917,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
+"link": null,
+"text": null
+},
+"history": {
 "link": null,
 "text": null
 },
@@ -869,7 +941,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

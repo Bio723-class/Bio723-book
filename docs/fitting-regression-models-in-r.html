@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists" />
+  
+  <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
+  
+
+<meta name="author" content="Paul M. Magwene">
+
+
+<meta name="date" content="2019-02-27">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="matrices-in-r.html">
+<link rel="next" href="multiple-regression.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-to-use-these-lecture-notes"><i class="fa fa-check"></i><b>1.1</b> How to use these lecture notes</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-rstudio"><i class="fa fa-check"></i><b>2.2</b> What is RStudio?</a></li>
+<li class="chapter" data-level="2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#entering-commands-in-the-console"><i class="fa fa-check"></i><b>2.3</b> Entering commands in the console</a></li>
+<li class="chapter" data-level="2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#comments"><i class="fa fa-check"></i><b>2.4</b> Comments</a></li>
+<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment"><i class="fa fa-check"></i><b>2.6</b> Variable assignment</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.6.1</b> Valid variable names</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.7</b> Data types</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types"><i class="fa fa-check"></i><b>2.7.1</b> Numeric data types</a></li>
+<li class="chapter" data-level="2.7.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#logical-values"><i class="fa fa-check"></i><b>2.7.2</b> Logical values</a></li>
+<li class="chapter" data-level="2.7.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#character-strings"><i class="fa fa-check"></i><b>2.7.3</b> Character strings</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.8</b> Packages</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.8.1</b> Installing packages from the console</a></li>
+<li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.8.2</b> Install the tidyverse package</a></li>
+<li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.8.3</b> Installing packages from the RStudio dialog</a></li>
+<li class="chapter" data-level="2.8.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.8.4</b> Loading packages with the <code>library()</code> function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>3</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="3.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>3.1</b> R Notebooks</a></li>
+<li class="chapter" data-level="3.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>3.2</b> Creating an R Notebook</a></li>
+<li class="chapter" data-level="3.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>3.3</b> The default R Notebook template</a></li>
+<li class="chapter" data-level="3.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>3.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>3.4.1</b> Non-code blocks</a></li>
+<li class="chapter" data-level="3.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>3.4.2</b> Code blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>3.5</b> Running a code chunk</a></li>
+<li class="chapter" data-level="3.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>3.6</b> Running all code chunks above</a></li>
+<li class="chapter" data-level="3.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>3.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="3.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>3.8</b> Sharing your reproducible R Notebook</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>4</b> Data structures</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures.html"><a href="data-structures.html#vectors"><i class="fa fa-check"></i><b>4.1</b> Vectors</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-structures.html"><a href="data-structures.html#vector-arithmetic"><i class="fa fa-check"></i><b>4.1.1</b> Vector Arithmetic</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-structures.html"><a href="data-structures.html#vector-recycling"><i class="fa fa-check"></i><b>4.1.2</b> Vector recycling</a></li>
+<li class="chapter" data-level="4.1.3" data-path="data-structures.html"><a href="data-structures.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>4.1.3</b> Simple statistical functions for numeric vectors</a></li>
+<li class="chapter" data-level="4.1.4" data-path="data-structures.html"><a href="data-structures.html#indexing-vectors"><i class="fa fa-check"></i><b>4.1.4</b> Indexing Vectors</a></li>
+<li class="chapter" data-level="4.1.5" data-path="data-structures.html"><a href="data-structures.html#comparison-operators-applied-to-vectors"><i class="fa fa-check"></i><b>4.1.5</b> Comparison operators applied to vectors</a></li>
+<li class="chapter" data-level="4.1.6" data-path="data-structures.html"><a href="data-structures.html#combining-indexing-and-comparison-of-vectors"><i class="fa fa-check"></i><b>4.1.6</b> Combining Indexing and Comparison of Vectors</a></li>
+<li class="chapter" data-level="4.1.7" data-path="data-structures.html"><a href="data-structures.html#vector-manipulation"><i class="fa fa-check"></i><b>4.1.7</b> Vector manipulation</a></li>
+<li class="chapter" data-level="4.1.8" data-path="data-structures.html"><a href="data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>4.1.8</b> Vectors from regular sequences</a></li>
+<li class="chapter" data-level="4.1.9" data-path="data-structures.html"><a href="data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>4.1.9</b> Additional functions for working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>4.2</b> Lists</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-structures.html"><a href="data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>4.2.1</b> Length and type of lists</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-structures.html"><a href="data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>4.2.2</b> Indexing lists</a></li>
+<li class="chapter" data-level="4.2.3" data-path="data-structures.html"><a href="data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>4.2.3</b> Naming list elements</a></li>
+<li class="chapter" data-level="4.2.4" data-path="data-structures.html"><a href="data-structures.html#the-operator"><i class="fa fa-check"></i><b>4.2.4</b> The <code>$</code> operator</a></li>
+<li class="chapter" data-level="4.2.5" data-path="data-structures.html"><a href="data-structures.html#changing-and-adding-lists-items"><i class="fa fa-check"></i><b>4.2.5</b> Changing and adding lists items</a></li>
+<li class="chapter" data-level="4.2.6" data-path="data-structures.html"><a href="data-structures.html#combining-lists"><i class="fa fa-check"></i><b>4.2.6</b> Combining lists</a></li>
+<li class="chapter" data-level="4.2.7" data-path="data-structures.html"><a href="data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>4.2.7</b> Converting lists to vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-structures.html"><a href="data-structures.html#data-frames"><i class="fa fa-check"></i><b>4.3</b> Data frames</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-structures.html"><a href="data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>4.3.1</b> Creating a data frame</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-structures.html"><a href="data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>4.3.2</b> Type and class for data frames</a></li>
+<li class="chapter" data-level="4.3.3" data-path="data-structures.html"><a href="data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>4.3.3</b> Length and dimension for data frames</a></li>
+<li class="chapter" data-level="4.3.4" data-path="data-structures.html"><a href="data-structures.html#indexing-and-accessing-data-frames"><i class="fa fa-check"></i><b>4.3.4</b> Indexing and accessing data frames</a></li>
+<li class="chapter" data-level="4.3.5" data-path="data-structures.html"><a href="data-structures.html#logical-indexing-of-data-frames"><i class="fa fa-check"></i><b>4.3.5</b> Logical indexing of data frames</a></li>
+<li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
+<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
+<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="5.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>5.17.2</b> Adding a trend line to a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>6</b> Introduction to <code>dplyr</code></a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.1</b> Reading Excel files</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.2</b> Example data: NC Births</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="6.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="6.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="6.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="6.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="6.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="6.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="6.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="6.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="6.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="6.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
+<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>7.5</b> Merging data frames</a></li>
+<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.6</b> Reshaping data with tidyr</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
+<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.6.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.6.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="7.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.6.6</b> Sorting data frame rows</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Using your tidy data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.7.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.7.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7.3</b> Heat maps</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
+<li class="chapter" data-level="7.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.9</b> Exploring bivariate relationships using “wide” data</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>7.9.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="7.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.9.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="7.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>7.9.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="7.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.9.4</b> A “fancy” figure</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>8</b> Functions and control flow statements</a><ul>
+<li class="chapter" data-level="8.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>8.1.1</b> Function arguments</a></li>
+<li class="chapter" data-level="8.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.1.2</b> Writing functions with optional arguments</a></li>
+<li class="chapter" data-level="8.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.1.3</b> Putting R functions in Scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>8.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>8.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
+<li class="chapter" data-level="8.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>8.2.2</b> for loops</a></li>
+<li class="chapter" data-level="8.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>8.2.3</b> <code>break</code> statement</a></li>
+<li class="chapter" data-level="8.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>8.2.4</b> <code>repeat</code> loops</a></li>
+<li class="chapter" data-level="8.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>8.2.5</b> <code>next</code> statement</a></li>
+<li class="chapter" data-level="8.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>8.2.6</b> while statements</a></li>
+<li class="chapter" data-level="8.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>8.2.7</b> <code>ifelse</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>8.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>8.3.1</b> basic <code>map</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>8.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
+<li class="chapter" data-level="8.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>8.3.3</b> mapping in parallel using <code>map2</code></a></li>
+<li class="chapter" data-level="8.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>8.3.4</b> <code>map</code> variants that return vectors</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="vectors-algebra.html"><a href="vectors-algebra.html"><i class="fa fa-check"></i><b>9</b> Vectors algebra</a><ul>
+<li class="chapter" data-level="9.1" data-path="vectors-algebra.html"><a href="vectors-algebra.html#libraries-2"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
+<li class="chapter" data-level="9.2" data-path="vectors-algebra.html"><a href="vectors-algebra.html#vector-mathematics-in-r"><i class="fa fa-check"></i><b>9.2</b> Vector Mathematics in R</a></li>
+<li class="chapter" data-level="9.3" data-path="vectors-algebra.html"><a href="vectors-algebra.html#simple-statistics-in-vector-form"><i class="fa fa-check"></i><b>9.3</b> Simple statistics in vector form</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="vectors-algebra.html"><a href="vectors-algebra.html#mean"><i class="fa fa-check"></i><b>9.3.1</b> Mean</a></li>
+<li class="chapter" data-level="9.3.2" data-path="vectors-algebra.html"><a href="vectors-algebra.html#mean-centering"><i class="fa fa-check"></i><b>9.3.2</b> Mean centering</a></li>
+<li class="chapter" data-level="9.3.3" data-path="vectors-algebra.html"><a href="vectors-algebra.html#variance-and-standard-deviation"><i class="fa fa-check"></i><b>9.3.3</b> Variance and standard deviation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="vectors-algebra.html"><a href="vectors-algebra.html#covariance-and-correlation"><i class="fa fa-check"></i><b>9.3.4</b> Covariance and correlation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="matrices-in-r.html"><a href="matrices-in-r.html"><i class="fa fa-check"></i><b>10</b> Matrices in R</a><ul>
+<li class="chapter" data-level="10.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#creating-matrices-in-r"><i class="fa fa-check"></i><b>10.1</b> Creating matrices in R</a></li>
+<li class="chapter" data-level="10.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-arithmetic-operations-in-r"><i class="fa fa-check"></i><b>10.2</b> Matrix arithmetic operations in R</a></li>
+<li class="chapter" data-level="10.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#descriptive-statistics-as-matrix-functions"><i class="fa fa-check"></i><b>10.3</b> Descriptive statistics as matrix functions</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#mean-vector-and-matrix"><i class="fa fa-check"></i><b>10.3.1</b> Mean vector and matrix</a></li>
+<li class="chapter" data-level="10.3.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#deviation-matrix"><i class="fa fa-check"></i><b>10.3.2</b> Deviation matrix</a></li>
+<li class="chapter" data-level="10.3.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#covariance-matrix"><i class="fa fa-check"></i><b>10.3.3</b> Covariance matrix</a></li>
+<li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
+<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
+<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
+<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
+<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
+<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
+<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
+<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
+<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
+<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
+<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
+<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
+<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
+<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Biology 723: Statistical Computing for Biologists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="fitting-regression-models-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Fitting Regression Models in R</h1>
+<p>Statistical models are quantitative statements about how we think variables are related to each other.</p>
+<p>Linear models are among the simplest statistical models. In a linear model relating two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the general form of the model can be stated as “I assume that <span class="math inline">\(Y\)</span> can be expressed as a linear function of <span class="math inline">\(X\)</span>”. The process of <em>model fitting</em> is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.</p>
+<p>Linear functions are those whose graphs are straight lines. A linear function of a variable <span class="math inline">\(X\)</span> is usually written as:</p>
+<p><span class="math display">\[
+ \widehat{Y} = f(X) = a + bX
+\]</span></p>
+<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants. In geometric terms <span class="math inline">\(b\)</span> is the <em>slope of the line</em> and <span class="math inline">\(a\)</span> is the value of the function when <span class="math inline">\(X\)</span> is zero (usually the referred to as the “Y-intercept”). The slope tells you have much <span class="math inline">\(Y\)</span> changes per unit change of <span class="math inline">\(X\)</span>.</p>
+<p>There are infinitely many such linear functions of <span class="math inline">\(X\)</span> we could define. Which linear function provides the best fit given our observed values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?</p>
+<div id="regression-terminology" class="section level2">
+<h2><span class="header-section-number">11.1</span> Regression terminology</h2>
+<ul>
+<li><p><strong>Predictors, explanatory, or independent variable</strong> – the variables from which we want to make our prediction.</p></li>
+<li><p><strong>Outcomes, dependent, or response variable</strong> – the variable we are trying to predict in our regression.</p></li>
+</ul>
+</div>
+<div id="the-optimality-criterion-for-least-squares-regression" class="section level2">
+<h2><span class="header-section-number">11.2</span> The optimality criterion for least-squares regression</h2>
+<p>In order to fit a model to data, we have to specify some criterion for judging how well alternate models perform.</p>
+<p>In linear regression, the optimality criterion can be expressed as “Find the linear function, <span class="math inline">\(f(X)\)</span>, that minimizes the following quantity:”</p>
+<p><span class="math display">\[
+\sum (y_i - f(x_i))^2
+\]</span>
+That is, our goal is to find the linear function of <span class="math inline">\(X\)</span> that minimizes the squared deviations in the <span class="math inline">\(Y\)</span> direction.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
+<img src="figures/fig-regression-minimization.png" alt="A graphical representation of the optimality criterion in bivariate least squares linear regression." width="40%" />
+<p class="caption">
+Figure 11.1: A graphical representation of the optimality criterion in bivariate least squares linear regression.
+</p>
+</div>
+</div>
+<div id="vector-geometric-perspective" class="section level2">
+<h2><span class="header-section-number">11.3</span> Vector geometric perspective</h2>
+<p>The figure above illustrates the “variable space” view of linear regression. You’ve also been introduced to the “subject space” representation of regression, in which we can visualize regression as a projection operation.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
+<img src="figures/fig-vector-regression.png" alt="A vector representation of bivariate linear regression." width="40%" />
+<p class="caption">
+Figure 11.2: A vector representation of bivariate linear regression.
+</p>
+</div>
+<p>The least-squares optimality criterion is to find the vector <span class="math inline">\(\vec{\widehat{Y}}\)</span> that minimizes the residual vector <span class="math inline">\(\vec{e}\)</span>.</p>
+</div>
+<div id="solution-for-the-least-squares-criterion" class="section level2">
+<h2><span class="header-section-number">11.4</span> Solution for the least-squares criterion</h2>
+<p>With a little calculus and linear algebra one can show that the values of <span class="math inline">\(b\)</span> (slope) and <span class="math inline">\(a\)</span> (intercept) that minimize the sum of squared deviations described above are:</p>
+<p><span class="math display">\[\begin{align}
+b &amp;= \frac{s_{xy}}{s^2_x} = r_{xy}\frac{s_y}{s_x}\\
+\\
+a &amp;= \overline{Y} - b\overline{X}
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(r_{xy}\)</span> is the correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.</p>
+<p>In vector geometric terms, we estimate the regression coefficient for mean centered vectors as:</p>
+<p><span class="math display">\[
+b = \frac{\vec{x} \cdot \vec{y}}{\vec{x} \cdot \vec{x}}
+\]</span></p>
+</div>
+<div id="libraries-3" class="section level2">
+<h2><span class="header-section-number">11.5</span> Libraries</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span>
+                  <span class="co"># install if you don&#39;t already have it</span></code></pre>
+</div>
+<div id="illustrating-linear-regression-with-simulated-data" class="section level2">
+<h2><span class="header-section-number">11.6</span> Illustrating linear regression with simulated data</h2>
+<p>To illustrate how regression works, we’ll use a simulated data set where we specify the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Using a simulation is desirable because it allows us to know what the “true” underlying model that relates <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is, so we can evaluate how well we do in terms of recovering the model.</p>
+<p>Let’s generate two vectors representing the variable, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, where <span class="math inline">\(Y\)</span> is a function of <span class="math inline">\(X\)</span> plus some independent noise. As specified below, the “true” model is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_y\)</span> where <span class="math inline">\(\epsilon_y\)</span> is a noise term.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this seeds our random number generator</span>
+<span class="co"># by setting a seed, we can make random number generation reproducible</span>
+<span class="kw">set.seed</span>(<span class="dv">20190227</span>)  
+
+npts &lt;-<span class="st"> </span><span class="dv">50</span>
+X &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> npts) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts)
+a &lt;-<span class="st"> </span><span class="fl">1.0</span>
+b &lt;-<span class="st"> </span><span class="fl">1.5</span>
+Y &lt;-<span class="st"> </span>b<span class="op">*</span>X <span class="op">+</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts, <span class="dt">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = 1.5X + 1.0 + noise</span>
+
+df.xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y)</code></pre>
+<p>Having generated some simulated data, let’s visualize it.</p>
+<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
+<span class="kw">ggMarginal</span>(p, <span class="dt">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">bins =</span> <span class="dv">11</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-342-1.png" width="576" /></p>
+</div>
+<div id="specifying-regression-models-in-r" class="section level2">
+<h2><span class="header-section-number">11.7</span> Specifying Regression Models in R</h2>
+<p>As one would expect, R has a built-in function for fitting linear regression models. The function <code>lm()</code> can be used not only to carry out bivariate linear regression but a wide range of linear models, including multiple regression, analysis of variance, analysis of covariance, and others.</p>
+<pre class="sourceCode r"><code class="sourceCode r">fit.xy &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, df.xy)</code></pre>
+<p>The first argument to <code>lm</code> is an R “formula”, the second argument is a data frame.</p>
+<p>Recall that formulas are R’s way of specifying models, though they find other uses as well (e.g. we saw the formula syntax when we introduced the <code>facet_wrap</code> and <code>facet_grid</code> functions from ggplot, and in the context of ANOVA). The general form of a formula in R is <code>response variable ~ explanatory variables</code>. In the code example above, we have only a single explanatory variable, and thus our response variable is Y and our explanatory variable is X.</p>
+<p>The <code>lm</code> function returns a list with a number of different components. The ones of most interest to us are <code>fitted.values</code>, <code>coefficients</code>, <code>residuals</code>, and (see the <code>lm</code> documentation for full details.)</p>
+<pre class="sourceCode r"><code class="sourceCode r">fit.xy
+<span class="co">## </span>
+<span class="co">## Call:</span>
+<span class="co">## lm(formula = Y ~ X, data = df.xy)</span>
+<span class="co">## </span>
+<span class="co">## Coefficients:</span>
+<span class="co">## (Intercept)            X  </span>
+<span class="co">##       1.819        1.198</span></code></pre>
+<p>Calling <code>summary</code> on a fit model provides more detailed output:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit.xy)
+<span class="co">## </span>
+<span class="co">## Call:</span>
+<span class="co">## lm(formula = Y ~ X, data = df.xy)</span>
+<span class="co">## </span>
+<span class="co">## Residuals:</span>
+<span class="co">##    Min     1Q Median     3Q    Max </span>
+<span class="co">## -6.118 -1.138  0.338  1.203  3.260 </span>
+<span class="co">## </span>
+<span class="co">## Coefficients:</span>
+<span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">## (Intercept)   1.8193     0.6557   2.775  0.00785 ** </span>
+<span class="co">## X             1.1976     0.2081   5.755 5.93e-07 ***</span>
+<span class="co">## ---</span>
+<span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="co">## </span>
+<span class="co">## Residual standard error: 1.985 on 48 degrees of freedom</span>
+<span class="co">## Multiple R-squared:  0.4083, Adjusted R-squared:  0.3959 </span>
+<span class="co">## F-statistic: 33.12 on 1 and 48 DF,  p-value: 5.93e-07</span></code></pre>
+<p>As we saw in previous R functions for implementing statistical test, the model object is actually a list-like object with multiple fields:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(fit.xy)
+<span class="co">## [1] &quot;list&quot;</span>
+
+<span class="kw">names</span>(fit.xy)
+<span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span>
+<span class="co">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span>
+<span class="co">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></code></pre>
+<div id="fitted-values" class="section level3">
+<h3><span class="header-section-number">11.7.1</span> Fitted values</h3>
+<p>The component <code>fitted.values</code> gives the predicted values of <span class="math inline">\(Y\)</span> (<span class="math inline">\(\hat{Y}\)</span> in the equations above) for each observed value of <span class="math inline">\(X\)</span>. We can plot these predicted values of <span class="math inline">\(Y\)</span>, as shown below. Notice how the predicted values all fall on a line (the regression line itself!)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span><span class="st">                           </span><span class="co"># observed data</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> fit.xy<span class="op">$</span>fitted.values),  <span class="co"># predicted data</span>
+             <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> fit.xy<span class="op">$</span>fitted.values),
+               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.25</span>)</code></pre>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
+<img src="bio723-book_files/figure-html/unnamed-chunk-347-1.png" alt="Observed (black) and predicted (red) values in a linear regression of Y on X.  Dashed lines indicate the residuals from the regression." width="576" />
+<p class="caption">
+Figure 11.3: Observed (black) and predicted (red) values in a linear regression of Y on X. Dashed lines indicate the residuals from the regression.
+</p>
+</div>
+</div>
+<div id="getting-the-model-coefficients" class="section level3">
+<h3><span class="header-section-number">11.7.2</span> Getting the model coefficients</h3>
+<p>The <code>coefficients</code> components gives the value of the model parameters, namely the intercept and slope.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>fit.xy<span class="op">$</span>coefficients
+<span class="co">## (Intercept)           X </span>
+<span class="co">##    1.819327    1.197603</span></code></pre>
+<p>As shown above, the estimated slope is 1.1976026 and the estimated intercept is 1.8193273. The model estimated by our linear regression is thus <span class="math inline">\(\widehat{Y} = 0.769 + 1.55X\)</span>.</p>
+<p>Recall that because this is a synthetic example, we know the “true” underlying model, which is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_x\)</span>. On the face of it, it appears our regression model is doing a decent job of estimating the true model.</p>
+<p>With this information in hand we can draw the regression line as so:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span><span class="st">     </span><span class="co"># observed data</span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">2</span>]],
+              <span class="dt">intercept =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">1</span>]],
+              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-349-1.png" width="576" /></p>
+<p>Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, <code>geom_smooth</code>, that will fit a linear model for us and generate the corresponding regression plot.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-350-1.png" width="576" /></p>
+<p>By default, <code>geom_smooth</code> draws confidence intervals for the regression model (the shaded gray area around the regression line). Note that confidence intervals for a linear regression model are wider far away from the mean values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+<div id="residuals" class="section level2">
+<h2><span class="header-section-number">11.8</span> Residuals</h2>
+<p>Residuals are the difference between the observed values of <span class="math inline">\(Y\)</span> and the predicted values. You can think of residuals as the proportion of <span class="math inline">\(Y\)</span> unaccounted for by the model.</p>
+<p><span class="math display">\[
+\mbox{residuals} = Y - \hat{Y}
+\]</span></p>
+<p>The previous figure showed the residuals as dashed lines connected the observed and predicted values. A common way to depict the residuals, is to plot the predictor values versus the corresponding residual value, like so:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fit.xy<span class="op">$</span>residuals)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-351-1.png" width="576" /></p>
+<p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of <span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="regression-as-sum-of-squares-decomposition" class="section level2">
+<h2><span class="header-section-number">11.9</span> Regression as sum-of-squares decomposition</h2>
+<p>Regression can be viewed as a decomposition of the sum-of-squared deviations..</p>
+<p><span class="math display">\[
+ss(Y) = ss(\hat{Y}) + ss(\mbox{residuals})
+\]</span></p>
+<p>Let’s check this for our example:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>ss.Y &lt;-<span class="st"> </span><span class="kw">sum</span>((Y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y))<span class="op">^</span><span class="dv">2</span>)
+<span class="op">&gt;</span><span class="st"> </span>ss.Yhat &lt;-<span class="st"> </span><span class="kw">sum</span>((fit.xy<span class="op">$</span>fitted.values <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y))<span class="op">^</span><span class="dv">2</span>)
+<span class="op">&gt;</span><span class="st"> </span>ss.residuals &lt;-<span class="st"> </span><span class="kw">sum</span>(fit.xy<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)
+<span class="op">&gt;</span><span class="st"> </span>ss.Y
+<span class="co">## [1] 319.5811</span>
+<span class="op">&gt;</span><span class="st"> </span>ss.Yhat <span class="op">+</span><span class="st"> </span>ss.residuals
+<span class="co">## [1] 319.5811</span></code></pre>
+</div>
+<div id="variance-explained-by-a-regression-model" class="section level2">
+<h2><span class="header-section-number">11.10</span> Variance “explained” by a regression model</h2>
+<p>We can use the sum-of-square decomposition to understand the relative proportion of variance “explained” (accounted for) by the regression model.</p>
+<p>We call this quantity the “Coefficient of Determination”, designated <span class="math inline">\(R^2\)</span>.<br />
+<span class="math display">\[
+R^2 = \left( 1 - \frac{SS_{residuals}}{SS_{total}} \right)
+\]</span></p>
+<p>For this particular example we can estimate <span class="math inline">\(R^2\)</span> as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="fl">1.0</span> <span class="op">-</span><span class="st"> </span>(ss.residuals<span class="op">/</span>ss.Y)
+R2
+<span class="co">## [1] 0.4082507</span></code></pre>
+<p>In this particular example, we find our linear model accounts for about 63% of the variance in <span class="math inline">\(Y\)</span>. Note that the coefficient of determination is also reported when you apply the <code>summary</code> function to a linear model.</p>
+</div>
+<div id="broom-a-library-for-converting-model-results-into-data-frames" class="section level2">
+<h2><span class="header-section-number">11.11</span> Broom: a library for converting model results into data frames</h2>
+<p>The model fit object we got back when we used the <code>lm</code> function to carry out linear regression, carries lots of useful information it isn’t a particularly “tidy” way to access the data. The R package Broom converts "statistical analysis objects from R into tidy data frames, so that they can more easily be combined, reshaped and otherwise processed with tools like ‘dplyr’, ‘tidyr’ and ‘ggplot2’. The discussion of Broom below is drawn from the <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom.html">Introduction to Broom</a></p>
+<p><strong>If you haven’t already done so, install the <code>broom</code> package before proceeding.</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)</code></pre>
+<p>There are three <code>broom</code> functions that are particularly useful for our purposes. They are:</p>
+<ol style="list-style-type: decimal">
+<li><code>tidy</code> – constructs a data frame that summarizes the model’s statistical findings.</li>
+<li><code>augment</code> – add columns to the original data that was modeled. This includes predictions, residuals, and cluster assignments.</li>
+<li><code>glance</code> – construct a concise one-row summary of the model.</li>
+</ol>
+<div id="broomtidy" class="section level3">
+<h3><span class="header-section-number">11.11.1</span> <code>broom::tidy</code></h3>
+<p><code>tidy</code> applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values. For now we’re just interested in the estiamtes, the other values will be described in detail when we get to statistical inference.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(fit.xy)
+<span class="co">## # A tibble: 2 x 5</span>
+<span class="co">##   term        estimate std.error statistic      p.value</span>
+<span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span>
+<span class="co">## 1 (Intercept)    1.819    0.6557     2.775 0.007853    </span>
+<span class="co">## 2 X              1.198    0.2081     5.755 0.0000005930</span></code></pre>
+</div>
+<div id="broomaugment" class="section level3">
+<h3><span class="header-section-number">11.11.2</span> <code>broom::augment</code></h3>
+<p><code>augment</code> creates a data frame that combines the original data with related information from the model fit.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.xy.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(fit.xy, df.xy)
+<span class="kw">head</span>(df.xy.augmented)
+<span class="co">## # A tibble: 6 x 9</span>
+<span class="co">##        X      Y .fitted .se.fit  .resid    .hat .sigma  .cooksd .std.resid</span>
+<span class="co">##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">## 1 0.1144 3.049    1.956  0.6343  1.093  0.1021   1.999 0.01921      0.5812</span>
+<span class="co">## 2 1.023  3.630    3.045  0.4722  0.5853 0.05659  2.004 0.002765     0.3036</span>
+<span class="co">## 3 0.3076 0.9912   2.188  0.5985 -1.196  0.09092  1.998 0.01999     -0.6322</span>
+<span class="co">## 4 1.901  3.357    4.095  0.3430 -0.7386 0.02986  2.003 0.002196    -0.3778</span>
+<span class="co">## 5 2.504  1.576    4.818  0.2897 -3.242  0.02130  1.948 0.02966     -1.651 </span>
+<span class="co">## 6 1.683  4.492    3.835  0.3708  0.6570 0.03490  2.004 0.002053     0.3369</span></code></pre>
+<p>Now, in addition to the <code>X</code> and <code>Y</code> variables of the original data, we have columns like <code>.fitted</code> (value of Y predicted by the model for the corresponding value of X), <code>.resid</code> (difference between the actual Y and the predicted value), and a variety of other information for evalulating model uncertainty.</p>
+<p>One thing we can do with this “augmented” data frame is to use it to better visualize and explore the model. For example, if we wanted to generate a figure highlighting the deviations from the model using vertical lines emanating from the regression line, we could do something like this:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, Y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>,<span class="dt">se=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> .fitted), <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-357-1.png" width="576" /></p>
+<p>An another example, we can recreate our residual plot using the augmented data frame as so:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, .resid)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Residual plot for synthetic data example.&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-358-1.png" width="576" /></p>
+</div>
+<div id="broomglance" class="section level3">
+<h3><span class="header-section-number">11.11.3</span> <code>broom::glance</code></h3>
+<p><code>glance()</code> provides summary information about the goodness of fit of the model. Most relevant for our current discussion is the column giving the coefficient of determination (<code>r.squared</code>):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(fit.xy)
+<span class="co">## # A tibble: 1 x 11</span>
+<span class="co">##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC</span>
+<span class="co">##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">## 1    0.4083        0.3959 1.985     33.12 5.930e-7     2 -104.2 214.4 220.1</span>
+<span class="co">## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</span></code></pre>
+</div>
+</div>
+<div id="example-predicting-lion-age-based-on-nose-color" class="section level2">
+<h2><span class="header-section-number">11.12</span> Example: Predicting lion age based on nose color</h2>
+<p>Having walked through a simulation example, let’s now turn to a real world data set. A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions. To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion), giving the bivariate relationship (and fitted model) shown below:</p>
+<pre class="sourceCode r"><code class="sourceCode r">lions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-course-notes/raw/master/datasets/ABD-lion-noses.csv&quot;</span>)
+
+<span class="kw">ggplot</span>(lions, <span class="kw">aes</span>(<span class="dt">x =</span> proportionBlack, <span class="dt">y =</span> ageInYears)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-360-1.png" width="576" /></p>
+<p>By eye, the linear model looks like a pretty good fit. Let’s take a look at the quantitative values of the regression model, using the various Broom functions to produce nice output.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lion.model &lt;-<span class="st"> </span><span class="kw">lm</span>(ageInYears <span class="op">~</span><span class="st"> </span>proportionBlack, <span class="dt">data =</span> lions)
+<span class="kw">tidy</span>(lion.model)
+<span class="co">## # A tibble: 2 x 5</span>
+<span class="co">##   term            estimate std.error statistic       p.value</span>
+<span class="co">##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;</span>
+<span class="co">## 1 (Intercept)       0.8790    0.5688     1.545 0.1328       </span>
+<span class="co">## 2 proportionBlack  10.65      1.510      7.053 0.00000007677</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lion.model)
+<span class="co">## # A tibble: 1 x 11</span>
+<span class="co">##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC</span>
+<span class="co">##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">## 1    0.6238        0.6113 1.669     49.75 7.677e-8     2 -60.76 127.5 131.9</span>
+<span class="co">## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</span></code></pre>
+<p>We then augment our data set with information from the model fit and plot a residual plot:</p>
+<pre class="sourceCode r"><code class="sourceCode r">lions.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(lion.model, lions)
+<span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(proportionBlack, .resid)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-363-1.png" width="576" /></p>
+<p>From this plot, there may be some indication of greater variance of residuals for larger values of the predictor variable.</p>
+<p>Let’s check how normal the residuals look using a QQ-plot. Here we construct the QQ-plot using “standardized residuals” which are just z-scores for the residuals.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(<span class="dt">sample =</span> .std.resid)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_qq</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-364-1.png" width="576" /></p>
+<p>Based on the QQ-plot, the residuals seem to diverge somewhat from a normal distirbution, as there’s noticeable curvature in the QQ-plot. When we test for the normality of the residuals using Shapiro-Wilk’s test for normality, we fail to reject the null hypothesis of normality at a significance threshold of <span class="math inline">\(\alpha=0.05\)</span>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(lions.augmented<span class="op">$</span>.resid)
+<span class="co">## </span>
+<span class="co">##  Shapiro-Wilk normality test</span>
+<span class="co">## </span>
+<span class="co">## data:  lions.augmented$.resid</span>
+<span class="co">## W = 0.93879, p-value = 0.0692</span></code></pre>
+<p>Even though we failed to reject the null hypothesis of normality for the residuals, but the P-value is very close to significance, suggesting some caution in applying the linear model.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="matrices-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

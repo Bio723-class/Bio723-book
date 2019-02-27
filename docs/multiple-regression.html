@@ -918,37 +918,85 @@ experimentation or, more rigorously by cross-validation.</p>
 <span class="co">## 4 CBS/Times        9/10-15/11 1452 A       43         50 7        </span>
 <span class="co">## 5 Marist/McClatchy 9/13-14/11 825 RV       39         52 9        </span>
 <span class="co">## 6 Rasmussen        9/11-13/11 1500 LV      45         54 -</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">polls &lt;-
-<span class="st">  </span>polls <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pollnum =</span> <span class="kw">rev</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(Approve)))
+<p>Notice that the <code>Dates</code> column is not very tidy. Each “date” is actually a range of dates of the form <code>Month/DayStart-DayEnd/Year</code> (e.g. “9/1/09” is September 01, 2009). Even nastier, some dates are in the form <code>Month/Day/Year</code> (only a single day) or <code>MonthStart/DayStart-MonthEnd/DayEnd/Year</code> (e.g. “2/26-3/1/11” is February 26,2011 to March 01, 2011) . Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we’re going to use the <code>tidyr::extract()</code> function to employ regular expressions (regex) to parse this complicated data field into it’s constituent parts. For more details on regular expression see the <a href="https://github.com/rstudio/cheatsheets/raw/master/regex.pdf">R Regular Expession Cheat Sheet</a> and <a href="https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions">R for Data Science</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">polls &lt;-<span class="st"> </span>
+<span class="st">  </span>polls <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>
+<span class="st">  </span><span class="co"># first separate left most and right most fields as month and year respectively</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">extract</span>(<span class="st">&quot;Dates&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;month&quot;</span>, <span class="st">&quot;day.range&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">regex=</span><span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)/(.+)/(</span><span class="ch">\\</span><span class="st">d+$)&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="co"># now deal with the complicated middle field. For simplicities sake we&#39;re just</span>
+<span class="st">  </span><span class="co"># going to focus on extracting the start day</span>
+<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">extract</span>(<span class="st">&quot;day.range&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;day.start&quot;</span>, <span class="st">&quot;day.other&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)(.+)&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="co"># finally convert YY to 20YY</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2000</span> <span class="op">+</span><span class="st"> </span>year) 
 
-<span class="kw">ggplot</span>(polls, <span class="kw">aes</span>(<span class="dt">x =</span> pollnum, <span class="dt">y =</span> Approve)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-397-1.png" width="576" /></p>
-<p>We can fit the LOESS as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r">loess.approval &lt;-<span class="st"> </span><span class="kw">loess</span>(Approve <span class="op">~</span><span class="st"> </span>pollnum, <span class="dt">data =</span> polls)
-<span class="kw">summary</span>(loess.approval)
-<span class="co">## Call:</span>
-<span class="co">## loess(formula = Approve ~ pollnum, data = polls)</span>
+<span class="kw">head</span>(polls)
+<span class="co">## # A tibble: 6 x 9</span>
+<span class="co">##   Pollster month day.start day.other  year `N/Pop` Approve Disapprove</span>
+<span class="co">##   &lt;chr&gt;    &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">## 1 Rasmuss…     9        17 -19        2011 1500 LV      46         52</span>
+<span class="co">## 2 Rasmuss…     9        14 -16        2011 1500 LV      45         55</span>
+<span class="co">## 3 Gallup       9        13 -15        2011 1500 A       39         52</span>
+<span class="co">## 4 CBS/Tim…     9        10 -15        2011 1452 A       43         50</span>
+<span class="co">## 5 Marist/…     9        13 -14        2011 825 RV       39         52</span>
+<span class="co">## 6 Rasmuss…     9        11 -13        2011 1500 LV      45         54</span>
+<span class="co">## # … with 1 more variable: Undecided &lt;chr&gt;</span></code></pre>
+<p>For the next steps we’ll need the <code>lubridate</code> library (install if needed):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lubridate)
 <span class="co">## </span>
-<span class="co">## Number of Observations: 1364 </span>
-<span class="co">## Equivalent Number of Parameters: 4.34 </span>
-<span class="co">## Residual Standard Error: 3.416 </span>
-<span class="co">## Trace of smoother matrix: 4.72  (exact)</span>
+<span class="co">## Attaching package: &#39;lubridate&#39;</span>
+<span class="co">## The following object is masked from &#39;package:base&#39;:</span>
 <span class="co">## </span>
-<span class="co">## Control settings:</span>
-<span class="co">##   span     :  0.75 </span>
-<span class="co">##   degree   :  2 </span>
-<span class="co">##   family   :  gaussian</span>
-<span class="co">##   surface  :  interpolate      cell = 0.2</span>
-<span class="co">##   normalize:  TRUE</span>
-<span class="co">##  parametric:  FALSE</span>
-<span class="co">## drop.square:  FALSE</span></code></pre>
-<p>Let’s draw the loess in ggplot:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(polls, <span class="kw">aes</span>(<span class="dt">x =</span> pollnum, <span class="dt">y =</span> Approve)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>)</code></pre>
+<span class="co">##     date</span>
+
+polls &lt;-
+<span class="st">  </span>polls <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(<span class="dt">year =</span> year, <span class="dt">month=</span>month, <span class="dt">day =</span> day.start))
+
+<span class="kw">head</span>(polls)
+<span class="co">## # A tibble: 6 x 10</span>
+<span class="co">##   Pollster month day.start day.other  year `N/Pop` Approve Disapprove</span>
+<span class="co">##   &lt;chr&gt;    &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">## 1 Rasmuss…     9        17 -19        2011 1500 LV      46         52</span>
+<span class="co">## 2 Rasmuss…     9        14 -16        2011 1500 LV      45         55</span>
+<span class="co">## 3 Gallup       9        13 -15        2011 1500 A       39         52</span>
+<span class="co">## 4 CBS/Tim…     9        10 -15        2011 1452 A       43         50</span>
+<span class="co">## 5 Marist/…     9        13 -14        2011 825 RV       39         52</span>
+<span class="co">## 6 Rasmuss…     9        11 -13        2011 1500 LV      45         54</span>
+<span class="co">## # … with 2 more variables: Undecided &lt;chr&gt;, date &lt;date&gt;</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">polls.plot &lt;-
+<span class="st">  </span>polls <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> Approve)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Approval Rating&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Barack Obama&#39;s Approval Ratings, 2008-2011&quot;</span>)
+
+polls.plot</code></pre>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-399-1.png" width="576" /></p>
+<p>We can fit the LOESS as so, and get back the predicted values using the <code>predict()</code> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">loess.approval &lt;-<span class="st"> </span><span class="kw">loess</span>(Approve <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(date), <span class="dt">data =</span> polls)
+loess.predicted.values &lt;-<span class="st"> </span><span class="kw">predict</span>(loess.approval)
+<span class="kw">head</span>(loess.predicted.values)
+<span class="co">## [1] 44.55653 44.59349 44.60572 44.64216 44.60572 44.63006</span></code></pre>
+<p>Usually we’ll want to visualize the LOESS regression, which we can conveniently do with <code>ggplot::geom_smooth</code> without having to explicitly calculate the LOESS:</p>
+<pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-401-1.png" width="576" /></p>
+<p>Here’s the same data fit with a smaller <code>span</code> (the paramater that controls the “local neighborhood” size in LOESS):</p>
+<pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">span=</span><span class="fl">0.1</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-402-1.png" width="576" /></p>
+<p>The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.</p>
+<p>For example, we can zoom in on 2011:</p>
+<pre class="sourceCode r"><code class="sourceCode r">polls.plot <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">span=</span><span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="kw">ymd</span>(<span class="dv">20110101</span>), <span class="kw">ymd</span>(<span class="dv">20110901</span>)), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">35</span>,<span class="dv">65</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="dt">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-403-1.png" width="576" /></p>
+<p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.</p>
 
 </div>
 </div>

@@ -509,27 +509,81 @@ polls <- read_delim('https://github.com/Bio723-class/example-datasets/raw/master
 head(polls)
 ```
 
+Notice that the `Dates` column is not very tidy.  Each "date" is actually a range of dates of the form `Month/DayStart-DayEnd/Year` (e.g. "9/1/09" is September 01, 2009).  Even nastier, some dates are in the form `Month/Day/Year` (only a single day) or `MonthStart/DayStart-MonthEnd/DayEnd/Year` (e.g. "2/26-3/1/11" is February 26,2011 to March 01, 2011) .  Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we're going to use the `tidyr::extract()` function to employ regular expressions (regex) to parse this complicated data field into it's constituent parts.  For more details on regular expression see the [R Regular Expession Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/regex.pdf) and [R for Data Science](https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions).
+
 
 ```{r}
+polls <- 
+  polls %>% 
+  
+  # first separate left most and right most fields as month and year respectively
+  tidyr::extract("Dates", c("month", "day.range", "year"), regex="(\\d+)/(.+)/(\\d+$)", convert = TRUE) %>%
+  
+  # now deal with the complicated middle field. For simplicities sake we're just
+  # going to focus on extracting the start day
+  tidyr::extract("day.range", c("day.start", "day.other"), regex = "(\\d+)(.+)", convert = TRUE) %>%
+  
+  # finally convert YY to 20YY
+  mutate(year = 2000 + year) 
+
+head(polls)
+```
+
+For the next steps we'll need the `lubridate` library (install if needed):
+
+```{r}
+library(lubridate)
+
 polls <-
   polls %>%
-  mutate(pollnum = rev(1:length(Approve)))
+  mutate(date = make_date(year = year, month=month, day = day.start))
 
-ggplot(polls, aes(x = pollnum, y = Approve)) + 
-  geom_point()
+head(polls)
 ```
-
-We can fit the LOESS as so:
-```{r}
-loess.approval <- loess(Approve ~ pollnum, data = polls)
-summary(loess.approval)
-```
-
-Let's draw the loess in ggplot:
 
 ```{r}
-ggplot(polls, aes(x = pollnum, y = Approve)) + 
-  geom_point(alpha=0.5) +
-  geom_smooth(color='red', method="loess")
+polls.plot <-
+  polls %>%
+  ggplot(aes(x = date, y = Approve)) +
+  geom_point(alpha=0.5, pch=1) + 
+  labs(x = "Date", y = "Approval Rating",
+       title = "Barack Obama's Approval Ratings, 2008-2011")
+
+polls.plot
 ```
 
+
+We can fit the LOESS as so, and get back the predicted values using the `predict()` function:
+```{r}
+loess.approval <- loess(Approve ~ as.numeric(date), data = polls)
+loess.predicted.values <- predict(loess.approval)
+head(loess.predicted.values)
+```
+
+Usually we'll want to visualize the LOESS regression, which we can conveniently do with `ggplot::geom_smooth` without having to explicitly calculate the LOESS:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE)
+```
+
+Here's the same data fit with a smaller `span` (the paramater that controls the "local neighborhood" size in LOESS):
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1)
+```
+
+The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.
+
+For example, we can zoom in on 2011:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1) + 
+  coord_cartesian(xlim=c(ymd(20110101), ymd(20110901)), ylim=c(35,65)) + 
+  scale_x_date(date_breaks="1 month", date_label="%B") + 
+  labs(title="Barack Obama's Approval Ratings, Jan - Sep 2011")
+```
+
+Increased  approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (https://www.cnbc.com/id/41139968).  The spike apparent in early May coincides with the death of Osama Bin Laden.  You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.

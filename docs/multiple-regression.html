@@ -878,7 +878,7 @@ vec.angle &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) { 
 <h2><span class="header-section-number">12.17</span> LOESS Models</h2>
 <p>LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
 modeling technique that fits a curve (or surface) to a set of data using
-a large number of local regressions. Local weighted regressions are fit
+a large number of local linear regressions. Local weighted regressions are fit
 at numerous regions across the data range, using a weighting function
 that drops off as you move away from the center of the fitting region
 (hence the "local aspect). LOESS combines the simplicity of least
@@ -894,8 +894,11 @@ sampling in order to produce robust fits.</p>
 where <span class="math inline">\(d\)</span> is the degree of the polynomial (usually 1 or 2) and <span class="math inline">\(w_k\)</span>
 is a weight function. The most common choice of weighting function is
 called the “tri-cube” function as is defined as:</p>
-<p><span class="math display">\[w(x) = (1-|x|^3)^3, \mbox{for}\ |x| \lt 1\]</span></p>
-<p><span class="math display">\[= 0, \mbox{for}\ |x| \geq 1\]</span></p>
+<p><span class="math display">\[\begin{align*}
+w_k(x_i) &amp;= (1-|x_i|^3)^3, \mbox{for}\ |x_i| \lt 1 \\
+     &amp;= 0, \mbox{for}\ |x_i| \geq 1
+\end{align*}\]</span>
+where <span class="math inline">\(|x_i|\)</span> is the normalized distance (as determined by the span parameter of the LOESS model) of the observation <span class="math inline">\(x_i\)</span> from the focal observation <span class="math inline">\(x_k\)</span>.</p>
 <p>The primary parameter that a user must decide on when using LOESS is the
 size of the neighborhood function to apply (i.e. over what distance
 should the weight function drop to zero). This is referred to as the

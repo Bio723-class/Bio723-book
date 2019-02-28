@@ -468,12 +468,12 @@ As these calculation illustrate, the change in the regression plane in the jitte
 
 LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
 modeling technique that fits a curve (or surface) to a set of data using
-a large number of local regressions. Local weighted regressions are fit
+a large number of local linear regressions. Local weighted regressions are fit
 at numerous regions across the data range, using a weighting function
 that drops off as you move away from the center of the fitting region
 (hence the "local aspect). LOESS combines the simplicity of least
 squares fitting with the flexibility of non-linear techniques and
-doesn’t require the user to specify a functional form ahead of time in
+doesn't require the user to specify a functional form ahead of time in
 order to fit the model. It does however require relatively dense
 sampling in order to produce robust fits.
 
@@ -486,10 +486,11 @@ where $d$ is the degree of the polynomial (usually 1 or 2) and $w_k$
 is a weight function. The most common choice of weighting function is
 called the "tri-cube" function as is defined as: 
 
-\[w(x) = (1-|x|^3)^3, \mbox{for}\ |x| \lt 1\]
-
-\[= 0, \mbox{for}\ |x| \geq 1\]
-
+\begin{align*}
+w_k(x_i) &= (1-|x_i|^3)^3, \mbox{for}\ |x_i| \lt 1 \\
+     &= 0, \mbox{for}\ |x_i| \geq 1
+\end{align*}
+where $|x_i|$ is the normalized distance (as determined by the span parameter of the LOESS model) of the observation $x_i$ from the focal observation $x_k$.
 
 The primary parameter that a user must decide on when using LOESS is the
 size of the neighborhood function to apply (i.e. over what distance

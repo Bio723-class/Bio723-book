@@ -6,7 +6,7 @@
 ```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(broom)
-library(GGally)  # provides ggpairs
+library(GGally)
 library(cowplot)
 ```
 
@@ -17,26 +17,36 @@ In lecture we introduced the notion that pre-multiplying a vector, $x$, by a mat
 For illustration let's generate a 2D vector representing the coordinates of points on the sine function.
 
 ```{r}
-sin.xy <- data_frame(x =  seq(0,2*pi, length.out = 50) - pi,
+sin.xy <- data_frame(x = seq(0,2*pi, length.out = 50) - pi,
                      y = sin(x))
 
 ggplot(sin.xy, aes(x = x, y= y)) + geom_point()
 ```
 
-Let's start with some of the transformations we discussed in lecture. First we look at reflection in the x-axis:
+Let's start with some of the transformations we discussed in lecture. First we look at reflection about the x-axis:
 
 ```{r}
-A <- matrix(c(1, 0, 0, -1), byrow=TRUE, nrow=2)
+# this matrix represents reflection about the x-axis
+A <- matrix(c(1,  0,
+              0, -1), byrow=TRUE, nrow=2)
+
+# apply this transformation to each of the points in our vector `sin.xy`
 Ax <- A %*% t(sin.xy)
 
+# creae a data frame from this transformation
 Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
-ggplot(Ax.df, aes(x = x, y= y)) + geom_point()
+
+# plot the transformed points
+ggplot(Ax.df, aes(x = x, y = y)) + geom_point()
 ```
 
-Now shear:
+If instead we apply a matrix that represents a shear in the x-axis we get:
 
 ```{r}
-A <- matrix(c(1, 1.5, 0, 1), byrow=TRUE, nrow=2)
+# shear parallel to the x-axis
+A <- matrix(c(1, 1.5, 
+              0, 1), byrow=TRUE, nrow=2)
+
 Ax <- A %*% t(sin.xy)
 
 Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
@@ -46,7 +56,10 @@ ggplot(Ax.df, aes(x = x, y= y)) + geom_point()
 And finally rotation:
 
 ```{r}
-A <- matrix(c(cos(pi/2), -sin(pi/2), sin(pi/2), cos(pi/2)), byrow=TRUE, nrow=2)
+# rotation by pi/2 radians (90 degrees)
+A <- matrix(c(cos(pi/2), -sin(pi/2), 
+              sin(pi/2), cos(pi/2)), byrow=TRUE, nrow=2)
+
 Ax <- A %*% t(sin.xy)
 
 Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
@@ -57,94 +70,136 @@ ggplot(Ax.df, aes(x = x, y= y)) + geom_point()
 ## Eigenanalysis in R
 
 
-As we discussed in lecture, the eigenvectors of a square matrix,
-$\mathbf{A}$, point in the directions that are unchanged by the
-transformation specified by $\mathbf{A}$. The following relationships
-relate $\mathbf{A}$ to it's eigenvectors and eigenvalues:
+As we discussed in lecture, the eigenvectors of a square matrix, $\mathbf{A}$, point in the directions that are unchanged by the transformation specified by $\mathbf{A}$. 
+
+Let's start with yet another transformation matrix, $\mathbf{A}$, the effects of which are illustrated below:
+
+```{r}
+A <- matrix(c(1.0, 1.5,
+              0,   2.0), byrow=TRUE, nrow=2)
+
+Ax <- A %*% t(sin.xy)
+Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
+
+ggplot(mapping=aes(x = x, y = y)) + 
+  geom_point(data = sin.xy, shape=16, alpha=0.5) +
+  geom_point(data = Ax.df, shape=17, alpha=0.5, color='red') 
+```
+
+This transformation is a combination of stretching (dilation) in the Y-axis, and shear parallel to the x-axis.
+
+The `eigen()` function computes the eigenvalues and eigenvectors of a square matrix:
+
+```{r}
+eigen.A <- eigen(A)
+eigen.A
+```
+
+The following relationships relate $\mathbf{A}$ to it's eigenvectors and eigenvalues:
 
 \[\mathbf{V}^{-1}\mathbf{A}\mathbf{V}  =  \mathbf{D} \]
 
 \[\mathbf{A}  =  \mathbf{V}\mathbf{D}\mathbf{V}^{-1}\]
 
-
 where $\mathbf{V}$ is a matrix where the columns represent the eigenvectors, and $\mathbf{D}$ is a diagonal matrix of eigenvalues.
 
-
-The `eigen()` function computes the eigenvalues and eigenvectors of a square matrix.
+Let's confirm that those relationships hold for our example:
 
 ```{r}
-A <- matrix(c(2,1,2,3),nrow=2)
-A
-
-eigen.A <- eigen(A)
-eigen.A
-
 V <- eigen.A$vectors
 D <- diag(eigen.A$values) # diagonal matrix of eigenvalues
 Vinv <- solve(V)
 
 V %*% D %*% Vinv  # reconstruct our original matrix (see lecture slides)
-
-Vinv %*% A %*% V
-
-all.equal(Vinv %*% A %*% V, D) # test 'near equality'
-
-V[,1] %*% V[,2] # note that the eigenvectors are NOT orthogonal. Why?
-
-B <- matrix(c(2,2,2,3),nrow=2) # define another tranformation
-B
-
-eigen.B <- eigen(B)
-eigen.B$values
-eigen.B$vectors
-
-Vb <- eigen.B$vectors
-Vb[,1] %*% Vb[,2] # these eigenvectors ARE orthogonal.
 ```
 
-Since $\mathbf{A}$ and $\mathbf{B}$ represent 2D transformations we can visualize the
-effect of these transformations using points in the plane. We'll show
-how they distort a set of points that make up a square.
+```{r}
+all.equal(Vinv %*% A %*% V, D) # test 'near equality'
+```
 
 ```{r}
+V[,1] %*% V[,2] # note that the eigenvectors are NOT orthogonal. Why?
+```
 
+Since we're dealing with a 2D transformation matrix, we can easily calculate the slopes of the eigenvectors:
+
+```{r}
 eigenvec.A.slope1 = eigen.A$vectors[1,1]/eigen.A$vectors[2,1]
 eigenvec.A.slope2 = eigen.A$vectors[2,1]/eigen.A$vectors[2,2]
-
-eigenvec.B.slope1 = eigen.B$vectors[1,1]/eigen.B$vectors[2,1]
-eigenvec.B.slope2 = eigen.B$vectors[2,1]/eigen.B$vectors[2,2]
-
-
-Ax <- A %*% t(sin.xy)
-Bx <- B %*% t(sin.xy)
-
-Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
-Bx.df <- as.data.frame(t(Bx)) %>% rename(x = V1, y = V2)
-
-plot.transform.AB <-
-  ggplot(sin.xy, aes(x = x, y = y)) +
-  geom_point(alpha=0.5) + 
-  geom_point(data = Ax.df, color='red') +
-  geom_point(data = Bx.df, color='blue') + 
-  coord_fixed()
-
-plot.transform.AB
 ```
 
-By plotting the eigenvectors we can make a similar figure to show the directions that are unaffected by the transformation represented by the matrix $\mathbf{A}$:
+Now we plot the eigenvectorsto show the directions that are unaffected by the transformation represented by the matrix $\mathbf{A}$:
 
 ```{r}
 
-ggplot(sin.xy, aes(x = x, y = y)) +
-  geom_point(alpha=0.5) + 
-  geom_point(data = Ax.df, color='red') +
-  geom_abline(aes(slope = eigenvec.A.slope1,intercept=0),
+# Note that the slopes can be infinite (inf), indicating a horizontal eigenvector (parallel to x-axis)
+# this function is to draw the eigenvectors correctly regardless of the slope
+geom_ab_or_vline <- function(slope, intercept, ...) {
+  if (is.infinite(slope)) {
+    return(geom_hline(yintercept = intercept, ...))
+  } else {
+    return(geom_abline(slope=slope, intercept=intercept, ...))
+  }
+}
+
+
+ggplot(mapping=aes(x = x, y = y)) +
+  geom_point(data = sin.xy, alpha=0.5) + 
+  geom_point(data = Ax.df, color='red', alpha=0.5) +
+  geom_ab_or_vline(slope = eigenvec.A.slope1,intercept=0,
               color='red',linetype='dashed') +
-    geom_abline(aes(slope = eigenvec.A.slope2,intercept=0),
+  geom_ab_or_vline(slope = eigenvec.A.slope2,intercept=0,
               color='red',linetype='dashed') + 
   coord_fixed()
 
 ```
+
+Referring back to the eigenvectors, we see that it's the second eigenvector that is represented by the horizontal line:
+
+```{r}
+eigen.A$vectors
+```
+
+The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A.   To drive home this point, here's another configuration of points and the 
+
+```{r}
+horiz.x <- seq(-1,1,by=0.1)
+horiz.y <- rep(0, length(horiz.x))
+
+horiz.x2 <- seq(-0.5,0.5,by=0.1)
+horiz.y2 <- rep(0.5, length(horiz.x2))
+
+horiz.x3 <- seq(-0.5,0.5,by=0.1)
+horiz.y3 <- rep(-0.5, length(horiz.x3))
+
+vert.y <- seq(-1,1,by=0.1)
+vert.x <- rep(0, length(vert.y))
+
+x <- c(horiz.x, horiz.x2, horiz.x3, vert.x)
+y <- c(horiz.y, horiz.y2, horiz.y3, vert.y)
+cross.df <- data_frame(x = x, y = y)
+
+Ax <- A %*% t(cross.df)
+Ax.df <- as.data.frame(t(Ax)) %>% rename(x = V1, y = V2)
+
+
+plot.A <- 
+  ggplot(cross.df, mapping = aes(x=x,y=y)) + 
+  geom_point() +
+  lims(x=c(-1.5,1.5), y=c(-2,2)) +
+  coord_fixed() + 
+  labs(x = "X", y = "Y", title="Points prior to transformation")
+  
+plot.B <- 
+  ggplot(Ax.df, mapping = aes(x=x,y=y)) + 
+  geom_point(color='red') +
+  lims(x=c(-1.5,1.5), y=c(-2,2)) +
+  coord_fixed() + 
+  labs(x = "X", y = "Y", title="Points after transformation")
+  
+plot_grid(plot.A, plot.B)
+```
+
 
 
 ## Principal Components Analysis in R

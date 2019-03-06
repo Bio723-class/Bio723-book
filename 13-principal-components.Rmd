@@ -132,7 +132,7 @@ Now we plot the eigenvectorsto show the directions that are unaffected by the tr
 
 ```{r}
 
-# Note that the slopes can be infinite (inf), indicating a horizontal eigenvector (parallel to x-axis)
+# Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)
 # this function is to draw the eigenvectors correctly regardless of the slope
 geom_ab_or_vline <- function(slope, intercept, ...) {
   if (is.infinite(slope)) {

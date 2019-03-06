@@ -542,7 +542,7 @@ V <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</sp
 eigenvec.A.slope2 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</code></pre>
 <p>Now we plot the eigenvectorsto show the directions that are unaffected by the transformation represented by the matrix <span class="math inline">\(\mathbf{A}\)</span>:</p>
 <pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># Note that the slopes can be infinite (inf), indicating a horizontal eigenvector (parallel to x-axis)</span>
+<span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span>
 <span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span>
 geom_ab_or_vline &lt;-<span class="st"> </span><span class="cf">function</span>(slope, intercept, ...) {
   <span class="cf">if</span> (<span class="kw">is.infinite</span>(slope)) {

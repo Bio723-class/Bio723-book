@@ -128,7 +128,7 @@ eigenvec.A.slope1 = eigen.A$vectors[2,1]/eigen.A$vectors[1,1]
 eigenvec.A.slope2 = eigen.A$vectors[2,2]/eigen.A$vectors[1,2]
 ```
 
-Now we plot the eigenvectorsto show the directions that are unaffected by the transformation represented by the matrix $\mathbf{A}$:
+Now we plot the eigenvectors to show the directions that are unaffected by the transformation represented by the matrix $\mathbf{A}$:
 
 ```{r}
 
@@ -160,7 +160,7 @@ Referring back to the eigenvectors, we see that it's the second eigenvector that
 eigen.A$vectors
 ```
 
-The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A.   To drive home this point, here's another configuration of points and the 
+The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A.   To drive home this point, here's another configuration of points and the corresponding points under the same transformation:
 
 ```{r}
 horiz.x <- seq(-1,1,by=0.1)

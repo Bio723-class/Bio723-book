@@ -124,8 +124,8 @@ V[,1] %*% V[,2] # note that the eigenvectors are NOT orthogonal. Why?
 Since we're dealing with a 2D transformation matrix, we can easily calculate the slopes of the eigenvectors:
 
 ```{r}
-eigenvec.A.slope1 = eigen.A$vectors[1,1]/eigen.A$vectors[2,1]
-eigenvec.A.slope2 = eigen.A$vectors[2,1]/eigen.A$vectors[2,2]
+eigenvec.A.slope1 = eigen.A$vectors[2,1]/eigen.A$vectors[1,1]
+eigenvec.A.slope2 = eigen.A$vectors[2,2]/eigen.A$vectors[1,2]
 ```
 
 Now we plot the eigenvectorsto show the directions that are unaffected by the transformation represented by the matrix $\mathbf{A}$:
@@ -136,7 +136,7 @@ Now we plot the eigenvectorsto show the directions that are unaffected by the tr
 # this function is to draw the eigenvectors correctly regardless of the slope
 geom_ab_or_vline <- function(slope, intercept, ...) {
   if (is.infinite(slope)) {
-    return(geom_hline(yintercept = intercept, ...))
+    return(geom_vline(yintercept = intercept, ...))
   } else {
     return(geom_abline(slope=slope, intercept=intercept, ...))
   }

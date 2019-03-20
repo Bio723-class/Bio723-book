@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 13 Logistic regression | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 15 Singular Value Decomposition | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 13 Logistic regression | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 15 Singular Value Decomposition | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 13 Logistic regression | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 15 Singular Value Decomposition | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="multiple-regression.html">
-<link rel="next" href="principal-components-analysis.html">
+<link rel="prev" href="principal-components-analysis.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -450,190 +450,326 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="logistic-regression" class="section level1">
-<h1><span class="header-section-number">Chapter 13</span> Logistic regression</h1>
-<p>Logistic regression is used when the dependent variable is discrete (often binary). The explanatory variables may be either continuous or discrete.</p>
-<p>Examples:</p>
-<ul>
-<li>Whether a gene is turned off (=0) or on (=1) as a function of levels of various proteins</li>
-<li>Whether an individual is healthy (=0) or diseased (=1) as a function of various risk factors.</li>
-<li>Whether an individual died (=0) or survived (=1) some selective event as a function of behavior, morphology, etc.</li>
-</ul>
-<p>We model the binary response variable, <span class="math inline">\(Y\)</span>, as a function of the predictor variables, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, etc as :</p>
-<p><span class="math display">\[
-P(Y = 1|X_1,\ldots,X_p) = f(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p)
-\]</span></p>
-<p>So we’re modeling the <em>probability of the state of Y as a function of a linear combination of the predictor variables</em>.</p>
-<p>For logistic regression, <span class="math inline">\(f\)</span> is the logistic function:
-<span class="math display">\[
-f(z) = \frac{e^z}{1+e^z} = \frac{1}{1 + e^{-z}}
-\]</span></p>
-<p>Therefore, the bivariate logistic regression is given by:
-<span class="math display">\[
-P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
-\]</span></p>
-<p>Note that <span class="math inline">\(\beta_0\)</span> here is akin to the intercept in our standard linear regression.</p>
-<div id="a-web-app-to-explore-the-logistic-regression-equation" class="section level2">
-<h2><span class="header-section-number">13.1</span> A web app to explore the logistic regression equation</h2>
-<p>To help you develop an intuition for the logistic regression equation, I’ve developed <a href="https://magwenelab.shinyapps.io/exploring_logistic_regression/">a small web app</a>, that allows you to explore how the shape of the regression curve responds to changes in the regression coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Open the app in another browser window and play with the sliders that control the coeffients <span class="math inline">\(B_0\)</span> and <span class="math inline">\(B_1\)</span>. In the assignment associated with today’s class you’ll be asked to answer some specific questions based on this app.</p>
-</div>
-<div id="titanic-data-set" class="section level2">
-<h2><span class="header-section-number">13.2</span> Titanic data set</h2>
-<p><a href="http://bit.ly/bio304-titanic-data"><code>titanic.csv</code></a> contains information about passengers on the Titanic. Variables in this data set include information such as sex, age, passenger class (1st, 2nd, 3rd), and whether or not they survived the sinking of the ship (0 = died, 1 = survived).</p>
+<div id="singular-value-decomposition" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Singular Value Decomposition</h1>
+<div id="libraries-6" class="section level2">
+<h2><span class="header-section-number">15.1</span> Libraries</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(stringr)
 <span class="kw">library</span>(broom)
-<span class="kw">library</span>(cowplot)
-<span class="kw">library</span>(ggthemes)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)
-<span class="kw">names</span>(titanic)
-<span class="co">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;      </span>
-<span class="co">##  [6] &quot;sibsp&quot;     &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;    </span>
-<span class="co">## [11] &quot;embarked&quot;  &quot;boat&quot;      &quot;body&quot;      &quot;home.dest&quot;</span></code></pre>
+<span class="kw">library</span>(GGally)
+<span class="kw">library</span>(cowplot)</code></pre>
 </div>
-<div id="subsetting-the-data" class="section level2">
-<h2><span class="header-section-number">13.3</span> Subsetting the data</h2>
-<p>We’ve all heard the phrase, “Women and children first”, so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age. Let’s create separate data subsets for male and female passengers.</p>
-<pre class="sourceCode r"><code class="sourceCode r">male &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;male&quot;</span>)
-female &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>)</code></pre>
+<div id="svd-in-r" class="section level2">
+<h2><span class="header-section-number">15.2</span> SVD in R</h2>
+<p><span class="math display">\[\newcommand{\Mtx}[1]{\mathbf{#1}}\]</span></p>
+<p>If <span class="math inline">\(\Mtx{x}\)</span> is an <span class="math inline">\(n \times p\)</span> matrix, and the singular value decomposition of <span class="math inline">\(\Mtx{A}\)</span> is given by <span class="math inline">\(\Mtx{A} = \Mtx{U} \Mtx{S} \Mtx{V}^T\)</span>, the columns of the matrix <span class="math inline">\(\Mtx{V}^T\)</span> are the eigenvectors of the square matrix <span class="math inline">\(\Mtx{A}^T \Mtx{A}\)</span> (sometimes refered to as the minor product of ). The singular values of  are equal to the square roots of the eigenvalues of <span class="math inline">\(\Mtx{A}^T \Mtx{A}\)</span>.</p>
+<p>The <code>svd()</code> function computes the singular value decomposition of an arbitrary rectangular matrix. Below I demonstrate the use of the <code>svd()</code> function and confirm the relationships described above:</p>
+<pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="dt">nrow=</span><span class="dv">2</span>)
+A
+<span class="co">##      [,1] [,2]</span>
+<span class="co">## [1,]    2    2</span>
+<span class="co">## [2,]    1    3</span>
+a.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(A)
+<span class="co"># R uses the notation A = u d v&#39; rather than A = u s v&#39;</span>
+a.svd<span class="op">$</span>u
+<span class="co">##            [,1]       [,2]</span>
+<span class="co">## [1,] -0.6618026 -0.7496782</span>
+<span class="co">## [2,] -0.7496782  0.6618026</span>
+a.svd<span class="op">$</span>d
+<span class="co">## [1] 4.1306486 0.9683709</span>
+a.svd<span class="op">$</span>v
+<span class="co">##            [,1]       [,2]</span>
+<span class="co">## [1,] -0.5019268 -0.8649101</span>
+<span class="co">## [2,] -0.8649101  0.5019268</span></code></pre>
+<p>We should be able to reconstruct <span class="math inline">\(\Mtx{A}\)</span> from the SVD:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(A, a.svd<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(a.svd<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a.svd<span class="op">$</span>v))
+<span class="co">## [1] TRUE</span></code></pre>
+<p>We can also demonstrate the relationship between the SVD of <span class="math inline">\(\Mtx{A}\)</span> and the eigendecomposition of <span class="math inline">\(\Mtx{A}^T\Mtx{A}\)</span>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">AtA &lt;-<span class="st"> </span><span class="kw">t</span>(A) <span class="op">%*%</span><span class="st"> </span>A
+eigen.AtA &lt;-<span class="st"> </span><span class="kw">eigen</span>(AtA)
+<span class="kw">all.equal</span>(a.svd<span class="op">$</span>d, <span class="kw">sqrt</span>(eigen.AtA<span class="op">$</span>values))
+<span class="co">## [1] TRUE</span></code></pre>
+<p>As we discussed in lecture, the eigenvectors of square matrix, <span class="math inline">\(\Mtx{A}\)</span>, point in the directions that are unchanged by the transformation specified by <span class="math inline">\(\Mtx{A}\)</span>.</p>
 </div>
-<div id="visualizing-survival-as-a-function-of-age" class="section level2">
-<h2><span class="header-section-number">13.4</span> Visualizing survival as a function of age</h2>
-<p>Let’s create visualizations of survival as a function of age for the male and female passengers.</p>
-<pre class="sourceCode r"><code class="sourceCode r">fcolor =<span class="st"> &quot;lightcoral&quot;</span>
-mcolor =<span class="st"> &quot;lightsteelblue&quot;</span>
+<div id="writing-our-own-pca-function-using-svd" class="section level2">
+<h2><span class="header-section-number">15.3</span> Writing our own PCA function using SVD</h2>
+<p>In lecture we discussed the relationship between SVD and PCA. Let’s walk through some code that carries out PCA via SVD, and then we’ll implement our own PCA function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris.numeric &lt;-<span class="st"> </span><span class="kw">select</span>(iris, <span class="dt">select=</span><span class="op">-</span>Species)
+iris.ctrd &lt;-<span class="st"> </span><span class="kw">scale</span>(iris.numeric, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)
+iris.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(iris.ctrd)
 
-female.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(female, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> fcolor) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)
+U &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>u
+S &lt;-<span class="st"> </span><span class="kw">diag</span>(iris.svd<span class="op">$</span>d)
+V &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>v
 
-male.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(male, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> mcolor) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)
+pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S
+<span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))
 
-<span class="kw">plot_grid</span>(female.plot, male.plot)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-408-1.png" width="864" /></p>
-<p>The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.</p>
+pc.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pc.scores)
+pc.scores.df &lt;-<span class="st"> </span>
+<span class="st">  </span>pc.scores.df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species)
+
+<span class="kw">ggplot</span>(pc.scores.df, <span class="kw">aes</span>(PC1, PC2, <span class="dt">color=</span>Species)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-452-1.png" width="576" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.ctrd)
+pc.sdev &lt;-<span class="st"> </span><span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>)))
+pc.sdev
+<span class="co">##          [,1]      [,2]      [,3]      [,4]</span>
+<span class="co">## [1,] 2.056269 0.0000000 0.0000000 0.0000000</span>
+<span class="co">## [2,] 0.000000 0.4926162 0.0000000 0.0000000</span>
+<span class="co">## [3,] 0.000000 0.0000000 0.2796596 0.0000000</span>
+<span class="co">## [4,] 0.000000 0.0000000 0.0000000 0.1543862</span>
+V
+<span class="co">##             [,1]        [,2]        [,3]       [,4]</span>
+<span class="co">## [1,]  0.36138659 -0.65658877  0.58202985  0.3154872</span>
+<span class="co">## [2,] -0.08452251 -0.73016143 -0.59791083 -0.3197231</span>
+<span class="co">## [3,]  0.85667061  0.17337266 -0.07623608 -0.4798390</span>
+<span class="co">## [4,]  0.35828920  0.07548102 -0.54583143  0.7536574</span></code></pre>
+<p>For comparison, here’s what the builtin <code>prcomp()</code> function gives us:</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(iris.ctrd)
+iris.pca<span class="op">$</span>sdev
+<span class="co">## [1] 2.0562689 0.4926162 0.2796596 0.1543862</span>
+iris.pca<span class="op">$</span>rotation
+<span class="co">##                      PC1         PC2         PC3        PC4</span>
+<span class="co">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span>
+<span class="co">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span>
+<span class="co">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span>
+<span class="co">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></code></pre>
+<p>Now that we have a sense of the key calculations, let’s turn this into a function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a user defined version of principal components analysis</span>
+PCA &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>){
+   x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)
+   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
+   p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)
+
+   x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)
+   U &lt;-<span class="st"> </span>x.svd<span class="op">$</span>u
+   S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d)
+   V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v
+
+   <span class="co"># check for zero eigenvalues</span>
+   tolerance =<span class="st"> </span>.Machine<span class="op">$</span>double.eps<span class="op">^</span><span class="fl">0.5</span>
+   has.zero.singval &lt;-<span class="st"> </span><span class="kw">any</span>(x.svd<span class="op">$</span>d <span class="op">&lt;=</span><span class="st"> </span>tolerance)
+   <span class="cf">if</span>(has.zero.singval)
+     <span class="kw">print</span>(<span class="st">&quot;WARNING: Zero singular values detected&quot;</span>)
+
+   pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S
+   <span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))
+   pc.sdev &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>))))
+   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">vectors =</span> V, <span class="dt">scores=</span>pc.scores, <span class="dt">sdev =</span> pc.sdev))
+}</code></pre>
+<p>Note I also included some code to warn the user when the covariance matrix is singular. Use the help to read about variables defined in <code>.Machine</code>.</p>
+<p>Let’s put our function through its paces:</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(iris.numeric)
+<span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(iris.pca<span class="op">$</span>scores), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-456-1.png" width="576" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># flip the rows and columns of i.sub and do PCA</span>
+ <span class="co"># Our function should detect singular values equal to zero. Why?</span>
+singular.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(<span class="kw">t</span>(iris.numeric)) 
+<span class="co">## [1] &quot;WARNING: Zero singular values detected&quot;</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">tree.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(trees)
+tree.pca<span class="op">$</span>sdev
+<span class="co">## [1] 17.1834214  4.9820035  0.7485858</span>
+
+<span class="co"># compare to prcomp</span>
+<span class="kw">prcomp</span>(trees)<span class="op">$</span>sdev 
+<span class="co">## [1] 17.1834214  4.9820035  0.7485858</span></code></pre>
+<p>To bring things full circle, let’s make sure that the covariance matrix we reconstruct from our PCA analysis is equal to the covariance matrix calculated directly from the data set:</p>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.numeric)
+V &lt;-<span class="st"> </span>iris.pca<span class="op">$</span>vectors
+S &lt;-<span class="st"> </span><span class="kw">diag</span>( <span class="kw">sqrt</span>(iris.pca<span class="op">$</span>sdev<span class="op">**</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(n<span class="dv">-1</span>)) ) <span class="co"># turn sdev&#39;s back into singular values</span>
+reconstructed.cov &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>(n<span class="dv">-1</span>)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V) <span class="co"># see pg. 11 of slides</span>
+<span class="kw">all.equal</span>(reconstructed.cov, <span class="kw">cov</span>(iris.numeric), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)
+<span class="co">## [1] TRUE</span></code></pre>
+<p>Great! It seems like things are working as expected.</p>
 </div>
-<div id="fitting-the-logistic-regression-model" class="section level2">
-<h2><span class="header-section-number">13.5</span> Fitting the logistic regression model</h2>
-<p>The function <code>glm</code> (generalized linear model) can be used to fit the logistic regression model (as well as other models). Setting the argument <code>family = binomial</code> gives us logistic regression. Note that when fitting the model the dependent variable needs to be numeric, so if the data is provided as Boolean (logical) TRUE/FALSE values, they should be converted to integers using <code>as.numeric()</code>.</p>
-<p>First we fit the regression for the famale passengers.</p>
-<pre class="sourceCode r"><code class="sourceCode r">fit.female &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, female)
-<span class="kw">tidy</span>(fit.female)
-<span class="co">## # A tibble: 2 x 5</span>
-<span class="co">##   term        estimate std.error statistic  p.value</span>
-<span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">## 1 (Intercept)  0.4934   0.2542       1.941 0.05226 </span>
-<span class="co">## 2 age          0.02252  0.008535     2.638 0.008342</span></code></pre>
-<p>The column “estimate” gives the coefficients of the model. The “intercept”" estimate corresponds to <span class="math inline">\(B_0\)</span> in the logistic regression equation, the “age” estimate corresponds to the coefficient <span class="math inline">\(B_1\)</span> in the equation.</p>
-<p>Now we repeat the same step for the male passengers.</p>
-<pre class="sourceCode r"><code class="sourceCode r">fit.male &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, male)
-<span class="kw">tidy</span>(fit.male)
-<span class="co">## # A tibble: 2 x 5</span>
-<span class="co">##   term        estimate std.error statistic  p.value</span>
-<span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">## 1 (Intercept) -0.6608   0.2248      -2.939 0.003290</span>
-<span class="co">## 2 age         -0.02376  0.007276    -3.266 0.001092</span></code></pre>
-<p>Notice that the female coefficients are both positive, while the male coefficients are negative. We’ll visualize what this means in terms of the model below.</p>
+<div id="writing-a-biplot-function" class="section level2">
+<h2><span class="header-section-number">15.4</span> Writing a biplot function</h2>
+<p>We can use the same basic framework above to create a function to compute a biplot for our PCA. The function below includes an argument <code>emphasize.variables</code>, If <code>emphasize.variables</code> is <code>TRUE</code>, the function returns the biplot corresponding to <span class="math inline">\(\alpha=0\)</span>, the column-metric preserving biplot. If this arugment is <code>FALSE</code> it returns calculations correspoding to <span class="math inline">\(\alpha=1\)</span>, the row-metric preserving biplot.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a user defined version of principal components analysis</span>
+PCA.biplot &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">emphasize.variables=</span><span class="ot">TRUE</span>){
+  x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)
+  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
+  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)
+  
+  x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)
+  U &lt;-<span class="st"> </span>(x.svd<span class="op">$</span>u)[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
+  S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])
+  V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]
+  
+  <span class="cf">if</span> (emphasize.variables) {
+    biplot.scores &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n) <span class="op">*</span><span class="st"> </span>U
+    biplot.vectors &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S
+  } <span class="cf">else</span> {
+    biplot.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S
+    biplot.vectors &lt;-<span class="st"> </span>V
+  }
+  <span class="kw">colnames</span>(biplot.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.scores)) 
+  <span class="kw">colnames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.vectors))
+  <span class="kw">rownames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X)
+  
+  <span class="kw">list</span>(<span class="dt">scores=</span><span class="kw">as_data_frame</span>(biplot.scores),
+       <span class="dt">vectors=</span><span class="kw">as_data_frame</span>(biplot.vectors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Variable =</span> <span class="kw">colnames</span>(X)))
+}</code></pre>
+<p>Let’s first create a biplot that emphasize the relationships between the variables.</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris.biplot.var &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">TRUE</span>)
+
+small.arrow =<span class="st"> </span><span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">15</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))
+
+p1 &lt;-
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), 
+             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors, 
+               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),
+               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors,
+            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),
+            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>()
+
+p1</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-461-1.png" width="576" /></p>
+<p>Now we create a biplot that emphasizes the relationships between the objects.</p>
+<pre class="sourceCode r"><code class="sourceCode r">iris.biplot.obj &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">FALSE</span>)
+p2 &lt;-
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), 
+             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors, 
+               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),
+               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors,
+            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),
+            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st">   </span>
+<span class="st">  </span><span class="kw">coord_fixed</span>()
+p2</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-462-1.png" width="960" /></p>
 </div>
-<div id="visualizing-the-logistic-regression" class="section level2">
-<h2><span class="header-section-number">13.6</span> Visualizing the logistic regression</h2>
-<p>To visualize the logistic regression fit, we first use the <code>predict</code> function to generate the model predictions about probability of survival as a function of age.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ages &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span>
+<div id="data-compression-and-noise-filtering-using-svd" class="section level2">
+<h2><span class="header-section-number">15.5</span> Data compression and noise filtering using SVD</h2>
+<p>Two common uses for singular value decomposition are for data compression and noise filtering. We’ll illustrate these with two examples involving matrices which represent image data. This example is drawn from an article by David Austin, found on a <a href="http://www.ams.org/samplings/feature-column/fcarc-svd">tutorial about SVD at the American Mathematical Society Website</a>.</p>
+<div id="example-image" class="section level3">
+<h3><span class="header-section-number">15.5.1</span> Example image</h3>
+<p>The file <a href="https://github.com/pmagwene/Bio723/raw/master/datasets/zero.dat"><code>zeros.dat</code></a> from the course wiki. This is a <span class="math inline">\(25 \times 15\)</span> binary matrix that represents pixel values in a simple binary (black-and-white) image.</p>
+<pre class="sourceCode r"><code class="sourceCode r">zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/pmagwene/Bio723/raw/master/datasets/zero.dat&#39;</span>, <span class="dt">col_names=</span><span class="ot">FALSE</span>)
+<span class="kw">head</span>(zero)
+<span class="co">## # A tibble: 6 x 15</span>
+<span class="co">##      X1    X2    X3    X4    X5    X6    X7    X8    X9   X10   X11   X12</span>
+<span class="co">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">## 1     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="co">## 2     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="co">## 3     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="co">## 4     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="co">## 5     1     1     1     1     1     1     1     1     1     1     1     1</span>
+<span class="co">## 6     1     1     0     0     0     0     0     0     0     0     0     0</span>
+<span class="co">## # … with 3 more variables: X13 &lt;dbl&gt;, X14 &lt;dbl&gt;, X15 &lt;dbl&gt;</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we&#39;ll use the image() function to visualize the matrix</span>
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span>
+y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>
+<span class="kw">image</span>(x, y, <span class="kw">t</span>(zero), 
+      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>),<span class="dt">asp=</span><span class="dv">1</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-464-1.png" width="384" /></p>
+<p>This data matrix can be thought of as being composed of just three types of vectors, each illustrated in the following figure:</p>
+<div class="figure">
+<img src="figures/fig-zero-vecs.png" alt="The three vector types in the “zero” matrix" />
+<p class="caption">The three vector types in the “zero” matrix</p>
+</div>
+<p>If SVD is working like expected it should capture that feature of our input matrix, and we should be able to represent the entire image using just three singular values and their associated left- and right-singular vectors.</p>
+<pre class="sourceCode r"><code class="sourceCode r">zero.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(zero)
+<span class="kw">round</span>(zero.svd<span class="op">$</span>d,<span class="dv">2</span>)
+<span class="co">##  [1] 14.72  5.22  3.31  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00</span>
+<span class="co">## [12]  0.00  0.00  0.00  0.00</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">D &lt;-<span class="st"> </span><span class="kw">diag</span>(zero.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
+U &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]
+V &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]
+new.zero &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V)
+<span class="kw">all.equal</span>(new.zero, <span class="kw">as.matrix</span>(zero), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)
+<span class="co">## [1] TRUE</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># and let&#39;s double check using the image() function</span>
+<span class="kw">image</span>(x, y, <span class="kw">t</span>(new.zero),
+      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>))</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-467-1.png" width="384" /></p>
+<p>Our original matrix required <span class="math inline">\(25 \times 15\)</span> (<span class="math inline">\(= 375\)</span>) storage elements. Using the SVD we can represent the same data using only <span class="math inline">\(15 \times 3 + 25 \times 3 + 3 = 123\)</span> units of storage (corresponding to the truncated U, V, and D in the example above). Thus our SVD allows us to represent the same data with at less than <span class="math inline">\(1/3\)</span> the size of the original matrix. In this case, because all the singular values after the 3rd were zero this is a lossless data compression procedure.</p>
 
-predicted.female &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.female, 
-                            <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),
-                            <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
+<p>The file <a href="https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/noisy-zero.dat"><code>noisy-zero.dat</code></a> is the same ‘zero’ image, but now sprinkled with Gaussian noise draw from a normal distribution <span class="math inline">\(N(0,0.1)\)</span>. As in the data compression case we can use SVD to approximate the input matrix with a lower-dimensional approximation. Here the SVD is “lossy”" as our approximation throws away information. In this case we hope to choose the approximating dimension such that the information we lose corresponds to the noise which is “polluting”" our data.</p>
+<pre class="sourceCode r"><code class="sourceCode r">noisy.zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/noisy-zero.dat&#39;</span>,<span class="dt">col_names =</span> <span class="ot">FALSE</span>)
+x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span>
+y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span>
+<span class="co"># create a gray-scale representation of the matrix</span>
+<span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero), <span class="dt">asp=</span><span class="dv">1</span>, 
+      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-468-1.png" width="384" /></p>
+<p>Now we carry out SVD of the matrix representing this noisy image:</p>
+<pre class="sourceCode r"><code class="sourceCode r">noisy.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(noisy.zero)
 
-predicted.male &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.male,
-                          <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),
-                          <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)
-                            </code></pre>
-<p>Having generated the predicted probabilities of survival we can then add these prediction lines to our previous plot using <code>geom_line</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">female.logistic.plot &lt;-<span class="st"> </span>female.plot <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.female),
-            <span class="dt">color =</span> fcolor, <span class="dt">size =</span> <span class="dv">1</span>)
+<span class="co"># as before the first three singular values dominate</span>
+<span class="kw">round</span>(noisy.svd<span class="op">$</span>d,<span class="dv">2</span>)
+<span class="co">##  [1] 13.63  4.87  3.07  0.40  0.36  0.31  0.27  0.26  0.21  0.19  0.13</span>
+<span class="co">## [12]  0.11  0.09  0.06  0.04</span>
 
-male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.male),
-            <span class="dt">color =</span> mcolor, <span class="dt">size =</span> <span class="dv">1</span>)
-
-<span class="kw">plot_grid</span>(female.logistic.plot, male.logistic.plot)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-412-1.png" width="864" /></p>
-<p>We see that for the female passengers, the logistic regression predicts that the probability of survival <em>increases</em> with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age. For the male passengers, the data is consistent with “children first”; for female passengers this model doesn’t seem to hold. However, there are other factors to consider as we’ll see below.</p>
-<div id="quick-and-easy-visualization" class="section level3">
-<h3><span class="header-section-number">13.6.1</span> Quick and easy visualization</h3>
-<p>Here’s an alternative “quick and easy” way to generate the plot above using the awesome power of ggplot. The downside of this approach is we don’t generate the detailed information on the model, which is something you’d certainly want to have in any real analysis.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-413-1.png" width="864" /></p>
+nD &lt;-<span class="st"> </span><span class="kw">diag</span>(noisy.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])
+nU &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]
+nV &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]
+approx.noisy.zero &lt;-<span class="st"> </span>nU <span class="op">%*%</span><span class="st"> </span>nD <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(nV)</code></pre>
+<p>Finally we plot the approximation of this image based on the first three singular vectors/values:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># now plot the original and approximating matrix side-by-side</span>
+<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))
+<span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero),
+      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))
+<span class="kw">image</span>(x, y, <span class="kw">t</span>(approx.noisy.zero),
+      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-470-1.png" width="576" /></p>
+<p>As you can see from the images you created the approximation based on the approximation based on the SVD manages to capture the major features of the matrix and filters out much of (but not all) the noise.</p>
 </div>
 </div>
-<div id="impact-of-sex-and-passenger-class-on-the-models" class="section level2">
-<h2><span class="header-section-number">13.7</span> Impact of sex and passenger class on the models</h2>
-<p>In our previous analysis we considered the relationship between survival and age, conditioned (facted) on passenger sex. In a complex data set like this one, it is often useful to condition on multiple variables simultaneously. Lets extend our visualization to look at the regression faceted on both class and sex, using <code>facet_grid</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">facet_grid</span>(pclass <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme_few</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-414-1.png" width="864" /></p>
-<p>Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival. Almost all first class female passengers survived, regardless of age. For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age. The negative relationship between age and survival is stronger still for third class females. Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.</p>
-</div>
-<div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level2">
-<h2><span class="header-section-number">13.8</span> Fitting multiple models based on groupings use <code>dplyr::do</code></h2>
-<p>In the figure above we used <code>ggplot</code> and <code>facet_grid</code> to visualize logistic regression of survival on age, conditioned on both sex and class. What if we wanted to calculate the terms of the logistic regressions for each combination of these two categorical variables? There are three passenger classes and two sexes, meaning we’d have to create six data subsets and fit the model six times if we used the same approach we used previously. Luckily, <code>dplyr</code> provides a powerful function called <code>do()</code> that allows us to carry out arbitrary computations on grouped data.</p>
-<p>There are two ways to use <code>do()</code>. The first way is to give the expressions you evaluate in <code>do()</code> a name, in which case <code>do()</code> will store the results in a column. The second way to use <code>do()</code> is for the expression to return a data frame.</p>
-<p>In this first example, the model fits are stored in the <code>fits</code> column. When using <code>do()</code> you can refer to the groupings using a period (<code>.</code>):</p>
-<pre class="sourceCode r"><code class="sourceCode r">grouped.models &lt;-
-<span class="st">  </span>titanic <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">do</span>(<span class="dt">fits =</span> <span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .))
+<div id="image-compression-using-svd-in-r" class="section level2">
+<h2><span class="header-section-number">15.6</span> Image compression using SVD in R</h2>
+<p>We’ll illustrate another application of SVD – approximating a high dimensional data set using a lower dimensional approximation. We’ll apply this concept to image compression.</p>
+<p>R doesn’t have native support for common image files like JPEG and PNG. However, there are packages we can install that will allow us to read in such files and treat them as matrices. We’ll use a package called <a href="https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html">“imager”</a> to work with images.</p>
+<p><strong>Install the “imager” library via the standard installation mechanism</strong></p>
+<p>Once imager is installed, download this <a href="https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/chesterbw.jpg">picture of my dog Chester</a> to your local filesystem and load it as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(imager)
+<span class="co"># change the path to match the location you&#39;ve downloaded the iamge</span>
+chester &lt;-<span class="st"> </span><span class="kw">load.image</span>(<span class="st">&quot;~/Downloads/chesterbw.jpg&quot;</span>)</code></pre>
+<p>We can plot images loaded by imager</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(chester)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-472-1.png" width="576" /></p>
+<p>Let’s explore the object returned by imager:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(chester)
+<span class="co">## [1] 605 556   1   1</span>
+<span class="kw">typeof</span>(chester)
+<span class="co">## [1] &quot;double&quot;</span>
+<span class="kw">class</span>(chester)
+<span class="co">## [1] &quot;cimg&quot;         &quot;imager_array&quot; &quot;numeric&quot;</span></code></pre>
+<p>imager stores the image information in a multidimensional array that has a class of “cimg” (type <code>?cimg</code>). To manipulate this information using SVD we’ll need to turn it into a conventional matrix first.</p>
+<pre class="sourceCode r"><code class="sourceCode r">chester.matrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(chester)</code></pre>
+<p>Now we’ll use SVD to create a low-dimensional approximation of this image.</p>
+<pre class="sourceCode r"><code class="sourceCode r">img.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(chester)
+U &lt;-<span class="st"> </span>img.svd<span class="op">$</span>u
+S &lt;-<span class="st"> </span><span class="kw">diag</span>(img.svd<span class="op">$</span>d)
+Vt &lt;-<span class="st"> </span><span class="kw">t</span>(img.svd<span class="op">$</span>v)
 
-grouped.models
-<span class="co">## # A tibble: 6 x 3</span>
-<span class="co">##   sex    pclass fits     </span>
-<span class="co">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;   </span>
-<span class="co">## 1 female      1 &lt;S3: glm&gt;</span>
-<span class="co">## 2 female      2 &lt;S3: glm&gt;</span>
-<span class="co">## 3 female      3 &lt;S3: glm&gt;</span>
-<span class="co">## 4 male        1 &lt;S3: glm&gt;</span>
-<span class="co">## 5 male        2 &lt;S3: glm&gt;</span>
-<span class="co">## 6 male        3 &lt;S3: glm&gt;</span></code></pre>
-<p>Notice that the “fits” column doesn’t explicitly print out the details of the model. The object returned by <code>glm()</code> can’t be simply represented as text string (it’s a list), so we seea place holder string that tells us that there is data here represented a glm object. However, we can access the the columns with the fits just like any other variable:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span>
-<span class="kw">tidy</span>(grouped.models<span class="op">$</span>fits[[<span class="dv">2</span>]])
-<span class="co">## # A tibble: 2 x 5</span>
-<span class="co">##   term        estimate std.error statistic   p.value</span>
-<span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">## 1 (Intercept)  3.491     0.9037      3.863 0.0001119</span>
-<span class="co">## 2 age         -0.04502   0.02548    -1.767 0.07730</span></code></pre>
-<p>Now we illustrate the second approach to using <code>do()</code>. When no name is provided, <code>do()</code> expects its expression to return a dataframe. Here we use the <code>broom::tidy()</code> function to get the key results of each fit model into a data frame:</p>
-<pre class="sourceCode r"><code class="sourceCode r">titanic <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .)))
-<span class="co">## # A tibble: 12 x 7</span>
-<span class="co">##    sex    pclass term         estimate std.error statistic     p.value</span>
-<span class="co">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;</span>
-<span class="co">##  1 female      1 (Intercept)  2.896      1.238      2.339  0.01932    </span>
-<span class="co">##  2 female      1 age          0.009599   0.03263    0.2942 0.7686     </span>
-<span class="co">##  3 female      2 (Intercept)  3.491      0.9037     3.863  0.0001119  </span>
-<span class="co">##  4 female      2 age         -0.04502    0.02548   -1.767  0.07730    </span>
-<span class="co">##  5 female      3 (Intercept)  0.2887     0.3412     0.8461 0.3975     </span>
-<span class="co">##  6 female      3 age         -0.01783    0.01361   -1.310  0.1901     </span>
-<span class="co">##  7 male        1 (Intercept)  0.8803     0.5275     1.669  0.09514    </span>
-<span class="co">##  8 male        1 age         -0.03743    0.01276   -2.934  0.003351   </span>
-<span class="co">##  9 male        2 (Intercept)  1.042      0.5990     1.740  0.08181    </span>
-<span class="co">## 10 male        2 age         -0.1122     0.02492   -4.502  0.000006724</span>
-<span class="co">## 11 male        3 (Intercept) -0.7613     0.3418    -2.228  0.02591    </span>
-<span class="co">## 12 male        3 age         -0.03392    0.01339   -2.534  0.01129</span></code></pre>
-<p>Using this approach we get a nice data frame showing the logistic regression coefficients, and associated statistics (standard error, P-values, etc) for the regression of survival on age, for each combination of sex and class.</p>
+U15 &lt;-<span class="st"> </span>U[,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 left singular vectors</span>
+S15 &lt;-<span class="st"> </span>S[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 singular values</span>
+Vt15 &lt;-<span class="st"> </span>Vt[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,]  <span class="co"># first 15 right singular values, </span><span class="al">NOTE</span><span class="co">: we&#39;re getting rows rather than columns here</span>
+
+approx15 &lt;-<span class="st"> </span>U15 <span class="op">%*%</span><span class="st"> </span>S15 <span class="op">%*%</span><span class="st"> </span>Vt15
+<span class="kw">plot</span>(<span class="kw">as.cimg</span>(approx15))  <span class="co"># to plot the matrix as an image we cast it back to a cimg</span></code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-475-1.png" width="576" /></p>
+<p>Above we created a rank 15 approximation to the rank 556 original image matrix. This approximation is crude (as judged by the visual quality of the approximating image) but it does represent a very large savings in space. Our original image required the storage of <span class="math inline">\(605 \times 556 = 336380\)</span> integer values. Our approximation requires the storage of only <span class="math inline">\(15 \times 556 + 15 \times 605 + 15 = 17430\)</span> integers. This is a saving of roughly 95%. Of course, as with any lossy compression algorithm, you need to decide what is the appropriate tradeoff between compression and data loss for your given application.</p>
+<p>Finally, let’s look at the “error term” associated with our approximation, i.e. what we <em>did not</em> capture in the 15 singular vectors.</p>
+<pre class="sourceCode r"><code class="sourceCode r">img.diff &lt;-<span class="st"> </span>chester.matrix <span class="op">-</span><span class="st"> </span>approx15
+nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(img.diff)
+nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(img.diff)
+<span class="kw">plot</span>(<span class="kw">as.cimg</span>(img.diff))</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-476-1.png" width="576" /></p>
 
 </div>
 </div>
@@ -642,8 +778,8 @@ grouped.models
           </div>
         </div>
       </div>
-<a href="multiple-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="principal-components-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="principal-components-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -614,13 +614,13 @@ PCA.biplot &lt;-<span class="st"> </span><span class="cf">function</span>(X, <sp
   <span class="kw">colnames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.vectors))
   <span class="kw">rownames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X)
   
-  <span class="kw">list</span>(<span class="dt">scores=</span><span class="kw">as_data_frame</span>(biplot.scores),
-       <span class="dt">vectors=</span><span class="kw">as_data_frame</span>(biplot.vectors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Variable =</span> <span class="kw">colnames</span>(X)))
+  <span class="kw">list</span>(<span class="dt">scores=</span><span class="kw">as.data.frame</span>(biplot.scores),
+       <span class="dt">vectors=</span><span class="kw">as.data.frame</span>(biplot.vectors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Variable =</span> <span class="kw">colnames</span>(X)))
 }</code></pre>
 <p>Let’s first create a biplot that emphasize the relationships between the variables.</p>
 <pre class="sourceCode r"><code class="sourceCode r">iris.biplot.var &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">TRUE</span>)
 
-small.arrow =<span class="st"> </span><span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">15</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))
+small.arrow =<span class="st"> </span><span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">15</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.15</span>, <span class="st">&quot;inches&quot;</span>))
 
 p1 &lt;-
 <span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
@@ -636,6 +636,7 @@ p1 &lt;-
 
 p1</code></pre>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-461-1.png" width="576" /></p>
+<p>The biplot we just created emphasizes information about the variables in our data, and their relationship to each other and the principal components. Notice that the angule beween Petal Width and Petal Length is very small – this indicates they are highly correlated, while Sepal Width is nearly uncorrelated with the previous two variables. Petal Width and Petal Length also approximately parallel to PC1, indicating that they have large loadings with the first PC. The Petal Length vector is the longest indicating that it has the largest standard deviation. This biplot however distorts the relationships among the objects (observations) – the scatter of scores in this biplot is not an optimal representation of the true distances between the observations in the original space.</p>
 <p>Now we create a biplot that emphasizes the relationships between the objects.</p>
 <pre class="sourceCode r"><code class="sourceCode r">iris.biplot.obj &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">FALSE</span>)
 p2 &lt;-
@@ -651,6 +652,7 @@ p2 &lt;-
 <span class="st">  </span><span class="kw">coord_fixed</span>()
 p2</code></pre>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-462-1.png" width="960" /></p>
+<p>In this view, the points representing the weighted scores are a better representation of the relationships among the observations, but the geometry of the vectors representing the associations among the variables is no longer optimal.</p>
 </div>
 <div id="data-compression-and-noise-filtering-using-svd" class="section level2">
 <h2><span class="header-section-number">15.5</span> Data compression and noise filtering using SVD</h2>

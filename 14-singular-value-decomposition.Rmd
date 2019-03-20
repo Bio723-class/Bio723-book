@@ -181,8 +181,8 @@ PCA.biplot <- function(X, center=TRUE, scale=FALSE, emphasize.variables=TRUE){
   colnames(biplot.vectors) <- str_c("PC", 1:ncol(biplot.vectors))
   rownames(biplot.vectors) <- colnames(X)
   
-  list(scores=as_data_frame(biplot.scores),
-       vectors=as_data_frame(biplot.vectors) %>% mutate(Variable = colnames(X)))
+  list(scores=as.data.frame(biplot.scores),
+       vectors=as.data.frame(biplot.vectors) %>% mutate(Variable = colnames(X)))
 }
 ```
 
@@ -191,7 +191,7 @@ Let's first create a biplot that emphasize the relationships between the variabl
 ```{r, fig.width=6, fig.height=6}
 iris.biplot.var <- PCA.biplot(iris.numeric, emphasize.variables = TRUE)
 
-small.arrow = arrow(angle = 15, length = unit(0.1, "inches"))
+small.arrow = arrow(angle = 15, length = unit(0.15, "inches"))
 
 p1 <-
   ggplot() + 
@@ -207,6 +207,9 @@ p1 <-
 
 p1
 ```
+
+The biplot we just created emphasizes information about the variables in our data, and their relationship to each other and the principal components.  Notice that the angule beween Petal Width and Petal Length is very small -- this indicates they are highly correlated, while Sepal Width is nearly uncorrelated with the previous two variables.  Petal Width and Petal Length also approximately parallel to PC1, indicating that they have large loadings with the first PC.    The Petal Length vector is the longest indicating that it has the largest standard deviation.  This biplot however distorts the relationships among the objects (observations) -- the scatter of scores in this biplot is not an optimal representation of the true distances between the observations in the original space.
+
 
 Now we create a biplot that emphasizes the relationships between the objects.
 
@@ -225,6 +228,8 @@ p2 <-
   coord_fixed()
 p2
 ```
+
+In this view, the points representing the weighted scores are a better representation of the relationships among the observations, but the geometry of the vectors representing the associations among the variables is no longer optimal.  
 
 
 ## Data compression and noise filtering using SVD

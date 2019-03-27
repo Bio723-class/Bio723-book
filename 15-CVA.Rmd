@@ -11,13 +11,11 @@ Unlike PCA, canonical variate axes are not, in general, orthogonal in the space 
 ## Libraries
 
 ```{r, warning=FALSE, message=FALSE}
-library(MASS)
 library(tidyverse)
 library(cowplot)
 library(broom)
 library(magrittr)
 ```
-
 
 
 
@@ -27,12 +25,14 @@ The function `lda()`, found in the R library `MASS`, carries out linear discrimi
 
 
 ```{r}
+library(MASS)
+
 lda.iris <-lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
                iris, prior=c(1,1,1)/3)
 lda.iris
 ```
 
-The `prior` argument given in the `lda()` function call isn't strictly necessary because by default the `lda()` function will assign equal probabilities among the groups. However I included this argument call to illustrate how to change the prior if you wanted. The output give some simple summary statistics for the group means for each of the variables and then gives the coefficients of the canonical variates.  The `Proportion of trace' output above tells us that 99.12% of the between-group variance is captured along the first discriminant axis.
+When using `lda()` we specify a formula, with the grouping variable on the left and the quantitative variables on which you want to bases the discriminant axes, on the left. The `prior` argument given in the `lda()` function call isn't strictly necessary because by default the `lda()` function will assign equal probabilities among the groups. However I included this argument call to illustrate how to change the prior if you wanted. The output give some simple summary statistics for the group means for each of the variables and then gives the coefficients of the canonical variates.  The `Proportion of trace' output above tells us that 99.12% of the between-group variance is captured along the first discriminant axis.
 
 ### Shorthand Formulae in R
 
@@ -43,10 +43,10 @@ Relevant to our current example is a shorthand way for specifying multiple varia
 Species ~ Sepal.Length + Sepal.Width + ....
 ```
 
-Writing the names of all those variables is tedious and error prone and would be unmanageable if we were analyzing a data set with tens or hundreds of variables. Luckily we can use the shorthand name `|.|' to specify all other variables in the data frame except the variable on the left.  For example, we can rewrite the |lda()| call above as:
+Writing the names of all those variables is tedious and error prone and would be unmanageable if we were analyzing a data set with tens or hundreds of variables. Luckily we can use the shorthand name `.` to specify all other variables in the data frame except the variable on the left.  For example, we can rewrite the `lda()` call above as:
 
 ```{r}
-iris.lda <- lda(Species ~ ., data = iris, prior = c(1,1,1)/3)
+iris.lda <- lda(Species ~ ., data = iris)
 ```
 
 ### Working with the output of `lda()`
@@ -83,7 +83,7 @@ iris.CV$Species <- iris$Species
 
 Having calculated the CVA scores we can now generate a plot:
 
-```{r}
+```{r, fig.width=8, fig.height=6}
 iris.cva.plot <-
   ggplot(iris.CV, aes(x = LD1, y = LD2)) + 
   geom_point(aes(color=Species, shape=Species), alpha=0.5) + 
@@ -95,7 +95,7 @@ iris.cva.plot
 
 Since most of the between group variation is captured by CV1, a density plot is an alternative in this case:
 
-```{r}
+```{r, fig.width=8, fig.height=4}
 ggplot(iris.CV, aes(x = LD1)) +
   geom_density(aes(color=Species)) +
   labs(x = "CV1")
@@ -137,7 +137,7 @@ library(ggforce)
 
 We can then use `ggforce::geom_circle()` to draw confidence regions for the mean and population in our 2D CVA plot:
 
-```{r}
+```{r, fig.width=8, fig.height=6}
 iris.cva.plot2 <-
   iris.cva.plot + 
   geom_circle(data = CIregions.mean.and.pop,
@@ -155,7 +155,7 @@ iris.cva.plot2
 
 Let's put the finishing touch on our plots by adding some color coded rug plots to the first CV axis.
 
-```{r}
+```{r, fig.width=8, fig.height=6}
 iris.cva.plot2 + 
   geom_rug(aes(color=Species),
            sides = "b")
@@ -245,7 +245,7 @@ cva.scores$Species <- iris$Species
 
 Let's plot the set of CVA scores that we calculated "by hand" to visually confirm our analysis produced similar results to the `lda()` function:
 
-```{r}
+```{r, fig.width=8, fig.height=6}
 ggplot(cva.scores, aes(x = CV1, y = CV2)) + 
   geom_point(aes(color=Species, shape=Species)) + 
   coord_fixed(ratio=1)

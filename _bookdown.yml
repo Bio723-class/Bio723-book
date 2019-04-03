@@ -9,4 +9,4 @@ rmd_files: ["index.Rmd", "01-getting-started-R.Rmd", "02-intro-R-markdown.Rmd",
 "06-data-wrangling.Rmd", "07-functions-and-control-flow.Rmd", "08-vector-algebra.Rmd",
 "09-matrices.Rmd", "10-regression-in-R.Rmd", "11-multiple-regression.Rmd",
 "12-logistic-regression.Rmd", "13-principal-components.Rmd", "14-singular-value-decomposition.Rmd",
-"15-CVA.Rmd"]
+"15-CVA.Rmd", "16-clustering.Rmd"]

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Fitting Regression Models in R | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="matrices-in-r.html">
-<link rel="next" href="multiple-regression.html">
+<link rel="prev" href="canonical-variates-analysis.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -484,314 +484,380 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="fitting-regression-models-in-r" class="section level1">
-<h1><span class="header-section-number">Chapter 11</span> Fitting Regression Models in R</h1>
-<p>Statistical models are quantitative statements about how we think variables are related to each other.</p>
-<p>Linear models are among the simplest statistical models. In a linear model relating two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the general form of the model can be stated as “I assume that <span class="math inline">\(Y\)</span> can be expressed as a linear function of <span class="math inline">\(X\)</span>”. The process of <em>model fitting</em> is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.</p>
-<p>Linear functions are those whose graphs are straight lines. A linear function of a variable <span class="math inline">\(X\)</span> is usually written as:</p>
-<p><span class="math display">\[
- \widehat{Y} = f(X) = a + bX
-\]</span></p>
-<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants. In geometric terms <span class="math inline">\(b\)</span> is the <em>slope of the line</em> and <span class="math inline">\(a\)</span> is the value of the function when <span class="math inline">\(X\)</span> is zero (usually the referred to as the “Y-intercept”). The slope tells you have much <span class="math inline">\(Y\)</span> changes per unit change of <span class="math inline">\(X\)</span>.</p>
-<p>There are infinitely many such linear functions of <span class="math inline">\(X\)</span> we could define. Which linear function provides the best fit given our observed values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>?</p>
-<div id="regression-terminology" class="section level2">
-<h2><span class="header-section-number">11.1</span> Regression terminology</h2>
-<ul>
-<li><p><strong>Predictors, explanatory, or independent variable</strong> – the variables from which we want to make our prediction.</p></li>
-<li><p><strong>Outcomes, dependent, or response variable</strong> – the variable we are trying to predict in our regression.</p></li>
-</ul>
-</div>
-<div id="the-optimality-criterion-for-least-squares-regression" class="section level2">
-<h2><span class="header-section-number">11.2</span> The optimality criterion for least-squares regression</h2>
-<p>In order to fit a model to data, we have to specify some criterion for judging how well alternate models perform.</p>
-<p>In linear regression, the optimality criterion can be expressed as “Find the linear function, <span class="math inline">\(f(X)\)</span>, that minimizes the following quantity:”</p>
-<p><span class="math display">\[
-\sum (y_i - f(x_i))^2
-\]</span>
-That is, our goal is to find the linear function of <span class="math inline">\(X\)</span> that minimizes the squared deviations in the <span class="math inline">\(Y\)</span> direction.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-338"></span>
-<img src="figures/fig-regression-minimization.png" alt="A graphical representation of the optimality criterion in bivariate least squares linear regression." width="40%" />
-<p class="caption">
-Figure 11.1: A graphical representation of the optimality criterion in bivariate least squares linear regression.
-</p>
-</div>
-</div>
-<div id="vector-geometric-perspective" class="section level2">
-<h2><span class="header-section-number">11.3</span> Vector geometric perspective</h2>
-<p>The figure above illustrates the “variable space” view of linear regression. You’ve also been introduced to the “subject space” representation of regression, in which we can visualize regression as a projection operation.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-339"></span>
-<img src="figures/fig-vector-regression.png" alt="A vector representation of bivariate linear regression." width="40%" />
-<p class="caption">
-Figure 11.2: A vector representation of bivariate linear regression.
-</p>
-</div>
-<p>The least-squares optimality criterion is to find the vector <span class="math inline">\(\vec{\widehat{Y}}\)</span> that minimizes the residual vector <span class="math inline">\(\vec{e}\)</span>.</p>
-</div>
-<div id="solution-for-the-least-squares-criterion" class="section level2">
-<h2><span class="header-section-number">11.4</span> Solution for the least-squares criterion</h2>
-<p>With a little calculus and linear algebra one can show that the values of <span class="math inline">\(b\)</span> (slope) and <span class="math inline">\(a\)</span> (intercept) that minimize the sum of squared deviations described above are:</p>
-<p><span class="math display">\[\begin{align}
-b &amp;= \frac{s_{xy}}{s^2_x} = r_{xy}\frac{s_y}{s_x}\\
-\\
-a &amp;= \overline{Y} - b\overline{X}
-\end{align}\]</span></p>
-<p>where <span class="math inline">\(r_{xy}\)</span> is the correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.</p>
-<p>In vector geometric terms, we estimate the regression coefficient for mean centered vectors as:</p>
-<p><span class="math display">\[
-b = \frac{\vec{x} \cdot \vec{y}}{\vec{x} \cdot \vec{x}}
-\]</span></p>
-</div>
-<div id="libraries-3" class="section level2">
-<h2><span class="header-section-number">11.5</span> Libraries</h2>
+<div id="clustering-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Clustering in R</h1>
+<div id="libraries-8" class="section level2">
+<h2><span class="header-section-number">17.1</span> Libraries</h2>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span>
-                  <span class="co"># install if you don&#39;t already have it</span></code></pre>
+<span class="kw">library</span>(RColorBrewer)</code></pre>
 </div>
-<div id="illustrating-linear-regression-with-simulated-data" class="section level2">
-<h2><span class="header-section-number">11.6</span> Illustrating linear regression with simulated data</h2>
-<p>To illustrate how regression works, we’ll use a simulated data set where we specify the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Using a simulation is desirable because it allows us to know what the “true” underlying model that relates <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is, so we can evaluate how well we do in terms of recovering the model.</p>
-<p>Let’s generate two vectors representing the variable, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, where <span class="math inline">\(Y\)</span> is a function of <span class="math inline">\(X\)</span> plus some independent noise. As specified below, the “true” model is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_y\)</span> where <span class="math inline">\(\epsilon_y\)</span> is a noise term.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this seeds our random number generator</span>
-<span class="co"># by setting a seed, we can make random number generation reproducible</span>
-<span class="kw">set.seed</span>(<span class="dv">20190227</span>)  
+<div id="data-set" class="section level2">
+<h2><span class="header-section-number">17.2</span> Data set</h2>
+<p>To illustrate clustering method, we’ll use a subset of the Spellman et al. gene expression data set we introduced in the <a href="https://bio723-class.github.io/Bio723-book/data-wrangling.html">Data Wrangling</a> chapter. Recall that, Spellman and colleagues tried to identify all the genes in the yeast genome (&gt;6000 genes) that exhibited oscillatory behaviors suggestive of cell cycle regulation. To do so, they measured gene expression over time, using six different types of cell cycle synchronization experiments.</p>
+<p>Rather than working with the whole genome, we’re going to focus on clustering ~700 genes that Spellman and colleagues identified as oscillatory. This data set can be loaded from <a href="https://github.com/Bio723-class/example-datasets/raw/master/spellman-wide.csv">this link</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/spellman-wide.csv&quot;</span>)
+<span class="kw">dim</span>(spellman)
+<span class="co">## [1]  73 726</span></code></pre>
+<p>This data is provided in a tidy “wide” format with genes in columns. The first two columns give the experiment name and the corresponding time point at which the sample was collected. Let’s confirm that the case by looking at the first few rows and columns of the data:</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]
+<span class="co">## # A tibble: 5 x 8</span>
+<span class="co">##   expt   time YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C</span>
+<span class="co">##   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">## 1 alpha     0  -0.36     1.04    0.21    0.01   -0.3    -0.48</span>
+<span class="co">## 2 alpha     7  -0.42     0.19   -0.2     0.07   -0.45   -0.42</span>
+<span class="co">## 3 alpha    14   0.290    0.47    0.2     0.17    0.75    0.87</span>
+<span class="co">## 4 alpha    21  -0.14    -1.03    0.15   NA       0.37    0.92</span>
+<span class="co">## 5 alpha    28  -0.19    -0.63    0.38   -0.1     0.27    0.67</span></code></pre>
+</div>
+<div id="hierarchical-clustering-in-r" class="section level2">
+<h2><span class="header-section-number">17.3</span> Hierarchical Clustering in R</h2>
+<p>Hierarchical clustering in R can be carried out using the <code>hclust()</code> function. The <code>method</code> argument to <code>hclust</code> determines the group distance function used (single linkage, complete linkage, average, etc.).</p>
+<p>The input to <code>hclust()</code> is a dissimilarity matrix. The function <code>dist()</code> provides some of the basic dissimilarity measures (e.g. Euclidean, Manhattan, Canberra; see method argument of <code>dist</code>) but you can convert an arbitrary square matrix to a distance object by applying the <code>as.dist</code> function to the matrix.</p>
+<p>We’re primarily interested in clustering the variables of our data set – genes – in order to discover what sets of gene are expressed in similar patterns (motivated by the idea that genes that are expressed in a similar manner are likely regulated by the same sets of transcription factors). So we need an appropriate similarity/dissimilarity measure for variables. The correlation coefficient is a suitable measure of linear association between variables. Correlations range from 1 for perfectly correlated variables to -1 for anti-correlated variables. Uncorrelated variables have values near zero. Correlation is a measure of similarity so we’ll turn it to into a measure of dissimilarity before passing it to the <code>as.dist</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman.cor &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(spellman, <span class="op">-</span>time, <span class="op">-</span>expt) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">cor</span>(<span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>)
 
-npts &lt;-<span class="st"> </span><span class="dv">50</span>
-X &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> npts) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts)
-a &lt;-<span class="st"> </span><span class="fl">1.0</span>
-b &lt;-<span class="st"> </span><span class="fl">1.5</span>
-Y &lt;-<span class="st"> </span>b<span class="op">*</span>X <span class="op">+</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts, <span class="dt">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = 1.5X + 1.0 + noise</span>
+spellman.dist &lt;-<span class="st"> </span><span class="kw">as.dist</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>spellman.cor)</code></pre>
+<p>The <code>use</code> argument to the <code>cor</code> function specifies that when there are missing
+values, the function should use all the available observations that have data
+necessary to calculate a correlation for any given pair of genes. We then turn
+the correlation into a distance measure by subtracting it from 1 (so perfectly
+positively correlated variables have distance 0) and passing it to the <code>as.dist</code>
+function.</p>
+<p>We’re now ready to put the <code>hclust</code> function to use. We first generate the
+hierarchical clustering, use the “complete linkage” method (see lecture slides):</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman.tree &lt;-<span class="st"> </span><span class="kw">hclust</span>(spellman.dist, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</code></pre>
+<p>Having generated the tree object, we can plot it using the multipurpose <code>plot()</code> function (Note that <code>plot()</code> is part of the base R graphics package, and hence unrelated to ggplot):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.tree)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-497-1.png" width="960" /></p>
+<p>Ugh - that’s an ugly plot! One major problem is that the text labels at the
+bottom of the tree are too large, and they’re overlapping each other. We can
+tweak that a little by changing the text size with the <code>cex</code> parameter.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.tree, <span class="dt">cex=</span><span class="fl">0.2</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-498-1.png" width="960" /></p>
+<p>That’s a little better, but we’re going to need some additional tools to wrangle this dendrogram into a more usable state.</p>
+</div>
+<div id="manipulating-hierarchical-clusterings-with-dendextend" class="section level2">
+<h2><span class="header-section-number">17.4</span> Manipulating hierarchical clusterings with dendextend</h2>
+<p>To work with and manipulate hierarchical clusterings and to create nicer dendrograms we’re going to use a package called <a href="https://cran.r-project.org/web/packages/dendextend/vignettes/introduction.html">dendextend</a>. Install dendextend via one of the standard package installation mechanisms before proceeding.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dendextend)</code></pre>
+<p>First we’ll create a <code>dendrogram</code> object from our clustering tree, and use some
+<code>dendextend</code> features to examine a few of the properties of the dendrogram.</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman.dend &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(spellman.tree) <span class="co"># create dendrogram object</span></code></pre>
+<p><code>dendextend</code> includes a number of functions for examing the tree. For example, to examine the number of “leaves” (= # of genes we clustered) or nodes (= # of leaves + number of internal joins) in the tree we can do the following:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nleaves</span>(spellman.dend)  <span class="co"># number of leaves in tree</span>
+<span class="co">## [1] 724</span>
+<span class="kw">nnodes</span>(spellman.dend)  <span class="co"># number of nodes (=leaves + joins) in tree</span>
+<span class="co">## [1] 1447</span></code></pre>
+</div>
+<div id="plotting-dendrograms-in-dendextend" class="section level2">
+<h2><span class="header-section-number">17.5</span> Plotting dendrograms in dendextend</h2>
+<p>The plot function for <code>dendextend</code> dendrogram objects (see <code>?plot.dendrogram</code>) has a number of additional parameters that allows us to tweak the plot. For example, for large dendrograms it often makes sense to remove the leaf labels entirely as they will often be too small to read. This can be accomplished using the <code>leaflab</code> argument:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.dend, <span class="dt">leaflab =</span> <span class="st">&quot;none&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-502-1.png" width="960" /></p>
+</div>
+<div id="cutting-dendrograms" class="section level2">
+<h2><span class="header-section-number">17.6</span> Cutting dendrograms</h2>
+<p>When looking at the figure we just generated it looks like there may be four
+major clusters. We’ll use the <code>cutree</code> function to cut the tree into four pieces
+and examine the implied clustering (note that the <code>cutree</code> function can also be
+used to cut the tree at a specified height).</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>)
+<span class="kw">table</span>(clusters)
+<span class="co">## clusters</span>
+<span class="co">##   1   2   3   4 </span>
+<span class="co">## 189 144 227 164</span></code></pre>
+<p>When we cut the tree we got four clusters, whose size is given by the <code>table</code> command above. If you examine the <code>cutree</code> documentation (reminder: use <code>?cutree</code> from the command line) you will see that it returns a vector of integers, giving the corresponding cluster to which each variable (gene) is assigned. The code below shows the cluster assignments for the first six genes.</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]
+<span class="co">## YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C </span>
+<span class="co">##       1       2       3       4       3       3</span></code></pre>
+<p>Next let’s create a nicer plot that highlights each of the clusters. The
+function <code>color_branches()</code> does essentially the same thing as <code>cutree</code> but it
+returns information that the <code>plot</code> function can use to appropriately color
+branches of the tree according to cluster membership.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-505-1.png" width="960" /></p>
+<p>Now we’re getting somewhere! However, our clusters are still pretty big. Let’s
+check out the clusterings we get when we cut with eight clusters rather than
+four.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-506-1.png" width="960" />
+And here are the number of genes in each cluster:</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>, <span class="dt">order_clusters_as_data =</span> <span class="ot">FALSE</span>)
+<span class="kw">table</span>(clusters)
+<span class="co">## clusters</span>
+<span class="co">##   1   2   3   4   5   6   7   8 </span>
+<span class="co">## 164 169  58  81 108  74  16  54</span></code></pre>
+</div>
+<div id="looking-at-clusters" class="section level2">
+<h2><span class="header-section-number">17.7</span> Looking at clusters</h2>
+<p>To further explore the clusters, let’s create a data frame that holds the information about genes and their cluster assignments:</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(clusters), <span class="dt">cluster =</span> clusters)</code></pre>
+<p>Having created this data frame, it’s straightforward to lookup the cluster to which a gene belongs:</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters.df[<span class="st">&quot;YAL022C&quot;</span>,]
+<span class="co">## # A tibble: 1 x 2</span>
+<span class="co">##   gene    cluster</span>
+<span class="co">##   &lt;fct&gt;     &lt;int&gt;</span>
+<span class="co">## 1 YAL022C       5</span></code></pre>
+<p>or to get all the names of genes in a given cluster:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cluster3.genes &lt;-<span class="st"> </span><span class="kw">filter</span>(clusters.df, cluster <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)<span class="op">$</span>gene
 
-df.xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y)</code></pre>
-<p>Having generated some simulated data, let’s visualize it.</p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
-<span class="kw">ggMarginal</span>(p, <span class="dt">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">bins =</span> <span class="dv">11</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-342-1.png" width="576" /></p>
+<span class="kw">cat</span>(<span class="kw">as.character</span>(cluster3.genes[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]), <span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>);
+<span class="co">## YEL068C</span>
+<span class="co">## YOR242C</span>
+<span class="co">## YKL172W</span>
+<span class="co">## YBR087W</span>
+<span class="co">## YJR043C</span>
+<span class="co">## YLR154C</span>
+<span class="co">## YGR276C</span>
+<span class="co">## YGR042W</span>
+<span class="co">## YPL232W</span>
+<span class="co">## YOR355W</span>
+<span class="co">## FALSE</span></code></pre>
+<p>Note the use of the <code>cat</code> function to print out a list of the gene names for
+cluster 7, with the names separated by returns (<code>"\n"</code>). This is useful if you
+want to cut and paste the gene names into a document, or an online analysis tool
+such as various Gene Ontology (GO) browsers (we’ll talk about these in a later
+class session).</p>
 </div>
-<div id="specifying-regression-models-in-r" class="section level2">
-<h2><span class="header-section-number">11.7</span> Specifying Regression Models in R</h2>
-<p>As one would expect, R has a built-in function for fitting linear regression models. The function <code>lm()</code> can be used not only to carry out bivariate linear regression but a wide range of linear models, including multiple regression, analysis of variance, analysis of covariance, and others.</p>
-<pre class="sourceCode r"><code class="sourceCode r">fit.xy &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, df.xy)</code></pre>
-<p>The first argument to <code>lm</code> is an R “formula”, the second argument is a data frame.</p>
-<p>Recall that formulas are R’s way of specifying models, though they find other uses as well (e.g. we saw the formula syntax when we introduced the <code>facet_wrap</code> and <code>facet_grid</code> functions from ggplot, and in the context of ANOVA). The general form of a formula in R is <code>response variable ~ explanatory variables</code>. In the code example above, we have only a single explanatory variable, and thus our response variable is Y and our explanatory variable is X.</p>
-<p>The <code>lm</code> function returns a list with a number of different components. The ones of most interest to us are <code>fitted.values</code>, <code>coefficients</code>, <code>residuals</code>, and (see the <code>lm</code> documentation for full details.)</p>
-<pre class="sourceCode r"><code class="sourceCode r">fit.xy
-<span class="co">## </span>
-<span class="co">## Call:</span>
-<span class="co">## lm(formula = Y ~ X, data = df.xy)</span>
-<span class="co">## </span>
-<span class="co">## Coefficients:</span>
-<span class="co">## (Intercept)            X  </span>
-<span class="co">##       1.819        1.198</span></code></pre>
-<p>Calling <code>summary</code> on a fit model provides more detailed output:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(fit.xy)
-<span class="co">## </span>
-<span class="co">## Call:</span>
-<span class="co">## lm(formula = Y ~ X, data = df.xy)</span>
-<span class="co">## </span>
-<span class="co">## Residuals:</span>
-<span class="co">##    Min     1Q Median     3Q    Max </span>
-<span class="co">## -6.118 -1.138  0.338  1.203  3.260 </span>
-<span class="co">## </span>
-<span class="co">## Coefficients:</span>
-<span class="co">##             Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="co">## (Intercept)   1.8193     0.6557   2.775  0.00785 ** </span>
-<span class="co">## X             1.1976     0.2081   5.755 5.93e-07 ***</span>
-<span class="co">## ---</span>
-<span class="co">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
-<span class="co">## </span>
-<span class="co">## Residual standard error: 1.985 on 48 degrees of freedom</span>
-<span class="co">## Multiple R-squared:  0.4083, Adjusted R-squared:  0.3959 </span>
-<span class="co">## F-statistic: 33.12 on 1 and 48 DF,  p-value: 5.93e-07</span></code></pre>
-<p>As we saw in previous R functions for implementing statistical test, the model object is actually a list-like object with multiple fields:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(fit.xy)
-<span class="co">## [1] &quot;list&quot;</span>
+<div id="generating-a-heat-map-from-a-cluster" class="section level2">
+<h2><span class="header-section-number">17.8</span> Generating a heat map from a cluster</h2>
+<p>Let’s generate a heat map showing the expression of all the genes in the alpha factor experiment for the first cluster that we found above. To generate this visualization it will be convenient to work with the data in a tidy long format, so we use <code>dplyr::gather</code> to restructure the data first:</p>
+<pre class="sourceCode r"><code class="sourceCode r">spellman.long &lt;-<span class="st"> </span><span class="kw">gather</span>(spellman, gene, expression, <span class="op">-</span>time, <span class="op">-</span>expt) 
+<span class="kw">head</span>(spellman.long)
+<span class="co">## # A tibble: 6 x 4</span>
+<span class="co">##   expt   time gene    expression</span>
+<span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
+<span class="co">## 1 alpha     0 YAL022C     -0.36 </span>
+<span class="co">## 2 alpha     7 YAL022C     -0.42 </span>
+<span class="co">## 3 alpha    14 YAL022C      0.290</span>
+<span class="co">## 4 alpha    21 YAL022C     -0.14 </span>
+<span class="co">## 5 alpha    28 YAL022C     -0.19 </span>
+<span class="co">## 6 alpha    35 YAL022C     -0.52</span></code></pre>
+<p>Having restructured the data we can now generate our desired heat map:</p>
+<pre class="sourceCode r"><code class="sourceCode r">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span>
 
-<span class="kw">names</span>(fit.xy)
-<span class="co">##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         </span>
-<span class="co">##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  </span>
-<span class="co">##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></code></pre>
-<div id="fitted-values" class="section level3">
-<h3><span class="header-section-number">11.7.1</span> Fitted values</h3>
-<p>The component <code>fitted.values</code> gives the predicted values of <span class="math inline">\(Y\)</span> (<span class="math inline">\(\hat{Y}\)</span> in the equations above) for each observed value of <span class="math inline">\(X\)</span>. We can plot these predicted values of <span class="math inline">\(Y\)</span>, as shown below. Notice how the predicted values all fall on a line (the regression line itself!)</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span><span class="st">                           </span><span class="co"># observed data</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> fit.xy<span class="op">$</span>fitted.values),  <span class="co"># predicted data</span>
-             <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> fit.xy<span class="op">$</span>fitted.values),
-               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.25</span>)</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-347"></span>
-<img src="bio723-book_files/figure-html/unnamed-chunk-347-1.png" alt="Observed (black) and predicted (red) values in a linear regression of Y on X.  Dashed lines indicate the residuals from the regression." width="576" />
-<p class="caption">
-Figure 11.3: Observed (black) and predicted (red) values in a linear regression of Y on X. Dashed lines indicate the residuals from the regression.
-</p>
+spellman.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>cluster3.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-512-1.png" width="576" /></p>
 </div>
+<div id="working-with-sub-trees" class="section level2">
+<h2><span class="header-section-number">17.9</span> Working with sub-trees</h2>
+<p>The <code>cutree()</code> function illustrated above gives us the groupings implied by cutting the tree at a certain height. However, it does not explicitly return objects representing the sub-trees themselves. If you want to do computations or generate figures of the sub-trees, you’ll need to use the <code>cut()</code> function.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note that I determined the height to cut at by looking at the colored dendrogram</span>
+<span class="co"># plot above for 8 clusters</span>
+sub.trees &lt;-<span class="st"> </span><span class="kw">cut</span>(spellman.dend, <span class="dt">h =</span> <span class="fl">1.48</span>)</code></pre>
+<p>The <code>cut</code> function returns multiple sub-trees designated <code>upper</code> and
+<code>lower</code>. The upper tree is the tree “above” the cut, while the multiple
+“lower” trees represent the disconnected sub-trees “below” the cut. For
+purposes of clustering you usually are most interested in the sub-trees
+(clusters) below the cut.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sub.trees<span class="op">$</span>lower
+<span class="co">## [[1]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 164 members total, at height 1.469983 </span>
+<span class="co">## </span>
+<span class="co">## [[2]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 169 members total, at height 1.178098 </span>
+<span class="co">## </span>
+<span class="co">## [[3]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836 </span>
+<span class="co">## </span>
+<span class="co">## [[4]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 81 members total, at height 1.231597 </span>
+<span class="co">## </span>
+<span class="co">## [[5]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 108 members total, at height 1.366951 </span>
+<span class="co">## </span>
+<span class="co">## [[6]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 74 members total, at height 1.463623 </span>
+<span class="co">## </span>
+<span class="co">## [[7]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 16 members total, at height 1.041689 </span>
+<span class="co">## </span>
+<span class="co">## [[8]]</span>
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 54 members total, at height 1.188419</span></code></pre>
+<p>We can retrieve any particular sub-tree by indexing into the list:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cluster3.tree &lt;-<span class="st"> </span>sub.trees<span class="op">$</span>lower[[<span class="dv">3</span>]]
+cluster3.tree
+<span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836</span>
+<span class="kw">nleaves</span>(cluster3.tree)
+<span class="co">## [1] 58</span></code></pre>
 </div>
-<div id="getting-the-model-coefficients" class="section level3">
-<h3><span class="header-section-number">11.7.2</span> Getting the model coefficients</h3>
-<p>The <code>coefficients</code> components gives the value of the model parameters, namely the intercept and slope.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>fit.xy<span class="op">$</span>coefficients
-<span class="co">## (Intercept)           X </span>
-<span class="co">##    1.819327    1.197603</span></code></pre>
-<p>As shown above, the estimated slope is 1.20 and the estimated intercept is 1.82. The model estimated by our linear regression is thus <span class="math inline">\(\widehat{Y} = 1.82 + 1.20X\)</span>. Since this is a synthetic example, we know the “true” underlying model, which is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_x\)</span>.</p>
-<p>With the slope and intercept in hand we can draw the regression line as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span><span class="st">     </span><span class="co"># observed data</span>
-<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">2</span>]],
-              <span class="dt">intercept =</span> fit.xy<span class="op">$</span>coefficients[[<span class="dv">1</span>]],
-              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-350-1.png" width="576" /></p>
-<p>Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, <code>geom_smooth()</code>, that will fit a linear model (as well as other models, see below) for us and generate the corresponding regression plot.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha =</span> <span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-351-1.png" width="576" /></p>
-<p>By default, <code>geom_smooth</code> draws confidence intervals for the regression model (the shaded gray area around the regression line). Note that confidence intervals for a linear regression model are wider far away from the mean values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<div id="setting-dendrogram-parameters-in-dendextend" class="section level2">
+<h2><span class="header-section-number">17.10</span> Setting dendrogram parameters in dendextend</h2>
+<p><code>dendextend</code> has a generic function – <code>set()</code> – for changing the parameters associated with dendrograms. The basic form of the function is <code>set(object, what, value)</code>, where <code>object</code> is the dendrogram you’re working with, <code>what</code> is a character string indicating the parameter you want to change, and <code>value</code> is the setting you wishing to assign to that parameter.</p>
+<p>A full list of dendrogram parameters that can be changed is provided in the <a href="https://cran.r-project.org/web/packages/dendextend/vignettes/introduction.html#the-set-function">dendextend</a> documentation.</p>
+<p>We’ll use the <code>set</code> function to make a nice diagram of our cluster 3 sub-tree:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cluster3.tree  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_cex&quot;</span>, <span class="fl">0.45</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="st">&quot;red&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz =</span> <span class="ot">TRUE</span>)  <span class="co"># plot horizontally</span></code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-516-1.png" width="576" /></p>
 </div>
-</div>
-<div id="residuals" class="section level2">
-<h2><span class="header-section-number">11.8</span> Residuals</h2>
-<p>Residuals are the difference between the observed values of <span class="math inline">\(Y\)</span> and the predicted values. You can think of residuals as the proportion of <span class="math inline">\(Y\)</span> unaccounted for by the model.</p>
-<p><span class="math display">\[
-\mbox{residuals} = Y - \hat{Y}
-\]</span></p>
-<p>The previous figure showed the residuals as dashed lines connected the observed and predicted values. A common way to depict the residuals, is to plot the predictor values versus the corresponding residual value, like so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> fit.xy<span class="op">$</span>residuals)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-352-1.png" width="576" /></p>
-<p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of <span class="math inline">\(X\)</span>.</p>
-</div>
-<div id="regression-as-sum-of-squares-decomposition" class="section level2">
-<h2><span class="header-section-number">11.9</span> Regression as sum-of-squares decomposition</h2>
-<p>Regression can be viewed as a decomposition of the sum-of-squared deviations..</p>
-<p><span class="math display">\[
-ss(Y) = ss(\hat{Y}) + ss(\mbox{residuals})
-\]</span></p>
-<p>Let’s check this for our example:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>ss.Y &lt;-<span class="st"> </span><span class="kw">sum</span>((Y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y))<span class="op">^</span><span class="dv">2</span>)
-<span class="op">&gt;</span><span class="st"> </span>ss.Yhat &lt;-<span class="st"> </span><span class="kw">sum</span>((fit.xy<span class="op">$</span>fitted.values <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y))<span class="op">^</span><span class="dv">2</span>)
-<span class="op">&gt;</span><span class="st"> </span>ss.residuals &lt;-<span class="st"> </span><span class="kw">sum</span>(fit.xy<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)
-<span class="op">&gt;</span><span class="st"> </span>ss.Y
-<span class="co">## [1] 319.5811</span>
-<span class="op">&gt;</span><span class="st"> </span>ss.Yhat <span class="op">+</span><span class="st"> </span>ss.residuals
-<span class="co">## [1] 319.5811</span></code></pre>
-</div>
-<div id="variance-explained-by-a-regression-model" class="section level2">
-<h2><span class="header-section-number">11.10</span> Variance “explained” by a regression model</h2>
-<p>We can use the sum-of-square decomposition to understand the relative proportion of variance “explained” (accounted for) by the regression model.</p>
-<p>We call this quantity the “Coefficient of Determination”, designated <span class="math inline">\(R^2\)</span>.<br />
-<span class="math display">\[
-R^2 = \left( 1 - \frac{SS_{residuals}}{SS_{total}} \right)
-\]</span></p>
-<p>For this particular example we can estimate <span class="math inline">\(R^2\)</span> as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="fl">1.0</span> <span class="op">-</span><span class="st"> </span>(ss.residuals<span class="op">/</span>ss.Y)
-R2
-<span class="co">## [1] 0.4082507</span></code></pre>
-<p>In this particular example, we find our linear model accounts for about 63% of the variance in <span class="math inline">\(Y\)</span>. Note that the coefficient of determination is also reported when you apply the <code>summary</code> function to a linear model.</p>
-</div>
-<div id="broom-a-library-for-converting-model-results-into-data-frames" class="section level2">
-<h2><span class="header-section-number">11.11</span> Broom: a library for converting model results into data frames</h2>
-<p>The model fit object we got back when we used the <code>lm</code> function to carry out linear regression, carries lots of useful information it isn’t a particularly “tidy” way to access the data. The R package Broom converts "statistical analysis objects from R into tidy data frames, so that they can more easily be combined, reshaped and otherwise processed with tools like ‘dplyr’, ‘tidyr’ and ‘ggplot2’. The discussion of Broom below is drawn from the <a href="https://cran.r-project.org/web/packages/broom/vignettes/broom.html">Introduction to Broom</a></p>
-<p><strong>If you haven’t already done so, install the <code>broom</code> package before proceeding.</strong></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(broom)</code></pre>
-<p>There are three <code>broom</code> functions that are particularly useful for our purposes. They are:</p>
-<ol style="list-style-type: decimal">
-<li><code>tidy</code> – constructs a data frame that summarizes the model’s statistical findings.</li>
-<li><code>augment</code> – add columns to the original data that was modeled. This includes predictions, residuals, and cluster assignments.</li>
-<li><code>glance</code> – construct a concise one-row summary of the model.</li>
-</ol>
-<div id="broomtidy" class="section level3">
-<h3><span class="header-section-number">11.11.1</span> <code>broom::tidy</code></h3>
-<p><code>tidy</code> applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values. For now we’re just interested in the estiamtes, the other values will be described in detail when we get to statistical inference.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tidy</span>(fit.xy)
-<span class="co">## # A tibble: 2 x 5</span>
-<span class="co">##   term        estimate std.error statistic      p.value</span>
-<span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">## 1 (Intercept)    1.819    0.6557     2.775 0.007853    </span>
-<span class="co">## 2 X              1.198    0.2081     5.755 0.0000005930</span></code></pre>
-</div>
-<div id="broomaugment" class="section level3">
-<h3><span class="header-section-number">11.11.2</span> <code>broom::augment</code></h3>
-<p><code>augment</code> creates a data frame that combines the original data with related information from the model fit.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df.xy.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(fit.xy, df.xy)
-<span class="kw">head</span>(df.xy.augmented)
-<span class="co">## # A tibble: 6 x 9</span>
-<span class="co">##        X      Y .fitted .se.fit  .resid    .hat .sigma  .cooksd .std.resid</span>
-<span class="co">##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">## 1 0.1144 3.049    1.956  0.6343  1.093  0.1021   1.999 0.01921      0.5812</span>
-<span class="co">## 2 1.023  3.630    3.045  0.4722  0.5853 0.05659  2.004 0.002765     0.3036</span>
-<span class="co">## 3 0.3076 0.9912   2.188  0.5985 -1.196  0.09092  1.998 0.01999     -0.6322</span>
-<span class="co">## 4 1.901  3.357    4.095  0.3430 -0.7386 0.02986  2.003 0.002196    -0.3778</span>
-<span class="co">## 5 2.504  1.576    4.818  0.2897 -3.242  0.02130  1.948 0.02966     -1.651 </span>
-<span class="co">## 6 1.683  4.492    3.835  0.3708  0.6570 0.03490  2.004 0.002053     0.3369</span></code></pre>
-<p>Now, in addition to the <code>X</code> and <code>Y</code> variables of the original data, we have columns like <code>.fitted</code> (value of Y predicted by the model for the corresponding value of X), <code>.resid</code> (difference between the actual Y and the predicted value), and a variety of other information for evalulating model uncertainty.</p>
-<p>One thing we can do with this “augmented” data frame is to use it to better visualize and explore the model. For example, if we wanted to generate a figure highlighting the deviations from the model using vertical lines emanating from the regression line, we could do something like this:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, Y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>,<span class="dt">se=</span><span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> .fitted), <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-358-1.png" width="576" /></p>
-<p>An another example, we can recreate our residual plot using the augmented data frame as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.xy.augmented, <span class="kw">aes</span>(X, .resid)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Residual plot for synthetic data example.&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-359-1.png" width="576" /></p>
-</div>
-<div id="broomglance" class="section level3">
-<h3><span class="header-section-number">11.11.3</span> <code>broom::glance</code></h3>
-<p><code>glance()</code> provides summary information about the goodness of fit of the model. Most relevant for our current discussion is the column giving the coefficient of determination (<code>r.squared</code>):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(fit.xy)
-<span class="co">## # A tibble: 1 x 11</span>
-<span class="co">##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC</span>
-<span class="co">##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    0.4083        0.3959 1.985     33.12 5.930e-7     2 -104.2 214.4 220.1</span>
-<span class="co">## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</span></code></pre>
-</div>
-</div>
-<div id="example-predicting-lion-age-based-on-nose-color" class="section level2">
-<h2><span class="header-section-number">11.12</span> Example: Predicting lion age based on nose color</h2>
-<p>Having walked through a simulation example, let’s now turn to a real world data set. A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions. To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion), giving the bivariate relationship (and fitted model) shown below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">lions &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/bio304-class/bio304-course-notes/raw/master/datasets/ABD-lion-noses.csv&quot;</span>)
+<div id="combining-heatmaps-and-dendrograms" class="section level2">
+<h2><span class="header-section-number">17.11</span> Combining heatmaps and dendrograms</h2>
+<p>A common visualization used in transcriptome studies is to combine dendrograms and heatmaps. To do this with a minimum of fuss we’ll use a package called “gplots” which includes a heatmap function that will also plot dendrograms next. Install “gplots” via the standard package installation mechanism.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gplots)</code></pre>
+<p>The gplots function we will use is called <code>heatmap.2</code>. This function requires as input our data in the form of a matrix. If you provide no other information <code>heatmap.2</code> will carry out clustering for you, clustering both the rows and columns of the data matrix.</p>
+<p>However, here we want to draw a dendrogram (representing similarity among variables) we’ve already calculated, and to create a heat map just for the alpha factor data, so we need to do some pre-calculations and tweak the <code>heatmap.2</code> arguments:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset out the alpha factor data</span>
+alpha.factor &lt;-<span class="st"> </span><span class="kw">filter</span>(spellman, expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>)
 
-<span class="kw">ggplot</span>(lions, <span class="kw">aes</span>(<span class="dt">x =</span> proportionBlack, <span class="dt">y =</span> ageInYears)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-361-1.png" width="576" /></p>
-<p>By eye, the linear model looks like a pretty good fit. Let’s take a look at the quantitative values of the regression model, using the various Broom functions to produce nice output.</p>
-<pre class="sourceCode r"><code class="sourceCode r">lion.model &lt;-<span class="st"> </span><span class="kw">lm</span>(ageInYears <span class="op">~</span><span class="st"> </span>proportionBlack, <span class="dt">data =</span> lions)
-<span class="kw">tidy</span>(lion.model)
-<span class="co">## # A tibble: 2 x 5</span>
-<span class="co">##   term            estimate std.error statistic       p.value</span>
-<span class="co">##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;</span>
-<span class="co">## 1 (Intercept)       0.8790    0.5688     1.545 0.1328       </span>
-<span class="co">## 2 proportionBlack  10.65      1.510      7.053 0.00000007677</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glance</span>(lion.model)
-<span class="co">## # A tibble: 1 x 11</span>
-<span class="co">##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC</span>
-<span class="co">##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    0.6238        0.6113 1.669     49.75 7.677e-8     2 -60.76 127.5 131.9</span>
-<span class="co">## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</span></code></pre>
-<p>We then augment our data set with information from the model fit and plot a residual plot:</p>
-<pre class="sourceCode r"><code class="sourceCode r">lions.augmented &lt;-<span class="st"> </span><span class="kw">augment</span>(lion.model, lions)
-<span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(proportionBlack, .resid)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-364-1.png" width="576" /></p>
-<p>From this plot, there may be some indication of greater variance of residuals for larger values of the predictor variable.</p>
-<p>Let’s check how normal the residuals look using a QQ-plot. Here we construct the QQ-plot using “standardized residuals” which are just z-scores for the residuals.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lions.augmented, <span class="kw">aes</span>(<span class="dt">sample =</span> .std.resid)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_qq</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_qq_line</span>(<span class="dt">color=</span><span class="st">&quot;firebrick&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-365-1.png" width="576" /></p>
-<p>Based on the QQ-plot, the residuals seem to diverge somewhat from a normal distirbution, as there’s noticeable curvature in the QQ-plot. When we test for the normality of the residuals using Shapiro-Wilk’s test for normality, we fail to reject the null hypothesis of normality at a significance threshold of <span class="math inline">\(\alpha=0.05\)</span>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(lions.augmented<span class="op">$</span>.resid)
-<span class="co">## </span>
-<span class="co">##  Shapiro-Wilk normality test</span>
-<span class="co">## </span>
-<span class="co">## data:  lions.augmented$.resid</span>
-<span class="co">## W = 0.93879, p-value = 0.0692</span></code></pre>
-<p>Even though we failed to reject the null hypothesis of normality for the residuals, but the P-value is very close to significance, suggesting some caution in applying the linear model.</p>
+<span class="co"># create matrix after dropping time and expt columns</span>
+alpha.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dplyr<span class="op">::</span><span class="kw">select</span>(alpha.factor, <span class="op">-</span>time, <span class="op">-</span>expt)) <span class="co"># drop time, expt columns</span>
+
+<span class="co"># set row names to corresponding time points for nice plotting</span>
+<span class="kw">row.names</span>(alpha.mtx) &lt;-<span class="st"> </span>alpha.factor<span class="op">$</span>time
+
+<span class="co"># transpose the matrix so genes are drawn in rows</span>
+transposed.alpha.mtx &lt;-<span class="st"> </span><span class="kw">t</span>(alpha.mtx)</code></pre>
+<p>Having defined the data we want to plot in the heatmap we can now use <code>heatmap.2</code> as follows</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is a large figure, so if working in RMarkdown document I suggest specifying</span>
+<span class="co"># the code block header as so to make the figure large</span>
+<span class="co"># {r, fig.width = 8, fig.height = 8}</span>
+<span class="kw">heatmap.2</span>(transposed.alpha.mtx,
+          <span class="dt">Rowv =</span> cluster3.tree,  <span class="co"># use the dendrogram previously calculated</span>
+          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t mess with my columns! (i.e. keep current ordering )</span>
+          <span class="dt">dendrogram =</span> <span class="st">&quot;row&quot;</span>,   <span class="co"># only draw row dendrograms</span>
+          <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">9</span>),  <span class="co"># OPTIONAL: set break points for colors</span>
+          <span class="dt">col =</span> color.scheme,  <span class="co"># use previously defined colors</span>
+          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,  <span class="co"># remove distracting elements of plot</span>
+          <span class="dt">xlab =</span> <span class="st">&quot;Time (mins)&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-519-1.png" width="768" /></p>
+</div>
+<div id="k-meansk-medoids-clustering-in-r" class="section level2">
+<h2><span class="header-section-number">17.12</span> K-means/K-medoids Clustering in R</h2>
+<p>The <code>kmeans()</code> function calculates standard k-means clusters in R. However, we’re actually going to use a related function that calculates “k-medoids” clustering. K-medoids clustering differs from k-means in that the objective function is to minimize the sum of dissimilarities from the cluster centers (“medoids”) rather then the sum of squared distances. K-medoids clustering tends to be more robust to outliers than K-means. Another advantage for our purposes is that the k-medoids algorithm, unlike the standard implementation of k-means, can accept a distance or dissimilarity matrix as input.</p>
+<p>K-medoids clustering is implemented in the function <code>pam()</code> (Partitioning Around Medoids), which is found in a package called <code>cluster</code> that is included with the standard R installation.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cluster)
+spellman.kmedoids &lt;-<span class="st"> </span><span class="kw">pam</span>(spellman.dist, <span class="dv">8</span>) <span class="co"># create k-medoids clustering with 8 clusters</span>
+kclusters &lt;-<span class="st"> </span>spellman.kmedoids<span class="op">$</span>cluster
+<span class="kw">table</span>(kclusters)
+<span class="co">## kclusters</span>
+<span class="co">##   1   2   3   4   5   6   7   8 </span>
+<span class="co">## 121 104  70  95  85  94  65  90</span></code></pre>
+<p>K-medoids (or K-means) will, in general, find different clusterings than our hierarchical clustering illustrated previously. For comparison with our earlier hierarchical clustering results, lets plot the k-medoids inferred clusters back onto our earlier dendrogram.</p>
+<pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># reorder genes so they match the dendrogram</span>
+kclusters.reordered &lt;-<span class="st"> </span>kclusters[<span class="kw">order.dendrogram</span>(spellman.dend)]
+
+<span class="co"># get  branch colors so we&#39;re using the same palette</span>
+dend.colors &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">get_leaves_branches_attr</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>), <span class="dt">attr=</span><span class="st">&quot;col&quot;</span>))
+
+<span class="co"># color the branches according to their k-means cluster assignment</span>
+<span class="kw">plot</span>(<span class="kw">branches_attr_by_clusters</span>(spellman.dend, kclusters.reordered , dend.colors),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-521-1.png" width="960" /></p>
+<p>Comparing the inferred k-medoids clustering to our previous complete linkage
+clustering we see some clusters that are similar between the two, but there are
+also significant differences.</p>
+<div id="heat-map-from-k-medoids-cluster" class="section level3">
+<h3><span class="header-section-number">17.12.1</span> Heat map from k-medoids cluster</h3>
+<p>In the same manner we generated a heat map for one of the hierarchical clustering sub-trees, we can generate a similar heat map for a k-medoids cluster. Let’s examine cluster 4:</p>
+<pre class="sourceCode r"><code class="sourceCode r">kcluster4.genes &lt;-<span class="st"> </span><span class="kw">names</span>(kclusters[kclusters <span class="op">==</span><span class="st"> </span><span class="dv">4</span>])
+
+spellman.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>kcluster4.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;K-medoids Clustering of Spellman et al. Data</span><span class="ch">\n</span><span class="st">Cluster 4&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-522-1.png" width="576" /></p>
+</div>
+</div>
+<div id="combining-clusters-and-correlation-matrix-heatmaps" class="section level2">
+<h2><span class="header-section-number">17.13</span> Combining clusters and correlation matrix heatmaps</h2>
+<p>How do we know if we have a sensible clustering? For example, above we illustrated how to use complete linkage clustering and the k-medoids algorithm to produce two different clusterings of the same data. We produce a result with 8 clusters for each, but there were significant differences in terms of the membership of genes in each cluster. Which one of these methods produced a “better” result for the data in hand?</p>
+<p>There are many criteria – biological, mathematical, computational – one might apply to answer such a question, but for now let’s consider the idea that a good clustering is one that produces “natural groups” in data. In the lecture slides , I proferred the following “common sense” definition of natural groups:</p>
+<dl>
+<dt>Natural Groups</dt>
+<dd><p>Groups of objects where the similarity between objects is higher within groups than between groups.</p>
+</dd>
+</dl>
+<p>How might we evaluate a proposed clustering with respect to this definition of natural groups? One way to do so is the examine our matrix of similarity according to the implied clusters to see if the clusters are consistent with high within group similarity and low between group similarity.</p>
+<p>In the clustering applications we’ve looked at so far, our measure of similarity has been based on correlations. We’ll first look at the “raw” correlation matrix, unsorted with respect to the implied clusterings, and then we’ll take a look at the correlation matrix sorted by hierarchical clustering and then k-medoids clustering.</p>
+<p>We can use the <code>heatmap.2()</code> function to visualize the correlation matrix.</p>
+<pre class="sourceCode r"><code class="sourceCode r">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">10</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span>
+
+<span class="kw">heatmap.2</span>(spellman.cor, 
+          <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster rows</span>
+          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster columns</span>
+          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, <span class="co"># don&#39;t draw dendrograms</span>
+          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>, 
+          <span class="dt">col =</span> color.scheme, <span class="dt">keysize  =</span> <span class="dv">1</span>,
+          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>,
+          <span class="dt">xlab =</span> <span class="st">&quot;genes&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;genes&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-523-1.png" width="768" /></p>
+<p>A correlation matrix is a square symmetric matrix. The dark red line down the diagonal represents correlations of genes with themselves (i.e. perfectly correlated). Off diagonal elements range from blue (negative correlations) to gray (near zero correlations) to red (positive correlations).</p>
+<div id="hierarchical-clustering-visualized-on-correlation-matrix" class="section level3">
+<h3><span class="header-section-number">17.13.1</span> Hierarchical clustering, visualized on correlation matrix</h3>
+<p>Now let’s re-generate the heatmap of the correlation matrix with the genes sorted by our hierarchical clustering:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(spellman.cor, 
+          <span class="dt">Rowv =</span> <span class="kw">ladderize</span>(spellman.dend), 
+          <span class="dt">Colv =</span> <span class="kw">ladderize</span>(spellman.dend), 
+          <span class="dt">dendrogram =</span> <span class="st">&quot;both&quot;</span>, 
+          <span class="dt">revC =</span> <span class="ot">TRUE</span>,  <span class="co"># rev column order of dendrogram so conforms to natural representation</span>
+          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, 
+          <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,
+          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,
+          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-524-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>This reordered correlation matrix (and accompanying dendrograms) are useful for a number of purposes. First, the block structure along the diagonal indicates the correlation structure within the implied clusters. Uniformity in sign and magnitude of the on-diagongal blocks is an indicator of “within cluster” similarity. The off-diagonal blocks indicate the relationship <em>between clusters</em>. For example, the four “major” clusterings implied by the dendrogram are apparent in the block structure of the correlation matrix, but we also see that the two clusters at the bottom of the figure show some patches of weak or even negative correlations, suggesting that those may not be natural clusters. Also apparent are relationships between clusters – for example we see that genes in the first cluster (upper left of diagram) share strong positive correlations with many genes in the right half of the second cluster. The same relationship, though to a lesser extant, is apparent between clusters one and four.</p>
+</div>
+<div id="k-medoids-clustering-visualized-on-the-correlation-matrix" class="section level3">
+<h3><span class="header-section-number">17.13.2</span> K-medoids clustering visualized on the correlation matrix</h3>
+<p>Let’s do a similar sorting of the correlation matrix based on k-medoids clustering.</p>
+<p>Since there is no dendrogram to pass to the <code>heatmap.2</code> function, we’ll sort the correlation matrix ourselves by indexing on the output of the <code>order</code> function applied to the cluster assignments (read the <code>order</code> function help for more info).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reorder correlation matrix by ordering given by clustering</span>
+kmedoids.cor &lt;-<span class="st"> </span>spellman.cor[<span class="kw">order</span>(kclusters), <span class="kw">order</span>(kclusters)]</code></pre>
+<p>Having reordered the correlation matrix by the k-clusters, we can again use the <code>heatmap.2</code> function to visualize the results.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(kmedoids.cor, <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="dt">Colv =</span> <span class="ot">NULL</span>, 
+          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, 
+          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,
+          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,
+          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-526-1.png" width="768" /></p>
+<p>The diagram has the same interpretation as the previous figure. However, here we notice that the clusters seem to be more internally consistent, as evidence by the greater within cluster uniformity of correlations. Positive and negative relationships between clusters are also readily apparent in this figure.</p>
+</div>
+</div>
+<div id="depicting-the-data-within-clusters" class="section level2">
+<h2><span class="header-section-number">17.14</span> Depicting the data within clusters</h2>
+<p>As a final step we’ll generate a figure depicting the time series behavior of genes in different clusters. Overlain over the individual gene expression time series, we’ll overlay the average time series for each cluster. I illustrate this with clusters generated by hierarchical clustering. This is easily adapted to clusterings generated by other methods.</p>
+<p>Create a data frame holding cluster membership for each gene.</p>
+<pre class="sourceCode r"><code class="sourceCode r">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(kclusters), 
+                          <span class="dt">cluster =</span> <span class="kw">as.factor</span>(kclusters))</code></pre>
+<p>For the purposes of easy plotting in ggplot, we want to combine the information about cluster assignment to the original data. However the cluster assignments and corresponding names aren’t necessarily in the same order as our original data frame. We’ll use a “left join” to combine the two data frames, matching on the “gene” column:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># do a left_join, combining the information in spellman.long</span>
+<span class="co"># with clusters.df (matched on gene).  This effectively adds the</span>
+<span class="co"># cluster information as a new column to spellman.long data frame</span>
+<span class="co"># keeping the appropriate matches by gene name</span>
+alpha.long &lt;-<span class="st"> </span>
+<span class="st">  </span>spellman.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">left_join</span>(clusters.df, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>))</code></pre>
+<p>Next we calculate cluster means:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean at each time point within each cluster</span>
+cluster.means &lt;-
+<span class="st">  </span>alpha.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(cluster, time) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.exp =</span> <span class="kw">mean</span>(expression, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
+<p>And finally we plot the time series data for each cluster, with the clusters means overlain:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># draw a figure showing time varying gene expression</span>
+<span class="co"># in each cluster, overlain with the each clusters </span>
+<span class="co"># mean time series</span>
+alpha.long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(time, expression, <span class="dt">group=</span>gene)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha=</span><span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(time, mean.exp, <span class="dt">group=</span><span class="ot">NULL</span>,<span class="dt">color=</span>cluster),
+            <span class="dt">data =</span> cluster.means,
+            <span class="dt">size=</span><span class="fl">1.1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>cluster, <span class="dt">ncol=</span><span class="dv">4</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-530-1.png" width="672" /></p>
+<p>To my eye, oscillatory behavior is fairly apparent in most of the clusters except cluster 7.</p>
 
 </div>
 </div>
@@ -800,8 +866,8 @@ R2
           </div>
         </div>
       </div>
-<a href="matrices-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="multiple-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="canonical-variates-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

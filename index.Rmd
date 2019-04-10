@@ -61,4 +61,3 @@ In each of the examples below, I provide example input, but I don't show you the
 
 The R interpretter, like all programming languages, is very exacting.  A mispelled variable or function name, a stray period, or an unbalanced parenthesis will raise an error and finding the sources of such errors can sometimes be tedious and frustrating.  Persist!  If you read your code critically, think about what your doing, and seek help when needed (teaching team, R help, Google, etc) you'll eventually get better at debugging your code.  But keep in mind that like most new skills, learning to write and debug your code efficiently takes time and experience.
 
-#

@@ -896,7 +896,7 @@ rnorm.stats<span class="fl">.2</span> &lt;-<span class="st"> </span><span class=
   <span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n, 
              <span class="dt">sample.mean =</span> <span class="kw">mean</span>(the.sample), 
              <span class="dt">sample.sd =</span> <span class="kw">sd</span>(the.sample),
-             <span class="dt">sample.estimate.of.SE =</span> sample.sd<span class="op">/</span><span class="kw">sqrt</span>(sample.size))
+             <span class="dt">sample.estimate.SE =</span> sample.sd<span class="op">/</span><span class="kw">sqrt</span>(sample.size))
 }
 
 <span class="co"># sample sizes we&#39;ll conside</span>
@@ -909,7 +909,7 @@ nsamples &lt;-<span class="st"> </span><span class="dv">5000</span>
 df.combined.small &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">double</span>(), 
                           <span class="dt">sample.mean =</span> <span class="kw">double</span>(), 
                           <span class="dt">sample.sd =</span> <span class="kw">double</span>(),
-                          <span class="dt">sample.estimate.of.SE =</span> <span class="kw">double</span>())
+                          <span class="dt">sample.estimate.SE =</span> <span class="kw">double</span>())
 
 <span class="cf">for</span> (i <span class="cf">in</span> ssizes) {
   df.samples.of.size.i &lt;-
@@ -970,29 +970,6 @@ by.sample.size
 <div id="underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean" class="section level3">
 <h3><span class="header-section-number">18.9.2</span> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</h3>
 <p>When sample sizes are small, sample estimates of the standard deviation, <span class="math inline">\(s_x\)</span>, tend to underestimate the true standard deviation, <span class="math inline">\(\sigma\)</span>. Given this, it follows that sample estimates of the standard error of the mean, <span class="math inline">\(SE_{\overline{x}} = \frac{s_x}{\sqrt{n}}\)</span>, must tend to understimate the true standard error of the mean, <span class="math inline">\(SE_\mu = \frac{\sigma}{\sqrt{n}}\)</span>.</p>
-<p>To see this let’s compare the actual standard deviation of our simulated sampling distribution of the mean (i.e. the true standard errors) to the mean estimate of the standard errors, estimated from the individual samples.</p>
-<pre class="sourceCode r"><code class="sourceCode r">SE.table &lt;-
-<span class="st">  </span>df.combined.small <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(sample.size) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.means =</span> <span class="kw">mean</span>(sample.mean), 
-            <span class="dt">true.SE =</span> <span class="kw">sd</span>(sample.mean),
-            <span class="dt">mean.estimated.SE =</span> <span class="kw">mean</span>(sample.estimate.of.SE),
-            <span class="dt">percent.error.SE =</span> <span class="dv">100</span> <span class="op">*</span><span class="st"> </span>(mean.estimated.SE <span class="op">-</span><span class="st"> </span>true.SE)<span class="op">/</span>true.SE) 
-
-SE.table
-<span class="co">## # A tibble: 9 x 5</span>
-<span class="co">##   sample.size mean.of.means true.SE mean.estimated.SE percent.error.SE</span>
-<span class="co">##         &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">## 1           2         175.8  10.85              8.610         -20.65  </span>
-<span class="co">## 2           3         175.8   8.693             7.813         -10.12  </span>
-<span class="co">## 3           4         175.7   7.653             6.956          -9.101 </span>
-<span class="co">## 4           5         175.7   6.859             6.410          -6.556 </span>
-<span class="co">## 5           7         175.7   5.758             5.488          -4.691 </span>
-<span class="co">## 6          10         175.7   4.806             4.648          -3.289 </span>
-<span class="co">## 7          20         175.6   3.446             3.362          -2.436 </span>
-<span class="co">## 8          30         175.7   2.753             2.749          -0.1581</span>
-<span class="co">## 9          50         175.7   2.122             2.136           0.6772</span></code></pre>
-<p>Notice that sample estimates of the standard error are much too small for small samples. However for sample sizes of 30 or above, estimated standard errors differ from the true standard error by less than 1%.</p>
 </div>
 <div id="the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small" class="section level3">
 <h3><span class="header-section-number">18.9.3</span> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</h3>
@@ -1019,7 +996,7 @@ distns.df <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> norm.density), <span class="dt">color=</span><span class="st">&#39;black&#39;</span>, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;z or t value&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Probablity density&quot;</span>,
        <span class="dt">title =</span> <span class="st">&quot;Standard normal distribution (black dotted line)</span><span class="ch">\n</span><span class="st">versus t-distributions for different degrees of freedom&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-563-1.png" width="576" /></p>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-562-1.png" width="576" /></p>
 
 </div>
 </div>

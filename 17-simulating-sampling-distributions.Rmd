@@ -475,7 +475,7 @@ rnorm.stats.2 <- function(n, mu, sigma) {
   data_frame(sample.size = n, 
              sample.mean = mean(the.sample), 
              sample.sd = sd(the.sample),
-             sample.estimate.of.SE = sample.sd/sqrt(sample.size))
+             sample.estimate.SE = sample.sd/sqrt(sample.size))
 }
 
 # sample sizes we'll conside
@@ -488,7 +488,7 @@ nsamples <- 5000
 df.combined.small <- data_frame(sample.size = double(), 
                           sample.mean = double(), 
                           sample.sd = double(),
-                          sample.estimate.of.SE = double())
+                          sample.estimate.SE = double())
 
 for (i in ssizes) {
   df.samples.of.size.i <-
@@ -556,23 +556,6 @@ There's very clear indication that the the sampling distribution of standard dev
 ### Underestimates of the standard deviation for small $n$ lead to understimates of the SE of the mean
 
 When sample sizes are small, sample estimates of the standard deviation, $s_x$, tend to underestimate the true standard deviation, $\sigma$. Given this, it follows that sample estimates of the standard error of the mean, $SE_{\overline{x}} = \frac{s_x}{\sqrt{n}}$, must tend to understimate the true standard error of the mean, $SE_\mu = \frac{\sigma}{\sqrt{n}}$.
-
-To see this let's compare the actual standard deviation of our simulated sampling distribution of the mean (i.e. the true standard errors) to the mean estimate of the standard errors, estimated from the individual samples.
-
-```{r}
-SE.table <-
-  df.combined.small %>%
-  group_by(sample.size) %>%
-  summarize(mean.of.means = mean(sample.mean), 
-            true.SE = sd(sample.mean),
-            mean.estimated.SE = mean(sample.estimate.of.SE),
-            percent.error.SE = 100 * (mean.estimated.SE - true.SE)/true.SE) 
-
-SE.table
-```
-
-Notice that sample estimates of the standard error are much too small for small samples. However for sample sizes of 30 or above, estimated standard errors differ from the true standard error by less than 1%.
-
 
 ### The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when $n$ is small
 

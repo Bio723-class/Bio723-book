@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 18 Simulation I: Sampling distributions | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 18 Simulation I: Sampling distributions | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 18 Simulation I: Sampling distributions | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="clustering-in-r.html">
 
-<link rel="next" href="getting-started-with-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -514,32 +514,535 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Biology 723: Statistical Computing for Biologists</h1>
-<p class="author"><em>Paul M. Magwene</em></p>
-<p class="date"><em>2019-04-10</em></p>
+<div id="simulation-i-sampling-distributions" class="section level1">
+<h1><span class="header-section-number">Chapter 18</span> Simulation I: Sampling distributions</h1>
+<p>In our final two class sessions we will explore how we can use R to carry out statistical simulations. Such simulations can be useful for a variety of purposes, such as understanding classical results in statistical inference, deriving novel results for unusual statistics or underlying distributions, or to help design experiments. More generally, simulation is a useful tool for honing our intuition or revealing key properties about complex systems.xs</p>
+<p>In this chapter we will focus on how we can use simulation to derive well known and not so well known results regarding the sampling distributions for a variety of statistics.</p>
+<div id="sampling-distrubtions" class="section level2">
+<h2><span class="header-section-number">18.1</span> Sampling distrubtions</h2>
+<p>Usually when we collect biological data, it’s because we’re trying to learn about some underlying “population” of interest. Population here could refer to an actual population (e.g. all males over 20 in the United States; brushtail possums in the state of Victoria, Australia), an abstract population (e.g. corn plants grown from Monsanto “round up ready” seed; yeast cells with genotypes identical to the reference strain S288c), outcomes of a stochastic process we can observe and measure (e.g. meiotic recombination in flies; rainfall per square meter in the Brazilian amazon), etc.</p>
+<p>It is often impractical or impossible to measure all objects/individuals/instances of a population of interest, so we take a <strong>sample</strong> (ideally a random sample) from the population and make measurements on the variables of interest in that sample. We do so with the hope that the various statistics we calculate on the variables of interest in that sample will be useful estimates of those same statistics in the underlying population.</p>
+<p>However, we must always keep in mind that the statistics we calculate from our sample will almost never exactly match those of the underlying population. That is when we collect a sample, and measure a statistic (e.g. mean or standard deviation or skew or…) on variable <span class="math inline">\(X\)</span> in the sample, there is a degree of <em>uncertainty</em> about how well our estimate matches the true value of that statistic in the underlying population. We know that if we took another random sample from the same population, and re-calculated the statistic of interest, we’re likely to obtain an estimate that differs from that in our first sample. We can imagine repeating this procedure again and again a large number of times, recording our estimate each time which would yield a new distribution, which we’ll call a <em>sampling distribution</em>. A sampling distribution is the probability distribution of a given statistic for samples of a given size. Sampling distributions are a linchpin at the heart of <em>statistical inference</em>, how we quantify the uncertainty associated with statistics and use that information to test hypotheses and evaluate models.</p>
+<p>Traditionally sampling distributions were derived analytically. In this class session we’ll see how to approximate sampling distributions for any statistic using computer simulation.</p>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p><img src="figures/fig-title-page.png" style="display: block; margin: auto;" /></p>
-<p>Bio 723 (formerly Bio 313) is a course I offer at Duke University. The focus of this course is statistical computing for the biological sciences with an emphasis on common multivariate statistical methods and techniques for exploratory data analysis. A major goal of the course is to help graduate students in the biological sciences develop practical insights into methods that they are likely to encounter in their own research, and the potential advantages and pitfalls that come with their use.</p>
-<p>In terms of mathematical perspectives, the course emphasize a geometric approach to understanding multivariate statistics. I try to help students develop an intuition for the geometry of vector spaces and discuss topics like correlation, regression, and principal components analysis in terms of angles between vectors, dot products, and projection.</p>
-<p>This course also provides an introduction to the R language/statistical computing environment.</p>
-<div id="how-to-use-these-lecture-notes" class="section level2">
-<h2><span class="header-section-number">1.1</span> How to use these lecture notes</h2>
-<p>In this and future materials to be posted on the course website you’ll encounter blocks of R code. <em>Your natural intuition will be to cut and paste commands or code blocks into the R interpretter to save yourself the typing.</em> <strong>DO NOT DO THIS!!</strong></p>
-<p>In each of the examples below, I provide example input, but I don’t show you the output. It’s your job to type in these examples at the R console, evaluate what you typed, and to look at and think critically about the output. <strong>You will make mistakes and generate errors!</strong> Part of learning any new skill is making mistakes, figuring out where you went wrong, and correcting those mistakes. In the process of fixing those errors, you’ll learn more about how R works, and how to avoid such errors, or correct bugs in your own code in the future. If you cut and paste the examples into the R interpretter the code will run, but you will learn less than if you input the code yourself and you’ll be less capable of apply the concepts in new situations.</p>
-<p>The R interpretter, like all programming languages, is very exacting. A mispelled variable or function name, a stray period, or an unbalanced parenthesis will raise an error and finding the sources of such errors can sometimes be tedious and frustrating. Persist! If you read your code critically, think about what your doing, and seek help when needed (teaching team, R help, Google, etc) you’ll eventually get better at debugging your code. But keep in mind that like most new skills, learning to write and debug your code efficiently takes time and experience.</p>
+<div id="simulating-sampling-from-an-underlying-population" class="section level2">
+<h2><span class="header-section-number">18.2</span> Simulating sampling from an underlying population</h2>
+<p>To illustrate the concept of sampling distributions, we’ll simulate drawing samples for an underlying population that we’re trying to estimate statistics about. This will allow us to compare the various statistics we calculate and their sampling distributions to their “true” values.</p>
+<p>Let’s simulate a population consisting of 25,000 individuals with a single trait of interest – height (measured in centimeters). We will simulate this data set based on information about the distribution of the heights of adult males in the US from a study carried out from 2011-2014 by the US Department of Health and Human Services<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># male mean height and sd in centimeters from USDHHS report</span>
+true.mean &lt;-<span class="st"> </span><span class="fl">175.7</span>
+true.sd &lt;-<span class="st"> </span><span class="fl">15.19</span></code></pre>
+</div>
+<div id="seeding-the-pseudo-random-number-generator" class="section level2">
+<h2><span class="header-section-number">18.3</span> Seeding the pseudo-random number generator</h2>
+<p>When carrying out simulations, we employ random number generators (e.g. to choose random samples). Most computers can not generate true random numbers – instead they use algorithms that approximate the generation of random numbers (pseudo-random number generators). One important difference between a true random number generator and a pseudo-random number generator is that we can regenerate a series of pseudo-random numbers if we know the “seed” value that initialized the algorithm. We can specifically set this seed value, so that we can guarantee that two different people evaluating this notebook get the same results, even though we’re using (pseudo)random numbers in our simulation.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make our simulation repeatable by seeding RNG</span>
+<span class="kw">set.seed</span>(<span class="dv">20190409</span>)</code></pre>
+</div>
+<div id="libraries-9" class="section level2">
+<h2><span class="header-section-number">18.4</span> Libraries</h2>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(stringr)</code></pre>
+<div id="properties-of-the-underlying-population" class="section level3">
+<h3><span class="header-section-number">18.4.1</span> Properties of the underlying population</h3>
+<p>Heights in human populations are approximately normally distributed, so we’ll <strong>assume</strong> that the distribution of our simulated variable is also normally distributed. Let’s take a moment to visualize the probability distribution of of a normal distribution with a mean and standard deviation as given above.</p>
+<pre class="sourceCode r"><code class="sourceCode r">pop.distn &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">height =</span>  <span class="kw">seq</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="fl">0.5</span>),
+             <span class="dt">density =</span> <span class="kw">dnorm</span>(height,<span class="dt">mean =</span> true.mean, <span class="dt">sd =</span> true.sd))
+
+<span class="kw">ggplot</span>(pop.distn) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(height, density)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># vertical line at mean</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># vertical line at mean + 1SD</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean <span class="op">+</span><span class="st"> </span>true.sd,
+              <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="co"># vertical line at mean - 1SD</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean <span class="op">-</span><span class="st"> </span>true.sd,
+              <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Height (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of Heights in the Population of Interest&quot;</span>,
+       <span class="dt">subtitle =</span> <span class="st">&quot;Red and blue lines indicate the mean </span><span class="ch">\n</span><span class="st">and ±1 standard deviation respectively.&quot;</span>)  </code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-534-1.png" width="576" /></p>
+</div>
+<div id="other-r-functions-related-to-the-normal-distribution" class="section level3">
+<h3><span class="header-section-number">18.4.2</span> Other R functions related to the normal distribution</h3>
+<p>As shown above the <code>dnorm()</code> function calculates the probability density at given values of a variable <code>x</code>, given the specified mean and standard deviation.</p>
+<p><code>pnorm()</code> gives the cumulative density function (also known as the distribution function) for the normal distribution, as shown below:</p>
+<pre class="sourceCode r"><code class="sourceCode r">cdf &lt;-
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">height =</span> <span class="kw">seq</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="fl">0.5</span>),
+             <span class="dt">cum.prob =</span> <span class="kw">pnorm</span>(height, true.mean, true.sd))
+
+<span class="kw">ggplot</span>(cdf) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(height, cum.prob)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Height&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cumulative probability&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-535-1.png" width="576" /></p>
+<p><code>qnorm()</code> is the quantile function for the normal distribution. The input is the probabilities of interest (single value or vector), and the mean and standard deviation of the distribution. The output is the corresponding value of the variable corresponding to the given percentiles. For example, to estimate the lower 30th percentile of heights in adult males in the US we can use <code>qnorm()</code> as follows:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(<span class="fl">0.3</span>, true.mean, true.sd)
+<span class="co">## [1] 167.7344</span></code></pre>
+<p>Using qnorm we find that in a population where height ~ <span class="math inline">\(N(175.7, 15.19)\)</span>, 167.7cm is the approximate cutoff for the lower 30th percentile. We can illustrate that as shown below:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glue) <span class="co"># note the use of the glue library (part of tidyverse)</span>
+              <span class="co"># to enable string literals as used in the title below</span>
+
+perc<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.3</span>, true.mean, true.sd)
+
+label.offset &lt;-<span class="st"> </span><span class="dv">18</span> <span class="co"># determined by trial and error to make a </span>
+                   <span class="co"># nice looking figure</span>
+
+heights.less.perc<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">100</span>, perc<span class="fl">.30</span>, <span class="dt">by=</span><span class="fl">0.5</span>)
+density.less.perc<span class="fl">.30</span> &lt;-<span class="st"> </span><span class="kw">dnorm</span>(heights.less.perc<span class="fl">.30</span>, true.mean, true.sd)
+
+<span class="kw">ggplot</span>(pop.distn) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> density)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> perc<span class="fl">.30</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_area</span>(<span class="kw">aes</span>(<span class="dt">x =</span> heights.less.perc<span class="fl">.30</span>, <span class="dt">y =</span> density.less.perc<span class="fl">.30</span>),
+            <span class="dt">fill =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">data =</span> <span class="kw">data_frame</span>(<span class="dt">x =</span> heights.less.perc<span class="fl">.30</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> perc<span class="fl">.30</span> <span class="op">-</span><span class="st"> </span>label.offset, <span class="dt">y =</span> <span class="fl">0.025</span>, 
+           <span class="dt">label =</span> <span class="st">&quot;30th percentile&quot;</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">glue</span>(<span class="st">&quot;Probability distribution as calculated by dnorm()</span><span class="ch">\n</span><span class="st">and the 30th percentile as calculated by qnorm()</span><span class="ch">\n</span><span class="st">for a normal distribution ~N({true.mean},{true.sd}).&quot;</span>))</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-537-1.png" width="576" /></p>
+</div>
+</div>
+<div id="random-sampling-from-the-simulated-population" class="section level2">
+<h2><span class="header-section-number">18.5</span> Random sampling from the simulated population</h2>
+<p>Let’s simulate the process of taking a single sample of 30 individuals from our population, using the <code>rnorm()</code> function which takes samples if size <code>n</code> from a normal distribution with the given mean and standard deviation:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample.a &lt;-
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">height =</span> <span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">30</span>, <span class="dt">mean =</span> true.mean, <span class="dt">sd =</span> true.sd))</code></pre>
+<p>Now we’ll create a histogram of the height variable in our sample. For reference we’ll also plot the probability for the true population (but remember, in the typical case you don’t know what the true population looks like)</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample.a <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> height)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), 
+                 <span class="dt">fill =</span> <span class="st">&#39;steelblue&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.75</span>, <span class="dt">bins=</span><span class="dv">10</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>pop.distn, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> density), 
+            <span class="dt">alpha=</span><span class="fl">0.25</span>,<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span><span class="st">   </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(sample.a<span class="op">$</span>height), <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Height (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>, 
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of heights in the underlying population (line)</span><span class="ch">\n</span><span class="st">and a single sample of size 30 (blue)&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-539-1.png" width="576" /></p>
+<p>The dashed vertical line represent the true mean of the population, the solid line represents the sample mean. Comparing the two distributions we see that while our sample of 30 observations is relatively small,its location (center) and spread that are roughly similar to those of the underlying population.</p>
+<p>Let’s create a table giving the estimates of the mean and standard deviation in our sample:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample.a <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sample.mean =</span> <span class="kw">mean</span>(height), 
+            <span class="dt">sample.sd =</span> <span class="kw">sd</span>(height))
+<span class="co">## # A tibble: 1 x 2</span>
+<span class="co">##   sample.mean sample.sd</span>
+<span class="co">##         &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">## 1       175.5     12.41</span></code></pre>
+<p>Based on our sample, we estimate that the mean height of males in our population of interest is 175.5215685cm with a standard deviation of 12.4101548cm.</p>
+<div id="another-random-sample" class="section level3">
+<h3><span class="header-section-number">18.5.1</span> Another random sample</h3>
+<p>Let’s step back and think about our experiment. We took a random sample of 30 individuals from the population. The very nature of a “random sample” means we could just as well have gotten a different collection of individuals in our sample. Let’s take a second random sample of 25 individuals and see what the data looks like this time:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample.b &lt;-
+<span class="st">  </span><span class="kw">data_frame</span>(<span class="dt">height =</span> <span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dt">mean =</span> true.mean, <span class="dt">sd =</span> true.sd))
+
+sample.b <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> height)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), 
+                 <span class="dt">fill =</span> <span class="st">&#39;steelblue&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.75</span>, <span class="dt">bins=</span><span class="dv">10</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>pop.distn, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> density), 
+            <span class="dt">alpha=</span><span class="fl">0.25</span>,<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span><span class="st">   </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(sample.a<span class="op">$</span>height), <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Height (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>, 
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of heights in the underlying population (line)</span><span class="ch">\n</span><span class="st">and a single sample of size 30 (blue)&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-541-1.png" width="576" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">sample.b <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sample.mean =</span> <span class="kw">mean</span>(height), 
+            <span class="dt">sample.sd =</span> <span class="kw">sd</span>(height))
+<span class="co">## # A tibble: 1 x 2</span>
+<span class="co">##   sample.mean sample.sd</span>
+<span class="co">##         &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">## 1       175.7     17.18</span></code></pre>
+<p>This time we estimated the mean height to be 175.651398 cm and the standard deviation to be 17.1780732 cm.</p>
+</div>
+<div id="simulating-the-generation-of-many-random-samples" class="section level3">
+<h3><span class="header-section-number">18.5.2</span> Simulating the generation of many random samples</h3>
+<p>When we estimate population parameters, like the mean and standard deviation, based on a <em>sample</em>, our estimates will differ from the true population values by some amount. For any given sample we can’t know how close our estimates of statistics like the mean and standard deviation are to the true population values, but we we can study the behavior of such estimates <em>across many simulated samples</em> and learn something about how well our estimates do on average, as well the spread of these estimates.</p>
+</div>
+<div id="a-function-to-estimate-statistics-of-interest-in-a-random-sample" class="section level3">
+<h3><span class="header-section-number">18.5.3</span> A function to estimate statistics of interest in a random sample</h3>
+<p>First we’re going to write a function called <code>rnorm.stats</code> that carries out the following steps:</p>
+<ul>
+<li>Take a random sample of size <code>n</code> from a normal distribution with a given mean (<code>mu</code>) and standard deviation (<code>sigma</code>)</li>
+<li>Calculates the mean and standard deviation of the random sample</li>
+<li>Return a table giving the sample size, sample mean, and sample standard deviation, represented as a data frame</li>
+</ul>
+<p><strong>Take a moment to make sure you understand how this function works</strong>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rnorm.stats &lt;-<span class="st"> </span><span class="cf">function</span>(n, mu, sigma) {
+  the.sample &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)
+  <span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n, 
+             <span class="dt">sample.mean =</span> <span class="kw">mean</span>(the.sample), 
+             <span class="dt">sample.sd =</span> <span class="kw">sd</span>(the.sample))
+}</code></pre>
+<p>Let’s test <code>rsample.stats()</code> for a sample of size 30, drawn from a popultion with a mean and standard deviation corresponding to our height exmaple:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm.stats</span>(<span class="dv">30</span>, true.mean, true.sd)
+<span class="co">## # A tibble: 1 x 3</span>
+<span class="co">##   sample.size sample.mean sample.sd</span>
+<span class="co">##         &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">## 1          30       176.4     17.28</span></code></pre>
+</div>
+<div id="generating-statistics-for-many-random-samples" class="section level3">
+<h3><span class="header-section-number">18.5.4</span> Generating statistics for many random samples</h3>
+<p>Now we’ll see how to combine <code>rnorm.stats</code> with two additional functions to repeatedly run the <code>rsample.stats</code> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.samples.of<span class="fl">.30</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">2500</span>,  <span class="kw">rnorm.stats</span>(<span class="dv">30</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()</code></pre>
+<p>The function <code>rerun</code> is defined in the <code>purrr</code> library (automatically loaded with tidyverse). <code>purrr:rerun()</code> re-runs an expression(s) multiple times. The first argument to <code>rerun()</code> is the number of times you want to re-run, and the following arguments are the expressions to be re-run. Thus the second line of the code block above re-runs the <code>rnorm.stats</code> function 2500 times, generating sample statistics for samples of size 30 each time it’s run. <code>rerun()</code> returns a list whose length is the specified number of runs.</p>
+<p>The third line includes a call the <code>dplyr::bind_rows()</code>. This simply takes the list that <code>rerun</code> returns and collapses the list into a single data frame. <code>df.samples.of.30</code> is thus a data frame in which each row gives the sample size, sample mean, and sample standard deviation for a random sample of 30 individuals drawn from our underlying population with a normally distributed variable.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.samples.of<span class="fl">.30</span>)
+<span class="co">## # A tibble: 6 x 3</span>
+<span class="co">##   sample.size sample.mean sample.sd</span>
+<span class="co">##         &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">## 1          30       174.5     12.39</span>
+<span class="co">## 2          30       178.3     15.43</span>
+<span class="co">## 3          30       177.9     13.32</span>
+<span class="co">## 4          30       179.0     14.44</span>
+<span class="co">## 5          30       174.9     12.77</span>
+<span class="co">## 6          30       176.6     16.48</span></code></pre>
+</div>
+</div>
+<div id="simulated-sampling-distribution-of-the-mean" class="section level2">
+<h2><span class="header-section-number">18.6</span> Simulated sampling distribution of the mean</h2>
+<p>Let’s review what we just did:</p>
+<ul>
+<li>We generated 2500 samples of size 30 sampled from a population for which the variable of interest has a normal distribution</li>
+<li>For each of the samples we calculated the mean and standard deviation <em>in that sample</em></li>
+<li>We combined each of those estimates of the mean and standard deviation into a data frame</li>
+</ul>
+<p>The 2500 estimates of the mean we generated represents a new distribution – what we will call a <strong>sampling distribution of the mean for samples of size 30</strong>. Let’s plot this sampling distribution:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.samples.of<span class="fl">.30</span>, <span class="kw">aes</span>(<span class="dt">x =</span> sample.mean, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">25</span>, <span class="dt">fill =</span> <span class="st">&#39;firebrick&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample means&quot;</span>, <span class="dt">y  =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of mean heights for 2500 samples of size 30&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-547-1.png" width="576" /></p>
+<div id="differences-between-sampling-distributions-and-samplepopulation-distributions" class="section level3">
+<h3><span class="header-section-number">18.6.1</span> Differences between sampling distributions and sample/population distributions</h3>
+<p>Note that this is <em>not</em> a sample distribution of the variable of interest (“heights”), but rather the distribution of <em>means of the variable of interest</em> (“mean heights”) you would get if you took many random samples (in one sample you’d estimate the mean height as 180cm, in another you’d estimate it as 172 cm, etc). To emphasize this point, let’s compare the simulated sampling distribution of the mean (red histogram) to the population distribution of the variable (grey line) and the distributions of heights in a single sample (blue histogram):</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.samples.of<span class="fl">.30</span>, <span class="kw">aes</span>(<span class="dt">x =</span> sample.mean, <span class="dt">y =</span> ..density..)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>, <span class="dt">fill =</span> <span class="st">&#39;firebrick&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">data=</span>sample.a, 
+                 <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> ..density..),
+                 <span class="dt">bins=</span><span class="dv">11</span>, <span class="dt">fill=</span><span class="st">&#39;steelblue&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.25</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>pop.distn, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> density), <span class="dt">alpha=</span><span class="fl">0.25</span>,<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span><span class="st">   </span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">125</span>,<span class="dv">225</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;height or mean(height) in cm&quot;</span>, <span class="dt">y  =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of mean heights for 2500 samples</span><span class="ch">\n</span><span class="st">of size 30 (red) compared to the distribution of a single sample (blue)</span><span class="ch">\n</span><span class="st">and the population distribution of heights (gray line)&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-548-1.png" width="768" /></p>
+</div>
+<div id="using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest" class="section level3">
+<h3><span class="header-section-number">18.6.2</span> Using sampling distributions to understand the behavior of statistics of interest</h3>
+<p>The particular sampling distribution of the mean, as simulated above, is a probability distribution that we can use to estimate the probability that a sample mean falls within a given interval, assuming our sample is a random sample of size 30 drawn from our underlying population.</p>
+<p>From our visualization, we see that the distribution of sample mean heights is approximately centered around the true mean height. Most of the sample estimates of mean height are within 5 cm of the true population mean height, but a small number of estimates of the sample mean as off by nearly 10cm.</p>
+<p>Let’s make this more precise by calculating the mean and standard deviation of the sampling distribution of means:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.samples.of<span class="fl">.30</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.means =</span> <span class="kw">mean</span>(sample.mean),
+            <span class="dt">sd.of.means =</span> <span class="kw">sd</span>(sample.mean))
+<span class="co">## # A tibble: 1 x 2</span>
+<span class="co">##   mean.of.means sd.of.means</span>
+<span class="co">##           &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">## 1         175.8       2.738</span></code></pre>
+<p><strong>IMPORTANT!</strong> – the values above are estimates of the mean and standard deviation of the sampling distribution of means for samples of size 30, they are <em>not</em> estimates of the mean or standard deviation of the variable of interest (though they are related to these statistics as we’ll see below).</p>
+</div>
+<div id="sampling-distributions-for-different-sample-sizes" class="section level3">
+<h3><span class="header-section-number">18.6.3</span> Sampling distributions for different sample sizes</h3>
+<p>In the example above we simulated the sampling distribution of the mean for samples of size 30. How would the sampling distribution change if we increased the sample size?</p>
+<p>In the next code block we generate sampling distributions of the mean (and standard deviation) for samples of size 50, 100, 250, and 500.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.samples.of<span class="fl">.50</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">2500</span>,  <span class="kw">rnorm.stats</span>(<span class="dv">50</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+
+df.samples.of<span class="fl">.100</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">2500</span>,  <span class="kw">rnorm.stats</span>(<span class="dv">100</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+
+df.samples.of<span class="fl">.250</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">2500</span>,  <span class="kw">rnorm.stats</span>(<span class="dv">250</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+
+df.samples.of<span class="fl">.500</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">2500</span>,  <span class="kw">rnorm.stats</span>(<span class="dv">500</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()</code></pre>
+<p>To make plotting and comparison easier we will combine each of the individual data frames, representing the different sampling distributions for samples of a given size, into a single data frame.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.combined &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">bind_rows</span>(df.samples.of<span class="fl">.30</span>,
+            df.samples.of<span class="fl">.50</span>,
+            df.samples.of<span class="fl">.100</span>,
+            df.samples.of<span class="fl">.250</span>,
+            df.samples.of<span class="fl">.500</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># create a factor version of sample size to facilitate plotting</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sample.sz =</span> <span class="kw">as.factor</span>(sample.size))</code></pre>
+<p>We then plot each of the individual sampling distributions, faceting on sample size.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.combined, <span class="kw">aes</span>(<span class="dt">x =</span> sample.mean, <span class="dt">y =</span> ..density.., <span class="dt">fill =</span> sample.sz)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">25</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.mean, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sample.sz, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette=</span><span class="st">&quot;Set1&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># change color palette</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample means&quot;</span>, <span class="dt">y  =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Distribution of mean heights for samples of varying size&quot;</span>)  </code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-552-1.png" width="1440" /></p>
+</div>
+<div id="discussion-of-trends-for-sampling-distributions-of-different-sample-sizes" class="section level3">
+<h3><span class="header-section-number">18.6.4</span> Discussion of trends for sampling distributions of different sample sizes</h3>
+<p>The key trend we see when comparing the sampling distributions of the mean for samples of different size is that as the sample size gets larger, the spread of the sampling distribution of the mean becomes narrower around the true mean. This means that <em>as sample size increases, the uncertainty associated with our estimates of the mean decreases</em>.</p>
+<p>Let’s create a table, grouped by sample size, to help quantify this pattern:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sampling.distn.mean.table &lt;-
+<span class="st">  </span>df.combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sample.size) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.means =</span> <span class="kw">mean</span>(sample.mean),
+            <span class="dt">sd.of.means =</span> <span class="kw">sd</span>(sample.mean))
+
+sampling.distn.mean.table
+<span class="co">## # A tibble: 5 x 3</span>
+<span class="co">##   sample.size mean.of.means sd.of.means</span>
+<span class="co">##         &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">## 1          30         175.8      2.738 </span>
+<span class="co">## 2          50         175.7      2.198 </span>
+<span class="co">## 3         100         175.7      1.488 </span>
+<span class="co">## 4         250         175.7      0.9698</span>
+<span class="co">## 5         500         175.7      0.6714</span></code></pre>
+</div>
+</div>
+<div id="standard-error-of-the-mean" class="section level2">
+<h2><span class="header-section-number">18.7</span> Standard Error of the Mean</h2>
+<p>We see from the graph and table above that our estimates of the mean cluster more tightly about the true mean as our sample size increases. This is obvious when we compare the standard deviation of our mean estimates as a function of sample size.</p>
+<p>The standard deviation of the sampling distribution of a statistic of interest is called the <strong>Standard Error</strong> of that statistic. Here, through simulation, we are approximating the <strong>Standard Error of the Mean</strong>.</p>
+<p>A well known mathematical results that your already familiar with is that that the expected Standard Error of the Mean can be related to sample size and the standard deviation of the underlying population distribution as follows</p>
+<p><span class="math display">\[
+\mbox{Standard Error of Mean} = \frac{\sigma}{\sqrt{n}}
+\]</span>
+where <span class="math inline">\(\sigma\)</span> is the population standard deviation (i.e. the “true” standard deviation), and <span class="math inline">\(n\)</span> is the sample size. This result for the standard error of the mean is true regardless of the form of the underlying population distribution.</p>
+<p>Let’s compare that theoretical expectation to our simulated results:</p>
+<pre class="sourceCode r"><code class="sourceCode r">se.mean.theory &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">500</span>,<span class="dv">10</span>), 
+                         <span class="cf">function</span>(n){ true.sd<span class="op">/</span><span class="kw">sqrt</span>(n) })
+
+df.se.mean.theory &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">500</span>,<span class="dv">10</span>),
+                                <span class="dt">std.error =</span> se.mean.theory)
+
+<span class="kw">ggplot</span>(sampling.distn.mean.table, <span class="kw">aes</span>(<span class="dt">x =</span> sample.size, <span class="dt">y =</span> sd.of.means)) <span class="op">+</span>
+<span class="st">   </span><span class="co"># plot standard errors of mean based on our simulations</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">  </span>
+<span class="st">  </span><span class="co"># plot standard errors of the mean based on theory</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> sample.size, <span class="dt">y =</span> std.error), <span class="dt">data =</span> df.se.mean.theory, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample size&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Std Error of Mean&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;A comparison of theoretical (red line)</span><span class="ch">\n</span><span class="st">and simulated (points) estimates of the </span><span class="ch">\n</span><span class="st">standard error of the mean for samples of different size&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-554-1.png" width="576" /></p>
+<p>We see that as sample sizes increase, the standard error of the mean decreases. This means that as our samples get larger, our uncertainty in our sample estimate of the mean (our best guess for the population mean) gets smaller.</p>
+</div>
+<div id="sampling-distribution-of-the-standard-deviation" class="section level2">
+<h2><span class="header-section-number">18.8</span> Sampling Distribution of the Standard Deviation</h2>
+<p>Above we explored how the sampling distribution of the mean changes with sample size. We can similarly explore the sampling distribution of any other statistic, such as the standard deviation, or the median, or the the range, etc.</p>
+<p>Recall that when we drew random samples we calculated the standard deviation of each of those samples in addition to the mean. We can look at the location and spread of the estimates of the standard deviation:</p>
+<pre class="sourceCode r"><code class="sourceCode r">sampling.distn.sd.table &lt;-
+<span class="st">  </span>df.combined <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sample.size) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.sds =</span> <span class="kw">mean</span>(sample.sd),
+            <span class="dt">sd.of.sds =</span> <span class="kw">sd</span>(sample.sd))
+
+sampling.distn.sd.table
+<span class="co">## # A tibble: 5 x 3</span>
+<span class="co">##   sample.size mean.of.sds sd.of.sds</span>
+<span class="co">##         &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">## 1          30       15.08    2.022 </span>
+<span class="co">## 2          50       15.11    1.512 </span>
+<span class="co">## 3         100       15.17    1.082 </span>
+<span class="co">## 4         250       15.16    0.6776</span>
+<span class="co">## 5         500       15.19    0.4758</span></code></pre>
+<p>As we did for the sampling distribution of the mean, we can visualize the sampling distribution of the standard deviation as shown below:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.combined, <span class="kw">aes</span>(<span class="dt">x =</span> sample.sd, <span class="dt">y =</span> ..density.., <span class="dt">fill =</span> sample.sz)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">25</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.sd, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>)  <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sample.sz, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette=</span><span class="st">&quot;Set1&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample standard deviations&quot;</span>, <span class="dt">y  =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Sampling distribution of standard deviation of height for samples of varying size&quot;</span>)  </code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-556-1.png" width="1440" /></p>
+<p>The key trend we saw when examining the sampling distribution of the mean is also apparent for standard deviation – bigger samples lead to tighter sampling distributions and hence less uncertainty in the sample estimates of the standard deviation.</p>
+<div id="standard-error-of-standard-deviations" class="section level3">
+<h3><span class="header-section-number">18.8.1</span> Standard error of standard deviations</h3>
+<p>For normally distributed data the expected Standard Error of the Standard Deviation (i.e. the standard deviation of standard deviations!) is approximately:</p>
+<p><span class="math display">\[
+\mbox{Standard Error of Standard Deviation} \approx \frac{\sigma}{\sqrt{2(n-1)}}
+\]</span>
+where <span class="math inline">\(\sigma\)</span> is the population standard deviation, and <span class="math inline">\(n\)</span> is the sample size.</p>
+<p>As before, let’s visually compare the theoretical expectation to our simulated estimates.</p>
+<pre class="sourceCode r"><code class="sourceCode r">se.sd.theory &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">500</span>, <span class="dv">5</span>), 
+                       <span class="cf">function</span>(n){ true.sd<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>(n<span class="dv">-1</span>))})
+
+df.se.sd.theory &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">500</span>,<span class="dv">5</span>), 
+                              <span class="dt">std.error =</span> se.sd.theory)
+
+<span class="kw">ggplot</span>(sampling.distn.sd.table, <span class="kw">aes</span>(<span class="dt">x =</span> sample.size, <span class="dt">y =</span> sd.of.sds)) <span class="op">+</span>
+<span class="st">   </span><span class="co"># plot standard errors of mean based on our simulations</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st">  </span>
+<span class="st">  </span><span class="co"># plot standard errors of the mean based on theory</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> sample.size, <span class="dt">y =</span> std.error), <span class="dt">data =</span> df.se.sd.theory, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample size&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Std Error of Standard Deviation&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;A comparison of theoretical (red line) and</span><span class="ch">\n</span><span class="st">simulated (points) estimates of</span><span class="ch">\n</span><span class="st">the standard error of the standard deviation</span><span class="ch">\n</span><span class="st"> for samples of different size&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-557-1.png" width="576" /></p>
+</div>
+</div>
+<div id="what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small" class="section level2">
+<h2><span class="header-section-number">18.9</span> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</h2>
+<p>We would hope that, regardless of sample size, the sampling distributions of both the mean and standard deviation should be centered around the true population value, <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> respectively. That seemed to be the case for the modest to large sample sizes we’ve looked at so far (30 to 500 observations). Does this also hold for small samples? Let’s use simulation to explore how well this is expectation is met for small samples.</p>
+<p>As we’ve done before, we simulate the sampling distribution of the mean and standard deviation for samples of varying size. Because we’re dealing with small samples we’ll use larger simulations (5000 samples) so we get better estiamtes of their behavior (in general, the noisier the process you’re simulating the more simulations you should do)</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A new version of rnorm.stats that includes the sample estimate of the</span>
+<span class="co"># standard error of the mean</span>
+rnorm.stats<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(n, mu, sigma) {
+  the.sample &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)
+  <span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n, 
+             <span class="dt">sample.mean =</span> <span class="kw">mean</span>(the.sample), 
+             <span class="dt">sample.sd =</span> <span class="kw">sd</span>(the.sample),
+             <span class="dt">sample.estimate.of.SE =</span> sample.sd<span class="op">/</span><span class="kw">sqrt</span>(sample.size))
+}
+
+<span class="co"># sample sizes we&#39;ll conside</span>
+ssizes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">50</span>)
+
+<span class="co"># number of samples to draw *for each sample size*</span>
+nsamples &lt;-<span class="st"> </span><span class="dv">5000</span>
+
+<span class="co"># create a data frame with empty columns</span>
+df.combined.small &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">double</span>(), 
+                          <span class="dt">sample.mean =</span> <span class="kw">double</span>(), 
+                          <span class="dt">sample.sd =</span> <span class="kw">double</span>(),
+                          <span class="dt">sample.estimate.of.SE =</span> <span class="kw">double</span>())
+
+<span class="cf">for</span> (i <span class="cf">in</span> ssizes) {
+  df.samples.of.size.i &lt;-
+<span class="st">    </span><span class="kw">rerun</span>(nsamples,  <span class="kw">rnorm.stats.2</span>(i, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">bind_rows</span>()  
+  
+  df.combined.small &lt;-<span class="st"> </span>
+<span class="st">    </span><span class="kw">bind_rows</span>(df.combined.small, df.samples.of.size.i)
+}
+
+df.combined.small <span class="op">%&lt;&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">sample.sz =</span> <span class="kw">as.factor</span>(sample.size))</code></pre>
+<div id="for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation" class="section level3">
+<h3><span class="header-section-number">18.9.1</span> For small samples, sample standard deviations systematically underestimate the population standard deviation</h3>
+<p>Let’s examine how the well centered the sampling distributions of the mean and standard deviation are around their true values, as a function of sample size.</p>
+<p>First a table summarizing this information:</p>
+<pre class="sourceCode r"><code class="sourceCode r">by.sample.size &lt;-
+<span class="st">  </span>df.combined.small <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sample.size) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.means =</span> <span class="kw">mean</span>(sample.mean),
+            <span class="dt">mean.of.sds =</span> <span class="kw">mean</span>(sample.sd))
+
+by.sample.size
+<span class="co">## # A tibble: 9 x 3</span>
+<span class="co">##   sample.size mean.of.means mean.of.sds</span>
+<span class="co">##         &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span class="co">## 1           2         175.8       12.18</span>
+<span class="co">## 2           3         175.8       13.53</span>
+<span class="co">## 3           4         175.7       13.91</span>
+<span class="co">## 4           5         175.7       14.33</span>
+<span class="co">## 5           7         175.7       14.52</span>
+<span class="co">## 6          10         175.7       14.70</span>
+<span class="co">## 7          20         175.6       15.04</span>
+<span class="co">## 8          30         175.7       15.06</span>
+<span class="co">## 9          50         175.7       15.11</span></code></pre>
+<p>We see that the sampling distributions of means are well centered around the true mean for both small and medium, and there is no systematic bias one way or the other. By contrast the sampling distribution of standard deviations tends to underestimate the true standard deviation when the samples are small (less than 30 observations).</p>
+<p>We can visualize this bias as shown here:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(by.sample.size, <span class="kw">aes</span>(<span class="dt">x =</span> sample.size, <span class="dt">y =</span> mean.of.sds)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color =</span> <span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> true.sd, <span class="dt">color =</span> <span class="st">&#39;black&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sample Size&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean of Sampling Distn of Std Dev&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-560-1.png" width="576" /></p>
+<p>The source of this bias is clear if we look at the sampling distribution of the standard deviation for samples of size 3, 5, and 30.</p>
+<pre class="sourceCode r"><code class="sourceCode r">filtered.df &lt;-<span class="st"> </span>
+<span class="st">  </span>df.combined.small <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(sample.size <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">30</span>))
+
+<span class="kw">ggplot</span>(filtered.df, <span class="kw">aes</span>(<span class="dt">x =</span> sample.sd, <span class="dt">y =</span> ..density.., <span class="dt">fill =</span> sample.sz)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>, <span class="dt">alpha=</span><span class="fl">0.65</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>sample.size, <span class="dt">nrow =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> true.sd, <span class="dt">linetype =</span> <span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Std Deviations&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Sampling distributions of the standard deviation</span><span class="ch">\n</span><span class="st">as a function of sample size&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-561-1.png" width="1152" /></p>
+<p>There’s very clear indication that the the sampling distribution of standard deviations is not centered around the true value for <span class="math inline">\(n=3\)</span> and for <span class="math inline">\(n=5\)</span>, however with samples of size 30 the sampling distribution of the standard deviation appears fairly well centered around the true value of the underlying population.</p>
+</div>
+<div id="underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean" class="section level3">
+<h3><span class="header-section-number">18.9.2</span> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</h3>
+<p>When sample sizes are small, sample estimates of the standard deviation, <span class="math inline">\(s_x\)</span>, tend to underestimate the true standard deviation, <span class="math inline">\(\sigma\)</span>. Given this, it follows that sample estimates of the standard error of the mean, <span class="math inline">\(SE_{\overline{x}} = \frac{s_x}{\sqrt{n}}\)</span>, must tend to understimate the true standard error of the mean, <span class="math inline">\(SE_\mu = \frac{\sigma}{\sqrt{n}}\)</span>.</p>
+<p>To see this let’s compare the actual standard deviation of our simulated sampling distribution of the mean (i.e. the true standard errors) to the mean estimate of the standard errors, estimated from the individual samples.</p>
+<pre class="sourceCode r"><code class="sourceCode r">SE.table &lt;-
+<span class="st">  </span>df.combined.small <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sample.size) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.of.means =</span> <span class="kw">mean</span>(sample.mean), 
+            <span class="dt">true.SE =</span> <span class="kw">sd</span>(sample.mean),
+            <span class="dt">mean.estimated.SE =</span> <span class="kw">mean</span>(sample.estimate.of.SE),
+            <span class="dt">percent.error.SE =</span> <span class="dv">100</span> <span class="op">*</span><span class="st"> </span>(mean.estimated.SE <span class="op">-</span><span class="st"> </span>true.SE)<span class="op">/</span>true.SE) 
+
+SE.table
+<span class="co">## # A tibble: 9 x 5</span>
+<span class="co">##   sample.size mean.of.means true.SE mean.estimated.SE percent.error.SE</span>
+<span class="co">##         &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;</span>
+<span class="co">## 1           2         175.8  10.85              8.610         -20.65  </span>
+<span class="co">## 2           3         175.8   8.693             7.813         -10.12  </span>
+<span class="co">## 3           4         175.7   7.653             6.956          -9.101 </span>
+<span class="co">## 4           5         175.7   6.859             6.410          -6.556 </span>
+<span class="co">## 5           7         175.7   5.758             5.488          -4.691 </span>
+<span class="co">## 6          10         175.7   4.806             4.648          -3.289 </span>
+<span class="co">## 7          20         175.6   3.446             3.362          -2.436 </span>
+<span class="co">## 8          30         175.7   2.753             2.749          -0.1581</span>
+<span class="co">## 9          50         175.7   2.122             2.136           0.6772</span></code></pre>
+<p>Notice that sample estimates of the standard error are much too small for small samples. However for sample sizes of 30 or above, estimated standard errors differ from the true standard error by less than 1%.</p>
+</div>
+<div id="the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small" class="section level3">
+<h3><span class="header-section-number">18.9.3</span> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</h3>
+<p>The problem associated with estimating the standard error of the mean for small sample sizes was recognized in the early 20th century by William Gosset, an employee at the Guinness Brewing Company. He published a paper, under the pseudonym “Student”, giving the appropriate distribution for describing the standard error of the mean as a function of the sample size <span class="math inline">\(n\)</span>. Gosset’s distribution is known as the “t-distribution” or “Student’s t-distribution”.</p>
+<p>The t-distribution is specified by a single parameter, called degrees of freedom (<span class="math inline">\(df\)</span>) where <span class="math inline">\({df} = n - 1\)</span>. As <span class="math inline">\(df\)</span> increases, the t-distribution becomes more and more like the normal such that when <span class="math inline">\(n \geq 30\)</span> it’s nearly indistinguishable from the standard normal distribution.</p>
+<p>In the figures below we compare the t-distribution and the standard normal distribution for sample sizes <span class="math inline">\(n = {3, 5, 30}\)</span>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dt">length.out =</span> <span class="dv">200</span>)
+n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">30</span>) <span class="co"># sample sizes</span>
+
+distns.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">double</span>(), <span class="dt">z.or.t =</span> <span class="kw">double</span>(),
+                        <span class="dt">norm.density =</span> <span class="kw">double</span>(), <span class="dt">t.density =</span> <span class="kw">double</span>())
+<span class="cf">for</span> (i <span class="cf">in</span> n) {
+  norm.density &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)
+  t.density &lt;-<span class="st"> </span><span class="kw">dt</span>(x, <span class="dt">df =</span> i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+  df.temp &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> i, <span class="dt">z.or.t =</span> x,
+                        <span class="dt">norm.density =</span> norm.density, <span class="dt">t.density  =</span> t.density)
+  distns.df &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(distns.df, df.temp)
+}
+
+distns.df <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">df =</span> <span class="kw">as.factor</span>(sample.size <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+  
+<span class="kw">ggplot</span>(distns.df, <span class="kw">aes</span>(<span class="dt">x =</span> z.or.t, <span class="dt">y =</span> t.density, <span class="dt">color =</span> df)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> norm.density), <span class="dt">color=</span><span class="st">&#39;black&#39;</span>, <span class="dt">linetype=</span><span class="st">&quot;dotted&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;z or t value&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Probablity density&quot;</span>,
+       <span class="dt">title =</span> <span class="st">&quot;Standard normal distribution (black dotted line)</span><span class="ch">\n</span><span class="st">versus t-distributions for different degrees of freedom&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-563-1.png" width="576" /></p>
 
 </div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>US Dept. of Health and Human Services; et al. (August 2016). “Anthropometric Reference Data for Children and Adults: United States, 2011–2014” (PDF). National Health Statistics Reports. 11. <a href="https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf" class="uri">https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf</a><a href="simulation-i-sampling-distributions.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="clustering-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="getting-started-with-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

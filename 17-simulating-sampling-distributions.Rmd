@@ -1,8 +1,8 @@
 # Simulation I: Sampling distributions
 
-In our final two class sessions we will explore how we can use R to carry out statistical simulations. Such simulations can be useful for a variety of purposes, such as understanding classical results in statistical inference, deriving novel results for unusual statistics or underlying distributions, or to help design experiments.  More generally, simulation is a useful tool for honing our intuition or revealing key properties about complex systems.xs
+In our final two class sessions we will explore how we can use R to carry out statistical simulations. Such simulations can be useful for a variety of purposes, such as understanding classical results in statistical inference, deriving novel results for unusual statistics or underlying distributions, or to help design experiments.  More generally, simulation is a useful tool for honing our intuition or revealing key properties about complex systems.
 
-In this chapter we will focus on how we can use simulation to derive well known and not so well known results regarding the sampling distributions for a variety of statistics.
+In this chapter we will focus on how we can use simulation to derive well known and not so well known results regarding sampling distributions for a variety of statistics.
 
 
 ## Sampling distrubtions

@@ -43,11 +43,15 @@ options(pillar.sigfig = 3)
 knitr::include_graphics('./figures/fig-title-page.png', dpi = NA)
 ```
 
-Bio 723 (formerly Bio 313) is a course I offer at Duke University.  The focus of this course is statistical computing for the biological sciences with an emphasis on common multivariate statistical methods and techniques for exploratory data analysis. A major goal of the course is to help graduate students in the biological sciences develop practical insights into methods that they are likely to encounter in their own research, and the potential advantages and pitfalls that come with their use. 
+[Bio 723](https://github.com/Bio723-class/Bio723-lecture/wiki) is a course I offer at Duke University.  The focus of this course is statistical computing for the biological sciences with an emphasis on common multivariate statistical methods and techniques for exploratory data analysis. A major goal of the course is to help graduate students in the biological sciences develop practical insights into methods that they are likely to encounter in their own research, and the potential advantages and pitfalls that come with their use. 
 
 In terms of mathematical perspectives, the course emphasize a geometric approach to understanding multivariate statistics.  I try to help students develop an intuition for the geometry of vector spaces and discuss topics like correlation, regression, and principal components analysis in terms of angles between vectors, dot products, and projection.
 
 This course also provides an introduction to the R language/statistical computing environment.
+
+## Accessing older versions of the course notes
+
+The material covered in Bio 723 changes a bit from year to year.  If you'd like to access older versions of the course notes, I will be making these available on the "Releases" page of the [Github site for this book](https://github.com/Bio723-class/Bio723-book/releases).
 
 ## How to use these lecture notes
 
@@ -56,3 +60,5 @@ In this and future materials to be posted on the course website you'll encounter
 In each of the examples below, I provide example input, but I don't show you the output. It's your job to type in these examples at the R console, evaluate what you typed, and to look at and think critically about the output. **You will make mistakes and generate errors!** Part of learning any new skill is making mistakes, figuring out where you went wrong, and correcting those mistakes.  In the process of fixing those errors, you'll learn more about how R works, and how to avoid such errors, or correct bugs in your own code in the future. If you cut and paste the examples into the R interpretter the code will run, but you will learn less than if you input the code yourself and you'll be less capable of apply the concepts in new situations.   
 
 The R interpretter, like all programming languages, is very exacting.  A mispelled variable or function name, a stray period, or an unbalanced parenthesis will raise an error and finding the sources of such errors can sometimes be tedious and frustrating.  Persist!  If you read your code critically, think about what your doing, and seek help when needed (teaching team, R help, Google, etc) you'll eventually get better at debugging your code.  But keep in mind that like most new skills, learning to write and debug your code efficiently takes time and experience.
+
+#

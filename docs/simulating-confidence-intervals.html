@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 9 Vector algebra | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 19 Simulating confidence intervals | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 9 Vector algebra | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 19 Simulating confidence intervals | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Vector algebra | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 19 Simulating confidence intervals | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="functions-and-control-flow-statements.html">
-<link rel="next" href="matrices-in-r.html">
+<link rel="prev" href="simulation-i-sampling-distributions.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -533,182 +533,315 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="vector-algebra" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Vector algebra</h1>
-<div id="libraries-2" class="section level2">
-<h2><span class="header-section-number">9.1</span> Libraries</h2>
+<div id="simulating-confidence-intervals" class="section level1">
+<h1><span class="header-section-number">Chapter 19</span> Simulating confidence intervals</h1>
+<p>Recall the concept of the <strong>sampling distribution of a statistic</strong> – this is simply the probability distribution of the statistic of interest you would observe if you took a large number of random samples of a given size from a population of interest and calculated that statistic for each of the samples.</p>
+<p>You learned that the standard deviation of the sampling distribution of a statistic has a special name – the <strong>standard error</strong> of that statistic. The standard error of a statistic provides a way to quantify the uncertainty of a statistic across random samples. Here we show how to use information about the standard error of a statistic to calculate plausible ranges for a statistic of interest that take into account the uncertainty of our estimates. We call such plausible ranges <strong>Confidence Intervals</strong>.</p>
+<div id="confidence-intervals" class="section level2">
+<h2><span class="header-section-number">19.1</span> Confidence intervals</h2>
+<p>We know that given a random sample from a population of interest, the value of a statistic of interest is unlikely to be exactly equally to the true population value of that statistic. However, our simulations have taught us a number of things:</p>
+<ol style="list-style-type: decimal">
+<li><p>As sample size increases, the <em>sample estimate</em> of the given statistic is more likely to be close to the true value of that statistic</p></li>
+<li><p>As sample size increases, the standard error of the statistic decreases</p></li>
+</ol>
+<p>We will define an “X% percent confidence interval for a statistic of interest”, as an interval (upper and lower bound) that when calculated from a random sample, would include the true population value of the statistic of interest, X% of the time.</p>
+<p>This quote from the <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm">NIST page on confidence intervals</a>, which I’ve adapted to refer to any statistic, helps to make this concrete regarding confidence intervals:</p>
+<blockquote>
+<p>As a technical note, a 95% confidence interval does not mean that there is a 95% probability that the interval contains the true [statistic]. The interval computed from a given sample either contains the true [statistic] or it does not. Instead, <strong>the level of confidence is associated with the method of calculating the interval</strong> … That is, for a 95% confidence interval, if many samples are collected and the confidence interval computed, in the long run about 95% of these intervals would contain the true [statistic].</p>
+</blockquote>
+<p>The idea behind a 95% confidence interval is illustrated in the following figure:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-563"></span>
+<img src="figures/fig-CIs.png" alt="Point estimates and confidence intervals for a theoretical statistic of interest." width="60%" />
+<p class="caption">
+Figure 19.1: Point estimates and confidence intervals for a theoretical statistic of interest.
+</p>
+</div>
+</div>
+<div id="generic-formulation-for-confidence-intervals" class="section level2">
+<h2><span class="header-section-number">19.2</span> Generic formulation for confidence intervals</h2>
+<p>We define the <span class="math inline">\((100\times\beta)\)</span>% confidence interval for the statistic <span class="math inline">\(\phi\)</span> as the interval:</p>
+<p><span class="math display">\[
+CI_\beta = \phi_{n} \pm (z \times {SE}_{\phi,n})
+\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\phi_{n}\)</span> is the statistic of interest in a random sample of size <span class="math inline">\(n\)</span></li>
+<li><span class="math inline">\({SE}_{\phi,n}\)</span> is the standard error of the statistic <span class="math inline">\(\phi\)</span> (via simulation or analytical solution)</li>
+</ul>
+<p>And the value of <span class="math inline">\(z\)</span> is chosen so that:</p>
+<ul>
+<li>across many different random samples of size <span class="math inline">\(n\)</span>, the true value of the <span class="math inline">\(\phi\)</span> in the population of interest would fall within the interval approximately <span class="math inline">\((100\times\beta)\)</span>% of the time</li>
+</ul>
+<p>So rather than estimating a single value of <span class="math inline">\(\phi\)</span> from our data, we will use our observed data plus knowledge about the sampling distribution of <span class="math inline">\(\phi\)</span> to estimate a range of plausible values for <span class="math inline">\(\phi\)</span>. The size of this interval will be chosen so that if we considered many possible random samples, the true population value of <span class="math inline">\(\phi\)</span> would be bracketed by the interval in <span class="math inline">\((100\times\beta)\)</span>% of the samples.</p>
+</div>
+<div id="example-confidence-intervals-for-the-mean" class="section level2">
+<h2><span class="header-section-number">19.3</span> Example: Confidence intervals for the mean</h2>
+<p>To make the idea of a confidence interval more concrete, let’s consider confidence intervals for the mean of a normally distributed variable.</p>
+<p>Recall that if a variable <span class="math inline">\(X\)</span> is normally distributed in a population of interest, <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>, then the sampling distribution of the mean of <span class="math inline">\(X\)</span> is also normally distributed with mean <span class="math inline">\(\mu\)</span>, and standard error <span class="math inline">\({SE}_{\overline{X}} = \frac{\sigma}{\sqrt{n}}\)</span>:</p>
+<p><span class="math display">\[
+\overline{X} \sim N \left( \mu, \frac{\sigma}{\sqrt{n}}\ \right)
+\]</span>
+In our simulation we will explore how varying the value of <span class="math inline">\(z\)</span> in the formula <span class="math inline">\(CI_\beta = \phi_{n} \pm (z \times {SE}_{\phi,n})\)</span> changes the percentage of times that the confidence interval brackets the true population mean.</p>
+<div id="simulation-of-means" class="section level3">
+<h3><span class="header-section-number">19.3.1</span> Simulation of means</h3>
+<p>In our simulation we’re going to generate a large number of samples, and for each sample we will calculate the sample estimate of the mean, and then quantify how much each sample mean differs from the true mean in terms of units of the population standard error of the mean. We’ll then use this information to calibrate the wide of our confidence intervals.</p>
+<p>For the sake of simplicity we’ll simulate sampling from the “Standard Normal Distribution” – a normal distribution with mean <span class="math inline">\(\mu=0\)</span>, and standard deviation <span class="math inline">\(\sigma=1\)</span>.</p>
+<p>First we load our standard libraries:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(magrittr)</code></pre>
-</div>
-<div id="vector-mathematics-in-r" class="section level2">
-<h2><span class="header-section-number">9.2</span> Vector Mathematics in R</h2>
-<p>R vectors support basic arithmetic operations that correspond to the same operations on geometric vectors. For example:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span>
-<span class="op">&gt;</span><span class="st"> </span>y &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">:</span><span class="dv">24</span>
-<span class="op">&gt;</span><span class="st"> </span>x
-<span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</span>
-<span class="op">&gt;</span><span class="st"> </span>y
-<span class="co">##  [1] 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24</span>
-<span class="op">&gt;</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y <span class="co"># vector addition</span>
-<span class="co">##  [1] 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39</span>
-<span class="op">&gt;</span><span class="st"> </span>x <span class="op">-</span><span class="st"> </span>y <span class="co"># vector subtraction</span>
-<span class="co">##  [1] -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9</span>
-<span class="op">&gt;</span><span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="dv">3</span> <span class="co"># multiplication by a scalar</span>
-<span class="co">##  [1]  3  6  9 12 15 18 21 24 27 30 33 36 39 42 45</span></code></pre>
-<p>R also has an operator for the dot product, denoted <code>%*%</code>.
-This operator also designates matrix multiplication, which we will
-discuss in the next chapter. By default this operator returns an object of the R
-matrix class. If you want a scalar (or the R equivalent of a scalar,
-i.e. a vector of length 1) you need to use the <code>drop()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>z &lt;-<span class="st"> </span>x <span class="op">%*%</span><span class="st"> </span>x
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">class</span>(z)      <span class="co"># note use of class() function</span>
-<span class="co">## [1] &quot;matrix&quot;</span>
-<span class="op">&gt;</span><span class="st"> </span>z
-<span class="co">##      [,1]</span>
-<span class="co">## [1,] 1240</span>
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">drop</span>(z)
-<span class="co">## [1] 1240</span></code></pre>
-<p>In lecture we saw that many useful geometric properties of vectors could be expressed in the form of dot products. Let’s start with some two-dimensional vectors where the geometry is easy to visualize:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)   <span class="co"># the point (2,0)</span>
-<span class="op">&gt;</span><span class="st"> </span>b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)   <span class="co"># the point (1,3)</span></code></pre>
-<p>To draw our vectors using ggplot, we’ll need to create a data frame with columns representing the x,y coordinates of the end-points of our vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x.end =</span> <span class="kw">c</span>(a[<span class="dv">1</span>], b[<span class="dv">1</span>]),
-                 <span class="dt">y.end =</span> <span class="kw">c</span>(a[<span class="dv">2</span>], b[<span class="dv">2</span>]),
-                 <span class="dt">label =</span> <span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>))
+<span class="kw">library</span>(magrittr)
+<span class="kw">library</span>(cowplot)
 
-<span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> x.end, <span class="dt">yend =</span> y.end, <span class="dt">color=</span>label), 
-               <span class="dt">arrow =</span> <span class="kw">arrow</span>()) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;x-coordinate&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;y-coordinate&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="co"># insures x and y axis scale are same</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-314-1.png" width="576" /></p>
-<p>Let’s see what the dot product can tell us about these vectors. First recall that we can calculate the length of a vector as the square-root of the dot product of the vector with itself (<span class="math inline">\(\vert\vec{a}\vert^2 = \vec{a} \cdot \vec{a}\)</span>)</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>len.a &lt;-<span class="st"> </span><span class="kw">drop</span>(<span class="kw">sqrt</span>(a <span class="op">%*%</span><span class="st"> </span>a))
-<span class="op">&gt;</span><span class="st"> </span>len.a
-<span class="co">## [1] 2</span>
-<span class="op">&gt;</span><span class="st"> </span>len.b &lt;-<span class="st"> </span><span class="kw">drop</span>(<span class="kw">sqrt</span>(b <span class="op">%*%</span><span class="st"> </span>b))
-<span class="op">&gt;</span><span class="st"> </span>len.b
-<span class="co">## [1] 3.162278</span></code></pre>
-<p>How about the angle between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>? First we can use the dot product and the previously calculated lengths to calculate the cosine of the angle between the vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cos.ab &lt;-<span class="st"> </span>(a <span class="op">%*%</span><span class="st"> </span>b)<span class="op">/</span>(len.a <span class="op">*</span><span class="st"> </span>len.b)
-<span class="op">&gt;</span><span class="st"> </span>cos.ab
-<span class="co">##           [,1]</span>
-<span class="co">## [1,] 0.3162278</span></code></pre>
-<p>To go from the cosine of the angle to the angle (in radians) we need the arc-cosine function, <code>acos()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">acos</span>(cos.ab)  <span class="co"># given angle in radians</span>
-<span class="co">##          [,1]</span>
-<span class="co">## [1,] 1.249046</span></code></pre>
+<span class="kw">set.seed</span>(<span class="dv">20190416</span>)  <span class="co"># initialize RNG</span></code></pre>
+<p>Then we write our basic framework for our simulations:</p>
+<pre class="sourceCode r"><code class="sourceCode r">rnorm.stats &lt;-<span class="st"> </span><span class="cf">function</span>(n, mu, sigma) {
+  s &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)
+  df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n,
+                   <span class="dt">sample.mean =</span> <span class="kw">mean</span>(s),
+                   <span class="dt">sample.sd =</span> <span class="kw">sd</span>(s),
+                   <span class="dt">pop.SE =</span> sigma<span class="op">/</span><span class="kw">sqrt</span>(n))
+}</code></pre>
+<p>And then use this to simulate samples of size 50.</p>
+<pre class="sourceCode r"><code class="sourceCode r">true.mean &lt;-<span class="st"> </span><span class="dv">0</span>
+true.sd &lt;-<span class="st"> </span><span class="dv">11</span>
+n &lt;-<span class="st"> </span><span class="dv">50</span>
+
+samples<span class="fl">.50</span> &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">10000</span>, <span class="kw">rnorm.stats</span>(n, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()</code></pre>
 </div>
-<div id="simple-statistics-in-vector-form" class="section level2">
-<h2><span class="header-section-number">9.3</span> Simple statistics in vector form</h2>
-<p>Now let’s turn our attention to seeing how to calculate a variety of simple statistics such as the mean, variance, etc. in terms of vector operations.</p>
-<p>To illustrate these oeprations we’ll use the I. setosa data from the <code>iris</code> examplar data set.</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa &lt;-<span class="st"> </span><span class="kw">filter</span>(iris, Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</code></pre>
-<div id="mean" class="section level3">
-<h3><span class="header-section-number">9.3.1</span> Mean</h3>
-<p>First let’s calculate the mean for the Sepal.Length variable. Referring back to the slides for today’s lecture, we see we can calculate the mean as:
-<span class="math display">\[
-\bar{x} = \frac{\vec{1} \cdot \vec{x}}{\vec{1} \cdot \vec{1}}
-\]</span></p>
-<p>Applying this formula in R:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>sepal.length &lt;-<span class="st"> </span>setosa<span class="op">$</span>Sepal.Length
-<span class="op">&gt;</span><span class="st"> </span>ones &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(sepal.length)) <span class="co"># 1-vector of length n</span>
-<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length &lt;-<span class="st"> </span>(ones <span class="op">%*%</span><span class="st"> </span>sepal.length)<span class="op">/</span>(ones <span class="op">%*%</span><span class="st"> </span>ones)
-<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length <span class="op">%&lt;&gt;%</span><span class="st"> </span>drop  <span class="co"># use drop to convert back to scalar</span>
-<span class="op">&gt;</span><span class="st"> </span>mean.sepal.length
-<span class="co">## [1] 5.006</span></code></pre>
-<p>Let’s compare our calculation against the built-in mean function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">mean</span>(sepal.length)
-<span class="co">## [1] 5.006</span></code></pre>
+<div id="distance-between-sample-means-and-true-means" class="section level3">
+<h3><span class="header-section-number">19.3.2</span> Distance between sample means and true means</h3>
+<p>We append a new column to our <code>samples.50</code> data frame, which is the result of calculating the distance of each sample mean from the true mean, expressed in terms of units of the population standard error of the mean:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.50</span> &lt;-
+<span class="st">  </span>samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z.pop =</span> (sample.mean <span class="op">-</span><span class="st"> </span>true.mean)<span class="op">/</span>pop.SE)</code></pre>
+<p>Since the sampling distribution of the mean of a normally distributed variable (<span class="math inline">\(N(\mu,\sigma)\)</span>) is itself normally distributed (<span class="math inline">\(N(\mu, SE_{\overline{X}})\)</span>), then the distribution of <span class="math inline">\(z = \frac{\overline{X} - \mu}{SE}\)</span> is <span class="math inline">\(N(0,1)\)</span>. This is illustrated in the figure below where we compare our simulated z-scores to the theoretical expectation:</p>
+<pre class="sourceCode r"><code class="sourceCode r">SE &lt;-<span class="st"> </span><span class="dv">1</span>
+<span class="kw">ggplot</span>(samples<span class="fl">.50</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> z.pop, <span class="dt">y=</span>..density..), <span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(x){<span class="kw">dnorm</span>(x, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span>SE)}, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-568-1.png" width="576" /></p>
+<p>For a given value of <span class="math inline">\(z\)</span> we can ask what fraction of our simulated means fall within <span class="math inline">\(\pm z\)</span> standard errors of the true mean.</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">frac.win.1SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.pop) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">frac.win.2SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.pop) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="kw">n</span>())
+<span class="co">## # A tibble: 1 x 2</span>
+<span class="co">##   frac.win.1SE frac.win.2SE</span>
+<span class="co">##          &lt;dbl&gt;        &lt;dbl&gt;</span>
+<span class="co">## 1        0.681        0.957</span></code></pre>
+<p>We see that roughly 68% of our sample means are within 1 SE of the true mean; ~95% are within 2 SEs.</p>
+<p>If we wanted to get exact multiples of the SE corresponding to different percentiles of the distribution of z-scores, based on the theoretical result (z scores ~ <span class="math inline">\(N(0,1)\)</span>), we can use the <code>qnorm()</code> function:</p>
+<pre class="sourceCode r"><code class="sourceCode r">frac.of.interest &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.68</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)
+
+<span class="co"># we use 1 - frac to get left most critical value</span>
+<span class="co"># we divide by two here two account for area under left and right tails</span>
+left.critical.value &lt;-<span class="st"> </span><span class="kw">qnorm</span>((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>frac.of.interest)<span class="op">/</span><span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>) 
+
+<span class="kw">data_frame</span>(<span class="dt">Percentile =</span> frac.of.interest <span class="op">*</span><span class="st"> </span><span class="dv">100</span>,
+           <span class="dt">Critical.value =</span> <span class="kw">abs</span>(left.critical.value))
+<span class="co">## # A tibble: 4 x 2</span>
+<span class="co">##   Percentile Critical.value</span>
+<span class="co">##        &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span class="co">## 1         68          0.994</span>
+<span class="co">## 2         90          1.64 </span>
+<span class="co">## 3         95          1.96 </span>
+<span class="co">## 4         99          2.58</span></code></pre>
 </div>
-<div id="mean-centering" class="section level3">
-<h3><span class="header-section-number">9.3.2</span> Mean centering</h3>
-<p>Mean centering a vector, means subtracting the mean from each element of that vector:</p>
+<div id="calculating-a-ci" class="section level3">
+<h3><span class="header-section-number">19.3.3</span> Calculating a CI</h3>
+<p>If we knew the standard error of the mean for variable of interest, in order to a confidence interval we could simply look up the corresponding critical value for our percentile of interst in a table like the one above and calculate our CI as:</p>
 <p><span class="math display">\[
-\vec{x}_c = \vec{x} - \bar{x}\vec{1}
+\overline{X} \pm \text{critical value} \times SE_{\overline{X}}
 \]</span></p>
-<p>Now let’s create a mean centered vector from sepal.length, which we’ll refer to as the vector of deviates about the mean:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>sepal.length.deviates &lt;-<span class="st"> </span>sepal.length <span class="op">-</span><span class="st"> </span>mean.sepal.length  </code></pre>
-<p>Note that we didn’t have to explicitly multiply the a one vector by the mean, as R will automatically make the lengths of the <code>sepal.length</code> (a vector of length 150) and <code>mean.sepal.length</code> (a vector of length 1) match by vector recycling.</p>
+<p>For example, we see that the critical value for 95% CIs is ~1.96.</p>
 </div>
-<div id="variance-and-standard-deviation" class="section level3">
-<h3><span class="header-section-number">9.3.3</span> Variance and standard deviation</h3>
-<p>Using the vector of deviates we can easily calculate the variance and standard deviation of a variable.</p>
-<p>The variance of a variable, in vector algebraic terms, is:</p>
-<p><span class="math display">\[
-S_x^2 = \frac{\vec{x}_c \cdot \vec{x}_c}{n-1}
-\]</span></p>
-<p>The standard deviation is simply the square root of the variance</p>
-<p><span class="math display">\[
-S_x = \sqrt{S_x^2} 
-\]</span></p>
-<p>These calculations for the Sepal.Length variable:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>n &lt;-<span class="st"> </span><span class="kw">length</span>(sepal.length.deviates)
-<span class="op">&gt;</span><span class="st"> </span>var.sepal.length &lt;-<span class="st"> </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.length.deviates)<span class="op">/</span>(n<span class="dv">-1</span>) 
-<span class="op">&gt;</span><span class="st"> </span>var.sepal.length
-<span class="co">##          [,1]</span>
-<span class="co">## [1,] 0.124249</span>
-<span class="op">&gt;</span><span class="st"> </span>sd.sepal.length &lt;-<span class="st"> </span><span class="kw">sqrt</span>(var.sepal.length)
-<span class="op">&gt;</span><span class="st"> </span>sd.sepal.length
-<span class="co">##           [,1]</span>
-<span class="co">## [1,] 0.3524897</span></code></pre>
-<p>Again, we can compare our calculations to the built-in <code>var()</code> and <code>sd()</code> functions:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span><span class="kw">var</span>(sepal.length)
-<span class="co">## [1] 0.124249</span>
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">sd</span>(sepal.length)
-<span class="co">## [1] 0.3524897</span></code></pre>
 </div>
-<div id="covariance-and-correlation" class="section level3">
-<h3><span class="header-section-number">9.3.4</span> Covariance and correlation</h3>
-<p>Now let’s consider the common measures of bivariate association, covariance and correlation.</p>
-<p>Covariance is:</p>
+<div id="a-problem-arises" class="section level2">
+<h2><span class="header-section-number">19.4</span> A problem arises!</h2>
+<p>If you’re a critical reader you should have noticed that calculating confidence intervals using the above formula presumes we know the standard error of the mean for the variable of interest. If we knew the standard deviation, <span class="math inline">\(\sigma\)</span>, of our variable, we could calculate this as <span class="math inline">\(SE_{\overline{x}} = \frac{\sigma}{\sqrt{n}}\)</span> but in general we do not know <span class="math inline">\(\sigma\)</span> either.</p>
+<p>Instead we must estimate the standard error of the mean using our sample standard deviation:</p>
 <p><span class="math display">\[
-S_{XY} = \frac{\vec{x} \cdot \vec{y}}{n-1}
+\widehat{SE}_{\overline{x}} = \frac{s_x}{\sqrt{n}}
 \]</span></p>
-<p>Correlation is:</p>
+<p>This introduces another level of uncertainty and also a complication. The complication is due to the fact that for small samples, sample estimates of the standard deviation tend to be biased (smaller) relative to the true population standard deviation (see previous chapter).</p>
+</div>
+<div id="confidence-intervals-under-sample-estimates-of-standard-errors" class="section level2">
+<h2><span class="header-section-number">19.5</span> Confidence intervals under sample estimates of standard errors</h2>
+<p>Let’s extend our simulations to gain insight into how using sample estimates of standard errors affect our calculations of confidence interval. First we’ll rewrite our <code>rnorm.stats</code> function to include columns for both the true values of the mean, standard deviation, and standard error of the mean as well as the sample estimates of those statistics.</p>
+<pre class="sourceCode r"><code class="sourceCode r">rnorm.stats &lt;-<span class="st"> </span><span class="cf">function</span>(n, mu, sigma) {
+  s &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)
+  df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> n,
+                   <span class="dt">true.mean =</span> mu,
+                   <span class="dt">true.sd =</span> sigma,
+                   <span class="dt">true.se =</span> sigma<span class="op">/</span><span class="kw">sqrt</span>(n),
+                   <span class="dt">sample.mean =</span> <span class="kw">mean</span>(s),
+                   <span class="dt">sample.sd =</span> <span class="kw">sd</span>(s),
+                   <span class="dt">estimated.se =</span> sample.sd<span class="op">/</span><span class="kw">sqrt</span>(n))
+  df
+}</code></pre>
+<div id="the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses" class="section level3">
+<h3><span class="header-section-number">19.5.1</span> The spread of sample estimates of the mean in units of true and estimates SEs</h3>
+<p>Now we run simulations for samples of size 5 and 50, and calculate z-scores for the sample means relative to the true mean in terms of units of standard error (both true and estiamted).</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.5</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">10000</span>, <span class="kw">rnorm.stats</span>(<span class="dv">5</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+
+samples<span class="fl">.5</span> &lt;-
+<span class="st">  </span>samples<span class="fl">.5</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z.true =</span> (sample.mean <span class="op">-</span><span class="st"> </span>true.mean)<span class="op">/</span>true.se,
+         <span class="dt">z.est =</span> (sample.mean <span class="op">-</span><span class="st"> </span>true.mean)<span class="op">/</span>estimated.se)
+    
+samples<span class="fl">.50</span> &lt;-
+<span class="st">  </span><span class="kw">rerun</span>(<span class="dv">10000</span>, <span class="kw">rnorm.stats</span>(<span class="dv">50</span>, true.mean, true.sd)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">bind_rows</span>()
+
+samples<span class="fl">.50</span> &lt;-
+<span class="st">  </span>samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z.true =</span> (sample.mean <span class="op">-</span><span class="st"> </span>true.mean)<span class="op">/</span>true.se,
+         <span class="dt">z.est =</span> (sample.mean <span class="op">-</span><span class="st"> </span>true.mean)<span class="op">/</span>estimated.se)    </code></pre>
+<p>First we’ll look at the distribution of z-scores for samples of size 50:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>z.true), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>z.est), <span class="dt">alpha=</span><span class="fl">0.25</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="ch">\n</span><span class="st">for 10,000 samples of size 50&quot;</span>) </code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-573-1.png" width="576" /></p>
+<p>We see that the distributions are similar whether we used the true SE of the mean, or the estimated SEs. This reflects the fact that the sample estimate of the SE of the mean is a good estimator when sample sizes are relatively large.</p>
+<p>Now we do the same for samples of size 5:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.5</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>z.true), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x=</span>z.est), <span class="dt">alpha=</span><span class="fl">0.25</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">fill=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="ch">\n</span><span class="st">for 10,000 samples of size 5&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>)</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-574-1.png" width="576" /></p>
+<p>Unlike in the previous case, for samples of sie 5 we find that the distribution of z-scores is significantly wider based on samples estimates of the SE of the mean, rather than the true value of the SE of the mean. This reflects the fact that our sample estimates of the SE of the mean systematically underestimate the true value when sample sizes are small.</p>
+</div>
+<div id="quantifying-deviations-of-sample-estimates-of-the-mean" class="section level3">
+<h3><span class="header-section-number">19.5.2</span> Quantifying deviations of sample estimates of the mean</h3>
+<p>To quantify the patterns that is apparent in the figures we generated previously, we can ask, “What fraction of sample means are less than on, two, and three standard errors away from the true mean?” We will ask this question using z-scores based on both the true SE of the mean as well as the estimated SEs of the mean.</p>
+<div id="samples-of-size-5" class="section level4">
+<h4><span class="header-section-number">19.5.2.1</span> Samples of size 5</h4>
+<p>First for samples of size 5, based on the true SEs:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.5</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">less.1SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.2SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.3SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)<span class="op">/</span><span class="kw">n</span>())
+<span class="co">## # A tibble: 1 x 3</span>
+<span class="co">##   less.1SE less.2SE less.3SE</span>
+<span class="co">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">## 1    0.683    0.956    0.998</span></code></pre>
+<p>Now for the same samples of size 5, based on the estimated SEs:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.5</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">less.1SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.2SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.3SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)<span class="op">/</span><span class="kw">n</span>())
+<span class="co">## # A tibble: 1 x 3</span>
+<span class="co">##   less.1SE less.2SE less.3SE</span>
+<span class="co">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">## 1    0.625    0.887    0.962</span></code></pre>
+<p><strong>Interpretation</strong>: For samples of size 5, if we use sample estimates of the standard error of the mean as our “ruler”, we must use an interval of about 3 SE units to capture 95% of the distribution of sample means. Contrast this with the situation in which we knew the true SE; in that case we only had to consider a spread of approximately +/- 2 SE units to capture 95% of the sampling distribution of the mean.</p>
+</div>
+<div id="samples-of-size-50" class="section level4">
+<h4><span class="header-section-number">19.5.2.2</span> Samples of size 50</h4>
+<p>Now we ask the same questions for samples of size 50:</p>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">less.1SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.2SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.3SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.true) <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)<span class="op">/</span><span class="kw">n</span>())
+<span class="co">## # A tibble: 1 x 3</span>
+<span class="co">##   less.1SE less.2SE less.3SE</span>
+<span class="co">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">## 1    0.681    0.960    0.997</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">samples<span class="fl">.50</span> <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">less.1SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.2SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="kw">n</span>(),
+            <span class="dt">less.3SE =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(z.est) <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span>)<span class="op">/</span><span class="kw">n</span>())
+<span class="co">## # A tibble: 1 x 3</span>
+<span class="co">##   less.1SE less.2SE less.3SE</span>
+<span class="co">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">## 1    0.676    0.954    0.996</span></code></pre>
+<p><strong>Interpretation</strong>: For samples of size 50, we get similar estimats of the spread of the sampling distribution of the mean regardless of whether we use the true SE or the estiamted SEs.</p>
+</div>
+</div>
+</div>
+<div id="t-distribution-for-confidence-intervals-of-the-mean" class="section level2">
+<h2><span class="header-section-number">19.6</span> t-distribution for confidence intervals of the mean</h2>
+<p>The “Student’s t-distribution” is the appropriate distribution to use when we want to estimate the sampling distribution of the mean of a normally distributed variable when samples sizes are small (very frequently) and/or the standard deviation of the population we’re sampling from is unknown (almost always the case). You can think of values of <span class="math inline">\(t\)</span> as multiples of the estimated standard error.</p>
+<p>The t-distribution is specified by a single parameter, called degrees of freedom (<span class="math inline">\(df\)</span>) where <span class="math inline">\({df} = n - 1\)</span>. As <span class="math inline">\(df\)</span> increases, the t-distribution becomes more and more like the “standard normal distribution” (<span class="math inline">\(N(0,1)\)</span>.</p>
+<p>You can use the function <code>dt()</code> to calculate the t-distribution for appropriate degrees of freedom. For example, here we compare the t-distributions with 4 and 49 degrees of freedom, corresponding to samples of size 5 and 50:</p>
+<pre class="sourceCode r"><code class="sourceCode r">npts &lt;-<span class="st"> </span><span class="dv">500</span>
+
+df.t5 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">rep</span>(<span class="dv">5</span>, npts),
+                    <span class="dt">t =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out =</span> npts),
+                    <span class="dt">density =</span> <span class="kw">dt</span>(t, <span class="dt">df=</span><span class="dv">4</span>))
+
+df.t50 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">sample.size =</span> <span class="kw">rep</span>(<span class="dv">50</span>, npts),
+                    <span class="dt">t =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out =</span> npts),
+                    <span class="dt">density =</span> <span class="kw">dt</span>(t, <span class="dt">df=</span><span class="dv">49</span>))
+
+df.t &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df.t5, df.t50)
+
+df.t <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> density, <span class="dt">color=</span><span class="kw">as.factor</span>(sample.size))) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>()</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-579-1.png" width="768" /></p>
+<div id="t-distribution-vs-standard-normal-distribution" class="section level3">
+<h3><span class="header-section-number">19.6.1</span> t-distribution vs standard normal distribution</h3>
+<p>For large degrees of freedom, the t-distribution and the standard normal distribution are very similar. For example, let’s compare these disetributions when df=49:</p>
+<pre class="sourceCode r"><code class="sourceCode r">df.norm &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">t =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="dt">length.out =</span> npts),
+                      <span class="dt">density =</span> <span class="kw">dnorm</span>(t))
+
+t.vs.normal.df49 &lt;-<span class="st"> </span>
+<span class="st">  </span>df.t50 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> density)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>df.norm, <span class="dt">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=49) distn.&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>))
+
+t.vs.normal.df49 </code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-580-1.png" width="768" /></p>
+<p>However, when the degrees of freedom is small, the t-distribution and the standard normal distribution differ appreciably.</p>
+<pre><code>b) Draw a figure comparing the t-distribution for samples of size 5 to the standard normal distribution. Draw another figure comparing the t-distribution for samples of size 50 to the standard normal distribution. Use cowplot to display these two figure as &quot;A&quot; and &quot;B&quot; subfigures. [3 pts]</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">t.vs.normal.df4&lt;-<span class="st"> </span>
+<span class="st">  </span>df.t5 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> t, <span class="dt">y =</span> density)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>df.norm, <span class="dt">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=4) distn.&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">10</span>))
+
+t.vs.normal.df4</code></pre>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-581-1.png" width="768" /></p>
+</div>
+<div id="formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution" class="section level3">
+<h3><span class="header-section-number">19.6.2</span> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</h3>
+<p>To calculate the lower and upper bounds of the 95% confidence intervals for the mean based on the t-distribution, for a sample of size <span class="math inline">\(n\)</span>, we can use the following formulas:</p>
 <p><span class="math display">\[
-r_{XY} = \frac{\vec{x} \cdot \vec{y}}{|\vec{x}||\vec{y}|} = \frac{S_{XY}}{S_x S_Y}
+\begin{align}
+\text{lower bound:}\ \overline{x} + t_{0.025}(df = n-1) \times \widehat{SE}_\overline{x} \\
+\text{upper bound:}\ \overline{x} + t_{0.975}(df = n-1) \times \widehat{SE}_\overline{x}
+\end{align}
 \]</span></p>
-<p>We’ll examine the relationship between sepal length and width:</p>
-<pre class="sourceCode r"><code class="sourceCode r">sepal.width &lt;-<span class="st"> </span>setosa<span class="op">$</span>Sepal.Width
-mean.sepal.width &lt;-<span class="st">  </span>(ones <span class="op">%*%</span><span class="st"> </span>sepal.width)<span class="op">/</span>(ones <span class="op">%*%</span><span class="st"> </span>ones) 
-sepal.width.deviates &lt;-<span class="st"> </span>sepal.width <span class="op">-</span><span class="st"> </span>mean.sepal.width
-var.sepal.width &lt;-<span class="st"> </span><span class="kw">drop</span>((sepal.width.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates)<span class="op">/</span>(n<span class="dv">-1</span>))
-sd.sepal.width &lt;-<span class="st"> </span><span class="kw">sqrt</span>(var.sepal.width)</code></pre>
-<p>With the vector of sepal width deviates in hand we can now calculate covariances:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength &lt;-<span class="st"> </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates)<span class="op">/</span>(n<span class="dv">-1</span>)
-<span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength
-<span class="co">##            [,1]</span>
-<span class="co">## [1,] 0.09921633</span>
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">cov</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in covariance</span>
-<span class="co">## [1] 0.09921633</span></code></pre>
-<p>And correlations:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>len.sepal.length &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.length.deviates)
-<span class="op">&gt;</span><span class="st"> </span>len.sepal.width &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sepal.width.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates) 
-<span class="op">&gt;</span><span class="st"> </span>
-<span class="er">&gt;</span><span class="st"> </span>corr.swidth.slength &lt;-<span class="st"> </span>
-<span class="op">+</span><span class="st">   </span>(sepal.length.deviates <span class="op">%*%</span><span class="st"> </span>sepal.width.deviates) <span class="op">/</span><span class="st"> </span>(len.sepal.length <span class="op">*</span><span class="st"> </span>len.sepal.width)
-<span class="op">&gt;</span><span class="st"> </span>corr.swidth.slength
-<span class="co">##           [,1]</span>
-<span class="co">## [1,] 0.7425467</span>
-<span class="op">&gt;</span><span class="st"> </span><span class="kw">cor</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in correlation</span>
-<span class="co">## [1] 0.7425467</span></code></pre>
-<p>Alternately, we could have calculated the correlation more simply as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="op">&gt;</span><span class="st"> </span>cov.swidth.slength<span class="op">/</span>(sd.sepal.length <span class="op">*</span><span class="st"> </span>sd.sepal.width)
-<span class="co">##           [,1]</span>
-<span class="co">## [1,] 0.7425467</span></code></pre>
+<p>where <span class="math inline">\(t_{0.025}(df = n-1)\)</span> and <span class="math inline">\(t_{0.975}(df = n-1)\)</span> are the 2.5-percentile and 97.5-percentile of the t-distribution with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
 
 </div>
 </div>
 </div>
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="functions-and-control-flow-statements.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="matrices-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simulation-i-sampling-distributions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

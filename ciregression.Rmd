@@ -1,0 +1,205 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(magrittr)
+library(cowplot)
+library(broom)
+```
+
+
+
+```{r}
+rate = 0.3
+
+ggplot(data.frame(x = c(0,20)), aes(x)) + 
+  stat_function(fun=dexp, args = list(rate = 0.1)) + 
+    stat_function(fun=dexp, args = list(rate = 0.5), color="red") + 
+    stat_function(fun=dexp, args = list(rate = 1), color="blue") + 
+  labs(y = "Density")
+```
+
+```{r}
+x <- rexp(30, rate = 0.1)
+ytrue <- 0.95*x
+yobs <- ytrue + rnorm(length(x))
+
+ggplot(data_frame(x = x, ytrue = ytrue, yobs=yobs)) + 
+  geom_point(aes(x,yobs)) + 
+  geom_line(aes(x, ytrue), color='red')
+```
+
+```{r}
+rate <- rep(0.1,30)
+x <- rexp(30, rate = 0.1)
+ytrue <- 0.95*x
+yobs <- ytrue + rnorm(length(x))
+
+rate1 <- rep(1,30)
+x1 <- rexp(30, rate = 1)
+ytrue1 <- 0.95*x1
+yobs1 <- ytrue1 + rnorm(length(x1))
+
+
+ggplot(data_frame(x = c(x,x1), ytrue = c(ytrue,ytrue1), yobs=c(yobs,yobs1), rate=c(rate,rate1))) + 
+  geom_point(aes(log(x),yobs, color=as.factor(rate) )) + 
+  geom_line(aes(log(x), ytrue, color=as.factor(rate)))
+```
+
+
+```{r}
+regr.stats <- function(n, rate, slope, noise_sd = 1){
+  x <- rexp(n, rate = rate)
+  ytrue <- slope * x
+  yobs <- ytrue + rnorm(n, sd = noise_sd)
+  estimated.slope <- lm(yobs ~ x) %>% tidy %>% filter(term == "x") %$% estimate 
+  df <- data_frame(n  = n,
+                   mean.x = mean(x),
+                   mean.y = mean(yobs),
+                   sd.x = sd(x),
+                   sd.y = sd(yobs),
+                   rate = rate,
+                   true.slope = slope,
+                   estimated.slope = estimated.slope,
+                   noise_sd = noise_sd)
+  df
+}
+```
+
+```{r}
+regr.stats(30, 0.8, 0.95)
+```
+
+```{r}
+rate <- 0.1
+true.slope <- 1.25
+n <- 50
+
+samples.50 <- 
+  rerun(1000, regr.stats(n, rate, true.slope)) %>%
+  bind_rows()
+```
+
+```{r}
+ggplot(samples.50) + 
+  geom_histogram(aes(estimated.slope))
+```
+
+```{r}
+rate <- 1
+true.slope <- 1.25
+n <- 50
+
+samples.50.rate1 <- 
+  rerun(1000, regr.stats(n, rate, true.slope)) %>%
+  bind_rows()
+```
+
+
+```{r}
+ggplot(samples.50.rate1) + 
+  geom_histogram(aes(estimated.slope)) +
+  
+```
+
+```{r}
+rates <- seq(0.1, 1, by=0.1)
+true.slope <- 1.25
+n <- 50
+
+dframes <- data_frame(n  = double(),
+                   mean.x = double(),
+                   mean.y = double(),
+                   sd.x = double(),
+                   sd.y = double(),                      
+                   rate = double(),
+                   true.slope = double(),
+                   estimated.slope = double(),
+                   noise_sd = double())
+
+for (rate in rates) {
+  df <- rerun(1000, regr.stats(n, rate, true.slope)) %>% bind_rows()
+  dframes <- bind_rows(dframes, df)
+}
+
+```
+
+```{r, fig.width=12, fig.height=3}
+ggplot(dframes, aes(x = estimated.slope, fill=as.factor(rate))) + 
+  geom_histogram() +
+  facet_wrap(~as.factor(rate), nrow=1)
+```
+
+```{r, fig.width=12, fig.height=3}
+ggplot(dframes, aes(x = sd.y, fill=as.factor(rate))) + 
+  geom_histogram() +
+  facet_wrap(~as.factor(rate), nrow=1)
+```
+
+```{r}
+rate.vs.SEslope <- 
+  dframes %>%
+  group_by(rate) %>%
+  summarize(SE.sd.y = sd(sd.y),
+            SE.slope = sd(estimated.slope))
+
+rate.vs.SEslope
+```
+
+```{r}
+ggplot(rate.vs.SEslope, aes(rate, SE.slope)) + 
+  geom_point() + geom_line()
+```
+
+```{r}
+rate <- 0.5
+true.slope <- 1.25
+ns <- c(5, 10, 15, 20, 25, 50, 75, 100)
+
+dframes.n <- data_frame(n  = double(),
+                   mean.x = double(),
+                   mean.y = double(),
+                   sd.x = double(),
+                   sd.y = double(),                      
+                   rate = double(),
+                   true.slope = double(),
+                   estimated.slope = double(),
+                   noise_sd = double())
+
+for (n in ns) {
+  df <- rerun(1000, regr.stats(n, rate, true.slope)) %>% bind_rows()
+  dframes.n <- bind_rows(dframes.n, df)
+}
+
+```
+
+```{r, fig.width=12, fig.height=3}
+ggplot(dframes.n, aes(x = estimated.slope, fill=as.factor(n))) + 
+  geom_histogram(bins=50) +
+  facet_wrap(~as.factor(n), nrow=1)
+```
+
+```{r, fig.width=12, fig.height=3}
+ggplot(dframes.n, aes(x = estimated.slope, fill=as.factor(n))) + 
+  geom_histogram(bins=50) +
+  facet_wrap(~as.factor(n), nrow=1)
+```
+
+
+```{r}
+n.vs.SEslope <- 
+  dframes.n %>%
+  group_by(n) %>%
+  summarize(SE.slope = sd(estimated.slope))
+
+n.vs.SEslope
+```
+
+```{r}
+ggplot(n.vs.SEslope, aes(n, SE.slope)) + 
+  geom_point() + geom_line() + 
+  stat_function(fun = function(x){2/(x-2)}, color='red')
+```

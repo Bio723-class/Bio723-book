@@ -383,7 +383,7 @@ In this case `help.search("log")` returns all the functions with
 the string `log` in them. For more on `help.search` type
 `?help.search`. 
 
-Other useful help related functions include `apropos()` and `example()`, `vignette()`.  `apropos` returns a list of all objects (including function names) in the current session that match the input string.
+Other useful help related functions include `apropos()` and `example()`, `vignette()`.  `apropos` returns a list of all objects (including variable names and function names) in the current session that match the input string.
 
 ```{r}
 apropos("log")

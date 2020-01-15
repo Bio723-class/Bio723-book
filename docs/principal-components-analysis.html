@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Principal Components Analysis | Biology 723: Statistical Computing for Biologists</title>
-  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Principal Components Analysis | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
 
-<meta name="author" content="Paul M. Magwene">
+<meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2019-04-17">
+<meta name="date" content="2020-01-15" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="logistic-regression.html">
-<link rel="next" href="singular-value-decomposition.html">
+<link rel="prev" href="logistic-regression.html"/>
+<link rel="next" href="singular-value-decomposition.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,11 +48,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
 <script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
 <script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
-<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
@@ -63,7 +65,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -206,126 +207,126 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a><ul>
+<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>5.1.1</b> Function arguments</a></li>
+<li class="chapter" data-level="5.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>5.1.2</b> Writing functions with optional arguments</a></li>
+<li class="chapter" data-level="5.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>5.1.3</b> Putting R functions in Scripts</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>5.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
+<li class="chapter" data-level="5.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>5.2.2</b> for loops</a></li>
+<li class="chapter" data-level="5.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>5.2.3</b> <code>break</code> statement</a></li>
+<li class="chapter" data-level="5.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>5.2.4</b> <code>repeat</code> loops</a></li>
+<li class="chapter" data-level="5.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>5.2.5</b> <code>next</code> statement</a></li>
+<li class="chapter" data-level="5.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>5.2.6</b> while statements</a></li>
+<li class="chapter" data-level="5.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>5.2.7</b> <code>ifelse</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-<li class="chapter" data-level="5.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>5.17.2</b> Adding a trend line to a scatter plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>6</b> Introduction to <code>dplyr</code></a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.1</b> Reading Excel files</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.2</b> Example data: NC Births</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>5.3.1</b> basic <code>map</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>5.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>5.3.3</b> mapping in parallel using <code>map2</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>5.3.4</b> <code>map</code> variants that return vectors</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>6.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>6.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>6.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>6.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>6.5.3</b> Rotating plot coordinates</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>7.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.6</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="7.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>6.6</b> Histograms</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>6.6.1</b> Variations on histograms when considering categorical data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="6.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>6.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="6.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>6.8</b> Density plots</a></li>
+<li class="chapter" data-level="6.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>6.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="6.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>6.10</b> Boxplots</a></li>
+<li class="chapter" data-level="6.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>6.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="6.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>6.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="6.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>6.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="6.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>6.12.2</b> Setting shared aesthetics</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="7.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.9</b> Exploring bivariate relationships using “wide” data</a><ul>
-<li class="chapter" data-level="7.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>7.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="7.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="7.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>7.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="7.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="6.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.13</b> ggplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>6.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>6.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="6.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>6.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="6.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>6.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="6.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>6.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="6.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.17.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="6.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>6.17.2</b> Adding a trend line to a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>6.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="6.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>6.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="6.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>6.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="6.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>6.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="6.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>6.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>7</b> Introduction to <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>7.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>7.2.1</b> Reading Excel files</a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>7.2.2</b> Example data: NC Births</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>7.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>7.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>7.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>7.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>7.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="7.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>7.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="7.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>7.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="7.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>7.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>7.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>7.6</b> Pipes</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>7.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>7.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>7.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>7.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="7.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>7.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="7.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>7.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="7.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="7.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.6.8</b> The exposition pipe operator</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>8</b> Functions and control flow statements</a><ul>
-<li class="chapter" data-level="8.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>8.1.1</b> Function arguments</a></li>
-<li class="chapter" data-level="8.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.1.2</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.1.3</b> Putting R functions in Scripts</a></li>
+<li class="chapter" data-level="8" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>8</b> Data wrangling</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>8.2</b> Control flow statements</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>8.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
-<li class="chapter" data-level="8.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>8.2.2</b> for loops</a></li>
-<li class="chapter" data-level="8.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>8.2.3</b> <code>break</code> statement</a></li>
-<li class="chapter" data-level="8.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>8.2.4</b> <code>repeat</code> loops</a></li>
-<li class="chapter" data-level="8.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>8.2.5</b> <code>next</code> statement</a></li>
-<li class="chapter" data-level="8.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>8.2.6</b> while statements</a></li>
-<li class="chapter" data-level="8.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>8.2.7</b> <code>ifelse</code></a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>8.3</b> <code>map</code> and related tools</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>8.3.1</b> basic <code>map</code></a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>8.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
-<li class="chapter" data-level="8.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>8.3.3</b> mapping in parallel using <code>map2</code></a></li>
-<li class="chapter" data-level="8.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>8.3.4</b> <code>map</code> variants that return vectors</a></li>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a><ul>
@@ -447,75 +448,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>16.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>17</b> Clustering in R</a><ul>
-<li class="chapter" data-level="17.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-8"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>17.2</b> Data set</a></li>
-<li class="chapter" data-level="17.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>17.3</b> Hierarchical Clustering in R</a></li>
-<li class="chapter" data-level="17.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>17.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
-<li class="chapter" data-level="17.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>17.5</b> Plotting dendrograms in dendextend</a></li>
-<li class="chapter" data-level="17.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>17.6</b> Cutting dendrograms</a></li>
-<li class="chapter" data-level="17.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>17.7</b> Looking at clusters</a></li>
-<li class="chapter" data-level="17.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>17.8</b> Generating a heat map from a cluster</a></li>
-<li class="chapter" data-level="17.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>17.9</b> Working with sub-trees</a></li>
-<li class="chapter" data-level="17.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>17.10</b> Setting dendrogram parameters in dendextend</a></li>
-<li class="chapter" data-level="17.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>17.11</b> Combining heatmaps and dendrograms</a></li>
-<li class="chapter" data-level="17.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>17.12</b> K-means/K-medoids Clustering in R</a><ul>
-<li class="chapter" data-level="17.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>17.12.1</b> Heat map from k-medoids cluster</a></li>
-</ul></li>
-<li class="chapter" data-level="17.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>17.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
-<li class="chapter" data-level="17.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>17.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
-<li class="chapter" data-level="17.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>17.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="17.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>17.14</b> Depicting the data within clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html"><i class="fa fa-check"></i><b>18</b> Simulation I: Sampling distributions</a><ul>
-<li class="chapter" data-level="18.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distrubtions"><i class="fa fa-check"></i><b>18.1</b> Sampling distrubtions</a></li>
-<li class="chapter" data-level="18.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-sampling-from-an-underlying-population"><i class="fa fa-check"></i><b>18.2</b> Simulating sampling from an underlying population</a></li>
-<li class="chapter" data-level="18.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>18.3</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="18.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#libraries-9"><i class="fa fa-check"></i><b>18.4</b> Libraries</a><ul>
-<li class="chapter" data-level="18.4.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#properties-of-the-underlying-population"><i class="fa fa-check"></i><b>18.4.1</b> Properties of the underlying population</a></li>
-<li class="chapter" data-level="18.4.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#other-r-functions-related-to-the-normal-distribution"><i class="fa fa-check"></i><b>18.4.2</b> Other R functions related to the normal distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="18.5" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>18.5</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="18.5.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>18.5.1</b> Another random sample</a></li>
-<li class="chapter" data-level="18.5.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>18.5.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="18.5.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>18.5.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="18.5.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>18.5.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="18.6" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>18.6</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="18.6.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#differences-between-sampling-distributions-and-samplepopulation-distributions"><i class="fa fa-check"></i><b>18.6.1</b> Differences between sampling distributions and sample/population distributions</a></li>
-<li class="chapter" data-level="18.6.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest"><i class="fa fa-check"></i><b>18.6.2</b> Using sampling distributions to understand the behavior of statistics of interest</a></li>
-<li class="chapter" data-level="18.6.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.3</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="18.6.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.4</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="18.7" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>18.7</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="18.8" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>18.8</b> Sampling Distribution of the Standard Deviation</a><ul>
-<li class="chapter" data-level="18.8.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-standard-deviations"><i class="fa fa-check"></i><b>18.8.1</b> Standard error of standard deviations</a></li>
-</ul></li>
-<li class="chapter" data-level="18.9" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>18.9</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="18.9.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>18.9.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="18.9.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>18.9.2</b> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-<li class="chapter" data-level="18.9.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>18.9.3</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>19</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="19.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>19.1</b> Confidence intervals</a></li>
-<li class="chapter" data-level="19.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>19.2</b> Generic formulation for confidence intervals</a></li>
-<li class="chapter" data-level="19.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>19.3</b> Example: Confidence intervals for the mean</a><ul>
-<li class="chapter" data-level="19.3.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulation-of-means"><i class="fa fa-check"></i><b>19.3.1</b> Simulation of means</a></li>
-<li class="chapter" data-level="19.3.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means"><i class="fa fa-check"></i><b>19.3.2</b> Distance between sample means and true means</a></li>
-<li class="chapter" data-level="19.3.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calculating-a-ci"><i class="fa fa-check"></i><b>19.3.3</b> Calculating a CI</a></li>
-</ul></li>
-<li class="chapter" data-level="19.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#a-problem-arises"><i class="fa fa-check"></i><b>19.4</b> A problem arises!</a></li>
-<li class="chapter" data-level="19.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors"><i class="fa fa-check"></i><b>19.5</b> Confidence intervals under sample estimates of standard errors</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses"><i class="fa fa-check"></i><b>19.5.1</b> The spread of sample estimates of the mean in units of true and estimates SEs</a></li>
-<li class="chapter" data-level="19.5.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean"><i class="fa fa-check"></i><b>19.5.2</b> Quantifying deviations of sample estimates of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="19.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean"><i class="fa fa-check"></i><b>19.6</b> t-distribution for confidence intervals of the mean</a><ul>
-<li class="chapter" data-level="19.6.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution"><i class="fa fa-check"></i><b>19.6.1</b> t-distribution vs standard normal distribution</a></li>
-<li class="chapter" data-level="19.6.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution"><i class="fa fa-check"></i><b>19.6.2</b> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</a></li>
-</ul></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -537,165 +469,165 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 14</span> Principal Components Analysis</h1>
 <div id="libraries-5" class="section level2">
 <h2><span class="header-section-number">14.1</span> Libraries</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(broom)
-<span class="kw">library</span>(GGally)
-<span class="kw">library</span>(cowplot)</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb420-2" title="2"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb420-3" title="3"><span class="kw">library</span>(GGally)</a>
+<a class="sourceLine" id="cb420-4" title="4"><span class="kw">library</span>(cowplot)</a></code></pre></div>
 </div>
 <div id="matrices-as-linear-transformations" class="section level2">
 <h2><span class="header-section-number">14.2</span> Matrices as linear transformations</h2>
 <p>In lecture we introduced the notion that pre-multiplying a vector, <span class="math inline">\(x\)</span>, by a matrix <span class="math inline">\(\mathbf{A}\)</span> represents a linear transformation of <span class="math inline">\(x\)</span>. Let’s explore that visually for 2D vectors.</p>
 <p>For illustration let’s generate a 2D vector representing the coordinates of points on the sine function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">sin.xy &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out =</span> <span class="dv">50</span>) <span class="op">-</span><span class="st"> </span>pi,
-                     <span class="dt">y =</span> <span class="kw">sin</span>(x))
-
-<span class="kw">ggplot</span>(sin.xy, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">sin.xy &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out =</span> <span class="dv">50</span>) <span class="op">-</span><span class="st"> </span>pi,</a>
+<a class="sourceLine" id="cb421-2" title="2">                     <span class="dt">y =</span> <span class="kw">sin</span>(x))</a>
+<a class="sourceLine" id="cb421-3" title="3"></a>
+<a class="sourceLine" id="cb421-4" title="4"><span class="kw">ggplot</span>(sin.xy, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-419-1.png" width="576" /></p>
 <p>Let’s start with some of the transformations we discussed in lecture. First we look at reflection about the x-axis:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this matrix represents reflection about the x-axis</span>
-A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,
-              <span class="dv">0</span>, <span class="dv">-1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
-
-<span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span>
-Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)
-
-<span class="co"># creae a data frame from this transformation</span>
-Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)
-
-<span class="co"># plot the transformed points</span>
-<span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="co"># this matrix represents reflection about the x-axis</span></a>
+<a class="sourceLine" id="cb422-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb422-3" title="3">              <span class="dv">0</span>, <span class="dv">-1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb422-4" title="4"></a>
+<a class="sourceLine" id="cb422-5" title="5"><span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span></a>
+<a class="sourceLine" id="cb422-6" title="6">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb422-7" title="7"></a>
+<a class="sourceLine" id="cb422-8" title="8"><span class="co"># creae a data frame from this transformation</span></a>
+<a class="sourceLine" id="cb422-9" title="9">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb422-10" title="10"></a>
+<a class="sourceLine" id="cb422-11" title="11"><span class="co"># plot the transformed points</span></a>
+<a class="sourceLine" id="cb422-12" title="12"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-420-1.png" width="576" /></p>
 <p>If instead we apply a matrix that represents a shear in the x-axis we get:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># shear parallel to the x-axis</span>
-A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, 
-              <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
-
-Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)
-
-Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)
-<span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="co"># shear parallel to the x-axis</span></a>
+<a class="sourceLine" id="cb423-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb423-3" title="3">              <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb423-4" title="4"></a>
+<a class="sourceLine" id="cb423-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb423-6" title="6"></a>
+<a class="sourceLine" id="cb423-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb423-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-421-1.png" width="576" /></p>
 <p>And finally rotation:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rotation by pi/2 radians (90 degrees)</span>
-A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="op">-</span><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), 
-              <span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>)), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
-
-Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)
-
-Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)
-<span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="co"># rotation by pi/2 radians (90 degrees)</span></a>
+<a class="sourceLine" id="cb424-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="op">-</span><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb424-3" title="3">              <span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>)), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb424-4" title="4"></a>
+<a class="sourceLine" id="cb424-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb424-6" title="6"></a>
+<a class="sourceLine" id="cb424-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb424-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-422-1.png" width="576" /></p>
 </div>
 <div id="eigenanalysis-in-r" class="section level2">
 <h2><span class="header-section-number">14.3</span> Eigenanalysis in R</h2>
 <p>As we discussed in lecture, the eigenvectors of a square matrix, <span class="math inline">\(\mathbf{A}\)</span>, point in the directions that are unchanged by the transformation specified by <span class="math inline">\(\mathbf{A}\)</span>.</p>
 <p>Let’s start with yet another transformation matrix, <span class="math inline">\(\mathbf{A}\)</span>, the effects of which are illustrated below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,
-              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)
-
-Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)
-Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)
-
-<span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">shape=</span><span class="dv">17</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) </code></pre>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,</a>
+<a class="sourceLine" id="cb425-2" title="2">              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb425-3" title="3"></a>
+<a class="sourceLine" id="cb425-4" title="4">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb425-5" title="5">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb425-6" title="6"></a>
+<a class="sourceLine" id="cb425-7" title="7"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb425-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb425-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">shape=</span><span class="dv">17</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) </a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-423-1.png" width="576" /></p>
 <p>This transformation is a combination of stretching (dilation) in the Y-axis, and shear parallel to the x-axis.</p>
 <p>The <code>eigen()</code> function computes the eigenvalues and eigenvectors of a square matrix:</p>
-<pre class="sourceCode r"><code class="sourceCode r">eigen.A &lt;-<span class="st"> </span><span class="kw">eigen</span>(A)
-eigen.A
-<span class="co">## eigen() decomposition</span>
-<span class="co">## $values</span>
-<span class="co">## [1] 2 1</span>
-<span class="co">## </span>
-<span class="co">## $vectors</span>
-<span class="co">##           [,1] [,2]</span>
-<span class="co">## [1,] 0.8320503    1</span>
-<span class="co">## [2,] 0.5547002    0</span></code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">eigen.A &lt;-<span class="st"> </span><span class="kw">eigen</span>(A)</a>
+<a class="sourceLine" id="cb426-2" title="2">eigen.A</a>
+<a class="sourceLine" id="cb426-3" title="3"><span class="co">## eigen() decomposition</span></a>
+<a class="sourceLine" id="cb426-4" title="4"><span class="co">## $values</span></a>
+<a class="sourceLine" id="cb426-5" title="5"><span class="co">## [1] 2 1</span></a>
+<a class="sourceLine" id="cb426-6" title="6"><span class="co">## </span></a>
+<a class="sourceLine" id="cb426-7" title="7"><span class="co">## $vectors</span></a>
+<a class="sourceLine" id="cb426-8" title="8"><span class="co">##           [,1] [,2]</span></a>
+<a class="sourceLine" id="cb426-9" title="9"><span class="co">## [1,] 0.8320503    1</span></a>
+<a class="sourceLine" id="cb426-10" title="10"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
 <p>The following relationships relate <span class="math inline">\(\mathbf{A}\)</span> to it’s eigenvectors and eigenvalues:</p>
 <p><span class="math display">\[\mathbf{V}^{-1}\mathbf{A}\mathbf{V}  =  \mathbf{D} \]</span></p>
 <p><span class="math display">\[\mathbf{A}  =  \mathbf{V}\mathbf{D}\mathbf{V}^{-1}\]</span></p>
 <p>where <span class="math inline">\(\mathbf{V}\)</span> is a matrix where the columns represent the eigenvectors, and <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix of eigenvalues.</p>
 <p>Let’s confirm that those relationships hold for our example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">V &lt;-<span class="st"> </span>eigen.A<span class="op">$</span>vectors
-D &lt;-<span class="st"> </span><span class="kw">diag</span>(eigen.A<span class="op">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span>
-Vinv &lt;-<span class="st"> </span><span class="kw">solve</span>(V)
-
-V <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span>Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span>
-<span class="co">##      [,1] [,2]</span>
-<span class="co">## [1,]    1  1.5</span>
-<span class="co">## [2,]    0  2.0</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(Vinv <span class="op">%*%</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>V, D) <span class="co"># test &#39;near equality&#39;</span>
-<span class="co">## [1] TRUE</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">V[,<span class="dv">1</span>] <span class="op">%*%</span><span class="st"> </span>V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span>
-<span class="co">##           [,1]</span>
-<span class="co">## [1,] 0.8320503</span></code></pre>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">V &lt;-<span class="st"> </span>eigen.A<span class="op">$</span>vectors</a>
+<a class="sourceLine" id="cb427-2" title="2">D &lt;-<span class="st"> </span><span class="kw">diag</span>(eigen.A<span class="op">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span></a>
+<a class="sourceLine" id="cb427-3" title="3">Vinv &lt;-<span class="st"> </span><span class="kw">solve</span>(V)</a>
+<a class="sourceLine" id="cb427-4" title="4"></a>
+<a class="sourceLine" id="cb427-5" title="5">V <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span>Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span></a>
+<a class="sourceLine" id="cb427-6" title="6"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb427-7" title="7"><span class="co">## [1,]    1  1.5</span></a>
+<a class="sourceLine" id="cb427-8" title="8"><span class="co">## [2,]    0  2.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">all.equal</span>(Vinv <span class="op">%*%</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>V, D) <span class="co"># test &#39;near equality&#39;</span></a>
+<a class="sourceLine" id="cb428-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">V[,<span class="dv">1</span>] <span class="op">%*%</span><span class="st"> </span>V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span></a>
+<a class="sourceLine" id="cb429-2" title="2"><span class="co">##           [,1]</span></a>
+<a class="sourceLine" id="cb429-3" title="3"><span class="co">## [1,] 0.8320503</span></a></code></pre></div>
 <p>Since we’re dealing with a 2D transformation matrix, we can easily calculate the slopes of the eigenvectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">eigenvec.A.slope1 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]
-eigenvec.A.slope2 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</code></pre>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1">eigenvec.A.slope1 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb430-2" title="2">eigenvec.A.slope2 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</a></code></pre></div>
 <p>Now we plot the eigenvectors to show the directions that are unaffected by the transformation represented by the matrix <span class="math inline">\(\mathbf{A}\)</span>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span>
-<span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span>
-geom_ab_or_vline &lt;-<span class="st"> </span><span class="cf">function</span>(slope, intercept, ...) {
-  <span class="cf">if</span> (<span class="kw">is.infinite</span>(slope)) {
-    <span class="kw">return</span>(<span class="kw">geom_vline</span>(<span class="dt">yintercept =</span> intercept, ...))
-  } <span class="cf">else</span> {
-    <span class="kw">return</span>(<span class="kw">geom_abline</span>(<span class="dt">slope=</span>slope, <span class="dt">intercept=</span>intercept, ...))
-  }
-}
-
-
-<span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope1,<span class="dt">intercept=</span><span class="dv">0</span>,
-              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope2,<span class="dt">intercept=</span><span class="dv">0</span>,
-              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1"></a>
+<a class="sourceLine" id="cb431-2" title="2"><span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span></a>
+<a class="sourceLine" id="cb431-3" title="3"><span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span></a>
+<a class="sourceLine" id="cb431-4" title="4">geom_ab_or_vline &lt;-<span class="st"> </span><span class="cf">function</span>(slope, intercept, ...) {</a>
+<a class="sourceLine" id="cb431-5" title="5">  <span class="cf">if</span> (<span class="kw">is.infinite</span>(slope)) {</a>
+<a class="sourceLine" id="cb431-6" title="6">    <span class="kw">return</span>(<span class="kw">geom_vline</span>(<span class="dt">yintercept =</span> intercept, ...))</a>
+<a class="sourceLine" id="cb431-7" title="7">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb431-8" title="8">    <span class="kw">return</span>(<span class="kw">geom_abline</span>(<span class="dt">slope=</span>slope, <span class="dt">intercept=</span>intercept, ...))</a>
+<a class="sourceLine" id="cb431-9" title="9">  }</a>
+<a class="sourceLine" id="cb431-10" title="10">}</a>
+<a class="sourceLine" id="cb431-11" title="11"></a>
+<a class="sourceLine" id="cb431-12" title="12"></a>
+<a class="sourceLine" id="cb431-13" title="13"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb431-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb431-15" title="15"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb431-16" title="16"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope1,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb431-17" title="17">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb431-18" title="18"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope2,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb431-19" title="19">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb431-20" title="20"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-429-1.png" width="576" /></p>
 <p>Referring back to the eigenvectors, we see that it’s the second eigenvector that is represented by the horizontal line:</p>
-<pre class="sourceCode r"><code class="sourceCode r">eigen.A<span class="op">$</span>vectors
-<span class="co">##           [,1] [,2]</span>
-<span class="co">## [1,] 0.8320503    1</span>
-<span class="co">## [2,] 0.5547002    0</span></code></pre>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">eigen.A<span class="op">$</span>vectors</a>
+<a class="sourceLine" id="cb432-2" title="2"><span class="co">##           [,1] [,2]</span></a>
+<a class="sourceLine" id="cb432-3" title="3"><span class="co">## [1,] 0.8320503    1</span></a>
+<a class="sourceLine" id="cb432-4" title="4"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
 <p>The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A. To drive home this point, here’s another configuration of points and the corresponding points under the same transformation:</p>
-<pre class="sourceCode r"><code class="sourceCode r">horiz.x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)
-horiz.y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(horiz.x))
-
-horiz.x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)
-horiz.y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x2))
-
-horiz.x3 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)
-horiz.y3 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x3))
-
-vert.y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)
-vert.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(vert.y))
-
-x &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)
-cross.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)
-
-Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(cross.df)
-Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)
-
-
-plot.A &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(cross.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)
-  
-plot.B &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>(Ax.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points after transformation&quot;</span>)
-  
-<span class="kw">plot_grid</span>(plot.A, plot.B)</code></pre>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1">horiz.x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb433-2" title="2">horiz.y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(horiz.x))</a>
+<a class="sourceLine" id="cb433-3" title="3"></a>
+<a class="sourceLine" id="cb433-4" title="4">horiz.x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb433-5" title="5">horiz.y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x2))</a>
+<a class="sourceLine" id="cb433-6" title="6"></a>
+<a class="sourceLine" id="cb433-7" title="7">horiz.x3 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb433-8" title="8">horiz.y3 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x3))</a>
+<a class="sourceLine" id="cb433-9" title="9"></a>
+<a class="sourceLine" id="cb433-10" title="10">vert.y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb433-11" title="11">vert.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(vert.y))</a>
+<a class="sourceLine" id="cb433-12" title="12"></a>
+<a class="sourceLine" id="cb433-13" title="13">x &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)</a>
+<a class="sourceLine" id="cb433-14" title="14">y &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)</a>
+<a class="sourceLine" id="cb433-15" title="15">cross.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb433-16" title="16"></a>
+<a class="sourceLine" id="cb433-17" title="17">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(cross.df)</a>
+<a class="sourceLine" id="cb433-18" title="18">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb433-19" title="19"></a>
+<a class="sourceLine" id="cb433-20" title="20"></a>
+<a class="sourceLine" id="cb433-21" title="21">plot.A &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb433-22" title="22"><span class="st">  </span><span class="kw">ggplot</span>(cross.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-23" title="23"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-24" title="24"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-25" title="25"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-26" title="26"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)</a>
+<a class="sourceLine" id="cb433-27" title="27">  </a>
+<a class="sourceLine" id="cb433-28" title="28">plot.B &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb433-29" title="29"><span class="st">  </span><span class="kw">ggplot</span>(Ax.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-30" title="30"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-31" title="31"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-32" title="32"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-33" title="33"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points after transformation&quot;</span>)</a>
+<a class="sourceLine" id="cb433-34" title="34">  </a>
+<a class="sourceLine" id="cb433-35" title="35"><span class="kw">plot_grid</span>(plot.A, plot.B)</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-431-1.png" width="576" /></p>
 </div>
 <div id="principal-components-analysis-in-r" class="section level2">
@@ -717,155 +649,155 @@ frequent situation when re-analyzing data from the literature). We’ll concentr
 <p>The context is in marine biology and the data consist of two sets of variables observed at the same locations on the sea-bed: the first is a set of biological variables, the counts of five groups of species, and the second is a set of four environmental variables. The data set, called “bioenv”, is shown in Exhibit 2.1. The species groups are abbreviated as “a” to “e”. The environmental variables are “pollution”, a composite index of pollution combining measurements of heavy metal concentrations and hydrocarbons; depth, the depth in metres of the sea-bed where the sample was taken; “temperature”, the temperature of the water at the sampling point; and “sediment”, a classification of the substrate of the sample into one of three sediment categories.</p>
 </blockquote>
 <p>We’ll start by reading the <code>bioenv.txt</code> data set from the Github repository:</p>
-<pre class="sourceCode r"><code class="sourceCode r">bioenv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) 
-<span class="co">## Parsed with column specification:</span>
-<span class="co">## cols(</span>
-<span class="co">##   X1 = col_character(),</span>
-<span class="co">##   a = col_double(),</span>
-<span class="co">##   b = col_double(),</span>
-<span class="co">##   c = col_double(),</span>
-<span class="co">##   d = col_double(),</span>
-<span class="co">##   e = col_double(),</span>
-<span class="co">##   Pollution = col_double(),</span>
-<span class="co">##   Depth = col_double(),</span>
-<span class="co">##   Temperature = col_double(),</span>
-<span class="co">##   Sediment = col_character()</span>
-<span class="co">## )</span>
-<span class="kw">names</span>(bioenv)
-<span class="co">##  [1] &quot;X1&quot;          &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span>
-<span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></code></pre>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">bioenv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) </a>
+<a class="sourceLine" id="cb434-2" title="2"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb434-3" title="3"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb434-4" title="4"><span class="co">##   X1 = col_character(),</span></a>
+<a class="sourceLine" id="cb434-5" title="5"><span class="co">##   a = col_double(),</span></a>
+<a class="sourceLine" id="cb434-6" title="6"><span class="co">##   b = col_double(),</span></a>
+<a class="sourceLine" id="cb434-7" title="7"><span class="co">##   c = col_double(),</span></a>
+<a class="sourceLine" id="cb434-8" title="8"><span class="co">##   d = col_double(),</span></a>
+<a class="sourceLine" id="cb434-9" title="9"><span class="co">##   e = col_double(),</span></a>
+<a class="sourceLine" id="cb434-10" title="10"><span class="co">##   Pollution = col_double(),</span></a>
+<a class="sourceLine" id="cb434-11" title="11"><span class="co">##   Depth = col_double(),</span></a>
+<a class="sourceLine" id="cb434-12" title="12"><span class="co">##   Temperature = col_double(),</span></a>
+<a class="sourceLine" id="cb434-13" title="13"><span class="co">##   Sediment = col_character()</span></a>
+<a class="sourceLine" id="cb434-14" title="14"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb434-15" title="15"><span class="kw">names</span>(bioenv)</a>
+<a class="sourceLine" id="cb434-16" title="16"><span class="co">##  [1] &quot;X1&quot;          &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
+<a class="sourceLine" id="cb434-17" title="17"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
 <p>Notice that the first column got assigned the generic name <code>X1</code>. This is because there is a missing column header in the <code>bioenv.txt</code> file. This first column corresponds to the sampling sites. Before we move on let’s give this column a more meaningful name:</p>
-<pre class="sourceCode r"><code class="sourceCode r">bioenv &lt;-
-<span class="st">  </span>bioenv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Site =</span> X1)
-
-<span class="kw">names</span>(bioenv)
-<span class="co">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span>
-<span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></code></pre>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1">bioenv &lt;-</a>
+<a class="sourceLine" id="cb435-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Site =</span> X1)</a>
+<a class="sourceLine" id="cb435-3" title="3"></a>
+<a class="sourceLine" id="cb435-4" title="4"><span class="kw">names</span>(bioenv)</a>
+<a class="sourceLine" id="cb435-5" title="5"><span class="co">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
+<a class="sourceLine" id="cb435-6" title="6"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
 <p>The columns labeled <code>a</code> to <code>e</code> contain the counts of the five species at each site, while the remaining columns give additional information about the physical properties of each sampling site. For our purposes today we’ll confine our attention to the abundance data.</p>
-<pre class="sourceCode r"><code class="sourceCode r">abundance &lt;-<span class="st"> </span>
-<span class="st">  </span>bioenv <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(Site, a, b, c, d, e)
-
-<span class="kw">head</span>(abundance)
-<span class="co">## # A tibble: 6 x 6</span>
-<span class="co">##   Site      a     b     c     d     e</span>
-<span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">## 1 s1        0     2     9    14     2</span>
-<span class="co">## 2 s2       26     4    13    11     0</span>
-<span class="co">## 3 s3        0    10     9     8     0</span>
-<span class="co">## 4 s4        0     0    15     3     0</span>
-<span class="co">## 5 s5       13     5     3    10     7</span>
-<span class="co">## 6 s6       31    21    13    16     5</span></code></pre>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1">abundance &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb436-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb436-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Site, a, b, c, d, e)</a>
+<a class="sourceLine" id="cb436-4" title="4"></a>
+<a class="sourceLine" id="cb436-5" title="5"><span class="kw">head</span>(abundance)</a>
+<a class="sourceLine" id="cb436-6" title="6"><span class="co">## # A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb436-7" title="7"><span class="co">##   Site      a     b     c     d     e</span></a>
+<a class="sourceLine" id="cb436-8" title="8"><span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb436-9" title="9"><span class="co">## 1 s1        0     2     9    14     2</span></a>
+<a class="sourceLine" id="cb436-10" title="10"><span class="co">## 2 s2       26     4    13    11     0</span></a>
+<a class="sourceLine" id="cb436-11" title="11"><span class="co">## 3 s3        0    10     9     8     0</span></a>
+<a class="sourceLine" id="cb436-12" title="12"><span class="co">## 4 s4        0     0    15     3     0</span></a>
+<a class="sourceLine" id="cb436-13" title="13"><span class="co">## 5 s5       13     5     3    10     7</span></a>
+<a class="sourceLine" id="cb436-14" title="14"><span class="co">## 6 s6       31    21    13    16     5</span></a></code></pre></div>
 <p>The data is currently in a “wide” format. For the purposes of plotting it will be more convenient to generate a “long” version of the data using functions from the tidyr library (see the Data Wrangling chapter).</p>
-<pre class="sourceCode r"><code class="sourceCode r">long.abundance &lt;-
-<span class="st">  </span>abundance <span class="op">%&gt;%</span>
-<span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Species, Count, <span class="op">-</span>Site)
-
-<span class="kw">head</span>(long.abundance)
-<span class="co">## # A tibble: 6 x 3</span>
-<span class="co">##   Site  Species Count</span>
-<span class="co">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span>
-<span class="co">## 1 s1    a           0</span>
-<span class="co">## 2 s2    a          26</span>
-<span class="co">## 3 s3    a           0</span>
-<span class="co">## 4 s4    a           0</span>
-<span class="co">## 5 s5    a          13</span>
-<span class="co">## 6 s6    a          31</span></code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long.abundance, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Count)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distribution of</span><span class="ch">\n</span><span class="st">Species Counts per Site&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">long.abundance &lt;-</a>
+<a class="sourceLine" id="cb437-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb437-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Species, Count, <span class="op">-</span>Site)</a>
+<a class="sourceLine" id="cb437-4" title="4"></a>
+<a class="sourceLine" id="cb437-5" title="5"><span class="kw">head</span>(long.abundance)</a>
+<a class="sourceLine" id="cb437-6" title="6"><span class="co">## # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb437-7" title="7"><span class="co">##   Site  Species Count</span></a>
+<a class="sourceLine" id="cb437-8" title="8"><span class="co">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb437-9" title="9"><span class="co">## 1 s1    a           0</span></a>
+<a class="sourceLine" id="cb437-10" title="10"><span class="co">## 2 s2    a          26</span></a>
+<a class="sourceLine" id="cb437-11" title="11"><span class="co">## 3 s3    a           0</span></a>
+<a class="sourceLine" id="cb437-12" title="12"><span class="co">## 4 s4    a           0</span></a>
+<a class="sourceLine" id="cb437-13" title="13"><span class="co">## 5 s5    a          13</span></a>
+<a class="sourceLine" id="cb437-14" title="14"><span class="co">## 6 s6    a          31</span></a></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="kw">ggplot</span>(long.abundance, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb438-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb438-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distribution of</span><span class="ch">\n</span><span class="st">Species Counts per Site&quot;</span>)</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-436-1.png" width="576" /></p>
 <p>From the boxplot it looks like the counts for species `e’ are smaller on average, and less variable. The mean and variance functions confirm that.</p>
-<pre class="sourceCode r"><code class="sourceCode r">long.abundance <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="kw">mean</span>(Count), <span class="kw">var</span>(Count))
-<span class="co">## # A tibble: 5 x 3</span>
-<span class="co">##   Species `mean(Count)` `var(Count)`</span>
-<span class="co">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">## 1 a              13.47        157.6 </span>
-<span class="co">## 2 b               8.733        83.44</span>
-<span class="co">## 3 c               8.4          73.63</span>
-<span class="co">## 4 d              10.9          44.44</span>
-<span class="co">## 5 e               2.967        15.69</span></code></pre>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1">long.abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">mean</span>(Count), <span class="kw">var</span>(Count))</a>
+<a class="sourceLine" id="cb439-4" title="4"><span class="co">## # A tibble: 5 x 3</span></a>
+<a class="sourceLine" id="cb439-5" title="5"><span class="co">##   Species `mean(Count)` `var(Count)`</span></a>
+<a class="sourceLine" id="cb439-6" title="6"><span class="co">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb439-7" title="7"><span class="co">## 1 a               13.5         158. </span></a>
+<a class="sourceLine" id="cb439-8" title="8"><span class="co">## 2 b                8.73         83.4</span></a>
+<a class="sourceLine" id="cb439-9" title="9"><span class="co">## 3 c                8.4          73.6</span></a>
+<a class="sourceLine" id="cb439-10" title="10"><span class="co">## 4 d               10.9          44.4</span></a>
+<a class="sourceLine" id="cb439-11" title="11"><span class="co">## 5 e                2.97         15.7</span></a></code></pre></div>
 <p>A correlation matrix suggests weak to moderate associations between the variables:</p>
-<pre class="sourceCode r"><code class="sourceCode r">abundance.only &lt;-
-<span class="st">  </span>abundance <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Site) <span class="co"># drop the Site column</span>
-  
-<span class="kw">cor</span>(abundance.only)
-<span class="co">##            a           b           c            d            e</span>
-<span class="co">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span>
-<span class="co">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span>
-<span class="co">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span>
-<span class="co">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span>
-<span class="co">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></code></pre>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1">abundance.only &lt;-</a>
+<a class="sourceLine" id="cb440-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb440-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Site) <span class="co"># drop the Site column</span></a>
+<a class="sourceLine" id="cb440-4" title="4">  </a>
+<a class="sourceLine" id="cb440-5" title="5"><span class="kw">cor</span>(abundance.only)</a>
+<a class="sourceLine" id="cb440-6" title="6"><span class="co">##            a           b           c            d            e</span></a>
+<a class="sourceLine" id="cb440-7" title="7"><span class="co">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span></a>
+<a class="sourceLine" id="cb440-8" title="8"><span class="co">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span></a>
+<a class="sourceLine" id="cb440-9" title="9"><span class="co">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span></a>
+<a class="sourceLine" id="cb440-10" title="10"><span class="co">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span></a>
+<a class="sourceLine" id="cb440-11" title="11"><span class="co">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></a></code></pre></div>
 <p>However a scatterplot matrix generated by the <code>GGally::ggapirs()</code> function suggests that many of the relationships have a strong non-linear element.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggpairs</span>(abundance.only)</code></pre>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="kw">ggpairs</span>(abundance.only)</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-439-1.png" width="576" /></p>
 </div>
 <div id="pca-of-the-bioenv-dataset" class="section level3">
 <h3><span class="header-section-number">14.4.2</span> PCA of the Bioenv dataset</h3>
 <p>Linearity is not a requirement for PCA, as it’s simply a rigid rotation of the original data. So we’ll continue with our analysis after taking a moment to read the help on the <code>prcomp()</code> function that is used to carry-out PCA in R.</p>
-<pre class="sourceCode r"><code class="sourceCode r">abundance.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(abundance.only, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">retx=</span><span class="ot">TRUE</span>)
-    <span class="co"># center=TRUE mean centers the data</span>
-    <span class="co"># retx=TRUE returns the PC scores</span>
-    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span>
-    <span class="co">#    -- notice the period after scale!</span>
-
-<span class="kw">summary</span>(abundance.pca)
-<span class="co">## Importance of components:</span>
-<span class="co">##                            PC1    PC2    PC3     PC4     PC5</span>
-<span class="co">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span>
-<span class="co">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span>
-<span class="co">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></code></pre>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1">abundance.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(abundance.only, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">retx=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb442-2" title="2">    <span class="co"># center=TRUE mean centers the data</span></a>
+<a class="sourceLine" id="cb442-3" title="3">    <span class="co"># retx=TRUE returns the PC scores</span></a>
+<a class="sourceLine" id="cb442-4" title="4">    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span></a>
+<a class="sourceLine" id="cb442-5" title="5">    <span class="co">#    -- notice the period after scale!</span></a>
+<a class="sourceLine" id="cb442-6" title="6"></a>
+<a class="sourceLine" id="cb442-7" title="7"><span class="kw">summary</span>(abundance.pca)</a>
+<a class="sourceLine" id="cb442-8" title="8"><span class="co">## Importance of components:</span></a>
+<a class="sourceLine" id="cb442-9" title="9"><span class="co">##                            PC1    PC2    PC3     PC4     PC5</span></a>
+<a class="sourceLine" id="cb442-10" title="10"><span class="co">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span></a>
+<a class="sourceLine" id="cb442-11" title="11"><span class="co">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span></a>
+<a class="sourceLine" id="cb442-12" title="12"><span class="co">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></a></code></pre></div>
 <p>We see that approximately 59% of the variance in the data is capture by the first PC, and approximately 90% by the first three PCs.</p>
 <p>Let’s compare the values return by PCA to what we would get if we carried out eigenanalysis of the covariance matrix that corresponds to our data.</p>
 <p>First the list object return by <code>prcomp()</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">abundance.pca
-<span class="co">## Standard deviations (1, .., p=5):</span>
-<span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span>
-<span class="co">## </span>
-<span class="co">## Rotation (n x k) = (5 x 5):</span>
-<span class="co">##           PC1         PC2         PC3         PC4         PC5</span>
-<span class="co">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span>
-<span class="co">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span>
-<span class="co">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span>
-<span class="co">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span>
-<span class="co">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></code></pre>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">abundance.pca</a>
+<a class="sourceLine" id="cb443-2" title="2"><span class="co">## Standard deviations (1, .., p=5):</span></a>
+<a class="sourceLine" id="cb443-3" title="3"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a>
+<a class="sourceLine" id="cb443-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb443-5" title="5"><span class="co">## Rotation (n x k) = (5 x 5):</span></a>
+<a class="sourceLine" id="cb443-6" title="6"><span class="co">##           PC1         PC2         PC3         PC4         PC5</span></a>
+<a class="sourceLine" id="cb443-7" title="7"><span class="co">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span></a>
+<a class="sourceLine" id="cb443-8" title="8"><span class="co">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span></a>
+<a class="sourceLine" id="cb443-9" title="9"><span class="co">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span></a>
+<a class="sourceLine" id="cb443-10" title="10"><span class="co">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span></a>
+<a class="sourceLine" id="cb443-11" title="11"><span class="co">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></a></code></pre></div>
 <p>And now the corresponding values returned by eigenanaysis of the covariance matrix generated from the abundance data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">eig.abundance &lt;-<span class="st"> </span><span class="kw">eigen</span>(<span class="kw">cov</span>(abundance.only))
-eig.abundance<span class="op">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span>
-<span class="co">##             [,1]        [,2]        [,3]        [,4]        [,5]</span>
-<span class="co">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span>
-<span class="co">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span>
-<span class="co">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span>
-<span class="co">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span>
-<span class="co">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span>
-<span class="kw">sqrt</span>(eig.abundance<span class="op">$</span>values) <span class="co"># compare to sdev of PCA</span>
-<span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></code></pre>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1">eig.abundance &lt;-<span class="st"> </span><span class="kw">eigen</span>(<span class="kw">cov</span>(abundance.only))</a>
+<a class="sourceLine" id="cb444-2" title="2">eig.abundance<span class="op">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span></a>
+<a class="sourceLine" id="cb444-3" title="3"><span class="co">##             [,1]        [,2]        [,3]        [,4]        [,5]</span></a>
+<a class="sourceLine" id="cb444-4" title="4"><span class="co">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span></a>
+<a class="sourceLine" id="cb444-5" title="5"><span class="co">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span></a>
+<a class="sourceLine" id="cb444-6" title="6"><span class="co">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span></a>
+<a class="sourceLine" id="cb444-7" title="7"><span class="co">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span></a>
+<a class="sourceLine" id="cb444-8" title="8"><span class="co">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span></a>
+<a class="sourceLine" id="cb444-9" title="9"><span class="kw">sqrt</span>(eig.abundance<span class="op">$</span>values) <span class="co"># compare to sdev of PCA</span></a>
+<a class="sourceLine" id="cb444-10" title="10"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a></code></pre></div>
 <p>Notice that the <code>rotation</code> object returned by the <code>prcomp()</code> represents the scaled eigenvectors (scaled to have length 1). The standard deviations of the PCA are the square roots of the eigenvalues of the covariance matrix.</p>
 </div>
 <div id="calculating-factor-loadings" class="section level3">
 <h3><span class="header-section-number">14.4.3</span> Calculating Factor Loadings</h3>
 <p>Let’s calculate the “factor loadings” associated with the PCs:</p>
-<pre class="sourceCode r"><code class="sourceCode r">V &lt;-<span class="st"> </span>abundance.pca<span class="op">$</span>rotation <span class="co"># eigenvectors</span>
-L &lt;-<span class="st"> </span><span class="kw">diag</span>(abundance.pca<span class="op">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span>
-
-abundance.loadings &lt;-<span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>L
-abundance.loadings
-<span class="co">##         [,1]       [,2]       [,3]        [,4]       [,5]</span>
-<span class="co">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span>
-<span class="co">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span>
-<span class="co">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span>
-<span class="co">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span>
-<span class="co">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></code></pre>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">V &lt;-<span class="st"> </span>abundance.pca<span class="op">$</span>rotation <span class="co"># eigenvectors</span></a>
+<a class="sourceLine" id="cb445-2" title="2">L &lt;-<span class="st"> </span><span class="kw">diag</span>(abundance.pca<span class="op">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span></a>
+<a class="sourceLine" id="cb445-3" title="3"></a>
+<a class="sourceLine" id="cb445-4" title="4">abundance.loadings &lt;-<span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>L</a>
+<a class="sourceLine" id="cb445-5" title="5">abundance.loadings</a>
+<a class="sourceLine" id="cb445-6" title="6"><span class="co">##         [,1]       [,2]       [,3]        [,4]       [,5]</span></a>
+<a class="sourceLine" id="cb445-7" title="7"><span class="co">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span></a>
+<a class="sourceLine" id="cb445-8" title="8"><span class="co">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span></a>
+<a class="sourceLine" id="cb445-9" title="9"><span class="co">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span></a>
+<a class="sourceLine" id="cb445-10" title="10"><span class="co">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span></a>
+<a class="sourceLine" id="cb445-11" title="11"><span class="co">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></a></code></pre></div>
 <p>The magnitude of the factor loadings is what you want to focus on. For example, species <code>a</code> and <code>b</code> contribute most to the first PC, while species <code>c</code> has the largest influence on PC2.</p>
 <p>You can think of the factor loadings, as defined above, as the components (i.e lengths of the projected vectors) of the original variables with respect to the PC basis vectors. Since vector length is proportional to the standard deviation of the variables they represent, you can think of the loadings as giving the standard deviation of the original variables with respect the PC axes. This implies that the loadings squared sum to the total variance in the original data, as illustrated below.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(abundance.loadings<span class="op">**</span><span class="dv">2</span>)
-<span class="co">## [1] 374.8345</span>
-
-abundance.only <span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(var) <span class="op">%&gt;%</span><span class="st"> </span>sum
-<span class="co">## [1] 374.8345</span></code></pre>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" title="1"><span class="kw">sum</span>(abundance.loadings<span class="op">**</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb446-2" title="2"><span class="co">## [1] 374.8345</span></a>
+<a class="sourceLine" id="cb446-3" title="3"></a>
+<a class="sourceLine" id="cb446-4" title="4">abundance.only <span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(var) <span class="op">%&gt;%</span><span class="st"> </span>sum</a>
+<a class="sourceLine" id="cb446-5" title="5"><span class="co">## [1] 374.8345</span></a></code></pre></div>
 </div>
 </div>
 <div id="drawing-figures-to-represent-pca" class="section level2">
@@ -873,29 +805,29 @@ abundance.only <span class="op">%&gt;%</span><span class="st"> </span>purrr<span
 <div id="pc-score-plots" class="section level3">
 <h3><span class="header-section-number">14.5.1</span> PC Score Plots</h3>
 <p>The simplest PCA figure is to depict the PC scores, i.e. the projection of the observations into the space defined by the PC axes. Let’s make a figure with three subplots, depicting PC1 vs PC2, PC1 vs PC3, and PC2 vs. PC3.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pca.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(abundance.pca<span class="op">$</span>x)
-
-coord.system &lt;-<span class="st"> </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>))
-
-pc1v2 &lt;-
-<span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC2)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>coord.system
-
-pc1v3 &lt;-
-<span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC3)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>coord.system
-
-pc2v3 &lt;-
-<span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC2, <span class="dt">y=</span> PC3)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>coord.system
-
-cowplot<span class="op">::</span><span class="kw">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="dt">align=</span><span class="st">&quot;hv&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">pca.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(abundance.pca<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb447-2" title="2"></a>
+<a class="sourceLine" id="cb447-3" title="3">coord.system &lt;-<span class="st"> </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>))</a>
+<a class="sourceLine" id="cb447-4" title="4"></a>
+<a class="sourceLine" id="cb447-5" title="5">pc1v2 &lt;-</a>
+<a class="sourceLine" id="cb447-6" title="6"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb447-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb447-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb447-9" title="9"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb447-10" title="10"></a>
+<a class="sourceLine" id="cb447-11" title="11">pc1v3 &lt;-</a>
+<a class="sourceLine" id="cb447-12" title="12"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb447-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb447-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb447-15" title="15"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb447-16" title="16"></a>
+<a class="sourceLine" id="cb447-17" title="17">pc2v3 &lt;-</a>
+<a class="sourceLine" id="cb447-18" title="18"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb447-19" title="19"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC2, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb447-20" title="20"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb447-21" title="21"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb447-22" title="22"></a>
+<a class="sourceLine" id="cb447-23" title="23">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="dt">align=</span><span class="st">&quot;hv&quot;</span>)</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-445-1.png" width="576" /></p>
 <p>When plotting PC scores, it is <strong>very important</strong> to keep the aspect ratio with a value of 1, so that the distance between points in the plot is an accurate representation of the distance in the PC space. Note too that I used the <code>xlim</code> and <code>ylim</code> arguments to keep the axis limits the same in all plots; comparable scaling of axes is important when comparing plots. Also note the use of the <code>align="hv"</code> argument to <code>plot_grid()</code> to keep my plots the same size when combining them into a single figure.</p>
 </div>
@@ -903,33 +835,33 @@ cowplot<span class="op">::</span><span class="kw">plot_grid</span>(pc1v2, pc1v3,
 <h3><span class="header-section-number">14.5.2</span> Simultaneous Depiction of Observations and Variables in the PC Space</h3>
 <p>Let’s return to our simple PC score plot. As we discussed above, the loadings are components of the original variables in the space of the PCs. This implies we can depict those loadings in the same PC basis that we use to depict the scores.</p>
 <p>First let’s create a data frame with the loadings from the first two PCs as well as a column representation the variable names:</p>
-<pre class="sourceCode r"><code class="sourceCode r">loadings<span class="fl">.1</span>and2 &lt;-
-<span class="st">  </span><span class="kw">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">PC1.loading =</span> X1, <span class="dt">PC2.loading =</span> X2) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">row.names</span>(abundance.loadings))
-
-loadings<span class="fl">.1</span>and2
-<span class="co">## # A tibble: 5 x 3</span>
-<span class="co">##   PC1.loading PC2.loading variable</span>
-<span class="co">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span>
-<span class="co">## 1     12.05        0.6217 a       </span>
-<span class="co">## 2      7.621      -2.451  b       </span>
-<span class="co">## 3     -2.413      -7.816  c       </span>
-<span class="co">## 4      3.301      -2.791  d       </span>
-<span class="co">## 5      0.9836      1.560  e</span></code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1">loadings<span class="fl">.1</span>and2 &lt;-</a>
+<a class="sourceLine" id="cb448-2" title="2"><span class="st">  </span><span class="kw">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb448-3" title="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">PC1.loading =</span> X1, <span class="dt">PC2.loading =</span> X2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb448-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">row.names</span>(abundance.loadings))</a>
+<a class="sourceLine" id="cb448-5" title="5"></a>
+<a class="sourceLine" id="cb448-6" title="6">loadings<span class="fl">.1</span>and2</a>
+<a class="sourceLine" id="cb448-7" title="7"><span class="co">## # A tibble: 5 x 3</span></a>
+<a class="sourceLine" id="cb448-8" title="8"><span class="co">##   PC1.loading PC2.loading variable</span></a>
+<a class="sourceLine" id="cb448-9" title="9"><span class="co">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span></a>
+<a class="sourceLine" id="cb448-10" title="10"><span class="co">## 1      12.1         0.622 a       </span></a>
+<a class="sourceLine" id="cb448-11" title="11"><span class="co">## 2       7.62       -2.45  b       </span></a>
+<a class="sourceLine" id="cb448-12" title="12"><span class="co">## 3      -2.41       -7.82  c       </span></a>
+<a class="sourceLine" id="cb448-13" title="13"><span class="co">## 4       3.30       -2.79  d       </span></a>
+<a class="sourceLine" id="cb448-14" title="14"><span class="co">## 5       0.984       1.56  e</span></a></code></pre></div>
 <p>With this data frame in hand, we can now draw a set of vector to represent the original variables projected into the subspace defined by PCs 1 and 2:</p>
-<pre class="sourceCode r"><code class="sourceCode r">pc1v2.biplot &lt;-
-<span class="st">  </span>pc1v2 <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,
-               <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> PC1.loading, <span class="dt">yend =</span> PC2.loading),
-               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, 
-               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle=</span><span class="dv">15</span>, <span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,
-            <span class="kw">aes</span>(<span class="dt">x =</span> PC1.loading, <span class="dt">y =</span> PC2.loading, <span class="dt">label=</span>variable),
-            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">nudge_x =</span> <span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="dv">1</span>)
-
-
-pc1v2.biplot</code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1">pc1v2.biplot &lt;-</a>
+<a class="sourceLine" id="cb449-2" title="2"><span class="st">  </span>pc1v2 <span class="op">+</span></a>
+<a class="sourceLine" id="cb449-3" title="3"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
+<a class="sourceLine" id="cb449-4" title="4">               <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> PC1.loading, <span class="dt">yend =</span> PC2.loading),</a>
+<a class="sourceLine" id="cb449-5" title="5">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, </a>
+<a class="sourceLine" id="cb449-6" title="6">               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle=</span><span class="dv">15</span>, <span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb449-7" title="7"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
+<a class="sourceLine" id="cb449-8" title="8">            <span class="kw">aes</span>(<span class="dt">x =</span> PC1.loading, <span class="dt">y =</span> PC2.loading, <span class="dt">label=</span>variable),</a>
+<a class="sourceLine" id="cb449-9" title="9">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">nudge_x =</span> <span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb449-10" title="10"></a>
+<a class="sourceLine" id="cb449-11" title="11"></a>
+<a class="sourceLine" id="cb449-12" title="12">pc1v2.biplot</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-447-1.png" width="768" /></p>
 <p>The figure above is called a “biplot”", as it simultaneously depicts both the observations and variables in the same space. From this biplot we can immediately see that variable <code>a</code> is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable <code>c</code> is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves – for example <code>b</code> and <code>d</code> are fairly strongly correlated, but weakly correlated with <code>c</code>. Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.</p>
 <p>The biplot is a generally useful tool for multivariate analyses and there are a number of different ways to define biplots. We’ll study biplots more formally in a few weeks after we’ve covered singular value decomposition.</p>
@@ -948,11 +880,13 @@ pc1v2.biplot</code></pre>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -960,12 +894,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -977,6 +910,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -998,8 +935,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

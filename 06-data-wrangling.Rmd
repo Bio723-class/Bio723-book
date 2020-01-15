@@ -82,7 +82,7 @@ We can use `dplyr::select()` to drop columns by prepending column names with the
 ```{r}
 # drop the alpha column keeping all others
 spellman.clean %<>% 
-  select(-alpha)  
+  dplyr::select(-alpha)  
 ```
 
 Note that usually `select()`  keeps only the variables you specify.  However if the first expression is negative, `select` will instead automatically keep all variables, dropping only those you specify. 
@@ -159,15 +159,15 @@ Let's see how to drop all the "cln3" and "clb2" columns from the data frame usin
 
 ```{r}
 spellman.clean %<>% 
-  select(-matches("cln3")) %>%
-  select(-matches("clb2"))
+  dplyr::select(-matches("cln3")) %>%
+  dplyr::select(-matches("clb2"))
 ```
 
 If we wanted we could have collapsed our two match statements into one as follows:
 
 ```{r}
 spellman.clean %<>% 
-  select(-matches("cln3|clb2"))
+  dplyr::select(-matches("cln3|clb2"))
 ```
 
 In this second example, the character "|" is specifing an OR match within the regular expression, so this regular expression matches column names that contain "cln3" OR "clb2".
@@ -205,7 +205,7 @@ By default, the joined columns are merged at the end of the data frame, so we'll
 
 ```{r}
 spellman.merged %<>%
-  select(gene, std.name, description, everything())
+  dplyr::select(gene, std.name, description, everything())
 
 spellman.merged
 ```
@@ -636,7 +636,7 @@ Here let's use `spread()` to use the gene names (the "key") and expression measu
 ```{r}
 spellman.wide <-
   spellman.final %>%
-  select(-std.name, -description) %>% # drop unneeded columns
+  dplyr::select(-std.name, -description) %>% # drop unneeded columns
   spread(gene, expression)
 ```
 
@@ -711,7 +711,7 @@ First we filter our wide data set to only consider the cdc28 experiment and thos
 ```{r}
 top1k.cdc28.wide <- 
   top1k.cdc28 %>%
-  select(-std.name, -description) %>%
+  dplyr::select(-std.name, -description) %>%
   spread(gene, expression)
 ```
 
@@ -720,7 +720,7 @@ With this restricted data set, we can then calculate the correlations between ev
 ```{r}
 cdc28.correlations <- 
   top1k.cdc28.wide %>%
-  select(-expt, -time)  %>% # drop expt and time
+  dplyr::select(-expt, -time)  %>% # drop expt and time
   cor(use = "pairwise.complete.obs")
 ```
 

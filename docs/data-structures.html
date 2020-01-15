@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Data structures | Biology 723: Statistical Computing for Biologists</title>
-  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Data structures | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
 
-<meta name="author" content="Paul M. Magwene">
+<meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2019-04-17">
+<meta name="date" content="2020-01-15" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="r-markdown-and-r-notebooks.html">
-<link rel="next" href="introduction-to-ggplot2.html">
+<link rel="prev" href="r-markdown-and-r-notebooks.html"/>
+<link rel="next" href="functions-and-control-flow-statements.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,11 +48,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
 <script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
 <script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
-<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
@@ -63,7 +65,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -206,126 +207,126 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a><ul>
+<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>5.1.1</b> Function arguments</a></li>
+<li class="chapter" data-level="5.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>5.1.2</b> Writing functions with optional arguments</a></li>
+<li class="chapter" data-level="5.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>5.1.3</b> Putting R functions in Scripts</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>5.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
+<li class="chapter" data-level="5.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>5.2.2</b> for loops</a></li>
+<li class="chapter" data-level="5.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>5.2.3</b> <code>break</code> statement</a></li>
+<li class="chapter" data-level="5.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>5.2.4</b> <code>repeat</code> loops</a></li>
+<li class="chapter" data-level="5.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>5.2.5</b> <code>next</code> statement</a></li>
+<li class="chapter" data-level="5.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>5.2.6</b> while statements</a></li>
+<li class="chapter" data-level="5.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>5.2.7</b> <code>ifelse</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-<li class="chapter" data-level="5.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>5.17.2</b> Adding a trend line to a scatter plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>6</b> Introduction to <code>dplyr</code></a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.1</b> Reading Excel files</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.2</b> Example data: NC Births</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>5.3.1</b> basic <code>map</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>5.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>5.3.3</b> mapping in parallel using <code>map2</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>5.3.4</b> <code>map</code> variants that return vectors</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>6.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>6.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>6.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>6.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>6.5.3</b> Rotating plot coordinates</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>7.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.6</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="7.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>6.6</b> Histograms</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>6.6.1</b> Variations on histograms when considering categorical data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="6.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>6.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="6.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>6.8</b> Density plots</a></li>
+<li class="chapter" data-level="6.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>6.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="6.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>6.10</b> Boxplots</a></li>
+<li class="chapter" data-level="6.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>6.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="6.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>6.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="6.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>6.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="6.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>6.12.2</b> Setting shared aesthetics</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="7.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.9</b> Exploring bivariate relationships using “wide” data</a><ul>
-<li class="chapter" data-level="7.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>7.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="7.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="7.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>7.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="7.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="6.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.13</b> ggplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>6.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>6.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="6.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>6.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="6.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>6.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="6.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>6.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="6.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.17.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="6.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>6.17.2</b> Adding a trend line to a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>6.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="6.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>6.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="6.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>6.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="6.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>6.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="6.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>6.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>7</b> Introduction to <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>7.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>7.2.1</b> Reading Excel files</a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>7.2.2</b> Example data: NC Births</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>7.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>7.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>7.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>7.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>7.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="7.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>7.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="7.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>7.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="7.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>7.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>7.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>7.6</b> Pipes</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>7.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>7.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>7.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>7.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="7.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>7.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="7.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>7.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="7.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="7.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.6.8</b> The exposition pipe operator</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>8</b> Functions and control flow statements</a><ul>
-<li class="chapter" data-level="8.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>8.1.1</b> Function arguments</a></li>
-<li class="chapter" data-level="8.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.1.2</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.1.3</b> Putting R functions in Scripts</a></li>
+<li class="chapter" data-level="8" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>8</b> Data wrangling</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>8.2</b> Control flow statements</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>8.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
-<li class="chapter" data-level="8.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>8.2.2</b> for loops</a></li>
-<li class="chapter" data-level="8.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>8.2.3</b> <code>break</code> statement</a></li>
-<li class="chapter" data-level="8.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>8.2.4</b> <code>repeat</code> loops</a></li>
-<li class="chapter" data-level="8.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>8.2.5</b> <code>next</code> statement</a></li>
-<li class="chapter" data-level="8.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>8.2.6</b> while statements</a></li>
-<li class="chapter" data-level="8.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>8.2.7</b> <code>ifelse</code></a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>8.3</b> <code>map</code> and related tools</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>8.3.1</b> basic <code>map</code></a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>8.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
-<li class="chapter" data-level="8.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>8.3.3</b> mapping in parallel using <code>map2</code></a></li>
-<li class="chapter" data-level="8.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>8.3.4</b> <code>map</code> variants that return vectors</a></li>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a><ul>
@@ -447,75 +448,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>16.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>17</b> Clustering in R</a><ul>
-<li class="chapter" data-level="17.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-8"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>17.2</b> Data set</a></li>
-<li class="chapter" data-level="17.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>17.3</b> Hierarchical Clustering in R</a></li>
-<li class="chapter" data-level="17.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>17.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
-<li class="chapter" data-level="17.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>17.5</b> Plotting dendrograms in dendextend</a></li>
-<li class="chapter" data-level="17.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>17.6</b> Cutting dendrograms</a></li>
-<li class="chapter" data-level="17.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>17.7</b> Looking at clusters</a></li>
-<li class="chapter" data-level="17.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>17.8</b> Generating a heat map from a cluster</a></li>
-<li class="chapter" data-level="17.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>17.9</b> Working with sub-trees</a></li>
-<li class="chapter" data-level="17.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>17.10</b> Setting dendrogram parameters in dendextend</a></li>
-<li class="chapter" data-level="17.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>17.11</b> Combining heatmaps and dendrograms</a></li>
-<li class="chapter" data-level="17.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>17.12</b> K-means/K-medoids Clustering in R</a><ul>
-<li class="chapter" data-level="17.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>17.12.1</b> Heat map from k-medoids cluster</a></li>
-</ul></li>
-<li class="chapter" data-level="17.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>17.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
-<li class="chapter" data-level="17.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>17.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
-<li class="chapter" data-level="17.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>17.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="17.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>17.14</b> Depicting the data within clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html"><i class="fa fa-check"></i><b>18</b> Simulation I: Sampling distributions</a><ul>
-<li class="chapter" data-level="18.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distrubtions"><i class="fa fa-check"></i><b>18.1</b> Sampling distrubtions</a></li>
-<li class="chapter" data-level="18.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-sampling-from-an-underlying-population"><i class="fa fa-check"></i><b>18.2</b> Simulating sampling from an underlying population</a></li>
-<li class="chapter" data-level="18.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>18.3</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="18.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#libraries-9"><i class="fa fa-check"></i><b>18.4</b> Libraries</a><ul>
-<li class="chapter" data-level="18.4.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#properties-of-the-underlying-population"><i class="fa fa-check"></i><b>18.4.1</b> Properties of the underlying population</a></li>
-<li class="chapter" data-level="18.4.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#other-r-functions-related-to-the-normal-distribution"><i class="fa fa-check"></i><b>18.4.2</b> Other R functions related to the normal distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="18.5" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>18.5</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="18.5.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>18.5.1</b> Another random sample</a></li>
-<li class="chapter" data-level="18.5.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>18.5.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="18.5.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>18.5.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="18.5.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>18.5.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="18.6" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>18.6</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="18.6.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#differences-between-sampling-distributions-and-samplepopulation-distributions"><i class="fa fa-check"></i><b>18.6.1</b> Differences between sampling distributions and sample/population distributions</a></li>
-<li class="chapter" data-level="18.6.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest"><i class="fa fa-check"></i><b>18.6.2</b> Using sampling distributions to understand the behavior of statistics of interest</a></li>
-<li class="chapter" data-level="18.6.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.3</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="18.6.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.4</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="18.7" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>18.7</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="18.8" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>18.8</b> Sampling Distribution of the Standard Deviation</a><ul>
-<li class="chapter" data-level="18.8.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-standard-deviations"><i class="fa fa-check"></i><b>18.8.1</b> Standard error of standard deviations</a></li>
-</ul></li>
-<li class="chapter" data-level="18.9" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>18.9</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="18.9.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>18.9.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="18.9.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>18.9.2</b> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-<li class="chapter" data-level="18.9.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>18.9.3</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>19</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="19.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>19.1</b> Confidence intervals</a></li>
-<li class="chapter" data-level="19.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>19.2</b> Generic formulation for confidence intervals</a></li>
-<li class="chapter" data-level="19.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>19.3</b> Example: Confidence intervals for the mean</a><ul>
-<li class="chapter" data-level="19.3.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulation-of-means"><i class="fa fa-check"></i><b>19.3.1</b> Simulation of means</a></li>
-<li class="chapter" data-level="19.3.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means"><i class="fa fa-check"></i><b>19.3.2</b> Distance between sample means and true means</a></li>
-<li class="chapter" data-level="19.3.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calculating-a-ci"><i class="fa fa-check"></i><b>19.3.3</b> Calculating a CI</a></li>
-</ul></li>
-<li class="chapter" data-level="19.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#a-problem-arises"><i class="fa fa-check"></i><b>19.4</b> A problem arises!</a></li>
-<li class="chapter" data-level="19.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors"><i class="fa fa-check"></i><b>19.5</b> Confidence intervals under sample estimates of standard errors</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses"><i class="fa fa-check"></i><b>19.5.1</b> The spread of sample estimates of the mean in units of true and estimates SEs</a></li>
-<li class="chapter" data-level="19.5.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean"><i class="fa fa-check"></i><b>19.5.2</b> Quantifying deviations of sample estimates of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="19.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean"><i class="fa fa-check"></i><b>19.6</b> t-distribution for confidence intervals of the mean</a><ul>
-<li class="chapter" data-level="19.6.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution"><i class="fa fa-check"></i><b>19.6.1</b> t-distribution vs standard normal distribution</a></li>
-<li class="chapter" data-level="19.6.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution"><i class="fa fa-check"></i><b>19.6.2</b> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</a></li>
-</ul></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -541,272 +473,272 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Vectors</h2>
 <p>Vectors are the core data structure in R. Vectors store an ordered lists of items, <em>all of the same type</em> (i.e. the data in a vector are “homogenous” with respect to their type).</p>
 <p>The simplest way to create a vector at the interactive prompt is to use the <code>c()</code> function, which is short hand for “combine” or “concatenate”.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>)  <span class="co"># create a vector, assignn it the variable name `x`</span>
-x
-<span class="co">## [1] 2 4 6 8</span></code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>)  <span class="co"># create a vector, assignn it the variable name `x`</span></a>
+<a class="sourceLine" id="cb39-2" title="2">x</a>
+<a class="sourceLine" id="cb39-3" title="3"><span class="co">## [1] 2 4 6 8</span></a></code></pre></div>
 <p>Vectors in R always have a type (accessed with the <code>typeof()</code> function) and a length (accessed with the <code>length()</code> function).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(x)
-<span class="co">## [1] 4</span>
-<span class="kw">typeof</span>(x)
-<span class="co">## [1] &quot;double&quot;</span></code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="co">## [1] 4</span></a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="kw">typeof</span>(x)</a>
+<a class="sourceLine" id="cb40-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div>
 <p>Vectors don’t have to be numerical; logical and character vectors work just as well.</p>
-<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)
-y
-<span class="co">## [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE</span>
-<span class="kw">typeof</span>(y)
-<span class="co">## [1] &quot;logical&quot;</span>
-<span class="kw">length</span>(y)
-<span class="co">## [1] 6</span>
-
-z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;now&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;cow&quot;</span>)
-z
-<span class="co">## [1] &quot;How&quot;   &quot;now&quot;   &quot;brown&quot; &quot;cow&quot;</span>
-<span class="kw">typeof</span>(z)
-<span class="co">## [1] &quot;character&quot;</span>
-<span class="kw">length</span>(z)
-<span class="co">## [1] 4</span></code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb41-2" title="2">y</a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="co">## [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE</span></a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="kw">typeof</span>(y)</a>
+<a class="sourceLine" id="cb41-5" title="5"><span class="co">## [1] &quot;logical&quot;</span></a>
+<a class="sourceLine" id="cb41-6" title="6"><span class="kw">length</span>(y)</a>
+<a class="sourceLine" id="cb41-7" title="7"><span class="co">## [1] 6</span></a>
+<a class="sourceLine" id="cb41-8" title="8"></a>
+<a class="sourceLine" id="cb41-9" title="9">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;How&quot;</span>, <span class="st">&quot;now&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;cow&quot;</span>)</a>
+<a class="sourceLine" id="cb41-10" title="10">z</a>
+<a class="sourceLine" id="cb41-11" title="11"><span class="co">## [1] &quot;How&quot;   &quot;now&quot;   &quot;brown&quot; &quot;cow&quot;</span></a>
+<a class="sourceLine" id="cb41-12" title="12"><span class="kw">typeof</span>(z)</a>
+<a class="sourceLine" id="cb41-13" title="13"><span class="co">## [1] &quot;character&quot;</span></a>
+<a class="sourceLine" id="cb41-14" title="14"><span class="kw">length</span>(z)</a>
+<a class="sourceLine" id="cb41-15" title="15"><span class="co">## [1] 4</span></a></code></pre></div>
 <p>You can also use <code>c()</code> to concatenate two or more vectors together.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)  <span class="co"># create another vector, labeled y</span>
-xy &lt;-<span class="st"> </span><span class="kw">c</span>(x,y)  <span class="co"># combine two vectors</span>
-xy
-<span class="co">## [1] 2 4 6 8 1 3 5 7 9</span>
-
-z &lt;-<span class="st"> </span><span class="kw">c</span>(pi<span class="op">/</span><span class="dv">4</span>, pi<span class="op">/</span><span class="dv">2</span>, pi, <span class="dv">2</span><span class="op">*</span>pi)
-xyz &lt;-<span class="st"> </span><span class="kw">c</span>(x, y, z)  <span class="co"># combine three vectors</span>
-xyz
-<span class="co">##  [1] 2.0000000 4.0000000 6.0000000 8.0000000 1.0000000 3.0000000 5.0000000</span>
-<span class="co">##  [8] 7.0000000 9.0000000 0.7853982 1.5707963 3.1415927 6.2831853</span></code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb42-2" title="2">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)  <span class="co"># create another vector, labeled y</span></a>
+<a class="sourceLine" id="cb42-3" title="3">xy &lt;-<span class="st"> </span><span class="kw">c</span>(x,y)  <span class="co"># combine two vectors</span></a>
+<a class="sourceLine" id="cb42-4" title="4">xy</a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="co">## [1] 2 4 6 8 1 3 5 7 9</span></a>
+<a class="sourceLine" id="cb42-6" title="6"></a>
+<a class="sourceLine" id="cb42-7" title="7">z &lt;-<span class="st"> </span><span class="kw">c</span>(pi<span class="op">/</span><span class="dv">4</span>, pi<span class="op">/</span><span class="dv">2</span>, pi, <span class="dv">2</span><span class="op">*</span>pi)</a>
+<a class="sourceLine" id="cb42-8" title="8">xyz &lt;-<span class="st"> </span><span class="kw">c</span>(x, y, z)  <span class="co"># combine three vectors</span></a>
+<a class="sourceLine" id="cb42-9" title="9">xyz</a>
+<a class="sourceLine" id="cb42-10" title="10"><span class="co">##  [1] 2.0000000 4.0000000 6.0000000 8.0000000 1.0000000 3.0000000 5.0000000</span></a>
+<a class="sourceLine" id="cb42-11" title="11"><span class="co">##  [8] 7.0000000 9.0000000 0.7853982 1.5707963 3.1415927 6.2831853</span></a></code></pre></div>
 <div id="vector-arithmetic" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Vector Arithmetic</h3>
 <p>The basic R arithmetic operations work on numeric vectors as well as on single numbers (in fact, behind the scenes in R single numbers <em>are</em> vectors!).</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-x <span class="op">*</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># multiply each element of x by 2</span>
-<span class="co">## [1]  4  8 12 16 20</span>
-x <span class="op">-</span><span class="st"> </span>pi <span class="co"># subtract pi from each element of x</span>
-<span class="co">## [1] -1.1415927  0.8584073  2.8584073  4.8584073  6.8584073</span>
-
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>)
-x <span class="op">+</span><span class="st"> </span>y  <span class="co"># add together each matching element of x and y</span>
-<span class="co">## [1]  2  5  9 13 19</span>
-x <span class="op">*</span><span class="st"> </span>y <span class="co"># multiply each matching element of x and y</span>
-<span class="co">## [1]  0  4 18 40 90</span>
-x<span class="op">/</span>y <span class="co"># divide each matching element of x and y</span>
-<span class="co">## [1]      Inf 4.000000 2.000000 1.600000 1.111111</span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb43-2" title="2">x <span class="op">*</span><span class="st"> </span><span class="dv">2</span>  <span class="co"># multiply each element of x by 2</span></a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="co">## [1]  4  8 12 16 20</span></a>
+<a class="sourceLine" id="cb43-4" title="4">x <span class="op">-</span><span class="st"> </span>pi <span class="co"># subtract pi from each element of x</span></a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="co">## [1] -1.1415927  0.8584073  2.8584073  4.8584073  6.8584073</span></a>
+<a class="sourceLine" id="cb43-6" title="6"></a>
+<a class="sourceLine" id="cb43-7" title="7">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb43-8" title="8">x <span class="op">+</span><span class="st"> </span>y  <span class="co"># add together each matching element of x and y</span></a>
+<a class="sourceLine" id="cb43-9" title="9"><span class="co">## [1]  2  5  9 13 19</span></a>
+<a class="sourceLine" id="cb43-10" title="10">x <span class="op">*</span><span class="st"> </span>y <span class="co"># multiply each matching element of x and y</span></a>
+<a class="sourceLine" id="cb43-11" title="11"><span class="co">## [1]  0  4 18 40 90</span></a>
+<a class="sourceLine" id="cb43-12" title="12">x<span class="op">/</span>y <span class="co"># divide each matching element of x and y</span></a>
+<a class="sourceLine" id="cb43-13" title="13"><span class="co">## [1]      Inf 4.000000 2.000000 1.600000 1.111111</span></a></code></pre></div>
 <p>Basic numerical functions operate element-wise on numerical vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sin</span>(x)
-<span class="co">## [1]  0.9092974 -0.7568025 -0.2794155  0.9893582 -0.5440211</span>
-<span class="kw">cos</span>(x <span class="op">*</span><span class="st"> </span>pi)
-<span class="co">## [1] 1 1 1 1 1</span>
-<span class="kw">log</span>(x)
-<span class="co">## [1] 0.6931472 1.3862944 1.7917595 2.0794415 2.3025851</span></code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">sin</span>(x)</a>
+<a class="sourceLine" id="cb44-2" title="2"><span class="co">## [1]  0.9092974 -0.7568025 -0.2794155  0.9893582 -0.5440211</span></a>
+<a class="sourceLine" id="cb44-3" title="3"><span class="kw">cos</span>(x <span class="op">*</span><span class="st"> </span>pi)</a>
+<a class="sourceLine" id="cb44-4" title="4"><span class="co">## [1] 1 1 1 1 1</span></a>
+<a class="sourceLine" id="cb44-5" title="5"><span class="kw">log</span>(x)</a>
+<a class="sourceLine" id="cb44-6" title="6"><span class="co">## [1] 0.6931472 1.3862944 1.7917595 2.0794415 2.3025851</span></a></code></pre></div>
 </div>
 <div id="vector-recycling" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Vector recycling</h3>
 <p>When vectors are not of the same length R `recycles’ the elements of the shorter vector to make the lengths conform.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-<span class="kw">length</span>(x)
-<span class="co">## [1] 5</span>
-z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">11</span>)
-<span class="kw">length</span>(z)
-<span class="co">## [1] 4</span>
-x <span class="op">+</span><span class="st"> </span>z
-<span class="co">## [1]  3  8 13 19 11</span></code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb45-3" title="3"><span class="co">## [1] 5</span></a>
+<a class="sourceLine" id="cb45-4" title="4">z &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb45-5" title="5"><span class="kw">length</span>(z)</a>
+<a class="sourceLine" id="cb45-6" title="6"><span class="co">## [1] 4</span></a>
+<a class="sourceLine" id="cb45-7" title="7">x <span class="op">+</span><span class="st"> </span>z</a>
+<a class="sourceLine" id="cb45-8" title="8"><span class="co">## [1]  3  8 13 19 11</span></a></code></pre></div>
 <p>In the example above <code>z</code> was treated as if it was the vector <code>(1, 4, 7, 11, 1)</code>.</p>
 </div>
 <div id="simple-statistical-functions-for-numeric-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Simple statistical functions for numeric vectors</h3>
 <p>Now that we’ve introduced vectors as the simplest data structure for holding collections of numerical values, we can introduce a few of the most common statistical functions that operate on such vectors.</p>
 <p>First let’s create a vector to hold our sample data of interest. Here I’ve taken a random sample of the lengths of the last names of students enrolled in Bio 723 during Spring 2018.</p>
-<pre class="sourceCode r"><code class="sourceCode r">len.name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">5</span>)</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">len.name &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">5</span>)</a></code></pre></div>
 <p>Some common statistics of interest include minimum, maximum, mean, median, variance, and standard deviation:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(len.name)
-<span class="co">## [1] 66</span>
-<span class="kw">min</span>(len.name)
-<span class="co">## [1] 2</span>
-<span class="kw">max</span>(len.name)
-<span class="co">## [1] 10</span>
-<span class="kw">mean</span>(len.name)
-<span class="co">## [1] 6.6</span>
-<span class="kw">median</span>(len.name)
-<span class="co">## [1] 7</span>
-<span class="kw">var</span>(len.name)  <span class="co"># variance</span>
-<span class="co">## [1] 6.044444</span>
-<span class="kw">sd</span>(len.name)   <span class="co"># standard deviation</span>
-<span class="co">## [1] 2.458545</span></code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">sum</span>(len.name)</a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="co">## [1] 66</span></a>
+<a class="sourceLine" id="cb47-3" title="3"><span class="kw">min</span>(len.name)</a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="co">## [1] 2</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="kw">max</span>(len.name)</a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb47-7" title="7"><span class="kw">mean</span>(len.name)</a>
+<a class="sourceLine" id="cb47-8" title="8"><span class="co">## [1] 6.6</span></a>
+<a class="sourceLine" id="cb47-9" title="9"><span class="kw">median</span>(len.name)</a>
+<a class="sourceLine" id="cb47-10" title="10"><span class="co">## [1] 7</span></a>
+<a class="sourceLine" id="cb47-11" title="11"><span class="kw">var</span>(len.name)  <span class="co"># variance</span></a>
+<a class="sourceLine" id="cb47-12" title="12"><span class="co">## [1] 6.044444</span></a>
+<a class="sourceLine" id="cb47-13" title="13"><span class="kw">sd</span>(len.name)   <span class="co"># standard deviation</span></a>
+<a class="sourceLine" id="cb47-14" title="14"><span class="co">## [1] 2.458545</span></a></code></pre></div>
 <p>The <code>summary()</code> function applied to a vector of doubles produce a useful table of some of these key statistics:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(len.name)
-<span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="co">##    2.00    5.25    7.00    6.60    8.50   10.00</span></code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw">summary</span>(len.name)</a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="co">##    2.00    5.25    7.00    6.60    8.50   10.00</span></a></code></pre></div>
 </div>
 <div id="indexing-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.4</span> Indexing Vectors</h3>
 <p>Accessing the element of a vector is called “indexing”. Indexing is the process of specifying the numerical positions (indices) that you want to take access from the vector.</p>
 <p>For a vector of length <span class="math inline">\(n\)</span>, we can access the elements by the indices <span class="math inline">\(1 \ldots n\)</span>. We say that R vectors (and other data structures like lists) are `one-indexed’. Many other programming languages, such as Python, C, and Java, use zero-indexing where the elements of a data structure are accessed by the indices <span class="math inline">\(0 \ldots n-1\)</span>. Indexing errors are a common source of bugs.</p>
 <p>Indexing a vector is done by specifying the index in square brackets as shown below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-<span class="kw">length</span>(x)
-<span class="co">## [1] 5</span>
-
-x[<span class="dv">1</span>]  <span class="co"># return the 1st element of x</span>
-<span class="co">## [1] 2</span>
-
-x[<span class="dv">4</span>]  <span class="co"># return the 4th element of x</span>
-<span class="co">## [1] 8</span></code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="co">## [1] 5</span></a>
+<a class="sourceLine" id="cb49-4" title="4"></a>
+<a class="sourceLine" id="cb49-5" title="5">x[<span class="dv">1</span>]  <span class="co"># return the 1st element of x</span></a>
+<a class="sourceLine" id="cb49-6" title="6"><span class="co">## [1] 2</span></a>
+<a class="sourceLine" id="cb49-7" title="7"></a>
+<a class="sourceLine" id="cb49-8" title="8">x[<span class="dv">4</span>]  <span class="co"># return the 4th element of x</span></a>
+<a class="sourceLine" id="cb49-9" title="9"><span class="co">## [1] 8</span></a></code></pre></div>
 <p>Negative indices are used to exclude particular elements. <code>x[-1]</code> returns all elements of <code>x</code> except the first.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x[<span class="op">-</span><span class="dv">1</span>]
-<span class="co">## [1]  4  6  8 10</span></code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">x[<span class="op">-</span><span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="co">## [1]  4  6  8 10</span></a></code></pre></div>
 <p>You can get multiple elements of a vector by indexing by another vector. In the example below, <code>x[c(3,5)]</code> returns the third and fifth element of x`.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x[<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]
-<span class="co">## [1]  6 10</span></code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">x[<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="co">## [1]  6 10</span></a></code></pre></div>
 </div>
 <div id="comparison-operators-applied-to-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.5</span> Comparison operators applied to vectors</h3>
 <p>When the comparison operators, such as“greater than” (<code>&gt;</code>), “less than or equal to” (<code>&lt;=</code>), equality (<code>==</code>), etc. are applied tonumeric vectors, they return logical vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>)
-x <span class="op">&lt;</span><span class="st"> </span><span class="dv">8</span>  <span class="co"># returns TRUE for all elements lass than 8</span>
-<span class="co">## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</span></code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb52-2" title="2">x <span class="op">&lt;</span><span class="st"> </span><span class="dv">8</span>  <span class="co"># returns TRUE for all elements lass than 8</span></a>
+<a class="sourceLine" id="cb52-3" title="3"><span class="co">## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</span></a></code></pre></div>
 <p>Here’s a fancier example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>  <span class="co"># greater than 4 AND less than 10</span>
-<span class="co">## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</span></code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>  <span class="co"># greater than 4 AND less than 10</span></a>
+<a class="sourceLine" id="cb53-2" title="2"><span class="co">## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</span></a></code></pre></div>
 </div>
 <div id="combining-indexing-and-comparison-of-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.6</span> Combining Indexing and Comparison of Vectors</h3>
 <p>A very powerful feature of R is the ability to combine the comparison operators (which return TRUE or FALSE values) with indexing. This facilitates data filtering and subsetting.</p>
 <p>Here’s an example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>) 
-x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>]
-<span class="co">## [1]  6  8 10</span></code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>) </a>
+<a class="sourceLine" id="cb54-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb54-3" title="3"><span class="co">## [1]  6  8 10</span></a></code></pre></div>
 <p>In the first example we retrieved all the elements of <code>x</code> that are larger than 5 (read as “x where x is greater than 5”). Notice how we got back all the elements where the statement in the brackets was <code>TRUE</code>.</p>
 <p>You can string together comparisons for more complex filtering.</p>
-<pre class="sourceCode r"><code class="sourceCode r">x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">8</span>]  <span class="co"># less than four OR greater than 8</span>
-<span class="co">## [1]  2 10</span></code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">8</span>]  <span class="co"># less than four OR greater than 8</span></a>
+<a class="sourceLine" id="cb55-2" title="2"><span class="co">## [1]  2 10</span></a></code></pre></div>
 <p>In the second example we retrieved those elements of <code>x</code> that were smaller than four <em>or</em> greater than six. Combining indexing and comparison is a powerful concept which we’ll use repeatedly in this course.</p>
 </div>
 <div id="vector-manipulation" class="section level3">
 <h3><span class="header-section-number">4.1.7</span> Vector manipulation</h3>
 <p>You can combine indexing with assignment to change the elements of a vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-x[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">-4</span> 
-x
-<span class="co">## [1]  2 -4  6  8 10</span></code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb56-2" title="2">x[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">-4</span> </a>
+<a class="sourceLine" id="cb56-3" title="3">x</a>
+<a class="sourceLine" id="cb56-4" title="4"><span class="co">## [1]  2 -4  6  8 10</span></a></code></pre></div>
 <p>You can also use indexing vectors to change multiple values at once:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  &lt;-<span class="st"> </span><span class="dv">6</span>
-x
-<span class="co">## [1] 6 4 6 8 6</span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb57-2" title="2">x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  &lt;-<span class="st"> </span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb57-3" title="3">x</a>
+<a class="sourceLine" id="cb57-4" title="4"><span class="co">## [1] 6 4 6 8 6</span></a></code></pre></div>
 <p>Using logical vectors to manipulate the elements of a vector also works:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)
-x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>] =<span class="st"> </span><span class="dv">5</span>    <span class="co"># truncate all values to have max value 5</span>
-x
-<span class="co">## [1] 2 4 5 5 5</span></code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb58-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>] =<span class="st"> </span><span class="dv">5</span>    <span class="co"># truncate all values to have max value 5</span></a>
+<a class="sourceLine" id="cb58-3" title="3">x</a>
+<a class="sourceLine" id="cb58-4" title="4"><span class="co">## [1] 2 4 5 5 5</span></a></code></pre></div>
 </div>
 <div id="vectors-from-regular-sequences" class="section level3">
 <h3><span class="header-section-number">4.1.8</span> Vectors from regular sequences</h3>
 <p>There are a variety of functions for creating regular sequences in the form of vectors.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>  <span class="co"># create a vector with the integer values from 1 to 10</span>
-<span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span>
-<span class="dv">20</span><span class="op">:</span><span class="dv">11</span>  <span class="co"># a vector with the integer values from 20 to 11</span>
-<span class="co">##  [1] 20 19 18 17 16 15 14 13 12 11</span>
-
-<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)  <span class="co"># like 1:10</span>
-<span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span>
-<span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>) <span class="co"># 1:10, in steps of 2</span>
-<span class="co">## [1] 1 3 5 7 9</span>
-<span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.25</span>) <span class="co"># 2 to 4, in steps of 0.25</span>
-<span class="co">## [1] 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</span></code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>  <span class="co"># create a vector with the integer values from 1 to 10</span></a>
+<a class="sourceLine" id="cb59-2" title="2"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
+<a class="sourceLine" id="cb59-3" title="3"><span class="dv">20</span><span class="op">:</span><span class="dv">11</span>  <span class="co"># a vector with the integer values from 20 to 11</span></a>
+<a class="sourceLine" id="cb59-4" title="4"><span class="co">##  [1] 20 19 18 17 16 15 14 13 12 11</span></a>
+<a class="sourceLine" id="cb59-5" title="5"></a>
+<a class="sourceLine" id="cb59-6" title="6"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)  <span class="co"># like 1:10</span></a>
+<a class="sourceLine" id="cb59-7" title="7"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
+<a class="sourceLine" id="cb59-8" title="8"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>) <span class="co"># 1:10, in steps of 2</span></a>
+<a class="sourceLine" id="cb59-9" title="9"><span class="co">## [1] 1 3 5 7 9</span></a>
+<a class="sourceLine" id="cb59-10" title="10"><span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.25</span>) <span class="co"># 2 to 4, in steps of 0.25</span></a>
+<a class="sourceLine" id="cb59-11" title="11"><span class="co">## [1] 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</span></a></code></pre></div>
 </div>
 <div id="additional-functions-for-working-with-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.9</span> Additional functions for working with vectors</h3>
 <p>The function <code>unique()</code> returns the unique items in a vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)
-<span class="kw">unique</span>(x)
-<span class="co">## [1] 5 2 1 4 6 9 8 7</span></code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb60-2" title="2"><span class="kw">unique</span>(x)</a>
+<a class="sourceLine" id="cb60-3" title="3"><span class="co">## [1] 5 2 1 4 6 9 8 7</span></a></code></pre></div>
 <p><code>rev()</code> returns the items in reverse order (without changing the input vector):</p>
-<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">rev</span>(x)
-y
-<span class="co">##  [1] 9 7 5 8 9 6 4 1 2 5</span>
-x  <span class="co"># x is still in original order</span>
-<span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">y &lt;-<span class="st"> </span><span class="kw">rev</span>(x)</a>
+<a class="sourceLine" id="cb61-2" title="2">y</a>
+<a class="sourceLine" id="cb61-3" title="3"><span class="co">##  [1] 9 7 5 8 9 6 4 1 2 5</span></a>
+<a class="sourceLine" id="cb61-4" title="4">x  <span class="co"># x is still in original order</span></a>
+<a class="sourceLine" id="cb61-5" title="5"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
 <p>There are a number of useful functions related to sorting. Plain <code>sort()</code> returns a new vector with the items in sorted order:</p>
-<pre class="sourceCode r"><code class="sourceCode r">sorted.x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)  <span class="co"># returns items of x sorted</span>
-sorted.x
-<span class="co">##  [1] 1 2 4 5 5 6 7 8 9 9</span>
-
-x        <span class="co"># but x remains in its unsorted state</span>
-<span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">sorted.x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)  <span class="co"># returns items of x sorted</span></a>
+<a class="sourceLine" id="cb62-2" title="2">sorted.x</a>
+<a class="sourceLine" id="cb62-3" title="3"><span class="co">##  [1] 1 2 4 5 5 6 7 8 9 9</span></a>
+<a class="sourceLine" id="cb62-4" title="4"></a>
+<a class="sourceLine" id="cb62-5" title="5">x        <span class="co"># but x remains in its unsorted state</span></a>
+<a class="sourceLine" id="cb62-6" title="6"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
 <p>The related function <code>order()</code> gives the indices which would rearrange the items into sorted order:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">order</span>(x)
-<span class="co">##  [1]  3  2  4  1  8  5  9  7  6 10</span></code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">order</span>(x)</a>
+<a class="sourceLine" id="cb63-2" title="2"><span class="co">##  [1]  3  2  4  1  8  5  9  7  6 10</span></a></code></pre></div>
 <p><code>order()</code> can be useful when you want to sort one list by the values of another:</p>
-<pre class="sourceCode r"><code class="sourceCode r">students &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;tabitha&quot;</span>, <span class="st">&quot;beatriz&quot;</span>, <span class="st">&quot;jose&quot;</span>)
-class.ranking &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)
-
-students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get the students sorted by their class.ranking</span>
-<span class="co">## [1] &quot;beatriz&quot; &quot;tabitha&quot; &quot;jose&quot;    &quot;fred&quot;</span></code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">students &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;tabitha&quot;</span>, <span class="st">&quot;beatriz&quot;</span>, <span class="st">&quot;jose&quot;</span>)</a>
+<a class="sourceLine" id="cb64-2" title="2">class.ranking &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb64-3" title="3"></a>
+<a class="sourceLine" id="cb64-4" title="4">students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get the students sorted by their class.ranking</span></a>
+<a class="sourceLine" id="cb64-5" title="5"><span class="co">## [1] &quot;beatriz&quot; &quot;tabitha&quot; &quot;jose&quot;    &quot;fred&quot;</span></a></code></pre></div>
 <p><code>any()</code> and <code>all()</code>, return single boolean values based on a specified comparison provided as an argument:</p>
-<pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>)
-
-<span class="kw">any</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if any of the elements are TRUE</span>
-<span class="co">## [1] TRUE</span>
-
-<span class="kw">all</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if all of the elements are TRUE</span>
-<span class="co">## [1] FALSE</span></code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb65-2" title="2"></a>
+<a class="sourceLine" id="cb65-3" title="3"><span class="kw">any</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if any of the elements are TRUE</span></a>
+<a class="sourceLine" id="cb65-4" title="4"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb65-5" title="5"></a>
+<a class="sourceLine" id="cb65-6" title="6"><span class="kw">all</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if all of the elements are TRUE</span></a>
+<a class="sourceLine" id="cb65-7" title="7"><span class="co">## [1] FALSE</span></a></code></pre></div>
 <p><code>which()</code> returns the <em>indices</em> of the vector for which the input is true:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">which</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)
-<span class="co">## [1] 4 5</span></code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">which</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb66-2" title="2"><span class="co">## [1] 4 5</span></a></code></pre></div>
 </div>
 </div>
 <div id="lists" class="section level2">
 <h2><span class="header-section-number">4.2</span> Lists</h2>
 <p>R lists are like vectors, but unlike a vector where all the elements are of the same type, the elements of a list can have arbitrary types (even other lists). Lists are a powerful data structure for organizing information, because there are few constraints on the shape or types of the data included in a list.</p>
 <p>Lists are easy to create:</p>
-<pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</a></code></pre></div>
 <p>Note that lists can contain arbitrary data. Lists can even contain other lists:</p>
-<pre class="sourceCode r"><code class="sourceCode r">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</a></code></pre></div>
 <p>Lists are displayed with a particular format, distinct from vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">l
-<span class="co">## [[1]]</span>
-<span class="co">## [1] &quot;Bob&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]]</span>
-<span class="co">## [1] 3.141593</span>
-<span class="co">## </span>
-<span class="co">## [[3]]</span>
-<span class="co">## [1] 10</span>
-<span class="co">## </span>
-<span class="co">## [[4]]</span>
-<span class="co">## [[4]][[1]]</span>
-<span class="co">## [1] &quot;foo&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[4]][[2]]</span>
-<span class="co">## [1] &quot;bar&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[4]][[3]]</span>
-<span class="co">## [1] &quot;baz&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[4]][[4]]</span>
-<span class="co">## [1] &quot;qux&quot;</span></code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">l</a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb69-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb69-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-5" title="5"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb69-6" title="6"><span class="co">## [1] 3.141593</span></a>
+<a class="sourceLine" id="cb69-7" title="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-8" title="8"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb69-9" title="9"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb69-10" title="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-11" title="11"><span class="co">## [[4]]</span></a>
+<a class="sourceLine" id="cb69-12" title="12"><span class="co">## [[4]][[1]]</span></a>
+<a class="sourceLine" id="cb69-13" title="13"><span class="co">## [1] &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb69-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-15" title="15"><span class="co">## [[4]][[2]]</span></a>
+<a class="sourceLine" id="cb69-16" title="16"><span class="co">## [1] &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb69-17" title="17"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-18" title="18"><span class="co">## [[4]][[3]]</span></a>
+<a class="sourceLine" id="cb69-19" title="19"><span class="co">## [1] &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb69-20" title="20"><span class="co">## </span></a>
+<a class="sourceLine" id="cb69-21" title="21"><span class="co">## [[4]][[4]]</span></a>
+<a class="sourceLine" id="cb69-22" title="22"><span class="co">## [1] &quot;qux&quot;</span></a></code></pre></div>
 <p>In the example above, the correspondence between the list and its display is obvious for the first three items. The fourth element may be a little confusing at first. Remember that the fourth item of <code>l</code> was another list. So what’s being shown in the output for the fourth item is the nested list.</p>
 <p>An alternative way to display a list is using the <code>str()</code> function (short for “structure”). <code>str()</code> provides a more compact representation that also tells us what type of data each element is:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(l)
-<span class="co">## List of 4</span>
-<span class="co">##  $ : chr &quot;Bob&quot;</span>
-<span class="co">##  $ : num 3.14</span>
-<span class="co">##  $ : num 10</span>
-<span class="co">##  $ :List of 4</span>
-<span class="co">##   ..$ : chr &quot;foo&quot;</span>
-<span class="co">##   ..$ : chr &quot;bar&quot;</span>
-<span class="co">##   ..$ : chr &quot;baz&quot;</span>
-<span class="co">##   ..$ : chr &quot;qux&quot;</span></code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="kw">str</span>(l)</a>
+<a class="sourceLine" id="cb70-2" title="2"><span class="co">## List of 4</span></a>
+<a class="sourceLine" id="cb70-3" title="3"><span class="co">##  $ : chr &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb70-4" title="4"><span class="co">##  $ : num 3.14</span></a>
+<a class="sourceLine" id="cb70-5" title="5"><span class="co">##  $ : num 10</span></a>
+<a class="sourceLine" id="cb70-6" title="6"><span class="co">##  $ :List of 4</span></a>
+<a class="sourceLine" id="cb70-7" title="7"><span class="co">##   ..$ : chr &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb70-8" title="8"><span class="co">##   ..$ : chr &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb70-9" title="9"><span class="co">##   ..$ : chr &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb70-10" title="10"><span class="co">##   ..$ : chr &quot;qux&quot;</span></a></code></pre></div>
 <div id="length-and-type-of-lists" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Length and type of lists</h3>
 <p>Like vectors, lists have length:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(l)
-<span class="co">## [1] 4</span></code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">length</span>(l)</a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="co">## [1] 4</span></a></code></pre></div>
 <p>But the type of a list is simply “list”, not the type of the items within the list. This makes sense because lists are allowed to be heterogeneous (i.e. hold data of different types).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(l)
-<span class="co">## [1] &quot;list&quot;</span></code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">typeof</span>(l)</a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 </div>
 <div id="indexing-lists" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Indexing lists</h3>
@@ -814,146 +746,146 @@ students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get t
 <div id="single-bracket-list-indexing" class="section level4">
 <h4><span class="header-section-number">4.2.2.1</span> Single bracket list indexing</h4>
 <p>First, let’s demonstrate single bracket indexing of the lists <code>l</code> we created above.</p>
-<pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span>
-<span class="co">## [[1]]</span>
-<span class="co">## [1] &quot;Bob&quot;</span>
-<span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span>
-<span class="co">## [1] &quot;list&quot;</span></code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span></a>
+<a class="sourceLine" id="cb73-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb73-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb73-4" title="4"><span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span></a>
+<a class="sourceLine" id="cb73-5" title="5"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 <p>When using single brackets, lists support indexing with ranges and numeric vectors:</p>
-<pre class="sourceCode r"><code class="sourceCode r">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]
-<span class="co">## [[1]]</span>
-<span class="co">## [1] 10</span>
-<span class="co">## </span>
-<span class="co">## [[2]]</span>
-<span class="co">## [[2]][[1]]</span>
-<span class="co">## [1] &quot;foo&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]][[2]]</span>
-<span class="co">## [1] &quot;bar&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]][[3]]</span>
-<span class="co">## [1] &quot;baz&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]][[4]]</span>
-<span class="co">## [1] &quot;qux&quot;</span>
-l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]
-<span class="co">## [[1]]</span>
-<span class="co">## [1] &quot;Bob&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]]</span>
-<span class="co">## [1] 10</span>
-<span class="co">## </span>
-<span class="co">## [[3]]</span>
-<span class="co">## NULL</span></code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb74-3" title="3"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb74-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-5" title="5"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb74-6" title="6"><span class="co">## [[2]][[1]]</span></a>
+<a class="sourceLine" id="cb74-7" title="7"><span class="co">## [1] &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb74-8" title="8"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-9" title="9"><span class="co">## [[2]][[2]]</span></a>
+<a class="sourceLine" id="cb74-10" title="10"><span class="co">## [1] &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb74-11" title="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-12" title="12"><span class="co">## [[2]][[3]]</span></a>
+<a class="sourceLine" id="cb74-13" title="13"><span class="co">## [1] &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb74-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-15" title="15"><span class="co">## [[2]][[4]]</span></a>
+<a class="sourceLine" id="cb74-16" title="16"><span class="co">## [1] &quot;qux&quot;</span></a>
+<a class="sourceLine" id="cb74-17" title="17">l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</a>
+<a class="sourceLine" id="cb74-18" title="18"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb74-19" title="19"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb74-20" title="20"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-21" title="21"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb74-22" title="22"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb74-23" title="23"><span class="co">## </span></a>
+<a class="sourceLine" id="cb74-24" title="24"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb74-25" title="25"><span class="co">## NULL</span></a></code></pre></div>
 </div>
 <div id="double-bracket-list-indexing" class="section level4">
 <h4><span class="header-section-number">4.2.2.2</span> Double bracket list indexing</h4>
 <p>If double bracket indexing is used, the object at the given index in a list is returned:</p>
-<pre class="sourceCode r"><code class="sourceCode r">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span>
-<span class="co">## [1] &quot;Bob&quot;</span>
-<span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span>
-<span class="co">## [1] &quot;character&quot;</span></code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span></a>
+<a class="sourceLine" id="cb75-2" title="2"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb75-3" title="3"><span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span></a>
+<a class="sourceLine" id="cb75-4" title="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
 <p>Double bracket indexing does not support multiple indices, but you can chain together double bracket operators to pull out the items of sublists. For example:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># second item of the fourth item of the list</span>
-l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  
-<span class="co">## [1] &quot;bar&quot;</span></code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="co"># second item of the fourth item of the list</span></a>
+<a class="sourceLine" id="cb76-2" title="2">l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  </a>
+<a class="sourceLine" id="cb76-3" title="3"><span class="co">## [1] &quot;bar&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="naming-list-elements" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Naming list elements</h3>
 <p>The elements of a list can be given names when the list is created:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</a></code></pre></div>
 <p>You can retrieve the names associated with a list using the <code>names</code> function:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(p)
-<span class="co">## [1] &quot;first.name&quot;      &quot;last.name&quot;       &quot;age&quot;             &quot;years.in.school&quot;</span></code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">names</span>(p)</a>
+<a class="sourceLine" id="cb78-2" title="2"><span class="co">## [1] &quot;first.name&quot;      &quot;last.name&quot;       &quot;age&quot;             &quot;years.in.school&quot;</span></a></code></pre></div>
 <p>If a list has named elements, you can retrieve the corresponding elements by indexing with the quoted name in either single or double brackets. Consistent with previous usage, single brackets return a list with the corresponding named element, whereas double brackets return the bare element.</p>
 <p>For example, make sure you understand the difference in the output generated by these two indexing calls:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p[<span class="st">&quot;first.name&quot;</span>]
-<span class="co">## $first.name</span>
-<span class="co">## [1] &quot;Alice&quot;</span>
-
-p[[<span class="st">&quot;first.name&quot;</span>]]
-<span class="co">## [1] &quot;Alice&quot;</span></code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1">p[<span class="st">&quot;first.name&quot;</span>]</a>
+<a class="sourceLine" id="cb79-2" title="2"><span class="co">## $first.name</span></a>
+<a class="sourceLine" id="cb79-3" title="3"><span class="co">## [1] &quot;Alice&quot;</span></a>
+<a class="sourceLine" id="cb79-4" title="4"></a>
+<a class="sourceLine" id="cb79-5" title="5">p[[<span class="st">&quot;first.name&quot;</span>]]</a>
+<a class="sourceLine" id="cb79-6" title="6"><span class="co">## [1] &quot;Alice&quot;</span></a></code></pre></div>
 </div>
 <div id="the-operator" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> The <code>$</code> operator</h3>
 <p>Retrieving named elements of lists (and data frames as we’ll see), turns out to be a pretty common task (especially when doing interactive data analysis) so R has a special operator to make this more convenient. This is the <code>$</code> operator, which is used as illustrated below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span>
-<span class="co">## [1] &quot;Alice&quot;</span>
-p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span>
-<span class="co">## [1] 27</span></code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span></a>
+<a class="sourceLine" id="cb80-2" title="2"><span class="co">## [1] &quot;Alice&quot;</span></a>
+<a class="sourceLine" id="cb80-3" title="3">p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span></a>
+<a class="sourceLine" id="cb80-4" title="4"><span class="co">## [1] 27</span></a></code></pre></div>
 </div>
 <div id="changing-and-adding-lists-items" class="section level3">
 <h3><span class="header-section-number">4.2.5</span> Changing and adding lists items</h3>
 <p>Combining indexing and assignment allows you to change items in a list:</p>
-<pre class="sourceCode r"><code class="sourceCode r">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, 
-                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, 
-                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)
-
-suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span>
-suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span>
-suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span>
-
-<span class="kw">str</span>(suspect)
-<span class="co">## List of 3</span>
-<span class="co">##  $ first.name: chr &quot;Bo&quot;</span>
-<span class="co">##  $ last.name : chr &quot;Peep&quot;</span>
-<span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
+<a class="sourceLine" id="cb81-2" title="2">                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
+<a class="sourceLine" id="cb81-3" title="3">                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)</a>
+<a class="sourceLine" id="cb81-4" title="4"></a>
+<a class="sourceLine" id="cb81-5" title="5">suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb81-6" title="6">suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb81-7" title="7">suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span></a>
+<a class="sourceLine" id="cb81-8" title="8"></a>
+<a class="sourceLine" id="cb81-9" title="9"><span class="kw">str</span>(suspect)</a>
+<a class="sourceLine" id="cb81-10" title="10"><span class="co">## List of 3</span></a>
+<a class="sourceLine" id="cb81-11" title="11"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb81-12" title="12"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb81-13" title="13"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a></code></pre></div>
 <p>By combining assignment with a new name or an index past the end of the list you can add items to a list:</p>
-<pre class="sourceCode r"><code class="sourceCode r">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span>
-suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span></a>
+<a class="sourceLine" id="cb82-2" title="2">suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></a></code></pre></div>
 <p>Be careful when adding an item using indexing, because if you skip an index an intervening NULL value is created:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># there are only five items in the list, what happens if we</span>
-<span class="co"># add a new item at position seven?</span>
-suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span>
-
-<span class="kw">str</span>(suspect)
-<span class="co">## List of 7</span>
-<span class="co">##  $ first.name: chr &quot;Bo&quot;</span>
-<span class="co">##  $ last.name : chr &quot;Peep&quot;</span>
-<span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span>
-<span class="co">##  $ age       : num 17</span>
-<span class="co">##  $           : chr &quot;shepardess&quot;</span>
-<span class="co">##  $           : NULL</span>
-<span class="co">##  $           : chr &quot;wanted for sheep stealing&quot;</span></code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="co"># there are only five items in the list, what happens if we</span></a>
+<a class="sourceLine" id="cb83-2" title="2"><span class="co"># add a new item at position seven?</span></a>
+<a class="sourceLine" id="cb83-3" title="3">suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span></a>
+<a class="sourceLine" id="cb83-4" title="4"></a>
+<a class="sourceLine" id="cb83-5" title="5"><span class="kw">str</span>(suspect)</a>
+<a class="sourceLine" id="cb83-6" title="6"><span class="co">## List of 7</span></a>
+<a class="sourceLine" id="cb83-7" title="7"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb83-8" title="8"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb83-9" title="9"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a>
+<a class="sourceLine" id="cb83-10" title="10"><span class="co">##  $ age       : num 17</span></a>
+<a class="sourceLine" id="cb83-11" title="11"><span class="co">##  $           : chr &quot;shepardess&quot;</span></a>
+<a class="sourceLine" id="cb83-12" title="12"><span class="co">##  $           : NULL</span></a>
+<a class="sourceLine" id="cb83-13" title="13"><span class="co">##  $           : chr &quot;wanted for sheep stealing&quot;</span></a></code></pre></div>
 </div>
 <div id="combining-lists" class="section level3">
 <h3><span class="header-section-number">4.2.6</span> Combining lists</h3>
 <p>The <code>c</code> (combine) function we introduced to create vectors can also be used to combine lists:</p>
-<pre class="sourceCode r"><code class="sourceCode r">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)
-list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)
-list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)
-list.c
-<span class="co">## [[1]]</span>
-<span class="co">## [1] &quot;little&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[2]]</span>
-<span class="co">## [1] &quot;bo&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[3]]</span>
-<span class="co">## [1] &quot;peep&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[4]]</span>
-<span class="co">## [1] &quot;has lost&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[5]]</span>
-<span class="co">## [1] &quot;her&quot;</span>
-<span class="co">## </span>
-<span class="co">## [[6]]</span>
-<span class="co">## [1] &quot;sheep&quot;</span></code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)</a>
+<a class="sourceLine" id="cb84-2" title="2">list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)</a>
+<a class="sourceLine" id="cb84-3" title="3">list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)</a>
+<a class="sourceLine" id="cb84-4" title="4">list.c</a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb84-6" title="6"><span class="co">## [1] &quot;little&quot;</span></a>
+<a class="sourceLine" id="cb84-7" title="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb84-8" title="8"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb84-9" title="9"><span class="co">## [1] &quot;bo&quot;</span></a>
+<a class="sourceLine" id="cb84-10" title="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb84-11" title="11"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb84-12" title="12"><span class="co">## [1] &quot;peep&quot;</span></a>
+<a class="sourceLine" id="cb84-13" title="13"><span class="co">## </span></a>
+<a class="sourceLine" id="cb84-14" title="14"><span class="co">## [[4]]</span></a>
+<a class="sourceLine" id="cb84-15" title="15"><span class="co">## [1] &quot;has lost&quot;</span></a>
+<a class="sourceLine" id="cb84-16" title="16"><span class="co">## </span></a>
+<a class="sourceLine" id="cb84-17" title="17"><span class="co">## [[5]]</span></a>
+<a class="sourceLine" id="cb84-18" title="18"><span class="co">## [1] &quot;her&quot;</span></a>
+<a class="sourceLine" id="cb84-19" title="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb84-20" title="20"><span class="co">## [[6]]</span></a>
+<a class="sourceLine" id="cb84-21" title="21"><span class="co">## [1] &quot;sheep&quot;</span></a></code></pre></div>
 </div>
 <div id="converting-lists-to-vectors" class="section level3">
 <h3><span class="header-section-number">4.2.7</span> Converting lists to vectors</h3>
 <p>Sometimes it’s useful to convert a list to a vector. The <code>unlist()</code> function takes care of this for us.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a homogeneous list</span>
-ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)
-<span class="kw">unlist</span>(ex1)
-<span class="co">## [1] 2 4 6 8</span></code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="co"># a homogeneous list</span></a>
+<a class="sourceLine" id="cb85-2" title="2">ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb85-3" title="3"><span class="kw">unlist</span>(ex1)</a>
+<a class="sourceLine" id="cb85-4" title="4"><span class="co">## [1] 2 4 6 8</span></a></code></pre></div>
 <p>When you convert a list to a vector make sure you remember that vectors are homogeneous, so items within the new vector will be “coerced” to have the same type.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a heterogeneous list</span>
-ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))
-<span class="kw">unlist</span>(ex2)
-<span class="co">## [1] &quot;2&quot;    &quot;4&quot;    &quot;6&quot;    &quot;bob&quot;  &quot;fred&quot; &quot;1+0i&quot; &quot;foo&quot;</span></code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># a heterogeneous list</span></a>
+<a class="sourceLine" id="cb86-2" title="2">ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))</a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="kw">unlist</span>(ex2)</a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="co">## [1] &quot;2&quot;    &quot;4&quot;    &quot;6&quot;    &quot;bob&quot;  &quot;fred&quot; &quot;1+0i&quot; &quot;foo&quot;</span></a></code></pre></div>
 <p>Note that <code>unlist()</code> also unpacks nested vectors and lists as shown in the second example above.</p>
 </div>
 </div>
@@ -963,38 +895,38 @@ ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">
 <div id="creating-a-data-frame" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Creating a data frame</h3>
 <p>While data frames will often be created by reading in a data set from a file, they can also be created directly in the console as illustrated below:</p>
-<pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>)
-sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>), <span class="dv">5</span>)
-wt.in.kg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">67</span>, <span class="dv">66</span>, <span class="dv">56</span>, <span class="dv">74</span>, <span class="dv">71</span>, <span class="dv">60</span>, <span class="dv">52</span>, <span class="dv">72</span>)
-
-df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> age, <span class="dt">sex =</span> sex, <span class="dt">wt =</span> wt.in.kg)</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb87-2" title="2">sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>), <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb87-3" title="3">wt.in.kg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">67</span>, <span class="dv">66</span>, <span class="dv">56</span>, <span class="dv">74</span>, <span class="dv">71</span>, <span class="dv">60</span>, <span class="dv">52</span>, <span class="dv">72</span>)</a>
+<a class="sourceLine" id="cb87-4" title="4"></a>
+<a class="sourceLine" id="cb87-5" title="5">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> age, <span class="dt">sex =</span> sex, <span class="dt">wt =</span> wt.in.kg)</a></code></pre></div>
 <p>Here we created a data frame with three columns, each of length 10.</p>
 </div>
 <div id="type-and-class-for-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Type and class for data frames</h3>
 <p>Data frames can be thought of as specialized lists, and in fact the type of a data frame is “list” as illustrated below:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(df)
-<span class="co">## [1] &quot;list&quot;</span></code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">typeof</span>(df)</a>
+<a class="sourceLine" id="cb88-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 <p>To distinguish a data frame from a generic list, we have to ask about it’s “class”.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df) <span class="co"># the class of our data frame</span>
-<span class="co">## [1] &quot;data.frame&quot;</span>
-<span class="kw">class</span>(l)  <span class="co"># compare to the class of our generic list</span>
-<span class="co">## [1] &quot;list&quot;</span></code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">class</span>(df) <span class="co"># the class of our data frame</span></a>
+<a class="sourceLine" id="cb89-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb89-3" title="3"><span class="kw">class</span>(l)  <span class="co"># compare to the class of our generic list</span></a>
+<a class="sourceLine" id="cb89-4" title="4"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 <p>The term “class” comes from a style/approach to programming called “object oriented programming”. We won’t go into explicit detail about how object oriented programming works in this class, though we will exploit many of the features of objects that have a particular class.</p>
 </div>
 <div id="length-and-dimension-for-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Length and dimension for data frames</h3>
 <p>Applying the <code>length()</code> function to a data frame returns the number of columns. This is consistent with the fact that data frames are specialized lists:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(df)
-<span class="co">## [1] 3</span></code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">length</span>(df)</a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="co">## [1] 3</span></a></code></pre></div>
 <p>To get the dimensions (number of rows and columns) of a data frame, we use the <code>dim()</code> function. <code>dim()</code> returns a vector, whose first value is the number of rows and whose second value is the number of columns:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(df)
-<span class="co">## [1] 10  3</span></code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">dim</span>(df)</a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="co">## [1] 10  3</span></a></code></pre></div>
 <p>We can get the number of rows and columns individually using the <code>nrow()</code> and <code>ncol()</code> functions:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(df)  <span class="co"># number of rows</span>
-<span class="co">## [1] 10</span>
-<span class="kw">ncol</span>(df)  <span class="co"># number of columsn</span>
-<span class="co">## [1] 3</span></code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">nrow</span>(df)  <span class="co"># number of rows</span></a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb92-3" title="3"><span class="kw">ncol</span>(df)  <span class="co"># number of columsn</span></a>
+<a class="sourceLine" id="cb92-4" title="4"><span class="co">## [1] 3</span></a></code></pre></div>
 </div>
 <div id="indexing-and-accessing-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Indexing and accessing data frames</h3>
@@ -1002,172 +934,172 @@ df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 <div id="single-bracket-indexing-of-the-columns-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.1</span> Single bracket indexing of the columns of a data frame</h4>
 <p>The <em>single bracket operator with a single numeric index</em> returns a data frame with the corresponding column.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>]  <span class="co"># get the first column (=age) of the data frame</span>
-<span class="co">## # A tibble: 10 x 1</span>
-<span class="co">##      age</span>
-<span class="co">##    &lt;dbl&gt;</span>
-<span class="co">##  1    30</span>
-<span class="co">##  2    26</span>
-<span class="co">##  3    21</span>
-<span class="co">##  4    29</span>
-<span class="co">##  5    25</span>
-<span class="co">##  6    22</span>
-<span class="co">##  7    28</span>
-<span class="co">##  8    24</span>
-<span class="co">##  9    23</span>
-<span class="co">## 10    20</span></code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">df[<span class="dv">1</span>]  <span class="co"># get the first column (=age) of the data frame</span></a>
+<a class="sourceLine" id="cb93-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
+<a class="sourceLine" id="cb93-3" title="3"><span class="co">##      age</span></a>
+<a class="sourceLine" id="cb93-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb93-5" title="5"><span class="co">##  1    30</span></a>
+<a class="sourceLine" id="cb93-6" title="6"><span class="co">##  2    26</span></a>
+<a class="sourceLine" id="cb93-7" title="7"><span class="co">##  3    21</span></a>
+<a class="sourceLine" id="cb93-8" title="8"><span class="co">##  4    29</span></a>
+<a class="sourceLine" id="cb93-9" title="9"><span class="co">##  5    25</span></a>
+<a class="sourceLine" id="cb93-10" title="10"><span class="co">##  6    22</span></a>
+<a class="sourceLine" id="cb93-11" title="11"><span class="co">##  7    28</span></a>
+<a class="sourceLine" id="cb93-12" title="12"><span class="co">##  8    24</span></a>
+<a class="sourceLine" id="cb93-13" title="13"><span class="co">##  9    23</span></a>
+<a class="sourceLine" id="cb93-14" title="14"><span class="co">## 10    20</span></a></code></pre></div>
 <p>The <em>single bracket operator with multiple numeric indices</em> returns a data frame with the corresponding columns.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># first two columns</span>
-<span class="co">## # A tibble: 10 x 2</span>
-<span class="co">##      age sex  </span>
-<span class="co">##    &lt;dbl&gt; &lt;fct&gt;</span>
-<span class="co">##  1    30 M    </span>
-<span class="co">##  2    26 F    </span>
-<span class="co">##  3    21 M    </span>
-<span class="co">##  4    29 F    </span>
-<span class="co">##  5    25 M    </span>
-<span class="co">##  6    22 F    </span>
-<span class="co">##  7    28 M    </span>
-<span class="co">##  8    24 F    </span>
-<span class="co">##  9    23 M    </span>
-<span class="co">## 10    20 F</span>
-df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="co"># columns 1 (=age) and 3 (=wt)</span>
-<span class="co">## # A tibble: 10 x 2</span>
-<span class="co">##      age    wt</span>
-<span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">##  1    30    88</span>
-<span class="co">##  2    26    76</span>
-<span class="co">##  3    21    67</span>
-<span class="co">##  4    29    66</span>
-<span class="co">##  5    25    56</span>
-<span class="co">##  6    22    74</span>
-<span class="co">##  7    28    71</span>
-<span class="co">##  8    24    60</span>
-<span class="co">##  9    23    52</span>
-<span class="co">## 10    20    72</span></code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># first two columns</span></a>
+<a class="sourceLine" id="cb94-2" title="2"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb94-3" title="3"><span class="co">##      age sex  </span></a>
+<a class="sourceLine" id="cb94-4" title="4"><span class="co">##    &lt;dbl&gt; &lt;fct&gt;</span></a>
+<a class="sourceLine" id="cb94-5" title="5"><span class="co">##  1    30 M    </span></a>
+<a class="sourceLine" id="cb94-6" title="6"><span class="co">##  2    26 F    </span></a>
+<a class="sourceLine" id="cb94-7" title="7"><span class="co">##  3    21 M    </span></a>
+<a class="sourceLine" id="cb94-8" title="8"><span class="co">##  4    29 F    </span></a>
+<a class="sourceLine" id="cb94-9" title="9"><span class="co">##  5    25 M    </span></a>
+<a class="sourceLine" id="cb94-10" title="10"><span class="co">##  6    22 F    </span></a>
+<a class="sourceLine" id="cb94-11" title="11"><span class="co">##  7    28 M    </span></a>
+<a class="sourceLine" id="cb94-12" title="12"><span class="co">##  8    24 F    </span></a>
+<a class="sourceLine" id="cb94-13" title="13"><span class="co">##  9    23 M    </span></a>
+<a class="sourceLine" id="cb94-14" title="14"><span class="co">## 10    20 F</span></a>
+<a class="sourceLine" id="cb94-15" title="15">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="co"># columns 1 (=age) and 3 (=wt)</span></a>
+<a class="sourceLine" id="cb94-16" title="16"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb94-17" title="17"><span class="co">##      age    wt</span></a>
+<a class="sourceLine" id="cb94-18" title="18"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb94-19" title="19"><span class="co">##  1    30    88</span></a>
+<a class="sourceLine" id="cb94-20" title="20"><span class="co">##  2    26    76</span></a>
+<a class="sourceLine" id="cb94-21" title="21"><span class="co">##  3    21    67</span></a>
+<a class="sourceLine" id="cb94-22" title="22"><span class="co">##  4    29    66</span></a>
+<a class="sourceLine" id="cb94-23" title="23"><span class="co">##  5    25    56</span></a>
+<a class="sourceLine" id="cb94-24" title="24"><span class="co">##  6    22    74</span></a>
+<a class="sourceLine" id="cb94-25" title="25"><span class="co">##  7    28    71</span></a>
+<a class="sourceLine" id="cb94-26" title="26"><span class="co">##  8    24    60</span></a>
+<a class="sourceLine" id="cb94-27" title="27"><span class="co">##  9    23    52</span></a>
+<a class="sourceLine" id="cb94-28" title="28"><span class="co">## 10    20    72</span></a></code></pre></div>
 <p>Column names can be substituted for indices when using the single bracket operator:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="st">&quot;age&quot;</span>]  
-<span class="co">## # A tibble: 10 x 1</span>
-<span class="co">##      age</span>
-<span class="co">##    &lt;dbl&gt;</span>
-<span class="co">##  1    30</span>
-<span class="co">##  2    26</span>
-<span class="co">##  3    21</span>
-<span class="co">##  4    29</span>
-<span class="co">##  5    25</span>
-<span class="co">##  6    22</span>
-<span class="co">##  7    28</span>
-<span class="co">##  8    24</span>
-<span class="co">##  9    23</span>
-<span class="co">## 10    20</span>
-
-df[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]
-<span class="co">## # A tibble: 10 x 2</span>
-<span class="co">##      age    wt</span>
-<span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">##  1    30    88</span>
-<span class="co">##  2    26    76</span>
-<span class="co">##  3    21    67</span>
-<span class="co">##  4    29    66</span>
-<span class="co">##  5    25    56</span>
-<span class="co">##  6    22    74</span>
-<span class="co">##  7    28    71</span>
-<span class="co">##  8    24    60</span>
-<span class="co">##  9    23    52</span>
-<span class="co">## 10    20    72</span></code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">df[<span class="st">&quot;age&quot;</span>]  </a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
+<a class="sourceLine" id="cb95-3" title="3"><span class="co">##      age</span></a>
+<a class="sourceLine" id="cb95-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb95-5" title="5"><span class="co">##  1    30</span></a>
+<a class="sourceLine" id="cb95-6" title="6"><span class="co">##  2    26</span></a>
+<a class="sourceLine" id="cb95-7" title="7"><span class="co">##  3    21</span></a>
+<a class="sourceLine" id="cb95-8" title="8"><span class="co">##  4    29</span></a>
+<a class="sourceLine" id="cb95-9" title="9"><span class="co">##  5    25</span></a>
+<a class="sourceLine" id="cb95-10" title="10"><span class="co">##  6    22</span></a>
+<a class="sourceLine" id="cb95-11" title="11"><span class="co">##  7    28</span></a>
+<a class="sourceLine" id="cb95-12" title="12"><span class="co">##  8    24</span></a>
+<a class="sourceLine" id="cb95-13" title="13"><span class="co">##  9    23</span></a>
+<a class="sourceLine" id="cb95-14" title="14"><span class="co">## 10    20</span></a>
+<a class="sourceLine" id="cb95-15" title="15"></a>
+<a class="sourceLine" id="cb95-16" title="16">df[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]</a>
+<a class="sourceLine" id="cb95-17" title="17"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb95-18" title="18"><span class="co">##      age    wt</span></a>
+<a class="sourceLine" id="cb95-19" title="19"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb95-20" title="20"><span class="co">##  1    30    88</span></a>
+<a class="sourceLine" id="cb95-21" title="21"><span class="co">##  2    26    76</span></a>
+<a class="sourceLine" id="cb95-22" title="22"><span class="co">##  3    21    67</span></a>
+<a class="sourceLine" id="cb95-23" title="23"><span class="co">##  4    29    66</span></a>
+<a class="sourceLine" id="cb95-24" title="24"><span class="co">##  5    25    56</span></a>
+<a class="sourceLine" id="cb95-25" title="25"><span class="co">##  6    22    74</span></a>
+<a class="sourceLine" id="cb95-26" title="26"><span class="co">##  7    28    71</span></a>
+<a class="sourceLine" id="cb95-27" title="27"><span class="co">##  8    24    60</span></a>
+<a class="sourceLine" id="cb95-28" title="28"><span class="co">##  9    23    52</span></a>
+<a class="sourceLine" id="cb95-29" title="29"><span class="co">## 10    20    72</span></a></code></pre></div>
 </div>
 <div id="single-bracket-indexing-of-the-rows-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.2</span> Single bracket indexing of the rows of a data frame</h4>
 <p>To get specific rows of a data frame, we use single bracket indexing with an additional comma following the index. For example to get the first row a data frame we would do:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>,]    <span class="co"># first row</span>
-<span class="co">## # A tibble: 1 x 3</span>
-<span class="co">##     age sex      wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    30 M        88</span></code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">df[<span class="dv">1</span>,]    <span class="co"># first row</span></a>
+<a class="sourceLine" id="cb96-2" title="2"><span class="co">## # A tibble: 1 x 3</span></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb96-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="co">## 1    30 M        88</span></a></code></pre></div>
 <p>This syntax extends to multiple rows:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,]  <span class="co"># first two rows</span>
-<span class="co">## # A tibble: 2 x 3</span>
-<span class="co">##     age sex      wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    30 M        88</span>
-<span class="co">## 2    26 F        76</span>
-
-df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),]  <span class="co"># rows 1, 3 and 5</span>
-<span class="co">## # A tibble: 3 x 3</span>
-<span class="co">##     age sex      wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    30 M        88</span>
-<span class="co">## 2    21 M        67</span>
-<span class="co">## 3    25 M        56</span></code></pre>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,]  <span class="co"># first two rows</span></a>
+<a class="sourceLine" id="cb97-2" title="2"><span class="co">## # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb97-3" title="3"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb97-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb97-5" title="5"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb97-6" title="6"><span class="co">## 2    26 F        76</span></a>
+<a class="sourceLine" id="cb97-7" title="7"></a>
+<a class="sourceLine" id="cb97-8" title="8">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),]  <span class="co"># rows 1, 3 and 5</span></a>
+<a class="sourceLine" id="cb97-9" title="9"><span class="co">## # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb97-10" title="10"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb97-11" title="11"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb97-12" title="12"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb97-13" title="13"><span class="co">## 2    21 M        67</span></a>
+<a class="sourceLine" id="cb97-14" title="14"><span class="co">## 3    25 M        56</span></a></code></pre></div>
 </div>
 <div id="single-bracket-indexing-of-both-the-rows-and-columns-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.3</span> Single bracket indexing of both the rows and columns of a data frame</h4>
 <p>Single bracket indexing of data frames extends naturally to retrieve both rows and columns simultaneously:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># first row, second column</span>
-<span class="co">## [1] M</span>
-<span class="co">## Levels: F M</span>
-df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># first three rows, columns 2 and 3</span>
-<span class="co">## # A tibble: 3 x 2</span>
-<span class="co">##   sex      wt</span>
-<span class="co">##   &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1 M        88</span>
-<span class="co">## 2 F        76</span>
-<span class="co">## 3 M        67</span>
-
-<span class="co"># you can even mix numerical indexing (rows) with named indexing of columns</span>
-df[<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]  
-<span class="co">## # A tibble: 6 x 2</span>
-<span class="co">##     age    wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    25    56</span>
-<span class="co">## 2    22    74</span>
-<span class="co">## 3    28    71</span>
-<span class="co">## 4    24    60</span>
-<span class="co">## 5    23    52</span>
-<span class="co">## 6    20    72</span></code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">df[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># first row, second column</span></a>
+<a class="sourceLine" id="cb98-2" title="2"><span class="co">## [1] M</span></a>
+<a class="sourceLine" id="cb98-3" title="3"><span class="co">## Levels: F M</span></a>
+<a class="sourceLine" id="cb98-4" title="4">df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># first three rows, columns 2 and 3</span></a>
+<a class="sourceLine" id="cb98-5" title="5"><span class="co">## # A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb98-6" title="6"><span class="co">##   sex      wt</span></a>
+<a class="sourceLine" id="cb98-7" title="7"><span class="co">##   &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb98-8" title="8"><span class="co">## 1 M        88</span></a>
+<a class="sourceLine" id="cb98-9" title="9"><span class="co">## 2 F        76</span></a>
+<a class="sourceLine" id="cb98-10" title="10"><span class="co">## 3 M        67</span></a>
+<a class="sourceLine" id="cb98-11" title="11"></a>
+<a class="sourceLine" id="cb98-12" title="12"><span class="co"># you can even mix numerical indexing (rows) with named indexing of columns</span></a>
+<a class="sourceLine" id="cb98-13" title="13">df[<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]  </a>
+<a class="sourceLine" id="cb98-14" title="14"><span class="co">## # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb98-15" title="15"><span class="co">##     age    wt</span></a>
+<a class="sourceLine" id="cb98-16" title="16"><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb98-17" title="17"><span class="co">## 1    25    56</span></a>
+<a class="sourceLine" id="cb98-18" title="18"><span class="co">## 2    22    74</span></a>
+<a class="sourceLine" id="cb98-19" title="19"><span class="co">## 3    28    71</span></a>
+<a class="sourceLine" id="cb98-20" title="20"><span class="co">## 4    24    60</span></a>
+<a class="sourceLine" id="cb98-21" title="21"><span class="co">## 5    23    52</span></a>
+<a class="sourceLine" id="cb98-22" title="22"><span class="co">## 6    20    72</span></a></code></pre></div>
 </div>
 <div id="double-bracket-and-indexing-of-data-frames" class="section level4">
 <h4><span class="header-section-number">4.3.4.4</span> Double bracket and <code>$</code> indexing of data frames</h4>
 <p>Whereas single bracket indexing of a data frame always returns a new data frame, double bracket indexing and indexing using the <code>$</code> operator, returns vectors.</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[[<span class="st">&quot;age&quot;</span>]]
-<span class="co">##  [1] 30 26 21 29 25 22 28 24 23 20</span>
-<span class="kw">typeof</span>(df[[<span class="st">&quot;age&quot;</span>]])
-<span class="co">## [1] &quot;double&quot;</span>
-
-df<span class="op">$</span>wt
-<span class="co">##  [1] 88 76 67 66 56 74 71 60 52 72</span>
-<span class="kw">typeof</span>(df<span class="op">$</span>wt)
-<span class="co">## [1] &quot;double&quot;</span></code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">df[[<span class="st">&quot;age&quot;</span>]]</a>
+<a class="sourceLine" id="cb99-2" title="2"><span class="co">##  [1] 30 26 21 29 25 22 28 24 23 20</span></a>
+<a class="sourceLine" id="cb99-3" title="3"><span class="kw">typeof</span>(df[[<span class="st">&quot;age&quot;</span>]])</a>
+<a class="sourceLine" id="cb99-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a>
+<a class="sourceLine" id="cb99-5" title="5"></a>
+<a class="sourceLine" id="cb99-6" title="6">df<span class="op">$</span>wt</a>
+<a class="sourceLine" id="cb99-7" title="7"><span class="co">##  [1] 88 76 67 66 56 74 71 60 52 72</span></a>
+<a class="sourceLine" id="cb99-8" title="8"><span class="kw">typeof</span>(df<span class="op">$</span>wt)</a>
+<a class="sourceLine" id="cb99-9" title="9"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="logical-indexing-of-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.5</span> Logical indexing of data frames</h3>
 <p>Logical indexing using boolean values works on data frames in much the same way it works on vectors. Typically, logical indexing of a data frame is used to filter the rows of a data frame.</p>
 <p>For example, to get all the subject in our example data frame who are older than 25 we could do:</p>
-<pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># </span><span class="al">NOTE</span><span class="co">: the comma after 25 is important to insure we&#39;re indexing rows!</span>
-df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>, ] 
-<span class="co">## # A tibble: 4 x 3</span>
-<span class="co">##     age sex      wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    30 M        88</span>
-<span class="co">## 2    26 F        76</span>
-<span class="co">## 3    29 F        66</span>
-<span class="co">## 4    28 M        71</span></code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"> <span class="co"># </span><span class="al">NOTE</span><span class="co">: the comma after 25 is important to insure we&#39;re indexing rows!</span></a>
+<a class="sourceLine" id="cb100-2" title="2">df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>, ] </a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="co">## # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb100-4" title="4"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb100-5" title="5"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb100-6" title="6"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb100-7" title="7"><span class="co">## 2    26 F        76</span></a>
+<a class="sourceLine" id="cb100-8" title="8"><span class="co">## 3    29 F        66</span></a>
+<a class="sourceLine" id="cb100-9" title="9"><span class="co">## 4    28 M        71</span></a></code></pre></div>
 <p>Similarly, to get all the individuals whose weight is between 60 and 70 kgs we could do:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[(df<span class="op">$</span>wt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>wt <span class="op">&lt;=</span><span class="st"> </span><span class="dv">70</span>),]
-<span class="co">## # A tibble: 3 x 3</span>
-<span class="co">##     age sex      wt</span>
-<span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span>
-<span class="co">## 1    21 M        67</span>
-<span class="co">## 2    29 F        66</span>
-<span class="co">## 3    24 F        60</span></code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">df[(df<span class="op">$</span>wt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>wt <span class="op">&lt;=</span><span class="st"> </span><span class="dv">70</span>),]</a>
+<a class="sourceLine" id="cb101-2" title="2"><span class="co">## # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb101-3" title="3"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb101-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb101-5" title="5"><span class="co">## 1    21 M        67</span></a>
+<a class="sourceLine" id="cb101-6" title="6"><span class="co">## 2    29 F        66</span></a>
+<a class="sourceLine" id="cb101-7" title="7"><span class="co">## 3    24 F        60</span></a></code></pre></div>
 </div>
 <div id="adding-columns-to-a-data-frame" class="section level3">
 <h3><span class="header-section-number">4.3.6</span> Adding columns to a data frame</h3>
 <p>Adding columns to a data frame is similar to adding items to a list. The easiest way to do so is using named indexing. For example, to add a new column to our data frame that gives the individuals ages in number of days, we could do:</p>
-<pre class="sourceCode r"><code class="sourceCode r">df[[<span class="st">&quot;age.in.days&quot;</span>]] &lt;-<span class="st"> </span>df<span class="op">$</span>age <span class="op">*</span><span class="st"> </span><span class="dv">365</span>
-<span class="kw">dim</span>(df)
-<span class="co">## [1] 10  4</span></code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">df[[<span class="st">&quot;age.in.days&quot;</span>]] &lt;-<span class="st"> </span>df<span class="op">$</span>age <span class="op">*</span><span class="st"> </span><span class="dv">365</span></a>
+<a class="sourceLine" id="cb102-2" title="2"><span class="kw">dim</span>(df)</a>
+<a class="sourceLine" id="cb102-3" title="3"><span class="co">## [1] 10  4</span></a></code></pre></div>
 
 </div>
 </div>
@@ -1178,16 +1110,18 @@ df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> 
         </div>
       </div>
 <a href="r-markdown-and-r-notebooks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="functions-and-control-flow-statements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1195,12 +1129,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1212,6 +1145,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1233,8 +1170,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

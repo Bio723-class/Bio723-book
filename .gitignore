@@ -5,3 +5,6 @@
 _bookdown_files/
 *.RData
 /_bookdown_files/bio723-book_cache/html/__packages
+_bookdown_files/bio723-book_cache/*
+_bookdown_files/bio723-book_cache/
+*.rdx

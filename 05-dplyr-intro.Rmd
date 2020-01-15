@@ -104,7 +104,9 @@ The `select` function subsets the columns (variables) of a data frame.  For exam
 
 
 ```{r}
-wks.weight <- select(births, weeks, weight)
+# note I'm prefixing select with the package name (dplyr)
+# to avoid name clashes with built-in select function
+wks.weight <- dplyr::select(births, weeks, weight)
 dim(wks.weight)  # dim should be 50 x 2
 head(wks.weight)
 ```

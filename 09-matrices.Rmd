@@ -52,7 +52,7 @@ Since all elements of an R matrix must be of the same type, when we passed the i
 
 ```{r, prompt=TRUE, collapse=TRUE, results='markup'}
 # This is probably more along the lines of what you want
-iris.mtx <- iris %>% select(-Species) %>% as.matrix
+iris.mtx <- iris %>% dplyr::select(-Species) %>% as.matrix
 head(iris.mtx)
 ```
 

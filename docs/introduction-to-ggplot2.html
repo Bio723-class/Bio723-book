@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists</title>
-  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 6 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,23 +16,23 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 6 Introduction to ggplot2 | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
 
-<meta name="author" content="Paul M. Magwene">
+<meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2019-04-17">
+<meta name="date" content="2020-01-15" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-structures.html">
-<link rel="next" href="introduction-to-dplyr.html">
+<link rel="prev" href="functions-and-control-flow-statements.html"/>
+<link rel="next" href="introduction-to-dplyr.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,11 +48,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
 <script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
 <script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
-<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
@@ -63,7 +65,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -206,126 +207,126 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a><ul>
+<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>5.1.1</b> Function arguments</a></li>
+<li class="chapter" data-level="5.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>5.1.2</b> Writing functions with optional arguments</a></li>
+<li class="chapter" data-level="5.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>5.1.3</b> Putting R functions in Scripts</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>5.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
+<li class="chapter" data-level="5.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>5.2.2</b> for loops</a></li>
+<li class="chapter" data-level="5.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>5.2.3</b> <code>break</code> statement</a></li>
+<li class="chapter" data-level="5.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>5.2.4</b> <code>repeat</code> loops</a></li>
+<li class="chapter" data-level="5.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>5.2.5</b> <code>next</code> statement</a></li>
+<li class="chapter" data-level="5.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>5.2.6</b> while statements</a></li>
+<li class="chapter" data-level="5.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>5.2.7</b> <code>ifelse</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-<li class="chapter" data-level="5.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>5.17.2</b> Adding a trend line to a scatter plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>6</b> Introduction to <code>dplyr</code></a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.1</b> Reading Excel files</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.2</b> Example data: NC Births</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>5.3.1</b> basic <code>map</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>5.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>5.3.3</b> mapping in parallel using <code>map2</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>5.3.4</b> <code>map</code> variants that return vectors</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>6.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>6.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>6.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>6.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>6.5.3</b> Rotating plot coordinates</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>7.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.6</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="7.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>6.6</b> Histograms</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>6.6.1</b> Variations on histograms when considering categorical data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="6.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>6.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="6.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>6.8</b> Density plots</a></li>
+<li class="chapter" data-level="6.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>6.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="6.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>6.10</b> Boxplots</a></li>
+<li class="chapter" data-level="6.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>6.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="6.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>6.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="6.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>6.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="6.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>6.12.2</b> Setting shared aesthetics</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="7.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.9</b> Exploring bivariate relationships using “wide” data</a><ul>
-<li class="chapter" data-level="7.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>7.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="7.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="7.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>7.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="7.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="6.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.13</b> ggplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>6.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>6.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="6.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>6.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="6.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>6.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="6.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>6.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="6.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.17.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="6.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>6.17.2</b> Adding a trend line to a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>6.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="6.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>6.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="6.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>6.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="6.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>6.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="6.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>6.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>7</b> Introduction to <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>7.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>7.2.1</b> Reading Excel files</a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>7.2.2</b> Example data: NC Births</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>7.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>7.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>7.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>7.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>7.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="7.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>7.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="7.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>7.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="7.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>7.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>7.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>7.6</b> Pipes</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>7.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>7.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>7.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>7.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="7.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>7.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="7.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>7.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="7.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="7.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.6.8</b> The exposition pipe operator</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>8</b> Functions and control flow statements</a><ul>
-<li class="chapter" data-level="8.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>8.1.1</b> Function arguments</a></li>
-<li class="chapter" data-level="8.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.1.2</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.1.3</b> Putting R functions in Scripts</a></li>
+<li class="chapter" data-level="8" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>8</b> Data wrangling</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>8.2</b> Control flow statements</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>8.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
-<li class="chapter" data-level="8.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>8.2.2</b> for loops</a></li>
-<li class="chapter" data-level="8.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>8.2.3</b> <code>break</code> statement</a></li>
-<li class="chapter" data-level="8.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>8.2.4</b> <code>repeat</code> loops</a></li>
-<li class="chapter" data-level="8.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>8.2.5</b> <code>next</code> statement</a></li>
-<li class="chapter" data-level="8.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>8.2.6</b> while statements</a></li>
-<li class="chapter" data-level="8.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>8.2.7</b> <code>ifelse</code></a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>8.3</b> <code>map</code> and related tools</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>8.3.1</b> basic <code>map</code></a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>8.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
-<li class="chapter" data-level="8.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>8.3.3</b> mapping in parallel using <code>map2</code></a></li>
-<li class="chapter" data-level="8.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>8.3.4</b> <code>map</code> variants that return vectors</a></li>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a><ul>
@@ -447,75 +448,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>16.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>17</b> Clustering in R</a><ul>
-<li class="chapter" data-level="17.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-8"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>17.2</b> Data set</a></li>
-<li class="chapter" data-level="17.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>17.3</b> Hierarchical Clustering in R</a></li>
-<li class="chapter" data-level="17.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>17.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
-<li class="chapter" data-level="17.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>17.5</b> Plotting dendrograms in dendextend</a></li>
-<li class="chapter" data-level="17.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>17.6</b> Cutting dendrograms</a></li>
-<li class="chapter" data-level="17.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>17.7</b> Looking at clusters</a></li>
-<li class="chapter" data-level="17.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>17.8</b> Generating a heat map from a cluster</a></li>
-<li class="chapter" data-level="17.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>17.9</b> Working with sub-trees</a></li>
-<li class="chapter" data-level="17.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>17.10</b> Setting dendrogram parameters in dendextend</a></li>
-<li class="chapter" data-level="17.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>17.11</b> Combining heatmaps and dendrograms</a></li>
-<li class="chapter" data-level="17.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>17.12</b> K-means/K-medoids Clustering in R</a><ul>
-<li class="chapter" data-level="17.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>17.12.1</b> Heat map from k-medoids cluster</a></li>
-</ul></li>
-<li class="chapter" data-level="17.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>17.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
-<li class="chapter" data-level="17.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>17.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
-<li class="chapter" data-level="17.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>17.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="17.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>17.14</b> Depicting the data within clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html"><i class="fa fa-check"></i><b>18</b> Simulation I: Sampling distributions</a><ul>
-<li class="chapter" data-level="18.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distrubtions"><i class="fa fa-check"></i><b>18.1</b> Sampling distrubtions</a></li>
-<li class="chapter" data-level="18.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-sampling-from-an-underlying-population"><i class="fa fa-check"></i><b>18.2</b> Simulating sampling from an underlying population</a></li>
-<li class="chapter" data-level="18.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>18.3</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="18.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#libraries-9"><i class="fa fa-check"></i><b>18.4</b> Libraries</a><ul>
-<li class="chapter" data-level="18.4.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#properties-of-the-underlying-population"><i class="fa fa-check"></i><b>18.4.1</b> Properties of the underlying population</a></li>
-<li class="chapter" data-level="18.4.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#other-r-functions-related-to-the-normal-distribution"><i class="fa fa-check"></i><b>18.4.2</b> Other R functions related to the normal distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="18.5" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>18.5</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="18.5.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>18.5.1</b> Another random sample</a></li>
-<li class="chapter" data-level="18.5.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>18.5.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="18.5.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>18.5.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="18.5.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>18.5.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="18.6" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>18.6</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="18.6.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#differences-between-sampling-distributions-and-samplepopulation-distributions"><i class="fa fa-check"></i><b>18.6.1</b> Differences between sampling distributions and sample/population distributions</a></li>
-<li class="chapter" data-level="18.6.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest"><i class="fa fa-check"></i><b>18.6.2</b> Using sampling distributions to understand the behavior of statistics of interest</a></li>
-<li class="chapter" data-level="18.6.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.3</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="18.6.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.4</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="18.7" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>18.7</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="18.8" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>18.8</b> Sampling Distribution of the Standard Deviation</a><ul>
-<li class="chapter" data-level="18.8.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-standard-deviations"><i class="fa fa-check"></i><b>18.8.1</b> Standard error of standard deviations</a></li>
-</ul></li>
-<li class="chapter" data-level="18.9" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>18.9</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="18.9.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>18.9.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="18.9.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>18.9.2</b> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-<li class="chapter" data-level="18.9.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>18.9.3</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>19</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="19.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>19.1</b> Confidence intervals</a></li>
-<li class="chapter" data-level="19.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>19.2</b> Generic formulation for confidence intervals</a></li>
-<li class="chapter" data-level="19.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>19.3</b> Example: Confidence intervals for the mean</a><ul>
-<li class="chapter" data-level="19.3.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulation-of-means"><i class="fa fa-check"></i><b>19.3.1</b> Simulation of means</a></li>
-<li class="chapter" data-level="19.3.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means"><i class="fa fa-check"></i><b>19.3.2</b> Distance between sample means and true means</a></li>
-<li class="chapter" data-level="19.3.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calculating-a-ci"><i class="fa fa-check"></i><b>19.3.3</b> Calculating a CI</a></li>
-</ul></li>
-<li class="chapter" data-level="19.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#a-problem-arises"><i class="fa fa-check"></i><b>19.4</b> A problem arises!</a></li>
-<li class="chapter" data-level="19.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors"><i class="fa fa-check"></i><b>19.5</b> Confidence intervals under sample estimates of standard errors</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses"><i class="fa fa-check"></i><b>19.5.1</b> The spread of sample estimates of the mean in units of true and estimates SEs</a></li>
-<li class="chapter" data-level="19.5.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean"><i class="fa fa-check"></i><b>19.5.2</b> Quantifying deviations of sample estimates of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="19.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean"><i class="fa fa-check"></i><b>19.6</b> t-distribution for confidence intervals of the mean</a><ul>
-<li class="chapter" data-level="19.6.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution"><i class="fa fa-check"></i><b>19.6.1</b> t-distribution vs standard normal distribution</a></li>
-<li class="chapter" data-level="19.6.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution"><i class="fa fa-check"></i><b>19.6.2</b> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</a></li>
-</ul></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -534,49 +466,49 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="introduction-to-ggplot2" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Introduction to ggplot2</h1>
+<h1><span class="header-section-number">Chapter 6</span> Introduction to ggplot2</h1>
 <p>Pretty much any statistical plot can be thought of as a <strong>mapping</strong> between data and one or more visual representations. For example, in a scatter plot we map two ordered sets of numbers (the variables of interest) to points in the Cartesian plane (x,y-coordinates). The representation of data as points in a plane can be thought of as a type of <strong>geometric mapping</strong>. In a histogram, we divide the range of a variable of interest into bins, count the number of observations in each bin, and represent those counts as bars. The process of counting the data in bins is a type of <strong>statistical transformation</strong> (summing in this case), while the representation of the counts as bars is another example of a geometric mapping. Both types of plots can be further embellished with additional information, such as coloring the points or bars based on a categorical variable of interest, changing the shape of points, etc. These are examples of <strong>aesthetic mappings</strong>. An additional operation that is frequently useful is <strong>faceting</strong> (also called conditioning), in which a series of subplots are created to show particular subsets of the data.</p>
 <p>The package <code>ggplot2</code> is based on a formalized approach for building statistical graphics as a combination of geometric mappings, aesthetic mappings, statistical transformations, and faceting (conditioning). In ggplot2, complex figures are built up by combining layers – where each layer includes a geometric mapping, an aesthetic mapping, and a statistical transformation – along with any desired faceting information.</p>
 <p>Many of the key ideas behind ggplot2 (and its predecessor,“ggplot”) are based on a book called “The Grammar of Graphics” (Leland Wilkinson, 1985). The “grammar of graphics” is the “gg” in the ggplot2 name.</p>
 <div id="loading-ggplot2" class="section level2">
-<h2><span class="header-section-number">5.1</span> Loading ggplot2</h2>
+<h2><span class="header-section-number">6.1</span> Loading ggplot2</h2>
 <p><code>ggplot2</code> is one of the packages included in the <code>tidyverse</code> meta-package we installed during the previous class session (see the previous lecture notes for instruction if you have not installed <code>tidyverse</code>). If we load the tidyverse package, ggplot2 is automatically loaded as well.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <p>However if we wanted to we could load only ggplot2 as follows:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)  <span class="co"># not necessary if we already loaded tidyverse</span></code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">library</span>(ggplot2)  <span class="co"># not necessary if we already loaded tidyverse</span></a></code></pre></div>
 </div>
 <div id="example-data-set-andersons-iris-data" class="section level2">
-<h2><span class="header-section-number">5.2</span> Example data set: Anderson’s Iris Data</h2>
+<h2><span class="header-section-number">6.2</span> Example data set: Anderson’s Iris Data</h2>
 <p>To illustrate ggplot2 we’ll use a dataset called <code>iris</code>. This data set was made famous by the statistician and geneticist R. A. Fisher who used it to illustrate many of the fundamental statistical methods he developed (Recall that Fisher was one of the key contributors to the modern synthesis in biology, reconciling evolution and genetics in the early 20th century). The data set consists of four morphometric measurements for specimens from three different iris species (<em>Iris setosa</em>, <em>I. versicolor</em>, and <em>I. virginica</em>). Use the R help to read about the iris data set (<code>?iris</code>). We’ll be using this data set repeatedly in future weeks so familiarize yourself with it.</p>
 <p>The iris data is included in a standard R package (<code>datasets</code>) that is made available automatically when you start up R. As a consequence we don’t need to explicitly load the iris data from a file. Let’s take a few minutes to explore this iris data set before we start generating plots:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(iris) <span class="co"># get the variable names in the dataset</span>
-<span class="co">## [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot; </span>
-<span class="co">## [5] &quot;Species&quot;</span>
-<span class="kw">dim</span>(iris)   <span class="co"># dimensions given as rows, columns</span>
-<span class="co">## [1] 150   5</span>
-<span class="kw">head</span>(iris)  <span class="co"># can you figure out what the head function does?</span>
-<span class="co">## # A tibble: 6 x 5</span>
-<span class="co">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
-<span class="co">##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  </span>
-<span class="co">## 1        5.100         3.5          1.4         0.2 setosa </span>
-<span class="co">## 2        4.9           3            1.4         0.2 setosa </span>
-<span class="co">## 3        4.7           3.2          1.3         0.2 setosa </span>
-<span class="co">## 4        4.600         3.1          1.5         0.2 setosa </span>
-<span class="co">## 5        5             3.6          1.4         0.2 setosa </span>
-<span class="co">## 6        5.4           3.9          1.7         0.4 setosa</span>
-<span class="kw">tail</span>(iris)  <span class="co"># what about the tail function?</span>
-<span class="co">## # A tibble: 6 x 5</span>
-<span class="co">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species  </span>
-<span class="co">##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;    </span>
-<span class="co">## 1          6.7         3.3        5.7         2.5   virginica</span>
-<span class="co">## 2          6.7         3          5.2         2.300 virginica</span>
-<span class="co">## 3          6.3         2.5        5           1.9   virginica</span>
-<span class="co">## 4          6.5         3          5.2         2     virginica</span>
-<span class="co">## 5          6.2         3.4        5.4         2.300 virginica</span>
-<span class="co">## 6          5.9         3          5.100       1.8   virginica</span></code></pre>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">names</span>(iris) <span class="co"># get the variable names in the dataset</span></a>
+<a class="sourceLine" id="cb145-2" title="2"><span class="co">## [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot; </span></a>
+<a class="sourceLine" id="cb145-3" title="3"><span class="co">## [5] &quot;Species&quot;</span></a>
+<a class="sourceLine" id="cb145-4" title="4"><span class="kw">dim</span>(iris)   <span class="co"># dimensions given as rows, columns</span></a>
+<a class="sourceLine" id="cb145-5" title="5"><span class="co">## [1] 150   5</span></a>
+<a class="sourceLine" id="cb145-6" title="6"><span class="kw">head</span>(iris)  <span class="co"># can you figure out what the head function does?</span></a>
+<a class="sourceLine" id="cb145-7" title="7"><span class="co">## # A tibble: 6 x 5</span></a>
+<a class="sourceLine" id="cb145-8" title="8"><span class="co">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span></a>
+<a class="sourceLine" id="cb145-9" title="9"><span class="co">##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  </span></a>
+<a class="sourceLine" id="cb145-10" title="10"><span class="co">## 1          5.1         3.5          1.4         0.2 setosa </span></a>
+<a class="sourceLine" id="cb145-11" title="11"><span class="co">## 2          4.9         3            1.4         0.2 setosa </span></a>
+<a class="sourceLine" id="cb145-12" title="12"><span class="co">## 3          4.7         3.2          1.3         0.2 setosa </span></a>
+<a class="sourceLine" id="cb145-13" title="13"><span class="co">## 4          4.6         3.1          1.5         0.2 setosa </span></a>
+<a class="sourceLine" id="cb145-14" title="14"><span class="co">## 5          5           3.6          1.4         0.2 setosa </span></a>
+<a class="sourceLine" id="cb145-15" title="15"><span class="co">## 6          5.4         3.9          1.7         0.4 setosa</span></a>
+<a class="sourceLine" id="cb145-16" title="16"><span class="kw">tail</span>(iris)  <span class="co"># what about the tail function?</span></a>
+<a class="sourceLine" id="cb145-17" title="17"><span class="co">## # A tibble: 6 x 5</span></a>
+<a class="sourceLine" id="cb145-18" title="18"><span class="co">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species  </span></a>
+<a class="sourceLine" id="cb145-19" title="19"><span class="co">##          &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;    </span></a>
+<a class="sourceLine" id="cb145-20" title="20"><span class="co">## 1          6.7         3.3          5.7         2.5 virginica</span></a>
+<a class="sourceLine" id="cb145-21" title="21"><span class="co">## 2          6.7         3            5.2         2.3 virginica</span></a>
+<a class="sourceLine" id="cb145-22" title="22"><span class="co">## 3          6.3         2.5          5           1.9 virginica</span></a>
+<a class="sourceLine" id="cb145-23" title="23"><span class="co">## 4          6.5         3            5.2         2   virginica</span></a>
+<a class="sourceLine" id="cb145-24" title="24"><span class="co">## 5          6.2         3.4          5.4         2.3 virginica</span></a>
+<a class="sourceLine" id="cb145-25" title="25"><span class="co">## 6          5.9         3            5.1         1.8 virginica</span></a></code></pre></div>
 </div>
 <div id="template-for-single-layer-plots-in-ggplot2" class="section level2">
-<h2><span class="header-section-number">5.3</span> Template for single layer plots in ggplot2</h2>
+<h2><span class="header-section-number">6.3</span> Template for single layer plots in ggplot2</h2>
 <p>A basic template for building a single layer plot using <code>ggplot2</code> is shown below. When creating a plot, you need to replace the text in brackets (e.g. <code>&lt;DATA&gt;</code>) with appropriate objects, functions, or arguments:</p>
 <pre><code># NOTE: this is pseudo-code. It will not run!
 
@@ -584,142 +516,142 @@ ggplot(data = &lt;DATA&gt;) +
   &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))</code></pre>
 <p>The base function <code>ggplot()</code> is responsible for creating the coordinate system in which the plot will be display. To this coordinate system we add a geometric mapping (called a “geom” for short) that specifies how data gets mapped into the coordinate system (e.g. points, bars, etc). Included as an input to the geom function is the aesthetic mapping function that specifies which variables to use in the geometric mapping (e.g. which variables to treat as the x- and y-coordinates), colors, etc.</p>
 <p>For example, using this template we can create a scatter plot that show the relationship between the variables <code>Sepal.Width</code> and <code>Petal.Width</code>. To do so we subsitute <code>iris</code> for <code>&lt;DATA&gt;</code>, <code>geom_point</code> for <code>&lt;GEOM_FUNCTION&gt;</code>, and <code>x = Sepal.Width</code> and <code>y = Petal.Width</code> for <code>&lt;MAPPINGS&gt;</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width,  <span class="dt">y =</span> Petal.Width))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-109-1.png" width="576" /></p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span></a>
+<a class="sourceLine" id="cb147-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width,  <span class="dt">y =</span> Petal.Width))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-146-1.png" width="576" /></p>
 <p>If we were to translate this code block to English, we might write it as “Using the iris data frame as the source of data, create a point plot using each observeration’s Sepal.Width variable for the x-coordinate and the Petal.Width variable for the y-coordinate.”</p>
 </div>
 <div id="an-aside-about-function-arguments" class="section level2">
-<h2><span class="header-section-number">5.4</span> An aside about function arguments</h2>
+<h2><span class="header-section-number">6.4</span> An aside about function arguments</h2>
 <p>The inputs to a function are also known as “arguments”. In R, when you call a function you can specify the arguments by keyword (i.e. using names specified in the function definition) or by position (i.e. the order of the inputs).</p>
 <p>In our bar plot above, we’re using using keyword arguments. For example, in the line <code>ggplot(data = iris)</code>, iris is treated as the “data” argument. Similarly, in the second line, <code>aes(x = Sepal.Width, y = Petal.Width)</code> is the “mapping” argument to <code>geom_bar</code>. Note that <code>aes</code> is itself a function (see <code>?aes</code>) that takes arguments that can be specified positionally or with keywords.</p>
 <p>If we wanted to, we could instead use position arguments when calling a function, by passing inputs to the function corresponding to the order they are specified in the function definition. For example, take a minute to read the documentation for the <code>ggplot</code> function (<code>?ggplot</code>). Near the top of the help page you’ll see a description of how the function is called under “Usage”. Reading the Usage section you’ll see that the the “data” argument is the first positional argument to <code>ggplot</code>. Similarly, if you read the docs for the <code>geom_point</code> function you’ll see that mapping is the first positional argument for that function.</p>
 <p>The equivalent of our previous example, but now using positional arguments is:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st">   </span><span class="co"># note we dropped the &quot;data = &quot; part</span>
-<span class="st">  </span><span class="co"># note we dropped the &quot;mapping = &quot; part from the geom_point call</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width,  <span class="dt">y =</span> Petal.Width))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-110-1.png" width="576" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st">   </span><span class="co"># note we dropped the &quot;data = &quot; part</span></a>
+<a class="sourceLine" id="cb148-2" title="2"><span class="st">  </span><span class="co"># note we dropped the &quot;mapping = &quot; part from the geom_point call</span></a>
+<a class="sourceLine" id="cb148-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width,  <span class="dt">y =</span> Petal.Width))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-147-1.png" width="576" /></p>
 <p>The upside of using positional arguments is that it means less typing, which is useful when working interactively at the console (or in an R Notebok). The downside to using positional arguments is you need to remember or lookup the order of the arguments. Using positional arguments can also make your code less “self documenting” in the sense that it is less explicit about how the inputs are being treated. While the argument “x” is the first argument to the <code>aes</code> function, I chose to explicitly include the argument name to make it clear what variable I’m plotting on the x-axis.</p>
 <p>We will cover function arguments in greater detail a class session or two from now, when we learn how to write our own functions.</p>
 </div>
 <div id="strip-plots" class="section level2">
-<h2><span class="header-section-number">5.5</span> Strip plots</h2>
+<h2><span class="header-section-number">6.5</span> Strip plots</h2>
 <p>One of the simplest visualizations of a continuous variable is to draw points along a number line, where each point represent the value of one of the observations. This is sometimes called a “strip plot”.</p>
 <p>First, we’ll use the <code>geom_point</code> function as shown below to generate a strip plot for the <code>Sepal.Width</code> variable in the iris data set.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> <span class="dv">0</span>))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-111-1.png" width="576" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb149-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> <span class="dv">0</span>))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-148-1.png" width="576" /></p>
 <div id="jittering-data" class="section level3">
-<h3><span class="header-section-number">5.5.1</span> Jittering data</h3>
+<h3><span class="header-section-number">6.5.1</span> Jittering data</h3>
 <p>There should have been 150 points plotted in the figure above (one for each of the iris plants in the data set), but visually it looks like only about 25 or 30 points are shown. What’s going on? If you examine the iris data, you’ll see that the all the measures are rounded to the nearest tenth of a centimer, so that there are a large number of observations with identical values of <code>Sepal.Width</code>. This is a limitation of the precision of measurements that was used when generating the data set.</p>
 <p>To provide a visual clue that there are multiple observations that share the same value, we can slightly “jitter” the values (randomly move points a small amount in either in the vertical or horizontal direction). Jittering is used solely to enhance visualization, and any statistical analyses you carry out would be based on the original data. When presenting your data to someone else, should note when you’ve used jittering so as not to misconvey the actual data.</p>
 <p>Jittering can be accomplished using <code>geom_jitter</code>, which is derived from <code>geom_point</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> <span class="dv">0</span>), 
-              <span class="dt">width =</span> <span class="fl">0.05</span>, <span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.25</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-112-1.png" width="576" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb150-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> <span class="dv">0</span>), </a>
+<a class="sourceLine" id="cb150-3" title="3">              <span class="dt">width =</span> <span class="fl">0.05</span>, <span class="dt">height =</span> <span class="dv">0</span>, <span class="dt">alpha =</span> <span class="fl">0.25</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-149-1.png" width="576" /></p>
 <p>The <code>width</code> and <code>height</code> arguments specify the maximum amount (as fractions of the data) to jitter the observed data points in the horizontal (width) and vertical (height) directions. Here we only jitter the data in the horizontal direction. The <code>alpha</code> argument controls the transparency of the points – the valid range of alpha values is 0 to 1, where 0 means completely transparent and 1 is completely opaque.</p>
 <p>Within a geom, arguments outside of the <code>aes</code> mapping apply uniformly across the visualization (i.e. they are fixed values). For example, setting `alpha = 0.25’ made all the points transparent.</p>
 </div>
 <div id="adding-categorical-information" class="section level3">
-<h3><span class="header-section-number">5.5.2</span> Adding categorical information</h3>
+<h3><span class="header-section-number">6.5.2</span> Adding categorical information</h3>
 <p>Recall that are three different species represented in the data: Iris setosa, I. versicolor, and I. virginica. Let’s see how to generate a strip plot that also includes a breakdown by species.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species),
-              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-113-1.png" width="576" /></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb151-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species),</a>
+<a class="sourceLine" id="cb151-3" title="3">              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-150-1.png" width="576" /></p>
 <p>That was easy! All we had to do was change the aesthetic mapping in <code>geom_jitter</code>, specifying “Species” as the y variable. I also added a little vertical jitter as well to better separate the points.</p>
 <p>Now we have a much better sense of the data. In particular it’s clear that the <em>I. setosa</em> specimens generally have wider sepals than samples from the other two species.</p>
 <p>Let’s tweak this a little by also adding color information, to further emphasize the distinct groupings. We can do this by adding another argument to the aesthetic mapping in <code>geom_jitter</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species, <span class="dt">color=</span>Species),
-              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-114-1.png" width="576" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb152-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species, <span class="dt">color=</span>Species),</a>
+<a class="sourceLine" id="cb152-3" title="3">              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-151-1.png" width="576" /></p>
 </div>
 <div id="rotating-plot-coordinates" class="section level3">
-<h3><span class="header-section-number">5.5.3</span> Rotating plot coordinates</h3>
+<h3><span class="header-section-number">6.5.3</span> Rotating plot coordinates</h3>
 <p>What if we wanted to rotate this plot 90 degrees, depicting species on the x-axis and sepal width on the y-axis. For this example, it would be easy to do this by simpling swapping the variables in the <code>aes</code> mapping argument. However an alternate way to do this is with a coordinate transformation function. Here we use <code>coord_flip</code> to flip the x- and y-axes:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species, <span class="dt">color=</span>Species),
-              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_flip</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-115-1.png" width="576" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb153-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">y =</span> Species, <span class="dt">color=</span>Species),</a>
+<a class="sourceLine" id="cb153-3" title="3">              <span class="dt">width=</span><span class="fl">0.05</span>, <span class="dt">height=</span><span class="fl">0.1</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb153-4" title="4"><span class="st">  </span><span class="kw">coord_flip</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-152-1.png" width="576" /></p>
 <p>We’ll see other uses of coordinate transformations in later lectures.</p>
 </div>
 </div>
 <div id="histograms" class="section level2">
-<h2><span class="header-section-number">5.6</span> Histograms</h2>
+<h2><span class="header-section-number">6.6</span> Histograms</h2>
 <p>Histograms are probably the most common way to depict univariate data. In a histogram rather than showing individual observations, we divide the range of the data into a set of bins, and use vertical bars to depict the number (frequency) of observations that fall into each bin. This gives a good sense of the intervals in which most of the observations are found.</p>
 <p>The geom, <code>geom_histogram</code>, takes care of both the geometric representation and the statistical transformations of the data necessary to calculate the counts in each binn.</p>
 <p>Here’s the simplest way to use <code>geom_histogram</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width))
-<span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-116-1.png" width="576" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb154-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width))</a>
+<a class="sourceLine" id="cb154-3" title="3"><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-153-1.png" width="576" /></p>
 <p>The default number of bins that <code>geom_histogram</code> uses is 30. For modest size data sets this is often too many bins, so it’s worth exploring how the histogram changes with different bin numbers:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">bins =</span> <span class="dv">10</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-117-1.png" width="576" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">bins =</span> <span class="dv">12</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-118-1.png" width="576" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb155-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">bins =</span> <span class="dv">10</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-154-1.png" width="576" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb156-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">bins =</span> <span class="dv">12</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-155-1.png" width="576" /></p>
 <p>One important thing to note when looking at these histograms with different numbers of bins is that the number of bins used can change your perception of the data. For example, the number of peaks (modes) in the data can be very sensitive to the bin number as can the perception of gaps.</p>
 <div id="variations-on-histograms-when-considering-categorical-data" class="section level3">
-<h3><span class="header-section-number">5.6.1</span> Variations on histograms when considering categorical data</h3>
+<h3><span class="header-section-number">6.6.1</span> Variations on histograms when considering categorical data</h3>
 <p>As before, we probably want to break the data down by species. Here we’re faced with some choices about how we depict that data. Do we generate a “stacked histogram” to where the colors indicate the number of observations in each bin that belong to each species? Do we generate side-by-side bars for each species? Or Do we generate separate histograms for each species, and show them overlapping?</p>
 <p>Stacked histograms are the default if we associate a categorical variable with the bar fill color:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), 
-                 <span class="dt">bins =</span> <span class="dv">12</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-119-1.png" width="576" /></p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), </a>
+<a class="sourceLine" id="cb157-3" title="3">                 <span class="dt">bins =</span> <span class="dv">12</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-156-1.png" width="576" /></p>
 <p>To get side-by-side bars, specify “dodge” as the <code>position</code> argument to <code>geom_histogram</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species),
-                 <span class="dt">bins =</span> <span class="dv">12</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-120-1.png" width="576" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb158-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species),</a>
+<a class="sourceLine" id="cb158-3" title="3">                 <span class="dt">bins =</span> <span class="dv">12</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-157-1.png" width="576" /></p>
 <p>If you want overlapping histograms, use <code>position = "identity"</code> instead. When generating overlapping histograms like this, you probably want to make the bars semi-transparent so you can can distinguish the overlapping data.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), 
-                 <span class="dt">bins =</span> <span class="dv">12</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-121-1.png" width="576" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb159-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), </a>
+<a class="sourceLine" id="cb159-3" title="3">                 <span class="dt">bins =</span> <span class="dv">12</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-158-1.png" width="576" /></p>
 </div>
 </div>
 <div id="faceting-to-depict-categorical-information" class="section level2">
-<h2><span class="header-section-number">5.7</span> Faceting to depict categorical information</h2>
+<h2><span class="header-section-number">6.7</span> Faceting to depict categorical information</h2>
 <p>Yet another way to represent the histograms for the three species is to using faceting, the create subplots for each species. Faceting is the operation of subsetting the data with respect to a discrete or categorical variable of interest, and generating the same plot type for each subset. Here we use the “ncol” argument to the <code>facet_wrap</code> function to specify that the subplots should be drawn in a single vertical column to facilitate comparison of the distributions.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), <span class="dt">bins =</span> <span class="dv">12</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">ncol =</span> <span class="dv">1</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-122-1.png" width="576" /></p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb160-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), <span class="dt">bins =</span> <span class="dv">12</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb160-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Species, <span class="dt">ncol =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-159-1.png" width="576" /></p>
 </div>
 <div id="density-plots" class="section level2">
-<h2><span class="header-section-number">5.8</span> Density plots</h2>
+<h2><span class="header-section-number">6.8</span> Density plots</h2>
 <p>One shortcoming of histograms is that they are sensitive to the choice of bin margins and the number of bins. An alternative is a “density plot”, which you can think of as a smoothed version of a histogram.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), <span class="dt">alpha=</span><span class="fl">0.25</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-123-1.png" width="576" /></p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb161-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width, <span class="dt">fill =</span> Species), <span class="dt">alpha=</span><span class="fl">0.25</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-160-1.png" width="576" /></p>
 <p>Density plots still make some assumptions that affect the visualization, in particular a “smoothing bandwidth” (specified by the argument <code>bw</code>) which determines how course or granular the density estimation is.</p>
 <p>Note that the vertical scale on a density plot is no longer counts (frequency) but probability density. In a density plot, the total area under the plot adds up to one. Intervals in a density plot therefore have a probabilistic intepretation.</p>
 </div>
 <div id="violin-or-beanplot" class="section level2">
-<h2><span class="header-section-number">5.9</span> Violin or Beanplot</h2>
+<h2><span class="header-section-number">6.9</span> Violin or Beanplot</h2>
 <p>A violin plot (sometimes called a bean plot) is closely related to a density plot. In fact you can think of a violin plot as a density plot rotated 90 degress and mirrored left/right.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_violin</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species, <span class="dt">fill=</span>Species), 
-              <span class="dt">alpha =</span> <span class="fl">0.25</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-124-1.png" width="576" /></p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb162-2" title="2"><span class="st">  </span><span class="kw">geom_violin</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species, <span class="dt">fill=</span>Species), </a>
+<a class="sourceLine" id="cb162-3" title="3">              <span class="dt">alpha =</span> <span class="fl">0.25</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-161-1.png" width="576" /></p>
 </div>
 <div id="boxplots" class="section level2">
-<h2><span class="header-section-number">5.10</span> Boxplots</h2>
+<h2><span class="header-section-number">6.10</span> Boxplots</h2>
 <p>Boxplots are another frequently used univariate visualization. Boxplots provide a compact summary of single variables, and are most often used for comparing distributions between groups.</p>
 <p>A standard box plot depicts five useful features of a set of observations: 1) the median (center most line); 2 and 3) the first and third quartiles (top and bottom of the box); 4) the whiskers of a boxplot extend from the first/third quartile to the highest value that is within 1.5 * IQR, where IQR is the inter-quartile range (distance between the first and third quartiles); 5) points outside of the whiskers are usually consider extremal points or outliers. There are many variants on box plots, particularly with respect to the “whiskers”. It’s always a good idea to be explicit about what a box plot you’ve created shows.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-125-1.png" width="576" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-162-1.png" width="576" /></p>
 <p>Boxplots are most commonly drawn with the cateogorical variable on the x-axis.</p>
 </div>
 <div id="building-complex-visualizations-with-layers" class="section level2">
-<h2><span class="header-section-number">5.11</span> Building complex visualizations with layers</h2>
+<h2><span class="header-section-number">6.11</span> Building complex visualizations with layers</h2>
 <p>All of our ggplot2 examples up to now have involved a single geom. We can think of geoms as “layers” of information in a plot. One of the powerful features of plotting useing ggplot2 is that it is trivial to combine layers to make more complex plots.</p>
 <p>The template for multi-layered plots is a simple extension of the single layer:</p>
 <pre><code>ggplot(data = &lt;DATA&gt;) + 
@@ -727,272 +659,272 @@ ggplot(data = &lt;DATA&gt;) +
   &lt;GEOM_FUNCTION2&gt;(mapping = aes(&lt;MAPPINGS&gt;)) </code></pre>
 </div>
 <div id="useful-combination-plots" class="section level2">
-<h2><span class="header-section-number">5.12</span> Useful combination plots</h2>
+<h2><span class="header-section-number">6.12</span> Useful combination plots</h2>
 <p>Boxplot or violin plots represent visual summaries/simplifications of the underlying data. This is useful but sometimes key information is lost in the process of summarizing. Combining these plots with a strip plot give you both the “birds eye view” as well as granular information.</p>
 <div id="boxplot-plus-strip-plot" class="section level3">
-<h3><span class="header-section-number">5.12.1</span> Boxplot plus strip plot</h3>
+<h3><span class="header-section-number">6.12.1</span> Boxplot plus strip plot</h3>
 <p>Here’s an example of combining box plots and strip plots:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris) <span class="op">+</span>
-<span class="st">  </span><span class="co"># outlier.shape = NA suppresses the depiction of outlier points in the boxplot</span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width), <span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># size sets the point size for the jitter plot</span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width), <span class="dt">width=</span><span class="fl">0.2</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.35</span>, <span class="dt">size=</span><span class="fl">0.75</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-126-1.png" width="576" />
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="kw">ggplot</span>(iris) <span class="op">+</span></a>
+<a class="sourceLine" id="cb165-2" title="2"><span class="st">  </span><span class="co"># outlier.shape = NA suppresses the depiction of outlier points in the boxplot</span></a>
+<a class="sourceLine" id="cb165-3" title="3"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width), <span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb165-4" title="4"><span class="st">  </span><span class="co"># size sets the point size for the jitter plot</span></a>
+<a class="sourceLine" id="cb165-5" title="5"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width), <span class="dt">width=</span><span class="fl">0.2</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.35</span>, <span class="dt">size=</span><span class="fl">0.75</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-163-1.png" width="576" />
 Note that I suppressed the plotting of outliers in <code>geom_boxplot</code> so as not to draw the same points twice (the individual data are drawn by <code>geom_jitter</code>).</p>
 </div>
 <div id="setting-shared-aesthetics" class="section level3">
-<h3><span class="header-section-number">5.12.2</span> Setting shared aesthetics</h3>
+<h3><span class="header-section-number">6.12.2</span> Setting shared aesthetics</h3>
 <p>The example above works well, but you might have noticed that there’s some repetition of code. In particular, we set the same aesthetic mapping in both <code>geom_boxplot</code> and <code>geom_jitter</code>. It turns out that creating layers that share some of the same aesthetic values is a common case. To deal with such cases, you can specify <em>shared aesthetic mappings</em> as an argument to the <code>ggplot</code> function and then set additional aesthetics specific to each layer in the individual geoms. Using this approach, our previous example can be written more compactly as follow.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># note how we specify a layer specific aesthetic in geom_jitter</span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">width=</span><span class="fl">0.2</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.75</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-127-1.png" width="576" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.shape =</span> <span class="ot">NA</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb166-3" title="3"><span class="st">  </span><span class="co"># note how we specify a layer specific aesthetic in geom_jitter</span></a>
+<a class="sourceLine" id="cb166-4" title="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">width=</span><span class="fl">0.2</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.75</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-164-1.png" width="576" /></p>
 </div>
 </div>
 <div id="ggplot-layers-can-be-assigned-to-variables" class="section level2">
-<h2><span class="header-section-number">5.13</span> ggplot layers can be assigned to variables</h2>
+<h2><span class="header-section-number">6.13</span> ggplot layers can be assigned to variables</h2>
 <p>The function <code>ggplot()</code> returns a “plot object” that we can assign to a variable. The following example illustrates this:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create base plot object and assign to variable p</span>
-<span class="co"># this does NOT draw the plot</span>
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width))   </code></pre>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co"># create base plot object and assign to variable p</span></a>
+<a class="sourceLine" id="cb167-2" title="2"><span class="co"># this does NOT draw the plot</span></a>
+<a class="sourceLine" id="cb167-3" title="3">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width))   </a></code></pre></div>
 <p>In the code above we created a plot object and assigned it to the variable <code>p</code>. However, the plot wasn’t drawn. To draw the plot object we evaluate it as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p  <span class="co"># try to draw the plot object</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-129-1.png" width="576" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1">p  <span class="co"># try to draw the plot object</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-166-1.png" width="576" /></p>
 <p>The code block above didn’t generate an image, because we haven’t added a geom to the plot to determine how our data should be drawn. We can add a geom to our pre-created plot object as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a point geom to our base layer and draw the plot</span>
-p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-130-1.png" width="576" /></p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="co"># add a point geom to our base layer and draw the plot</span></a>
+<a class="sourceLine" id="cb169-2" title="2">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-167-1.png" width="576" /></p>
 <p>If we wanted to we could have assigned the geom to a variable as well:</p>
-<pre class="sourceCode r"><code class="sourceCode r">box.layer &lt;-<span class="st"> </span><span class="kw">geom_boxplot</span>()
-p <span class="op">+</span><span class="st"> </span>box.layer</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-131-1.png" width="576" /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">box.layer &lt;-<span class="st"> </span><span class="kw">geom_boxplot</span>()</a>
+<a class="sourceLine" id="cb170-2" title="2">p <span class="op">+</span><span class="st"> </span>box.layer</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-168-1.png" width="576" /></p>
 <p>In this case we don’t really gain anything by creating an intermediate variable, but for more complex plots or when considering different versions of a plot this can be very useful.</p>
 <div id="violin-plot-plus-strip-plot" class="section level3">
-<h3><span class="header-section-number">5.13.1</span> Violin plot plus strip plot</h3>
+<h3><span class="header-section-number">6.13.1</span> Violin plot plus strip plot</h3>
 <p>Here is the principle of combining layers, applied to a combined violin plot + strip plot. Again, we set shared aesthetic mappings in <code>ggplot</code> function call and this time we assign individual layers of the plot to variables.</p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))
-
-violin.layer &lt;-<span class="st"> </span><span class="kw">geom_violin</span>()
-jitter.layer &lt;-<span class="st"> </span><span class="kw">geom_jitter</span>(<span class="dt">width=</span><span class="fl">0.15</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.75</span>)
-
-p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer <span class="co"># combined layers of plot and draw</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-132-1.png" width="576" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))</a>
+<a class="sourceLine" id="cb171-2" title="2"></a>
+<a class="sourceLine" id="cb171-3" title="3">violin.layer &lt;-<span class="st"> </span><span class="kw">geom_violin</span>()</a>
+<a class="sourceLine" id="cb171-4" title="4">jitter.layer &lt;-<span class="st"> </span><span class="kw">geom_jitter</span>(<span class="dt">width=</span><span class="fl">0.15</span>, <span class="dt">height=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="fl">0.75</span>)</a>
+<a class="sourceLine" id="cb171-5" title="5"></a>
+<a class="sourceLine" id="cb171-6" title="6">p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer <span class="co"># combined layers of plot and draw</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-169-1.png" width="576" /></p>
 </div>
 </div>
 <div id="adding-titles-and-tweaking-axis-labels" class="section level2">
-<h2><span class="header-section-number">5.14</span> Adding titles and tweaking axis labels</h2>
+<h2><span class="header-section-number">6.14</span> Adding titles and tweaking axis labels</h2>
 <p>ggplot2 automatically adds axis labels based on the variable names in the data frame passed to <code>ggplot</code>. Sometimes these are appropriate, but more presentable figures you’ll usually want to tweak the axis labs (e.g. adding units). The <code>labs</code> (short for labels) function allows you to do so, and also let’s you set a title for your plot. We’ll illustrate this by modifying our previous figure. Note that we save considerable amounts of re-typing since we had already assigned three of the plot layers to variables in the previous code block:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>, 
-       <span class="dt">title =</span> <span class="st">&quot;Sepal Width Distributions for Three Iris Species&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-133-1.png" width="576" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1">p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb172-2" title="2"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>, </a>
+<a class="sourceLine" id="cb172-3" title="3">       <span class="dt">title =</span> <span class="st">&quot;Sepal Width Distributions for Three Iris Species&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-170-1.png" width="576" /></p>
 </div>
 <div id="ggplot2-themes" class="section level2">
-<h2><span class="header-section-number">5.15</span> ggplot2 themes</h2>
+<h2><span class="header-section-number">6.15</span> ggplot2 themes</h2>
 <p>By now you’re probably familiar with the default “look” of plots generated by ggplot2, in particular the ubiquitous gray background with a white grid. This default works fairly well in the context of RStudio notebooks and HTML output, but might not work as well for a published figure or a slide presentation. Almost every individual aspect of a plot can be tweaked, but ggplot2 provides an easier way to make consistent changes to a plot using “themes”. You can think of a theme as adding another layer to your plot. Themes should generally be applied after all the other graphical layers are created (geoms, facets, labels) so the changes they create affect all the prior layers.</p>
 <p>There are eight default themes included with ggplot2, which can be invoked by calling the corresponding theme functions: <code>theme_gray</code>, <code>theme_bw</code>, <code>theme_linedraw</code>, <code>theme_light</code>, <code>theme_dark</code>, <code>theme_minimal</code>, <code>theme_classic</code>, and <code>theme_void</code> (See <a href="http://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">http://ggplot2.tidyverse.org/reference/ggtheme.html</a> for a visual tour of all the default themes)</p>
 <p>For example, let’s generate a boxplot using <code>theme_bw</code> which get’s rid of the gray background:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create another variable to hold combination of three previous </span>
-<span class="co"># ggplot layers. I&#39;m doing this because I&#39;m going to keep re-using</span>
-<span class="co"># the same plot in the following code blocks</span>
-violin.plus.jitter &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer
-
-violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-134-1.png" width="576" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="co"># create another variable to hold combination of three previous </span></a>
+<a class="sourceLine" id="cb173-2" title="2"><span class="co"># ggplot layers. I&#39;m doing this because I&#39;m going to keep re-using</span></a>
+<a class="sourceLine" id="cb173-3" title="3"><span class="co"># the same plot in the following code blocks</span></a>
+<a class="sourceLine" id="cb173-4" title="4">violin.plus.jitter &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span>violin.layer <span class="op">+</span><span class="st"> </span>jitter.layer</a>
+<a class="sourceLine" id="cb173-5" title="5"></a>
+<a class="sourceLine" id="cb173-6" title="6">violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-171-1.png" width="576" /></p>
 <p>Another theme, <code>theme_classic</code>, remove the grid lines completely, and also gets rid of the top-most and right-most axis lines.</p>
-<pre class="sourceCode r"><code class="sourceCode r">violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-135-1.png" width="576" /></p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1">violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-172-1.png" width="576" /></p>
 <div id="further-customization-with-ggplot2theme" class="section level3">
-<h3><span class="header-section-number">5.15.1</span> Further customization with <code>ggplot2::theme</code></h3>
+<h3><span class="header-section-number">6.15.1</span> Further customization with <code>ggplot2::theme</code></h3>
 <p>In addition to the eight complete themes, there is a <code>theme</code> function in ggplot2 that allows you to tweak particular elements of a theme (see <code>?theme</code> for all the possible options). For example, to tweak just the aspect ratio of a plot (the ratio of width to height), you can set the <code>aspect.ratio</code> argument in <code>theme</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-136-1.png" width="576" /></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1">violin.plus.jitter <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-173-1.png" width="576" /></p>
 <p>Theme related function calls can be combined to generate new themes. For example, let’s create a theme called <code>my.theme</code> by combining <code>theme_classic</code> with a call to <code>theme</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my.theme &lt;-<span class="st"> </span><span class="kw">theme_classic</span>()  <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>)</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1">my.theme &lt;-<span class="st"> </span><span class="kw">theme_classic</span>()  <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p>We can then apply this theme as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r">violin.plus.jitter <span class="op">+</span><span class="st"> </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-138-1.png" width="576" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1">violin.plus.jitter <span class="op">+</span><span class="st"> </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-175-1.png" width="576" /></p>
 </div>
 </div>
 <div id="other-aspects-of-ggplots-can-be-assigned-to-variables" class="section level2">
-<h2><span class="header-section-number">5.16</span> Other aspects of ggplots can be assigned to variables</h2>
+<h2><span class="header-section-number">6.16</span> Other aspects of ggplots can be assigned to variables</h2>
 <p>Plot objects, geoms and themes are not the only aspects of a figure that can be assigned to variables for later use. For example, we can create a label object:</p>
-<pre class="sourceCode r"><code class="sourceCode r">my.labels &lt;-<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>, 
-                  <span class="dt">title =</span> <span class="st">&quot;Sepal Width Distributions for Three Iris Species&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1">my.labels &lt;-<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>, </a>
+<a class="sourceLine" id="cb178-2" title="2">                  <span class="dt">title =</span> <span class="st">&quot;Sepal Width Distributions for Three Iris Species&quot;</span>)</a></code></pre></div>
 <p>Combining all of our variables as so, we generate our new plot:</p>
-<pre class="sourceCode r"><code class="sourceCode r">violin.plus.jitter <span class="op">+</span><span class="st"> </span>my.labels <span class="op">+</span><span class="st"> </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-140-1.png" width="576" /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1">violin.plus.jitter <span class="op">+</span><span class="st"> </span>my.labels <span class="op">+</span><span class="st"> </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-177-1.png" width="576" /></p>
 </div>
 <div id="bivariate-plots" class="section level2">
-<h2><span class="header-section-number">5.17</span> Bivariate plots</h2>
+<h2><span class="header-section-number">6.17</span> Bivariate plots</h2>
 <p>Now we turn our attention to some useful representations of bivariate distributions.</p>
 <p>For the purposes of these illustrations I’m initially going to restrict my attention to just one of the three species represented in the iris data set – the I. setosa specimens. This allows us to introduce a vary useful base function called <code>subset()</code>. <code>subset()</code> will return subsets of a vector or data frames that meets the specified conditions. This can also be accomplished with conditional indexing but <code>subset()</code> is usually less verbose.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a new data frame composed only of the I. setosa samples</span>
-setosa.only &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="co"># create a new data frame composed only of the I. setosa samples</span></a>
+<a class="sourceLine" id="cb180-2" title="2">setosa.only &lt;-<span class="st"> </span><span class="kw">subset</span>(iris, Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>)</a></code></pre></div>
 <p>In the examples that follow, I’m going to illustrate different ways of representing the same bivariate distribution – the joint distribution of Sepal Length and Sepal Width – over and over again. To avoid repitition, let’s assign the base ggplot layer to a variable as we did in our previous examples. We’ll also pre-create a label layer.</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals &lt;-<span class="st"> </span><span class="kw">ggplot</span>(setosa.only, 
-                        <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width))
-
-sepal.labels &lt;-<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>,
-                     <span class="dt">title =</span> <span class="st">&quot;Relationship between Sepal Length and Width&quot;</span>,
-                     <span class="dt">caption =</span> <span class="st">&quot;data from Anderson (1935)&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">setosa.sepals &lt;-<span class="st"> </span><span class="kw">ggplot</span>(setosa.only, </a>
+<a class="sourceLine" id="cb181-2" title="2">                        <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width))</a>
+<a class="sourceLine" id="cb181-3" title="3"></a>
+<a class="sourceLine" id="cb181-4" title="4">sepal.labels &lt;-<span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sepal Length (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>,</a>
+<a class="sourceLine" id="cb181-5" title="5">                     <span class="dt">title =</span> <span class="st">&quot;Relationship between Sepal Length and Width&quot;</span>,</a>
+<a class="sourceLine" id="cb181-6" title="6">                     <span class="dt">caption =</span> <span class="st">&quot;data from Anderson (1935)&quot;</span>)</a></code></pre></div>
 <div id="scatter-plots" class="section level3">
-<h3><span class="header-section-number">5.17.1</span> Scatter plots</h3>
+<h3><span class="header-section-number">6.17.1</span> Scatter plots</h3>
 <p>A scatter plot is one of the simplest representations of a bivariate distribution. Scatter plots are simple to create in ggplot2 by specifying the appropriate X and Y variables in the aesthetic mapping and using <code>geom_point</code> for the geometric mapping.</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>sepal.labels</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-143-1.png" width="576" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1">setosa.sepals  <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>sepal.labels</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-180-1.png" width="576" /></p>
 </div>
 <div id="adding-a-trend-line-to-a-scatter-plot" class="section level3">
-<h3><span class="header-section-number">5.17.2</span> Adding a trend line to a scatter plot</h3>
+<h3><span class="header-section-number">6.17.2</span> Adding a trend line to a scatter plot</h3>
 <p>ggplot2 makes it easy to add trend lines to plots. I use “trend lines” here to refer to representations like regression lines, smoothing splines, or other representations mean to help visualize the relationship between pairs of variables. We’ll spend a fair amount of time exploring the mathematics and interpetation of regression lines and related techniques in later lectures, but for now just think about trends lines as summary representations for bivariate relationships.</p>
 <p>Trend lines can be created using <code>geom_smooth</code>. Let’s add a default trend line to our <em>I. setosa</em> scatter plot of the Sepal Width vs Sepal Length:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme
-<span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-144-1.png" width="576" /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span></a>
+<a class="sourceLine" id="cb183-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-5" title="5"><span class="st">  </span>my.theme</a>
+<a class="sourceLine" id="cb183-6" title="6"><span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-181-1.png" width="576" /></p>
 <p>The defaul trend line that <code>geom_smooth</code> fits is generated by a technique called “LOESS regression”. LOESS regression is a non-linear curve fitting method, hence the squiggly trend line we see above. The smoothness of the LOESS regression is controlled by a parameter called <code>span</code> which is related to the proportion of points used. We’ll discuss LOESS in detail in a later lecture, but here’s an illustration how changing the span affects the smoothness of the fit curve:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">0.95</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme
-<span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-145-1.png" width="576" /></p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb184-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span></a>
+<a class="sourceLine" id="cb184-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">span =</span> <span class="fl">0.95</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb184-5" title="5"><span class="st">  </span>my.theme</a>
+<a class="sourceLine" id="cb184-6" title="6"><span class="co">## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-182-1.png" width="576" /></p>
 <div id="linear-trend-lines" class="section level4">
-<h4><span class="header-section-number">5.17.2.1</span> Linear trend lines</h4>
+<h4><span class="header-section-number">6.17.2.1</span> Linear trend lines</h4>
 <p>If instead we want a straight trend line, as would typically be depicted for a linear regression model we can specify a different statistical method:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># using linear model (&quot;lm&quot;)</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-146-1.png" width="576" /></p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb185-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>() <span class="op">+</span><span class="st">  </span><span class="co"># using geom_jitter to avoid overplotting of points</span></a>
+<a class="sourceLine" id="cb185-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="co"># using linear model (&quot;lm&quot;)</span></a>
+<a class="sourceLine" id="cb185-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb185-5" title="5"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-183-1.png" width="576" /></p>
 </div>
 </div>
 </div>
 <div id="bivariate-density-plots" class="section level2">
-<h2><span class="header-section-number">5.18</span> Bivariate density plots</h2>
+<h2><span class="header-section-number">6.18</span> Bivariate density plots</h2>
 <p>The density plot, which we introduced as a visualization for univariate data, can be extended to two-dimensional data. In a one dimensional density plot, the height of the curve was related to the relatively density of points in the surrounding region. In a 2D density plot, nested contours (or contours plus colors) indicate regions of higher local density. Let’s illustrate this with an example:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density2d</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-147-1.png" width="576" /></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb186-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb186-2" title="2"><span class="st">  </span><span class="kw">geom_density2d</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb186-3" title="3"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb186-4" title="4"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-184-1.png" width="576" /></p>
 <p>The relationship between the 2D density plot and a scatter plot can be made clearer if we combine the two:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density_2d</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha=</span><span class="fl">0.35</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-148-1.png" width="576" /></p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb187-2" title="2"><span class="st">  </span><span class="kw">geom_density_2d</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb187-3" title="3"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha=</span><span class="fl">0.35</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb187-5" title="5"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-185-1.png" width="576" /></p>
 </div>
 <div id="combining-scatter-plots-and-density-plots-with-categorical-information" class="section level2">
-<h2><span class="header-section-number">5.19</span> Combining Scatter Plots and Density Plots with Categorical Information</h2>
+<h2><span class="header-section-number">6.19</span> Combining Scatter Plots and Density Plots with Categorical Information</h2>
 <p>As with many of the univariate visualizations we explored, it is often useful to depict bivariate relationships as we change a categorical variable. To illustrate this, we’ll go back to using the full iris data set.</p>
-<pre class="sourceCode r"><code class="sourceCode r">all.sepals &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width))
-
-all.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species, <span class="dt">shape =</span> Species), <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-149-1.png" width="576" /></p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb188-1" title="1">all.sepals &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width))</a>
+<a class="sourceLine" id="cb188-2" title="2"></a>
+<a class="sourceLine" id="cb188-3" title="3">all.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb188-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species, <span class="dt">shape =</span> Species), <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.6</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb188-5" title="5"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb188-6" title="6"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-186-1.png" width="576" /></p>
 <p>Notice how in our aesthetic mapping we specified that both color and shape should be used to represent the species categories.</p>
 <p>The same thing can be accomplished with a 2D density plot.</p>
-<pre class="sourceCode r"><code class="sourceCode r">all.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species)) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-150-1.png" width="576" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" title="1">all.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb189-2" title="2"><span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-3" title="3"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb189-4" title="4"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-187-1.png" width="576" /></p>
 <p>As you can see, in the density plots above, when you have multiple categorical variables and there is significant overlap in the range of each sub-distribution, figures can become quite busy. As we’ve seen previously, faceting (conditioning) can be a good way to deal with this. Below a combination of scatter plots and 2D density plots, combined with faceting on the species variable.</p>
-<pre class="sourceCode r"><code class="sourceCode r">all.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>Species) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>, <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)  <span class="co"># get rid of legend</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb190-1" title="1">all.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-2" title="2"><span class="st">  </span><span class="kw">geom_density_2d</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> Species), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-4" title="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>Species) <span class="op">+</span></a>
+<a class="sourceLine" id="cb190-5" title="5"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;All species&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb190-6" title="6"><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb190-7" title="7"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>, <span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>)  <span class="co"># get rid of legend</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
 <p>In this example I went back to using a theme that includes grid lines to facilitate more accurate comparisons of the distributions across the facets. I also got rid of the legend, because the information there was redundant.</p>
 </div>
 <div id="density-plots-with-fill" class="section level2">
-<h2><span class="header-section-number">5.20</span> Density plots with fill</h2>
+<h2><span class="header-section-number">6.20</span> Density plots with fill</h2>
 <p>Let’s revisit our earlier single species 2D density plot. Instead of simply drawing contour lines, let’s use color information to help guide the eye to areas of higher density. To draw filled contours, we use a sister function to <code>geom_density_2d</code> called <code>stat_density_2d</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-152-1.png" width="576" /></p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb191-2" title="2"><span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb191-3" title="3"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb191-4" title="4"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-189-1.png" width="576" /></p>
 <p>Using the default color scale, areas of low density are drawn in dark blue, whereas areas of high density are drawn in light blue. I personally find this dark -to-light color scale non-intuitive for density data, and would prefer that darker regions indicate area of higher density. If we want to change the color scale, we can use the a scale function (in this case <code>scale_fill_continuous</code>) to set the color values used for the low and high values (this function we’ll interpolate the intervening values for us).</p>
 <p>NOTE: when specifying color names, R accepts standard HTML color names (see the <a href="https://en.wikipedia.org/wiki/Web_colors">Wikipedia page on web colors</a> for a list). We’ll also see other ways to set color values in a later class session.</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># lavenderblush is the HTML standard name for a light purplish-pink color</span>
-<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-153-1.png" width="576" /></p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb192-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb192-2" title="2"><span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb192-3" title="3"><span class="st">  </span><span class="co"># lavenderblush is the HTML standard name for a light purplish-pink color</span></a>
+<a class="sourceLine" id="cb192-4" title="4"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-5" title="5"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb192-6" title="6"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-190-1.png" width="576" /></p>
 <p>The two contour plots we generated looked a little funny because the contours are cutoff due to the contour regions being outside the limits of the plot. To fix this, we can change the plot limits using the <code>lims</code> function as shown in the following code block. We’ll also add the scatter (jittered) to the emphasize the relationship between the levels, and we’ll change the title for the color legend on the right by specifying a text label associated with the fill arguments in the <code>labs</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.1</span>) <span class="op">+</span>
-<span class="st">  </span>
-<span class="st">  </span><span class="co"># customize labels, including legend label for fill</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sepal Length(cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>,
-       <span class="dt">title =</span> <span class="st">&quot;Relationship between sepal length and width&quot;</span>,
-       <span class="dt">subtitle =</span> <span class="st">&quot;I. setosa specimens only&quot;</span>,
-       <span class="dt">fill =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>
-<span class="st">  </span><span class="co"># Set plot limits</span>
-<span class="st">  </span><span class="kw">lims</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">6</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">4.5</span>)) <span class="op">+</span>
-<span class="st">  </span>my.theme </code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-154-1.png" width="576" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb193-2" title="2"><span class="st">  </span><span class="kw">stat_density_2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom =</span> <span class="st">&quot;polygon&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-3" title="3"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-4" title="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">size =</span> <span class="fl">1.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-5" title="5"><span class="st">  </span></a>
+<a class="sourceLine" id="cb193-6" title="6"><span class="st">  </span><span class="co"># customize labels, including legend label for fill</span></a>
+<a class="sourceLine" id="cb193-7" title="7"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sepal Length(cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Sepal Width (cm)&quot;</span>,</a>
+<a class="sourceLine" id="cb193-8" title="8">       <span class="dt">title =</span> <span class="st">&quot;Relationship between sepal length and width&quot;</span>,</a>
+<a class="sourceLine" id="cb193-9" title="9">       <span class="dt">subtitle =</span> <span class="st">&quot;I. setosa specimens only&quot;</span>,</a>
+<a class="sourceLine" id="cb193-10" title="10">       <span class="dt">fill =</span> <span class="st">&quot;Density&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-11" title="11"><span class="st">  </span></a>
+<a class="sourceLine" id="cb193-12" title="12"><span class="st">  </span><span class="co"># Set plot limits</span></a>
+<a class="sourceLine" id="cb193-13" title="13"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">6</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="fl">4.5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb193-14" title="14"><span class="st">  </span>my.theme </a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-191-1.png" width="576" /></p>
 </div>
 <div id="d-bin-and-hex-plots" class="section level2">
-<h2><span class="header-section-number">5.21</span> 2D bin and hex plots</h2>
+<h2><span class="header-section-number">6.21</span> 2D bin and hex plots</h2>
 <p>Two dimensional bin and hex plots are alterative ways to represent the joint density of points in the Cartesian plane. Here are examples of to generate these plot types. Compare them to our previous examples.</p>
 <p>A 2D bin plot can be tought of as a 2D histogram:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_bin2d</span>(<span class="dt">binwidth =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-155-1.png" width="576" /></p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb194-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-2" title="2"><span class="st">  </span><span class="kw">geom_bin2d</span>(<span class="dt">binwidth =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb194-3" title="3"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb194-5" title="5"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-192-1.png" width="576" /></p>
 <p>A hex plot is similar to a 2D bin plot but uses hexagonal regions instead of squares. Hexagonal bins are useful because they can somtimes avoid visual artefacts sometimes apparent with square bins:</p>
-<pre class="sourceCode r"><code class="sourceCode r">setosa.sepals <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">binwidth =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>my.theme</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-156-1.png" width="576" /></p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" title="1">setosa.sepals <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb195-2" title="2"><span class="st">  </span><span class="kw">geom_hex</span>(<span class="dt">binwidth =</span> <span class="fl">0.2</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb195-3" title="3"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">low=</span><span class="st">&quot;lavenderblush&quot;</span>, <span class="dt">high=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-4" title="4"><span class="st">  </span>sepal.labels <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">&quot;I. setosa data only&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb195-5" title="5"><span class="st">  </span>my.theme</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-193-1.png" width="576" /></p>
 </div>
 <div id="the-cowplot-package" class="section level2">
-<h2><span class="header-section-number">5.22</span> The <code>cowplot</code> package</h2>
+<h2><span class="header-section-number">6.22</span> The <code>cowplot</code> package</h2>
 <p>A common task when preparing visualizations for scientific presentations and manuscripts is combining different plots as subfigures of a larger figure. To accomplish this we’ll use a package called <a href="https://cran.r-project.org/web/packages/cowplot/index.html"><code>cowplot</code></a> that compliments the power of ggplot2. Install cowplot either via the command line or the R Studio GUI (see Section <a href="getting-started-with-r.html#packages">2.8</a>).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cowplot) <span class="co"># assumes package has been installed</span></code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" title="1"><span class="kw">library</span>(cowplot) <span class="co"># assumes package has been installed</span></a></code></pre></div>
 <p><code>cowplot</code> allows us to create individual plots using ggplot, and then arrange them in a grid-like fashion with labels for each plot of interest, as you would typically see in publications. The core function of <code>cowplot</code> is <code>plot_grid()</code>, which allows the user to layout the sub-plots in an organized fashion and add labels as necesary.</p>
 <p>To illustrate <code>plot_grid()</code> let’s create three different representations of the distribution of sepal width in the irisu data set, and combine them into a single figure:</p>
-<pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, 
-            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))
-
-<span class="co"># for the histogram we&#39;re going to override the mapping because</span>
-<span class="co"># geom_histogram only takes an x argument</span>
-plot<span class="fl">.1</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">12</span>,
-                 <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)
-plot<span class="fl">.2</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() 
-plot<span class="fl">.3</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>()
-
-<span class="kw">plot_grid</span>(plot<span class="fl">.1</span>, plot<span class="fl">.2</span>, plot<span class="fl">.3</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-158-1.png" width="864" /></p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb197-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(iris, </a>
+<a class="sourceLine" id="cb197-2" title="2">            <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species))</a>
+<a class="sourceLine" id="cb197-3" title="3"></a>
+<a class="sourceLine" id="cb197-4" title="4"><span class="co"># for the histogram we&#39;re going to override the mapping because</span></a>
+<a class="sourceLine" id="cb197-5" title="5"><span class="co"># geom_histogram only takes an x argument</span></a>
+<a class="sourceLine" id="cb197-6" title="6">plot<span class="fl">.1</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb197-7" title="7"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb197-8" title="8">                 <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Width), <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb197-9" title="9">plot<span class="fl">.2</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_boxplot</span>() </a>
+<a class="sourceLine" id="cb197-10" title="10">plot<span class="fl">.3</span> &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_violin</span>()</a>
+<a class="sourceLine" id="cb197-11" title="11"></a>
+<a class="sourceLine" id="cb197-12" title="12"><span class="kw">plot_grid</span>(plot<span class="fl">.1</span>, plot<span class="fl">.2</span>, plot<span class="fl">.3</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-195-1.png" width="864" /></p>
 <p>If instead, we wanted to layout the plots in a single row we could change the call to <code>plot_grid</code> as so:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_grid</span>(plot<span class="fl">.1</span>, plot<span class="fl">.2</span>, plot<span class="fl">.3</span>, 
-          <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>))</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-159-1.png" width="1440" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb198-1" title="1"><span class="kw">plot_grid</span>(plot<span class="fl">.1</span>, plot<span class="fl">.2</span>, plot<span class="fl">.3</span>, </a>
+<a class="sourceLine" id="cb198-2" title="2">          <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-196-1.png" width="1440" /></p>
 <p>Notice we also added labels to our sub-plots.</p>
 
 </div>
@@ -1002,17 +934,19 @@ plot<span class="fl">.3</span> &lt;-<span class="st"> </span>p <span class="op">
           </div>
         </div>
       </div>
-<a href="data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functions-and-control-flow-statements.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="introduction-to-dplyr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1020,12 +954,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1037,6 +970,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -1058,8 +995,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

@@ -245,7 +245,7 @@ The columns labeled `a` to `e` contain the counts of the five species at each si
 ```{r}
 abundance <- 
   bioenv %>%
-  select(Site, a, b, c, d, e)
+  dplyr::select(Site, a, b, c, d, e)
 
 head(abundance)
 ```
@@ -281,7 +281,7 @@ A correlation matrix suggests weak to moderate associations between the variable
 ```{r}
 abundance.only <-
   abundance %>%
-  select(-Site) # drop the Site column
+  dplyr::select(-Site) # drop the Site column
   
 cor(abundance.only)
 ```

@@ -51,7 +51,7 @@ As we discussed in lecture, the eigenvectors of square matrix, $\Mtx{A}$, point 
 In lecture we discussed the relationship between SVD and PCA.  Let's walk through some code that carries out PCA via SVD, and then we'll implement our own PCA function.
 
 ```{r}
-iris.numeric <- select(iris, select=-Species)
+iris.numeric <- dplyr::select(iris, select=-Species)
 iris.ctrd <- scale(iris.numeric, center=TRUE, scale=FALSE)
 iris.svd <- svd(iris.ctrd)
 

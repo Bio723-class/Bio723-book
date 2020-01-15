@@ -275,6 +275,7 @@ Notice that `paste()` adds a space between the strings?  If we didn't want the s
 
 ```{r}
 paste("abc", "def", sep = "")  # join with no space; "" is an empty string
+paste0("abc", "def") # an equivalent function with no space in newer version of R
 paste("abc", "def", sep = "|") # join with a vertical bar
 ```
 

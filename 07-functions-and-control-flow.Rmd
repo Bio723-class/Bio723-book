@@ -5,7 +5,17 @@
 
 So far we've been using a variety of built in functions in R. However the real power of a programming language is the ability to write your own functions.  Functions are a mechanism for organizing and abstracting a set of related computations.  We usually write functions to represent sets of computations that we apply frequently, or to represent some conceptually coherent set of manipulations to data.
 
-The general form of an R function is as follows:
+`function() {expr}` defines a simplest form of R functions. `function()` packs the following expressions in `{}` as a function so they can be assigned to and run by a name. For example,
+
+```{r}
+#assgin a function called "PrintSignature"
+PrintSignature <- function() {
+    paste("Dr. Paul Magwene at Duke University", date())
+    } 
+PrintSignature() #run the function by its name
+```
+
+The more general form of an R function is as follows:
 
 ```{r}
 funcname <- function(arg1, arg2) {
@@ -14,8 +24,7 @@ funcname <- function(arg1, arg2) {
  # or you can explicitly return an object
 }
 ```
-
-To make this concrete, here's an example where we define a function to calculate the area of a circle:
+Arg1 and arg2 are function arguments that allow you to adjust the values of the expressions every time you run the function. To make this concrete, here's an example where we define a function to calculate the area of a circle:
 
 ```{r}
 area.of.circle <- function(r){
@@ -53,7 +62,7 @@ will tell you that the function is a `.Primitive`).
 
 ### Function arguments
 
-Function arguments can specify the data that a function operates on or parameters that the function uses. Function arguments can be either required or optional. In the case of optional arguments, a default value is assigned if the argument is not given.
+Function arguments can specify the data that a function operates on or parameters that the function use, i.e., the "input" or "independent varialbe" of the function. Function arguments can be either required or optional. In the case of optional arguments, a default value is assigned if the argument is not given. Any R objects can be taken as function arguments, including bare numbers, vectors, lists, data.frames, names of assigned variables, and even other functions.
 
 Take for example the `log` function. If you examine the help file for the `log` function (type `?log` now) you'll see that it takes two arguments, refered to as `x` and `base`. The
 argument `x` represents the numeric vector you pass to the function and is a required argument (see what happens when you type `log()` without giving an argument). The argument `base` is optional. By default the value of `base` is $e = 2.71828\ldots$. Therefore by default the `log` function returns natural logarithms. If you want logarithms to a different base you can change the `base` argument as in the following examples:

@@ -275,6 +275,7 @@ Notice that `paste()` adds a space between the strings?  If we didn't want the s
 
 ```{r}
 paste("abc", "def", sep = "")  # join with no space; "" is an empty string
+paste0("abc", "def") # an equivalent function with no space in newer version of R
 paste("abc", "def", sep = "|") # join with a vertical bar
 ```
 
@@ -382,7 +383,7 @@ In this case `help.search("log")` returns all the functions with
 the string `log` in them. For more on `help.search` type
 `?help.search`. 
 
-Other useful help related functions include `apropos()` and `example()`, `vignette()`.  `apropos` returns a list of all objects (including function names) in the current session that match the input string.
+Other useful help related functions include `apropos()` and `example()`, `vignette()`.  `apropos` returns a list of all objects (including variable names and function names) in the current session that match the input string.
 
 ```{r}
 apropos("log")

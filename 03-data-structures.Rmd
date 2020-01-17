@@ -145,6 +145,11 @@ You can get multiple elements of a vector by indexing by another vector. In the 
 x[c(3,5)]
 ```
 
+Besides numerical indexing, R allows logical indexing which takes a vector of Booleans and returns the positions with `TRUE`
+values.
+```{r}
+x[c(TRUE, FALSE, TRUE, FALSE, FALSE)] #return 1st and 3rd elements but ignore 2nd, 4th and 5th
+```
 ### Comparison operators applied to vectors
 
 When the comparison operators, such as"greater than" (`>`), "less than or equal to" (`<=`), equality (`==`), etc. are applied tonumeric vectors, they return logical vectors:

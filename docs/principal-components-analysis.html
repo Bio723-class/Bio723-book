@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Principal Components Analysis | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Principal Components Analysis | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-15" />
+<meta name="date" content="2020-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -469,166 +469,166 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 14</span> Principal Components Analysis</h1>
 <div id="libraries-5" class="section level2">
 <h2><span class="header-section-number">14.1</span> Libraries</h2>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb420-2" title="2"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb420-3" title="3"><span class="kw">library</span>(GGally)</a>
-<a class="sourceLine" id="cb420-4" title="4"><span class="kw">library</span>(cowplot)</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb422-3" title="3"><span class="kw">library</span>(GGally)</a>
+<a class="sourceLine" id="cb422-4" title="4"><span class="kw">library</span>(cowplot)</a></code></pre></div>
 </div>
 <div id="matrices-as-linear-transformations" class="section level2">
 <h2><span class="header-section-number">14.2</span> Matrices as linear transformations</h2>
 <p>In lecture we introduced the notion that pre-multiplying a vector, <span class="math inline">\(x\)</span>, by a matrix <span class="math inline">\(\mathbf{A}\)</span> represents a linear transformation of <span class="math inline">\(x\)</span>. Let’s explore that visually for 2D vectors.</p>
 <p>For illustration let’s generate a 2D vector representing the coordinates of points on the sine function.</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">sin.xy &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out =</span> <span class="dv">50</span>) <span class="op">-</span><span class="st"> </span>pi,</a>
-<a class="sourceLine" id="cb421-2" title="2">                     <span class="dt">y =</span> <span class="kw">sin</span>(x))</a>
-<a class="sourceLine" id="cb421-3" title="3"></a>
-<a class="sourceLine" id="cb421-4" title="4"><span class="kw">ggplot</span>(sin.xy, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-419-1.png" width="576" /></p>
-<p>Let’s start with some of the transformations we discussed in lecture. First we look at reflection about the x-axis:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="co"># this matrix represents reflection about the x-axis</span></a>
-<a class="sourceLine" id="cb422-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb422-3" title="3">              <span class="dv">0</span>, <span class="dv">-1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb422-4" title="4"></a>
-<a class="sourceLine" id="cb422-5" title="5"><span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span></a>
-<a class="sourceLine" id="cb422-6" title="6">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
-<a class="sourceLine" id="cb422-7" title="7"></a>
-<a class="sourceLine" id="cb422-8" title="8"><span class="co"># creae a data frame from this transformation</span></a>
-<a class="sourceLine" id="cb422-9" title="9">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
-<a class="sourceLine" id="cb422-10" title="10"></a>
-<a class="sourceLine" id="cb422-11" title="11"><span class="co"># plot the transformed points</span></a>
-<a class="sourceLine" id="cb422-12" title="12"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-420-1.png" width="576" /></p>
-<p>If instead we apply a matrix that represents a shear in the x-axis we get:</p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="co"># shear parallel to the x-axis</span></a>
-<a class="sourceLine" id="cb423-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, </a>
-<a class="sourceLine" id="cb423-3" title="3">              <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb423-4" title="4"></a>
-<a class="sourceLine" id="cb423-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
-<a class="sourceLine" id="cb423-6" title="6"></a>
-<a class="sourceLine" id="cb423-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
-<a class="sourceLine" id="cb423-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1">sin.xy &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="op">*</span>pi, <span class="dt">length.out =</span> <span class="dv">50</span>) <span class="op">-</span><span class="st"> </span>pi,</a>
+<a class="sourceLine" id="cb423-2" title="2">                     <span class="dt">y =</span> <span class="kw">sin</span>(x))</a>
+<a class="sourceLine" id="cb423-3" title="3"></a>
+<a class="sourceLine" id="cb423-4" title="4"><span class="kw">ggplot</span>(sin.xy, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-421-1.png" width="576" /></p>
-<p>And finally rotation:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="co"># rotation by pi/2 radians (90 degrees)</span></a>
-<a class="sourceLine" id="cb424-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="op">-</span><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb424-3" title="3">              <span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>)), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<p>Let’s start with some of the transformations we discussed in lecture. First we look at reflection about the x-axis:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="co"># this matrix represents reflection about the x-axis</span></a>
+<a class="sourceLine" id="cb424-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb424-3" title="3">              <span class="dv">0</span>, <span class="dv">-1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb424-4" title="4"></a>
-<a class="sourceLine" id="cb424-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
-<a class="sourceLine" id="cb424-6" title="6"></a>
-<a class="sourceLine" id="cb424-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
-<a class="sourceLine" id="cb424-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb424-5" title="5"><span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span></a>
+<a class="sourceLine" id="cb424-6" title="6">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb424-7" title="7"></a>
+<a class="sourceLine" id="cb424-8" title="8"><span class="co"># creae a data frame from this transformation</span></a>
+<a class="sourceLine" id="cb424-9" title="9">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb424-10" title="10"></a>
+<a class="sourceLine" id="cb424-11" title="11"><span class="co"># plot the transformed points</span></a>
+<a class="sourceLine" id="cb424-12" title="12"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-422-1.png" width="576" /></p>
+<p>If instead we apply a matrix that represents a shear in the x-axis we get:</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1"><span class="co"># shear parallel to the x-axis</span></a>
+<a class="sourceLine" id="cb425-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, </a>
+<a class="sourceLine" id="cb425-3" title="3">              <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb425-4" title="4"></a>
+<a class="sourceLine" id="cb425-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb425-6" title="6"></a>
+<a class="sourceLine" id="cb425-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb425-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-423-1.png" width="576" /></p>
+<p>And finally rotation:</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1"><span class="co"># rotation by pi/2 radians (90 degrees)</span></a>
+<a class="sourceLine" id="cb426-2" title="2">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="op">-</span><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb426-3" title="3">              <span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">2</span>), <span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">2</span>)), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb426-4" title="4"></a>
+<a class="sourceLine" id="cb426-5" title="5">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb426-6" title="6"></a>
+<a class="sourceLine" id="cb426-7" title="7">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb426-8" title="8"><span class="kw">ggplot</span>(Ax.df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-424-1.png" width="576" /></p>
 </div>
 <div id="eigenanalysis-in-r" class="section level2">
 <h2><span class="header-section-number">14.3</span> Eigenanalysis in R</h2>
 <p>As we discussed in lecture, the eigenvectors of a square matrix, <span class="math inline">\(\mathbf{A}\)</span>, point in the directions that are unchanged by the transformation specified by <span class="math inline">\(\mathbf{A}\)</span>.</p>
 <p>Let’s start with yet another transformation matrix, <span class="math inline">\(\mathbf{A}\)</span>, the effects of which are illustrated below:</p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,</a>
-<a class="sourceLine" id="cb425-2" title="2">              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb425-3" title="3"></a>
-<a class="sourceLine" id="cb425-4" title="4">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
-<a class="sourceLine" id="cb425-5" title="5">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
-<a class="sourceLine" id="cb425-6" title="6"></a>
-<a class="sourceLine" id="cb425-7" title="7"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb425-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb425-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">shape=</span><span class="dv">17</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) </a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-423-1.png" width="576" /></p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,</a>
+<a class="sourceLine" id="cb427-2" title="2">              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="dt">byrow=</span><span class="ot">TRUE</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb427-3" title="3"></a>
+<a class="sourceLine" id="cb427-4" title="4">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(sin.xy)</a>
+<a class="sourceLine" id="cb427-5" title="5">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb427-6" title="6"></a>
+<a class="sourceLine" id="cb427-7" title="7"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb427-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb427-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">shape=</span><span class="dv">17</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) </a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-425-1.png" width="576" /></p>
 <p>This transformation is a combination of stretching (dilation) in the Y-axis, and shear parallel to the x-axis.</p>
 <p>The <code>eigen()</code> function computes the eigenvalues and eigenvectors of a square matrix:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">eigen.A &lt;-<span class="st"> </span><span class="kw">eigen</span>(A)</a>
-<a class="sourceLine" id="cb426-2" title="2">eigen.A</a>
-<a class="sourceLine" id="cb426-3" title="3"><span class="co">## eigen() decomposition</span></a>
-<a class="sourceLine" id="cb426-4" title="4"><span class="co">## $values</span></a>
-<a class="sourceLine" id="cb426-5" title="5"><span class="co">## [1] 2 1</span></a>
-<a class="sourceLine" id="cb426-6" title="6"><span class="co">## </span></a>
-<a class="sourceLine" id="cb426-7" title="7"><span class="co">## $vectors</span></a>
-<a class="sourceLine" id="cb426-8" title="8"><span class="co">##           [,1] [,2]</span></a>
-<a class="sourceLine" id="cb426-9" title="9"><span class="co">## [1,] 0.8320503    1</span></a>
-<a class="sourceLine" id="cb426-10" title="10"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1">eigen.A &lt;-<span class="st"> </span><span class="kw">eigen</span>(A)</a>
+<a class="sourceLine" id="cb428-2" title="2">eigen.A</a>
+<a class="sourceLine" id="cb428-3" title="3"><span class="co">## eigen() decomposition</span></a>
+<a class="sourceLine" id="cb428-4" title="4"><span class="co">## $values</span></a>
+<a class="sourceLine" id="cb428-5" title="5"><span class="co">## [1] 2 1</span></a>
+<a class="sourceLine" id="cb428-6" title="6"><span class="co">## </span></a>
+<a class="sourceLine" id="cb428-7" title="7"><span class="co">## $vectors</span></a>
+<a class="sourceLine" id="cb428-8" title="8"><span class="co">##           [,1] [,2]</span></a>
+<a class="sourceLine" id="cb428-9" title="9"><span class="co">## [1,] 0.8320503    1</span></a>
+<a class="sourceLine" id="cb428-10" title="10"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
 <p>The following relationships relate <span class="math inline">\(\mathbf{A}\)</span> to it’s eigenvectors and eigenvalues:</p>
 <p><span class="math display">\[\mathbf{V}^{-1}\mathbf{A}\mathbf{V}  =  \mathbf{D} \]</span></p>
 <p><span class="math display">\[\mathbf{A}  =  \mathbf{V}\mathbf{D}\mathbf{V}^{-1}\]</span></p>
 <p>where <span class="math inline">\(\mathbf{V}\)</span> is a matrix where the columns represent the eigenvectors, and <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix of eigenvalues.</p>
 <p>Let’s confirm that those relationships hold for our example:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">V &lt;-<span class="st"> </span>eigen.A<span class="op">$</span>vectors</a>
-<a class="sourceLine" id="cb427-2" title="2">D &lt;-<span class="st"> </span><span class="kw">diag</span>(eigen.A<span class="op">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span></a>
-<a class="sourceLine" id="cb427-3" title="3">Vinv &lt;-<span class="st"> </span><span class="kw">solve</span>(V)</a>
-<a class="sourceLine" id="cb427-4" title="4"></a>
-<a class="sourceLine" id="cb427-5" title="5">V <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span>Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span></a>
-<a class="sourceLine" id="cb427-6" title="6"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb427-7" title="7"><span class="co">## [1,]    1  1.5</span></a>
-<a class="sourceLine" id="cb427-8" title="8"><span class="co">## [2,]    0  2.0</span></a></code></pre></div>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">all.equal</span>(Vinv <span class="op">%*%</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>V, D) <span class="co"># test &#39;near equality&#39;</span></a>
-<a class="sourceLine" id="cb428-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">V[,<span class="dv">1</span>] <span class="op">%*%</span><span class="st"> </span>V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span></a>
-<a class="sourceLine" id="cb429-2" title="2"><span class="co">##           [,1]</span></a>
-<a class="sourceLine" id="cb429-3" title="3"><span class="co">## [1,] 0.8320503</span></a></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">V &lt;-<span class="st"> </span>eigen.A<span class="op">$</span>vectors</a>
+<a class="sourceLine" id="cb429-2" title="2">D &lt;-<span class="st"> </span><span class="kw">diag</span>(eigen.A<span class="op">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span></a>
+<a class="sourceLine" id="cb429-3" title="3">Vinv &lt;-<span class="st"> </span><span class="kw">solve</span>(V)</a>
+<a class="sourceLine" id="cb429-4" title="4"></a>
+<a class="sourceLine" id="cb429-5" title="5">V <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span>Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span></a>
+<a class="sourceLine" id="cb429-6" title="6"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb429-7" title="7"><span class="co">## [1,]    1  1.5</span></a>
+<a class="sourceLine" id="cb429-8" title="8"><span class="co">## [2,]    0  2.0</span></a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="kw">all.equal</span>(Vinv <span class="op">%*%</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>V, D) <span class="co"># test &#39;near equality&#39;</span></a>
+<a class="sourceLine" id="cb430-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1">V[,<span class="dv">1</span>] <span class="op">%*%</span><span class="st"> </span>V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span></a>
+<a class="sourceLine" id="cb431-2" title="2"><span class="co">##           [,1]</span></a>
+<a class="sourceLine" id="cb431-3" title="3"><span class="co">## [1,] 0.8320503</span></a></code></pre></div>
 <p>Since we’re dealing with a 2D transformation matrix, we can easily calculate the slopes of the eigenvectors:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1">eigenvec.A.slope1 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb430-2" title="2">eigenvec.A.slope2 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">eigenvec.A.slope1 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb432-2" title="2">eigenvec.A.slope2 =<span class="st"> </span>eigen.A<span class="op">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span>eigen.A<span class="op">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</a></code></pre></div>
 <p>Now we plot the eigenvectors to show the directions that are unaffected by the transformation represented by the matrix <span class="math inline">\(\mathbf{A}\)</span>:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1"></a>
-<a class="sourceLine" id="cb431-2" title="2"><span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span></a>
-<a class="sourceLine" id="cb431-3" title="3"><span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span></a>
-<a class="sourceLine" id="cb431-4" title="4">geom_ab_or_vline &lt;-<span class="st"> </span><span class="cf">function</span>(slope, intercept, ...) {</a>
-<a class="sourceLine" id="cb431-5" title="5">  <span class="cf">if</span> (<span class="kw">is.infinite</span>(slope)) {</a>
-<a class="sourceLine" id="cb431-6" title="6">    <span class="kw">return</span>(<span class="kw">geom_vline</span>(<span class="dt">yintercept =</span> intercept, ...))</a>
-<a class="sourceLine" id="cb431-7" title="7">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb431-8" title="8">    <span class="kw">return</span>(<span class="kw">geom_abline</span>(<span class="dt">slope=</span>slope, <span class="dt">intercept=</span>intercept, ...))</a>
-<a class="sourceLine" id="cb431-9" title="9">  }</a>
-<a class="sourceLine" id="cb431-10" title="10">}</a>
-<a class="sourceLine" id="cb431-11" title="11"></a>
-<a class="sourceLine" id="cb431-12" title="12"></a>
-<a class="sourceLine" id="cb431-13" title="13"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb431-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb431-15" title="15"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb431-16" title="16"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope1,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb431-17" title="17">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb431-18" title="18"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope2,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb431-19" title="19">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb431-20" title="20"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-429-1.png" width="576" /></p>
-<p>Referring back to the eigenvectors, we see that it’s the second eigenvector that is represented by the horizontal line:</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">eigen.A<span class="op">$</span>vectors</a>
-<a class="sourceLine" id="cb432-2" title="2"><span class="co">##           [,1] [,2]</span></a>
-<a class="sourceLine" id="cb432-3" title="3"><span class="co">## [1,] 0.8320503    1</span></a>
-<a class="sourceLine" id="cb432-4" title="4"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
-<p>The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A. To drive home this point, here’s another configuration of points and the corresponding points under the same transformation:</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1">horiz.x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb433-2" title="2">horiz.y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(horiz.x))</a>
-<a class="sourceLine" id="cb433-3" title="3"></a>
-<a class="sourceLine" id="cb433-4" title="4">horiz.x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb433-5" title="5">horiz.y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x2))</a>
-<a class="sourceLine" id="cb433-6" title="6"></a>
-<a class="sourceLine" id="cb433-7" title="7">horiz.x3 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb433-8" title="8">horiz.y3 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x3))</a>
-<a class="sourceLine" id="cb433-9" title="9"></a>
-<a class="sourceLine" id="cb433-10" title="10">vert.y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb433-11" title="11">vert.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(vert.y))</a>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"></a>
+<a class="sourceLine" id="cb433-2" title="2"><span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span></a>
+<a class="sourceLine" id="cb433-3" title="3"><span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span></a>
+<a class="sourceLine" id="cb433-4" title="4">geom_ab_or_vline &lt;-<span class="st"> </span><span class="cf">function</span>(slope, intercept, ...) {</a>
+<a class="sourceLine" id="cb433-5" title="5">  <span class="cf">if</span> (<span class="kw">is.infinite</span>(slope)) {</a>
+<a class="sourceLine" id="cb433-6" title="6">    <span class="kw">return</span>(<span class="kw">geom_vline</span>(<span class="dt">yintercept =</span> intercept, ...))</a>
+<a class="sourceLine" id="cb433-7" title="7">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb433-8" title="8">    <span class="kw">return</span>(<span class="kw">geom_abline</span>(<span class="dt">slope=</span>slope, <span class="dt">intercept=</span>intercept, ...))</a>
+<a class="sourceLine" id="cb433-9" title="9">  }</a>
+<a class="sourceLine" id="cb433-10" title="10">}</a>
+<a class="sourceLine" id="cb433-11" title="11"></a>
 <a class="sourceLine" id="cb433-12" title="12"></a>
-<a class="sourceLine" id="cb433-13" title="13">x &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)</a>
-<a class="sourceLine" id="cb433-14" title="14">y &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)</a>
-<a class="sourceLine" id="cb433-15" title="15">cross.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
-<a class="sourceLine" id="cb433-16" title="16"></a>
-<a class="sourceLine" id="cb433-17" title="17">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(cross.df)</a>
-<a class="sourceLine" id="cb433-18" title="18">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
-<a class="sourceLine" id="cb433-19" title="19"></a>
-<a class="sourceLine" id="cb433-20" title="20"></a>
-<a class="sourceLine" id="cb433-21" title="21">plot.A &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb433-22" title="22"><span class="st">  </span><span class="kw">ggplot</span>(cross.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb433-23" title="23"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb433-24" title="24"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb433-25" title="25"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb433-26" title="26"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)</a>
-<a class="sourceLine" id="cb433-27" title="27">  </a>
-<a class="sourceLine" id="cb433-28" title="28">plot.B &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb433-29" title="29"><span class="st">  </span><span class="kw">ggplot</span>(Ax.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb433-30" title="30"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb433-31" title="31"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb433-32" title="32"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb433-33" title="33"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points after transformation&quot;</span>)</a>
-<a class="sourceLine" id="cb433-34" title="34">  </a>
-<a class="sourceLine" id="cb433-35" title="35"><span class="kw">plot_grid</span>(plot.A, plot.B)</a></code></pre></div>
+<a class="sourceLine" id="cb433-13" title="13"><span class="kw">ggplot</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> sin.xy, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-15" title="15"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> Ax.df, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-16" title="16"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope1,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb433-17" title="17">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb433-18" title="18"><span class="st">  </span><span class="kw">geom_ab_or_vline</span>(<span class="dt">slope =</span> eigenvec.A.slope2,<span class="dt">intercept=</span><span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb433-19" title="19">              <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,<span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb433-20" title="20"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-431-1.png" width="576" /></p>
+<p>Referring back to the eigenvectors, we see that it’s the second eigenvector that is represented by the horizontal line:</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">eigen.A<span class="op">$</span>vectors</a>
+<a class="sourceLine" id="cb434-2" title="2"><span class="co">##           [,1] [,2]</span></a>
+<a class="sourceLine" id="cb434-3" title="3"><span class="co">## [1,] 0.8320503    1</span></a>
+<a class="sourceLine" id="cb434-4" title="4"><span class="co">## [2,] 0.5547002    0</span></a></code></pre></div>
+<p>The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A. To drive home this point, here’s another configuration of points and the corresponding points under the same transformation:</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1">horiz.x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb435-2" title="2">horiz.y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(horiz.x))</a>
+<a class="sourceLine" id="cb435-3" title="3"></a>
+<a class="sourceLine" id="cb435-4" title="4">horiz.x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb435-5" title="5">horiz.y2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x2))</a>
+<a class="sourceLine" id="cb435-6" title="6"></a>
+<a class="sourceLine" id="cb435-7" title="7">horiz.x3 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb435-8" title="8">horiz.y3 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="kw">length</span>(horiz.x3))</a>
+<a class="sourceLine" id="cb435-9" title="9"></a>
+<a class="sourceLine" id="cb435-10" title="10">vert.y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb435-11" title="11">vert.x &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">length</span>(vert.y))</a>
+<a class="sourceLine" id="cb435-12" title="12"></a>
+<a class="sourceLine" id="cb435-13" title="13">x &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)</a>
+<a class="sourceLine" id="cb435-14" title="14">y &lt;-<span class="st"> </span><span class="kw">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)</a>
+<a class="sourceLine" id="cb435-15" title="15">cross.df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)</a>
+<a class="sourceLine" id="cb435-16" title="16"></a>
+<a class="sourceLine" id="cb435-17" title="17">Ax &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(cross.df)</a>
+<a class="sourceLine" id="cb435-18" title="18">Ax.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">t</span>(Ax)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">x =</span> V1, <span class="dt">y =</span> V2)</a>
+<a class="sourceLine" id="cb435-19" title="19"></a>
+<a class="sourceLine" id="cb435-20" title="20"></a>
+<a class="sourceLine" id="cb435-21" title="21">plot.A &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb435-22" title="22"><span class="st">  </span><span class="kw">ggplot</span>(cross.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb435-23" title="23"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb435-24" title="24"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb435-25" title="25"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb435-26" title="26"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)</a>
+<a class="sourceLine" id="cb435-27" title="27">  </a>
+<a class="sourceLine" id="cb435-28" title="28">plot.B &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb435-29" title="29"><span class="st">  </span><span class="kw">ggplot</span>(Ax.df, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x=</span>x,<span class="dt">y=</span>y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb435-30" title="30"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb435-31" title="31"><span class="st">  </span><span class="kw">lims</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb435-32" title="32"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb435-33" title="33"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Points after transformation&quot;</span>)</a>
+<a class="sourceLine" id="cb435-34" title="34">  </a>
+<a class="sourceLine" id="cb435-35" title="35"><span class="kw">plot_grid</span>(plot.A, plot.B)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-433-1.png" width="576" /></p>
 </div>
 <div id="principal-components-analysis-in-r" class="section level2">
 <h2><span class="header-section-number">14.4</span> Principal Components Analysis in R</h2>
@@ -649,155 +649,155 @@ frequent situation when re-analyzing data from the literature). We’ll concentr
 <p>The context is in marine biology and the data consist of two sets of variables observed at the same locations on the sea-bed: the first is a set of biological variables, the counts of five groups of species, and the second is a set of four environmental variables. The data set, called “bioenv”, is shown in Exhibit 2.1. The species groups are abbreviated as “a” to “e”. The environmental variables are “pollution”, a composite index of pollution combining measurements of heavy metal concentrations and hydrocarbons; depth, the depth in metres of the sea-bed where the sample was taken; “temperature”, the temperature of the water at the sampling point; and “sediment”, a classification of the substrate of the sample into one of three sediment categories.</p>
 </blockquote>
 <p>We’ll start by reading the <code>bioenv.txt</code> data set from the Github repository:</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">bioenv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) </a>
-<a class="sourceLine" id="cb434-2" title="2"><span class="co">## Parsed with column specification:</span></a>
-<a class="sourceLine" id="cb434-3" title="3"><span class="co">## cols(</span></a>
-<a class="sourceLine" id="cb434-4" title="4"><span class="co">##   X1 = col_character(),</span></a>
-<a class="sourceLine" id="cb434-5" title="5"><span class="co">##   a = col_double(),</span></a>
-<a class="sourceLine" id="cb434-6" title="6"><span class="co">##   b = col_double(),</span></a>
-<a class="sourceLine" id="cb434-7" title="7"><span class="co">##   c = col_double(),</span></a>
-<a class="sourceLine" id="cb434-8" title="8"><span class="co">##   d = col_double(),</span></a>
-<a class="sourceLine" id="cb434-9" title="9"><span class="co">##   e = col_double(),</span></a>
-<a class="sourceLine" id="cb434-10" title="10"><span class="co">##   Pollution = col_double(),</span></a>
-<a class="sourceLine" id="cb434-11" title="11"><span class="co">##   Depth = col_double(),</span></a>
-<a class="sourceLine" id="cb434-12" title="12"><span class="co">##   Temperature = col_double(),</span></a>
-<a class="sourceLine" id="cb434-13" title="13"><span class="co">##   Sediment = col_character()</span></a>
-<a class="sourceLine" id="cb434-14" title="14"><span class="co">## )</span></a>
-<a class="sourceLine" id="cb434-15" title="15"><span class="kw">names</span>(bioenv)</a>
-<a class="sourceLine" id="cb434-16" title="16"><span class="co">##  [1] &quot;X1&quot;          &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
-<a class="sourceLine" id="cb434-17" title="17"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1">bioenv &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) </a>
+<a class="sourceLine" id="cb436-2" title="2"><span class="co">## Parsed with column specification:</span></a>
+<a class="sourceLine" id="cb436-3" title="3"><span class="co">## cols(</span></a>
+<a class="sourceLine" id="cb436-4" title="4"><span class="co">##   X1 = col_character(),</span></a>
+<a class="sourceLine" id="cb436-5" title="5"><span class="co">##   a = col_double(),</span></a>
+<a class="sourceLine" id="cb436-6" title="6"><span class="co">##   b = col_double(),</span></a>
+<a class="sourceLine" id="cb436-7" title="7"><span class="co">##   c = col_double(),</span></a>
+<a class="sourceLine" id="cb436-8" title="8"><span class="co">##   d = col_double(),</span></a>
+<a class="sourceLine" id="cb436-9" title="9"><span class="co">##   e = col_double(),</span></a>
+<a class="sourceLine" id="cb436-10" title="10"><span class="co">##   Pollution = col_double(),</span></a>
+<a class="sourceLine" id="cb436-11" title="11"><span class="co">##   Depth = col_double(),</span></a>
+<a class="sourceLine" id="cb436-12" title="12"><span class="co">##   Temperature = col_double(),</span></a>
+<a class="sourceLine" id="cb436-13" title="13"><span class="co">##   Sediment = col_character()</span></a>
+<a class="sourceLine" id="cb436-14" title="14"><span class="co">## )</span></a>
+<a class="sourceLine" id="cb436-15" title="15"><span class="kw">names</span>(bioenv)</a>
+<a class="sourceLine" id="cb436-16" title="16"><span class="co">##  [1] &quot;X1&quot;          &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
+<a class="sourceLine" id="cb436-17" title="17"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
 <p>Notice that the first column got assigned the generic name <code>X1</code>. This is because there is a missing column header in the <code>bioenv.txt</code> file. This first column corresponds to the sampling sites. Before we move on let’s give this column a more meaningful name:</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1">bioenv &lt;-</a>
-<a class="sourceLine" id="cb435-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Site =</span> X1)</a>
-<a class="sourceLine" id="cb435-3" title="3"></a>
-<a class="sourceLine" id="cb435-4" title="4"><span class="kw">names</span>(bioenv)</a>
-<a class="sourceLine" id="cb435-5" title="5"><span class="co">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
-<a class="sourceLine" id="cb435-6" title="6"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">bioenv &lt;-</a>
+<a class="sourceLine" id="cb437-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">Site =</span> X1)</a>
+<a class="sourceLine" id="cb437-3" title="3"></a>
+<a class="sourceLine" id="cb437-4" title="4"><span class="kw">names</span>(bioenv)</a>
+<a class="sourceLine" id="cb437-5" title="5"><span class="co">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></a>
+<a class="sourceLine" id="cb437-6" title="6"><span class="co">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></a></code></pre></div>
 <p>The columns labeled <code>a</code> to <code>e</code> contain the counts of the five species at each site, while the remaining columns give additional information about the physical properties of each sampling site. For our purposes today we’ll confine our attention to the abundance data.</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1">abundance &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb436-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb436-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Site, a, b, c, d, e)</a>
-<a class="sourceLine" id="cb436-4" title="4"></a>
-<a class="sourceLine" id="cb436-5" title="5"><span class="kw">head</span>(abundance)</a>
-<a class="sourceLine" id="cb436-6" title="6"><span class="co">## # A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb436-7" title="7"><span class="co">##   Site      a     b     c     d     e</span></a>
-<a class="sourceLine" id="cb436-8" title="8"><span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb436-9" title="9"><span class="co">## 1 s1        0     2     9    14     2</span></a>
-<a class="sourceLine" id="cb436-10" title="10"><span class="co">## 2 s2       26     4    13    11     0</span></a>
-<a class="sourceLine" id="cb436-11" title="11"><span class="co">## 3 s3        0    10     9     8     0</span></a>
-<a class="sourceLine" id="cb436-12" title="12"><span class="co">## 4 s4        0     0    15     3     0</span></a>
-<a class="sourceLine" id="cb436-13" title="13"><span class="co">## 5 s5       13     5     3    10     7</span></a>
-<a class="sourceLine" id="cb436-14" title="14"><span class="co">## 6 s6       31    21    13    16     5</span></a></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1">abundance &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb438-2" title="2"><span class="st">  </span>bioenv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb438-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Site, a, b, c, d, e)</a>
+<a class="sourceLine" id="cb438-4" title="4"></a>
+<a class="sourceLine" id="cb438-5" title="5"><span class="kw">head</span>(abundance)</a>
+<a class="sourceLine" id="cb438-6" title="6"><span class="co">## # A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb438-7" title="7"><span class="co">##   Site      a     b     c     d     e</span></a>
+<a class="sourceLine" id="cb438-8" title="8"><span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb438-9" title="9"><span class="co">## 1 s1        0     2     9    14     2</span></a>
+<a class="sourceLine" id="cb438-10" title="10"><span class="co">## 2 s2       26     4    13    11     0</span></a>
+<a class="sourceLine" id="cb438-11" title="11"><span class="co">## 3 s3        0    10     9     8     0</span></a>
+<a class="sourceLine" id="cb438-12" title="12"><span class="co">## 4 s4        0     0    15     3     0</span></a>
+<a class="sourceLine" id="cb438-13" title="13"><span class="co">## 5 s5       13     5     3    10     7</span></a>
+<a class="sourceLine" id="cb438-14" title="14"><span class="co">## 6 s6       31    21    13    16     5</span></a></code></pre></div>
 <p>The data is currently in a “wide” format. For the purposes of plotting it will be more convenient to generate a “long” version of the data using functions from the tidyr library (see the Data Wrangling chapter).</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">long.abundance &lt;-</a>
-<a class="sourceLine" id="cb437-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb437-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Species, Count, <span class="op">-</span>Site)</a>
-<a class="sourceLine" id="cb437-4" title="4"></a>
-<a class="sourceLine" id="cb437-5" title="5"><span class="kw">head</span>(long.abundance)</a>
-<a class="sourceLine" id="cb437-6" title="6"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb437-7" title="7"><span class="co">##   Site  Species Count</span></a>
-<a class="sourceLine" id="cb437-8" title="8"><span class="co">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb437-9" title="9"><span class="co">## 1 s1    a           0</span></a>
-<a class="sourceLine" id="cb437-10" title="10"><span class="co">## 2 s2    a          26</span></a>
-<a class="sourceLine" id="cb437-11" title="11"><span class="co">## 3 s3    a           0</span></a>
-<a class="sourceLine" id="cb437-12" title="12"><span class="co">## 4 s4    a           0</span></a>
-<a class="sourceLine" id="cb437-13" title="13"><span class="co">## 5 s5    a          13</span></a>
-<a class="sourceLine" id="cb437-14" title="14"><span class="co">## 6 s6    a          31</span></a></code></pre></div>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="kw">ggplot</span>(long.abundance, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Count)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb438-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb438-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distribution of</span><span class="ch">\n</span><span class="st">Species Counts per Site&quot;</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-436-1.png" width="576" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1">long.abundance &lt;-</a>
+<a class="sourceLine" id="cb439-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-3" title="3"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">gather</span>(Species, Count, <span class="op">-</span>Site)</a>
+<a class="sourceLine" id="cb439-4" title="4"></a>
+<a class="sourceLine" id="cb439-5" title="5"><span class="kw">head</span>(long.abundance)</a>
+<a class="sourceLine" id="cb439-6" title="6"><span class="co">## # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb439-7" title="7"><span class="co">##   Site  Species Count</span></a>
+<a class="sourceLine" id="cb439-8" title="8"><span class="co">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb439-9" title="9"><span class="co">## 1 s1    a           0</span></a>
+<a class="sourceLine" id="cb439-10" title="10"><span class="co">## 2 s2    a          26</span></a>
+<a class="sourceLine" id="cb439-11" title="11"><span class="co">## 3 s3    a           0</span></a>
+<a class="sourceLine" id="cb439-12" title="12"><span class="co">## 4 s4    a           0</span></a>
+<a class="sourceLine" id="cb439-13" title="13"><span class="co">## 5 s5    a          13</span></a>
+<a class="sourceLine" id="cb439-14" title="14"><span class="co">## 6 s6    a          31</span></a></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1"><span class="kw">ggplot</span>(long.abundance, <span class="kw">aes</span>(<span class="dt">x =</span> Species, <span class="dt">y =</span> Count)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb440-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb440-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Distribution of</span><span class="ch">\n</span><span class="st">Species Counts per Site&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-438-1.png" width="576" /></p>
 <p>From the boxplot it looks like the counts for species `e’ are smaller on average, and less variable. The mean and variance functions confirm that.</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1">long.abundance <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb439-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb439-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">mean</span>(Count), <span class="kw">var</span>(Count))</a>
-<a class="sourceLine" id="cb439-4" title="4"><span class="co">## # A tibble: 5 x 3</span></a>
-<a class="sourceLine" id="cb439-5" title="5"><span class="co">##   Species `mean(Count)` `var(Count)`</span></a>
-<a class="sourceLine" id="cb439-6" title="6"><span class="co">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb439-7" title="7"><span class="co">## 1 a               13.5         158. </span></a>
-<a class="sourceLine" id="cb439-8" title="8"><span class="co">## 2 b                8.73         83.4</span></a>
-<a class="sourceLine" id="cb439-9" title="9"><span class="co">## 3 c                8.4          73.6</span></a>
-<a class="sourceLine" id="cb439-10" title="10"><span class="co">## 4 d               10.9          44.4</span></a>
-<a class="sourceLine" id="cb439-11" title="11"><span class="co">## 5 e                2.97         15.7</span></a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1">long.abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb441-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb441-3" title="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="kw">mean</span>(Count), <span class="kw">var</span>(Count))</a>
+<a class="sourceLine" id="cb441-4" title="4"><span class="co">## # A tibble: 5 x 3</span></a>
+<a class="sourceLine" id="cb441-5" title="5"><span class="co">##   Species `mean(Count)` `var(Count)`</span></a>
+<a class="sourceLine" id="cb441-6" title="6"><span class="co">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb441-7" title="7"><span class="co">## 1 a               13.5         158. </span></a>
+<a class="sourceLine" id="cb441-8" title="8"><span class="co">## 2 b                8.73         83.4</span></a>
+<a class="sourceLine" id="cb441-9" title="9"><span class="co">## 3 c                8.4          73.6</span></a>
+<a class="sourceLine" id="cb441-10" title="10"><span class="co">## 4 d               10.9          44.4</span></a>
+<a class="sourceLine" id="cb441-11" title="11"><span class="co">## 5 e                2.97         15.7</span></a></code></pre></div>
 <p>A correlation matrix suggests weak to moderate associations between the variables:</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1">abundance.only &lt;-</a>
-<a class="sourceLine" id="cb440-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb440-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Site) <span class="co"># drop the Site column</span></a>
-<a class="sourceLine" id="cb440-4" title="4">  </a>
-<a class="sourceLine" id="cb440-5" title="5"><span class="kw">cor</span>(abundance.only)</a>
-<a class="sourceLine" id="cb440-6" title="6"><span class="co">##            a           b           c            d            e</span></a>
-<a class="sourceLine" id="cb440-7" title="7"><span class="co">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span></a>
-<a class="sourceLine" id="cb440-8" title="8"><span class="co">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span></a>
-<a class="sourceLine" id="cb440-9" title="9"><span class="co">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span></a>
-<a class="sourceLine" id="cb440-10" title="10"><span class="co">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span></a>
-<a class="sourceLine" id="cb440-11" title="11"><span class="co">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></a></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1">abundance.only &lt;-</a>
+<a class="sourceLine" id="cb442-2" title="2"><span class="st">  </span>abundance <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb442-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Site) <span class="co"># drop the Site column</span></a>
+<a class="sourceLine" id="cb442-4" title="4">  </a>
+<a class="sourceLine" id="cb442-5" title="5"><span class="kw">cor</span>(abundance.only)</a>
+<a class="sourceLine" id="cb442-6" title="6"><span class="co">##            a           b           c            d            e</span></a>
+<a class="sourceLine" id="cb442-7" title="7"><span class="co">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span></a>
+<a class="sourceLine" id="cb442-8" title="8"><span class="co">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span></a>
+<a class="sourceLine" id="cb442-9" title="9"><span class="co">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span></a>
+<a class="sourceLine" id="cb442-10" title="10"><span class="co">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span></a>
+<a class="sourceLine" id="cb442-11" title="11"><span class="co">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></a></code></pre></div>
 <p>However a scatterplot matrix generated by the <code>GGally::ggapirs()</code> function suggests that many of the relationships have a strong non-linear element.</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="kw">ggpairs</span>(abundance.only)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-439-1.png" width="576" /></p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1"><span class="kw">ggpairs</span>(abundance.only)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-441-1.png" width="576" /></p>
 </div>
 <div id="pca-of-the-bioenv-dataset" class="section level3">
 <h3><span class="header-section-number">14.4.2</span> PCA of the Bioenv dataset</h3>
 <p>Linearity is not a requirement for PCA, as it’s simply a rigid rotation of the original data. So we’ll continue with our analysis after taking a moment to read the help on the <code>prcomp()</code> function that is used to carry-out PCA in R.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1">abundance.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(abundance.only, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">retx=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb442-2" title="2">    <span class="co"># center=TRUE mean centers the data</span></a>
-<a class="sourceLine" id="cb442-3" title="3">    <span class="co"># retx=TRUE returns the PC scores</span></a>
-<a class="sourceLine" id="cb442-4" title="4">    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span></a>
-<a class="sourceLine" id="cb442-5" title="5">    <span class="co">#    -- notice the period after scale!</span></a>
-<a class="sourceLine" id="cb442-6" title="6"></a>
-<a class="sourceLine" id="cb442-7" title="7"><span class="kw">summary</span>(abundance.pca)</a>
-<a class="sourceLine" id="cb442-8" title="8"><span class="co">## Importance of components:</span></a>
-<a class="sourceLine" id="cb442-9" title="9"><span class="co">##                            PC1    PC2    PC3     PC4     PC5</span></a>
-<a class="sourceLine" id="cb442-10" title="10"><span class="co">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span></a>
-<a class="sourceLine" id="cb442-11" title="11"><span class="co">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span></a>
-<a class="sourceLine" id="cb442-12" title="12"><span class="co">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></a></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1">abundance.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(abundance.only, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">retx=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb444-2" title="2">    <span class="co"># center=TRUE mean centers the data</span></a>
+<a class="sourceLine" id="cb444-3" title="3">    <span class="co"># retx=TRUE returns the PC scores</span></a>
+<a class="sourceLine" id="cb444-4" title="4">    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span></a>
+<a class="sourceLine" id="cb444-5" title="5">    <span class="co">#    -- notice the period after scale!</span></a>
+<a class="sourceLine" id="cb444-6" title="6"></a>
+<a class="sourceLine" id="cb444-7" title="7"><span class="kw">summary</span>(abundance.pca)</a>
+<a class="sourceLine" id="cb444-8" title="8"><span class="co">## Importance of components:</span></a>
+<a class="sourceLine" id="cb444-9" title="9"><span class="co">##                            PC1    PC2    PC3     PC4     PC5</span></a>
+<a class="sourceLine" id="cb444-10" title="10"><span class="co">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span></a>
+<a class="sourceLine" id="cb444-11" title="11"><span class="co">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span></a>
+<a class="sourceLine" id="cb444-12" title="12"><span class="co">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></a></code></pre></div>
 <p>We see that approximately 59% of the variance in the data is capture by the first PC, and approximately 90% by the first three PCs.</p>
 <p>Let’s compare the values return by PCA to what we would get if we carried out eigenanalysis of the covariance matrix that corresponds to our data.</p>
 <p>First the list object return by <code>prcomp()</code>:</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">abundance.pca</a>
-<a class="sourceLine" id="cb443-2" title="2"><span class="co">## Standard deviations (1, .., p=5):</span></a>
-<a class="sourceLine" id="cb443-3" title="3"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a>
-<a class="sourceLine" id="cb443-4" title="4"><span class="co">## </span></a>
-<a class="sourceLine" id="cb443-5" title="5"><span class="co">## Rotation (n x k) = (5 x 5):</span></a>
-<a class="sourceLine" id="cb443-6" title="6"><span class="co">##           PC1         PC2         PC3         PC4         PC5</span></a>
-<a class="sourceLine" id="cb443-7" title="7"><span class="co">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span></a>
-<a class="sourceLine" id="cb443-8" title="8"><span class="co">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span></a>
-<a class="sourceLine" id="cb443-9" title="9"><span class="co">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span></a>
-<a class="sourceLine" id="cb443-10" title="10"><span class="co">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span></a>
-<a class="sourceLine" id="cb443-11" title="11"><span class="co">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">abundance.pca</a>
+<a class="sourceLine" id="cb445-2" title="2"><span class="co">## Standard deviations (1, .., p=5):</span></a>
+<a class="sourceLine" id="cb445-3" title="3"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a>
+<a class="sourceLine" id="cb445-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb445-5" title="5"><span class="co">## Rotation (n x k) = (5 x 5):</span></a>
+<a class="sourceLine" id="cb445-6" title="6"><span class="co">##           PC1         PC2         PC3         PC4         PC5</span></a>
+<a class="sourceLine" id="cb445-7" title="7"><span class="co">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span></a>
+<a class="sourceLine" id="cb445-8" title="8"><span class="co">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span></a>
+<a class="sourceLine" id="cb445-9" title="9"><span class="co">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span></a>
+<a class="sourceLine" id="cb445-10" title="10"><span class="co">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span></a>
+<a class="sourceLine" id="cb445-11" title="11"><span class="co">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></a></code></pre></div>
 <p>And now the corresponding values returned by eigenanaysis of the covariance matrix generated from the abundance data:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1">eig.abundance &lt;-<span class="st"> </span><span class="kw">eigen</span>(<span class="kw">cov</span>(abundance.only))</a>
-<a class="sourceLine" id="cb444-2" title="2">eig.abundance<span class="op">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span></a>
-<a class="sourceLine" id="cb444-3" title="3"><span class="co">##             [,1]        [,2]        [,3]        [,4]        [,5]</span></a>
-<a class="sourceLine" id="cb444-4" title="4"><span class="co">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span></a>
-<a class="sourceLine" id="cb444-5" title="5"><span class="co">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span></a>
-<a class="sourceLine" id="cb444-6" title="6"><span class="co">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span></a>
-<a class="sourceLine" id="cb444-7" title="7"><span class="co">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span></a>
-<a class="sourceLine" id="cb444-8" title="8"><span class="co">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span></a>
-<a class="sourceLine" id="cb444-9" title="9"><span class="kw">sqrt</span>(eig.abundance<span class="op">$</span>values) <span class="co"># compare to sdev of PCA</span></a>
-<a class="sourceLine" id="cb444-10" title="10"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" title="1">eig.abundance &lt;-<span class="st"> </span><span class="kw">eigen</span>(<span class="kw">cov</span>(abundance.only))</a>
+<a class="sourceLine" id="cb446-2" title="2">eig.abundance<span class="op">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span></a>
+<a class="sourceLine" id="cb446-3" title="3"><span class="co">##             [,1]        [,2]        [,3]        [,4]        [,5]</span></a>
+<a class="sourceLine" id="cb446-4" title="4"><span class="co">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span></a>
+<a class="sourceLine" id="cb446-5" title="5"><span class="co">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span></a>
+<a class="sourceLine" id="cb446-6" title="6"><span class="co">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span></a>
+<a class="sourceLine" id="cb446-7" title="7"><span class="co">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span></a>
+<a class="sourceLine" id="cb446-8" title="8"><span class="co">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span></a>
+<a class="sourceLine" id="cb446-9" title="9"><span class="kw">sqrt</span>(eig.abundance<span class="op">$</span>values) <span class="co"># compare to sdev of PCA</span></a>
+<a class="sourceLine" id="cb446-10" title="10"><span class="co">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></a></code></pre></div>
 <p>Notice that the <code>rotation</code> object returned by the <code>prcomp()</code> represents the scaled eigenvectors (scaled to have length 1). The standard deviations of the PCA are the square roots of the eigenvalues of the covariance matrix.</p>
 </div>
 <div id="calculating-factor-loadings" class="section level3">
 <h3><span class="header-section-number">14.4.3</span> Calculating Factor Loadings</h3>
 <p>Let’s calculate the “factor loadings” associated with the PCs:</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">V &lt;-<span class="st"> </span>abundance.pca<span class="op">$</span>rotation <span class="co"># eigenvectors</span></a>
-<a class="sourceLine" id="cb445-2" title="2">L &lt;-<span class="st"> </span><span class="kw">diag</span>(abundance.pca<span class="op">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span></a>
-<a class="sourceLine" id="cb445-3" title="3"></a>
-<a class="sourceLine" id="cb445-4" title="4">abundance.loadings &lt;-<span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>L</a>
-<a class="sourceLine" id="cb445-5" title="5">abundance.loadings</a>
-<a class="sourceLine" id="cb445-6" title="6"><span class="co">##         [,1]       [,2]       [,3]        [,4]       [,5]</span></a>
-<a class="sourceLine" id="cb445-7" title="7"><span class="co">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span></a>
-<a class="sourceLine" id="cb445-8" title="8"><span class="co">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span></a>
-<a class="sourceLine" id="cb445-9" title="9"><span class="co">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span></a>
-<a class="sourceLine" id="cb445-10" title="10"><span class="co">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span></a>
-<a class="sourceLine" id="cb445-11" title="11"><span class="co">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">V &lt;-<span class="st"> </span>abundance.pca<span class="op">$</span>rotation <span class="co"># eigenvectors</span></a>
+<a class="sourceLine" id="cb447-2" title="2">L &lt;-<span class="st"> </span><span class="kw">diag</span>(abundance.pca<span class="op">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span></a>
+<a class="sourceLine" id="cb447-3" title="3"></a>
+<a class="sourceLine" id="cb447-4" title="4">abundance.loadings &lt;-<span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>L</a>
+<a class="sourceLine" id="cb447-5" title="5">abundance.loadings</a>
+<a class="sourceLine" id="cb447-6" title="6"><span class="co">##         [,1]       [,2]       [,3]        [,4]       [,5]</span></a>
+<a class="sourceLine" id="cb447-7" title="7"><span class="co">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span></a>
+<a class="sourceLine" id="cb447-8" title="8"><span class="co">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span></a>
+<a class="sourceLine" id="cb447-9" title="9"><span class="co">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span></a>
+<a class="sourceLine" id="cb447-10" title="10"><span class="co">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span></a>
+<a class="sourceLine" id="cb447-11" title="11"><span class="co">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></a></code></pre></div>
 <p>The magnitude of the factor loadings is what you want to focus on. For example, species <code>a</code> and <code>b</code> contribute most to the first PC, while species <code>c</code> has the largest influence on PC2.</p>
 <p>You can think of the factor loadings, as defined above, as the components (i.e lengths of the projected vectors) of the original variables with respect to the PC basis vectors. Since vector length is proportional to the standard deviation of the variables they represent, you can think of the loadings as giving the standard deviation of the original variables with respect the PC axes. This implies that the loadings squared sum to the total variance in the original data, as illustrated below.</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" title="1"><span class="kw">sum</span>(abundance.loadings<span class="op">**</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb446-2" title="2"><span class="co">## [1] 374.8345</span></a>
-<a class="sourceLine" id="cb446-3" title="3"></a>
-<a class="sourceLine" id="cb446-4" title="4">abundance.only <span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(var) <span class="op">%&gt;%</span><span class="st"> </span>sum</a>
-<a class="sourceLine" id="cb446-5" title="5"><span class="co">## [1] 374.8345</span></a></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1"><span class="kw">sum</span>(abundance.loadings<span class="op">**</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb448-2" title="2"><span class="co">## [1] 374.8345</span></a>
+<a class="sourceLine" id="cb448-3" title="3"></a>
+<a class="sourceLine" id="cb448-4" title="4">abundance.only <span class="op">%&gt;%</span><span class="st"> </span>purrr<span class="op">::</span><span class="kw">map_dbl</span>(var) <span class="op">%&gt;%</span><span class="st"> </span>sum</a>
+<a class="sourceLine" id="cb448-5" title="5"><span class="co">## [1] 374.8345</span></a></code></pre></div>
 </div>
 </div>
 <div id="drawing-figures-to-represent-pca" class="section level2">
@@ -805,64 +805,64 @@ frequent situation when re-analyzing data from the literature). We’ll concentr
 <div id="pc-score-plots" class="section level3">
 <h3><span class="header-section-number">14.5.1</span> PC Score Plots</h3>
 <p>The simplest PCA figure is to depict the PC scores, i.e. the projection of the observations into the space defined by the PC axes. Let’s make a figure with three subplots, depicting PC1 vs PC2, PC1 vs PC3, and PC2 vs. PC3.</p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1">pca.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(abundance.pca<span class="op">$</span>x)</a>
-<a class="sourceLine" id="cb447-2" title="2"></a>
-<a class="sourceLine" id="cb447-3" title="3">coord.system &lt;-<span class="st"> </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>))</a>
-<a class="sourceLine" id="cb447-4" title="4"></a>
-<a class="sourceLine" id="cb447-5" title="5">pc1v2 &lt;-</a>
-<a class="sourceLine" id="cb447-6" title="6"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC2)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb447-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb447-9" title="9"><span class="st">  </span>coord.system</a>
-<a class="sourceLine" id="cb447-10" title="10"></a>
-<a class="sourceLine" id="cb447-11" title="11">pc1v3 &lt;-</a>
-<a class="sourceLine" id="cb447-12" title="12"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb447-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb447-15" title="15"><span class="st">  </span>coord.system</a>
-<a class="sourceLine" id="cb447-16" title="16"></a>
-<a class="sourceLine" id="cb447-17" title="17">pc2v3 &lt;-</a>
-<a class="sourceLine" id="cb447-18" title="18"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-19" title="19"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC2, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb447-20" title="20"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb447-21" title="21"><span class="st">  </span>coord.system</a>
-<a class="sourceLine" id="cb447-22" title="22"></a>
-<a class="sourceLine" id="cb447-23" title="23">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="dt">align=</span><span class="st">&quot;hv&quot;</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-445-1.png" width="576" /></p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1">pca.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(abundance.pca<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb449-2" title="2"></a>
+<a class="sourceLine" id="cb449-3" title="3">coord.system &lt;-<span class="st"> </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>,<span class="dv">30</span>))</a>
+<a class="sourceLine" id="cb449-4" title="4"></a>
+<a class="sourceLine" id="cb449-5" title="5">pc1v2 &lt;-</a>
+<a class="sourceLine" id="cb449-6" title="6"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-7" title="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC2)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb449-8" title="8"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb449-9" title="9"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb449-10" title="10"></a>
+<a class="sourceLine" id="cb449-11" title="11">pc1v3 &lt;-</a>
+<a class="sourceLine" id="cb449-12" title="12"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-13" title="13"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb449-14" title="14"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb449-15" title="15"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb449-16" title="16"></a>
+<a class="sourceLine" id="cb449-17" title="17">pc2v3 &lt;-</a>
+<a class="sourceLine" id="cb449-18" title="18"><span class="st">  </span>pca.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-19" title="19"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> PC2, <span class="dt">y=</span> PC3)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb449-20" title="20"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb449-21" title="21"><span class="st">  </span>coord.system</a>
+<a class="sourceLine" id="cb449-22" title="22"></a>
+<a class="sourceLine" id="cb449-23" title="23">cowplot<span class="op">::</span><span class="kw">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="dt">align=</span><span class="st">&quot;hv&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-447-1.png" width="576" /></p>
 <p>When plotting PC scores, it is <strong>very important</strong> to keep the aspect ratio with a value of 1, so that the distance between points in the plot is an accurate representation of the distance in the PC space. Note too that I used the <code>xlim</code> and <code>ylim</code> arguments to keep the axis limits the same in all plots; comparable scaling of axes is important when comparing plots. Also note the use of the <code>align="hv"</code> argument to <code>plot_grid()</code> to keep my plots the same size when combining them into a single figure.</p>
 </div>
 <div id="simultaneous-depiction-of-observations-and-variables-in-the-pc-space" class="section level3">
 <h3><span class="header-section-number">14.5.2</span> Simultaneous Depiction of Observations and Variables in the PC Space</h3>
 <p>Let’s return to our simple PC score plot. As we discussed above, the loadings are components of the original variables in the space of the PCs. This implies we can depict those loadings in the same PC basis that we use to depict the scores.</p>
 <p>First let’s create a data frame with the loadings from the first two PCs as well as a column representation the variable names:</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1">loadings<span class="fl">.1</span>and2 &lt;-</a>
-<a class="sourceLine" id="cb448-2" title="2"><span class="st">  </span><span class="kw">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-3" title="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">PC1.loading =</span> X1, <span class="dt">PC2.loading =</span> X2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">row.names</span>(abundance.loadings))</a>
-<a class="sourceLine" id="cb448-5" title="5"></a>
-<a class="sourceLine" id="cb448-6" title="6">loadings<span class="fl">.1</span>and2</a>
-<a class="sourceLine" id="cb448-7" title="7"><span class="co">## # A tibble: 5 x 3</span></a>
-<a class="sourceLine" id="cb448-8" title="8"><span class="co">##   PC1.loading PC2.loading variable</span></a>
-<a class="sourceLine" id="cb448-9" title="9"><span class="co">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span></a>
-<a class="sourceLine" id="cb448-10" title="10"><span class="co">## 1      12.1         0.622 a       </span></a>
-<a class="sourceLine" id="cb448-11" title="11"><span class="co">## 2       7.62       -2.45  b       </span></a>
-<a class="sourceLine" id="cb448-12" title="12"><span class="co">## 3      -2.41       -7.82  c       </span></a>
-<a class="sourceLine" id="cb448-13" title="13"><span class="co">## 4       3.30       -2.79  d       </span></a>
-<a class="sourceLine" id="cb448-14" title="14"><span class="co">## 5       0.984       1.56  e</span></a></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1">loadings<span class="fl">.1</span>and2 &lt;-</a>
+<a class="sourceLine" id="cb450-2" title="2"><span class="st">  </span><span class="kw">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb450-3" title="3"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">PC1.loading =</span> X1, <span class="dt">PC2.loading =</span> X2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb450-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">variable =</span> <span class="kw">row.names</span>(abundance.loadings))</a>
+<a class="sourceLine" id="cb450-5" title="5"></a>
+<a class="sourceLine" id="cb450-6" title="6">loadings<span class="fl">.1</span>and2</a>
+<a class="sourceLine" id="cb450-7" title="7"><span class="co">## # A tibble: 5 x 3</span></a>
+<a class="sourceLine" id="cb450-8" title="8"><span class="co">##   PC1.loading PC2.loading variable</span></a>
+<a class="sourceLine" id="cb450-9" title="9"><span class="co">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span></a>
+<a class="sourceLine" id="cb450-10" title="10"><span class="co">## 1      12.1         0.622 a       </span></a>
+<a class="sourceLine" id="cb450-11" title="11"><span class="co">## 2       7.62       -2.45  b       </span></a>
+<a class="sourceLine" id="cb450-12" title="12"><span class="co">## 3      -2.41       -7.82  c       </span></a>
+<a class="sourceLine" id="cb450-13" title="13"><span class="co">## 4       3.30       -2.79  d       </span></a>
+<a class="sourceLine" id="cb450-14" title="14"><span class="co">## 5       0.984       1.56  e</span></a></code></pre></div>
 <p>With this data frame in hand, we can now draw a set of vector to represent the original variables projected into the subspace defined by PCs 1 and 2:</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1">pc1v2.biplot &lt;-</a>
-<a class="sourceLine" id="cb449-2" title="2"><span class="st">  </span>pc1v2 <span class="op">+</span></a>
-<a class="sourceLine" id="cb449-3" title="3"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
-<a class="sourceLine" id="cb449-4" title="4">               <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> PC1.loading, <span class="dt">yend =</span> PC2.loading),</a>
-<a class="sourceLine" id="cb449-5" title="5">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, </a>
-<a class="sourceLine" id="cb449-6" title="6">               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle=</span><span class="dv">15</span>, <span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb449-7" title="7"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
-<a class="sourceLine" id="cb449-8" title="8">            <span class="kw">aes</span>(<span class="dt">x =</span> PC1.loading, <span class="dt">y =</span> PC2.loading, <span class="dt">label=</span>variable),</a>
-<a class="sourceLine" id="cb449-9" title="9">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">nudge_x =</span> <span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb449-10" title="10"></a>
-<a class="sourceLine" id="cb449-11" title="11"></a>
-<a class="sourceLine" id="cb449-12" title="12">pc1v2.biplot</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-447-1.png" width="768" /></p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1">pc1v2.biplot &lt;-</a>
+<a class="sourceLine" id="cb451-2" title="2"><span class="st">  </span>pc1v2 <span class="op">+</span></a>
+<a class="sourceLine" id="cb451-3" title="3"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
+<a class="sourceLine" id="cb451-4" title="4">               <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">xend =</span> PC1.loading, <span class="dt">yend =</span> PC2.loading),</a>
+<a class="sourceLine" id="cb451-5" title="5">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, </a>
+<a class="sourceLine" id="cb451-6" title="6">               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle=</span><span class="dv">15</span>, <span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb451-7" title="7"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>loadings<span class="fl">.1</span>and2,</a>
+<a class="sourceLine" id="cb451-8" title="8">            <span class="kw">aes</span>(<span class="dt">x =</span> PC1.loading, <span class="dt">y =</span> PC2.loading, <span class="dt">label=</span>variable),</a>
+<a class="sourceLine" id="cb451-9" title="9">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">nudge_x =</span> <span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb451-10" title="10"></a>
+<a class="sourceLine" id="cb451-11" title="11"></a>
+<a class="sourceLine" id="cb451-12" title="12">pc1v2.biplot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-449-1.png" width="768" /></p>
 <p>The figure above is called a “biplot”", as it simultaneously depicts both the observations and variables in the same space. From this biplot we can immediately see that variable <code>a</code> is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable <code>c</code> is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves – for example <code>b</code> and <code>d</code> are fairly strongly correlated, but weakly correlated with <code>c</code>. Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.</p>
 <p>The biplot is a generally useful tool for multivariate analyses and there are a number of different ways to define biplots. We’ll study biplots more formally in a few weeks after we’ve covered singular value decomposition.</p>
 

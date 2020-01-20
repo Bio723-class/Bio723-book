@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-15" />
+<meta name="date" content="2020-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -680,8 +680,10 @@ Precision in numerical computing is a complex subject and a detailed discussion 
 <p>Notice that <code>paste()</code> adds a space between the strings? If we didn’t want the space we can call the <code>paste()</code> function with an optional argument called <code>sep</code> (short for separator) which specifies the character(s) that are inserted between the joined strings.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)  <span class="co"># join with no space; &quot;&quot; is an empty string</span></a>
 <a class="sourceLine" id="cb25-2" title="2"><span class="co">## [1] &quot;abcdef&quot;</span></a>
-<a class="sourceLine" id="cb25-3" title="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span></a>
-<a class="sourceLine" id="cb25-4" title="4"><span class="co">## [1] &quot;abc|def&quot;</span></a></code></pre></div>
+<a class="sourceLine" id="cb25-3" title="3"><span class="kw">paste0</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>) <span class="co"># an equivalent function with no space in newer version of R</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="co">## [1] &quot;abcdef&quot;</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span></a>
+<a class="sourceLine" id="cb25-6" title="6"><span class="co">## [1] &quot;abc|def&quot;</span></a></code></pre></div>
 </div>
 <div id="splitting-strings" class="section level4">
 <h4><span class="header-section-number">2.7.3.2</span> Splitting strings</h4>
@@ -763,7 +765,7 @@ Figure 2.4: The RStudio Help tab
 <p>In this case <code>help.search("log")</code> returns all the functions with
 the string <code>log</code> in them. For more on <code>help.search</code> type
 <code>?help.search</code>.</p>
-<p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>, <code>vignette()</code>. <code>apropos</code> returns a list of all objects (including function names) in the current session that match the input string.</p>
+<p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>, <code>vignette()</code>. <code>apropos</code> returns a list of all objects (including variable names and function names) in the current session that match the input string.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</a>
 <a class="sourceLine" id="cb32-2" title="2"><span class="co">##  [1] &quot;annotation_logticks&quot;   &quot;as.data.frame.logical&quot;</span></a>
 <a class="sourceLine" id="cb32-3" title="3"><span class="co">##  [3] &quot;as.logical&quot;            &quot;as.logical.factor&quot;    </span></a>

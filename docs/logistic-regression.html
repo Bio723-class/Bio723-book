@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Logistic regression | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Logistic regression | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-15" />
+<meta name="date" content="2020-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -495,110 +495,110 @@ P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
 <div id="titanic-data-set" class="section level2">
 <h2><span class="header-section-number">13.2</span> Titanic data set</h2>
 <p><a href="http://bit.ly/bio304-titanic-data"><code>titanic.csv</code></a> contains information about passengers on the Titanic. Variables in this data set include information such as sex, age, passenger class (1st, 2nd, 3rd), and whether or not they survived the sinking of the ship (0 = died, 1 = survived).</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb407-2" title="2"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb407-3" title="3"><span class="kw">library</span>(cowplot)</a>
-<a class="sourceLine" id="cb407-4" title="4"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)</a>
-<a class="sourceLine" id="cb408-2" title="2"><span class="kw">names</span>(titanic)</a>
-<a class="sourceLine" id="cb408-3" title="3"><span class="co">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;      </span></a>
-<a class="sourceLine" id="cb408-4" title="4"><span class="co">##  [6] &quot;sibsp&quot;     &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;    </span></a>
-<a class="sourceLine" id="cb408-5" title="5"><span class="co">## [11] &quot;embarked&quot;  &quot;boat&quot;      &quot;body&quot;      &quot;home.dest&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb409-2" title="2"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb409-3" title="3"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb409-4" title="4"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="kw">names</span>(titanic)</a>
+<a class="sourceLine" id="cb410-3" title="3"><span class="co">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;       &quot;sibsp&quot;    </span></a>
+<a class="sourceLine" id="cb410-4" title="4"><span class="co">##  [7] &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;     &quot;embarked&quot;  &quot;boat&quot;     </span></a>
+<a class="sourceLine" id="cb410-5" title="5"><span class="co">## [13] &quot;body&quot;      &quot;home.dest&quot;</span></a></code></pre></div>
 </div>
 <div id="subsetting-the-data" class="section level2">
 <h2><span class="header-section-number">13.3</span> Subsetting the data</h2>
 <p>We’ve all heard the phrase, “Women and children first”, so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age. Let’s create separate data subsets for male and female passengers.</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">male &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;male&quot;</span>)</a>
-<a class="sourceLine" id="cb409-2" title="2">female &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">male &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;male&quot;</span>)</a>
+<a class="sourceLine" id="cb411-2" title="2">female &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>)</a></code></pre></div>
 </div>
 <div id="visualizing-survival-as-a-function-of-age" class="section level2">
 <h2><span class="header-section-number">13.4</span> Visualizing survival as a function of age</h2>
 <p>Let’s create visualizations of survival as a function of age for the male and female passengers.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">fcolor =<span class="st"> &quot;lightcoral&quot;</span></a>
-<a class="sourceLine" id="cb410-2" title="2">mcolor =<span class="st"> &quot;lightsteelblue&quot;</span></a>
-<a class="sourceLine" id="cb410-3" title="3"></a>
-<a class="sourceLine" id="cb410-4" title="4">female.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(female, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb410-5" title="5"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> fcolor) <span class="op">+</span></a>
-<a class="sourceLine" id="cb410-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)</a>
-<a class="sourceLine" id="cb410-7" title="7"></a>
-<a class="sourceLine" id="cb410-8" title="8">male.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(male, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb410-9" title="9"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> mcolor) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb410-10" title="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)</a>
-<a class="sourceLine" id="cb410-11" title="11"></a>
-<a class="sourceLine" id="cb410-12" title="12"><span class="kw">plot_grid</span>(female.plot, male.plot)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-408-1.png" width="864" /></p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">fcolor =<span class="st"> &quot;lightcoral&quot;</span></a>
+<a class="sourceLine" id="cb412-2" title="2">mcolor =<span class="st"> &quot;lightsteelblue&quot;</span></a>
+<a class="sourceLine" id="cb412-3" title="3"></a>
+<a class="sourceLine" id="cb412-4" title="4">female.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(female, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb412-5" title="5"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> fcolor) <span class="op">+</span></a>
+<a class="sourceLine" id="cb412-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)</a>
+<a class="sourceLine" id="cb412-7" title="7"></a>
+<a class="sourceLine" id="cb412-8" title="8">male.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(male, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb412-9" title="9"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> mcolor) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb412-10" title="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)</a>
+<a class="sourceLine" id="cb412-11" title="11"></a>
+<a class="sourceLine" id="cb412-12" title="12"><span class="kw">plot_grid</span>(female.plot, male.plot)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-410-1.png" width="864" /></p>
 <p>The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.</p>
 </div>
 <div id="fitting-the-logistic-regression-model" class="section level2">
 <h2><span class="header-section-number">13.5</span> Fitting the logistic regression model</h2>
 <p>The function <code>glm</code> (generalized linear model) can be used to fit the logistic regression model (as well as other models). Setting the argument <code>family = binomial</code> gives us logistic regression. Note that when fitting the model the dependent variable needs to be numeric, so if the data is provided as Boolean (logical) TRUE/FALSE values, they should be converted to integers using <code>as.numeric()</code>.</p>
 <p>First we fit the regression for the famale passengers.</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">fit.female &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, female)</a>
-<a class="sourceLine" id="cb411-2" title="2"><span class="kw">tidy</span>(fit.female)</a>
-<a class="sourceLine" id="cb411-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb411-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
-<a class="sourceLine" id="cb411-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb411-6" title="6"><span class="co">## 1 (Intercept)   0.493    0.254        1.94 0.0523 </span></a>
-<a class="sourceLine" id="cb411-7" title="7"><span class="co">## 2 age           0.0225   0.00854      2.64 0.00834</span></a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">fit.female &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, female)</a>
+<a class="sourceLine" id="cb413-2" title="2"><span class="kw">tidy</span>(fit.female)</a>
+<a class="sourceLine" id="cb413-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb413-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
+<a class="sourceLine" id="cb413-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb413-6" title="6"><span class="co">## 1 (Intercept)   0.493    0.254        1.94 0.0523 </span></a>
+<a class="sourceLine" id="cb413-7" title="7"><span class="co">## 2 age           0.0225   0.00854      2.64 0.00834</span></a></code></pre></div>
 <p>The column “estimate” gives the coefficients of the model. The “intercept”" estimate corresponds to <span class="math inline">\(B_0\)</span> in the logistic regression equation, the “age” estimate corresponds to the coefficient <span class="math inline">\(B_1\)</span> in the equation.</p>
 <p>Now we repeat the same step for the male passengers.</p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">fit.male &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, male)</a>
-<a class="sourceLine" id="cb412-2" title="2"><span class="kw">tidy</span>(fit.male)</a>
-<a class="sourceLine" id="cb412-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb412-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
-<a class="sourceLine" id="cb412-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb412-6" title="6"><span class="co">## 1 (Intercept)  -0.661    0.225       -2.94 0.00329</span></a>
-<a class="sourceLine" id="cb412-7" title="7"><span class="co">## 2 age          -0.0238   0.00728     -3.27 0.00109</span></a></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">fit.male &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, male)</a>
+<a class="sourceLine" id="cb414-2" title="2"><span class="kw">tidy</span>(fit.male)</a>
+<a class="sourceLine" id="cb414-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb414-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
+<a class="sourceLine" id="cb414-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb414-6" title="6"><span class="co">## 1 (Intercept)  -0.661    0.225       -2.94 0.00329</span></a>
+<a class="sourceLine" id="cb414-7" title="7"><span class="co">## 2 age          -0.0238   0.00728     -3.27 0.00109</span></a></code></pre></div>
 <p>Notice that the female coefficients are both positive, while the male coefficients are negative. We’ll visualize what this means in terms of the model below.</p>
 </div>
 <div id="visualizing-the-logistic-regression" class="section level2">
 <h2><span class="header-section-number">13.6</span> Visualizing the logistic regression</h2>
 <p>To visualize the logistic regression fit, we first use the <code>predict</code> function to generate the model predictions about probability of survival as a function of age.</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">ages &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span></a>
-<a class="sourceLine" id="cb413-2" title="2"></a>
-<a class="sourceLine" id="cb413-3" title="3">predicted.female &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.female, </a>
-<a class="sourceLine" id="cb413-4" title="4">                            <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
-<a class="sourceLine" id="cb413-5" title="5">                            <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb413-6" title="6"></a>
-<a class="sourceLine" id="cb413-7" title="7">predicted.male &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.male,</a>
-<a class="sourceLine" id="cb413-8" title="8">                          <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
-<a class="sourceLine" id="cb413-9" title="9">                          <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
-<a class="sourceLine" id="cb413-10" title="10">                            </a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">ages &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span></a>
+<a class="sourceLine" id="cb415-2" title="2"></a>
+<a class="sourceLine" id="cb415-3" title="3">predicted.female &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.female, </a>
+<a class="sourceLine" id="cb415-4" title="4">                            <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
+<a class="sourceLine" id="cb415-5" title="5">                            <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb415-6" title="6"></a>
+<a class="sourceLine" id="cb415-7" title="7">predicted.male &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.male,</a>
+<a class="sourceLine" id="cb415-8" title="8">                          <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
+<a class="sourceLine" id="cb415-9" title="9">                          <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb415-10" title="10">                            </a></code></pre></div>
 <p>Having generated the predicted probabilities of survival we can then add these prediction lines to our previous plot using <code>geom_line</code>.</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">female.logistic.plot &lt;-<span class="st"> </span>female.plot <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb414-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.female),</a>
-<a class="sourceLine" id="cb414-3" title="3">            <span class="dt">color =</span> fcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb414-4" title="4"></a>
-<a class="sourceLine" id="cb414-5" title="5">male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb414-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.male),</a>
-<a class="sourceLine" id="cb414-7" title="7">            <span class="dt">color =</span> mcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb414-8" title="8"></a>
-<a class="sourceLine" id="cb414-9" title="9"><span class="kw">plot_grid</span>(female.logistic.plot, male.logistic.plot)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-412-1.png" width="864" /></p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">female.logistic.plot &lt;-<span class="st"> </span>female.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb416-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.female),</a>
+<a class="sourceLine" id="cb416-3" title="3">            <span class="dt">color =</span> fcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb416-4" title="4"></a>
+<a class="sourceLine" id="cb416-5" title="5">male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb416-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.male),</a>
+<a class="sourceLine" id="cb416-7" title="7">            <span class="dt">color =</span> mcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb416-8" title="8"></a>
+<a class="sourceLine" id="cb416-9" title="9"><span class="kw">plot_grid</span>(female.logistic.plot, male.logistic.plot)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-414-1.png" width="864" /></p>
 <p>We see that for the female passengers, the logistic regression predicts that the probability of survival <em>increases</em> with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age. For the male passengers, the data is consistent with “children first”; for female passengers this model doesn’t seem to hold. However, there are other factors to consider as we’ll see below.</p>
 <div id="quick-and-easy-visualization" class="section level3">
 <h3><span class="header-section-number">13.6.1</span> Quick and easy visualization</h3>
 <p>Here’s an alternative “quick and easy” way to generate the plot above using the awesome power of ggplot. The downside of this approach is we don’t generate the detailed information on the model, which is something you’d certainly want to have in any real analysis.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb415-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb415-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb415-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb415-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
-<a class="sourceLine" id="cb415-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor))</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-413-1.png" width="864" /></p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb417-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb417-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb417-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb417-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
+<a class="sourceLine" id="cb417-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-415-1.png" width="864" /></p>
 </div>
 </div>
 <div id="impact-of-sex-and-passenger-class-on-the-models" class="section level2">
 <h2><span class="header-section-number">13.7</span> Impact of sex and passenger class on the models</h2>
 <p>In our previous analysis we considered the relationship between survival and age, conditioned (facted) on passenger sex. In a complex data set like this one, it is often useful to condition on multiple variables simultaneously. Lets extend our visualization to look at the regression faceted on both class and sex, using <code>facet_grid</code>:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb416-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb416-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb416-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span><span class="st">  </span></a>
-<a class="sourceLine" id="cb416-5" title="5"><span class="st">  </span><span class="kw">facet_grid</span>(pclass <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
-<a class="sourceLine" id="cb416-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb416-7" title="7"><span class="st">  </span><span class="kw">theme_few</span>()</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-414-1.png" width="864" /></p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb418-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb418-5" title="5"><span class="st">  </span><span class="kw">facet_grid</span>(pclass <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
+<a class="sourceLine" id="cb418-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-7" title="7"><span class="st">  </span><span class="kw">theme_few</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-416-1.png" width="864" /></p>
 <p>Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival. Almost all first class female passengers survived, regardless of age. For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age. The negative relationship between age and survival is stronger still for third class females. Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.</p>
 </div>
 <div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level2">
@@ -606,48 +606,48 @@ P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
 <p>In the figure above we used <code>ggplot</code> and <code>facet_grid</code> to visualize logistic regression of survival on age, conditioned on both sex and class. What if we wanted to calculate the terms of the logistic regressions for each combination of these two categorical variables? There are three passenger classes and two sexes, meaning we’d have to create six data subsets and fit the model six times if we used the same approach we used previously. Luckily, <code>dplyr</code> provides a powerful function called <code>do()</code> that allows us to carry out arbitrary computations on grouped data.</p>
 <p>There are two ways to use <code>do()</code>. The first way is to give the expressions you evaluate in <code>do()</code> a name, in which case <code>do()</code> will store the results in a column. The second way to use <code>do()</code> is for the expression to return a data frame.</p>
 <p>In this first example, the model fits are stored in the <code>fits</code> column. When using <code>do()</code> you can refer to the groupings using a period (<code>.</code>):</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1">grouped.models &lt;-</a>
-<a class="sourceLine" id="cb417-2" title="2"><span class="st">  </span>titanic <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb417-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb417-4" title="4"><span class="st">  </span><span class="kw">do</span>(<span class="dt">fits =</span> <span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .))</a>
-<a class="sourceLine" id="cb417-5" title="5"></a>
-<a class="sourceLine" id="cb417-6" title="6">grouped.models</a>
-<a class="sourceLine" id="cb417-7" title="7"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb417-8" title="8"><span class="co">##   sex    pclass fits  </span></a>
-<a class="sourceLine" id="cb417-9" title="9"><span class="co">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;</span></a>
-<a class="sourceLine" id="cb417-10" title="10"><span class="co">## 1 female      1 &lt;glm&gt; </span></a>
-<a class="sourceLine" id="cb417-11" title="11"><span class="co">## 2 female      2 &lt;glm&gt; </span></a>
-<a class="sourceLine" id="cb417-12" title="12"><span class="co">## 3 female      3 &lt;glm&gt; </span></a>
-<a class="sourceLine" id="cb417-13" title="13"><span class="co">## 4 male        1 &lt;glm&gt; </span></a>
-<a class="sourceLine" id="cb417-14" title="14"><span class="co">## 5 male        2 &lt;glm&gt; </span></a>
-<a class="sourceLine" id="cb417-15" title="15"><span class="co">## 6 male        3 &lt;glm&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">grouped.models &lt;-</a>
+<a class="sourceLine" id="cb419-2" title="2"><span class="st">  </span>titanic <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb419-4" title="4"><span class="st">  </span><span class="kw">do</span>(<span class="dt">fits =</span> <span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .))</a>
+<a class="sourceLine" id="cb419-5" title="5"></a>
+<a class="sourceLine" id="cb419-6" title="6">grouped.models</a>
+<a class="sourceLine" id="cb419-7" title="7"><span class="co">## # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb419-8" title="8"><span class="co">##   sex    pclass fits  </span></a>
+<a class="sourceLine" id="cb419-9" title="9"><span class="co">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;</span></a>
+<a class="sourceLine" id="cb419-10" title="10"><span class="co">## 1 female      1 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb419-11" title="11"><span class="co">## 2 female      2 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb419-12" title="12"><span class="co">## 3 female      3 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb419-13" title="13"><span class="co">## 4 male        1 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb419-14" title="14"><span class="co">## 5 male        2 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb419-15" title="15"><span class="co">## 6 male        3 &lt;glm&gt;</span></a></code></pre></div>
 <p>Notice that the “fits” column doesn’t explicitly print out the details of the model. The object returned by <code>glm()</code> can’t be simply represented as text string (it’s a list), so we seea place holder string that tells us that there is data here represented a glm object. However, we can access the the columns with the fits just like any other variable:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span></a>
-<a class="sourceLine" id="cb418-2" title="2"><span class="kw">tidy</span>(grouped.models<span class="op">$</span>fits[[<span class="dv">2</span>]])</a>
-<a class="sourceLine" id="cb418-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb418-4" title="4"><span class="co">##   term        estimate std.error statistic  p.value</span></a>
-<a class="sourceLine" id="cb418-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb418-6" title="6"><span class="co">## 1 (Intercept)   3.49      0.904       3.86 0.000112</span></a>
-<a class="sourceLine" id="cb418-7" title="7"><span class="co">## 2 age          -0.0450    0.0255     -1.77 0.0773</span></a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span></a>
+<a class="sourceLine" id="cb420-2" title="2"><span class="kw">tidy</span>(grouped.models<span class="op">$</span>fits[[<span class="dv">2</span>]])</a>
+<a class="sourceLine" id="cb420-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb420-4" title="4"><span class="co">##   term        estimate std.error statistic  p.value</span></a>
+<a class="sourceLine" id="cb420-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb420-6" title="6"><span class="co">## 1 (Intercept)   3.49      0.904       3.86 0.000112</span></a>
+<a class="sourceLine" id="cb420-7" title="7"><span class="co">## 2 age          -0.0450    0.0255     -1.77 0.0773</span></a></code></pre></div>
 <p>Now we illustrate the second approach to using <code>do()</code>. When no name is provided, <code>do()</code> expects its expression to return a dataframe. Here we use the <code>broom::tidy()</code> function to get the key results of each fit model into a data frame:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">titanic <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb419-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb419-3" title="3"><span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .)))</a>
-<a class="sourceLine" id="cb419-4" title="4"><span class="co">## # A tibble: 12 x 7</span></a>
-<a class="sourceLine" id="cb419-5" title="5"><span class="co">##    sex    pclass term        estimate std.error statistic    p.value</span></a>
-<a class="sourceLine" id="cb419-6" title="6"><span class="co">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb419-7" title="7"><span class="co">##  1 female      1 (Intercept)  2.90       1.24       2.34  0.0193    </span></a>
-<a class="sourceLine" id="cb419-8" title="8"><span class="co">##  2 female      1 age          0.00960    0.0326     0.294 0.769     </span></a>
-<a class="sourceLine" id="cb419-9" title="9"><span class="co">##  3 female      2 (Intercept)  3.49       0.904      3.86  0.000112  </span></a>
-<a class="sourceLine" id="cb419-10" title="10"><span class="co">##  4 female      2 age         -0.0450     0.0255    -1.77  0.0773    </span></a>
-<a class="sourceLine" id="cb419-11" title="11"><span class="co">##  5 female      3 (Intercept)  0.289      0.341      0.846 0.398     </span></a>
-<a class="sourceLine" id="cb419-12" title="12"><span class="co">##  6 female      3 age         -0.0178     0.0136    -1.31  0.190     </span></a>
-<a class="sourceLine" id="cb419-13" title="13"><span class="co">##  7 male        1 (Intercept)  0.880      0.527      1.67  0.0951    </span></a>
-<a class="sourceLine" id="cb419-14" title="14"><span class="co">##  8 male        1 age         -0.0374     0.0128    -2.93  0.00335   </span></a>
-<a class="sourceLine" id="cb419-15" title="15"><span class="co">##  9 male        2 (Intercept)  1.04       0.599      1.74  0.0818    </span></a>
-<a class="sourceLine" id="cb419-16" title="16"><span class="co">## 10 male        2 age         -0.112      0.0249    -4.50  0.00000672</span></a>
-<a class="sourceLine" id="cb419-17" title="17"><span class="co">## 11 male        3 (Intercept) -0.761      0.342     -2.23  0.0259    </span></a>
-<a class="sourceLine" id="cb419-18" title="18"><span class="co">## 12 male        3 age         -0.0339     0.0134    -2.53  0.0113</span></a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">titanic <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb421-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb421-3" title="3"><span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .)))</a>
+<a class="sourceLine" id="cb421-4" title="4"><span class="co">## # A tibble: 12 x 7</span></a>
+<a class="sourceLine" id="cb421-5" title="5"><span class="co">##    sex    pclass term        estimate std.error statistic    p.value</span></a>
+<a class="sourceLine" id="cb421-6" title="6"><span class="co">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb421-7" title="7"><span class="co">##  1 female      1 (Intercept)  2.90       1.24       2.34  0.0193    </span></a>
+<a class="sourceLine" id="cb421-8" title="8"><span class="co">##  2 female      1 age          0.00960    0.0326     0.294 0.769     </span></a>
+<a class="sourceLine" id="cb421-9" title="9"><span class="co">##  3 female      2 (Intercept)  3.49       0.904      3.86  0.000112  </span></a>
+<a class="sourceLine" id="cb421-10" title="10"><span class="co">##  4 female      2 age         -0.0450     0.0255    -1.77  0.0773    </span></a>
+<a class="sourceLine" id="cb421-11" title="11"><span class="co">##  5 female      3 (Intercept)  0.289      0.341      0.846 0.398     </span></a>
+<a class="sourceLine" id="cb421-12" title="12"><span class="co">##  6 female      3 age         -0.0178     0.0136    -1.31  0.190     </span></a>
+<a class="sourceLine" id="cb421-13" title="13"><span class="co">##  7 male        1 (Intercept)  0.880      0.527      1.67  0.0951    </span></a>
+<a class="sourceLine" id="cb421-14" title="14"><span class="co">##  8 male        1 age         -0.0374     0.0128    -2.93  0.00335   </span></a>
+<a class="sourceLine" id="cb421-15" title="15"><span class="co">##  9 male        2 (Intercept)  1.04       0.599      1.74  0.0818    </span></a>
+<a class="sourceLine" id="cb421-16" title="16"><span class="co">## 10 male        2 age         -0.112      0.0249    -4.50  0.00000672</span></a>
+<a class="sourceLine" id="cb421-17" title="17"><span class="co">## 11 male        3 (Intercept) -0.761      0.342     -2.23  0.0259    </span></a>
+<a class="sourceLine" id="cb421-18" title="18"><span class="co">## 12 male        3 age         -0.0339     0.0134    -2.53  0.0113</span></a></code></pre></div>
 <p>Using this approach we get a nice data frame showing the logistic regression coefficients, and associated statistics (standard error, P-values, etc) for the regression of survival on age, for each combination of sex and class.</p>
 
 </div>

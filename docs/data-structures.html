@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Data structures | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Data structures | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-15" />
+<meta name="date" content="2020-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -535,7 +535,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="vector-recycling" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Vector recycling</h3>
-<p>When vectors are not of the same length R `recycles’ the elements of the shorter vector to make the lengths conform.</p>
+<p>When vectors are not of the same length R “recycles” the elements of the shorter vector to make the lengths conform.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb45-2" title="2"><span class="kw">length</span>(x)</a>
 <a class="sourceLine" id="cb45-3" title="3"><span class="co">## [1] 5</span></a>
@@ -545,6 +545,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb45-7" title="7">x <span class="op">+</span><span class="st"> </span>z</a>
 <a class="sourceLine" id="cb45-8" title="8"><span class="co">## [1]  3  8 13 19 11</span></a></code></pre></div>
 <p>In the example above <code>z</code> was treated as if it was the vector <code>(1, 4, 7, 11, 1)</code>.</p>
+<p>Recycling can be useful but it can also be a subtle source of errors. Notice that R provides warning messages when recycling is being applied. Make sure to pay attention to such messages when debugging your code.</p>
 </div>
 <div id="simple-statistical-functions-for-numeric-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.3</span> Simple statistical functions for numeric vectors</h3>
@@ -591,154 +592,158 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>You can get multiple elements of a vector by indexing by another vector. In the example below, <code>x[c(3,5)]</code> returns the third and fifth element of x`.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">x[<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">5</span>)]</a>
 <a class="sourceLine" id="cb51-2" title="2"><span class="co">## [1]  6 10</span></a></code></pre></div>
+<p>Besides numerical indexing, R allows logical indexing which takes a vector of Booleans and returns the positions with <code>TRUE</code>
+values.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">x[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)] <span class="co">#return 1st and 3rd elements but ignore 2nd, 4th and 5th</span></a>
+<a class="sourceLine" id="cb52-2" title="2"><span class="co">## [1] 2 6</span></a></code></pre></div>
 </div>
 <div id="comparison-operators-applied-to-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.5</span> Comparison operators applied to vectors</h3>
-<p>When the comparison operators, such as“greater than” (<code>&gt;</code>), “less than or equal to” (<code>&lt;=</code>), equality (<code>==</code>), etc. are applied tonumeric vectors, they return logical vectors:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb52-2" title="2">x <span class="op">&lt;</span><span class="st"> </span><span class="dv">8</span>  <span class="co"># returns TRUE for all elements lass than 8</span></a>
-<a class="sourceLine" id="cb52-3" title="3"><span class="co">## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</span></a></code></pre></div>
+<p>When the comparison operators, such as “greater than” (<code>&gt;</code>), “less than or equal to” (<code>&lt;=</code>), equality (<code>==</code>), etc. are applied to numeric vectors, they return logical vectors:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb53-2" title="2">x <span class="op">&lt;</span><span class="st"> </span><span class="dv">8</span>  <span class="co"># returns TRUE for all elements lass than 8</span></a>
+<a class="sourceLine" id="cb53-3" title="3"><span class="co">## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</span></a></code></pre></div>
 <p>Here’s a fancier example:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>  <span class="co"># greater than 4 AND less than 10</span></a>
-<a class="sourceLine" id="cb53-2" title="2"><span class="co">## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">x <span class="op">&gt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>  <span class="co"># greater than 4 AND less than 10</span></a>
+<a class="sourceLine" id="cb54-2" title="2"><span class="co">## [1] FALSE FALSE  TRUE  TRUE FALSE FALSE</span></a></code></pre></div>
 </div>
 <div id="combining-indexing-and-comparison-of-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.6</span> Combining Indexing and Comparison of Vectors</h3>
 <p>A very powerful feature of R is the ability to combine the comparison operators (which return TRUE or FALSE values) with indexing. This facilitates data filtering and subsetting.</p>
 <p>Here’s an example:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>) </a>
-<a class="sourceLine" id="cb54-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb54-3" title="3"><span class="co">## [1]  6  8 10</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>) </a>
+<a class="sourceLine" id="cb55-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb55-3" title="3"><span class="co">## [1]  6  8 10</span></a></code></pre></div>
 <p>In the first example we retrieved all the elements of <code>x</code> that are larger than 5 (read as “x where x is greater than 5”). Notice how we got back all the elements where the statement in the brackets was <code>TRUE</code>.</p>
 <p>You can string together comparisons for more complex filtering.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">8</span>]  <span class="co"># less than four OR greater than 8</span></a>
-<a class="sourceLine" id="cb55-2" title="2"><span class="co">## [1]  2 10</span></a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">8</span>]  <span class="co"># less than four OR greater than 8</span></a>
+<a class="sourceLine" id="cb56-2" title="2"><span class="co">## [1]  2 10</span></a></code></pre></div>
 <p>In the second example we retrieved those elements of <code>x</code> that were smaller than four <em>or</em> greater than six. Combining indexing and comparison is a powerful concept which we’ll use repeatedly in this course.</p>
 </div>
 <div id="vector-manipulation" class="section level3">
 <h3><span class="header-section-number">4.1.7</span> Vector manipulation</h3>
 <p>You can combine indexing with assignment to change the elements of a vectors:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb56-2" title="2">x[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">-4</span> </a>
-<a class="sourceLine" id="cb56-3" title="3">x</a>
-<a class="sourceLine" id="cb56-4" title="4"><span class="co">## [1]  2 -4  6  8 10</span></a></code></pre></div>
-<p>You can also use indexing vectors to change multiple values at once:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb57-2" title="2">x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  &lt;-<span class="st"> </span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb57-2" title="2">x[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">-4</span> </a>
 <a class="sourceLine" id="cb57-3" title="3">x</a>
-<a class="sourceLine" id="cb57-4" title="4"><span class="co">## [1] 6 4 6 8 6</span></a></code></pre></div>
-<p>Using logical vectors to manipulate the elements of a vector also works:</p>
+<a class="sourceLine" id="cb57-4" title="4"><span class="co">## [1]  2 -4  6  8 10</span></a></code></pre></div>
+<p>You can also use indexing vectors to change multiple values at once:</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb58-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>] =<span class="st"> </span><span class="dv">5</span>    <span class="co"># truncate all values to have max value 5</span></a>
+<a class="sourceLine" id="cb58-2" title="2">x[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]  &lt;-<span class="st"> </span><span class="dv">6</span></a>
 <a class="sourceLine" id="cb58-3" title="3">x</a>
-<a class="sourceLine" id="cb58-4" title="4"><span class="co">## [1] 2 4 5 5 5</span></a></code></pre></div>
+<a class="sourceLine" id="cb58-4" title="4"><span class="co">## [1] 6 4 6 8 6</span></a></code></pre></div>
+<p>Using logical vectors to manipulate the elements of a vector also works:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb59-2" title="2">x[x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>] =<span class="st"> </span><span class="dv">5</span>    <span class="co"># truncate all values to have max value 5</span></a>
+<a class="sourceLine" id="cb59-3" title="3">x</a>
+<a class="sourceLine" id="cb59-4" title="4"><span class="co">## [1] 2 4 5 5 5</span></a></code></pre></div>
 </div>
 <div id="vectors-from-regular-sequences" class="section level3">
 <h3><span class="header-section-number">4.1.8</span> Vectors from regular sequences</h3>
 <p>There are a variety of functions for creating regular sequences in the form of vectors.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>  <span class="co"># create a vector with the integer values from 1 to 10</span></a>
-<a class="sourceLine" id="cb59-2" title="2"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
-<a class="sourceLine" id="cb59-3" title="3"><span class="dv">20</span><span class="op">:</span><span class="dv">11</span>  <span class="co"># a vector with the integer values from 20 to 11</span></a>
-<a class="sourceLine" id="cb59-4" title="4"><span class="co">##  [1] 20 19 18 17 16 15 14 13 12 11</span></a>
-<a class="sourceLine" id="cb59-5" title="5"></a>
-<a class="sourceLine" id="cb59-6" title="6"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)  <span class="co"># like 1:10</span></a>
-<a class="sourceLine" id="cb59-7" title="7"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
-<a class="sourceLine" id="cb59-8" title="8"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>) <span class="co"># 1:10, in steps of 2</span></a>
-<a class="sourceLine" id="cb59-9" title="9"><span class="co">## [1] 1 3 5 7 9</span></a>
-<a class="sourceLine" id="cb59-10" title="10"><span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.25</span>) <span class="co"># 2 to 4, in steps of 0.25</span></a>
-<a class="sourceLine" id="cb59-11" title="11"><span class="co">## [1] 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</span></a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>  <span class="co"># create a vector with the integer values from 1 to 10</span></a>
+<a class="sourceLine" id="cb60-2" title="2"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
+<a class="sourceLine" id="cb60-3" title="3"><span class="dv">20</span><span class="op">:</span><span class="dv">11</span>  <span class="co"># a vector with the integer values from 20 to 11</span></a>
+<a class="sourceLine" id="cb60-4" title="4"><span class="co">##  [1] 20 19 18 17 16 15 14 13 12 11</span></a>
+<a class="sourceLine" id="cb60-5" title="5"></a>
+<a class="sourceLine" id="cb60-6" title="6"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)  <span class="co"># like 1:10</span></a>
+<a class="sourceLine" id="cb60-7" title="7"><span class="co">##  [1]  1  2  3  4  5  6  7  8  9 10</span></a>
+<a class="sourceLine" id="cb60-8" title="8"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">2</span>) <span class="co"># 1:10, in steps of 2</span></a>
+<a class="sourceLine" id="cb60-9" title="9"><span class="co">## [1] 1 3 5 7 9</span></a>
+<a class="sourceLine" id="cb60-10" title="10"><span class="kw">seq</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dt">by =</span> <span class="fl">0.25</span>) <span class="co"># 2 to 4, in steps of 0.25</span></a>
+<a class="sourceLine" id="cb60-11" title="11"><span class="co">## [1] 2.00 2.25 2.50 2.75 3.00 3.25 3.50 3.75 4.00</span></a></code></pre></div>
 </div>
 <div id="additional-functions-for-working-with-vectors" class="section level3">
 <h3><span class="header-section-number">4.1.9</span> Additional functions for working with vectors</h3>
 <p>The function <code>unique()</code> returns the unique items in a vector:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb60-2" title="2"><span class="kw">unique</span>(x)</a>
-<a class="sourceLine" id="cb60-3" title="3"><span class="co">## [1] 5 2 1 4 6 9 8 7</span></a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb61-2" title="2"><span class="kw">unique</span>(x)</a>
+<a class="sourceLine" id="cb61-3" title="3"><span class="co">## [1] 5 2 1 4 6 9 8 7</span></a></code></pre></div>
 <p><code>rev()</code> returns the items in reverse order (without changing the input vector):</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">y &lt;-<span class="st"> </span><span class="kw">rev</span>(x)</a>
-<a class="sourceLine" id="cb61-2" title="2">y</a>
-<a class="sourceLine" id="cb61-3" title="3"><span class="co">##  [1] 9 7 5 8 9 6 4 1 2 5</span></a>
-<a class="sourceLine" id="cb61-4" title="4">x  <span class="co"># x is still in original order</span></a>
-<a class="sourceLine" id="cb61-5" title="5"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">y &lt;-<span class="st"> </span><span class="kw">rev</span>(x)</a>
+<a class="sourceLine" id="cb62-2" title="2">y</a>
+<a class="sourceLine" id="cb62-3" title="3"><span class="co">##  [1] 9 7 5 8 9 6 4 1 2 5</span></a>
+<a class="sourceLine" id="cb62-4" title="4">x  <span class="co"># x is still in original order</span></a>
+<a class="sourceLine" id="cb62-5" title="5"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
 <p>There are a number of useful functions related to sorting. Plain <code>sort()</code> returns a new vector with the items in sorted order:</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">sorted.x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)  <span class="co"># returns items of x sorted</span></a>
-<a class="sourceLine" id="cb62-2" title="2">sorted.x</a>
-<a class="sourceLine" id="cb62-3" title="3"><span class="co">##  [1] 1 2 4 5 5 6 7 8 9 9</span></a>
-<a class="sourceLine" id="cb62-4" title="4"></a>
-<a class="sourceLine" id="cb62-5" title="5">x        <span class="co"># but x remains in its unsorted state</span></a>
-<a class="sourceLine" id="cb62-6" title="6"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">sorted.x &lt;-<span class="st"> </span><span class="kw">sort</span>(x)  <span class="co"># returns items of x sorted</span></a>
+<a class="sourceLine" id="cb63-2" title="2">sorted.x</a>
+<a class="sourceLine" id="cb63-3" title="3"><span class="co">##  [1] 1 2 4 5 5 6 7 8 9 9</span></a>
+<a class="sourceLine" id="cb63-4" title="4"></a>
+<a class="sourceLine" id="cb63-5" title="5">x        <span class="co"># but x remains in its unsorted state</span></a>
+<a class="sourceLine" id="cb63-6" title="6"><span class="co">##  [1] 5 2 1 4 6 9 8 5 7 9</span></a></code></pre></div>
 <p>The related function <code>order()</code> gives the indices which would rearrange the items into sorted order:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">order</span>(x)</a>
-<a class="sourceLine" id="cb63-2" title="2"><span class="co">##  [1]  3  2  4  1  8  5  9  7  6 10</span></a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">order</span>(x)</a>
+<a class="sourceLine" id="cb64-2" title="2"><span class="co">##  [1]  3  2  4  1  8  5  9  7  6 10</span></a></code></pre></div>
 <p><code>order()</code> can be useful when you want to sort one list by the values of another:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">students &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;tabitha&quot;</span>, <span class="st">&quot;beatriz&quot;</span>, <span class="st">&quot;jose&quot;</span>)</a>
-<a class="sourceLine" id="cb64-2" title="2">class.ranking &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb64-3" title="3"></a>
-<a class="sourceLine" id="cb64-4" title="4">students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get the students sorted by their class.ranking</span></a>
-<a class="sourceLine" id="cb64-5" title="5"><span class="co">## [1] &quot;beatriz&quot; &quot;tabitha&quot; &quot;jose&quot;    &quot;fred&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">students &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;fred&quot;</span>, <span class="st">&quot;tabitha&quot;</span>, <span class="st">&quot;beatriz&quot;</span>, <span class="st">&quot;jose&quot;</span>)</a>
+<a class="sourceLine" id="cb65-2" title="2">class.ranking &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb65-3" title="3"></a>
+<a class="sourceLine" id="cb65-4" title="4">students[<span class="kw">order</span>(class.ranking)]  <span class="co"># get the students sorted by their class.ranking</span></a>
+<a class="sourceLine" id="cb65-5" title="5"><span class="co">## [1] &quot;beatriz&quot; &quot;tabitha&quot; &quot;jose&quot;    &quot;fred&quot;</span></a></code></pre></div>
 <p><code>any()</code> and <code>all()</code>, return single boolean values based on a specified comparison provided as an argument:</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb65-2" title="2"></a>
-<a class="sourceLine" id="cb65-3" title="3"><span class="kw">any</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if any of the elements are TRUE</span></a>
-<a class="sourceLine" id="cb65-4" title="4"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb65-5" title="5"></a>
-<a class="sourceLine" id="cb65-6" title="6"><span class="kw">all</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if all of the elements are TRUE</span></a>
-<a class="sourceLine" id="cb65-7" title="7"><span class="co">## [1] FALSE</span></a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb66-2" title="2"></a>
+<a class="sourceLine" id="cb66-3" title="3"><span class="kw">any</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if any of the elements are TRUE</span></a>
+<a class="sourceLine" id="cb66-4" title="4"><span class="co">## [1] TRUE</span></a>
+<a class="sourceLine" id="cb66-5" title="5"></a>
+<a class="sourceLine" id="cb66-6" title="6"><span class="kw">all</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>) <span class="co"># returns TRUE if all of the elements are TRUE</span></a>
+<a class="sourceLine" id="cb66-7" title="7"><span class="co">## [1] FALSE</span></a></code></pre></div>
 <p><code>which()</code> returns the <em>indices</em> of the vector for which the input is true:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">which</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb66-2" title="2"><span class="co">## [1] 4 5</span></a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">which</span>(y <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb67-2" title="2"><span class="co">## [1] 4 5</span></a></code></pre></div>
 </div>
 </div>
 <div id="lists" class="section level2">
 <h2><span class="header-section-number">4.2</span> Lists</h2>
 <p>R lists are like vectors, but unlike a vector where all the elements are of the same type, the elements of a list can have arbitrary types (even other lists). Lists are a powerful data structure for organizing information, because there are few constraints on the shape or types of the data included in a list.</p>
 <p>Lists are easy to create:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>)</a></code></pre></div>
 <p>Note that lists can contain arbitrary data. Lists can even contain other lists:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&#39;Bob&#39;</span>, pi, <span class="dv">10</span>, <span class="kw">list</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;bar&quot;</span>, <span class="st">&quot;baz&quot;</span>, <span class="st">&quot;qux&quot;</span>))</a></code></pre></div>
 <p>Lists are displayed with a particular format, distinct from vectors:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">l</a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb69-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
-<a class="sourceLine" id="cb69-4" title="4"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-5" title="5"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb69-6" title="6"><span class="co">## [1] 3.141593</span></a>
-<a class="sourceLine" id="cb69-7" title="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-8" title="8"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb69-9" title="9"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb69-10" title="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-11" title="11"><span class="co">## [[4]]</span></a>
-<a class="sourceLine" id="cb69-12" title="12"><span class="co">## [[4]][[1]]</span></a>
-<a class="sourceLine" id="cb69-13" title="13"><span class="co">## [1] &quot;foo&quot;</span></a>
-<a class="sourceLine" id="cb69-14" title="14"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-15" title="15"><span class="co">## [[4]][[2]]</span></a>
-<a class="sourceLine" id="cb69-16" title="16"><span class="co">## [1] &quot;bar&quot;</span></a>
-<a class="sourceLine" id="cb69-17" title="17"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-18" title="18"><span class="co">## [[4]][[3]]</span></a>
-<a class="sourceLine" id="cb69-19" title="19"><span class="co">## [1] &quot;baz&quot;</span></a>
-<a class="sourceLine" id="cb69-20" title="20"><span class="co">## </span></a>
-<a class="sourceLine" id="cb69-21" title="21"><span class="co">## [[4]][[4]]</span></a>
-<a class="sourceLine" id="cb69-22" title="22"><span class="co">## [1] &quot;qux&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1">l</a>
+<a class="sourceLine" id="cb70-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb70-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb70-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-5" title="5"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb70-6" title="6"><span class="co">## [1] 3.141593</span></a>
+<a class="sourceLine" id="cb70-7" title="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-8" title="8"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb70-9" title="9"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb70-10" title="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-11" title="11"><span class="co">## [[4]]</span></a>
+<a class="sourceLine" id="cb70-12" title="12"><span class="co">## [[4]][[1]]</span></a>
+<a class="sourceLine" id="cb70-13" title="13"><span class="co">## [1] &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb70-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-15" title="15"><span class="co">## [[4]][[2]]</span></a>
+<a class="sourceLine" id="cb70-16" title="16"><span class="co">## [1] &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb70-17" title="17"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-18" title="18"><span class="co">## [[4]][[3]]</span></a>
+<a class="sourceLine" id="cb70-19" title="19"><span class="co">## [1] &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb70-20" title="20"><span class="co">## </span></a>
+<a class="sourceLine" id="cb70-21" title="21"><span class="co">## [[4]][[4]]</span></a>
+<a class="sourceLine" id="cb70-22" title="22"><span class="co">## [1] &quot;qux&quot;</span></a></code></pre></div>
 <p>In the example above, the correspondence between the list and its display is obvious for the first three items. The fourth element may be a little confusing at first. Remember that the fourth item of <code>l</code> was another list. So what’s being shown in the output for the fourth item is the nested list.</p>
 <p>An alternative way to display a list is using the <code>str()</code> function (short for “structure”). <code>str()</code> provides a more compact representation that also tells us what type of data each element is:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="kw">str</span>(l)</a>
-<a class="sourceLine" id="cb70-2" title="2"><span class="co">## List of 4</span></a>
-<a class="sourceLine" id="cb70-3" title="3"><span class="co">##  $ : chr &quot;Bob&quot;</span></a>
-<a class="sourceLine" id="cb70-4" title="4"><span class="co">##  $ : num 3.14</span></a>
-<a class="sourceLine" id="cb70-5" title="5"><span class="co">##  $ : num 10</span></a>
-<a class="sourceLine" id="cb70-6" title="6"><span class="co">##  $ :List of 4</span></a>
-<a class="sourceLine" id="cb70-7" title="7"><span class="co">##   ..$ : chr &quot;foo&quot;</span></a>
-<a class="sourceLine" id="cb70-8" title="8"><span class="co">##   ..$ : chr &quot;bar&quot;</span></a>
-<a class="sourceLine" id="cb70-9" title="9"><span class="co">##   ..$ : chr &quot;baz&quot;</span></a>
-<a class="sourceLine" id="cb70-10" title="10"><span class="co">##   ..$ : chr &quot;qux&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">str</span>(l)</a>
+<a class="sourceLine" id="cb71-2" title="2"><span class="co">## List of 4</span></a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="co">##  $ : chr &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb71-4" title="4"><span class="co">##  $ : num 3.14</span></a>
+<a class="sourceLine" id="cb71-5" title="5"><span class="co">##  $ : num 10</span></a>
+<a class="sourceLine" id="cb71-6" title="6"><span class="co">##  $ :List of 4</span></a>
+<a class="sourceLine" id="cb71-7" title="7"><span class="co">##   ..$ : chr &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb71-8" title="8"><span class="co">##   ..$ : chr &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb71-9" title="9"><span class="co">##   ..$ : chr &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb71-10" title="10"><span class="co">##   ..$ : chr &quot;qux&quot;</span></a></code></pre></div>
 <div id="length-and-type-of-lists" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Length and type of lists</h3>
 <p>Like vectors, lists have length:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">length</span>(l)</a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="co">## [1] 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">length</span>(l)</a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="co">## [1] 4</span></a></code></pre></div>
 <p>But the type of a list is simply “list”, not the type of the items within the list. This makes sense because lists are allowed to be heterogeneous (i.e. hold data of different types).</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="kw">typeof</span>(l)</a>
-<a class="sourceLine" id="cb72-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">typeof</span>(l)</a>
+<a class="sourceLine" id="cb73-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 </div>
 <div id="indexing-lists" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Indexing lists</h3>
@@ -746,146 +751,146 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="single-bracket-list-indexing" class="section level4">
 <h4><span class="header-section-number">4.2.2.1</span> Single bracket list indexing</h4>
 <p>First, let’s demonstrate single bracket indexing of the lists <code>l</code> we created above.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span></a>
-<a class="sourceLine" id="cb73-2" title="2"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb73-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
-<a class="sourceLine" id="cb73-4" title="4"><span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span></a>
-<a class="sourceLine" id="cb73-5" title="5"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
-<p>When using single brackets, lists support indexing with ranges and numeric vectors:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]</a>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">l[<span class="dv">1</span>]           <span class="co"># single brackets, returns list(&#39;Bob&#39;) </span></a>
 <a class="sourceLine" id="cb74-2" title="2"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb74-3" title="3"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb74-4" title="4"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-5" title="5"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb74-6" title="6"><span class="co">## [[2]][[1]]</span></a>
-<a class="sourceLine" id="cb74-7" title="7"><span class="co">## [1] &quot;foo&quot;</span></a>
-<a class="sourceLine" id="cb74-8" title="8"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-9" title="9"><span class="co">## [[2]][[2]]</span></a>
-<a class="sourceLine" id="cb74-10" title="10"><span class="co">## [1] &quot;bar&quot;</span></a>
-<a class="sourceLine" id="cb74-11" title="11"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-12" title="12"><span class="co">## [[2]][[3]]</span></a>
-<a class="sourceLine" id="cb74-13" title="13"><span class="co">## [1] &quot;baz&quot;</span></a>
-<a class="sourceLine" id="cb74-14" title="14"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-15" title="15"><span class="co">## [[2]][[4]]</span></a>
-<a class="sourceLine" id="cb74-16" title="16"><span class="co">## [1] &quot;qux&quot;</span></a>
-<a class="sourceLine" id="cb74-17" title="17">l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</a>
-<a class="sourceLine" id="cb74-18" title="18"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb74-19" title="19"><span class="co">## [1] &quot;Bob&quot;</span></a>
-<a class="sourceLine" id="cb74-20" title="20"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-21" title="21"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb74-22" title="22"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb74-23" title="23"><span class="co">## </span></a>
-<a class="sourceLine" id="cb74-24" title="24"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb74-25" title="25"><span class="co">## NULL</span></a></code></pre></div>
+<a class="sourceLine" id="cb74-3" title="3"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb74-4" title="4"><span class="kw">typeof</span>(l[<span class="dv">1</span>])   <span class="co"># notice the list type</span></a>
+<a class="sourceLine" id="cb74-5" title="5"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<p>When using single brackets, lists support indexing with ranges and numeric vectors:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">l[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb75-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb75-3" title="3"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb75-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-5" title="5"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb75-6" title="6"><span class="co">## [[2]][[1]]</span></a>
+<a class="sourceLine" id="cb75-7" title="7"><span class="co">## [1] &quot;foo&quot;</span></a>
+<a class="sourceLine" id="cb75-8" title="8"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-9" title="9"><span class="co">## [[2]][[2]]</span></a>
+<a class="sourceLine" id="cb75-10" title="10"><span class="co">## [1] &quot;bar&quot;</span></a>
+<a class="sourceLine" id="cb75-11" title="11"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-12" title="12"><span class="co">## [[2]][[3]]</span></a>
+<a class="sourceLine" id="cb75-13" title="13"><span class="co">## [1] &quot;baz&quot;</span></a>
+<a class="sourceLine" id="cb75-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-15" title="15"><span class="co">## [[2]][[4]]</span></a>
+<a class="sourceLine" id="cb75-16" title="16"><span class="co">## [1] &quot;qux&quot;</span></a>
+<a class="sourceLine" id="cb75-17" title="17">l[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)]</a>
+<a class="sourceLine" id="cb75-18" title="18"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb75-19" title="19"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb75-20" title="20"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-21" title="21"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb75-22" title="22"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb75-23" title="23"><span class="co">## </span></a>
+<a class="sourceLine" id="cb75-24" title="24"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb75-25" title="25"><span class="co">## NULL</span></a></code></pre></div>
 </div>
 <div id="double-bracket-list-indexing" class="section level4">
 <h4><span class="header-section-number">4.2.2.2</span> Double bracket list indexing</h4>
 <p>If double bracket indexing is used, the object at the given index in a list is returned:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span></a>
-<a class="sourceLine" id="cb75-2" title="2"><span class="co">## [1] &quot;Bob&quot;</span></a>
-<a class="sourceLine" id="cb75-3" title="3"><span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span></a>
-<a class="sourceLine" id="cb75-4" title="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1">l[[<span class="dv">1</span>]]         <span class="co"># double brackets, return plain &#39;Bob&#39;</span></a>
+<a class="sourceLine" id="cb76-2" title="2"><span class="co">## [1] &quot;Bob&quot;</span></a>
+<a class="sourceLine" id="cb76-3" title="3"><span class="kw">typeof</span>(l[[<span class="dv">1</span>]]) <span class="co"># notice the &#39;character&#39; type</span></a>
+<a class="sourceLine" id="cb76-4" title="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
 <p>Double bracket indexing does not support multiple indices, but you can chain together double bracket operators to pull out the items of sublists. For example:</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="co"># second item of the fourth item of the list</span></a>
-<a class="sourceLine" id="cb76-2" title="2">l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  </a>
-<a class="sourceLine" id="cb76-3" title="3"><span class="co">## [1] &quot;bar&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># second item of the fourth item of the list</span></a>
+<a class="sourceLine" id="cb77-2" title="2">l[[<span class="dv">4</span>]][[<span class="dv">2</span>]]  </a>
+<a class="sourceLine" id="cb77-3" title="3"><span class="co">## [1] &quot;bar&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="naming-list-elements" class="section level3">
 <h3><span class="header-section-number">4.2.3</span> Naming list elements</h3>
 <p>The elements of a list can be given names when the list is created:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1">p &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name=</span><span class="st">&#39;Alice&#39;</span>, <span class="dt">last.name=</span><span class="st">&quot;Qux&quot;</span>, <span class="dt">age=</span><span class="dv">27</span>, <span class="dt">years.in.school=</span><span class="dv">10</span>)</a></code></pre></div>
 <p>You can retrieve the names associated with a list using the <code>names</code> function:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">names</span>(p)</a>
-<a class="sourceLine" id="cb78-2" title="2"><span class="co">## [1] &quot;first.name&quot;      &quot;last.name&quot;       &quot;age&quot;             &quot;years.in.school&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">names</span>(p)</a>
+<a class="sourceLine" id="cb79-2" title="2"><span class="co">## [1] &quot;first.name&quot;      &quot;last.name&quot;       &quot;age&quot;             &quot;years.in.school&quot;</span></a></code></pre></div>
 <p>If a list has named elements, you can retrieve the corresponding elements by indexing with the quoted name in either single or double brackets. Consistent with previous usage, single brackets return a list with the corresponding named element, whereas double brackets return the bare element.</p>
 <p>For example, make sure you understand the difference in the output generated by these two indexing calls:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1">p[<span class="st">&quot;first.name&quot;</span>]</a>
-<a class="sourceLine" id="cb79-2" title="2"><span class="co">## $first.name</span></a>
-<a class="sourceLine" id="cb79-3" title="3"><span class="co">## [1] &quot;Alice&quot;</span></a>
-<a class="sourceLine" id="cb79-4" title="4"></a>
-<a class="sourceLine" id="cb79-5" title="5">p[[<span class="st">&quot;first.name&quot;</span>]]</a>
-<a class="sourceLine" id="cb79-6" title="6"><span class="co">## [1] &quot;Alice&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1">p[<span class="st">&quot;first.name&quot;</span>]</a>
+<a class="sourceLine" id="cb80-2" title="2"><span class="co">## $first.name</span></a>
+<a class="sourceLine" id="cb80-3" title="3"><span class="co">## [1] &quot;Alice&quot;</span></a>
+<a class="sourceLine" id="cb80-4" title="4"></a>
+<a class="sourceLine" id="cb80-5" title="5">p[[<span class="st">&quot;first.name&quot;</span>]]</a>
+<a class="sourceLine" id="cb80-6" title="6"><span class="co">## [1] &quot;Alice&quot;</span></a></code></pre></div>
 </div>
 <div id="the-operator" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> The <code>$</code> operator</h3>
 <p>Retrieving named elements of lists (and data frames as we’ll see), turns out to be a pretty common task (especially when doing interactive data analysis) so R has a special operator to make this more convenient. This is the <code>$</code> operator, which is used as illustrated below:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" title="1">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span></a>
-<a class="sourceLine" id="cb80-2" title="2"><span class="co">## [1] &quot;Alice&quot;</span></a>
-<a class="sourceLine" id="cb80-3" title="3">p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span></a>
-<a class="sourceLine" id="cb80-4" title="4"><span class="co">## [1] 27</span></a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">p<span class="op">$</span>first.name  <span class="co"># equivalent to p[[&quot;first.name&quot;]]</span></a>
+<a class="sourceLine" id="cb81-2" title="2"><span class="co">## [1] &quot;Alice&quot;</span></a>
+<a class="sourceLine" id="cb81-3" title="3">p<span class="op">$</span>age         <span class="co"># equivalent to p[[&quot;age&quot;]]</span></a>
+<a class="sourceLine" id="cb81-4" title="4"><span class="co">## [1] 27</span></a></code></pre></div>
 </div>
 <div id="changing-and-adding-lists-items" class="section level3">
 <h3><span class="header-section-number">4.2.5</span> Changing and adding lists items</h3>
 <p>Combining indexing and assignment allows you to change items in a list:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
-<a class="sourceLine" id="cb81-2" title="2">                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
-<a class="sourceLine" id="cb81-3" title="3">                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)</a>
-<a class="sourceLine" id="cb81-4" title="4"></a>
-<a class="sourceLine" id="cb81-5" title="5">suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span></a>
-<a class="sourceLine" id="cb81-6" title="6">suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span></a>
-<a class="sourceLine" id="cb81-7" title="7">suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span></a>
-<a class="sourceLine" id="cb81-8" title="8"></a>
-<a class="sourceLine" id="cb81-9" title="9"><span class="kw">str</span>(suspect)</a>
-<a class="sourceLine" id="cb81-10" title="10"><span class="co">## List of 3</span></a>
-<a class="sourceLine" id="cb81-11" title="11"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
-<a class="sourceLine" id="cb81-12" title="12"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
-<a class="sourceLine" id="cb81-13" title="13"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">suspect &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">first.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
+<a class="sourceLine" id="cb82-2" title="2">                <span class="dt">last.name =</span> <span class="st">&quot;unknown&quot;</span>, </a>
+<a class="sourceLine" id="cb82-3" title="3">                <span class="dt">aka =</span> <span class="st">&quot;little&quot;</span>)</a>
+<a class="sourceLine" id="cb82-4" title="4"></a>
+<a class="sourceLine" id="cb82-5" title="5">suspect<span class="op">$</span>first.name &lt;-<span class="st"> &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb82-6" title="6">suspect<span class="op">$</span>last.name &lt;-<span class="st"> &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb82-7" title="7">suspect[[<span class="dv">3</span>]] &lt;-<span class="st"> &quot;LITTLE&quot;</span></a>
+<a class="sourceLine" id="cb82-8" title="8"></a>
+<a class="sourceLine" id="cb82-9" title="9"><span class="kw">str</span>(suspect)</a>
+<a class="sourceLine" id="cb82-10" title="10"><span class="co">## List of 3</span></a>
+<a class="sourceLine" id="cb82-11" title="11"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb82-12" title="12"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb82-13" title="13"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a></code></pre></div>
 <p>By combining assignment with a new name or an index past the end of the list you can add items to a list:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span></a>
-<a class="sourceLine" id="cb82-2" title="2">suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">suspect<span class="op">$</span>age &lt;-<span class="st"> </span><span class="dv">17</span>  <span class="co"># add a new item named age</span></a>
+<a class="sourceLine" id="cb83-2" title="2">suspect[[<span class="dv">5</span>]] &lt;-<span class="st"> &quot;shepardess&quot;</span>   <span class="co"># create an unnamed item at position 5</span></a></code></pre></div>
 <p>Be careful when adding an item using indexing, because if you skip an index an intervening NULL value is created:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1"><span class="co"># there are only five items in the list, what happens if we</span></a>
-<a class="sourceLine" id="cb83-2" title="2"><span class="co"># add a new item at position seven?</span></a>
-<a class="sourceLine" id="cb83-3" title="3">suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span></a>
-<a class="sourceLine" id="cb83-4" title="4"></a>
-<a class="sourceLine" id="cb83-5" title="5"><span class="kw">str</span>(suspect)</a>
-<a class="sourceLine" id="cb83-6" title="6"><span class="co">## List of 7</span></a>
-<a class="sourceLine" id="cb83-7" title="7"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
-<a class="sourceLine" id="cb83-8" title="8"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
-<a class="sourceLine" id="cb83-9" title="9"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a>
-<a class="sourceLine" id="cb83-10" title="10"><span class="co">##  $ age       : num 17</span></a>
-<a class="sourceLine" id="cb83-11" title="11"><span class="co">##  $           : chr &quot;shepardess&quot;</span></a>
-<a class="sourceLine" id="cb83-12" title="12"><span class="co">##  $           : NULL</span></a>
-<a class="sourceLine" id="cb83-13" title="13"><span class="co">##  $           : chr &quot;wanted for sheep stealing&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="co"># there are only five items in the list, what happens if we</span></a>
+<a class="sourceLine" id="cb84-2" title="2"><span class="co"># add a new item at position seven?</span></a>
+<a class="sourceLine" id="cb84-3" title="3">suspect[[<span class="dv">7</span>]] &lt;-<span class="st"> &quot;wanted for sheep stealing&quot;</span></a>
+<a class="sourceLine" id="cb84-4" title="4"></a>
+<a class="sourceLine" id="cb84-5" title="5"><span class="kw">str</span>(suspect)</a>
+<a class="sourceLine" id="cb84-6" title="6"><span class="co">## List of 7</span></a>
+<a class="sourceLine" id="cb84-7" title="7"><span class="co">##  $ first.name: chr &quot;Bo&quot;</span></a>
+<a class="sourceLine" id="cb84-8" title="8"><span class="co">##  $ last.name : chr &quot;Peep&quot;</span></a>
+<a class="sourceLine" id="cb84-9" title="9"><span class="co">##  $ aka       : chr &quot;LITTLE&quot;</span></a>
+<a class="sourceLine" id="cb84-10" title="10"><span class="co">##  $ age       : num 17</span></a>
+<a class="sourceLine" id="cb84-11" title="11"><span class="co">##  $           : chr &quot;shepardess&quot;</span></a>
+<a class="sourceLine" id="cb84-12" title="12"><span class="co">##  $           : NULL</span></a>
+<a class="sourceLine" id="cb84-13" title="13"><span class="co">##  $           : chr &quot;wanted for sheep stealing&quot;</span></a></code></pre></div>
 </div>
 <div id="combining-lists" class="section level3">
 <h3><span class="header-section-number">4.2.6</span> Combining lists</h3>
 <p>The <code>c</code> (combine) function we introduced to create vectors can also be used to combine lists:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)</a>
-<a class="sourceLine" id="cb84-2" title="2">list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)</a>
-<a class="sourceLine" id="cb84-3" title="3">list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)</a>
-<a class="sourceLine" id="cb84-4" title="4">list.c</a>
-<a class="sourceLine" id="cb84-5" title="5"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb84-6" title="6"><span class="co">## [1] &quot;little&quot;</span></a>
-<a class="sourceLine" id="cb84-7" title="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb84-8" title="8"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb84-9" title="9"><span class="co">## [1] &quot;bo&quot;</span></a>
-<a class="sourceLine" id="cb84-10" title="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb84-11" title="11"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb84-12" title="12"><span class="co">## [1] &quot;peep&quot;</span></a>
-<a class="sourceLine" id="cb84-13" title="13"><span class="co">## </span></a>
-<a class="sourceLine" id="cb84-14" title="14"><span class="co">## [[4]]</span></a>
-<a class="sourceLine" id="cb84-15" title="15"><span class="co">## [1] &quot;has lost&quot;</span></a>
-<a class="sourceLine" id="cb84-16" title="16"><span class="co">## </span></a>
-<a class="sourceLine" id="cb84-17" title="17"><span class="co">## [[5]]</span></a>
-<a class="sourceLine" id="cb84-18" title="18"><span class="co">## [1] &quot;her&quot;</span></a>
-<a class="sourceLine" id="cb84-19" title="19"><span class="co">## </span></a>
-<a class="sourceLine" id="cb84-20" title="20"><span class="co">## [[6]]</span></a>
-<a class="sourceLine" id="cb84-21" title="21"><span class="co">## [1] &quot;sheep&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1">list.a &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;little&quot;</span>, <span class="st">&quot;bo&quot;</span>, <span class="st">&quot;peep&quot;</span>)</a>
+<a class="sourceLine" id="cb85-2" title="2">list.b &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;has lost&quot;</span>, <span class="st">&quot;her&quot;</span>, <span class="st">&quot;sheep&quot;</span>)</a>
+<a class="sourceLine" id="cb85-3" title="3">list.c &lt;-<span class="st"> </span><span class="kw">c</span>(list.a, list.b)</a>
+<a class="sourceLine" id="cb85-4" title="4">list.c</a>
+<a class="sourceLine" id="cb85-5" title="5"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb85-6" title="6"><span class="co">## [1] &quot;little&quot;</span></a>
+<a class="sourceLine" id="cb85-7" title="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb85-8" title="8"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb85-9" title="9"><span class="co">## [1] &quot;bo&quot;</span></a>
+<a class="sourceLine" id="cb85-10" title="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb85-11" title="11"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb85-12" title="12"><span class="co">## [1] &quot;peep&quot;</span></a>
+<a class="sourceLine" id="cb85-13" title="13"><span class="co">## </span></a>
+<a class="sourceLine" id="cb85-14" title="14"><span class="co">## [[4]]</span></a>
+<a class="sourceLine" id="cb85-15" title="15"><span class="co">## [1] &quot;has lost&quot;</span></a>
+<a class="sourceLine" id="cb85-16" title="16"><span class="co">## </span></a>
+<a class="sourceLine" id="cb85-17" title="17"><span class="co">## [[5]]</span></a>
+<a class="sourceLine" id="cb85-18" title="18"><span class="co">## [1] &quot;her&quot;</span></a>
+<a class="sourceLine" id="cb85-19" title="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb85-20" title="20"><span class="co">## [[6]]</span></a>
+<a class="sourceLine" id="cb85-21" title="21"><span class="co">## [1] &quot;sheep&quot;</span></a></code></pre></div>
 </div>
 <div id="converting-lists-to-vectors" class="section level3">
 <h3><span class="header-section-number">4.2.7</span> Converting lists to vectors</h3>
 <p>Sometimes it’s useful to convert a list to a vector. The <code>unlist()</code> function takes care of this for us.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="co"># a homogeneous list</span></a>
-<a class="sourceLine" id="cb85-2" title="2">ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb85-3" title="3"><span class="kw">unlist</span>(ex1)</a>
-<a class="sourceLine" id="cb85-4" title="4"><span class="co">## [1] 2 4 6 8</span></a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># a homogeneous list</span></a>
+<a class="sourceLine" id="cb86-2" title="2">ex1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb86-3" title="3"><span class="kw">unlist</span>(ex1)</a>
+<a class="sourceLine" id="cb86-4" title="4"><span class="co">## [1] 2 4 6 8</span></a></code></pre></div>
 <p>When you convert a list to a vector make sure you remember that vectors are homogeneous, so items within the new vector will be “coerced” to have the same type.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="co"># a heterogeneous list</span></a>
-<a class="sourceLine" id="cb86-2" title="2">ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))</a>
-<a class="sourceLine" id="cb86-3" title="3"><span class="kw">unlist</span>(ex2)</a>
-<a class="sourceLine" id="cb86-4" title="4"><span class="co">## [1] &quot;2&quot;    &quot;4&quot;    &quot;6&quot;    &quot;bob&quot;  &quot;fred&quot; &quot;1+0i&quot; &quot;foo&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="co"># a heterogeneous list</span></a>
+<a class="sourceLine" id="cb87-2" title="2">ex2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;bob&quot;</span>, <span class="st">&quot;fred&quot;</span>), <span class="kw">list</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i, <span class="st">&#39;foo&#39;</span>))</a>
+<a class="sourceLine" id="cb87-3" title="3"><span class="kw">unlist</span>(ex2)</a>
+<a class="sourceLine" id="cb87-4" title="4"><span class="co">## [1] &quot;2&quot;    &quot;4&quot;    &quot;6&quot;    &quot;bob&quot;  &quot;fred&quot; &quot;1+0i&quot; &quot;foo&quot;</span></a></code></pre></div>
 <p>Note that <code>unlist()</code> also unpacks nested vectors and lists as shown in the second example above.</p>
 </div>
 </div>
@@ -895,38 +900,38 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="creating-a-data-frame" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Creating a data frame</h3>
 <p>While data frames will often be created by reading in a data set from a file, they can also be created directly in the console as illustrated below:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb87-2" title="2">sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>), <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb87-3" title="3">wt.in.kg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">67</span>, <span class="dv">66</span>, <span class="dv">56</span>, <span class="dv">74</span>, <span class="dv">71</span>, <span class="dv">60</span>, <span class="dv">52</span>, <span class="dv">72</span>)</a>
-<a class="sourceLine" id="cb87-4" title="4"></a>
-<a class="sourceLine" id="cb87-5" title="5">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> age, <span class="dt">sex =</span> sex, <span class="dt">wt =</span> wt.in.kg)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">21</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb88-2" title="2">sex &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>), <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb88-3" title="3">wt.in.kg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">88</span>, <span class="dv">76</span>, <span class="dv">67</span>, <span class="dv">66</span>, <span class="dv">56</span>, <span class="dv">74</span>, <span class="dv">71</span>, <span class="dv">60</span>, <span class="dv">52</span>, <span class="dv">72</span>)</a>
+<a class="sourceLine" id="cb88-4" title="4"></a>
+<a class="sourceLine" id="cb88-5" title="5">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">age =</span> age, <span class="dt">sex =</span> sex, <span class="dt">wt =</span> wt.in.kg)</a></code></pre></div>
 <p>Here we created a data frame with three columns, each of length 10.</p>
 </div>
 <div id="type-and-class-for-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Type and class for data frames</h3>
 <p>Data frames can be thought of as specialized lists, and in fact the type of a data frame is “list” as illustrated below:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="kw">typeof</span>(df)</a>
-<a class="sourceLine" id="cb88-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">typeof</span>(df)</a>
+<a class="sourceLine" id="cb89-2" title="2"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 <p>To distinguish a data frame from a generic list, we have to ask about it’s “class”.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">class</span>(df) <span class="co"># the class of our data frame</span></a>
-<a class="sourceLine" id="cb89-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
-<a class="sourceLine" id="cb89-3" title="3"><span class="kw">class</span>(l)  <span class="co"># compare to the class of our generic list</span></a>
-<a class="sourceLine" id="cb89-4" title="4"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">class</span>(df) <span class="co"># the class of our data frame</span></a>
+<a class="sourceLine" id="cb90-2" title="2"><span class="co">## [1] &quot;data.frame&quot;</span></a>
+<a class="sourceLine" id="cb90-3" title="3"><span class="kw">class</span>(l)  <span class="co"># compare to the class of our generic list</span></a>
+<a class="sourceLine" id="cb90-4" title="4"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
 <p>The term “class” comes from a style/approach to programming called “object oriented programming”. We won’t go into explicit detail about how object oriented programming works in this class, though we will exploit many of the features of objects that have a particular class.</p>
 </div>
 <div id="length-and-dimension-for-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.3</span> Length and dimension for data frames</h3>
 <p>Applying the <code>length()</code> function to a data frame returns the number of columns. This is consistent with the fact that data frames are specialized lists:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">length</span>(df)</a>
-<a class="sourceLine" id="cb90-2" title="2"><span class="co">## [1] 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">length</span>(df)</a>
+<a class="sourceLine" id="cb91-2" title="2"><span class="co">## [1] 3</span></a></code></pre></div>
 <p>To get the dimensions (number of rows and columns) of a data frame, we use the <code>dim()</code> function. <code>dim()</code> returns a vector, whose first value is the number of rows and whose second value is the number of columns:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">dim</span>(df)</a>
-<a class="sourceLine" id="cb91-2" title="2"><span class="co">## [1] 10  3</span></a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">dim</span>(df)</a>
+<a class="sourceLine" id="cb92-2" title="2"><span class="co">## [1] 10  3</span></a></code></pre></div>
 <p>We can get the number of rows and columns individually using the <code>nrow()</code> and <code>ncol()</code> functions:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="kw">nrow</span>(df)  <span class="co"># number of rows</span></a>
-<a class="sourceLine" id="cb92-2" title="2"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb92-3" title="3"><span class="kw">ncol</span>(df)  <span class="co"># number of columsn</span></a>
-<a class="sourceLine" id="cb92-4" title="4"><span class="co">## [1] 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">nrow</span>(df)  <span class="co"># number of rows</span></a>
+<a class="sourceLine" id="cb93-2" title="2"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb93-3" title="3"><span class="kw">ncol</span>(df)  <span class="co"># number of columsn</span></a>
+<a class="sourceLine" id="cb93-4" title="4"><span class="co">## [1] 3</span></a></code></pre></div>
 </div>
 <div id="indexing-and-accessing-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Indexing and accessing data frames</h3>
@@ -934,172 +939,172 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="single-bracket-indexing-of-the-columns-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.1</span> Single bracket indexing of the columns of a data frame</h4>
 <p>The <em>single bracket operator with a single numeric index</em> returns a data frame with the corresponding column.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">df[<span class="dv">1</span>]  <span class="co"># get the first column (=age) of the data frame</span></a>
-<a class="sourceLine" id="cb93-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
-<a class="sourceLine" id="cb93-3" title="3"><span class="co">##      age</span></a>
-<a class="sourceLine" id="cb93-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb93-5" title="5"><span class="co">##  1    30</span></a>
-<a class="sourceLine" id="cb93-6" title="6"><span class="co">##  2    26</span></a>
-<a class="sourceLine" id="cb93-7" title="7"><span class="co">##  3    21</span></a>
-<a class="sourceLine" id="cb93-8" title="8"><span class="co">##  4    29</span></a>
-<a class="sourceLine" id="cb93-9" title="9"><span class="co">##  5    25</span></a>
-<a class="sourceLine" id="cb93-10" title="10"><span class="co">##  6    22</span></a>
-<a class="sourceLine" id="cb93-11" title="11"><span class="co">##  7    28</span></a>
-<a class="sourceLine" id="cb93-12" title="12"><span class="co">##  8    24</span></a>
-<a class="sourceLine" id="cb93-13" title="13"><span class="co">##  9    23</span></a>
-<a class="sourceLine" id="cb93-14" title="14"><span class="co">## 10    20</span></a></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">df[<span class="dv">1</span>]  <span class="co"># get the first column (=age) of the data frame</span></a>
+<a class="sourceLine" id="cb94-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
+<a class="sourceLine" id="cb94-3" title="3"><span class="co">##      age</span></a>
+<a class="sourceLine" id="cb94-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb94-5" title="5"><span class="co">##  1    30</span></a>
+<a class="sourceLine" id="cb94-6" title="6"><span class="co">##  2    26</span></a>
+<a class="sourceLine" id="cb94-7" title="7"><span class="co">##  3    21</span></a>
+<a class="sourceLine" id="cb94-8" title="8"><span class="co">##  4    29</span></a>
+<a class="sourceLine" id="cb94-9" title="9"><span class="co">##  5    25</span></a>
+<a class="sourceLine" id="cb94-10" title="10"><span class="co">##  6    22</span></a>
+<a class="sourceLine" id="cb94-11" title="11"><span class="co">##  7    28</span></a>
+<a class="sourceLine" id="cb94-12" title="12"><span class="co">##  8    24</span></a>
+<a class="sourceLine" id="cb94-13" title="13"><span class="co">##  9    23</span></a>
+<a class="sourceLine" id="cb94-14" title="14"><span class="co">## 10    20</span></a></code></pre></div>
 <p>The <em>single bracket operator with multiple numeric indices</em> returns a data frame with the corresponding columns.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># first two columns</span></a>
-<a class="sourceLine" id="cb94-2" title="2"><span class="co">## # A tibble: 10 x 2</span></a>
-<a class="sourceLine" id="cb94-3" title="3"><span class="co">##      age sex  </span></a>
-<a class="sourceLine" id="cb94-4" title="4"><span class="co">##    &lt;dbl&gt; &lt;fct&gt;</span></a>
-<a class="sourceLine" id="cb94-5" title="5"><span class="co">##  1    30 M    </span></a>
-<a class="sourceLine" id="cb94-6" title="6"><span class="co">##  2    26 F    </span></a>
-<a class="sourceLine" id="cb94-7" title="7"><span class="co">##  3    21 M    </span></a>
-<a class="sourceLine" id="cb94-8" title="8"><span class="co">##  4    29 F    </span></a>
-<a class="sourceLine" id="cb94-9" title="9"><span class="co">##  5    25 M    </span></a>
-<a class="sourceLine" id="cb94-10" title="10"><span class="co">##  6    22 F    </span></a>
-<a class="sourceLine" id="cb94-11" title="11"><span class="co">##  7    28 M    </span></a>
-<a class="sourceLine" id="cb94-12" title="12"><span class="co">##  8    24 F    </span></a>
-<a class="sourceLine" id="cb94-13" title="13"><span class="co">##  9    23 M    </span></a>
-<a class="sourceLine" id="cb94-14" title="14"><span class="co">## 10    20 F</span></a>
-<a class="sourceLine" id="cb94-15" title="15">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="co"># columns 1 (=age) and 3 (=wt)</span></a>
-<a class="sourceLine" id="cb94-16" title="16"><span class="co">## # A tibble: 10 x 2</span></a>
-<a class="sourceLine" id="cb94-17" title="17"><span class="co">##      age    wt</span></a>
-<a class="sourceLine" id="cb94-18" title="18"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb94-19" title="19"><span class="co">##  1    30    88</span></a>
-<a class="sourceLine" id="cb94-20" title="20"><span class="co">##  2    26    76</span></a>
-<a class="sourceLine" id="cb94-21" title="21"><span class="co">##  3    21    67</span></a>
-<a class="sourceLine" id="cb94-22" title="22"><span class="co">##  4    29    66</span></a>
-<a class="sourceLine" id="cb94-23" title="23"><span class="co">##  5    25    56</span></a>
-<a class="sourceLine" id="cb94-24" title="24"><span class="co">##  6    22    74</span></a>
-<a class="sourceLine" id="cb94-25" title="25"><span class="co">##  7    28    71</span></a>
-<a class="sourceLine" id="cb94-26" title="26"><span class="co">##  8    24    60</span></a>
-<a class="sourceLine" id="cb94-27" title="27"><span class="co">##  9    23    52</span></a>
-<a class="sourceLine" id="cb94-28" title="28"><span class="co">## 10    20    72</span></a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]  <span class="co"># first two columns</span></a>
+<a class="sourceLine" id="cb95-2" title="2"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb95-3" title="3"><span class="co">##      age sex  </span></a>
+<a class="sourceLine" id="cb95-4" title="4"><span class="co">##    &lt;dbl&gt; &lt;fct&gt;</span></a>
+<a class="sourceLine" id="cb95-5" title="5"><span class="co">##  1    30 M    </span></a>
+<a class="sourceLine" id="cb95-6" title="6"><span class="co">##  2    26 F    </span></a>
+<a class="sourceLine" id="cb95-7" title="7"><span class="co">##  3    21 M    </span></a>
+<a class="sourceLine" id="cb95-8" title="8"><span class="co">##  4    29 F    </span></a>
+<a class="sourceLine" id="cb95-9" title="9"><span class="co">##  5    25 M    </span></a>
+<a class="sourceLine" id="cb95-10" title="10"><span class="co">##  6    22 F    </span></a>
+<a class="sourceLine" id="cb95-11" title="11"><span class="co">##  7    28 M    </span></a>
+<a class="sourceLine" id="cb95-12" title="12"><span class="co">##  8    24 F    </span></a>
+<a class="sourceLine" id="cb95-13" title="13"><span class="co">##  9    23 M    </span></a>
+<a class="sourceLine" id="cb95-14" title="14"><span class="co">## 10    20 F</span></a>
+<a class="sourceLine" id="cb95-15" title="15">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]  <span class="co"># columns 1 (=age) and 3 (=wt)</span></a>
+<a class="sourceLine" id="cb95-16" title="16"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb95-17" title="17"><span class="co">##      age    wt</span></a>
+<a class="sourceLine" id="cb95-18" title="18"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb95-19" title="19"><span class="co">##  1    30    88</span></a>
+<a class="sourceLine" id="cb95-20" title="20"><span class="co">##  2    26    76</span></a>
+<a class="sourceLine" id="cb95-21" title="21"><span class="co">##  3    21    67</span></a>
+<a class="sourceLine" id="cb95-22" title="22"><span class="co">##  4    29    66</span></a>
+<a class="sourceLine" id="cb95-23" title="23"><span class="co">##  5    25    56</span></a>
+<a class="sourceLine" id="cb95-24" title="24"><span class="co">##  6    22    74</span></a>
+<a class="sourceLine" id="cb95-25" title="25"><span class="co">##  7    28    71</span></a>
+<a class="sourceLine" id="cb95-26" title="26"><span class="co">##  8    24    60</span></a>
+<a class="sourceLine" id="cb95-27" title="27"><span class="co">##  9    23    52</span></a>
+<a class="sourceLine" id="cb95-28" title="28"><span class="co">## 10    20    72</span></a></code></pre></div>
 <p>Column names can be substituted for indices when using the single bracket operator:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">df[<span class="st">&quot;age&quot;</span>]  </a>
-<a class="sourceLine" id="cb95-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
-<a class="sourceLine" id="cb95-3" title="3"><span class="co">##      age</span></a>
-<a class="sourceLine" id="cb95-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb95-5" title="5"><span class="co">##  1    30</span></a>
-<a class="sourceLine" id="cb95-6" title="6"><span class="co">##  2    26</span></a>
-<a class="sourceLine" id="cb95-7" title="7"><span class="co">##  3    21</span></a>
-<a class="sourceLine" id="cb95-8" title="8"><span class="co">##  4    29</span></a>
-<a class="sourceLine" id="cb95-9" title="9"><span class="co">##  5    25</span></a>
-<a class="sourceLine" id="cb95-10" title="10"><span class="co">##  6    22</span></a>
-<a class="sourceLine" id="cb95-11" title="11"><span class="co">##  7    28</span></a>
-<a class="sourceLine" id="cb95-12" title="12"><span class="co">##  8    24</span></a>
-<a class="sourceLine" id="cb95-13" title="13"><span class="co">##  9    23</span></a>
-<a class="sourceLine" id="cb95-14" title="14"><span class="co">## 10    20</span></a>
-<a class="sourceLine" id="cb95-15" title="15"></a>
-<a class="sourceLine" id="cb95-16" title="16">df[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]</a>
-<a class="sourceLine" id="cb95-17" title="17"><span class="co">## # A tibble: 10 x 2</span></a>
-<a class="sourceLine" id="cb95-18" title="18"><span class="co">##      age    wt</span></a>
-<a class="sourceLine" id="cb95-19" title="19"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb95-20" title="20"><span class="co">##  1    30    88</span></a>
-<a class="sourceLine" id="cb95-21" title="21"><span class="co">##  2    26    76</span></a>
-<a class="sourceLine" id="cb95-22" title="22"><span class="co">##  3    21    67</span></a>
-<a class="sourceLine" id="cb95-23" title="23"><span class="co">##  4    29    66</span></a>
-<a class="sourceLine" id="cb95-24" title="24"><span class="co">##  5    25    56</span></a>
-<a class="sourceLine" id="cb95-25" title="25"><span class="co">##  6    22    74</span></a>
-<a class="sourceLine" id="cb95-26" title="26"><span class="co">##  7    28    71</span></a>
-<a class="sourceLine" id="cb95-27" title="27"><span class="co">##  8    24    60</span></a>
-<a class="sourceLine" id="cb95-28" title="28"><span class="co">##  9    23    52</span></a>
-<a class="sourceLine" id="cb95-29" title="29"><span class="co">## 10    20    72</span></a></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">df[<span class="st">&quot;age&quot;</span>]  </a>
+<a class="sourceLine" id="cb96-2" title="2"><span class="co">## # A tibble: 10 x 1</span></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="co">##      age</span></a>
+<a class="sourceLine" id="cb96-4" title="4"><span class="co">##    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="co">##  1    30</span></a>
+<a class="sourceLine" id="cb96-6" title="6"><span class="co">##  2    26</span></a>
+<a class="sourceLine" id="cb96-7" title="7"><span class="co">##  3    21</span></a>
+<a class="sourceLine" id="cb96-8" title="8"><span class="co">##  4    29</span></a>
+<a class="sourceLine" id="cb96-9" title="9"><span class="co">##  5    25</span></a>
+<a class="sourceLine" id="cb96-10" title="10"><span class="co">##  6    22</span></a>
+<a class="sourceLine" id="cb96-11" title="11"><span class="co">##  7    28</span></a>
+<a class="sourceLine" id="cb96-12" title="12"><span class="co">##  8    24</span></a>
+<a class="sourceLine" id="cb96-13" title="13"><span class="co">##  9    23</span></a>
+<a class="sourceLine" id="cb96-14" title="14"><span class="co">## 10    20</span></a>
+<a class="sourceLine" id="cb96-15" title="15"></a>
+<a class="sourceLine" id="cb96-16" title="16">df[<span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]</a>
+<a class="sourceLine" id="cb96-17" title="17"><span class="co">## # A tibble: 10 x 2</span></a>
+<a class="sourceLine" id="cb96-18" title="18"><span class="co">##      age    wt</span></a>
+<a class="sourceLine" id="cb96-19" title="19"><span class="co">##    &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb96-20" title="20"><span class="co">##  1    30    88</span></a>
+<a class="sourceLine" id="cb96-21" title="21"><span class="co">##  2    26    76</span></a>
+<a class="sourceLine" id="cb96-22" title="22"><span class="co">##  3    21    67</span></a>
+<a class="sourceLine" id="cb96-23" title="23"><span class="co">##  4    29    66</span></a>
+<a class="sourceLine" id="cb96-24" title="24"><span class="co">##  5    25    56</span></a>
+<a class="sourceLine" id="cb96-25" title="25"><span class="co">##  6    22    74</span></a>
+<a class="sourceLine" id="cb96-26" title="26"><span class="co">##  7    28    71</span></a>
+<a class="sourceLine" id="cb96-27" title="27"><span class="co">##  8    24    60</span></a>
+<a class="sourceLine" id="cb96-28" title="28"><span class="co">##  9    23    52</span></a>
+<a class="sourceLine" id="cb96-29" title="29"><span class="co">## 10    20    72</span></a></code></pre></div>
 </div>
 <div id="single-bracket-indexing-of-the-rows-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.2</span> Single bracket indexing of the rows of a data frame</h4>
 <p>To get specific rows of a data frame, we use single bracket indexing with an additional comma following the index. For example to get the first row a data frame we would do:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">df[<span class="dv">1</span>,]    <span class="co"># first row</span></a>
-<a class="sourceLine" id="cb96-2" title="2"><span class="co">## # A tibble: 1 x 3</span></a>
-<a class="sourceLine" id="cb96-3" title="3"><span class="co">##     age sex      wt</span></a>
-<a class="sourceLine" id="cb96-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb96-5" title="5"><span class="co">## 1    30 M        88</span></a></code></pre></div>
-<p>This syntax extends to multiple rows:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,]  <span class="co"># first two rows</span></a>
-<a class="sourceLine" id="cb97-2" title="2"><span class="co">## # A tibble: 2 x 3</span></a>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">df[<span class="dv">1</span>,]    <span class="co"># first row</span></a>
+<a class="sourceLine" id="cb97-2" title="2"><span class="co">## # A tibble: 1 x 3</span></a>
 <a class="sourceLine" id="cb97-3" title="3"><span class="co">##     age sex      wt</span></a>
 <a class="sourceLine" id="cb97-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb97-5" title="5"><span class="co">## 1    30 M        88</span></a>
-<a class="sourceLine" id="cb97-6" title="6"><span class="co">## 2    26 F        76</span></a>
-<a class="sourceLine" id="cb97-7" title="7"></a>
-<a class="sourceLine" id="cb97-8" title="8">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),]  <span class="co"># rows 1, 3 and 5</span></a>
-<a class="sourceLine" id="cb97-9" title="9"><span class="co">## # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb97-10" title="10"><span class="co">##     age sex      wt</span></a>
-<a class="sourceLine" id="cb97-11" title="11"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb97-12" title="12"><span class="co">## 1    30 M        88</span></a>
-<a class="sourceLine" id="cb97-13" title="13"><span class="co">## 2    21 M        67</span></a>
-<a class="sourceLine" id="cb97-14" title="14"><span class="co">## 3    25 M        56</span></a></code></pre></div>
+<a class="sourceLine" id="cb97-5" title="5"><span class="co">## 1    30 M        88</span></a></code></pre></div>
+<p>This syntax extends to multiple rows:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">df[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,]  <span class="co"># first two rows</span></a>
+<a class="sourceLine" id="cb98-2" title="2"><span class="co">## # A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb98-3" title="3"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb98-5" title="5"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb98-6" title="6"><span class="co">## 2    26 F        76</span></a>
+<a class="sourceLine" id="cb98-7" title="7"></a>
+<a class="sourceLine" id="cb98-8" title="8">df[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),]  <span class="co"># rows 1, 3 and 5</span></a>
+<a class="sourceLine" id="cb98-9" title="9"><span class="co">## # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb98-10" title="10"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb98-11" title="11"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb98-12" title="12"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb98-13" title="13"><span class="co">## 2    21 M        67</span></a>
+<a class="sourceLine" id="cb98-14" title="14"><span class="co">## 3    25 M        56</span></a></code></pre></div>
 </div>
 <div id="single-bracket-indexing-of-both-the-rows-and-columns-of-a-data-frame" class="section level4">
 <h4><span class="header-section-number">4.3.4.3</span> Single bracket indexing of both the rows and columns of a data frame</h4>
 <p>Single bracket indexing of data frames extends naturally to retrieve both rows and columns simultaneously:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1">df[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># first row, second column</span></a>
-<a class="sourceLine" id="cb98-2" title="2"><span class="co">## [1] M</span></a>
-<a class="sourceLine" id="cb98-3" title="3"><span class="co">## Levels: F M</span></a>
-<a class="sourceLine" id="cb98-4" title="4">df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># first three rows, columns 2 and 3</span></a>
-<a class="sourceLine" id="cb98-5" title="5"><span class="co">## # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb98-6" title="6"><span class="co">##   sex      wt</span></a>
-<a class="sourceLine" id="cb98-7" title="7"><span class="co">##   &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb98-8" title="8"><span class="co">## 1 M        88</span></a>
-<a class="sourceLine" id="cb98-9" title="9"><span class="co">## 2 F        76</span></a>
-<a class="sourceLine" id="cb98-10" title="10"><span class="co">## 3 M        67</span></a>
-<a class="sourceLine" id="cb98-11" title="11"></a>
-<a class="sourceLine" id="cb98-12" title="12"><span class="co"># you can even mix numerical indexing (rows) with named indexing of columns</span></a>
-<a class="sourceLine" id="cb98-13" title="13">df[<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]  </a>
-<a class="sourceLine" id="cb98-14" title="14"><span class="co">## # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb98-15" title="15"><span class="co">##     age    wt</span></a>
-<a class="sourceLine" id="cb98-16" title="16"><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb98-17" title="17"><span class="co">## 1    25    56</span></a>
-<a class="sourceLine" id="cb98-18" title="18"><span class="co">## 2    22    74</span></a>
-<a class="sourceLine" id="cb98-19" title="19"><span class="co">## 3    28    71</span></a>
-<a class="sourceLine" id="cb98-20" title="20"><span class="co">## 4    24    60</span></a>
-<a class="sourceLine" id="cb98-21" title="21"><span class="co">## 5    23    52</span></a>
-<a class="sourceLine" id="cb98-22" title="22"><span class="co">## 6    20    72</span></a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">df[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># first row, second column</span></a>
+<a class="sourceLine" id="cb99-2" title="2"><span class="co">## [1] M</span></a>
+<a class="sourceLine" id="cb99-3" title="3"><span class="co">## Levels: F M</span></a>
+<a class="sourceLine" id="cb99-4" title="4">df[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># first three rows, columns 2 and 3</span></a>
+<a class="sourceLine" id="cb99-5" title="5"><span class="co">## # A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb99-6" title="6"><span class="co">##   sex      wt</span></a>
+<a class="sourceLine" id="cb99-7" title="7"><span class="co">##   &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb99-8" title="8"><span class="co">## 1 M        88</span></a>
+<a class="sourceLine" id="cb99-9" title="9"><span class="co">## 2 F        76</span></a>
+<a class="sourceLine" id="cb99-10" title="10"><span class="co">## 3 M        67</span></a>
+<a class="sourceLine" id="cb99-11" title="11"></a>
+<a class="sourceLine" id="cb99-12" title="12"><span class="co"># you can even mix numerical indexing (rows) with named indexing of columns</span></a>
+<a class="sourceLine" id="cb99-13" title="13">df[<span class="dv">5</span><span class="op">:</span><span class="dv">10</span>, <span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;wt&quot;</span>)]  </a>
+<a class="sourceLine" id="cb99-14" title="14"><span class="co">## # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb99-15" title="15"><span class="co">##     age    wt</span></a>
+<a class="sourceLine" id="cb99-16" title="16"><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb99-17" title="17"><span class="co">## 1    25    56</span></a>
+<a class="sourceLine" id="cb99-18" title="18"><span class="co">## 2    22    74</span></a>
+<a class="sourceLine" id="cb99-19" title="19"><span class="co">## 3    28    71</span></a>
+<a class="sourceLine" id="cb99-20" title="20"><span class="co">## 4    24    60</span></a>
+<a class="sourceLine" id="cb99-21" title="21"><span class="co">## 5    23    52</span></a>
+<a class="sourceLine" id="cb99-22" title="22"><span class="co">## 6    20    72</span></a></code></pre></div>
 </div>
 <div id="double-bracket-and-indexing-of-data-frames" class="section level4">
 <h4><span class="header-section-number">4.3.4.4</span> Double bracket and <code>$</code> indexing of data frames</h4>
 <p>Whereas single bracket indexing of a data frame always returns a new data frame, double bracket indexing and indexing using the <code>$</code> operator, returns vectors.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1">df[[<span class="st">&quot;age&quot;</span>]]</a>
-<a class="sourceLine" id="cb99-2" title="2"><span class="co">##  [1] 30 26 21 29 25 22 28 24 23 20</span></a>
-<a class="sourceLine" id="cb99-3" title="3"><span class="kw">typeof</span>(df[[<span class="st">&quot;age&quot;</span>]])</a>
-<a class="sourceLine" id="cb99-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a>
-<a class="sourceLine" id="cb99-5" title="5"></a>
-<a class="sourceLine" id="cb99-6" title="6">df<span class="op">$</span>wt</a>
-<a class="sourceLine" id="cb99-7" title="7"><span class="co">##  [1] 88 76 67 66 56 74 71 60 52 72</span></a>
-<a class="sourceLine" id="cb99-8" title="8"><span class="kw">typeof</span>(df<span class="op">$</span>wt)</a>
-<a class="sourceLine" id="cb99-9" title="9"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">df[[<span class="st">&quot;age&quot;</span>]]</a>
+<a class="sourceLine" id="cb100-2" title="2"><span class="co">##  [1] 30 26 21 29 25 22 28 24 23 20</span></a>
+<a class="sourceLine" id="cb100-3" title="3"><span class="kw">typeof</span>(df[[<span class="st">&quot;age&quot;</span>]])</a>
+<a class="sourceLine" id="cb100-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a>
+<a class="sourceLine" id="cb100-5" title="5"></a>
+<a class="sourceLine" id="cb100-6" title="6">df<span class="op">$</span>wt</a>
+<a class="sourceLine" id="cb100-7" title="7"><span class="co">##  [1] 88 76 67 66 56 74 71 60 52 72</span></a>
+<a class="sourceLine" id="cb100-8" title="8"><span class="kw">typeof</span>(df<span class="op">$</span>wt)</a>
+<a class="sourceLine" id="cb100-9" title="9"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div>
 </div>
 </div>
 <div id="logical-indexing-of-data-frames" class="section level3">
 <h3><span class="header-section-number">4.3.5</span> Logical indexing of data frames</h3>
 <p>Logical indexing using boolean values works on data frames in much the same way it works on vectors. Typically, logical indexing of a data frame is used to filter the rows of a data frame.</p>
 <p>For example, to get all the subject in our example data frame who are older than 25 we could do:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1"> <span class="co"># </span><span class="al">NOTE</span><span class="co">: the comma after 25 is important to insure we&#39;re indexing rows!</span></a>
-<a class="sourceLine" id="cb100-2" title="2">df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>, ] </a>
-<a class="sourceLine" id="cb100-3" title="3"><span class="co">## # A tibble: 4 x 3</span></a>
-<a class="sourceLine" id="cb100-4" title="4"><span class="co">##     age sex      wt</span></a>
-<a class="sourceLine" id="cb100-5" title="5"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb100-6" title="6"><span class="co">## 1    30 M        88</span></a>
-<a class="sourceLine" id="cb100-7" title="7"><span class="co">## 2    26 F        76</span></a>
-<a class="sourceLine" id="cb100-8" title="8"><span class="co">## 3    29 F        66</span></a>
-<a class="sourceLine" id="cb100-9" title="9"><span class="co">## 4    28 M        71</span></a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"> <span class="co"># </span><span class="al">NOTE</span><span class="co">: the comma after 25 is important to insure we&#39;re indexing rows!</span></a>
+<a class="sourceLine" id="cb101-2" title="2">df[df<span class="op">$</span>age <span class="op">&gt;</span><span class="st"> </span><span class="dv">25</span>, ] </a>
+<a class="sourceLine" id="cb101-3" title="3"><span class="co">## # A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb101-4" title="4"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb101-5" title="5"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb101-6" title="6"><span class="co">## 1    30 M        88</span></a>
+<a class="sourceLine" id="cb101-7" title="7"><span class="co">## 2    26 F        76</span></a>
+<a class="sourceLine" id="cb101-8" title="8"><span class="co">## 3    29 F        66</span></a>
+<a class="sourceLine" id="cb101-9" title="9"><span class="co">## 4    28 M        71</span></a></code></pre></div>
 <p>Similarly, to get all the individuals whose weight is between 60 and 70 kgs we could do:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">df[(df<span class="op">$</span>wt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>wt <span class="op">&lt;=</span><span class="st"> </span><span class="dv">70</span>),]</a>
-<a class="sourceLine" id="cb101-2" title="2"><span class="co">## # A tibble: 3 x 3</span></a>
-<a class="sourceLine" id="cb101-3" title="3"><span class="co">##     age sex      wt</span></a>
-<a class="sourceLine" id="cb101-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb101-5" title="5"><span class="co">## 1    21 M        67</span></a>
-<a class="sourceLine" id="cb101-6" title="6"><span class="co">## 2    29 F        66</span></a>
-<a class="sourceLine" id="cb101-7" title="7"><span class="co">## 3    24 F        60</span></a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">df[(df<span class="op">$</span>wt <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>df<span class="op">$</span>wt <span class="op">&lt;=</span><span class="st"> </span><span class="dv">70</span>),]</a>
+<a class="sourceLine" id="cb102-2" title="2"><span class="co">## # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb102-3" title="3"><span class="co">##     age sex      wt</span></a>
+<a class="sourceLine" id="cb102-4" title="4"><span class="co">##   &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb102-5" title="5"><span class="co">## 1    21 M        67</span></a>
+<a class="sourceLine" id="cb102-6" title="6"><span class="co">## 2    29 F        66</span></a>
+<a class="sourceLine" id="cb102-7" title="7"><span class="co">## 3    24 F        60</span></a></code></pre></div>
 </div>
 <div id="adding-columns-to-a-data-frame" class="section level3">
 <h3><span class="header-section-number">4.3.6</span> Adding columns to a data frame</h3>
 <p>Adding columns to a data frame is similar to adding items to a list. The easiest way to do so is using named indexing. For example, to add a new column to our data frame that gives the individuals ages in number of days, we could do:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">df[[<span class="st">&quot;age.in.days&quot;</span>]] &lt;-<span class="st"> </span>df<span class="op">$</span>age <span class="op">*</span><span class="st"> </span><span class="dv">365</span></a>
-<a class="sourceLine" id="cb102-2" title="2"><span class="kw">dim</span>(df)</a>
-<a class="sourceLine" id="cb102-3" title="3"><span class="co">## [1] 10  4</span></a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">df[[<span class="st">&quot;age.in.days&quot;</span>]] &lt;-<span class="st"> </span>df<span class="op">$</span>age <span class="op">*</span><span class="st"> </span><span class="dv">365</span></a>
+<a class="sourceLine" id="cb103-2" title="2"><span class="kw">dim</span>(df)</a>
+<a class="sourceLine" id="cb103-3" title="3"><span class="co">## [1] 10  4</span></a></code></pre></div>
 
 </div>
 </div>

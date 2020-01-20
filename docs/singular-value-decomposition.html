@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 15 Singular Value Decomposition | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 15 Singular Value Decomposition | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-15" />
+<meta name="date" content="2020-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -469,204 +469,204 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 15</span> Singular Value Decomposition</h1>
 <div id="libraries-6" class="section level2">
 <h2><span class="header-section-number">15.1</span> Libraries</h2>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb450-2" title="2"><span class="kw">library</span>(stringr)</a>
-<a class="sourceLine" id="cb450-3" title="3"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb450-4" title="4"><span class="kw">library</span>(GGally)</a>
-<a class="sourceLine" id="cb450-5" title="5"><span class="kw">library</span>(cowplot)</a></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb452-2" title="2"><span class="kw">library</span>(stringr)</a>
+<a class="sourceLine" id="cb452-3" title="3"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb452-4" title="4"><span class="kw">library</span>(GGally)</a>
+<a class="sourceLine" id="cb452-5" title="5"><span class="kw">library</span>(cowplot)</a></code></pre></div>
 </div>
 <div id="svd-in-r" class="section level2">
 <h2><span class="header-section-number">15.2</span> SVD in R</h2>
 <p><span class="math display">\[\newcommand{\Mtx}[1]{\mathbf{#1}}\]</span></p>
 <p>If <span class="math inline">\(\Mtx{x}\)</span> is an <span class="math inline">\(n \times p\)</span> matrix, and the singular value decomposition of <span class="math inline">\(\Mtx{A}\)</span> is given by <span class="math inline">\(\Mtx{A} = \Mtx{U} \Mtx{S} \Mtx{V}^T\)</span>, the columns of the matrix <span class="math inline">\(\Mtx{V}^T\)</span> are the eigenvectors of the square matrix <span class="math inline">\(\Mtx{A}^T \Mtx{A}\)</span> (sometimes refered to as the minor product of ). The singular values of  are equal to the square roots of the eigenvalues of <span class="math inline">\(\Mtx{A}^T \Mtx{A}\)</span>.</p>
 <p>The <code>svd()</code> function computes the singular value decomposition of an arbitrary rectangular matrix. Below I demonstrate the use of the <code>svd()</code> function and confirm the relationships described above:</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb451-2" title="2">A</a>
-<a class="sourceLine" id="cb451-3" title="3"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb451-4" title="4"><span class="co">## [1,]    2    2</span></a>
-<a class="sourceLine" id="cb451-5" title="5"><span class="co">## [2,]    1    3</span></a>
-<a class="sourceLine" id="cb451-6" title="6">a.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(A)</a>
-<a class="sourceLine" id="cb451-7" title="7"><span class="co"># R uses the notation A = u d v&#39; rather than A = u s v&#39;</span></a>
-<a class="sourceLine" id="cb451-8" title="8">a.svd<span class="op">$</span>u</a>
-<a class="sourceLine" id="cb451-9" title="9"><span class="co">##            [,1]       [,2]</span></a>
-<a class="sourceLine" id="cb451-10" title="10"><span class="co">## [1,] -0.6618026 -0.7496782</span></a>
-<a class="sourceLine" id="cb451-11" title="11"><span class="co">## [2,] -0.7496782  0.6618026</span></a>
-<a class="sourceLine" id="cb451-12" title="12">a.svd<span class="op">$</span>d</a>
-<a class="sourceLine" id="cb451-13" title="13"><span class="co">## [1] 4.1306486 0.9683709</span></a>
-<a class="sourceLine" id="cb451-14" title="14">a.svd<span class="op">$</span>v</a>
-<a class="sourceLine" id="cb451-15" title="15"><span class="co">##            [,1]       [,2]</span></a>
-<a class="sourceLine" id="cb451-16" title="16"><span class="co">## [1,] -0.5019268 -0.8649101</span></a>
-<a class="sourceLine" id="cb451-17" title="17"><span class="co">## [2,] -0.8649101  0.5019268</span></a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb453-2" title="2">A</a>
+<a class="sourceLine" id="cb453-3" title="3"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb453-4" title="4"><span class="co">## [1,]    2    2</span></a>
+<a class="sourceLine" id="cb453-5" title="5"><span class="co">## [2,]    1    3</span></a>
+<a class="sourceLine" id="cb453-6" title="6">a.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(A)</a>
+<a class="sourceLine" id="cb453-7" title="7"><span class="co"># R uses the notation A = u d v&#39; rather than A = u s v&#39;</span></a>
+<a class="sourceLine" id="cb453-8" title="8">a.svd<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb453-9" title="9"><span class="co">##            [,1]       [,2]</span></a>
+<a class="sourceLine" id="cb453-10" title="10"><span class="co">## [1,] -0.6618026 -0.7496782</span></a>
+<a class="sourceLine" id="cb453-11" title="11"><span class="co">## [2,] -0.7496782  0.6618026</span></a>
+<a class="sourceLine" id="cb453-12" title="12">a.svd<span class="op">$</span>d</a>
+<a class="sourceLine" id="cb453-13" title="13"><span class="co">## [1] 4.1306486 0.9683709</span></a>
+<a class="sourceLine" id="cb453-14" title="14">a.svd<span class="op">$</span>v</a>
+<a class="sourceLine" id="cb453-15" title="15"><span class="co">##            [,1]       [,2]</span></a>
+<a class="sourceLine" id="cb453-16" title="16"><span class="co">## [1,] -0.5019268 -0.8649101</span></a>
+<a class="sourceLine" id="cb453-17" title="17"><span class="co">## [2,] -0.8649101  0.5019268</span></a></code></pre></div>
 <p>We should be able to reconstruct <span class="math inline">\(\Mtx{A}\)</span> from the SVD:</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1"><span class="kw">all.equal</span>(A, a.svd<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(a.svd<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a.svd<span class="op">$</span>v))</a>
-<a class="sourceLine" id="cb452-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1"><span class="kw">all.equal</span>(A, a.svd<span class="op">$</span>u <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(a.svd<span class="op">$</span>d) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(a.svd<span class="op">$</span>v))</a>
+<a class="sourceLine" id="cb454-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
 <p>We can also demonstrate the relationship between the SVD of <span class="math inline">\(\Mtx{A}\)</span> and the eigendecomposition of <span class="math inline">\(\Mtx{A}^T\Mtx{A}\)</span>:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">AtA &lt;-<span class="st"> </span><span class="kw">t</span>(A) <span class="op">%*%</span><span class="st"> </span>A</a>
-<a class="sourceLine" id="cb453-2" title="2">eigen.AtA &lt;-<span class="st"> </span><span class="kw">eigen</span>(AtA)</a>
-<a class="sourceLine" id="cb453-3" title="3"><span class="kw">all.equal</span>(a.svd<span class="op">$</span>d, <span class="kw">sqrt</span>(eigen.AtA<span class="op">$</span>values))</a>
-<a class="sourceLine" id="cb453-4" title="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">AtA &lt;-<span class="st"> </span><span class="kw">t</span>(A) <span class="op">%*%</span><span class="st"> </span>A</a>
+<a class="sourceLine" id="cb455-2" title="2">eigen.AtA &lt;-<span class="st"> </span><span class="kw">eigen</span>(AtA)</a>
+<a class="sourceLine" id="cb455-3" title="3"><span class="kw">all.equal</span>(a.svd<span class="op">$</span>d, <span class="kw">sqrt</span>(eigen.AtA<span class="op">$</span>values))</a>
+<a class="sourceLine" id="cb455-4" title="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
 <p>As we discussed in lecture, the eigenvectors of square matrix, <span class="math inline">\(\Mtx{A}\)</span>, point in the directions that are unchanged by the transformation specified by <span class="math inline">\(\Mtx{A}\)</span>.</p>
 </div>
 <div id="writing-our-own-pca-function-using-svd" class="section level2">
 <h2><span class="header-section-number">15.3</span> Writing our own PCA function using SVD</h2>
 <p>In lecture we discussed the relationship between SVD and PCA. Let’s walk through some code that carries out PCA via SVD, and then we’ll implement our own PCA function.</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1">iris.numeric &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(iris, <span class="dt">select=</span><span class="op">-</span>Species)</a>
-<a class="sourceLine" id="cb454-2" title="2">iris.ctrd &lt;-<span class="st"> </span><span class="kw">scale</span>(iris.numeric, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb454-3" title="3">iris.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(iris.ctrd)</a>
-<a class="sourceLine" id="cb454-4" title="4"></a>
-<a class="sourceLine" id="cb454-5" title="5">U &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>u</a>
-<a class="sourceLine" id="cb454-6" title="6">S &lt;-<span class="st"> </span><span class="kw">diag</span>(iris.svd<span class="op">$</span>d)</a>
-<a class="sourceLine" id="cb454-7" title="7">V &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>v</a>
-<a class="sourceLine" id="cb454-8" title="8"></a>
-<a class="sourceLine" id="cb454-9" title="9">pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
-<a class="sourceLine" id="cb454-10" title="10"><span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))</a>
-<a class="sourceLine" id="cb454-11" title="11"></a>
-<a class="sourceLine" id="cb454-12" title="12">pc.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pc.scores)</a>
-<a class="sourceLine" id="cb454-13" title="13">pc.scores.df &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb454-14" title="14"><span class="st">  </span>pc.scores.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb454-15" title="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species)</a>
-<a class="sourceLine" id="cb454-16" title="16"></a>
-<a class="sourceLine" id="cb454-17" title="17"><span class="kw">ggplot</span>(pc.scores.df, <span class="kw">aes</span>(PC1, PC2, <span class="dt">color=</span>Species)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb454-18" title="18"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb454-19" title="19"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-452-1.png" width="576" /></p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.ctrd)</a>
-<a class="sourceLine" id="cb455-2" title="2">pc.sdev &lt;-<span class="st"> </span><span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>)))</a>
-<a class="sourceLine" id="cb455-3" title="3">pc.sdev</a>
-<a class="sourceLine" id="cb455-4" title="4"><span class="co">##          [,1]      [,2]      [,3]      [,4]</span></a>
-<a class="sourceLine" id="cb455-5" title="5"><span class="co">## [1,] 2.056269 0.0000000 0.0000000 0.0000000</span></a>
-<a class="sourceLine" id="cb455-6" title="6"><span class="co">## [2,] 0.000000 0.4926162 0.0000000 0.0000000</span></a>
-<a class="sourceLine" id="cb455-7" title="7"><span class="co">## [3,] 0.000000 0.0000000 0.2796596 0.0000000</span></a>
-<a class="sourceLine" id="cb455-8" title="8"><span class="co">## [4,] 0.000000 0.0000000 0.0000000 0.1543862</span></a>
-<a class="sourceLine" id="cb455-9" title="9">V</a>
-<a class="sourceLine" id="cb455-10" title="10"><span class="co">##             [,1]        [,2]        [,3]       [,4]</span></a>
-<a class="sourceLine" id="cb455-11" title="11"><span class="co">## [1,]  0.36138659 -0.65658877  0.58202985  0.3154872</span></a>
-<a class="sourceLine" id="cb455-12" title="12"><span class="co">## [2,] -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></a>
-<a class="sourceLine" id="cb455-13" title="13"><span class="co">## [3,]  0.85667061  0.17337266 -0.07623608 -0.4798390</span></a>
-<a class="sourceLine" id="cb455-14" title="14"><span class="co">## [4,]  0.35828920  0.07548102 -0.54583143  0.7536574</span></a></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" title="1">iris.numeric &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(iris, <span class="dt">select=</span><span class="op">-</span>Species)</a>
+<a class="sourceLine" id="cb456-2" title="2">iris.ctrd &lt;-<span class="st"> </span><span class="kw">scale</span>(iris.numeric, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb456-3" title="3">iris.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(iris.ctrd)</a>
+<a class="sourceLine" id="cb456-4" title="4"></a>
+<a class="sourceLine" id="cb456-5" title="5">U &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb456-6" title="6">S &lt;-<span class="st"> </span><span class="kw">diag</span>(iris.svd<span class="op">$</span>d)</a>
+<a class="sourceLine" id="cb456-7" title="7">V &lt;-<span class="st"> </span>iris.svd<span class="op">$</span>v</a>
+<a class="sourceLine" id="cb456-8" title="8"></a>
+<a class="sourceLine" id="cb456-9" title="9">pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
+<a class="sourceLine" id="cb456-10" title="10"><span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))</a>
+<a class="sourceLine" id="cb456-11" title="11"></a>
+<a class="sourceLine" id="cb456-12" title="12">pc.scores.df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(pc.scores)</a>
+<a class="sourceLine" id="cb456-13" title="13">pc.scores.df &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb456-14" title="14"><span class="st">  </span>pc.scores.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb456-15" title="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species)</a>
+<a class="sourceLine" id="cb456-16" title="16"></a>
+<a class="sourceLine" id="cb456-17" title="17"><span class="kw">ggplot</span>(pc.scores.df, <span class="kw">aes</span>(PC1, PC2, <span class="dt">color=</span>Species)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb456-18" title="18"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb456-19" title="19"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-454-1.png" width="576" /></p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.ctrd)</a>
+<a class="sourceLine" id="cb457-2" title="2">pc.sdev &lt;-<span class="st"> </span><span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>)))</a>
+<a class="sourceLine" id="cb457-3" title="3">pc.sdev</a>
+<a class="sourceLine" id="cb457-4" title="4"><span class="co">##          [,1]      [,2]      [,3]      [,4]</span></a>
+<a class="sourceLine" id="cb457-5" title="5"><span class="co">## [1,] 2.056269 0.0000000 0.0000000 0.0000000</span></a>
+<a class="sourceLine" id="cb457-6" title="6"><span class="co">## [2,] 0.000000 0.4926162 0.0000000 0.0000000</span></a>
+<a class="sourceLine" id="cb457-7" title="7"><span class="co">## [3,] 0.000000 0.0000000 0.2796596 0.0000000</span></a>
+<a class="sourceLine" id="cb457-8" title="8"><span class="co">## [4,] 0.000000 0.0000000 0.0000000 0.1543862</span></a>
+<a class="sourceLine" id="cb457-9" title="9">V</a>
+<a class="sourceLine" id="cb457-10" title="10"><span class="co">##             [,1]        [,2]        [,3]       [,4]</span></a>
+<a class="sourceLine" id="cb457-11" title="11"><span class="co">## [1,]  0.36138659 -0.65658877  0.58202985  0.3154872</span></a>
+<a class="sourceLine" id="cb457-12" title="12"><span class="co">## [2,] -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></a>
+<a class="sourceLine" id="cb457-13" title="13"><span class="co">## [3,]  0.85667061  0.17337266 -0.07623608 -0.4798390</span></a>
+<a class="sourceLine" id="cb457-14" title="14"><span class="co">## [4,]  0.35828920  0.07548102 -0.54583143  0.7536574</span></a></code></pre></div>
 <p>For comparison, here’s what the builtin <code>prcomp()</code> function gives us:</p>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" title="1">iris.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(iris.ctrd)</a>
-<a class="sourceLine" id="cb456-2" title="2">iris.pca<span class="op">$</span>sdev</a>
-<a class="sourceLine" id="cb456-3" title="3"><span class="co">## [1] 2.0562689 0.4926162 0.2796596 0.1543862</span></a>
-<a class="sourceLine" id="cb456-4" title="4">iris.pca<span class="op">$</span>rotation</a>
-<a class="sourceLine" id="cb456-5" title="5"><span class="co">##                      PC1         PC2         PC3        PC4</span></a>
-<a class="sourceLine" id="cb456-6" title="6"><span class="co">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span></a>
-<a class="sourceLine" id="cb456-7" title="7"><span class="co">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></a>
-<a class="sourceLine" id="cb456-8" title="8"><span class="co">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span></a>
-<a class="sourceLine" id="cb456-9" title="9"><span class="co">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></a></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" title="1">iris.pca &lt;-<span class="st"> </span><span class="kw">prcomp</span>(iris.ctrd)</a>
+<a class="sourceLine" id="cb458-2" title="2">iris.pca<span class="op">$</span>sdev</a>
+<a class="sourceLine" id="cb458-3" title="3"><span class="co">## [1] 2.0562689 0.4926162 0.2796596 0.1543862</span></a>
+<a class="sourceLine" id="cb458-4" title="4">iris.pca<span class="op">$</span>rotation</a>
+<a class="sourceLine" id="cb458-5" title="5"><span class="co">##                      PC1         PC2         PC3        PC4</span></a>
+<a class="sourceLine" id="cb458-6" title="6"><span class="co">## Sepal.Length  0.36138659 -0.65658877  0.58202985  0.3154872</span></a>
+<a class="sourceLine" id="cb458-7" title="7"><span class="co">## Sepal.Width  -0.08452251 -0.73016143 -0.59791083 -0.3197231</span></a>
+<a class="sourceLine" id="cb458-8" title="8"><span class="co">## Petal.Length  0.85667061  0.17337266 -0.07623608 -0.4798390</span></a>
+<a class="sourceLine" id="cb458-9" title="9"><span class="co">## Petal.Width   0.35828920  0.07548102 -0.54583143  0.7536574</span></a></code></pre></div>
 <p>Now that we have a sense of the key calculations, let’s turn this into a function.</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1"><span class="co"># a user defined version of principal components analysis</span></a>
-<a class="sourceLine" id="cb457-2" title="2">PCA &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>){</a>
-<a class="sourceLine" id="cb457-3" title="3">   x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)</a>
-<a class="sourceLine" id="cb457-4" title="4">   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)</a>
-<a class="sourceLine" id="cb457-5" title="5">   p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)</a>
-<a class="sourceLine" id="cb457-6" title="6"></a>
-<a class="sourceLine" id="cb457-7" title="7">   x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)</a>
-<a class="sourceLine" id="cb457-8" title="8">   U &lt;-<span class="st"> </span>x.svd<span class="op">$</span>u</a>
-<a class="sourceLine" id="cb457-9" title="9">   S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d)</a>
-<a class="sourceLine" id="cb457-10" title="10">   V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v</a>
-<a class="sourceLine" id="cb457-11" title="11"></a>
-<a class="sourceLine" id="cb457-12" title="12">   <span class="co"># check for zero eigenvalues</span></a>
-<a class="sourceLine" id="cb457-13" title="13">   tolerance =<span class="st"> </span>.Machine<span class="op">$</span>double.eps<span class="op">^</span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb457-14" title="14">   has.zero.singval &lt;-<span class="st"> </span><span class="kw">any</span>(x.svd<span class="op">$</span>d <span class="op">&lt;=</span><span class="st"> </span>tolerance)</a>
-<a class="sourceLine" id="cb457-15" title="15">   <span class="cf">if</span>(has.zero.singval)</a>
-<a class="sourceLine" id="cb457-16" title="16">     <span class="kw">print</span>(<span class="st">&quot;WARNING: Zero singular values detected&quot;</span>)</a>
-<a class="sourceLine" id="cb457-17" title="17"></a>
-<a class="sourceLine" id="cb457-18" title="18">   pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
-<a class="sourceLine" id="cb457-19" title="19">   <span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))</a>
-<a class="sourceLine" id="cb457-20" title="20">   pc.sdev &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>))))</a>
-<a class="sourceLine" id="cb457-21" title="21">   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">vectors =</span> V, <span class="dt">scores=</span>pc.scores, <span class="dt">sdev =</span> pc.sdev))</a>
-<a class="sourceLine" id="cb457-22" title="22">}</a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1"><span class="co"># a user defined version of principal components analysis</span></a>
+<a class="sourceLine" id="cb459-2" title="2">PCA &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>){</a>
+<a class="sourceLine" id="cb459-3" title="3">   x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)</a>
+<a class="sourceLine" id="cb459-4" title="4">   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)</a>
+<a class="sourceLine" id="cb459-5" title="5">   p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)</a>
+<a class="sourceLine" id="cb459-6" title="6"></a>
+<a class="sourceLine" id="cb459-7" title="7">   x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)</a>
+<a class="sourceLine" id="cb459-8" title="8">   U &lt;-<span class="st"> </span>x.svd<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb459-9" title="9">   S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d)</a>
+<a class="sourceLine" id="cb459-10" title="10">   V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v</a>
+<a class="sourceLine" id="cb459-11" title="11"></a>
+<a class="sourceLine" id="cb459-12" title="12">   <span class="co"># check for zero eigenvalues</span></a>
+<a class="sourceLine" id="cb459-13" title="13">   tolerance =<span class="st"> </span>.Machine<span class="op">$</span>double.eps<span class="op">^</span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb459-14" title="14">   has.zero.singval &lt;-<span class="st"> </span><span class="kw">any</span>(x.svd<span class="op">$</span>d <span class="op">&lt;=</span><span class="st"> </span>tolerance)</a>
+<a class="sourceLine" id="cb459-15" title="15">   <span class="cf">if</span>(has.zero.singval)</a>
+<a class="sourceLine" id="cb459-16" title="16">     <span class="kw">print</span>(<span class="st">&quot;WARNING: Zero singular values detected&quot;</span>)</a>
+<a class="sourceLine" id="cb459-17" title="17"></a>
+<a class="sourceLine" id="cb459-18" title="18">   pc.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
+<a class="sourceLine" id="cb459-19" title="19">   <span class="kw">colnames</span>(pc.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(pc.scores))</a>
+<a class="sourceLine" id="cb459-20" title="20">   pc.sdev &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">sqrt</span>((S<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(n<span class="dv">-1</span>))))</a>
+<a class="sourceLine" id="cb459-21" title="21">   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">vectors =</span> V, <span class="dt">scores=</span>pc.scores, <span class="dt">sdev =</span> pc.sdev))</a>
+<a class="sourceLine" id="cb459-22" title="22">}</a></code></pre></div>
 <p>Note I also included some code to warn the user when the covariance matrix is singular. Use the help to read about variables defined in <code>.Machine</code>.</p>
 <p>Let’s put our function through its paces:</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" title="1">iris.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(iris.numeric)</a>
-<a class="sourceLine" id="cb458-2" title="2"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(iris.pca<span class="op">$</span>scores), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb458-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb458-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-456-1.png" width="576" /></p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1"><span class="co"># flip the rows and columns of i.sub and do PCA</span></a>
-<a class="sourceLine" id="cb459-2" title="2"> <span class="co"># Our function should detect singular values equal to zero. Why?</span></a>
-<a class="sourceLine" id="cb459-3" title="3">singular.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(<span class="kw">t</span>(iris.numeric)) </a>
-<a class="sourceLine" id="cb459-4" title="4"><span class="co">## [1] &quot;WARNING: Zero singular values detected&quot;</span></a></code></pre></div>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1">tree.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(trees)</a>
-<a class="sourceLine" id="cb460-2" title="2">tree.pca<span class="op">$</span>sdev</a>
-<a class="sourceLine" id="cb460-3" title="3"><span class="co">## [1] 17.1834214  4.9820035  0.7485858</span></a>
-<a class="sourceLine" id="cb460-4" title="4"></a>
-<a class="sourceLine" id="cb460-5" title="5"><span class="co"># compare to prcomp</span></a>
-<a class="sourceLine" id="cb460-6" title="6"><span class="kw">prcomp</span>(trees)<span class="op">$</span>sdev </a>
-<a class="sourceLine" id="cb460-7" title="7"><span class="co">## [1] 17.1834214  4.9820035  0.7485858</span></a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1">iris.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(iris.numeric)</a>
+<a class="sourceLine" id="cb460-2" title="2"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(iris.pca<span class="op">$</span>scores), <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb460-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb460-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-458-1.png" width="576" /></p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1"><span class="co"># flip the rows and columns of i.sub and do PCA</span></a>
+<a class="sourceLine" id="cb461-2" title="2"> <span class="co"># Our function should detect singular values equal to zero. Why?</span></a>
+<a class="sourceLine" id="cb461-3" title="3">singular.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(<span class="kw">t</span>(iris.numeric)) </a>
+<a class="sourceLine" id="cb461-4" title="4"><span class="co">## [1] &quot;WARNING: Zero singular values detected&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1">tree.pca &lt;-<span class="st"> </span><span class="kw">PCA</span>(trees)</a>
+<a class="sourceLine" id="cb462-2" title="2">tree.pca<span class="op">$</span>sdev</a>
+<a class="sourceLine" id="cb462-3" title="3"><span class="co">## [1] 17.1834214  4.9820035  0.7485858</span></a>
+<a class="sourceLine" id="cb462-4" title="4"></a>
+<a class="sourceLine" id="cb462-5" title="5"><span class="co"># compare to prcomp</span></a>
+<a class="sourceLine" id="cb462-6" title="6"><span class="kw">prcomp</span>(trees)<span class="op">$</span>sdev </a>
+<a class="sourceLine" id="cb462-7" title="7"><span class="co">## [1] 17.1834214  4.9820035  0.7485858</span></a></code></pre></div>
 <p>To bring things full circle, let’s make sure that the covariance matrix we reconstruct from our PCA analysis is equal to the covariance matrix calculated directly from the data set:</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.numeric)</a>
-<a class="sourceLine" id="cb461-2" title="2">V &lt;-<span class="st"> </span>iris.pca<span class="op">$</span>vectors</a>
-<a class="sourceLine" id="cb461-3" title="3">S &lt;-<span class="st"> </span><span class="kw">diag</span>( <span class="kw">sqrt</span>(iris.pca<span class="op">$</span>sdev<span class="op">**</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(n<span class="dv">-1</span>)) ) <span class="co"># turn sdev&#39;s back into singular values</span></a>
-<a class="sourceLine" id="cb461-4" title="4">reconstructed.cov &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>(n<span class="dv">-1</span>)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V) <span class="co"># see pg. 11 of slides</span></a>
-<a class="sourceLine" id="cb461-5" title="5"><span class="kw">all.equal</span>(reconstructed.cov, <span class="kw">cov</span>(iris.numeric), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb461-6" title="6"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1">n &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris.numeric)</a>
+<a class="sourceLine" id="cb463-2" title="2">V &lt;-<span class="st"> </span>iris.pca<span class="op">$</span>vectors</a>
+<a class="sourceLine" id="cb463-3" title="3">S &lt;-<span class="st"> </span><span class="kw">diag</span>( <span class="kw">sqrt</span>(iris.pca<span class="op">$</span>sdev<span class="op">**</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(n<span class="dv">-1</span>)) ) <span class="co"># turn sdev&#39;s back into singular values</span></a>
+<a class="sourceLine" id="cb463-4" title="4">reconstructed.cov &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>(n<span class="dv">-1</span>)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span>S <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V) <span class="co"># see pg. 11 of slides</span></a>
+<a class="sourceLine" id="cb463-5" title="5"><span class="kw">all.equal</span>(reconstructed.cov, <span class="kw">cov</span>(iris.numeric), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb463-6" title="6"><span class="co">## [1] TRUE</span></a></code></pre></div>
 <p>Great! It seems like things are working as expected.</p>
 </div>
 <div id="writing-a-biplot-function" class="section level2">
 <h2><span class="header-section-number">15.4</span> Writing a biplot function</h2>
 <p>We can use the same basic framework above to create a function to compute a biplot for our PCA. The function below includes an argument <code>emphasize.variables</code>, If <code>emphasize.variables</code> is <code>TRUE</code>, the function returns the biplot corresponding to <span class="math inline">\(\alpha=0\)</span>, the column-metric preserving biplot. If this arugment is <code>FALSE</code> it returns calculations correspoding to <span class="math inline">\(\alpha=1\)</span>, the row-metric preserving biplot.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1"><span class="co"># a user defined version of principal components analysis</span></a>
-<a class="sourceLine" id="cb462-2" title="2">PCA.biplot &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">emphasize.variables=</span><span class="ot">TRUE</span>){</a>
-<a class="sourceLine" id="cb462-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)</a>
-<a class="sourceLine" id="cb462-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)</a>
-<a class="sourceLine" id="cb462-5" title="5">  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)</a>
-<a class="sourceLine" id="cb462-6" title="6">  </a>
-<a class="sourceLine" id="cb462-7" title="7">  x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)</a>
-<a class="sourceLine" id="cb462-8" title="8">  U &lt;-<span class="st"> </span>(x.svd<span class="op">$</span>u)[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb462-9" title="9">  S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a>
-<a class="sourceLine" id="cb462-10" title="10">  V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb462-11" title="11">  </a>
-<a class="sourceLine" id="cb462-12" title="12">  <span class="cf">if</span> (emphasize.variables) {</a>
-<a class="sourceLine" id="cb462-13" title="13">    biplot.scores &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n) <span class="op">*</span><span class="st"> </span>U</a>
-<a class="sourceLine" id="cb462-14" title="14">    biplot.vectors &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S</a>
-<a class="sourceLine" id="cb462-15" title="15">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb462-16" title="16">    biplot.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
-<a class="sourceLine" id="cb462-17" title="17">    biplot.vectors &lt;-<span class="st"> </span>V</a>
-<a class="sourceLine" id="cb462-18" title="18">  }</a>
-<a class="sourceLine" id="cb462-19" title="19">  <span class="kw">colnames</span>(biplot.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.scores)) </a>
-<a class="sourceLine" id="cb462-20" title="20">  <span class="kw">colnames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.vectors))</a>
-<a class="sourceLine" id="cb462-21" title="21">  <span class="kw">rownames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X)</a>
-<a class="sourceLine" id="cb462-22" title="22">  </a>
-<a class="sourceLine" id="cb462-23" title="23">  <span class="kw">list</span>(<span class="dt">scores=</span><span class="kw">as.data.frame</span>(biplot.scores),</a>
-<a class="sourceLine" id="cb462-24" title="24">       <span class="dt">vectors=</span><span class="kw">as.data.frame</span>(biplot.vectors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Variable =</span> <span class="kw">colnames</span>(X)))</a>
-<a class="sourceLine" id="cb462-25" title="25">}</a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1"><span class="co"># a user defined version of principal components analysis</span></a>
+<a class="sourceLine" id="cb464-2" title="2">PCA.biplot &lt;-<span class="st"> </span><span class="cf">function</span>(X, <span class="dt">center=</span><span class="ot">TRUE</span>, <span class="dt">scale=</span><span class="ot">FALSE</span>, <span class="dt">emphasize.variables=</span><span class="ot">TRUE</span>){</a>
+<a class="sourceLine" id="cb464-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">scale</span>(X, <span class="dt">center=</span>center, <span class="dt">scale=</span>scale)</a>
+<a class="sourceLine" id="cb464-4" title="4">  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)</a>
+<a class="sourceLine" id="cb464-5" title="5">  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)</a>
+<a class="sourceLine" id="cb464-6" title="6">  </a>
+<a class="sourceLine" id="cb464-7" title="7">  x.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(x)</a>
+<a class="sourceLine" id="cb464-8" title="8">  U &lt;-<span class="st"> </span>(x.svd<span class="op">$</span>u)[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb464-9" title="9">  S &lt;-<span class="st"> </span><span class="kw">diag</span>(x.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb464-10" title="10">  V &lt;-<span class="st"> </span>x.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb464-11" title="11">  </a>
+<a class="sourceLine" id="cb464-12" title="12">  <span class="cf">if</span> (emphasize.variables) {</a>
+<a class="sourceLine" id="cb464-13" title="13">    biplot.scores &lt;-<span class="st"> </span><span class="kw">sqrt</span>(n) <span class="op">*</span><span class="st"> </span>U</a>
+<a class="sourceLine" id="cb464-14" title="14">    biplot.vectors &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(n)) <span class="op">*</span><span class="st"> </span>V <span class="op">%*%</span><span class="st"> </span>S</a>
+<a class="sourceLine" id="cb464-15" title="15">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb464-16" title="16">    biplot.scores &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>S</a>
+<a class="sourceLine" id="cb464-17" title="17">    biplot.vectors &lt;-<span class="st"> </span>V</a>
+<a class="sourceLine" id="cb464-18" title="18">  }</a>
+<a class="sourceLine" id="cb464-19" title="19">  <span class="kw">colnames</span>(biplot.scores) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.scores)) </a>
+<a class="sourceLine" id="cb464-20" title="20">  <span class="kw">colnames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">str_c</span>(<span class="st">&quot;PC&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(biplot.vectors))</a>
+<a class="sourceLine" id="cb464-21" title="21">  <span class="kw">rownames</span>(biplot.vectors) &lt;-<span class="st"> </span><span class="kw">colnames</span>(X)</a>
+<a class="sourceLine" id="cb464-22" title="22">  </a>
+<a class="sourceLine" id="cb464-23" title="23">  <span class="kw">list</span>(<span class="dt">scores=</span><span class="kw">as.data.frame</span>(biplot.scores),</a>
+<a class="sourceLine" id="cb464-24" title="24">       <span class="dt">vectors=</span><span class="kw">as.data.frame</span>(biplot.vectors) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Variable =</span> <span class="kw">colnames</span>(X)))</a>
+<a class="sourceLine" id="cb464-25" title="25">}</a></code></pre></div>
 <p>Let’s first create a biplot that emphasize the relationships between the variables.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1">iris.biplot.var &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb463-2" title="2"></a>
-<a class="sourceLine" id="cb463-3" title="3">small.arrow =<span class="st"> </span><span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">15</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.15</span>, <span class="st">&quot;inches&quot;</span>))</a>
-<a class="sourceLine" id="cb463-4" title="4"></a>
-<a class="sourceLine" id="cb463-5" title="5">p1 &lt;-</a>
-<a class="sourceLine" id="cb463-6" title="6"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb463-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), </a>
-<a class="sourceLine" id="cb463-8" title="8">             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb463-9" title="9"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors, </a>
-<a class="sourceLine" id="cb463-10" title="10">               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),</a>
-<a class="sourceLine" id="cb463-11" title="11">               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb463-12" title="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors,</a>
-<a class="sourceLine" id="cb463-13" title="13">            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),</a>
-<a class="sourceLine" id="cb463-14" title="14">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb463-15" title="15"><span class="st">  </span><span class="kw">coord_fixed</span>()</a>
-<a class="sourceLine" id="cb463-16" title="16"></a>
-<a class="sourceLine" id="cb463-17" title="17">p1</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-461-1.png" width="576" /></p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1">iris.biplot.var &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb465-2" title="2"></a>
+<a class="sourceLine" id="cb465-3" title="3">small.arrow =<span class="st"> </span><span class="kw">arrow</span>(<span class="dt">angle =</span> <span class="dv">15</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.15</span>, <span class="st">&quot;inches&quot;</span>))</a>
+<a class="sourceLine" id="cb465-4" title="4"></a>
+<a class="sourceLine" id="cb465-5" title="5">p1 &lt;-</a>
+<a class="sourceLine" id="cb465-6" title="6"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb465-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), </a>
+<a class="sourceLine" id="cb465-8" title="8">             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb465-9" title="9"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors, </a>
+<a class="sourceLine" id="cb465-10" title="10">               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),</a>
+<a class="sourceLine" id="cb465-11" title="11">               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb465-12" title="12"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.var<span class="op">$</span>vectors,</a>
+<a class="sourceLine" id="cb465-13" title="13">            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),</a>
+<a class="sourceLine" id="cb465-14" title="14">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb465-15" title="15"><span class="st">  </span><span class="kw">coord_fixed</span>()</a>
+<a class="sourceLine" id="cb465-16" title="16"></a>
+<a class="sourceLine" id="cb465-17" title="17">p1</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-463-1.png" width="576" /></p>
 <p>The biplot we just created emphasizes information about the variables in our data, and their relationship to each other and the principal components. Notice that the angule beween Petal Width and Petal Length is very small – this indicates they are highly correlated, while Sepal Width is nearly uncorrelated with the previous two variables. Petal Width and Petal Length also approximately parallel to PC1, indicating that they have large loadings with the first PC. The Petal Length vector is the longest indicating that it has the largest standard deviation. This biplot however distorts the relationships among the objects (observations) – the scatter of scores in this biplot is not an optimal representation of the true distances between the observations in the original space.</p>
 <p>Now we create a biplot that emphasizes the relationships between the objects.</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1">iris.biplot.obj &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb464-2" title="2">p2 &lt;-</a>
-<a class="sourceLine" id="cb464-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb464-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), </a>
-<a class="sourceLine" id="cb464-5" title="5">             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb464-6" title="6"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors, </a>
-<a class="sourceLine" id="cb464-7" title="7">               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),</a>
-<a class="sourceLine" id="cb464-8" title="8">               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb464-9" title="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors,</a>
-<a class="sourceLine" id="cb464-10" title="10">            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),</a>
-<a class="sourceLine" id="cb464-11" title="11">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st">   </span></a>
-<a class="sourceLine" id="cb464-12" title="12"><span class="st">  </span><span class="kw">coord_fixed</span>()</a>
-<a class="sourceLine" id="cb464-13" title="13">p2</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-462-1.png" width="960" /></p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1">iris.biplot.obj &lt;-<span class="st"> </span><span class="kw">PCA.biplot</span>(iris.numeric, <span class="dt">emphasize.variables =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb466-2" title="2">p2 &lt;-</a>
+<a class="sourceLine" id="cb466-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb466-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>scores <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Species =</span> iris<span class="op">$</span>Species), </a>
+<a class="sourceLine" id="cb466-5" title="5">             <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1, <span class="dt">y=</span>PC2, <span class="dt">color=</span>Species)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb466-6" title="6"><span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors, </a>
+<a class="sourceLine" id="cb466-7" title="7">               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">0</span>, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">xend=</span>PC1, <span class="dt">yend=</span>PC2),</a>
+<a class="sourceLine" id="cb466-8" title="8">               <span class="dt">arrow=</span>small.arrow, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb466-9" title="9"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>iris.biplot.obj<span class="op">$</span>vectors,</a>
+<a class="sourceLine" id="cb466-10" title="10">            <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>PC1 <span class="op">*</span><span class="st"> </span><span class="fl">1.1</span>, <span class="dt">y=</span>PC2<span class="op">*</span><span class="fl">1.1</span>, <span class="dt">label=</span>Variable),</a>
+<a class="sourceLine" id="cb466-11" title="11">            <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb466-12" title="12"><span class="st">  </span><span class="kw">coord_fixed</span>()</a>
+<a class="sourceLine" id="cb466-13" title="13">p2</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-464-1.png" width="960" /></p>
 <p>In this view, the points representing the weighted scores are a better representation of the relationships among the observations, but the geometry of the vectors representing the associations among the variables is no longer optimal.</p>
 </div>
 <div id="data-compression-and-noise-filtering-using-svd" class="section level2">
@@ -675,74 +675,74 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-image" class="section level3">
 <h3><span class="header-section-number">15.5.1</span> Example image</h3>
 <p>The file <a href="https://github.com/pmagwene/Bio723/raw/master/datasets/zero.dat"><code>zeros.dat</code></a> from the course wiki. This is a <span class="math inline">\(25 \times 15\)</span> binary matrix that represents pixel values in a simple binary (black-and-white) image.</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1">zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/pmagwene/Bio723/raw/master/datasets/zero.dat&#39;</span>, <span class="dt">col_names=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb465-2" title="2"><span class="kw">head</span>(zero)</a>
-<a class="sourceLine" id="cb465-3" title="3"><span class="co">## # A tibble: 6 x 15</span></a>
-<a class="sourceLine" id="cb465-4" title="4"><span class="co">##      X1    X2    X3    X4    X5    X6    X7    X8    X9   X10   X11   X12</span></a>
-<a class="sourceLine" id="cb465-5" title="5"><span class="co">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb465-6" title="6"><span class="co">## 1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
-<a class="sourceLine" id="cb465-7" title="7"><span class="co">## 2     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
-<a class="sourceLine" id="cb465-8" title="8"><span class="co">## 3     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
-<a class="sourceLine" id="cb465-9" title="9"><span class="co">## 4     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
-<a class="sourceLine" id="cb465-10" title="10"><span class="co">## 5     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
-<a class="sourceLine" id="cb465-11" title="11"><span class="co">## 6     1     1     0     0     0     0     0     0     0     0     0     0</span></a>
-<a class="sourceLine" id="cb465-12" title="12"><span class="co">## # … with 3 more variables: X13 &lt;dbl&gt;, X14 &lt;dbl&gt;, X15 &lt;dbl&gt;</span></a></code></pre></div>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1"><span class="co"># we&#39;ll use the image() function to visualize the matrix</span></a>
-<a class="sourceLine" id="cb466-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span></a>
-<a class="sourceLine" id="cb466-3" title="3">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb466-4" title="4"><span class="kw">image</span>(x, y, <span class="kw">t</span>(zero), </a>
-<a class="sourceLine" id="cb466-5" title="5">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>),<span class="dt">asp=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-464-1.png" width="384" /></p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1">zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://github.com/pmagwene/Bio723/raw/master/datasets/zero.dat&#39;</span>, <span class="dt">col_names=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb467-2" title="2"><span class="kw">head</span>(zero)</a>
+<a class="sourceLine" id="cb467-3" title="3"><span class="co">## # A tibble: 6 x 15</span></a>
+<a class="sourceLine" id="cb467-4" title="4"><span class="co">##      X1    X2    X3    X4    X5    X6    X7    X8    X9   X10   X11   X12   X13</span></a>
+<a class="sourceLine" id="cb467-5" title="5"><span class="co">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb467-6" title="6"><span class="co">## 1     1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
+<a class="sourceLine" id="cb467-7" title="7"><span class="co">## 2     1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
+<a class="sourceLine" id="cb467-8" title="8"><span class="co">## 3     1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
+<a class="sourceLine" id="cb467-9" title="9"><span class="co">## 4     1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
+<a class="sourceLine" id="cb467-10" title="10"><span class="co">## 5     1     1     1     1     1     1     1     1     1     1     1     1     1</span></a>
+<a class="sourceLine" id="cb467-11" title="11"><span class="co">## 6     1     1     0     0     0     0     0     0     0     0     0     0     0</span></a>
+<a class="sourceLine" id="cb467-12" title="12"><span class="co">## # … with 2 more variables: X14 &lt;dbl&gt;, X15 &lt;dbl&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="co"># we&#39;ll use the image() function to visualize the matrix</span></a>
+<a class="sourceLine" id="cb468-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span></a>
+<a class="sourceLine" id="cb468-3" title="3">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb468-4" title="4"><span class="kw">image</span>(x, y, <span class="kw">t</span>(zero), </a>
+<a class="sourceLine" id="cb468-5" title="5">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>),<span class="dt">asp=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-466-1.png" width="384" /></p>
 <p>This data matrix can be thought of as being composed of just three types of vectors, each illustrated in the following figure:</p>
 <div class="figure">
 <img src="figures/fig-zero-vecs.png" alt="The three vector types in the “zero” matrix" />
 <p class="caption">The three vector types in the “zero” matrix</p>
 </div>
 <p>If SVD is working like expected it should capture that feature of our input matrix, and we should be able to represent the entire image using just three singular values and their associated left- and right-singular vectors.</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1">zero.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(zero)</a>
-<a class="sourceLine" id="cb467-2" title="2"><span class="kw">round</span>(zero.svd<span class="op">$</span>d,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb467-3" title="3"><span class="co">##  [1] 14.72  5.22  3.31  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00</span></a>
-<a class="sourceLine" id="cb467-4" title="4"><span class="co">## [12]  0.00  0.00  0.00  0.00</span></a></code></pre></div>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1">D &lt;-<span class="st"> </span><span class="kw">diag</span>(zero.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb468-2" title="2">U &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb468-3" title="3">V &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb468-4" title="4">new.zero &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V)</a>
-<a class="sourceLine" id="cb468-5" title="5"><span class="kw">all.equal</span>(new.zero, <span class="kw">as.matrix</span>(zero), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb468-6" title="6"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1"><span class="co"># and let&#39;s double check using the image() function</span></a>
-<a class="sourceLine" id="cb469-2" title="2"><span class="kw">image</span>(x, y, <span class="kw">t</span>(new.zero),</a>
-<a class="sourceLine" id="cb469-3" title="3">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>))</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-467-1.png" width="384" /></p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1">zero.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(zero)</a>
+<a class="sourceLine" id="cb469-2" title="2"><span class="kw">round</span>(zero.svd<span class="op">$</span>d,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb469-3" title="3"><span class="co">##  [1] 14.72  5.22  3.31  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00</span></a>
+<a class="sourceLine" id="cb469-4" title="4"><span class="co">## [13]  0.00  0.00  0.00</span></a></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">D &lt;-<span class="st"> </span><span class="kw">diag</span>(zero.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb470-2" title="2">U &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb470-3" title="3">V &lt;-<span class="st"> </span>zero.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb470-4" title="4">new.zero &lt;-<span class="st"> </span>U <span class="op">%*%</span><span class="st"> </span>D <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(V)</a>
+<a class="sourceLine" id="cb470-5" title="5"><span class="kw">all.equal</span>(new.zero, <span class="kw">as.matrix</span>(zero), <span class="dt">check.attributes=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb470-6" title="6"><span class="co">## [1] TRUE</span></a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1"><span class="co"># and let&#39;s double check using the image() function</span></a>
+<a class="sourceLine" id="cb471-2" title="2"><span class="kw">image</span>(x, y, <span class="kw">t</span>(new.zero),</a>
+<a class="sourceLine" id="cb471-3" title="3">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;black&#39;</span>,<span class="st">&#39;white&#39;</span>))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-469-1.png" width="384" /></p>
 <p>Our original matrix required <span class="math inline">\(25 \times 15\)</span> (<span class="math inline">\(= 375\)</span>) storage elements. Using the SVD we can represent the same data using only <span class="math inline">\(15 \times 3 + 25 \times 3 + 3 = 123\)</span> units of storage (corresponding to the truncated U, V, and D in the example above). Thus our SVD allows us to represent the same data with at less than <span class="math inline">\(1/3\)</span> the size of the original matrix. In this case, because all the singular values after the 3rd were zero this is a lossless data compression procedure.</p>
 
 <p>The file <a href="https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/noisy-zero.dat"><code>noisy-zero.dat</code></a> is the same ‘zero’ image, but now sprinkled with Gaussian noise draw from a normal distribution <span class="math inline">\(N(0,0.1)\)</span>. As in the data compression case we can use SVD to approximate the input matrix with a lower-dimensional approximation. Here the SVD is “lossy”" as our approximation throws away information. In this case we hope to choose the approximating dimension such that the information we lose corresponds to the noise which is “polluting”" our data.</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">noisy.zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/noisy-zero.dat&#39;</span>,<span class="dt">col_names =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb470-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span></a>
-<a class="sourceLine" id="cb470-3" title="3">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span></a>
-<a class="sourceLine" id="cb470-4" title="4"><span class="co"># create a gray-scale representation of the matrix</span></a>
-<a class="sourceLine" id="cb470-5" title="5"><span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero), <span class="dt">asp=</span><span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb470-6" title="6">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-468-1.png" width="384" /></p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1">noisy.zero &lt;-<span class="st"> </span><span class="kw">read_tsv</span>(<span class="st">&#39;https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/noisy-zero.dat&#39;</span>,<span class="dt">col_names =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb472-2" title="2">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">15</span></a>
+<a class="sourceLine" id="cb472-3" title="3">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">25</span></a>
+<a class="sourceLine" id="cb472-4" title="4"><span class="co"># create a gray-scale representation of the matrix</span></a>
+<a class="sourceLine" id="cb472-5" title="5"><span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero), <span class="dt">asp=</span><span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb472-6" title="6">      <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>), <span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-470-1.png" width="384" /></p>
 <p>Now we carry out SVD of the matrix representing this noisy image:</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1">noisy.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(noisy.zero)</a>
-<a class="sourceLine" id="cb471-2" title="2"></a>
-<a class="sourceLine" id="cb471-3" title="3"><span class="co"># as before the first three singular values dominate</span></a>
-<a class="sourceLine" id="cb471-4" title="4"><span class="kw">round</span>(noisy.svd<span class="op">$</span>d,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb471-5" title="5"><span class="co">##  [1] 13.63  4.87  3.07  0.40  0.36  0.31  0.27  0.26  0.21  0.19  0.13</span></a>
-<a class="sourceLine" id="cb471-6" title="6"><span class="co">## [12]  0.11  0.09  0.06  0.04</span></a>
-<a class="sourceLine" id="cb471-7" title="7"></a>
-<a class="sourceLine" id="cb471-8" title="8">nD &lt;-<span class="st"> </span><span class="kw">diag</span>(noisy.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</a>
-<a class="sourceLine" id="cb471-9" title="9">nU &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb471-10" title="10">nV &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
-<a class="sourceLine" id="cb471-11" title="11">approx.noisy.zero &lt;-<span class="st"> </span>nU <span class="op">%*%</span><span class="st"> </span>nD <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(nV)</a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1">noisy.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(noisy.zero)</a>
+<a class="sourceLine" id="cb473-2" title="2"></a>
+<a class="sourceLine" id="cb473-3" title="3"><span class="co"># as before the first three singular values dominate</span></a>
+<a class="sourceLine" id="cb473-4" title="4"><span class="kw">round</span>(noisy.svd<span class="op">$</span>d,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb473-5" title="5"><span class="co">##  [1] 13.63  4.87  3.07  0.40  0.36  0.31  0.27  0.26  0.21  0.19  0.13  0.11</span></a>
+<a class="sourceLine" id="cb473-6" title="6"><span class="co">## [13]  0.09  0.06  0.04</span></a>
+<a class="sourceLine" id="cb473-7" title="7"></a>
+<a class="sourceLine" id="cb473-8" title="8">nD &lt;-<span class="st"> </span><span class="kw">diag</span>(noisy.svd<span class="op">$</span>d[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>])</a>
+<a class="sourceLine" id="cb473-9" title="9">nU &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>u[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb473-10" title="10">nV &lt;-<span class="st"> </span>noisy.svd<span class="op">$</span>v[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb473-11" title="11">approx.noisy.zero &lt;-<span class="st"> </span>nU <span class="op">%*%</span><span class="st"> </span>nD <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(nV)</a></code></pre></div>
 <p>Finally we plot the approximation of this image based on the first three singular vectors/values:</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1"><span class="co"># now plot the original and approximating matrix side-by-side</span></a>
-<a class="sourceLine" id="cb472-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb472-3" title="3"><span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero),</a>
-<a class="sourceLine" id="cb472-4" title="4">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a>
-<a class="sourceLine" id="cb472-5" title="5"><span class="kw">image</span>(x, y, <span class="kw">t</span>(approx.noisy.zero),</a>
-<a class="sourceLine" id="cb472-6" title="6">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-470-1.png" width="576" /></p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1"><span class="co"># now plot the original and approximating matrix side-by-side</span></a>
+<a class="sourceLine" id="cb474-2" title="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb474-3" title="3"><span class="kw">image</span>(x, y, <span class="kw">t</span>(noisy.zero),</a>
+<a class="sourceLine" id="cb474-4" title="4">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a>
+<a class="sourceLine" id="cb474-5" title="5"><span class="kw">image</span>(x, y, <span class="kw">t</span>(approx.noisy.zero),</a>
+<a class="sourceLine" id="cb474-6" title="6">      <span class="dt">asp=</span><span class="dv">1</span>,<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">25</span>),<span class="dt">col=</span><span class="kw">gray</span>(<span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.05</span>)))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-472-1.png" width="576" /></p>
 <p>As you can see from the images you created the approximation based on the approximation based on the SVD manages to capture the major features of the matrix and filters out much of (but not all) the noise.</p>
 </div>
 </div>
@@ -752,41 +752,41 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>R doesn’t have native support for common image files like JPEG and PNG. However, there are packages we can install that will allow us to read in such files and treat them as matrices. We’ll use a package called <a href="https://cran.r-project.org/web/packages/imager/vignettes/gettingstarted.html">“imager”</a> to work with images.</p>
 <p><strong>Install the “imager” library via the standard installation mechanism</strong></p>
 <p>Once imager is installed, download this <a href="https://raw.githubusercontent.com/pmagwene/Bio723/master/datasets/chesterbw.jpg">picture of my dog Chester</a> to your local filesystem and load it as follows:</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="kw">library</span>(imager)</a>
-<a class="sourceLine" id="cb473-2" title="2"><span class="co"># change the path to match the location you&#39;ve downloaded the iamge</span></a>
-<a class="sourceLine" id="cb473-3" title="3">chester &lt;-<span class="st"> </span><span class="kw">load.image</span>(<span class="st">&quot;~/Downloads/chesterbw.jpg&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1"><span class="kw">library</span>(imager)</a>
+<a class="sourceLine" id="cb475-2" title="2"><span class="co"># change the path to match the location you&#39;ve downloaded the iamge</span></a>
+<a class="sourceLine" id="cb475-3" title="3">chester &lt;-<span class="st"> </span><span class="kw">load.image</span>(<span class="st">&quot;~/Downloads/chesterbw.jpg&quot;</span>)</a></code></pre></div>
 <p>We can plot images loaded by imager</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1"><span class="kw">plot</span>(chester)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-472-1.png" width="576" /></p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1"><span class="kw">plot</span>(chester)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-474-1.png" width="576" /></p>
 <p>Let’s explore the object returned by imager:</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1"><span class="kw">dim</span>(chester)</a>
-<a class="sourceLine" id="cb475-2" title="2"><span class="co">## [1] 605 556   1   1</span></a>
-<a class="sourceLine" id="cb475-3" title="3"><span class="kw">typeof</span>(chester)</a>
-<a class="sourceLine" id="cb475-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a>
-<a class="sourceLine" id="cb475-5" title="5"><span class="kw">class</span>(chester)</a>
-<a class="sourceLine" id="cb475-6" title="6"><span class="co">## [1] &quot;cimg&quot;         &quot;imager_array&quot; &quot;numeric&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1"><span class="kw">dim</span>(chester)</a>
+<a class="sourceLine" id="cb477-2" title="2"><span class="co">## [1] 605 556   1   1</span></a>
+<a class="sourceLine" id="cb477-3" title="3"><span class="kw">typeof</span>(chester)</a>
+<a class="sourceLine" id="cb477-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a>
+<a class="sourceLine" id="cb477-5" title="5"><span class="kw">class</span>(chester)</a>
+<a class="sourceLine" id="cb477-6" title="6"><span class="co">## [1] &quot;cimg&quot;         &quot;imager_array&quot; &quot;numeric&quot;</span></a></code></pre></div>
 <p>imager stores the image information in a multidimensional array that has a class of “cimg” (type <code>?cimg</code>). To manipulate this information using SVD we’ll need to turn it into a conventional matrix first.</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">chester.matrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(chester)</a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1">chester.matrix &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(chester)</a></code></pre></div>
 <p>Now we’ll use SVD to create a low-dimensional approximation of this image.</p>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1">img.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(chester)</a>
-<a class="sourceLine" id="cb477-2" title="2">U &lt;-<span class="st"> </span>img.svd<span class="op">$</span>u</a>
-<a class="sourceLine" id="cb477-3" title="3">S &lt;-<span class="st"> </span><span class="kw">diag</span>(img.svd<span class="op">$</span>d)</a>
-<a class="sourceLine" id="cb477-4" title="4">Vt &lt;-<span class="st"> </span><span class="kw">t</span>(img.svd<span class="op">$</span>v)</a>
-<a class="sourceLine" id="cb477-5" title="5"></a>
-<a class="sourceLine" id="cb477-6" title="6">U15 &lt;-<span class="st"> </span>U[,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 left singular vectors</span></a>
-<a class="sourceLine" id="cb477-7" title="7">S15 &lt;-<span class="st"> </span>S[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 singular values</span></a>
-<a class="sourceLine" id="cb477-8" title="8">Vt15 &lt;-<span class="st"> </span>Vt[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,]  <span class="co"># first 15 right singular values, </span><span class="al">NOTE</span><span class="co">: we&#39;re getting rows rather than columns here</span></a>
-<a class="sourceLine" id="cb477-9" title="9"></a>
-<a class="sourceLine" id="cb477-10" title="10">approx15 &lt;-<span class="st"> </span>U15 <span class="op">%*%</span><span class="st"> </span>S15 <span class="op">%*%</span><span class="st"> </span>Vt15</a>
-<a class="sourceLine" id="cb477-11" title="11"><span class="kw">plot</span>(<span class="kw">as.cimg</span>(approx15))  <span class="co"># to plot the matrix as an image we cast it back to a cimg</span></a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-475-1.png" width="576" /></p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1">img.svd &lt;-<span class="st"> </span><span class="kw">svd</span>(chester)</a>
+<a class="sourceLine" id="cb479-2" title="2">U &lt;-<span class="st"> </span>img.svd<span class="op">$</span>u</a>
+<a class="sourceLine" id="cb479-3" title="3">S &lt;-<span class="st"> </span><span class="kw">diag</span>(img.svd<span class="op">$</span>d)</a>
+<a class="sourceLine" id="cb479-4" title="4">Vt &lt;-<span class="st"> </span><span class="kw">t</span>(img.svd<span class="op">$</span>v)</a>
+<a class="sourceLine" id="cb479-5" title="5"></a>
+<a class="sourceLine" id="cb479-6" title="6">U15 &lt;-<span class="st"> </span>U[,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 left singular vectors</span></a>
+<a class="sourceLine" id="cb479-7" title="7">S15 &lt;-<span class="st"> </span>S[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co"># first 15 singular values</span></a>
+<a class="sourceLine" id="cb479-8" title="8">Vt15 &lt;-<span class="st"> </span>Vt[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>,]  <span class="co"># first 15 right singular values, </span><span class="al">NOTE</span><span class="co">: we&#39;re getting rows rather than columns here</span></a>
+<a class="sourceLine" id="cb479-9" title="9"></a>
+<a class="sourceLine" id="cb479-10" title="10">approx15 &lt;-<span class="st"> </span>U15 <span class="op">%*%</span><span class="st"> </span>S15 <span class="op">%*%</span><span class="st"> </span>Vt15</a>
+<a class="sourceLine" id="cb479-11" title="11"><span class="kw">plot</span>(<span class="kw">as.cimg</span>(approx15))  <span class="co"># to plot the matrix as an image we cast it back to a cimg</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-477-1.png" width="576" /></p>
 <p>Above we created a rank 15 approximation to the rank 556 original image matrix. This approximation is crude (as judged by the visual quality of the approximating image) but it does represent a very large savings in space. Our original image required the storage of <span class="math inline">\(605 \times 556 = 336380\)</span> integer values. Our approximation requires the storage of only <span class="math inline">\(15 \times 556 + 15 \times 605 + 15 = 17430\)</span> integers. This is a saving of roughly 95%. Of course, as with any lossy compression algorithm, you need to decide what is the appropriate tradeoff between compression and data loss for your given application.</p>
 <p>Finally, let’s look at the “error term” associated with our approximation, i.e. what we <em>did not</em> capture in the 15 singular vectors.</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1">img.diff &lt;-<span class="st"> </span>chester.matrix <span class="op">-</span><span class="st"> </span>approx15</a>
-<a class="sourceLine" id="cb478-2" title="2">nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(img.diff)</a>
-<a class="sourceLine" id="cb478-3" title="3">nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(img.diff)</a>
-<a class="sourceLine" id="cb478-4" title="4"><span class="kw">plot</span>(<span class="kw">as.cimg</span>(img.diff))</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-476-1.png" width="576" /></p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1">img.diff &lt;-<span class="st"> </span>chester.matrix <span class="op">-</span><span class="st"> </span>approx15</a>
+<a class="sourceLine" id="cb480-2" title="2">nr &lt;-<span class="st"> </span><span class="kw">nrow</span>(img.diff)</a>
+<a class="sourceLine" id="cb480-3" title="3">nc &lt;-<span class="st"> </span><span class="kw">ncol</span>(img.diff)</a>
+<a class="sourceLine" id="cb480-4" title="4"><span class="kw">plot</span>(<span class="kw">as.cimg</span>(img.diff))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-478-1.png" width="576" /></p>
 
 </div>
 </div>

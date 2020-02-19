@@ -203,3 +203,77 @@ C
 
 Cinv <- solve(C)
 ```
+
+## Solving sets of simultaneous equations
+
+The `solve()` function introduced above can also be used to solve sets of simultaneous equations.
+
+For example, given the set of equations below:
+
+$$
+\begin{eqnarray*}
+x_1 + 3x_2 + 2x_3 & = & 3\\
+-x_1 + x_2 + 2x_3 & = & -2\\
+2x_1 + 4x_2 -x_3 & = & 10
+\end{eqnarray*}
+$$
+
+We can rewrite this in vector form as:
+
+$$x_1 \begin{bmatrix}
+ 1 \\ -1 \\ 2
+\end{bmatrix} + 
+x_2 \begin{bmatrix}
+ 3 \\ 1 \\ 4
+\end{bmatrix} + 
+x_3 \begin{bmatrix}
+ 2 \\ 2 \\ 1
+\end{bmatrix}  = 
+\begin{bmatrix}
+ 3 \\ -2 \\ 10
+\end{bmatrix} 
+$$
+which is equivalent to the matrix form:
+
+$$
+\begin{bmatrix}
+1 & 3 & 2  \\
+-1 & 1 & 2\\
+2 & 4 & 1 
+\end{bmatrix} 
+\begin{bmatrix}
+ x_1 \\ x_2 \\ x_3
+\end{bmatrix}  = 
+\begin{bmatrix}
+ 3 \\ -2 \\ 10
+\end{bmatrix} 
+$$
+`solve()` takes two arguments:
+- `a` -- a square numeric matrix containing the coefficients of the linear equations (the left-most matrix above)
+- `b` -- a vector (or matrix) giving the right hand side of the linear equations
+
+First let's create the matrix of coefficients on the left and right sides:
+```{r}
+A = matrix( c(c(1, 3 , 2),
+              c(-1, 1, 2),
+              c(2, 4, 1)), 
+            nrow=3, ncol=3, byrow=TRUE)
+
+b = c(3, -2, 10)
+```
+
+
+Now we solve the equations:
+```{r}
+x <- solve(A,b)
+x
+```
+
+Let's confirm the solution works by multiplying `A` by `x`:
+
+```{r}
+A %*% x
+```
+
+Voila!
+

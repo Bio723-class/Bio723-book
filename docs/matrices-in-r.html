@@ -342,6 +342,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
+<li class="chapter" data-level="10.5" data-path="matrices-in-r.html"><a href="matrices-in-r.html#solving-sets-of-simultaneous-equations"><i class="fa fa-check"></i><b>10.5</b> Solving sets of simultaneous equations</a></li>
 </ul></li>
 </ul>
 
@@ -370,29 +371,29 @@ type and length. Matrices are more efficient for carrying out most
 numerical operations, so if you’re working with a very large data set
 that is amenable to representation by a matrix you should consider using
 this data structure.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 <div id="creating-matrices-in-r" class="section level2">
 <h2><span class="header-section-number">10.1</span> Creating matrices in R</h2>
 <p>There are a number of different ways to create matrices in R. For
 creating small matrices at the command line you can use the
 <code>matrix()</code> function.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></a>
-<a class="sourceLine" id="cb336-2" title="2"><span class="op">&gt;</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb336-3" title="3"><span class="co">##      [,1]</span></a>
-<a class="sourceLine" id="cb336-4" title="4"><span class="co">## [1,]    1</span></a>
-<a class="sourceLine" id="cb336-5" title="5"><span class="co">## [2,]    2</span></a>
-<a class="sourceLine" id="cb336-6" title="6"><span class="co">## [3,]    3</span></a>
-<a class="sourceLine" id="cb336-7" title="7"><span class="co">## [4,]    4</span></a>
-<a class="sourceLine" id="cb336-8" title="8"><span class="co">## [5,]    5</span></a>
-<a class="sourceLine" id="cb336-9" title="9"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></a>
-<a class="sourceLine" id="cb336-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X</a>
-<a class="sourceLine" id="cb336-11" title="11"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb336-12" title="12"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb336-13" title="13"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb336-14" title="14"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb336-15" title="15"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb336-16" title="16"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(X) <span class="co"># give the shape of the matrix</span></a>
-<a class="sourceLine" id="cb336-17" title="17"><span class="co">## [1] 4 3</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="op">&gt;</span><span class="st"> </span>x</a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">##      [,1]</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">## [1,]    1</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">## [2,]    2</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co">## [3,]    3</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="co">## [4,]    4</span></a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="co">## [5,]    5</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(X) <span class="co"># give the shape of the matrix</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">## [1] 4 3</span></a></code></pre></div>
 <p><code>matrix()</code> takes a data vector as input and the shape of the
 matrix to be created is specified by using the <code>nrow</code> and
 <code>ncol</code> arguments. If the number of elements in the input data
@@ -404,67 +405,67 @@ function fills in the matrix in a column-wise fashion. To fill in the
 matrix in a row-wise fashion use the argument <code>byrow=T</code>.</p>
 <p>If you have a pre-existing data set in a list or data frame you can use
 the <code>as.matrix()</code> function to convert it to a matrix.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1"><span class="op">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris)</a>
-<a class="sourceLine" id="cb337-2" title="2"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></a>
-<a class="sourceLine" id="cb337-3" title="3"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></a>
-<a class="sourceLine" id="cb337-4" title="4"><span class="co">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-5" title="5"><span class="co">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-6" title="6"><span class="co">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-7" title="7"><span class="co">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-8" title="8"><span class="co">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-9" title="9"><span class="co">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="op">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></a></code></pre></div>
 <p>Since all elements of an R matrix must be of the same type, when we passed the iris data frame to <code>as.matrix()</code>, everything was converted to a character due to the presence of the Species column in the data frame.</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="co"># This is probably more along the lines of what you want</span></a>
-<a class="sourceLine" id="cb338-2" title="2"><span class="er">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix</a>
-<a class="sourceLine" id="cb338-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx)</a>
-<a class="sourceLine" id="cb338-4" title="4"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb338-5" title="5"><span class="co">## [1,]          5.1         3.5          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-6" title="6"><span class="co">## [2,]          4.9         3.0          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-7" title="7"><span class="co">## [3,]          4.7         3.2          1.3         0.2</span></a>
-<a class="sourceLine" id="cb338-8" title="8"><span class="co">## [4,]          4.6         3.1          1.5         0.2</span></a>
-<a class="sourceLine" id="cb338-9" title="9"><span class="co">## [5,]          5.0         3.6          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-10" title="10"><span class="co">## [6,]          5.4         3.9          1.7         0.4</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="co"># This is probably more along the lines of what you want</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="er">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx)</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">## [1,]          5.1         3.5          1.4         0.2</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">## [2,]          4.9         3.0          1.4         0.2</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">## [3,]          4.7         3.2          1.3         0.2</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">## [4,]          4.6         3.1          1.5         0.2</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">## [5,]          5.0         3.6          1.4         0.2</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">## [6,]          5.4         3.9          1.7         0.4</span></a></code></pre></div>
 <p>You can use the various indexing operations to get particular rows,
 columns, or elements. Here are some examples:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb339-2" title="2"><span class="op">&gt;</span><span class="st"> </span>X</a>
-<a class="sourceLine" id="cb339-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb339-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb339-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb339-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb339-8" title="8"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span>,] <span class="co"># get the first row</span></a>
-<a class="sourceLine" id="cb339-9" title="9"><span class="co">## [1] 1 5 9</span></a>
-<a class="sourceLine" id="cb339-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">1</span>] <span class="co"># get the first column</span></a>
-<a class="sourceLine" id="cb339-11" title="11"><span class="co">## [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb339-12" title="12"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></a>
-<a class="sourceLine" id="cb339-13" title="13"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-14" title="14"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb339-15" title="15"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb339-16" title="16"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></a>
-<a class="sourceLine" id="cb339-17" title="17"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb339-18" title="18"><span class="co">## [1,]    5    9</span></a>
-<a class="sourceLine" id="cb339-19" title="19"><span class="co">## [2,]    6   10</span></a>
-<a class="sourceLine" id="cb339-20" title="20"><span class="co">## [3,]    7   11</span></a>
-<a class="sourceLine" id="cb339-21" title="21"><span class="co">## [4,]    8   12</span></a>
-<a class="sourceLine" id="cb339-22" title="22"><span class="op">&gt;</span><span class="st"> </span>Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span>T, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb339-23" title="23"><span class="op">&gt;</span><span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb339-24" title="24"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-25" title="25"><span class="co">## [1,]    1    2    3</span></a>
-<a class="sourceLine" id="cb339-26" title="26"><span class="co">## [2,]    4    5    6</span></a>
-<a class="sourceLine" id="cb339-27" title="27"><span class="co">## [3,]    7    8    9</span></a>
-<a class="sourceLine" id="cb339-28" title="28"><span class="co">## [4,]   10   11   12</span></a>
-<a class="sourceLine" id="cb339-29" title="29"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></a>
-<a class="sourceLine" id="cb339-30" title="30"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb339-31" title="31"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb339-32" title="32"><span class="co">## [1] 2</span></a>
-<a class="sourceLine" id="cb339-33" title="33"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></a>
-<a class="sourceLine" id="cb339-34" title="34"><span class="op">&gt;</span><span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb339-35" title="35"><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
-<a class="sourceLine" id="cb339-36" title="36"><span class="co">## [1,]    1    7    2    8    3    9</span></a>
-<a class="sourceLine" id="cb339-37" title="37"><span class="co">## [2,]    4   10    5   11    6   12</span></a>
-<a class="sourceLine" id="cb339-38" title="38"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb339-39" title="39"><span class="co">## [1] 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="op">&gt;</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span>,] <span class="co"># get the first row</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">## [1] 1 5 9</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">1</span>] <span class="co"># get the first column</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="co">## [1] 1 2 3 4</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">##      [,1] [,2]</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="co">## [1,]    5    9</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="co">## [2,]    6   10</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="co">## [3,]    7   11</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="co">## [4,]    8   12</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="op">&gt;</span><span class="st"> </span>Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span>T, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb5-23" title="23"><span class="op">&gt;</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb5-24" title="24"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="co">## [1,]    1    2    3</span></a>
+<a class="sourceLine" id="cb5-26" title="26"><span class="co">## [2,]    4    5    6</span></a>
+<a class="sourceLine" id="cb5-27" title="27"><span class="co">## [3,]    7    8    9</span></a>
+<a class="sourceLine" id="cb5-28" title="28"><span class="co">## [4,]   10   11   12</span></a>
+<a class="sourceLine" id="cb5-29" title="29"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></a>
+<a class="sourceLine" id="cb5-30" title="30"><span class="co">## [1] 10</span></a>
+<a class="sourceLine" id="cb5-31" title="31"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb5-32" title="32"><span class="co">## [1] 2</span></a>
+<a class="sourceLine" id="cb5-33" title="33"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></a>
+<a class="sourceLine" id="cb5-34" title="34"><span class="op">&gt;</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb5-35" title="35"><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
+<a class="sourceLine" id="cb5-36" title="36"><span class="co">## [1,]    1    7    2    8    3    9</span></a>
+<a class="sourceLine" id="cb5-37" title="37"><span class="co">## [2,]    4   10    5   11    6   12</span></a>
+<a class="sourceLine" id="cb5-38" title="38"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb5-39" title="39"><span class="co">## [1] 2</span></a></code></pre></div>
 <p>The example above where we create a matrix <code>Y</code> is meant to
 show that matrices are stored internally in a column wise fashion (think
 of the columns stacked one atop the other), regardless of whether we use
@@ -476,29 +477,29 @@ in memory hasn’t changed so <code>Y[5]</code> still gives the same
 element.</p>
 <p>You can use the <code>diag()</code> function to get the diagonal of a
 matrix or to create a diagonal matrix as show below:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" title="1"><span class="op">&gt;</span><span class="st"> </span>Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">16</span>), <span class="dt">ncol=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb340-2" title="2"><span class="op">&gt;</span><span class="st"> </span>Z</a>
-<a class="sourceLine" id="cb340-3" title="3"><span class="co">##            [,1]       [,2]        [,3]        [,4]</span></a>
-<a class="sourceLine" id="cb340-4" title="4"><span class="co">## [1,] -0.3906239  0.5030089  0.03033799  0.05447186</span></a>
-<a class="sourceLine" id="cb340-5" title="5"><span class="co">## [2,]  0.1647546 -1.4421760  0.14884391 -0.75717287</span></a>
-<a class="sourceLine" id="cb340-6" title="6"><span class="co">## [3,] -0.4456372 -1.0074280  1.09096978 -0.12107178</span></a>
-<a class="sourceLine" id="cb340-7" title="7"><span class="co">## [4,]  0.2243771 -0.7195329 -0.05873439  0.55349140</span></a>
-<a class="sourceLine" id="cb340-8" title="8"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(Z)</a>
-<a class="sourceLine" id="cb340-9" title="9"><span class="co">## [1] -0.3906239 -1.4421760  1.0909698  0.5534914</span></a>
-<a class="sourceLine" id="cb340-10" title="10"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></a>
-<a class="sourceLine" id="cb340-11" title="11"><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></a>
-<a class="sourceLine" id="cb340-12" title="12"><span class="co">## [1,]    1    0    0    0    0</span></a>
-<a class="sourceLine" id="cb340-13" title="13"><span class="co">## [2,]    0    1    0    0    0</span></a>
-<a class="sourceLine" id="cb340-14" title="14"><span class="co">## [3,]    0    0    1    0    0</span></a>
-<a class="sourceLine" id="cb340-15" title="15"><span class="co">## [4,]    0    0    0    1    0</span></a>
-<a class="sourceLine" id="cb340-16" title="16"><span class="co">## [5,]    0    0    0    0    1</span></a>
-<a class="sourceLine" id="cb340-17" title="17"><span class="op">&gt;</span><span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">13</span>)</a>
-<a class="sourceLine" id="cb340-18" title="18"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(s)</a>
-<a class="sourceLine" id="cb340-19" title="19"><span class="co">##          [,1]     [,2]     [,3]     [,4]</span></a>
-<a class="sourceLine" id="cb340-20" title="20"><span class="co">## [1,] 3.162278 0.000000 0.000000 0.000000</span></a>
-<a class="sourceLine" id="cb340-21" title="21"><span class="co">## [2,] 0.000000 3.316625 0.000000 0.000000</span></a>
-<a class="sourceLine" id="cb340-22" title="22"><span class="co">## [3,] 0.000000 0.000000 3.464102 0.000000</span></a>
-<a class="sourceLine" id="cb340-23" title="23"><span class="co">## [4,] 0.000000 0.000000 0.000000 3.605551</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="op">&gt;</span><span class="st"> </span>Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">16</span>), <span class="dt">ncol=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="op">&gt;</span><span class="st"> </span>Z</a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">##            [,1]       [,2]       [,3]       [,4]</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">## [1,] -0.1275021  1.5678638 -1.5331385  0.2099585</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">## [2,] -1.2529176 -3.4137199  0.8873665  0.1945194</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">## [3,]  0.1885625 -0.2847830 -0.9596976 -1.3041661</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">## [4,] -0.1683558  0.9348351 -0.1944891 -1.1472847</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(Z)</a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="co">## [1] -0.1275021 -3.4137199 -0.9596976 -1.1472847</span></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></a>
+<a class="sourceLine" id="cb6-12" title="12"><span class="co">## [1,]    1    0    0    0    0</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="co">## [2,]    0    1    0    0    0</span></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="co">## [3,]    0    0    1    0    0</span></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="co">## [4,]    0    0    0    1    0</span></a>
+<a class="sourceLine" id="cb6-16" title="16"><span class="co">## [5,]    0    0    0    0    1</span></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="op">&gt;</span><span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">13</span>)</a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(s)</a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="co">##          [,1]     [,2]     [,3]     [,4]</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="co">## [1,] 3.162278 0.000000 0.000000 0.000000</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="co">## [2,] 0.000000 3.316625 0.000000 0.000000</span></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="co">## [3,] 0.000000 0.000000 3.464102 0.000000</span></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="co">## [4,] 0.000000 0.000000 0.000000 3.605551</span></a></code></pre></div>
 </div>
 <div id="matrix-arithmetic-operations-in-r" class="section level2">
 <h2><span class="header-section-number">10.2</span> Matrix arithmetic operations in R</h2>
@@ -507,54 +508,54 @@ scalar multiplication work element-wise for matrices in the same way as
 they did for vectors. Matrix multiplication uses the operator
 <code>%*%</code> which you saw last week for the dot product. To get the
 transpose of a matrix use the function <code>t()</code>.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb341-2" title="2"><span class="op">&gt;</span><span class="st"> </span>A</a>
-<a class="sourceLine" id="cb341-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb341-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb341-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb341-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb341-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb341-8" title="8"><span class="op">&gt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb341-9" title="9"><span class="er">&gt;</span><span class="st"> </span>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb341-10" title="10"><span class="op">&gt;</span><span class="st"> </span>B</a>
-<a class="sourceLine" id="cb341-11" title="11"><span class="co">##            [,1]       [,2]       [,3]</span></a>
-<a class="sourceLine" id="cb341-12" title="12"><span class="co">## [1,] -1.9749066 -0.1882973  1.6351996</span></a>
-<a class="sourceLine" id="cb341-13" title="13"><span class="co">## [2,] -0.7959202 -0.1568522  2.0458596</span></a>
-<a class="sourceLine" id="cb341-14" title="14"><span class="co">## [3,] -0.1865282 -0.8183787 -0.4550473</span></a>
-<a class="sourceLine" id="cb341-15" title="15"><span class="co">## [4,]  0.4418770  1.9715446  0.1858825</span></a>
-<a class="sourceLine" id="cb341-16" title="16"><span class="op">&gt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb341-17" title="17"><span class="er">&gt;</span><span class="st"> </span><span class="kw">t</span>(A)  <span class="co"># transpose</span></a>
-<a class="sourceLine" id="cb341-18" title="18"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
-<a class="sourceLine" id="cb341-19" title="19"><span class="co">## [1,]    1    2    3    4</span></a>
-<a class="sourceLine" id="cb341-20" title="20"><span class="co">## [2,]    5    6    7    8</span></a>
-<a class="sourceLine" id="cb341-21" title="21"><span class="co">## [3,]    9   10   11   12</span></a>
-<a class="sourceLine" id="cb341-22" title="22"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B  <span class="co"># matrix addition</span></a>
-<a class="sourceLine" id="cb341-23" title="23"><span class="co">##            [,1]     [,2]     [,3]</span></a>
-<a class="sourceLine" id="cb341-24" title="24"><span class="co">## [1,] -0.9749066 4.811703 10.63520</span></a>
-<a class="sourceLine" id="cb341-25" title="25"><span class="co">## [2,]  1.2040798 5.843148 12.04586</span></a>
-<a class="sourceLine" id="cb341-26" title="26"><span class="co">## [3,]  2.8134718 6.181621 10.54495</span></a>
-<a class="sourceLine" id="cb341-27" title="27"><span class="co">## [4,]  4.4418770 9.971545 12.18588</span></a>
-<a class="sourceLine" id="cb341-28" title="28"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">-</span><span class="st"> </span>B  <span class="co"># matrix subtraction</span></a>
-<a class="sourceLine" id="cb341-29" title="29"><span class="co">##          [,1]     [,2]     [,3]</span></a>
-<a class="sourceLine" id="cb341-30" title="30"><span class="co">## [1,] 2.974907 5.188297  7.36480</span></a>
-<a class="sourceLine" id="cb341-31" title="31"><span class="co">## [2,] 2.795920 6.156852  7.95414</span></a>
-<a class="sourceLine" id="cb341-32" title="32"><span class="co">## [3,] 3.186528 7.818379 11.45505</span></a>
-<a class="sourceLine" id="cb341-33" title="33"><span class="co">## [4,] 3.558123 6.028455 11.81412</span></a>
-<a class="sourceLine" id="cb341-34" title="34"><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>A  <span class="co"># multiplication by a scalar</span></a>
-<a class="sourceLine" id="cb341-35" title="35"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb341-36" title="36"><span class="co">## [1,]    5   25   45</span></a>
-<a class="sourceLine" id="cb341-37" title="37"><span class="co">## [2,]   10   30   50</span></a>
-<a class="sourceLine" id="cb341-38" title="38"><span class="co">## [3,]   15   35   55</span></a>
-<a class="sourceLine" id="cb341-39" title="39"><span class="co">## [4,]   20   40   60</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="op">&gt;</span><span class="st"> </span>A</a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="er">&gt;</span><span class="st"> </span>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="op">&gt;</span><span class="st"> </span>B</a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">##            [,1]       [,2]       [,3]</span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">## [1,]  0.3056689  1.2077256  0.3615883</span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">## [2,] -0.8728314 -1.5583223  0.5179615</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">## [3,] -1.3733250  1.7562973  1.5163910</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="co">## [4,] -0.4024843  0.5368402 -0.5312070</span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="er">&gt;</span><span class="st"> </span><span class="kw">t</span>(A)  <span class="co"># transpose</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="co">## [1,]    1    2    3    4</span></a>
+<a class="sourceLine" id="cb7-20" title="20"><span class="co">## [2,]    5    6    7    8</span></a>
+<a class="sourceLine" id="cb7-21" title="21"><span class="co">## [3,]    9   10   11   12</span></a>
+<a class="sourceLine" id="cb7-22" title="22"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B  <span class="co"># matrix addition</span></a>
+<a class="sourceLine" id="cb7-23" title="23"><span class="co">##          [,1]     [,2]      [,3]</span></a>
+<a class="sourceLine" id="cb7-24" title="24"><span class="co">## [1,] 1.305669 6.207726  9.361588</span></a>
+<a class="sourceLine" id="cb7-25" title="25"><span class="co">## [2,] 1.127169 4.441678 10.517961</span></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="co">## [3,] 1.626675 8.756297 12.516391</span></a>
+<a class="sourceLine" id="cb7-27" title="27"><span class="co">## [4,] 3.597516 8.536840 11.468793</span></a>
+<a class="sourceLine" id="cb7-28" title="28"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">-</span><span class="st"> </span>B  <span class="co"># matrix subtraction</span></a>
+<a class="sourceLine" id="cb7-29" title="29"><span class="co">##           [,1]     [,2]      [,3]</span></a>
+<a class="sourceLine" id="cb7-30" title="30"><span class="co">## [1,] 0.6943311 3.792274  8.638412</span></a>
+<a class="sourceLine" id="cb7-31" title="31"><span class="co">## [2,] 2.8728314 7.558322  9.482039</span></a>
+<a class="sourceLine" id="cb7-32" title="32"><span class="co">## [3,] 4.3733250 5.243703  9.483609</span></a>
+<a class="sourceLine" id="cb7-33" title="33"><span class="co">## [4,] 4.4024843 7.463160 12.531207</span></a>
+<a class="sourceLine" id="cb7-34" title="34"><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>A  <span class="co"># multiplication by a scalar</span></a>
+<a class="sourceLine" id="cb7-35" title="35"><span class="co">##      [,1] [,2] [,3]</span></a>
+<a class="sourceLine" id="cb7-36" title="36"><span class="co">## [1,]    5   25   45</span></a>
+<a class="sourceLine" id="cb7-37" title="37"><span class="co">## [2,]   10   30   50</span></a>
+<a class="sourceLine" id="cb7-38" title="38"><span class="co">## [3,]   15   35   55</span></a>
+<a class="sourceLine" id="cb7-39" title="39"><span class="co">## [4,]   20   40   60</span></a></code></pre></div>
 <p>When applying matrix multiplication, the dimensions of the matrices involved must be conformable. For example, you can’t do this:</p>
 <pre><code>A %*% B  # do you understand why this generates an error?</code></pre>
 <p>But this works:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(B)</a>
-<a class="sourceLine" id="cb343-2" title="2"><span class="co">##          [,1]     [,2]       [,3]     [,4]</span></a>
-<a class="sourceLine" id="cb343-3" title="3"><span class="co">## [1,] 11.80040 16.83255  -8.373848 11.97254</span></a>
-<a class="sourceLine" id="cb343-4" title="4"><span class="co">## [2,] 11.27240 17.92564  -9.833802 14.57185</span></a>
-<a class="sourceLine" id="cb343-5" title="5"><span class="co">## [3,] 10.74439 19.01873 -11.293756 17.17115</span></a>
-<a class="sourceLine" id="cb343-6" title="6"><span class="co">## [4,] 10.21639 20.11182 -12.753710 19.77045</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(B)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">##           [,1]      [,2]     [,3]      [,4]</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">## [1,]  9.598592 -4.002789 21.05568 -2.499146</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">## [2,] 11.473575 -5.915981 22.95504 -2.895997</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">## [3,] 13.348557 -7.829174 24.85441 -3.292848</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">## [4,] 15.223540 -9.742366 26.75377 -3.689699</span></a></code></pre></div>
 </div>
 <div id="descriptive-statistics-as-matrix-functions" class="section level2">
 <h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions</h2>
@@ -604,37 +605,95 @@ R = V S V
 <div id="matrix-inverse" class="section level2">
 <h2><span class="header-section-number">10.4</span> Matrix Inverse</h2>
 <p>The function <code>solve()</code> can be used to find matrix inverses in R.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb344-2" title="2">A</a>
-<a class="sourceLine" id="cb344-3" title="3"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-4" title="4"><span class="co">## [1,]    1    3</span></a>
-<a class="sourceLine" id="cb344-5" title="5"><span class="co">## [2,]    2    4</span></a>
-<a class="sourceLine" id="cb344-6" title="6"></a>
-<a class="sourceLine" id="cb344-7" title="7">Ainv &lt;-<span class="st"> </span><span class="kw">solve</span>(A)</a>
-<a class="sourceLine" id="cb344-8" title="8">Ainv</a>
-<a class="sourceLine" id="cb344-9" title="9"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-10" title="10"><span class="co">## [1,]   -2  1.5</span></a>
-<a class="sourceLine" id="cb344-11" title="11"><span class="co">## [2,]    1 -0.5</span></a>
-<a class="sourceLine" id="cb344-12" title="12"></a>
-<a class="sourceLine" id="cb344-13" title="13">A <span class="op">%*%</span><span class="st"> </span>Ainv   <span class="co"># should give identity matrix</span></a>
-<a class="sourceLine" id="cb344-14" title="14"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-15" title="15"><span class="co">## [1,]    1    0</span></a>
-<a class="sourceLine" id="cb344-16" title="16"><span class="co">## [2,]    0    1</span></a>
-<a class="sourceLine" id="cb344-17" title="17">Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span></a>
-<a class="sourceLine" id="cb344-18" title="18"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-19" title="19"><span class="co">## [1,]    1    0</span></a>
-<a class="sourceLine" id="cb344-20" title="20"><span class="co">## [2,]    0    1</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">A</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">Ainv &lt;-<span class="st"> </span><span class="kw">solve</span>(A)</a>
+<a class="sourceLine" id="cb12-2" title="2">Ainv</a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]   -2  1.5
+## [2,]    1 -0.5</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">A <span class="op">%*%</span><span class="st"> </span>Ainv   <span class="co"># should give identity matrix</span></a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span></a></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1</code></pre>
 <p>Keep in mind that not all square matrices are invertible:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb345-2" title="2">C</a>
-<a class="sourceLine" id="cb345-3" title="3"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
-<a class="sourceLine" id="cb345-4" title="4"><span class="co">## [1,]    1    5    9   13</span></a>
-<a class="sourceLine" id="cb345-5" title="5"><span class="co">## [2,]    2    6   10   14</span></a>
-<a class="sourceLine" id="cb345-6" title="6"><span class="co">## [3,]    3    7   11   15</span></a>
-<a class="sourceLine" id="cb345-7" title="7"><span class="co">## [4,]    4    8   12   16</span></a>
-<a class="sourceLine" id="cb345-8" title="8"></a>
-<a class="sourceLine" id="cb345-9" title="9">Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)</a>
-<a class="sourceLine" id="cb345-10" title="10"><span class="co">## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb18-2" title="2">C</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    5    9   13
+## [2,]    2    6   10   14
+## [3,]    3    7   11   15
+## [4,]    4    8   12   16</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)</a></code></pre></div>
+<pre><code>## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</code></pre>
+</div>
+<div id="solving-sets-of-simultaneous-equations" class="section level2">
+<h2><span class="header-section-number">10.5</span> Solving sets of simultaneous equations</h2>
+<p>The <code>solve()</code> function introduced above can also be used to solve sets of simultaneous equations.</p>
+<p>For example, given the set of equations below:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+x_1 + 3x_2 + 2x_3 &amp; = &amp; 3\\
+-x_1 + x_2 + 2x_3 &amp; = &amp; -2\\
+2x_1 + 4x_2 -x_3 &amp; = &amp; 10
+\end{eqnarray*}
+\]</span></p>
+<p>We can rewrite this in vector form as:</p>
+<p><span class="math display">\[x_1 \begin{bmatrix}
+ 1 \\ -1 \\ 2
+\end{bmatrix} + 
+x_2 \begin{bmatrix}
+ 3 \\ 1 \\ 4
+\end{bmatrix} + 
+x_3 \begin{bmatrix}
+ 2 \\ 2 \\ 1
+\end{bmatrix}  = 
+\begin{bmatrix}
+ 3 \\ -2 \\ 10
+\end{bmatrix} 
+\]</span>
+which is equivalent to the matrix form:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1 &amp; 3 &amp; 2  \\
+-1 &amp; 1 &amp; 2\\
+2 &amp; 4 &amp; 1 
+\end{bmatrix} 
+\begin{bmatrix}
+ x_1 \\ x_2 \\ x_3
+\end{bmatrix}  = 
+\begin{bmatrix}
+ 3 \\ -2 \\ 10
+\end{bmatrix} 
+\]</span>
+<code>solve()</code> takes two arguments:
+- <code>a</code> – a square numeric matrix containing the coefficients of the linear equations (the left-most matrix above)
+- <code>b</code> – a vector (or matrix) giving the right hand side of the linear equations</p>
+<p>First let’s create the matrix of coefficients on the left and right sides:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">A =<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span> , <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb22-2" title="2">              <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb22-3" title="3">              <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>)), </a>
+<a class="sourceLine" id="cb22-4" title="4">            <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb22-5" title="5"></a>
+<a class="sourceLine" id="cb22-6" title="6">b =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">10</span>)</a></code></pre></div>
+<p>Now we solve the equations:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">x &lt;-<span class="st"> </span><span class="kw">solve</span>(A,b)</a>
+<a class="sourceLine" id="cb23-2" title="2">x</a></code></pre></div>
+<pre><code>## [1] -2.25  4.75 -4.50</code></pre>
+<p>Let’s confirm the solution works by multiplying <code>A</code> by <code>x</code>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">A <span class="op">%*%</span><span class="st"> </span>x</a></code></pre></div>
+<pre><code>##      [,1]
+## [1,]    3
+## [2,]   -2
+## [3,]   10</code></pre>
+<p>Voila!</p>
 
 </div>
 </div>

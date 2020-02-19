@@ -122,7 +122,7 @@ summary(len.name)
 
 Accessing the element of a vector is called "indexing".  Indexing is the process of specifying the numerical positions (indices) that you want to take access from the vector.
 
-For a vector of length $n$, we can access the elements by the indices $1 \ldots n$. We say that R vectors (and other data structures like lists) are `one-indexed'. Many other programming languages, such as Python, C, and Java, use zero-indexing where the elements of a data structure are accessed by the indices $0 \ldots n-1$. Indexing errors are a common source of bugs. 
+For a vector of length $n$, we can access the elements by the indices $1 \ldots n$. We say that R vectors (and other data structures like lists) are "one-indexed". Many other programming languages, such as Python, C, and Java, use zero-indexing where the elements of a data structure are accessed by the indices $0 \ldots n-1$. Indexing errors are a common source of bugs. 
 
 Indexing a vector is done by specifying the index in square brackets as shown below:
 
@@ -152,9 +152,10 @@ values.
 ```{r}
 x[c(TRUE, FALSE, TRUE, FALSE, FALSE)] #return 1st and 3rd elements but ignore 2nd, 4th and 5th
 ```
+
 ### Comparison operators applied to vectors
 
-When the comparison operators, such as "greater than" (`>`), "less than or equal to" (`<=`), equality (`==`), etc. are applied to numeric vectors, they return logical vectors:
+When the comparison operators, such as "greater than" (`>`), "less than or equal to" (`<=`), equality (`==`), etc, are applied to numeric vectors, they return logical vectors:
 
 ```{r}
 x <- c(2, 4, 6, 8, 10, 12)
@@ -187,7 +188,7 @@ You can string together comparisons for more complex filtering.
 x[x < 4 | x > 8]  # less than four OR greater than 8
 ```
 
-In the second example we retrieved those elements of `x` that were smaller than four  *or* greater than six. Combining indexing and comparison is a powerful concept which we'll use repeatedly in this course.
+In the second example we retrieved those elements of `x` that were smaller than four  *or* greater than six. Combining indexing and comparison is a  concept which we'll use repeatedly in this course.
 
 
 ### Vector manipulation

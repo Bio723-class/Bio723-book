@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Matrices in R | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 11 Linear Regression Models | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
   <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Matrices in R | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 11 Linear Regression Models | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Matrices in R | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 11 Linear Regression Models | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="vector-algebra.html"/>
-<link rel="next" href="linear-regression-models.html"/>
+<link rel="prev" href="matrices-in-r.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -384,342 +384,324 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="matrices-in-r" class="section level1">
-<h1><span class="header-section-number">Chapter 10</span> Matrices in R</h1>
-<p>In R matrices are two-dimensional collections of elements all of which
-have the same mode or type. This is different than a data frame in which
-the columns of the frame can hold elements of different type (but all of
-the same length), or from a list which can hold objects of arbitrary
-type and length. Matrices are more efficient for carrying out most
-numerical operations, so if you’re working with a very large data set
-that is amenable to representation by a matrix you should consider using
-this data structure.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb335-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<div id="creating-matrices-in-r" class="section level2">
-<h2><span class="header-section-number">10.1</span> Creating matrices in R</h2>
-<p>There are a number of different ways to create matrices in R. For
-creating small matrices at the command line you can use the
-<code>matrix()</code> function.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" title="1"><span class="op">&gt;</span><span class="st"> </span>x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></a>
-<a class="sourceLine" id="cb336-2" title="2"><span class="op">&gt;</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb336-3" title="3"><span class="co">##      [,1]</span></a>
-<a class="sourceLine" id="cb336-4" title="4"><span class="co">## [1,]    1</span></a>
-<a class="sourceLine" id="cb336-5" title="5"><span class="co">## [2,]    2</span></a>
-<a class="sourceLine" id="cb336-6" title="6"><span class="co">## [3,]    3</span></a>
-<a class="sourceLine" id="cb336-7" title="7"><span class="co">## [4,]    4</span></a>
-<a class="sourceLine" id="cb336-8" title="8"><span class="co">## [5,]    5</span></a>
-<a class="sourceLine" id="cb336-9" title="9"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></a>
-<a class="sourceLine" id="cb336-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X</a>
-<a class="sourceLine" id="cb336-11" title="11"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb336-12" title="12"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb336-13" title="13"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb336-14" title="14"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb336-15" title="15"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb336-16" title="16"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(X) <span class="co"># give the shape of the matrix</span></a>
-<a class="sourceLine" id="cb336-17" title="17"><span class="co">## [1] 4 3</span></a></code></pre></div>
-<p><code>matrix()</code> takes a data vector as input and the shape of the
-matrix to be created is specified by using the <code>nrow</code> and
-<code>ncol</code> arguments. If the number of elements in the input data
-vector is less than <code>nrows</code> <span class="math inline">\(\times\)</span> <code>ncols</code> the
-elements will be ‘recycled’ as discussed in previous chapters. Without
-any shape arguments the <code>matrix()</code> function will create a
-column vector as shown above. By default the <code>matrix()</code>
-function fills in the matrix in a column-wise fashion. To fill in the
-matrix in a row-wise fashion use the argument <code>byrow=T</code>.</p>
-<p>If you have a pre-existing data set in a list or data frame you can use
-the <code>as.matrix()</code> function to convert it to a matrix.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1"><span class="op">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(iris)</a>
-<a class="sourceLine" id="cb337-2" title="2"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></a>
-<a class="sourceLine" id="cb337-3" title="3"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></a>
-<a class="sourceLine" id="cb337-4" title="4"><span class="co">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-5" title="5"><span class="co">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-6" title="6"><span class="co">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-7" title="7"><span class="co">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-8" title="8"><span class="co">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></a>
-<a class="sourceLine" id="cb337-9" title="9"><span class="co">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></a></code></pre></div>
-<p>Since all elements of an R matrix must be of the same type, when we passed the iris data frame to <code>as.matrix()</code>, everything was converted to a character due to the presence of the Species column in the data frame.</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1"><span class="op">&gt;</span><span class="st"> </span><span class="co"># This is probably more along the lines of what you want</span></a>
-<a class="sourceLine" id="cb338-2" title="2"><span class="er">&gt;</span><span class="st"> </span>iris.mtx &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix</a>
-<a class="sourceLine" id="cb338-3" title="3"><span class="op">&gt;</span><span class="st"> </span><span class="kw">head</span>(iris.mtx)</a>
-<a class="sourceLine" id="cb338-4" title="4"><span class="co">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb338-5" title="5"><span class="co">## [1,]          5.1         3.5          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-6" title="6"><span class="co">## [2,]          4.9         3.0          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-7" title="7"><span class="co">## [3,]          4.7         3.2          1.3         0.2</span></a>
-<a class="sourceLine" id="cb338-8" title="8"><span class="co">## [4,]          4.6         3.1          1.5         0.2</span></a>
-<a class="sourceLine" id="cb338-9" title="9"><span class="co">## [5,]          5.0         3.6          1.4         0.2</span></a>
-<a class="sourceLine" id="cb338-10" title="10"><span class="co">## [6,]          5.4         3.9          1.7         0.4</span></a></code></pre></div>
-<p>You can use the various indexing operations to get particular rows,
-columns, or elements. Here are some examples:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb339-1" title="1"><span class="op">&gt;</span><span class="st"> </span>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb339-2" title="2"><span class="op">&gt;</span><span class="st"> </span>X</a>
-<a class="sourceLine" id="cb339-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb339-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb339-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb339-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb339-8" title="8"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span>,] <span class="co"># get the first row</span></a>
-<a class="sourceLine" id="cb339-9" title="9"><span class="co">## [1] 1 5 9</span></a>
-<a class="sourceLine" id="cb339-10" title="10"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">1</span>] <span class="co"># get the first column</span></a>
-<a class="sourceLine" id="cb339-11" title="11"><span class="co">## [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb339-12" title="12"><span class="op">&gt;</span><span class="st"> </span>X[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></a>
-<a class="sourceLine" id="cb339-13" title="13"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-14" title="14"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb339-15" title="15"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb339-16" title="16"><span class="op">&gt;</span><span class="st"> </span>X[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></a>
-<a class="sourceLine" id="cb339-17" title="17"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb339-18" title="18"><span class="co">## [1,]    5    9</span></a>
-<a class="sourceLine" id="cb339-19" title="19"><span class="co">## [2,]    6   10</span></a>
-<a class="sourceLine" id="cb339-20" title="20"><span class="co">## [3,]    7   11</span></a>
-<a class="sourceLine" id="cb339-21" title="21"><span class="co">## [4,]    8   12</span></a>
-<a class="sourceLine" id="cb339-22" title="22"><span class="op">&gt;</span><span class="st"> </span>Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">byrow=</span>T, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb339-23" title="23"><span class="op">&gt;</span><span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb339-24" title="24"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb339-25" title="25"><span class="co">## [1,]    1    2    3</span></a>
-<a class="sourceLine" id="cb339-26" title="26"><span class="co">## [2,]    4    5    6</span></a>
-<a class="sourceLine" id="cb339-27" title="27"><span class="co">## [3,]    7    8    9</span></a>
-<a class="sourceLine" id="cb339-28" title="28"><span class="co">## [4,]   10   11   12</span></a>
-<a class="sourceLine" id="cb339-29" title="29"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></a>
-<a class="sourceLine" id="cb339-30" title="30"><span class="co">## [1] 10</span></a>
-<a class="sourceLine" id="cb339-31" title="31"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb339-32" title="32"><span class="co">## [1] 2</span></a>
-<a class="sourceLine" id="cb339-33" title="33"><span class="op">&gt;</span><span class="st"> </span><span class="kw">dim</span>(Y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></a>
-<a class="sourceLine" id="cb339-34" title="34"><span class="op">&gt;</span><span class="st"> </span>Y</a>
-<a class="sourceLine" id="cb339-35" title="35"><span class="co">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
-<a class="sourceLine" id="cb339-36" title="36"><span class="co">## [1,]    1    7    2    8    3    9</span></a>
-<a class="sourceLine" id="cb339-37" title="37"><span class="co">## [2,]    4   10    5   11    6   12</span></a>
-<a class="sourceLine" id="cb339-38" title="38"><span class="op">&gt;</span><span class="st"> </span>Y[<span class="dv">5</span>]</a>
-<a class="sourceLine" id="cb339-39" title="39"><span class="co">## [1] 2</span></a></code></pre></div>
-<p>The example above where we create a matrix <code>Y</code> is meant to
-show that matrices are stored internally in a column wise fashion (think
-of the columns stacked one atop the other), regardless of whether we use
-the <code>byrow=T</code> argument. Therefore using single indices returns
-the elements with respect to this arrangement. Note also the use of
-assignment operator in conjuction with the <code>dim()</code> function to
-reshape the matrix. Despite the reshaping, the internal representation
-in memory hasn’t changed so <code>Y[5]</code> still gives the same
-element.</p>
-<p>You can use the <code>diag()</code> function to get the diagonal of a
-matrix or to create a diagonal matrix as show below:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" title="1"><span class="op">&gt;</span><span class="st"> </span>Z &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">16</span>), <span class="dt">ncol=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb340-2" title="2"><span class="op">&gt;</span><span class="st"> </span>Z</a>
-<a class="sourceLine" id="cb340-3" title="3"><span class="co">##            [,1]       [,2]        [,3]        [,4]</span></a>
-<a class="sourceLine" id="cb340-4" title="4"><span class="co">## [1,] -0.3906239  0.5030089  0.03033799  0.05447186</span></a>
-<a class="sourceLine" id="cb340-5" title="5"><span class="co">## [2,]  0.1647546 -1.4421760  0.14884391 -0.75717287</span></a>
-<a class="sourceLine" id="cb340-6" title="6"><span class="co">## [3,] -0.4456372 -1.0074280  1.09096978 -0.12107178</span></a>
-<a class="sourceLine" id="cb340-7" title="7"><span class="co">## [4,]  0.2243771 -0.7195329 -0.05873439  0.55349140</span></a>
-<a class="sourceLine" id="cb340-8" title="8"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(Z)</a>
-<a class="sourceLine" id="cb340-9" title="9"><span class="co">## [1] -0.3906239 -1.4421760  1.0909698  0.5534914</span></a>
-<a class="sourceLine" id="cb340-10" title="10"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></a>
-<a class="sourceLine" id="cb340-11" title="11"><span class="co">##      [,1] [,2] [,3] [,4] [,5]</span></a>
-<a class="sourceLine" id="cb340-12" title="12"><span class="co">## [1,]    1    0    0    0    0</span></a>
-<a class="sourceLine" id="cb340-13" title="13"><span class="co">## [2,]    0    1    0    0    0</span></a>
-<a class="sourceLine" id="cb340-14" title="14"><span class="co">## [3,]    0    0    1    0    0</span></a>
-<a class="sourceLine" id="cb340-15" title="15"><span class="co">## [4,]    0    0    0    1    0</span></a>
-<a class="sourceLine" id="cb340-16" title="16"><span class="co">## [5,]    0    0    0    0    1</span></a>
-<a class="sourceLine" id="cb340-17" title="17"><span class="op">&gt;</span><span class="st"> </span>s &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">10</span><span class="op">:</span><span class="dv">13</span>)</a>
-<a class="sourceLine" id="cb340-18" title="18"><span class="op">&gt;</span><span class="st"> </span><span class="kw">diag</span>(s)</a>
-<a class="sourceLine" id="cb340-19" title="19"><span class="co">##          [,1]     [,2]     [,3]     [,4]</span></a>
-<a class="sourceLine" id="cb340-20" title="20"><span class="co">## [1,] 3.162278 0.000000 0.000000 0.000000</span></a>
-<a class="sourceLine" id="cb340-21" title="21"><span class="co">## [2,] 0.000000 3.316625 0.000000 0.000000</span></a>
-<a class="sourceLine" id="cb340-22" title="22"><span class="co">## [3,] 0.000000 0.000000 3.464102 0.000000</span></a>
-<a class="sourceLine" id="cb340-23" title="23"><span class="co">## [4,] 0.000000 0.000000 0.000000 3.605551</span></a></code></pre></div>
-</div>
-<div id="matrix-arithmetic-operations-in-r" class="section level2">
-<h2><span class="header-section-number">10.2</span> Matrix arithmetic operations in R</h2>
-<p>The standard mathematical operations of addition and subtraction and
-scalar multiplication work element-wise for matrices in the same way as
-they did for vectors. Matrix multiplication uses the operator
-<code>%*%</code> which you saw last week for the dot product. To get the
-transpose of a matrix use the function <code>t()</code>.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb341-2" title="2"><span class="op">&gt;</span><span class="st"> </span>A</a>
-<a class="sourceLine" id="cb341-3" title="3"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb341-4" title="4"><span class="co">## [1,]    1    5    9</span></a>
-<a class="sourceLine" id="cb341-5" title="5"><span class="co">## [2,]    2    6   10</span></a>
-<a class="sourceLine" id="cb341-6" title="6"><span class="co">## [3,]    3    7   11</span></a>
-<a class="sourceLine" id="cb341-7" title="7"><span class="co">## [4,]    4    8   12</span></a>
-<a class="sourceLine" id="cb341-8" title="8"><span class="op">&gt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb341-9" title="9"><span class="er">&gt;</span><span class="st"> </span>B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">12</span>), <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb341-10" title="10"><span class="op">&gt;</span><span class="st"> </span>B</a>
-<a class="sourceLine" id="cb341-11" title="11"><span class="co">##            [,1]       [,2]       [,3]</span></a>
-<a class="sourceLine" id="cb341-12" title="12"><span class="co">## [1,] -1.9749066 -0.1882973  1.6351996</span></a>
-<a class="sourceLine" id="cb341-13" title="13"><span class="co">## [2,] -0.7959202 -0.1568522  2.0458596</span></a>
-<a class="sourceLine" id="cb341-14" title="14"><span class="co">## [3,] -0.1865282 -0.8183787 -0.4550473</span></a>
-<a class="sourceLine" id="cb341-15" title="15"><span class="co">## [4,]  0.4418770  1.9715446  0.1858825</span></a>
-<a class="sourceLine" id="cb341-16" title="16"><span class="op">&gt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb341-17" title="17"><span class="er">&gt;</span><span class="st"> </span><span class="kw">t</span>(A)  <span class="co"># transpose</span></a>
-<a class="sourceLine" id="cb341-18" title="18"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
-<a class="sourceLine" id="cb341-19" title="19"><span class="co">## [1,]    1    2    3    4</span></a>
-<a class="sourceLine" id="cb341-20" title="20"><span class="co">## [2,]    5    6    7    8</span></a>
-<a class="sourceLine" id="cb341-21" title="21"><span class="co">## [3,]    9   10   11   12</span></a>
-<a class="sourceLine" id="cb341-22" title="22"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B  <span class="co"># matrix addition</span></a>
-<a class="sourceLine" id="cb341-23" title="23"><span class="co">##            [,1]     [,2]     [,3]</span></a>
-<a class="sourceLine" id="cb341-24" title="24"><span class="co">## [1,] -0.9749066 4.811703 10.63520</span></a>
-<a class="sourceLine" id="cb341-25" title="25"><span class="co">## [2,]  1.2040798 5.843148 12.04586</span></a>
-<a class="sourceLine" id="cb341-26" title="26"><span class="co">## [3,]  2.8134718 6.181621 10.54495</span></a>
-<a class="sourceLine" id="cb341-27" title="27"><span class="co">## [4,]  4.4418770 9.971545 12.18588</span></a>
-<a class="sourceLine" id="cb341-28" title="28"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">-</span><span class="st"> </span>B  <span class="co"># matrix subtraction</span></a>
-<a class="sourceLine" id="cb341-29" title="29"><span class="co">##          [,1]     [,2]     [,3]</span></a>
-<a class="sourceLine" id="cb341-30" title="30"><span class="co">## [1,] 2.974907 5.188297  7.36480</span></a>
-<a class="sourceLine" id="cb341-31" title="31"><span class="co">## [2,] 2.795920 6.156852  7.95414</span></a>
-<a class="sourceLine" id="cb341-32" title="32"><span class="co">## [3,] 3.186528 7.818379 11.45505</span></a>
-<a class="sourceLine" id="cb341-33" title="33"><span class="co">## [4,] 3.558123 6.028455 11.81412</span></a>
-<a class="sourceLine" id="cb341-34" title="34"><span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>A  <span class="co"># multiplication by a scalar</span></a>
-<a class="sourceLine" id="cb341-35" title="35"><span class="co">##      [,1] [,2] [,3]</span></a>
-<a class="sourceLine" id="cb341-36" title="36"><span class="co">## [1,]    5   25   45</span></a>
-<a class="sourceLine" id="cb341-37" title="37"><span class="co">## [2,]   10   30   50</span></a>
-<a class="sourceLine" id="cb341-38" title="38"><span class="co">## [3,]   15   35   55</span></a>
-<a class="sourceLine" id="cb341-39" title="39"><span class="co">## [4,]   20   40   60</span></a></code></pre></div>
-<p>When applying matrix multiplication, the dimensions of the matrices involved must be conformable. For example, you can’t do this:</p>
-<pre><code>A %*% B  # do you understand why this generates an error?</code></pre>
-<p>But this works:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" title="1"><span class="op">&gt;</span><span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(B)</a>
-<a class="sourceLine" id="cb343-2" title="2"><span class="co">##          [,1]     [,2]       [,3]     [,4]</span></a>
-<a class="sourceLine" id="cb343-3" title="3"><span class="co">## [1,] 11.80040 16.83255  -8.373848 11.97254</span></a>
-<a class="sourceLine" id="cb343-4" title="4"><span class="co">## [2,] 11.27240 17.92564  -9.833802 14.57185</span></a>
-<a class="sourceLine" id="cb343-5" title="5"><span class="co">## [3,] 10.74439 19.01873 -11.293756 17.17115</span></a>
-<a class="sourceLine" id="cb343-6" title="6"><span class="co">## [4,] 10.21639 20.11182 -12.753710 19.77045</span></a></code></pre></div>
-</div>
-<div id="descriptive-statistics-as-matrix-functions" class="section level2">
-<h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions</h2>
-<p>Assume you have a data set represented as a <span class="math inline">\(n \times p\)</span> matrix, <span class="math inline">\(X\)</span>, with
-observations in rows and variables in columns. Below I give formulae for
-calculating some descriptive statistics as matrix functions.</p>
-<div id="mean-vector-and-matrix" class="section level3">
-<h3><span class="header-section-number">10.3.1</span> Mean vector and matrix</h3>
-<p>You can calculate a row vector of means, <span class="math inline">\(\mathbf{m}\)</span>, as:
-<span class="math display">\[
-\mathbf{m} = \frac{1}{n} \mathbf{1}^T  X
-\]</span>
-where <span class="math inline">\(1\)</span> is a <span class="math inline">\(n \times 1\)</span> vector of ones.</p>
-<p>A <span class="math inline">\(n \times p\)</span> matrix <span class="math inline">\(M\)</span> where each column is filled with the mean
-value for that column is:
-<span class="math display">\[
-M = \mathbf{1}\mathbf{m}
+<div id="linear-regression-models" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Linear Regression Models</h1>
+<p>Statistical models are quantitative statements about how we think variables are related to each other.
+Linear models are among the simplest statistical models. In a linear model relating two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the general form of the model can be stated as “I assume that <span class="math inline">\(Y\)</span> can be expressed as a linear function of <span class="math inline">\(X\)</span>”. The process of <em>model fitting</em> is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.</p>
+<p>As we talk about regression models we’ll frequently use the following terms:</p>
+<ul>
+<li><p><strong>Predictors, explanatory, or independent variable</strong> – the variables from which we want to make our prediction.</p></li>
+<li><p><strong>Outcomes, dependent, or response variable</strong> – the variable we are trying to predict in our models.</p></li>
+</ul>
+<div id="linear-functions" class="section level2">
+<h2><span class="header-section-number">11.1</span> Linear functions</h2>
+<p>A linear function of a single variable <span class="math inline">\(X\)</span> can be written as:</p>
+<p><span class="math display">\[
+f(X) = a + bX
 \]</span></p>
-</div>
-<div id="deviation-matrix" class="section level3">
-<h3><span class="header-section-number">10.3.2</span> Deviation matrix</h3>
-<p>To re-express each value as the deviation from the variable means
-(i.e.~each columns is a mean centered vector) we calculate a deviation
-matrix:
-<span class="math display">\[
-D = X - M
+<p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants. In geometric terms <span class="math inline">\(b\)</span> is the <em>slope of the line</em> and <span class="math inline">\(a\)</span> is the value of the function when <span class="math inline">\(X\)</span> is zero (usually the referred to as the “Y-intercept”). The slope tells you have much <span class="math inline">\(f(X)\)</span> changes per unit change of <span class="math inline">\(X\)</span>. If we treat <span class="math inline">\(X\)</span> as a vector, this linear function can be expressed as the vector equation:</p>
+<p><span class="math display">\[
+f(\vec{\mathbf{x}}) = a\vec{\mathbf{1}} + b\vec{\mathbf{x}} 
+= a\begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} + b\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_p\end{bmatrix}
 \]</span></p>
-</div>
-<div id="covariance-matrix" class="section level3">
-<h3><span class="header-section-number">10.3.3</span> Covariance matrix</h3>
-<p>The <span class="math inline">\(p \times p\)</span> covariance matrix can be expressed as a matrix product of the deviation matrix:
-<span class="math display">\[
-S = \frac{1}{n-1} D^T D
+<p>We can also create linear functions of multiple variables, <span class="math inline">\(X_1, X_2, \ldots, X_m\)</span>. A linear function of multiple variables can be expressed as:</p>
+<p><span class="math display">\[
+f(X_1, X_2,\ldots,X_m) = a + b_1X_1 + b_2X_2 + \cdots + b_mX_m
 \]</span></p>
-</div>
-<div id="correlation-matrix" class="section level3">
-<h3><span class="header-section-number">10.3.4</span> Correlation matrix</h3>
-<p>The correlation matrix, <span class="math inline">\(R\)</span>, can be calculated from the covariance
-matrix by:
-<span class="math display">\[
-R = V S V
-\]</span></p>
-<p>where <span class="math inline">\(V\)</span> is a <span class="math inline">\(p \times p\)</span> diagonal matrix where
-<span class="math inline">\(V_{ii} = 1/\sqrt{S_{ii}}\)</span>.</p>
-</div>
-</div>
-<div id="matrix-inverse" class="section level2">
-<h2><span class="header-section-number">10.4</span> Matrix Inverse</h2>
-<p>The function <code>solve()</code> can be used to find matrix inverses in R.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">nrow=</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb344-2" title="2">A</a>
-<a class="sourceLine" id="cb344-3" title="3"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-4" title="4"><span class="co">## [1,]    1    3</span></a>
-<a class="sourceLine" id="cb344-5" title="5"><span class="co">## [2,]    2    4</span></a>
-<a class="sourceLine" id="cb344-6" title="6"></a>
-<a class="sourceLine" id="cb344-7" title="7">Ainv &lt;-<span class="st"> </span><span class="kw">solve</span>(A)</a>
-<a class="sourceLine" id="cb344-8" title="8">Ainv</a>
-<a class="sourceLine" id="cb344-9" title="9"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-10" title="10"><span class="co">## [1,]   -2  1.5</span></a>
-<a class="sourceLine" id="cb344-11" title="11"><span class="co">## [2,]    1 -0.5</span></a>
-<a class="sourceLine" id="cb344-12" title="12"></a>
-<a class="sourceLine" id="cb344-13" title="13">A <span class="op">%*%</span><span class="st"> </span>Ainv   <span class="co"># should give identity matrix</span></a>
-<a class="sourceLine" id="cb344-14" title="14"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-15" title="15"><span class="co">## [1,]    1    0</span></a>
-<a class="sourceLine" id="cb344-16" title="16"><span class="co">## [2,]    0    1</span></a>
-<a class="sourceLine" id="cb344-17" title="17">Ainv <span class="op">%*%</span><span class="st"> </span>A   <span class="co"># should also result in identity matrix</span></a>
-<a class="sourceLine" id="cb344-18" title="18"><span class="co">##      [,1] [,2]</span></a>
-<a class="sourceLine" id="cb344-19" title="19"><span class="co">## [1,]    1    0</span></a>
-<a class="sourceLine" id="cb344-20" title="20"><span class="co">## [2,]    0    1</span></a></code></pre></div>
-<p>Keep in mind that not all square matrices are invertible:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">C &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">nrow=</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb345-2" title="2">C</a>
-<a class="sourceLine" id="cb345-3" title="3"><span class="co">##      [,1] [,2] [,3] [,4]</span></a>
-<a class="sourceLine" id="cb345-4" title="4"><span class="co">## [1,]    1    5    9   13</span></a>
-<a class="sourceLine" id="cb345-5" title="5"><span class="co">## [2,]    2    6   10   14</span></a>
-<a class="sourceLine" id="cb345-6" title="6"><span class="co">## [3,]    3    7   11   15</span></a>
-<a class="sourceLine" id="cb345-7" title="7"><span class="co">## [4,]    4    8   12   16</span></a>
-<a class="sourceLine" id="cb345-8" title="8"></a>
-<a class="sourceLine" id="cb345-9" title="9">Cinv &lt;-<span class="st"> </span><span class="kw">solve</span>(C)</a>
-<a class="sourceLine" id="cb345-10" title="10"><span class="co">## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</span></a></code></pre></div>
-</div>
-<div id="solving-sets-of-simultaneous-equations" class="section level2">
-<h2><span class="header-section-number">10.5</span> Solving sets of simultaneous equations</h2>
-<p>The <code>solve()</code> function introduced above can also be used to solve sets of simultaneous equations.</p>
-<p>For example, given the set of equations below:</p>
+<p>where <span class="math inline">\(a\)</span> is the intercept and <span class="math inline">\(b_1, b_2,\ldots,b_m\)</span> are slopes with respect to each of the <span class="math inline">\(X\)</span>s.</p>
+<p>In vector terms this is:</p>
 <p><span class="math display">\[
 \begin{eqnarray*}
-x_1 + 3x_2 + 2x_3 &amp; = &amp; 3\\
--x_1 + x_2 + 2x_3 &amp; = &amp; -2\\
-2x_1 + 4x_2 -x_3 &amp; = &amp; 10
+f(\vec{\mathbf{x}_1}, \vec{\mathbf{x}_2}, \ldots, \vec{\mathbf{x}_m}) &amp;=&amp; a\vec{\mathbf{1}} + b_1\vec{\mathbf{x}_1} + b_2\vec{\mathbf{x}_2} + \ldots + b_m\vec{\mathbf{x}_m} \\
+&amp;=&amp; a\begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} + b_1\begin{bmatrix}x_{1,1} \\ x_{2,1} \\ \vdots \\ x_{p,1}\end{bmatrix} + b_2\begin{bmatrix}x_{1,2} \\ x_{2,2} \\ \vdots \\ x_{p,2}\end{bmatrix} + \cdots + b_m\begin{bmatrix}x_{1,m} \\ x_{2,m} \\ \vdots \\ x_{p,m}\end{bmatrix}
 \end{eqnarray*}
 \]</span></p>
-<p>We can rewrite this in vector form as:</p>
-<p><span class="math display">\[x_1 \begin{bmatrix}
- 1 \\ -1 \\ 2
-\end{bmatrix} + 
-x_2 \begin{bmatrix}
- 3 \\ 1 \\ 4
-\end{bmatrix} + 
-x_3 \begin{bmatrix}
- 2 \\ 2 \\ 1
-\end{bmatrix}  = 
-\begin{bmatrix}
- 3 \\ -2 \\ 10
-\end{bmatrix} 
-\]</span>
-which is equivalent to the matrix form:</p>
+<p>If we bundle the individual <span class="math inline">\(\vec{\mathbf{x}}\)</span> vectors into a matrix <span class="math inline">\(\mathbf{X}\)</span> we can rewrite the linear function of multiple variables as</p>
 <p><span class="math display">\[
+f(\vec{\mathbf{x}_1}, \vec{\mathbf{x}_2}, \ldots, \vec{\mathbf{x}_m}) = \mathbf{X}\vec{\mathbf{b}}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\mathbf{X} = 
 \begin{bmatrix}
-1 &amp; 3 &amp; 2  \\
--1 &amp; 1 &amp; 2\\
-2 &amp; 4 &amp; 1 
-\end{bmatrix} 
+1 &amp; x_{1,1} &amp; x_{1,2} &amp; \cdots &amp; x_{1,m} \\
+1 &amp; x_{2,1} &amp; x_{2,2} &amp; \cdots &amp; x_{2,m} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,m} \\
+\end{bmatrix}
+\text{ and }
+\vec{\mathbf{b}} = 
 \begin{bmatrix}
- x_1 \\ x_2 \\ x_3
-\end{bmatrix}  = 
-\begin{bmatrix}
- 3 \\ -2 \\ 10
-\end{bmatrix} 
+a \\
+b_1 \\
+b_2 \\
+\vdots \\
+b_m
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="linear-regression" class="section level2">
+<h2><span class="header-section-number">11.2</span> Linear regression</h2>
+<p>In <strong>bivariate linear regression</strong> we assume that our outcome variable (<span class="math inline">\(Y\)</span>) can be expressed as a linear function of a single predictor variable (<span class="math inline">\(X\)</span>) plus an error term. The error term can be thought of as the portion of <span class="math inline">\(Y\)</span> that is “unexplained” by the linear function.</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+Y &amp;=&amp; f(X) + \text{error} \\ 
+  &amp;=&amp; a + bX + \text{error}
+\end{eqnarray*}
 \]</span>
-<code>solve()</code> takes two arguments:
-- <code>a</code> – a square numeric matrix containing the coefficients of the linear equations (the left-most matrix above)
-- <code>b</code> – a vector (or matrix) giving the right hand side of the linear equations</p>
-<p>First let’s create the matrix of coefficients on the left and right sides:</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" title="1">A =<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">c</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span> , <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb346-2" title="2">              <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</a>
-<a class="sourceLine" id="cb346-3" title="3">              <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>)), </a>
-<a class="sourceLine" id="cb346-4" title="4">            <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb346-5" title="5"></a>
-<a class="sourceLine" id="cb346-6" title="6">b =<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">-2</span>, <span class="dv">10</span>)</a></code></pre></div>
-<p>Now we solve the equations:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1">x &lt;-<span class="st"> </span><span class="kw">solve</span>(A,b)</a>
-<a class="sourceLine" id="cb347-2" title="2">x</a>
-<a class="sourceLine" id="cb347-3" title="3"><span class="co">## [1] -2.25  4.75 -4.50</span></a></code></pre></div>
-<p>Let’s confirm the solution works by multiplying <code>A</code> by <code>x</code>:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1">A <span class="op">%*%</span><span class="st"> </span>x</a>
-<a class="sourceLine" id="cb348-2" title="2"><span class="co">##      [,1]</span></a>
-<a class="sourceLine" id="cb348-3" title="3"><span class="co">## [1,]    3</span></a>
-<a class="sourceLine" id="cb348-4" title="4"><span class="co">## [2,]   -2</span></a>
-<a class="sourceLine" id="cb348-5" title="5"><span class="co">## [3,]   10</span></a></code></pre></div>
-<p>Voila!</p>
+The vector equivalent is:</p>
+<p><span class="math display">\[
+\vec{\mathbf{y}} = a\vec{\mathbf{1}} + b\vec{\mathbf{x}} + \vec{\mathbf{e}}
+\]</span></p>
+<p>Similarly, in <strong>multiple linear regression</strong> we assume that the outcome variable (<span class="math inline">\(Y\)</span>) can be expressed as a linear function of multiple predictor variables (<span class="math inline">\(X_1, X_2, \ldots, X_m\)</span>) plus an error term, <span class="math inline">\(\epsilon\)</span>:</p>
+<p><span class="math display">\[
+Y = f(X_1, X_2,\ldots,X_m) + \epsilon
+\]</span></p>
+<p>The vector representation of the multiple regression model is:</p>
+<p><span class="math display">\[
+\vec{\mathbf{y}} = a\vec{\mathbf{1}} + b_1\vec{\mathbf{x}_1} + b_2\vec{\mathbf{x}_2} + \ldots + b_m\vec{\mathbf{x}_m} + \vec{\mathbf{e}} 
+\]</span></p>
+<p>In matrix form, this is represented as:</p>
+<p><span class="math display">\[
+\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}} 
+\]</span>
+where <span class="math inline">\(\mathbf{X}\vec{\mathbf{b}}\)</span> is a matrix of the predictor variables with the ones vector prepended to it as described above.</p>
+<p>We see that bivariate linear regression is just a special case of multiple regression.</p>
+<p>In the rest of this document I will replace the linear functions <span class="math inline">\(f\)</span> above with <span class="math inline">\(\widehat{Y}\)</span> to indicate the component of <span class="math inline">\(Y\)</span> that is predicted (“explained”) by the <span class="math inline">\(X\)</span>s:</p>
+<p><span class="math display">\[
+Y = \widehat{Y}+ \epsilon
+\]</span></p>
+<p>The equivalent vector representation is:</p>
+<p><span class="math display">\[
+\vec{\mathbf{y}} = \vec{\widehat{\mathbf{y}}} + \vec{\mathbf{e}} 
+\]</span></p>
+</div>
+<div id="the-optimality-criterion-for-least-squares-regression" class="section level2">
+<h2><span class="header-section-number">11.3</span> The optimality criterion for least-squares regression</h2>
+<p>There are infinitely many linear functions of <span class="math inline">\(X\)</span> we could define. Which linear function provides the best fit given our observed values of<span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>? In order to fit a model to data, we have to specify some criterion for judging how well alternate models perform.</p>
+<p>For regression, the optimality criterion can be expressed as “Find the linear function, <span class="math inline">\(\widehat{Y} = f(X)\)</span>, that minimizes the following quantity:”</p>
+<p><span class="math display">\[
+\sum \epsilon^2 = \sum (y_i - \widehat{y}_i)^2
+\]</span>
+In vector terms we are minimizing:</p>
+<p><span class="math display">\[
+|\vec{\mathbf{e}}|^2 = |\vec{\mathbf{y}}  - \vec{\widehat{\mathbf{y}}} |^2
+\]</span></p>
+<p>That is, our goal is to find the linear function of <span class="math inline">\(X\)</span> that minimizes the sum of squared deviations between the predicted values of <span class="math inline">\(y\)</span> and the observed values of <span class="math inline">\(y\)</span>. This is known as the <em>least-squares criterion</em>.</p>
+</div>
+<div id="geometry-of-linear-regression" class="section level2">
+<h2><span class="header-section-number">11.4</span> Geometry of linear regression</h2>
+<p>The figure below represents the variable space (A) and subject space (B) representations of bivariate linear regression.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<img src="figures/fig-regression-geometry.png" alt="Graphical representations of  bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
+<p class="caption">
+Figure 11.1: Graphical representations of bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation
+</p>
+</div>
+<p>Similarly, the next below represents the variable space (A) and subject space (B) representations of multiple regression of a single outcome variable onto two predictor variables.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="figures/fig-multi-regression-geometry.png" alt="Graphical representations of  multiple regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
+<p class="caption">
+Figure 11.2: Graphical representations of multiple regression. A) variable space representation; B) subject space (vector) representation
+</p>
+</div>
+<p>Notice that in both representations, the error term (the portion of <span class="math inline">\(Y\)</span> unexplained by the regression model) is orthogonal to the subspace defined by the predictor variables.</p>
+</div>
+<div id="solution-for-the-least-squares-criterion" class="section level2">
+<h2><span class="header-section-number">11.5</span> Solution for the least-squares criterion</h2>
+<p>The least-squares optimality criterion tells us to find the best fitting regression model, we need to solve for <span class="math inline">\(\widehat{\vec{\mathbf{y}}} = a\vec{\mathbf{1}} + b\vec{\mathbf{x}}\)</span> such that <span class="math inline">\(|\vec{\mathbf{e}}|^2 = |\vec{\mathbf{y}} - \vec{\widehat{\mathbf{y}}} |^2\)</span> is as small as possible. That is we need to find the values <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> that minimize the length of <span class="math inline">\(\vec{\mathbf{e}}\)</span>. How do we do that?</p>
+<p>I will discuss how to do solve this optimization problem for mean centered variables in class, using simultaneous linear equations. See Wickens chapters 3 and 4 for the general case.</p>
+<div id="bivariate-regression-estimating-coefficients" class="section level3">
+<h3><span class="header-section-number">11.5.1</span> Bivariate regression, estimating coefficients</h3>
+<p>For the bivariate case, the values of <span class="math inline">\(b\)</span> (slope) and <span class="math inline">\(a\)</span> (intercept) that minimize the sum of squared deviations described above are:</p>
+<p><span class="math display">\[\begin{align}
+b &amp;= \frac{s_{xy}}{s^2_x} = r_{xy}\frac{s_y}{s_x}\\
+\\
+a &amp;= \overline{Y} - b\overline{X}
+\end{align}\]</span></p>
+<p>where <span class="math inline">\(r_{xy}\)</span> is the correlation coefficient between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, and <span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are the standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> respectively.</p>
+<p>In vector geometric terms, we calculate the regression coefficient for mean centered vectors as:</p>
+<p><span class="math display">\[
+b = \frac{\vec{x} \cdot \vec{y}}{\vec{x} \cdot \vec{x}}
+\]</span></p>
+</div>
+<div id="multiple-regression-estimating-coefficients" class="section level3">
+<h3><span class="header-section-number">11.5.2</span> Multiple regression, estimating coefficients</h3>
+<p>For the multiple regression case:</p>
+<p><span class="math display">\[
+\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}} 
+\]</span></p>
+<p>we can estimate the vector of regression coefficients as:</p>
+<p><span class="math display">\[
+\vec{\mathbf{b}} = (\mathbf{X}^T \mathbf{X})^{-1}\mathbf{X}^T\mathbf{y}
+\]</span>
+Note the similarity between the matrix solution for the multiple regression case and the vector solution for the bivariate case.</p>
+</div>
+</div>
+<div id="residuals" class="section level2">
+<h2><span class="header-section-number">11.6</span> Residuals</h2>
+<p>Residuals are the difference between the observed values of <span class="math inline">\(Y\)</span> and the predicted values, i.e. the “error” term in our model above. You can think of residuals as the proportion of <span class="math inline">\(Y\)</span> unaccounted for by the model.</p>
+<p><span class="math display">\[
+\text{residuals} = \vec{\mathbf{e}} = \vec{\mathbf{y}} - \vec{\widehat{\mathbf{y}}}
+\]</span></p>
+<p>When the linear regression model is appropriate to the data, residuals should be approximately normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of <span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="regression-as-sum-of-squares-decomposition" class="section level2">
+<h2><span class="header-section-number">11.7</span> Regression as sum-of-squares decomposition</h2>
+<p>Regression can be viewed as a decomposition of the sum-of-squared (SS) deviations.</p>
+<p><span class="math display">\[
+SS_\mbox{total} = SS_\mbox{regression} + SS_\mbox{residuals}
+\]</span></p>
+<p>In vector geometric terms this decomposition can be seen as a simple consequence of the Pythagorean theorem:</p>
+<p><span class="math display">\[
+|\vec{\mathbf{y}}|^2 = |\vec{\widehat{\mathbf{y}}}|^2 + |\vec{\mathbf{e}}|^2 \\
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+SS_\mbox{total} = |\vec{\mathbf{y}}|^2 \\
+SS_\mbox{regression} = |\vec{\widehat{\mathbf{y}}}|^2 \\
+SS_\mbox{residuals} = |\vec{\mathbf{e}}|^2 \\
+\end{eqnarray*}
+\]</span></p>
+</div>
+<div id="variance-explained-by-a-regression-model" class="section level2">
+<h2><span class="header-section-number">11.8</span> Variance “explained” by a regression model</h2>
+<p>We can use the sum-of-square decomposition to understand the relative proportion of variance “explained” (accounted for) by the regression model.</p>
+<p>We call this quantity the “Coefficient of Determination”, designated <span class="math inline">\(R^2\)</span>.<br />
+<span class="math display">\[
+R^2 = \left( 1 - \frac{SS_{residuals}}{SS_{total}} \right)
+\]</span></p>
+<p>In vector geometric terms the coefficient of determination can be calculated as:
+<span class="math display">\[
+R^2 = \left(1 - \frac{|\vec{\mathbf{e}}|^2}{|\vec{\mathbf{y}}|^2}\right) = \frac{|\vec{\widehat{\mathbf{y}}}|^2}{|\vec{\mathbf{y}}|^2}
+\]</span></p>
+<p>where the respective vectors are mean centered.</p>
+</div>
+<div id="goodness-of-fit" class="section level2">
+<h2><span class="header-section-number">11.9</span> Goodness of fit</h2>
+<p>The larger the coefficient of determination (maximum 1), the better the fit of the model.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<img src="figures/fig-goodness-fit.png" alt="Vector geometric representations of  bivariate linear least squares regressions with A) good fit; b) bad fit." width="60%" />
+<p class="caption">
+Figure 11.3: Vector geometric representations of bivariate linear least squares regressions with A) good fit; b) bad fit.
+</p>
+</div>
+</div>
+<div id="interpretting-regression" class="section level2">
+<h2><span class="header-section-number">11.10</span> Interpretting Regression</h2>
+<p>Here are some things to keep in mind when interpretting a multple regression:</p>
+<ul>
+<li><p>In most cases of regression, causal interpretation of the model is not justified.</p></li>
+<li><p>Standard linear regression assumes that the predictor variables ( (<span class="math inline">\(X_1, X_2, \ldots\)</span>) are observed without error. That is, uncertainty in the regression model is only associated with the outcome variable, not the predictors. For many biological systems/experiments this is NOT the case.</p></li>
+<li><p>Comparing the relative size of regression coefficients only makes sense if all the predictor (explanatory) variables have the same scale</p></li>
+<li><p>If the explanatory variables (<span class="math inline">\(X_1, X_2,\ldots,X_m\)</span>) are highly correlated, then the regression solution can be “unstable” – a small change in the data could lead to a large change in the regression model.</p></li>
+</ul>
+</div>
+<div id="illustrating-linear-regression-with-simulated-data" class="section level2">
+<h2><span class="header-section-number">11.11</span> Illustrating linear regression with simulated data</h2>
+<p>To illustrate how regression works, we’ll use a simulated data set where we specify the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Using a simulation is desirable because it allows us to know what the “true” underlying model that relates <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is, so we can evaluate how well we do in terms of recovering the model.</p>
+<p>Let’s generate two vectors representing the variable, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, where <span class="math inline">\(Y\)</span> is a function of <span class="math inline">\(X\)</span> plus some independent noise. As specified below, the “true” relationship is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_y\)</span> where <span class="math inline">\(\epsilon_y\)</span> is a noise term.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># this seeds our random number generator</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co"># by setting a seed, we can make random simulation reproducible!</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20190227</span>)  </a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5">npts &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co"># specify coefficients of the simulation</span></a>
+<a class="sourceLine" id="cb1-8" title="8">a &lt;-<span class="st"> </span><span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb1-9" title="9">b &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co"># simulate draws of X with noise</span></a>
+<a class="sourceLine" id="cb1-11" title="11">X &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> npts) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts)</a>
+<a class="sourceLine" id="cb1-12" title="12"></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co"># simulate corresponding Y as a function of X with noise</span></a>
+<a class="sourceLine" id="cb1-14" title="14">Y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b<span class="op">*</span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts, <span class="dt">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = a + bX  + noise</span></a>
+<a class="sourceLine" id="cb1-15" title="15"></a>
+<a class="sourceLine" id="cb1-16" title="16">df.xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y)</a></code></pre></div>
+<p>Having generated some simulated data, let’s visualize it using <code>ggplot</code> and a new library called <code>ggMarginal</code> (install ggMarginal via the standard package installation mechanism). <code>ggMarginal</code> is a package for adding “marginal” plots to a figure.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span></a>
+<a class="sourceLine" id="cb2-3" title="3">                  <span class="co"># install if you don&#39;t already have it</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">ggMarginal</span>(p, <span class="dt">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">bins =</span> <span class="dv">11</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>As shown here, we plot a scatter plot of X and Y, and on the margins of the figure we graphed the respective histogram of X and Y individually. This is a very useful visualization that allows us to see both the univariate and bivariate patterns in the data in one figure.</p>
+</div>
+<div id="calculating-the-regression-model-using-vector-arithmetic" class="section level2">
+<h2><span class="header-section-number">11.12</span> Calculating the regression model using vector arithmetic</h2>
+<p>Fitting the bivariate regression using vector operations is straight foward:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># calculate the mean centered vectors</span></a>
+<a class="sourceLine" id="cb4-2" title="2">X.ctr &lt;-<span class="st"> </span>X <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb4-3" title="3">Y.ctr &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y)</a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co"># estimate coefficients</span></a>
+<a class="sourceLine" id="cb4-6" title="6">b.est &lt;-<span class="st"> </span>(X.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)<span class="op">/</span>(X.ctr <span class="op">%*%</span><span class="st"> </span>X.ctr)</a>
+<a class="sourceLine" id="cb4-7" title="7">a.est &lt;-<span class="st"> </span><span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span>b.est <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co"># I use `drop` here to turn this matrices back to scalar values</span></a>
+<a class="sourceLine" id="cb4-10" title="10">regression &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">intercept =</span> <span class="kw">drop</span>(a.est), <span class="dt">slope =</span> <span class="kw">drop</span>(b.est))</a>
+<a class="sourceLine" id="cb4-11" title="11">regression</a></code></pre></div>
+<pre><code>## $intercept
+## [1] 1.819327
+## 
+## $slope
+## [1] 1.197603</code></pre>
+<div id="calculating-the-predicted-values-and-residuals" class="section level3">
+<h3><span class="header-section-number">11.12.1</span> Calculating the predicted values and residuals</h3>
+<p>Having fit the model, the fitted (predicted) values <span class="math inline">\(\vec{\widehat{\mathbf{y}}}\)</span> and the residuals, <span class="math inline">\(\vec{\mathbf{e}}\)</span> can also be found easily.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">Yhat &lt;-<span class="st"> </span>regression<span class="op">$</span>intercept <span class="op">+</span><span class="st"> </span>regression<span class="op">$</span>slope <span class="op">*</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb6-2" title="2">e &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span>Yhat</a></code></pre></div>
+<p>Let’s create a new data frame that include the observed X and Y values plus the predicted and residual values for easy plotting:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">regression.df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y, <span class="dt">fitted =</span> Yhat, <span class="dt">residuals =</span> e)</a></code></pre></div>
+</div>
+</div>
+<div id="plotting-various-aspects-of-a-regression" class="section level2">
+<h2><span class="header-section-number">11.13</span> Plotting various aspects of a regression</h2>
+<p>Now let’s visualize the observed values of X and Y (in black), as well as the predicted values of Y (in red). For every black point, representing the observed value of X and the corresponding observed value of Y, there is a corresponding red point that shows the observed value of X and the corresponding predicted value of Y from the regression model.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">regr.plot &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(X, fitted), <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
+<a class="sourceLine" id="cb8-5" title="5"></a>
+<a class="sourceLine" id="cb8-6" title="6">regr.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>We can use <code>geom_abline()</code> to add a straight line with a given slope and intercept</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">regr.plot &lt;-</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span>regr.plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
+<a class="sourceLine" id="cb9-4" title="4"></a>
+<a class="sourceLine" id="cb9-5" title="5">regr.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Finally, let’s add some dashed lines to represent the residuals:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">regr.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> fitted),</a>
+<a class="sourceLine" id="cb10-3" title="3">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.35</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>One final plot we can create since we’re using simulated data is to compare the estimated model (in red) to the “true” model (in blue). You won’t generally be able to do this for most biological data.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> b, <span class="dt">intercept =</span> a, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div id="residual-plots" class="section level3">
+<h3><span class="header-section-number">11.13.1</span> Residual plots</h3>
+<p>Another common way to depict the residuals, is to plot the predictor values (the X’s) versus the corresponding residual values, like so:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X, residuals)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)  </a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of X.</p>
+</div>
+</div>
+<div id="calculating-the-coefficient-of-determination" class="section level2">
+<h2><span class="header-section-number">11.14</span> Calculating the coefficient of determination</h2>
+<p>As described previously, the coefficient of determination is the standard measures of goodness of fit of a regression model. This can be calculated easily based on our previous calculations as so:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">Yhat.ctr &lt;-<span class="st"> </span>Yhat <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Yhat)</a>
+<a class="sourceLine" id="cb13-2" title="2">coeff.determination &lt;-<span class="st"> </span><span class="kw">drop</span>(Yhat.ctr <span class="op">%*%</span><span class="st"> </span>Yhat.ctr) <span class="op">/</span><span class="st"> </span><span class="kw">drop</span>(Y.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)</a>
+<a class="sourceLine" id="cb13-3" title="3">coeff.determination</a></code></pre></div>
+<pre><code>## [1] 0.4082507</code></pre>
+<p>Approximately 41% of the variation in <span class="math inline">\(Y\)</span> is “explained” by the regression on X.</p>
 
 </div>
 </div>
@@ -728,8 +710,8 @@ which is equivalent to the matrix form:</p>
           </div>
         </div>
       </div>
-<a href="vector-algebra.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linear-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="matrices-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

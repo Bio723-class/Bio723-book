@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-02-26" />
+<meta name="date" content="2020-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="vector-algebra.html"/>
-<link rel="next" href="linear-regression-models.html"/>
+<link rel="next" href="linear-regression-models-i.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -344,28 +351,57 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
 <li class="chapter" data-level="10.5" data-path="matrices-in-r.html"><a href="matrices-in-r.html#solving-sets-of-simultaneous-equations"><i class="fa fa-check"></i><b>10.5</b> Solving sets of simultaneous equations</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="linear-regression-models.html"><a href="linear-regression-models.html"><i class="fa fa-check"></i><b>11</b> Linear Regression Models</a><ul>
-<li class="chapter" data-level="11.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#linear-functions"><i class="fa fa-check"></i><b>11.1</b> Linear functions</a></li>
-<li class="chapter" data-level="11.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear regression</a></li>
-<li class="chapter" data-level="11.3" data-path="linear-regression-models.html"><a href="linear-regression-models.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.3</b> The optimality criterion for least-squares regression</a></li>
-<li class="chapter" data-level="11.4" data-path="linear-regression-models.html"><a href="linear-regression-models.html#geometry-of-linear-regression"><i class="fa fa-check"></i><b>11.4</b> Geometry of linear regression</a></li>
-<li class="chapter" data-level="11.5" data-path="linear-regression-models.html"><a href="linear-regression-models.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.5</b> Solution for the least-squares criterion</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#bivariate-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.1</b> Bivariate regression, estimating coefficients</a></li>
-<li class="chapter" data-level="11.5.2" data-path="linear-regression-models.html"><a href="linear-regression-models.html#multiple-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.2</b> Multiple regression, estimating coefficients</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html"><i class="fa fa-check"></i><b>11</b> Linear Regression Models I</a><ul>
+<li class="chapter" data-level="11.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-functions"><i class="fa fa-check"></i><b>11.1</b> Linear functions</a></li>
+<li class="chapter" data-level="11.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.3</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.4" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#geometry-of-linear-regression"><i class="fa fa-check"></i><b>11.4</b> Geometry of linear regression</a></li>
+<li class="chapter" data-level="11.5" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.5</b> Solution for the least-squares criterion</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#bivariate-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.1</b> Bivariate regression, estimating coefficients</a></li>
+<li class="chapter" data-level="11.5.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#multiple-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.2</b> Multiple regression, estimating coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="linear-regression-models.html"><a href="linear-regression-models.html#residuals"><i class="fa fa-check"></i><b>11.6</b> Residuals</a></li>
-<li class="chapter" data-level="11.7" data-path="linear-regression-models.html"><a href="linear-regression-models.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.7</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="11.8" data-path="linear-regression-models.html"><a href="linear-regression-models.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.8</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="11.9" data-path="linear-regression-models.html"><a href="linear-regression-models.html#goodness-of-fit"><i class="fa fa-check"></i><b>11.9</b> Goodness of fit</a></li>
-<li class="chapter" data-level="11.10" data-path="linear-regression-models.html"><a href="linear-regression-models.html#interpretting-regression"><i class="fa fa-check"></i><b>11.10</b> Interpretting Regression</a></li>
-<li class="chapter" data-level="11.11" data-path="linear-regression-models.html"><a href="linear-regression-models.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.11</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="11.12" data-path="linear-regression-models.html"><a href="linear-regression-models.html#calculating-the-regression-model-using-vector-arithmetic"><i class="fa fa-check"></i><b>11.12</b> Calculating the regression model using vector arithmetic</a><ul>
-<li class="chapter" data-level="11.12.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#calculating-the-predicted-values-and-residuals"><i class="fa fa-check"></i><b>11.12.1</b> Calculating the predicted values and residuals</a></li>
+<li class="chapter" data-level="11.6" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residuals"><i class="fa fa-check"></i><b>11.6</b> Residuals</a></li>
+<li class="chapter" data-level="11.7" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.7</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.8" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.8</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.9" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#goodness-of-fit"><i class="fa fa-check"></i><b>11.9</b> Goodness of fit</a></li>
+<li class="chapter" data-level="11.10" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#interpretting-regression"><i class="fa fa-check"></i><b>11.10</b> Interpretting Regression</a></li>
+<li class="chapter" data-level="11.11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.11</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.12" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-regression-model-using-vector-arithmetic"><i class="fa fa-check"></i><b>11.12</b> Calculating the regression model using vector arithmetic</a><ul>
+<li class="chapter" data-level="11.12.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-predicted-values-and-residuals"><i class="fa fa-check"></i><b>11.12.1</b> Calculating the predicted values and residuals</a></li>
 </ul></li>
-<li class="chapter" data-level="11.13" data-path="linear-regression-models.html"><a href="linear-regression-models.html#plotting-various-aspects-of-a-regression"><i class="fa fa-check"></i><b>11.13</b> Plotting various aspects of a regression</a><ul>
-<li class="chapter" data-level="11.13.1" data-path="linear-regression-models.html"><a href="linear-regression-models.html#residual-plots"><i class="fa fa-check"></i><b>11.13.1</b> Residual plots</a></li>
+<li class="chapter" data-level="11.13" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#plotting-various-aspects-of-a-regression"><i class="fa fa-check"></i><b>11.13</b> Plotting various aspects of a regression</a><ul>
+<li class="chapter" data-level="11.13.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residual-plots"><i class="fa fa-check"></i><b>11.13.1</b> Residual plots</a></li>
 </ul></li>
-<li class="chapter" data-level="11.14" data-path="linear-regression-models.html"><a href="linear-regression-models.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
+<li class="chapter" data-level="11.14" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models II</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.1</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#standard-libraries"><i class="fa fa-check"></i><b>12.2</b> Standard libraries</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>12.3</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitted-values"><i class="fa fa-check"></i><b>12.3.1</b> Fitted values</a></li>
+<li class="chapter" data-level="12.3.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>12.3.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>12.4</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomtidy"><i class="fa fa-check"></i><b>12.4.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="12.4.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomaugment"><i class="fa fa-check"></i><b>12.4.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="12.4.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomglance"><i class="fa fa-check"></i><b>12.4.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#qq-plots"><i class="fa fa-check"></i><b>12.5</b> qq-plots</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#multiple-regression"><i class="fa fa-check"></i><b>12.6</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.6.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploration-of-the-trees-data-set"><i class="fa fa-check"></i><b>12.6.1</b> Exploration of the trees data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#d-plots"><i class="fa fa-check"></i><b>12.7</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.7.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#scatterplot3d"><i class="fa fa-check"></i><b>12.7.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.7.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#rgl"><i class="fa fa-check"></i><b>12.7.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.8</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.8.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.8.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.9</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.11</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#an-alternate-model"><i class="fa fa-check"></i><b>12.12</b> An alternate model</a></li>
+<li class="chapter" data-level="12.13" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.13</b> Exploring the impact of nearly collinear predictors on regression</a></li>
 </ul></li>
 </ul>
 
@@ -729,7 +765,7 @@ which is equivalent to the matrix form:</p>
         </div>
       </div>
 <a href="vector-algebra.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="linear-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression-models-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

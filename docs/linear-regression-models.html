@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-02-26" />
+<meta name="date" content="2020-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="matrices-in-r.html"/>
-
+<link rel="next" href="fitting-regression-models-in-r.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,13 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -367,6 +374,35 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11.14" data-path="linear-regression-models.html"><a href="linear-regression-models.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>12</b> Fitting Regression Models in R</a><ul>
+<li class="chapter" data-level="12.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.1</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#standard-libraries"><i class="fa fa-check"></i><b>12.2</b> Standard libraries</a></li>
+<li class="chapter" data-level="12.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>12.3</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>12.3.1</b> Fitted values</a></li>
+<li class="chapter" data-level="12.3.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>12.3.2</b> Getting the model coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>12.4</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>12.4.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="12.4.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>12.4.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="12.4.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>12.4.3</b> <code>broom::glance</code></a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#qq-plots"><i class="fa fa-check"></i><b>12.5</b> qq-plots</a></li>
+<li class="chapter" data-level="12.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#multiple-regression"><i class="fa fa-check"></i><b>12.6</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.6.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#exploration-of-the-trees-data-set"><i class="fa fa-check"></i><b>12.6.1</b> Exploration of the trees data set</a></li>
+</ul></li>
+<li class="chapter" data-level="12.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#d-plots"><i class="fa fa-check"></i><b>12.7</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#scatterplot3d"><i class="fa fa-check"></i><b>12.7.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#rgl"><i class="fa fa-check"></i><b>12.7.2</b> rgl</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.8</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.8.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.8.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.9</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.11</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#an-alternate-model"><i class="fa fa-check"></i><b>12.12</b> An alternate model</a></li>
+<li class="chapter" data-level="12.13" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.13</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -492,14 +528,14 @@ In vector terms we are minimizing:</p>
 <div id="geometry-of-linear-regression" class="section level2">
 <h2><span class="header-section-number">11.4</span> Geometry of linear regression</h2>
 <p>The figure below represents the variable space (A) and subject space (B) representations of bivariate linear regression.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
 <img src="figures/fig-regression-geometry.png" alt="Graphical representations of  bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
 <p class="caption">
 Figure 11.1: Graphical representations of bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation
 </p>
 </div>
 <p>Similarly, the next below represents the variable space (A) and subject space (B) representations of multiple regression of a single outcome variable onto two predictor variables.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
 <img src="figures/fig-multi-regression-geometry.png" alt="Graphical representations of  multiple regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
 <p class="caption">
 Figure 11.2: Graphical representations of multiple regression. A) variable space representation; B) subject space (vector) representation
@@ -581,7 +617,7 @@ R^2 = \left(1 - \frac{|\vec{\mathbf{e}}|^2}{|\vec{\mathbf{y}}|^2}\right) = \frac
 <div id="goodness-of-fit" class="section level2">
 <h2><span class="header-section-number">11.9</span> Goodness of fit</h2>
 <p>The larger the coefficient of determination (maximum 1), the better the fit of the model.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-3"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
 <img src="figures/fig-goodness-fit.png" alt="Vector geometric representations of  bivariate linear least squares regressions with A) good fit; b) bad fit." width="60%" />
 <p class="caption">
 Figure 11.3: Vector geometric representations of bivariate linear least squares regressions with A) good fit; b) bad fit.
@@ -602,105 +638,105 @@ Figure 11.3: Vector geometric representations of bivariate linear least squares 
 <h2><span class="header-section-number">11.11</span> Illustrating linear regression with simulated data</h2>
 <p>To illustrate how regression works, we’ll use a simulated data set where we specify the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Using a simulation is desirable because it allows us to know what the “true” underlying model that relates <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is, so we can evaluate how well we do in terms of recovering the model.</p>
 <p>Let’s generate two vectors representing the variable, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, where <span class="math inline">\(Y\)</span> is a function of <span class="math inline">\(X\)</span> plus some independent noise. As specified below, the “true” relationship is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_y\)</span> where <span class="math inline">\(\epsilon_y\)</span> is a noise term.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># this seeds our random number generator</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="co"># by setting a seed, we can make random simulation reproducible!</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20190227</span>)  </a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
-<a class="sourceLine" id="cb1-5" title="5">npts &lt;-<span class="st"> </span><span class="dv">50</span></a>
-<a class="sourceLine" id="cb1-6" title="6"></a>
-<a class="sourceLine" id="cb1-7" title="7"><span class="co"># specify coefficients of the simulation</span></a>
-<a class="sourceLine" id="cb1-8" title="8">a &lt;-<span class="st"> </span><span class="fl">1.0</span></a>
-<a class="sourceLine" id="cb1-9" title="9">b &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
-<a class="sourceLine" id="cb1-10" title="10"><span class="co"># simulate draws of X with noise</span></a>
-<a class="sourceLine" id="cb1-11" title="11">X &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> npts) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts)</a>
-<a class="sourceLine" id="cb1-12" title="12"></a>
-<a class="sourceLine" id="cb1-13" title="13"><span class="co"># simulate corresponding Y as a function of X with noise</span></a>
-<a class="sourceLine" id="cb1-14" title="14">Y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b<span class="op">*</span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts, <span class="dt">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = a + bX  + noise</span></a>
-<a class="sourceLine" id="cb1-15" title="15"></a>
-<a class="sourceLine" id="cb1-16" title="16">df.xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y)</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="co"># this seeds our random number generator</span></a>
+<a class="sourceLine" id="cb349-2" title="2"><span class="co"># by setting a seed, we can make random simulation reproducible!</span></a>
+<a class="sourceLine" id="cb349-3" title="3"><span class="kw">set.seed</span>(<span class="dv">20190227</span>)  </a>
+<a class="sourceLine" id="cb349-4" title="4"></a>
+<a class="sourceLine" id="cb349-5" title="5">npts &lt;-<span class="st"> </span><span class="dv">50</span></a>
+<a class="sourceLine" id="cb349-6" title="6"></a>
+<a class="sourceLine" id="cb349-7" title="7"><span class="co"># specify coefficients of the simulation</span></a>
+<a class="sourceLine" id="cb349-8" title="8">a &lt;-<span class="st"> </span><span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb349-9" title="9">b &lt;-<span class="st"> </span><span class="fl">1.5</span></a>
+<a class="sourceLine" id="cb349-10" title="10"><span class="co"># simulate draws of X with noise</span></a>
+<a class="sourceLine" id="cb349-11" title="11">X &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dt">length.out =</span> npts) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts)</a>
+<a class="sourceLine" id="cb349-12" title="12"></a>
+<a class="sourceLine" id="cb349-13" title="13"><span class="co"># simulate corresponding Y as a function of X with noise</span></a>
+<a class="sourceLine" id="cb349-14" title="14">Y &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b<span class="op">*</span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(npts, <span class="dt">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = a + bX  + noise</span></a>
+<a class="sourceLine" id="cb349-15" title="15"></a>
+<a class="sourceLine" id="cb349-16" title="16">df.xy &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y)</a></code></pre></div>
 <p>Having generated some simulated data, let’s visualize it using <code>ggplot</code> and a new library called <code>ggMarginal</code> (install ggMarginal via the standard package installation mechanism). <code>ggMarginal</code> is a package for adding “marginal” plots to a figure.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="kw">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span></a>
-<a class="sourceLine" id="cb2-3" title="3">                  <span class="co"># install if you don&#39;t already have it</span></a></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">ggMarginal</span>(p, <span class="dt">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">bins =</span> <span class="dv">11</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb350-2" title="2"><span class="kw">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span></a>
+<a class="sourceLine" id="cb350-3" title="3">                  <span class="co"># install if you don&#39;t already have it</span></a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df.xy, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb351-2" title="2"><span class="kw">ggMarginal</span>(p, <span class="dt">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="dt">bins =</span> <span class="dv">11</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-348-1.png" width="576" /></p>
 <p>As shown here, we plot a scatter plot of X and Y, and on the margins of the figure we graphed the respective histogram of X and Y individually. This is a very useful visualization that allows us to see both the univariate and bivariate patterns in the data in one figure.</p>
 </div>
 <div id="calculating-the-regression-model-using-vector-arithmetic" class="section level2">
 <h2><span class="header-section-number">11.12</span> Calculating the regression model using vector arithmetic</h2>
 <p>Fitting the bivariate regression using vector operations is straight foward:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># calculate the mean centered vectors</span></a>
-<a class="sourceLine" id="cb4-2" title="2">X.ctr &lt;-<span class="st"> </span>X <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
-<a class="sourceLine" id="cb4-3" title="3">Y.ctr &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y)</a>
-<a class="sourceLine" id="cb4-4" title="4"></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co"># estimate coefficients</span></a>
-<a class="sourceLine" id="cb4-6" title="6">b.est &lt;-<span class="st"> </span>(X.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)<span class="op">/</span>(X.ctr <span class="op">%*%</span><span class="st"> </span>X.ctr)</a>
-<a class="sourceLine" id="cb4-7" title="7">a.est &lt;-<span class="st"> </span><span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span>b.est <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
-<a class="sourceLine" id="cb4-8" title="8"></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co"># I use `drop` here to turn this matrices back to scalar values</span></a>
-<a class="sourceLine" id="cb4-10" title="10">regression &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">intercept =</span> <span class="kw">drop</span>(a.est), <span class="dt">slope =</span> <span class="kw">drop</span>(b.est))</a>
-<a class="sourceLine" id="cb4-11" title="11">regression</a></code></pre></div>
-<pre><code>## $intercept
-## [1] 1.819327
-## 
-## $slope
-## [1] 1.197603</code></pre>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1"><span class="co"># calculate the mean centered vectors</span></a>
+<a class="sourceLine" id="cb352-2" title="2">X.ctr &lt;-<span class="st"> </span>X <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb352-3" title="3">Y.ctr &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Y)</a>
+<a class="sourceLine" id="cb352-4" title="4"></a>
+<a class="sourceLine" id="cb352-5" title="5"><span class="co"># estimate coefficients</span></a>
+<a class="sourceLine" id="cb352-6" title="6">b.est &lt;-<span class="st"> </span>(X.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)<span class="op">/</span>(X.ctr <span class="op">%*%</span><span class="st"> </span>X.ctr)</a>
+<a class="sourceLine" id="cb352-7" title="7">a.est &lt;-<span class="st"> </span><span class="kw">mean</span>(Y) <span class="op">-</span><span class="st"> </span>b.est <span class="op">*</span><span class="st"> </span><span class="kw">mean</span>(X)</a>
+<a class="sourceLine" id="cb352-8" title="8"></a>
+<a class="sourceLine" id="cb352-9" title="9"><span class="co"># I use `drop` here to turn this matrices back to scalar values</span></a>
+<a class="sourceLine" id="cb352-10" title="10">regression &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">intercept =</span> <span class="kw">drop</span>(a.est), <span class="dt">slope =</span> <span class="kw">drop</span>(b.est))</a>
+<a class="sourceLine" id="cb352-11" title="11">regression</a>
+<a class="sourceLine" id="cb352-12" title="12"><span class="co">## $intercept</span></a>
+<a class="sourceLine" id="cb352-13" title="13"><span class="co">## [1] 1.819327</span></a>
+<a class="sourceLine" id="cb352-14" title="14"><span class="co">## </span></a>
+<a class="sourceLine" id="cb352-15" title="15"><span class="co">## $slope</span></a>
+<a class="sourceLine" id="cb352-16" title="16"><span class="co">## [1] 1.197603</span></a></code></pre></div>
 <div id="calculating-the-predicted-values-and-residuals" class="section level3">
 <h3><span class="header-section-number">11.12.1</span> Calculating the predicted values and residuals</h3>
 <p>Having fit the model, the fitted (predicted) values <span class="math inline">\(\vec{\widehat{\mathbf{y}}}\)</span> and the residuals, <span class="math inline">\(\vec{\mathbf{e}}\)</span> can also be found easily.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">Yhat &lt;-<span class="st"> </span>regression<span class="op">$</span>intercept <span class="op">+</span><span class="st"> </span>regression<span class="op">$</span>slope <span class="op">*</span><span class="st"> </span>X</a>
-<a class="sourceLine" id="cb6-2" title="2">e &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span>Yhat</a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1">Yhat &lt;-<span class="st"> </span>regression<span class="op">$</span>intercept <span class="op">+</span><span class="st"> </span>regression<span class="op">$</span>slope <span class="op">*</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb353-2" title="2">e &lt;-<span class="st"> </span>Y <span class="op">-</span><span class="st"> </span>Yhat</a></code></pre></div>
 <p>Let’s create a new data frame that include the observed X and Y values plus the predicted and residual values for easy plotting:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">regression.df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y, <span class="dt">fitted =</span> Yhat, <span class="dt">residuals =</span> e)</a></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" title="1">regression.df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">X =</span> X, <span class="dt">Y =</span> Y, <span class="dt">fitted =</span> Yhat, <span class="dt">residuals =</span> e)</a></code></pre></div>
 </div>
 </div>
 <div id="plotting-various-aspects-of-a-regression" class="section level2">
 <h2><span class="header-section-number">11.13</span> Plotting various aspects of a regression</h2>
 <p>Now let’s visualize the observed values of X and Y (in black), as well as the predicted values of Y (in red). For every black point, representing the observed value of X and the corresponding observed value of Y, there is a corresponding red point that shows the observed value of X and the corresponding predicted value of Y from the regression model.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">regr.plot &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(X, fitted), <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
-<a class="sourceLine" id="cb8-5" title="5"></a>
-<a class="sourceLine" id="cb8-6" title="6">regr.plot</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1">regr.plot &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb355-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb355-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb355-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(X, fitted), <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
+<a class="sourceLine" id="cb355-5" title="5"></a>
+<a class="sourceLine" id="cb355-6" title="6">regr.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-352-1.png" width="576" /></p>
 <p>We can use <code>geom_abline()</code> to add a straight line with a given slope and intercept</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">regr.plot &lt;-</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span>regr.plot <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
-<a class="sourceLine" id="cb9-4" title="4"></a>
-<a class="sourceLine" id="cb9-5" title="5">regr.plot</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1">regr.plot &lt;-</a>
+<a class="sourceLine" id="cb356-2" title="2"><span class="st">  </span>regr.plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb356-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>)</a>
+<a class="sourceLine" id="cb356-4" title="4"></a>
+<a class="sourceLine" id="cb356-5" title="5">regr.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-353-1.png" width="576" /></p>
 <p>Finally, let’s add some dashed lines to represent the residuals:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">regr.plot <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> fitted),</a>
-<a class="sourceLine" id="cb10-3" title="3">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.35</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1">regr.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb357-2" title="2"><span class="st">    </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">xend =</span> X, <span class="dt">yend =</span> fitted),</a>
+<a class="sourceLine" id="cb357-3" title="3">               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="dt">alpha=</span><span class="fl">0.35</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-354-1.png" width="576" /></p>
 <p>One final plot we can create since we’re using simulated data is to compare the estimated model (in red) to the “true” model (in blue). You won’t generally be able to do this for most biological data.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> b, <span class="dt">intercept =</span> a, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X,Y)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb358-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb358-3" title="3"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> regression<span class="op">$</span>slope, <span class="dt">intercept =</span> regression<span class="op">$</span>intercept, <span class="dt">color=</span><span class="st">&#39;red&#39;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb358-4" title="4"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> b, <span class="dt">intercept =</span> a, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-355-1.png" width="576" /></p>
 <div id="residual-plots" class="section level3">
 <h3><span class="header-section-number">11.13.1</span> Residual plots</h3>
 <p>Another common way to depict the residuals, is to plot the predictor values (the X’s) versus the corresponding residual values, like so:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X, residuals)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)  </a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">ggplot</span>(regression.df, <span class="kw">aes</span>(X, residuals)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb359-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb359-3" title="3"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb359-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;X&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Residuals&quot;</span>)  </a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-356-1.png" width="576" /></p>
 <p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of X.</p>
 </div>
 </div>
 <div id="calculating-the-coefficient-of-determination" class="section level2">
 <h2><span class="header-section-number">11.14</span> Calculating the coefficient of determination</h2>
 <p>As described previously, the coefficient of determination is the standard measures of goodness of fit of a regression model. This can be calculated easily based on our previous calculations as so:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">Yhat.ctr &lt;-<span class="st"> </span>Yhat <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Yhat)</a>
-<a class="sourceLine" id="cb13-2" title="2">coeff.determination &lt;-<span class="st"> </span><span class="kw">drop</span>(Yhat.ctr <span class="op">%*%</span><span class="st"> </span>Yhat.ctr) <span class="op">/</span><span class="st"> </span><span class="kw">drop</span>(Y.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)</a>
-<a class="sourceLine" id="cb13-3" title="3">coeff.determination</a></code></pre></div>
-<pre><code>## [1] 0.4082507</code></pre>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1">Yhat.ctr &lt;-<span class="st"> </span>Yhat <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Yhat)</a>
+<a class="sourceLine" id="cb360-2" title="2">coeff.determination &lt;-<span class="st"> </span><span class="kw">drop</span>(Yhat.ctr <span class="op">%*%</span><span class="st"> </span>Yhat.ctr) <span class="op">/</span><span class="st"> </span><span class="kw">drop</span>(Y.ctr <span class="op">%*%</span><span class="st"> </span>Y.ctr)</a>
+<a class="sourceLine" id="cb360-3" title="3">coeff.determination</a>
+<a class="sourceLine" id="cb360-4" title="4"><span class="co">## [1] 0.4082507</span></a></code></pre></div>
 <p>Approximately 41% of the variation in <span class="math inline">\(Y\)</span> is “explained” by the regression on X.</p>
 
 </div>
@@ -710,8 +746,8 @@ Figure 11.3: Vector geometric representations of bivariate linear least squares 
           </div>
         </div>
       </div>
-<a href="matrices-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="matrices-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="fitting-regression-models-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

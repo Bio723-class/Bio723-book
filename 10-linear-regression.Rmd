@@ -1,5 +1,5 @@
 
-# Linear Regression Models
+# Linear Regression Models I
 
 Statistical models are quantitative statements about how we think variables are related to each other. 
 Linear models are among the simplest statistical models.  In a linear model relating two variables $X$ and $Y$, the general form of the model can be stated as "I assume that $Y$ can be expressed as a linear function of $X$".  The process of *model fitting* is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.

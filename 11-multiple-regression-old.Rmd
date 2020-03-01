@@ -1,217 +1,113 @@
-# Linear Regression Models II
 
-Last week we reviewed the mathematical basis of linear regression, and we saw how to fit bivariate and regression models using vector operations.  This week we'll look at R's built-in tools for fitting regression models and we'll look at a couple of options for producing 3D plots.
+# Multiple Regression
+
+## Review of bivariate regression
+
+Recall the model for bivariate least-squares regression. When we regress $Y$ and $X$ we're looking for a linear function, $f(X)$, for which the following sum-of-squared deviations is minimized:
+
+$$
+\sum_{i=1}^n (y_i - f(x_i))^2
+$$
+
+The general form a linear function of one variable is a line, 
+
+$$
+\widehat{Y} = f(x)  = a + bX
+$$
+
+where $b$ is the slope of the line and $a$ is the intercept.
+
+
+## Multiple regression 
+
+The idea behind multiple regression is almost exactly the same as bivariate regression, except now we try and fit a linear model for $Y$ using multiple explanatory variables, $X_1, X_2,\ldots, X_m$. That is we're looking for a linear function, $f(X_1, X_2,\ldots,X_m)$ that minimizes:
+
+$$
+\sum_{i=1}^n(y_i - f(x_1, x_2,\ldots, x_m))^2
+$$
+
+A linear function of more than one variable is written as:
+
+$$
+\widehat{Y} = f(X_1, X_2,\ldots,X_m) = a + b_1X_1 + b_2X_2 + \cdots + b_mX_m
+$$
+
+Where $a$ is the intercept and $b_1, b_2,\ldots,b_m$ are the **regression coefficients**. 
+
+
+### Variable space interpretation
+
+Geometrically the regression coefficients have the same interpretation as in the bivariate case -- slopes with respect to the corresponding variable.  When there are two predictor variables, the linear regression is geometrically a plane in 3-space, as shown in the figure below.  When there are more than two predictor variables, the regression solution is a hyper-plane.
+
+![Multiple regression, two predictor variables](./figures/fig-regression-variable-space.png)
+
+## Subject space representation
+
+The subject space (vector geometric) representation of multiple regression is shown below:
+
+```{r, fig.align="center", out.width="40%", echo=FALSE, fig.cap = "A vector representation of multiple regression."}
+knitr::include_graphics("./figures/fig-vector-multiple-regression.png")
+```
+
+As was the case for bivariate regression, multiple regression is simply a projection operation.  
+
+
+
+### Coefficient of determination for multiple regression
+
+As in bivariate regression, the coefficient of determination ($R^2$) provides a measure of the proportion of variance in the outcome variable ($Y$) "explained" by the predictor variables ($X_1, X_2, \ldots$).
+
+
+## Interpretting Multiple Regression
+
+Here are some things to keep in mind when interpretting a multple regression:
+
+* In most cases of regression, causal interpretation of the model is not justified.
+
+* Standard bivariate and multiple regression assumes that the predictor variables ( ($X_1, X_2, \ldots$) are observed without error. That is, uncertainty in the regression model is only associated with the outcome variable, not the predictors.
+
+* Comparing the size of regression coefficients only makes sense if all the predictor (explanatory) variables have the same scale
+
+* If the explanatory variables ($X_1, X_2,\ldots,X_m$) are highly correlated, then the regression solution can be "unstable" -- a small change in the data could lead to a large change in the regression model.
+
+
+
 
 ## New Libraries to install
 
 We'll be using several new packages for this class session. Install the following packages via one of the standard install mechanisms:
 
-* `broom`
 * `scatterplot3d`
 * `rgl` -- NOTE: On OS X, `rgl` requires you to install a program called XQuartz. XQuartz can be downloaded from the [XQuartz Home Page](https://www.xquartz.org). If you're on a Mac, install XQuartz before installing `rgl`. You may have to reboot your computer after installing XQuartz.
 
-## Standard libraries
+## Libraries
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
+library(broom)  # for working w/lm output
 ```
 
-
-## Specifying Regression Models in R
-
-As one would expect, R has a built-in function for fitting linear regression models. The function `lm()` can be used to fit bivariate and multiple regression models, as well asanalysis of variance, analysis of covariance, and other linear models.  
-
-We'll start by illustrating bivariate regression with the [lion nose pigmentation data set](https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv) introduced in the in-class assignment last week. Let's load the lion data and remind ourselves of the basic structure:
-
-```{r}
-lions <- read_csv("https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv")
-head(lions)
-```
-
-Recall that our predictor (explanatory) variable is `proportionBlack` and our outcome (response) variable is `ageInYears`. We use the `lm()` function to fit the regression of `proportionBlack` on `ageInYears` as so:
-
-```{r}
-fit.lions <- lm(ageInYears ~ proportionBlack, lions)
-```
-
-The first argument to `lm` is an R "formula", the second argument is a data frame.Formulas are R's way of specifying models, though they find other uses as well (e.g. we saw the formula syntax when we introduced the `facet_wrap` and `facet_grid` functions from ggplot). The general form of a formula in R is `response variable ~ explanatory variables`.  In the code example above, we have only a single explanatory variable, and thus our response variable is `ageInYears` and our explanatory variable is `proportionBlack`.  
-
-The `lm` function returns a list with a number of different components.  The ones of most interest to us are `fitted.values`, `coefficients`, `residuals`, and  (see the `lm` documentation for full details.)
-
-```{r}
-fit.lions
-```
-
-Calling `summary` on a fit model provides more detailed output:
-```{r}
-summary(fit.lions)
-```
-
-The data structure returned by `lm()` is  a list-like object with multiple fields:
-
-```{r}
-typeof(fit.lions)
-```
-
-We can access the names of all the fields associated with the fit object:
-
-```{r}
-names(fit.lions)
-```
-
-
-### Fitted values
-
-The component `fitted.values` gives the predicted values of $Y$ ($\hat{Y}$ in the equations above) for each observed value of $X$.  We can plot these predicted values of $Y$, as shown below. Notice how the predicted values all fall on a line (the regression line itself!)
-
-```{r, fig.align="center", fig.cap="Observed (black) and predicted (red) values in a linear regression of Y on X.  Dashed lines indicate the residuals from the regression."}
-ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
-  geom_point(alpha=0.7) +                           # observed data
-  geom_point(aes(x = proportionBlack, y = fit.lions$fitted.values),  # predicted data
-             color='red', alpha=0.5) +
-  geom_segment(aes(xend = proportionBlack, yend = fit.lions$fitted.values),
-               color='red', linetype='dashed', alpha=0.25)
-  
-```
-
-### Getting the model coefficients
-
-The `coefficients` components gives the value of the model parameters, namely the intercept and slope.
-
-```{r, prompt=TRUE, collapse=TRUE, results='markup'}
-fit.lions$coefficients
-```
-
-Typically these coefficients are given with more precision than we'd want to report. For the purpose of printing, can create character strings with rounded coefficients  using the `sprintf()` function  so:
-
-```{r, echo=FALSE}
-rounded.slope <- sprintf("%.2f", fit.lions$coefficients[[2]])
-rounded.intercept <- sprintf("%.2f", fit.lions$coefficients[[1]])
-```
-
-As shown above, the estimated slope is `r rounded.slope` and the estimated intercept is `r rounded.intercept`.  The model estimated by our linear regression is thus $\widehat{\text{age}} = `r rounded.intercept` + `r rounded.slope`\text{proportion black}$. 
-
-With the slope and intercept in hand we can draw the regression line as so:
-
-```{r}
-ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
-  geom_point(alpha=0.7) +   
-  geom_abline(slope = fit.lions$coefficients[[2]],
-              intercept = fit.lions$coefficients[[1]],
-              color='red', alpha=0.5)
-```
-
-Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, `geom_smooth()`, that will fit a linear model (as well as other models, see below) for us and generate the corresponding regression plot.
-
-```{r}
-ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
-  geom_point(alpha = 0.75) + 
-  geom_smooth(method="lm", color = 'red')
-```
-
-By default, `geom_smooth` draws confidence intervals for the regression model (the shaded gray area around the regression line).  Note that confidence intervals for a linear regression model are wider far away from the mean values of $X$ and $Y$.
-
-
-## Broom: a library for converting model results into data frames
-
-The model fit object we got back when we used the `lm` function to carry out linear regression, carries lots of useful information it isn't a particularly "tidy" way to access the data.  The R package Broom converts "statistical analysis objects from R into tidy data frames, so that they can more easily be combined, reshaped and otherwise processed with tools like 'dplyr', 'tidyr' and 'ggplot2'.  The discussion of Broom below is drawn from the [Introduction to Broom](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
-
-**If you haven't already done so, install the `broom` package before proceeding.**
-
-```{r}
-library(broom)
-```
-
-There are three `broom` functions that are particularly useful for our purposes. They are:
-
-  1. `tidy` -- constructs a data frame that summarizes the model's statistical findings. 
-  1. `augment` -- add columns to the original data that was modeled. This includes predictions, residuals, and cluster assignments.
-  1. `glance` -- construct a concise one-row summary of the model. 
-  
-
-### `broom::tidy`
-
-`tidy` applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values.  For now we're just interested in the estiamtes, the other values will  be described in detail when we get to statistical inference.
-
-```{r}
-tidy(fit.lions)
-```
-
-### `broom::augment`
-
-`augment` creates a data frame that combines the original data with related information from the model fit.
-
-
-```{r}
-lions.augmented <- augment(fit.lions, lions)
-head(lions.augmented)
-```
-
-Now, in addition to the `proportionBlack` and `ageInYears` variables of the original data, we have columns like `.fitted` (value of Y predicted by the model for the corresponding value of X), `.resid` (difference between the actual Y and the predicted value), and a variety of other information for evalulating model uncertainty. 
-
-One thing we can do with this "augmented" data frame is to use it to better visualize and explore the model.  For example, if we wanted to generate a figure highlighting the deviations from the model using vertical lines emanating from the regression line, we could do something like this:
-
-```{r}
-ggplot(lions.augmented, aes(proportionBlack, ageInYears)) + 
-  geom_point() + geom_smooth(method="lm", color="red",se=FALSE) +
-  geom_segment(aes(xend = proportionBlack, yend = .fitted), linetype="dashed")
-```
-
-An another example, we can recreate our residual plot using the augmented data frame as so:
-
-```{r}
-ggplot(lions.augmented, aes(proportionBlack, .resid)) + 
-  geom_point() + 
-  geom_hline(yintercept = 0, color = "red", linetype='dashed') + 
-  labs(y = "Residuals", title = "Residual plot the lions regression model.")
-```
-
-### `broom::glance`
-
-`glance()` provides  summary information about the goodness of fit of the model. Most relevant for our current discussion is the column giving the coefficient of determination (`r.squared`):
-
-```{r}
-glance(fit.lions)
-```
-
-## qq-plots
-
-From our residuals plot of the lions data set, there may be some indication of greater variance of residuals for larger values of the predictor variable.
-
-Let's check how normal the residuals look using a diagnostic plot called a QQ-plot (quantile-quantile plot). A qq-plot is a graphical method for comparing distributions by plotting the respective quantiles against each other.  Typically we plot sample quantiles against theoretical quantiles; for example to compare the sample quantiles to the theoretical expectation of normality.  In the example below  we construct the QQ-plot using "standardized residuals" from the regression which are just z-scores for the residuals.
-
-```{r}
-ggplot(lions.augmented, aes(sample = .std.resid)) + 
-  geom_qq() +
-  geom_qq_line(color="firebrick")
-```
-
-Based on the QQ-plot, the residuals seem to diverge somewhat from a normal distirbution, as there's noticeable curvature in the QQ-plot.  When we test for the normality of the residuals using Shapiro-Wilk's test for normality, we fail to reject the null hypothesis of normality at a significance threshold of $\alpha=0.05$:
-
-```{r}
-shapiro.test(lions.augmented$.resid)
-```
-
-Even though we failed to reject the null hypothesis of normality for the residuals, but the P-value is very close to significance, suggesting some caution in applying the linear model.  
-
-
-## Multiple regression
+## Examplar data
 
 To illustrate multiple regression in R we'll use a built in dataset called `trees`. `trees` consists of measurements of the girth, height, and volume of 31 black cherry trees (`?trees` for more info). 
 
 Let's assume we're lumberjacks, but our permit only allows us to harvest a fixed number of trees.  We get paid by the total volume of wood we harvest, so we're interested in predicting a tree's volume (hard to measure directly) as a function of its girth and height (relatively easy to measure), so we can pick the best trees to harvest.  We'll therefore calculate a multiple regression of volume on height and width.
 
-### Exploration of the trees data set
+## Data exploration
 
 We'll start with some summary tables and diagnostic plots to familiarize ourselves with the data:
 
-```{r}
-head(trees)
+```{r, prompt=FALSE, collapse=TRUE, results='markup'}
+names(trees)
+
+dim(trees)
+
+summary(trees)
 ```
 
 We'll use the `GGally::ggpairs()` function introduced in problem set 01 to create a scatterplot matrix depicting the pairwise relationships between all the variables
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(GGally)
 ggpairs(trees)
 ```
@@ -219,14 +115,13 @@ ggpairs(trees)
 
 As one might expect for morphological measurements related to size, the scatterplot matrix shows that all the variables are positively correlated, and girth and volume have a  particularly strong correlation.
 
-
 ## 3D Plots
 
 ggplot has no built in facilities for 3D scatter plots so we'll use two new packages,  [`scatterplot3D`](https://cran.r-project.org/package=scatterplot3d) and [`rgl`](https://cran.r-project.org/web/packages/rgl/vignettes/rgl.html), to generate 3D visualizations.
 
 ### scatterplot3d
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(scatterplot3d)  # install this package first if needed
 scatterplot3d(trees,
               main = 'Tree Volume as\na function of Girth and Height')
@@ -277,6 +172,7 @@ rglwidget() # only need to include this line if using in a markdown document
 ```
 
 
+
 ## Fitting the regression model
 
 From the 3D scatter plot it looks like we ought to be able to find a plane through the data that fits the scatter fairly well. 
@@ -316,7 +212,7 @@ plot3d(trees$Girth, trees$Height, trees$Volume,
        type = "s", 
        size = 1.5,
        col = "red")
-rgl.planes(b1, b2, c, a, alpha = 0.8, color = "gray")
+rgl.planes(b1, b2, c, a, alpha = 0.9, color = "gray")
 rglwidget()
 ```
 
@@ -413,6 +309,33 @@ ggplot(trees.cuberoot, aes(x = cuberoot.Volume, y = .resid)) +
 ```
 
 As we can see the transformation we applied to the data did seem to make our residuals more uniform across the range of observations. 
+
+## Fitting a curvilinear model using lm()
+
+Above we transformed the volume data in order to fit a straight line relationship between $\sqrt[3]{V}$  and Girth and Hieght. However, we could just as easily have applied a cubic regression to the original variables (remember this is still linear in the coefficients). Since Height didn't add much to additional information, we'll simplify the model to consider only Girth.
+
+```{r, prompt=FALSE, collapse=TRUE, results='markup'}
+fit.curvilinear <- lm(Volume ~ I(Girth^3), data=trees)
+
+broom::tidy(fit.curvilinear)
+
+broom::glance(fit.curvilinear)
+```
+
+Here's how we can visualize the corresponding curvilinear regression using ggplot:
+
+```{r}
+ggplot(trees, aes(x = Girth, y = Volume)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", 
+              formula = y ~ I(x^3),
+              se = FALSE)
+```
+
+
+The `I()` function used above requires a little explanation.  Normally, the R formula syntax (see `?formula`) treats the carat symbol, `^`, as short-hand for factor crossing to the specified degree.  For example, the formula `(a+b+c)^2` would be interpretted as the model with main effects and all second order interaction terms, i.e. `a + b + c + a:b + a:c + b:c` where the colons indicate interactions.  The `I()` function `protects' the object in it's argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth.
+
+
 
 
 ## Exploring the impact of nearly collinear predictors on regression
@@ -540,3 +463,128 @@ vec.angle(fit.Volume.jitter$fitted.values, jitter.trees$Height)
 ```
 
 As these calculation illustrate, the change in the regression plane in the jittered date is much smaller when the dependent variable are not nearly colinear.
+
+## LOESS Models
+
+LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
+modeling technique that fits a curve (or surface) to a set of data using
+a large number of local linear regressions. Local weighted regressions are fit
+at numerous regions across the data range, using a weighting function
+that drops off as you move away from the center of the fitting region
+(hence the "local aspect). LOESS combines the simplicity of least
+squares fitting with the flexibility of non-linear techniques and
+doesn't require the user to specify a functional form ahead of time in
+order to fit the model. It does however require relatively dense
+sampling in order to produce robust fits.
+
+Formally, at each point $x_i$ we estimate the regression coefficients
+$\hat{\beta}_j(x)$ as the values that minimize:
+$$
+\sum_{k=1}^n w_k(x_i)(y_k - \beta_0 - \beta_1 x_k - \ldots - \beta_d x_k^2)^2
+$$
+where $d$ is the degree of the polynomial (usually 1 or 2) and $w_k$
+is a weight function. The most common choice of weighting function is
+called the "tri-cube" function as is defined as: 
+
+\begin{align*}
+w_k(x_i) &= (1-|x_i|^3)^3, \mbox{for}\ |x_i| \lt 1 \\
+     &= 0, \mbox{for}\ |x_i| \geq 1
+\end{align*}
+where $|x_i|$ is the normalized distance (as determined by the span parameter of the LOESS model) of the observation $x_i$ from the focal observation $x_k$.
+
+The primary parameter that a user must decide on when using LOESS is the
+size of the neighborhood function to apply (i.e. over what distance
+should the weight function drop to zero). This is referred to as the
+"span" in the R documentation, or as the parameter $\alpha$ in many of
+the papers that discuss LOESS. The appropriate span can be determined by
+experimentation or, more rigorously by cross-validation.
+
+We’ll illustrate fitting a Loess model using data on Barack Obama’s approval ratings over the period from 2008 to 2001 ([`obama-polls.txt`](https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt)).
+
+```{r, message=FALSE}
+polls <- read_delim('https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt',
+                    delim="\t", trim_ws=TRUE)
+# note that we needed to use "trim_ws" above because there were 
+# some lurking spaces in the fields of that tab delimited data file
+
+head(polls)
+```
+
+Notice that the `Dates` column is not very tidy.  Each "date" is actually a range of dates of the form `Month/DayStart-DayEnd/Year` (e.g. "9/1/09" is September 01, 2009).  Even nastier, some dates are in the form `Month/Day/Year` (only a single day) or `MonthStart/DayStart-MonthEnd/DayEnd/Year` (e.g. "2/26-3/1/11" is February 26,2011 to March 01, 2011) .  Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we're going to use the `tidyr::extract()` function to employ regular expressions (regex) to parse this complicated data field into it's constituent parts.  For more details on regular expression see the [R Regular Expession Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/regex.pdf) and [R for Data Science](https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions).
+
+
+```{r}
+polls <- 
+  polls %>% 
+  
+  # first separate left most and right most fields as month and year respectively
+  tidyr::extract("Dates", c("month", "day.range", "year"), regex="(\\d+)/(.+)/(\\d+$)", convert = TRUE) %>%
+  
+  # now deal with the complicated middle field. For simplicities sake we're just
+  # going to focus on extracting the start day
+  tidyr::extract("day.range", c("day.start", "day.other"), regex = "(\\d+)(.+)", convert = TRUE) %>%
+  
+  # finally convert YY to 20YY
+  mutate(year = 2000 + year) 
+
+head(polls)
+```
+
+For the next steps we'll need the `lubridate` library (install if needed):
+
+```{r}
+library(lubridate)
+
+polls <-
+  polls %>%
+  mutate(date = make_date(year = year, month=month, day = day.start))
+
+head(polls)
+```
+
+```{r}
+polls.plot <-
+  polls %>%
+  ggplot(aes(x = date, y = Approve)) +
+  geom_point(alpha=0.5, pch=1) + 
+  labs(x = "Date", y = "Approval Rating",
+       title = "Barack Obama's Approval Ratings, 2008-2011")
+
+polls.plot
+```
+
+
+We can fit the LOESS as so, and get back the predicted values using the `predict()` function:
+```{r}
+loess.approval <- loess(Approve ~ as.numeric(date), data = polls)
+loess.predicted.values <- predict(loess.approval)
+head(loess.predicted.values)
+```
+
+Usually we'll want to visualize the LOESS regression, which we can conveniently do with `ggplot::geom_smooth` without having to explicitly calculate the LOESS:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE)
+```
+
+Here's the same data fit with a smaller `span` (the paramater that controls the "local neighborhood" size in LOESS):
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1)
+```
+
+The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.
+
+For example, we can zoom in on 2011:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1) + 
+  coord_cartesian(xlim=c(ymd(20110101), ymd(20110901)), ylim=c(35,65)) + 
+  scale_x_date(date_breaks="1 month", date_label="%B") + 
+  labs(title="Barack Obama's Approval Ratings, Jan - Sep 2011")
+```
+
+Increased  approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (https://www.cnbc.com/id/41139968).  The spike apparent in early May coincides with the death of Osama Bin Laden.  You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.

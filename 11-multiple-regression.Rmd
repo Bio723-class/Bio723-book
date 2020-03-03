@@ -42,10 +42,45 @@ The `lm` function returns a list with a number of different components.  The one
 fit.lions
 ```
 
+### Interpretting summary output from lm()
+
 Calling `summary` on a fit model provides more detailed output:
 ```{r}
 summary(fit.lions)
 ```
+
+The `summary()` function provides textual output reporting a number of features of the model fit.  We'll focus on the section labeled coefficients.  For the model we fit above this looks like:
+
+```
+Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       0.8790     0.5688   1.545    0.133    
+proportionBlack  10.6471     1.5095   7.053 7.68e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+The first column of this printed table gives the values of the estimated coefficients. The first coefficient, labeled "(Intercept)" is the intercept of the regression line ($a$ in the formulate $\widehat{Y} = a + bX$) -- here the estimated value is 0.879.  Since our model includes only one predictor variable (proportionBlack) we have only one additional coefficient (b = 10.647). Thus the mathematical equation describing our fit model is $\widehat{\text{age}} = 0.88 + 10.65(\text{proportion pigmented}) $
+
+The second column (`Std. Error`) in the coefficients table gives the standard error of the estimated coefficients (based on assumption of multivariate normality of the data).  
+
+The third column (`t value`) gives a calculated t-value for the null hypothesis that the corresponding coefficient is zero, and the fourth column (`Pr(>|t|)`) is the probability of observing a t-value that large under the null hypothesis that the corresponding has a value of zero (i.e. a p-value).  For the intercept, we see that the p-value is 0.133; thus we don't have strong statistical evidence to reject the null hypothesis that this coefficient is zero. However, for the slope the p-value is < 1e-8.  This is strong evidence on which to reject the null hypothesis of a zero coefficient (a zero slope would imply that)
+
+## Quick bivariate regression plots in ggplot
+
+Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, `geom_smooth()`, that will fit a linear model (as well as other models, as we'll see in future lection) for us and generate the corresponding regression plot. We can create this by specifying `method="lm"` as the argument to `geom_smooth()`:
+
+```{r}
+ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
+  geom_point(alpha = 0.75) + 
+  geom_smooth(method="lm", color = 'red', fullrange=TRUE) + 
+  xlim(0,1)
+```
+
+By default, `geom_smooth` draws 95% confidence intervals for the regression model (the shaded gray area around the regression line).  These confidence intervals reflect the uncertainty in the estimates of the slope and intercept, as reflected by the standard error of the coefficients discussed above. Note that confidence intervals for a linear regression model are wider far away from the mean values of $X$ and $Y$.
+
+## More about the data structure returned by `lm()`
+
 
 The data structure returned by `lm()` is  a list-like object with multiple fields:
 
@@ -76,7 +111,7 @@ ggplot(lions, aes(x = proportionBlack, y = ageInYears)) +
 
 ### Getting the model coefficients
 
-The `coefficients` components gives the value of the model parameters, namely the intercept and slope.
+The `coefficients` components gives the value of the model parameters, namely the intercept and slope. These are the same values reported by the `summary()` function described above:
 
 ```{r, prompt=TRUE, collapse=TRUE, results='markup'}
 fit.lions$coefficients
@@ -91,30 +126,10 @@ rounded.intercept <- sprintf("%.2f", fit.lions$coefficients[[1]])
 
 As shown above, the estimated slope is `r rounded.slope` and the estimated intercept is `r rounded.intercept`.  The model estimated by our linear regression is thus $\widehat{\text{age}} = `r rounded.intercept` + `r rounded.slope`\text{proportion black}$. 
 
-With the slope and intercept in hand we can draw the regression line as so:
-
-```{r}
-ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
-  geom_point(alpha=0.7) +   
-  geom_abline(slope = fit.lions$coefficients[[2]],
-              intercept = fit.lions$coefficients[[1]],
-              color='red', alpha=0.5)
-```
-
-Since linear model fitting is a fairly common task, the ggplot library includes a geometric mapping, `geom_smooth()`, that will fit a linear model (as well as other models, see below) for us and generate the corresponding regression plot.
-
-```{r}
-ggplot(lions, aes(x = proportionBlack, y = ageInYears)) + 
-  geom_point(alpha = 0.75) + 
-  geom_smooth(method="lm", color = 'red')
-```
-
-By default, `geom_smooth` draws confidence intervals for the regression model (the shaded gray area around the regression line).  Note that confidence intervals for a linear regression model are wider far away from the mean values of $X$ and $Y$.
-
 
 ## Broom: a library for converting model results into data frames
 
-The model fit object we got back when we used the `lm` function to carry out linear regression, carries lots of useful information it isn't a particularly "tidy" way to access the data.  The R package Broom converts "statistical analysis objects from R into tidy data frames, so that they can more easily be combined, reshaped and otherwise processed with tools like 'dplyr', 'tidyr' and 'ggplot2'.  The discussion of Broom below is drawn from the [Introduction to Broom](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
+The data structure we got back when we used the `lm` function to carry out linear regression, carries lots of useful information it isn't a particularly "tidy" way to access the data.  The R package Broom converts "statistical analysis objects from R into tidy data frames, so that they can more easily be combined, reshaped and otherwise processed with tools like 'dplyr', 'tidyr' and 'ggplot2'.  The discussion of Broom below is drawn from the [Introduction to Broom](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
 
 **If you haven't already done so, install the `broom` package before proceeding.**
 
@@ -131,7 +146,7 @@ There are three `broom` functions that are particularly useful for our purposes.
 
 ### `broom::tidy`
 
-`tidy` applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values.  For now we're just interested in the estiamtes, the other values will  be described in detail when we get to statistical inference.
+`tidy` applied to a regression model object returns a table giving the estimated coefficients and other information about the uncertainty of those estimates and corresponding p-values.  This mirrors the table of coefficients that apply `summary()` provided to us, but instead of just printing this information we get it in the form of a data frame that we can do further computations on. 
 
 ```{r}
 tidy(fit.lions)
@@ -157,7 +172,7 @@ ggplot(lions.augmented, aes(proportionBlack, ageInYears)) +
   geom_segment(aes(xend = proportionBlack, yend = .fitted), linetype="dashed")
 ```
 
-An another example, we can recreate our residual plot using the augmented data frame as so:
+An another example, we can quickly create a residual plot using the augmented data frame as so:
 
 ```{r}
 ggplot(lions.augmented, aes(proportionBlack, .resid)) + 
@@ -284,11 +299,14 @@ From the 3D scatter plot it looks like we ought to be able to find a plane throu
 Let's use the `lm()` function to calculate the multiple regression and `summary()` to get the details of the model:
 
 
-```{r, prompt=FALSE, collapse=TRUE, results='markup'}
+```{r}
 fit.trees <- lm(Volume ~ Girth + Height, data=trees)
 
 summary(fit.trees)
 ```
+
+
+
 
 ### Visualizing the regression model in scatterplot3d
 
@@ -329,14 +347,6 @@ The regression equation is: $\hat{y}$ = `r l$coefficients[[1]]` + `r l$coefficie
 
 ## Exploring the Vector Geometry of the Regression Model
 
-The object returned by the `lm()` function hold lots of useful information:
-
-```{r, prompt=FALSE, collapse=TRUE, results='markup'}
-names(fit.trees)
-```
-
-The `fitted.values` correspond to the predicted values of the outcome variable ($\hat{y}$).  Alternate we can get this information in useful table form using functions from the `broom` library:
-
 Recall the `broom:tidy` produces a tabular summary of the  coefficients of the model and their associated statistics:
 
 ```{r, prompt=FALSE, collapse=TRUE, results='markup'}
@@ -369,6 +379,8 @@ acos(cor(trees$Girth, trees$Height)) * (180/pi)
 acos(cor(trees$Girth, fit.trees$fitted.values)) * (180/pi)
 acos(cor(trees$Height, fit.trees$fitted.values)) * (180/pi)
 ```
+
+Notice that $\text{Girth}$ is very highly correlated with the $\widehat{\text{Volume}}$ and hence the angle between these two vectors is very small (about 6.6 degrees).  By contrast, $\text{Height}$ is only moderately correlated with $\widehat{\text{Volume}}$  and the angle between them is significantly larger (about 52 degrees).  
 
 
 ## Exploring the Residuals from the Model Fit

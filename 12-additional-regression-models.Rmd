@@ -1,0 +1,374 @@
+# More regression models
+
+## Curvilinear regression
+
+In the previous chapter we used the built-in `trees` data set, which consists of measurements of the girth, height, and volume of 31 black cherry trees, to illustrate the fitting of multiple regression models.
+
+After exploring the data set and examining residuals from the model fit we realized that: 
+
+  a) the residual from the linear model suggested a straight line relationship might not be appropriate so we transformed the volume data in order to fit a straight line relationship between $\sqrt[3]{V}$  and Girth and Height.
+
+  a) A model based on Girth as the only predictor variable is almost as good as one involving both Girth and Height.
+  
+Here we illustrate how to fit a cubic regression to the model `Volume ~ Girth`. Remember that a cubic regression is still a form of linear regression, as it's in the coefficients.
+
+```{r, prompt=FALSE, collapse=TRUE, results='markup'}
+fit.curvilinear <- lm(Volume ~ I(Girth^3), data=trees)
+
+broom::tidy(fit.curvilinear)
+
+broom::glance(fit.curvilinear)
+```
+
+Here's how we can visualize the corresponding curvilinear regression using ggplot:
+
+```{r}
+ggplot(trees, aes(x = Girth, y = Volume)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", 
+              formula = y ~ I(x^3),
+              se = FALSE)
+```
+
+
+The `I()` function used above requires a little explanation.  Normally, the R formula syntax (see `?formula`) treats the carat symbol, `^`, as short-hand for factor crossing to the specified degree.  For example, the formula `(a+b+c)^2` would be interpretted as the model with main effects and all second order interaction terms, i.e. `a + b + c + a:b + a:c + b:c` where the colons indicate interactions.  The `I()` function `protects' the object in it's argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth.
+
+
+## LOESS regression
+
+
+LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
+modeling technique that fits a curve (or surface) to a set of data using
+a large number of local linear regressions. Local weighted regressions are fit
+at numerous regions across the data range, using a weighting function
+that drops off as you move away from the center of the fitting region
+(hence the "local aspect). LOESS combines the simplicity of least
+squares fitting with the flexibility of non-linear techniques and
+doesn't require the user to specify a functional form ahead of time in
+order to fit the model. It does however require relatively dense
+sampling in order to produce robust fits.
+
+Formally, at each point $x_i$ we estimate the regression coefficients
+$\hat{\beta}_j(x)$ as the values that minimize:
+$$
+\sum_{k=1}^n w_k(x_i)(y_k - \beta_0 - \beta_1 x_k - \ldots - \beta_d x_k^2)^2
+$$
+where $d$ is the degree of the polynomial (usually 1 or 2) and $w_k$
+is a weight function. The most common choice of weighting function is
+called the "tri-cube" function as is defined as: 
+
+\begin{align*}
+w_k(x_i) &= (1-|x_i|^3)^3, \mbox{for}\ |x_i| \lt 1 \\
+     &= 0, \mbox{for}\ |x_i| \geq 1
+\end{align*}
+where $|x_i|$ is the normalized distance (as determined by the span parameter of the LOESS model) of the observation $x_i$ from the focal observation $x_k$.
+
+The primary parameter that a user must decide on when using LOESS is the
+size of the neighborhood function to apply (i.e. over what distance
+should the weight function drop to zero). This is referred to as the
+"span" in the R documentation, or as the parameter $\alpha$ in many of
+the papers that discuss LOESS. The appropriate span can be determined by
+experimentation or, more rigorously by cross-validation.
+
+We’ll illustrate fitting a Loess model using data on Barack Obama’s approval ratings over the period from 2008 to 2001 ([`obama-polls.txt`](https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt)).
+
+```{r, message=FALSE}
+polls <- read_delim('https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt',
+                    delim="\t", trim_ws=TRUE)
+# note that we needed to use "trim_ws" above because there were 
+# some lurking spaces in the fields of that tab delimited data file
+
+head(polls)
+```
+
+Notice that the `Dates` column is not very tidy.  Each "date" is actually a range of dates of the form `Month/DayStart-DayEnd/Year` (e.g. "9/1/09" is September 01, 2009).  Even nastier, some dates are in the form `Month/Day/Year` (only a single day) or `MonthStart/DayStart-MonthEnd/DayEnd/Year` (e.g. "2/26-3/1/11" is February 26,2011 to March 01, 2011) .  Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we're going to use the `tidyr::extract()` function to employ regular expressions (regex) to parse this complicated data field into it's constituent parts.  For more details on regular expression see the [R Regular Expession Cheat Sheet](https://github.com/rstudio/cheatsheets/raw/master/regex.pdf) and [R for Data Science](https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions).
+
+
+```{r}
+polls <- 
+  polls %>% 
+  
+  # first separate left most and right most fields as month and year respectively
+  tidyr::extract("Dates", c("month", "day.range", "year"), regex="(\\d+)/(.+)/(\\d+$)", convert = TRUE) %>%
+  
+  # now deal with the complicated middle field. For simplicities sake we're just
+  # going to focus on extracting the start day
+  tidyr::extract("day.range", c("day.start", "day.other"), regex = "(\\d+)(.+)", convert = TRUE) %>%
+  
+  # finally convert YY to 20YY
+  mutate(year = 2000 + year) 
+
+head(polls)
+```
+
+For the next steps we'll need the `lubridate` library (install if needed):
+
+```{r}
+library(lubridate)
+
+polls <-
+  polls %>%
+  mutate(date = make_date(year = year, month=month, day = day.start))
+
+head(polls)
+```
+
+```{r}
+polls.plot <-
+  polls %>%
+  ggplot(aes(x = date, y = Approve)) +
+  geom_point(alpha=0.5, pch=1) + 
+  labs(x = "Date", y = "Approval Rating",
+       title = "Barack Obama's Approval Ratings, 2008-2011")
+
+polls.plot
+```
+
+
+We can fit the LOESS as so, and get back the predicted values using the `predict()` function:
+```{r}
+loess.approval <- loess(Approve ~ as.numeric(date), data = polls)
+loess.predicted.values <- predict(loess.approval)
+head(loess.predicted.values)
+```
+
+Usually we'll want to visualize the LOESS regression, which we can conveniently do with `ggplot::geom_smooth` without having to explicitly calculate the LOESS:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE)
+```
+
+Here's the same data fit with a smaller `span` (the paramater that controls the "local neighborhood" size in LOESS):
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1)
+```
+
+The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.
+
+For example, we can zoom in on 2011:
+
+```{r}
+polls.plot +
+  geom_smooth(color='red', method="loess", se=FALSE, span=0.1) + 
+  coord_cartesian(xlim=c(ymd(20110101), ymd(20110901)), ylim=c(35,65)) + 
+  scale_x_date(date_breaks="1 month", date_label="%B") + 
+  labs(title="Barack Obama's Approval Ratings, Jan - Sep 2011")
+```
+
+Increased  approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (https://www.cnbc.com/id/41139968).  The spike apparent in early May coincides with the death of Osama Bin Laden.  You might take a look at major policitcal events in other years to see if you can identify drivers behind other approval rating shifts.
+
+
+## Logistic regression
+
+Logistic regression is used when the dependent variable is discrete (often binary).  The explanatory variables may be either continuous or discrete.
+
+Examples:
+
+ * Whether a gene is turned off (=0) or on (=1) as a function of levels of various proteins
+ * Whether an individual is healthy (=0) or diseased (=1) as a function of various risk factors.
+ * Whether an individual died (=0) or survived (=1) some selective event as a function of behavior, morphology, etc.
+ 
+We model the binary response variable, $Y$,  as a function of the predictor variables, $X_1$, $X_2$, etc as :
+
+\[
+P(Y = 1|X_1,\ldots,X_p) = f(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p)
+\]
+
+So we're modeling the *probability of the state of Y as a function of a linear combination of the predictor variables*.
+
+For logistic regression, $f$ is the logistic function:
+\[
+f(z) = \frac{e^z}{1+e^z} = \frac{1}{1 + e^{-z}}
+\]
+
+Therefore, the bivariate logistic regression is given by:
+\[
+P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
+\]
+
+Note that $\beta_0$ here is akin to the intercept in our standard linear regression.
+
+### A web app to explore the logistic regression equation
+
+To help you develop an intuition for the logistic regression equation, I've developed [a small web app](https://magwenelab.shinyapps.io/exploring_logistic_regression/), that allows you to explore how the shape of the regression curve responds to changes in the regression coefficients $\beta_0$ and $\beta_1$. Open the app in another browser window and play with the sliders that control the coeffients $B_0$ and $B_1$. In the assignment associated with today's class you'll be asked to answer some specific questions based on this app.
+
+### Titanic data set
+
+[`titanic.csv`](http://bit.ly/bio304-titanic-data) contains information about passengers on the Titanic.  Variables in this data set include information such as sex, age, passenger class (1st, 2nd, 3rd), and whether or not they survived the sinking of the ship (0 = died, 1 = survived).
+
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(broom)
+library(cowplot)
+library(ggthemes)
+```
+
+```{r, message=FALSE}
+titanic <- read_csv("http://bit.ly/bio304-titanic-data")
+names(titanic)
+```
+
+### Subsetting the data
+
+We've all heard the phrase, "Women and children first", so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age.  Let's create separate data subsets for male and female passengers.
+
+```{r}
+male <- filter(titanic, sex == "male")
+female <- filter(titanic, sex == "female")
+```
+
+### Visualizing survival as a function of age
+
+Let's create visualizations of survival as a function of age for the male and female passengers.
+
+```{r, fig.width = 9, fig.height = 3, warning=FALSE}
+fcolor = "lightcoral"
+mcolor = "lightsteelblue"
+
+female.plot <- ggplot(female, aes(x = age, y = survived)) + 
+  geom_jitter(width = 0, height = 0.05, color = fcolor) +
+  labs(title = "Female Passengers")
+
+male.plot <- ggplot(male, aes(x = age, y = survived)) + 
+  geom_jitter(width = 0, height = 0.05, color = mcolor) + 
+  labs(title = "Male Passengers")
+
+plot_grid(female.plot, male.plot)
+```
+
+The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.
+
+
+### Fitting the logistic regression model
+
+The function `glm` (generalized linear model) can be used to fit the logistic regression model (as well as other models). Setting the argument `family = binomial` gives us logistic regression. Note that when fitting the model the dependent variable needs to be numeric, so if the data is provided as Boolean (logical) TRUE/FALSE values, they should be converted to integers using `as.numeric()`.
+
+First we fit the regression for the famale passengers.
+
+```{r}
+fit.female <- glm(survived ~ age, family = binomial, female)
+tidy(fit.female)
+```
+
+The column "estimate" gives the coefficients of the model.  The "intercept"" estimate corresponds to $B_0$ in the logistic regression equation, the "age" estimate corresponds to the coefficient $B_1$ in the equation.
+
+Now we repeat the same step for the male passengers.
+
+```{r}
+fit.male <- glm(survived ~ age, family = binomial, male)
+tidy(fit.male)
+```
+
+Notice that the female coefficients are both positive, while the male coefficients are negative. We'll visualize what this means in terms of the model below.
+
+
+
+### Visualizing the logistic regression
+
+To visualize the logistic regression fit, we first use the `predict` function to generate the model predictions about probability of survival as a function of age.
+
+
+```{r}
+ages <- seq(0, 75, 1) # predict survival for ages 0 to 75
+
+predicted.female <- predict(fit.female, 
+                            newdata = data.frame(age = ages),
+                            type = "response")
+
+predicted.male <- predict(fit.male,
+                          newdata = data.frame(age = ages),
+                          type = "response")
+                            
+```
+
+Having generated the predicted probabilities of survival we can then add these prediction lines to our previous plot using `geom_line`.
+
+```{r, fig.width = 9, fig.height = 3, warning=FALSE}
+female.logistic.plot <- female.plot + 
+  geom_line(data = data.frame(age = ages, survived = predicted.female),
+            color = fcolor, size = 1)
+
+male.logistic.plot <- male.plot + 
+  geom_line(data = data.frame(age = ages, survived = predicted.male),
+            color = mcolor, size = 1)
+
+plot_grid(female.logistic.plot, male.logistic.plot)
+```
+
+We see that for the female passengers, the logistic regression predicts that the probability of survival *increases* with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age.  For the male passengers, the data is consistent with  "children first"; for female passengers this model doesn't seem to hold.  However, there are other factors to consider as we'll see below.
+
+
+### Quick and easy visualization
+
+Here's an alternative "quick and easy" way to generate the plot above using the awesome power of ggplot.  The downside of this approach is we don't generate the detailed information on the model, which is something you'd certainly want to have in any real analysis.
+
+```{r, fig.width = 9, fig.height = 3.5, warning=FALSE}
+ggplot(titanic, aes(x=age, y=survived, color=sex)) + 
+  geom_jitter(width = 0, height = 0.05) +
+  geom_smooth(method="glm",  method.args = list(family="binomial"))  + 
+  labs(x = "Age", y = "P(Survival)") +
+  facet_wrap(~ sex) +
+  scale_color_manual(values = c(fcolor, mcolor))
+```
+
+### Impact of sex and passenger class on the models
+
+In our previous analysis we considered the relationship between survival and age, conditioned (facted) on passenger sex.  In a complex data set like this one, it is often useful to condition on multiple variables simultaneously.  Lets extend our visualization to look at the regression faceted on both class and sex, using `facet_grid`:
+
+```{r, fig.width = 9, fig.height = 7, warning=FALSE}
+ggplot(titanic, aes(x=age, y=survived, color=sex)) + 
+  geom_jitter(width = 0, height = 0.05) +
+  geom_smooth(method="glm",  method.args = list(family="binomial"))  + 
+  labs(x = "Age", y = "P(Survival)") +  
+  facet_grid(pclass ~ sex) +
+  scale_color_manual(values = c(fcolor, mcolor)) + 
+  theme_few()
+```
+
+Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival.  Almost all first class female passengers survived, regardless of age.  For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age.  The negative relationship between age and survival is stronger still for third class females.  Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.
+
+
+
+
+### Fitting multiple models based on groupings use `dplyr::do`
+
+In the figure above we used `ggplot` and `facet_grid` to visualize logistic regression of survival on age, conditioned on both sex and class.  What if we wanted to calculate the terms of the logistic regressions for each combination of these two categorical variables?  There are three passenger classes and two sexes, meaning we'd have to create six data subsets and fit the model six times if we used the same approach we used previously.   Luckily, `dplyr` provides a powerful function called `do()` that allows us to carry out arbitrary computations on grouped data. 
+
+There are two ways to use `do()`. The first way is to give the expressions you evaluate in `do()` a name, in which case `do()` will store the results in a column.  The second way to use `do()` is for the expression to return a data frame.
+
+In this first example, the model fits are stored in the `fits` column. When using `do()` you can refer to the groupings using a period (`.`):
+
+```{r}
+grouped.models <-
+  titanic %>%
+  group_by(sex, pclass) %>%
+  do(fits = glm(survived ~ age, family = binomial, data = .))
+
+grouped.models
+```
+
+Notice that the "fits" column doesn't explicitly print out the details of the model.  The object returned by `glm()` can't be simply represented as text string (it's a list), so we seea place holder string that tells us that there is data here represented a glm object.  However, we can access the the columns with the fits just like any other variable:
+
+
+```{r}
+# get the summary of the second logistic regression (Female, 2nd Class) 
+tidy(grouped.models$fits[[2]])
+```
+
+
+Now we illustrate the second approach to using `do()`. When no name is provided, `do()` expects its expression to return a dataframe. Here we use the `broom::tidy()` function to get the key results of each fit model into a data frame:
+
+
+```{r}
+titanic %>%
+  group_by(sex, pclass) %>%
+  do(tidy(glm(survived ~ age, family = binomial, data = .)))
+```
+
+Using this approach we get a nice data frame showing the logistic regression coefficients, and associated statistics (standard error, P-values, etc) for the regression of survival on age, for each combination of sex and class.
+
+

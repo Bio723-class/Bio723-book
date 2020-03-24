@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-03-02" />
+<meta name="date" content="2020-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="linear-regression-models-i.html"/>
-
+<link rel="next" href="more-regression-models.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -406,6 +406,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.13" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
 <li class="chapter" data-level="12.14" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
 <li class="chapter" data-level="12.15" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.15</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="more-regression-models.html"><a href="more-regression-models.html"><i class="fa fa-check"></i><b>13</b> More regression models</a><ul>
+<li class="chapter" data-level="13.1" data-path="more-regression-models.html"><a href="more-regression-models.html#curvilinear-regression"><i class="fa fa-check"></i><b>13.1</b> Curvilinear regression</a></li>
+<li class="chapter" data-level="13.2" data-path="more-regression-models.html"><a href="more-regression-models.html#loess-regression"><i class="fa fa-check"></i><b>13.2</b> LOESS regression</a></li>
+<li class="chapter" data-level="13.3" data-path="more-regression-models.html"><a href="more-regression-models.html#logistic-regression"><i class="fa fa-check"></i><b>13.3</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="more-regression-models.html"><a href="more-regression-models.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.3.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="more-regression-models.html"><a href="more-regression-models.html#titanic-data-set"><i class="fa fa-check"></i><b>13.3.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3.3" data-path="more-regression-models.html"><a href="more-regression-models.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.3.4" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.3.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.3.5" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.3.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.3.6</b> Visualizing the logistic regression</a></li>
+<li class="chapter" data-level="13.3.7" data-path="more-regression-models.html"><a href="more-regression-models.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.3.7</b> Quick and easy visualization</a></li>
+<li class="chapter" data-level="13.3.8" data-path="more-regression-models.html"><a href="more-regression-models.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.3.8</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.3.9" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.3.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -976,8 +991,8 @@ Figure 12.1: Observed (black) and predicted (red) values in a linear regression 
           </div>
         </div>
       </div>
-<a href="linear-regression-models-i.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="linear-regression-models-i.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="more-regression-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

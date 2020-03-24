@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 13 More regression models | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
   <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 13 More regression models | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Getting Started with R | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 13 More regression models | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="r-markdown-and-r-notebooks.html"/>
+<link rel="prev" href="linear-regression-models-ii.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -439,349 +439,346 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="getting-started-with-r" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Getting Started with R</h1>
-<div id="what-is-r" class="section level2">
-<h2><span class="header-section-number">2.1</span> What is R?</h2>
-<p>R is a statistical computing environment and programming language. It is free, open source, and has a large and active community of developers and users. There are many different R packages (libraries) available for conducting out a wide variety of different analyses, for everything from genome sequence data to geospatial information.</p>
-</div>
-<div id="what-is-rstudio" class="section level2">
-<h2><span class="header-section-number">2.2</span> What is RStudio?</h2>
-<p>RStudio (<a href="http://www.rstudio.com/" class="uri">http://www.rstudio.com/</a>) is an open source integrated development environment (IDE) that provides a nicer graphical interface to R than does the default R GUI.</p>
-<p>The figure below illustrates the RStudio interface, in it’s default configuration. For the exercises below you’ll be primarily entering commands in the “console” window. We’ll review key parts of the RStudio interface in greater detail in class.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
-<img src="figures/fig-rstudio-panes-labeled.png" alt="RStudio window with the panes labeled" width="600px" />
-<p class="caption">
-Figure 2.1: RStudio window with the panes labeled
-</p>
-</div>
-</div>
-<div id="entering-commands-in-the-console" class="section level2">
-<h2><span class="header-section-number">2.3</span> Entering commands in the console</h2>
-<p>You can type commands directly in the console. When you hit Return (Enter) on your keyboard the text you typed is evaluated by the R interpreter. This means that the R program reads your commands, makes sure there are no syntax errors, and then carries out any commands that were specified.</p>
-<p>Try evaluating the following arithmetic commands in the console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
-<p>If you type an incomplete command and then hit Return on your keyboard, the console will show a continuation line marked by a <code>+</code> symbol. For example enter the incomplete statement <code>(10 + 5</code> and then hit Enter. You should see something like this.</p>
-<pre><code>&gt; (10 + 5
-+</code></pre>
-<p>The continuation line tells you that R is waiting for additional input before it evaluates what you typed. Either complete your command (e.g. type the closing parenthesis) and hit Return, or hit the “Esc” key to exit the continuation line without evaluating what you typed.</p>
-</div>
-<div id="comments" class="section level2">
-<h2><span class="header-section-number">2.4</span> Comments</h2>
-<p>When working in the R console, or writing R code, the pound symbol (<code>#</code>) indicates the start of a comment. Anything after the <code>#</code>, up to the end of the current line, is ignored by the R interpretter.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># This line will be ignored</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="co"># the first part of this line, up to the #, will be evaluated</span></a></code></pre></div>
-<p>Throughout this course I will often include short explanatory comments in my code examples.</p>
-<p>When I want to display the output generated by an R statement typed at the console I will generally use a display convention in which I prepend the results with the symbols <code>##</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">4</span>  <span class="co"># same as above but with output displayed</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">## [1] 9</span></a></code></pre></div>
-</div>
-<div id="using-r-as-a-calculator" class="section level2">
-<h2><span class="header-section-number">2.5</span> Using R as a Calculator</h2>
-<p>The simplest way to use R is as a fancy calculator. Evaluate each of the following statements in the console.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="co"># addition</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="dv">10</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="co"># subtraction</span></a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span> <span class="co"># multiplication</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="dv">10</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co"># division</span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="dv">10</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span> <span class="co"># exponentiation</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="dv">10</span> <span class="op">**</span><span class="st"> </span><span class="dv">2</span> <span class="co"># alternate exponentiation</span></a>
-<a class="sourceLine" id="cb5-7" title="7">pi <span class="op">*</span><span class="st"> </span><span class="fl">2.5</span><span class="op">^</span><span class="dv">2</span> <span class="co"># R knows about some constants such as Pi</span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="dv">10</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># modulus operator -- gives remainder after division</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="dv">10</span> <span class="op">%/%</span><span class="st"> </span><span class="dv">3</span> <span class="co"># integer division</span></a></code></pre></div>
-<p>Be aware that certain operators have precedence over others. For example multiplication and division have higher precedence than addition and subtraction. Use parentheses to disambiguate potentially confusing statements.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span><span class="dv">4-5</span>   <span class="co"># was the output what you expected?</span></a>
-<a class="sourceLine" id="cb6-2" title="2">(<span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">4-5</span>) <span class="co"># compare the answer to the above</span></a></code></pre></div>
-<p>Division by zero produces an object that represents infinite numbers. Infinite values can be either positive or negative</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span> </a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="co">## [1] Inf</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="dv">-1</span><span class="op">/</span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="co">## [1] -Inf</span></a></code></pre></div>
-<p>Invalid calculations produce a objected called <code>NaN</code> which is short for “Not a Number”:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span>  <span class="co"># invalid calculation</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="co">## [1] NaN</span></a></code></pre></div>
-<div id="common-mathematical-functions" class="section level3">
-<h3><span class="header-section-number">2.5.1</span> Common mathematical functions</h3>
-<p>Many commonly used mathematical functions are built into R. Here are some examples:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">abs</span>(<span class="op">-</span><span class="dv">3</span>)   <span class="co"># absolute value</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="kw">cos</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># cosine</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">## [1] 0.5</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="kw">sin</span>(pi<span class="op">/</span><span class="dv">3</span>) <span class="co"># sine</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">## [1] 0.8660254</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="kw">log</span>(<span class="dv">10</span>)   <span class="co"># natural logarithm</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">## [1] 2.302585</span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="kw">log10</span>(<span class="dv">10</span>) <span class="co"># log base 10</span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="co">## [1] 1</span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="kw">log2</span>(<span class="dv">10</span>) <span class="co"># log base 2</span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">## [1] 3.321928</span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="kw">exp</span>(<span class="dv">1</span>)    <span class="co"># exponential function</span></a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">## [1] 2.718282</span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="kw">sqrt</span>(<span class="dv">10</span>)  <span class="co"># square root</span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">## [1] 3.162278</span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="dv">10</span><span class="op">^</span><span class="fl">0.5</span>  <span class="co"># same as square root</span></a>
-<a class="sourceLine" id="cb9-18" title="18"><span class="co">## [1] 3.162278</span></a></code></pre></div>
-</div>
-</div>
-<div id="variable-assignment" class="section level2">
-<h2><span class="header-section-number">2.6</span> Variable assignment</h2>
-<p>An important programming concept in all programming languages is that of “variable assignment”. Variable assignment is the act of creating labels that point to particular data values in a computers memory, which allows us to apply operations to the labels rather than directly to specific. Variable assignment is an important mechanism of abstracting and generalizing computational operations.</p>
-<p>Variable assignment in R is accomplished with the assignment operator, which is designated as <code>&lt;-</code> (left arrow, constructed from a left angular brack and the minus sign). This is illustrated below:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">x &lt;-<span class="st"> </span><span class="dv">10</span>  <span class="co"># assign the variable name &#39;x&#39; the value 10</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="kw">sin</span>(x)   <span class="co"># apply the sin function to the value x points to</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co">## [1] -0.5440211</span></a>
-<a class="sourceLine" id="cb10-4" title="4"></a>
-<a class="sourceLine" id="cb10-5" title="5">x &lt;-<span class="st"> </span>pi  <span class="co"># x now points to a different value</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="kw">sin</span>(x)   <span class="co"># the same function call now produces a different result </span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">## [1] 1.224647e-16</span></a>
-<a class="sourceLine" id="cb10-8" title="8">         <span class="co"># note that sin(pi) == 0, but R returns a floating point value very </span></a>
-<a class="sourceLine" id="cb10-9" title="9">         <span class="co"># very close to but not zero</span></a></code></pre></div>
-<div id="valid-variable-names" class="section level3">
-<h3><span class="header-section-number">2.6.1</span> Valid variable names</h3>
-<p>As described in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/make.names.html">R documentation</a>, “A syntactically valid name consists of letters, numbers and the dot or underline characters and starts with a letter or the dot not followed by a number. Names such as ‘.2way’ are not valid, and neither are the <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">reserved words</a>.”</p>
-<p>Here are some examples of valid and invalid variable names. Mentally evaluate these based on the definition above, and then evaluate these in the R interpetter to confirm your understanding :</p>
-<pre><code>x &lt;- 10
-x.prime &lt;- 10
-x_prime &lt;- 10
-my.long.variable.name &lt;- 10
-another_long_variable_name &lt;- 10
-_x &lt;- 10
-.x &lt;- 10
-2.x &lt;- 2 * x</code></pre>
-</div>
-</div>
-<div id="data-types" class="section level2">
-<h2><span class="header-section-number">2.7</span> Data types</h2>
-<p>The phrase “data types” refers to the representations of information that a programming language provides. In R, there are three core data types representing numbes, logical values, and strings. You can use the function <code>typeof()</code> to get information about an objects type in R.</p>
-<div id="numeric-data-types" class="section level3">
-<h3><span class="header-section-number">2.7.1</span> Numeric data types</h3>
-<p>There are three standard types of numbers in R.</p>
-<ol style="list-style-type: decimal">
-<li><p>“double” – this is the default numeric data type, and is used to represent both real numbers and whole numbers (unless you explicitly ask for integers, see below). “double” is short for “double precision floating point value”. All of the previous computations you’ve seen up until this point used data of type double.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">typeof</span>(<span class="fl">10.0</span>)  <span class="co"># real number</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="co">## [1] &quot;double&quot;</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="kw">typeof</span>(<span class="dv">10</span>)  <span class="co"># whole numbers default to doubles</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="co">## [1] &quot;double&quot;</span></a></code></pre></div></li>
-<li><p>“integer” – when your numeric data involves only whole numbers, you can get slighly better performance using the integer data type. You must explicitly ask for numbers to be treated as integers.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">typeof</span>(<span class="kw">as.integer</span>(<span class="dv">10</span>))  <span class="co"># now treated as an integer</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="co">## [1] &quot;integer&quot;</span></a></code></pre></div></li>
-<li><p>“complex” – R has a built-in data type to represent complex numbers – numbers with a “real” and “imaginary” component. We won’t encounter the use of complex numbers in this course, but they do have many important uses in mathematics and engineering and also have some interesting applications in biology.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">typeof</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i)</a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="co">## [1] &quot;complex&quot;</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span>)      <span class="co"># sqrt of -1, using doubles</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="co">## [1] NaN</span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>0i) <span class="co"># sqrt of -1, using complex numbers</span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="co">## [1] 0+1i</span></a></code></pre></div></li>
+<div id="more-regression-models" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> More regression models</h1>
+<div id="curvilinear-regression" class="section level2">
+<h2><span class="header-section-number">13.1</span> Curvilinear regression</h2>
+<p>In the previous chapter we used the built-in <code>trees</code> data set, which consists of measurements of the girth, height, and volume of 31 black cherry trees, to illustrate the fitting of multiple regression models.</p>
+<p>After exploring the data set and examining residuals from the model fit we realized that:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>the residual from the linear model suggested a straight line relationship might not be appropriate so we transformed the volume data in order to fit a straight line relationship between <span class="math inline">\(\sqrt[3]{V}\)</span> and Girth and Height.</p></li>
+<li><p>A model based on Girth as the only predictor variable is almost as good as one involving both Girth and Height.</p></li>
 </ol>
+<p>Here we illustrate how to fit a cubic regression to the model <code>Volume ~ Girth</code>. Remember that a cubic regression is still a form of linear regression, as it’s in the coefficients.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1">fit.curvilinear &lt;-<span class="st"> </span><span class="kw">lm</span>(Volume <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(Girth<span class="op">^</span><span class="dv">3</span>), <span class="dt">data=</span>trees)</a>
+<a class="sourceLine" id="cb405-2" title="2"></a>
+<a class="sourceLine" id="cb405-3" title="3">broom<span class="op">::</span><span class="kw">tidy</span>(fit.curvilinear)</a>
+<a class="sourceLine" id="cb405-4" title="4"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb405-5" title="5"><span class="co">##   term        estimate std.error statistic  p.value</span></a>
+<a class="sourceLine" id="cb405-6" title="6"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb405-7" title="7"><span class="co">## 1 (Intercept)  8.04     1.04          7.71 1.66e- 8</span></a>
+<a class="sourceLine" id="cb405-8" title="8"><span class="co">## 2 I(Girth^3)   0.00814  0.000312     26.1  1.09e-21</span></a>
+<a class="sourceLine" id="cb405-9" title="9"></a>
+<a class="sourceLine" id="cb405-10" title="10">broom<span class="op">::</span><span class="kw">glance</span>(fit.curvilinear)</a>
+<a class="sourceLine" id="cb405-11" title="11"><span class="co">## # A tibble: 1 x 11</span></a>
+<a class="sourceLine" id="cb405-12" title="12"><span class="co">##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC</span></a>
+<a class="sourceLine" id="cb405-13" title="13"><span class="co">##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb405-14" title="14"><span class="co">## 1     0.959         0.958  3.38      681. 1.09e-21     2  -80.7  167.  172.</span></a>
+<a class="sourceLine" id="cb405-15" title="15"><span class="co">## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;</span></a></code></pre></div>
+<p>Here’s how we can visualize the corresponding curvilinear regression using ggplot:</p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="kw">ggplot</span>(trees, <span class="kw">aes</span>(<span class="dt">x =</span> Girth, <span class="dt">y =</span> Volume)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb406-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb406-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, </a>
+<a class="sourceLine" id="cb406-4" title="4">              <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb406-5" title="5">              <span class="dt">se =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-403-1.png" width="576" /></p>
+<p>The <code>I()</code> function used above requires a little explanation. Normally, the R formula syntax (see <code>?formula</code>) treats the carat symbol, <code>^</code>, as short-hand for factor crossing to the specified degree. For example, the formula <code>(a+b+c)^2</code> would be interpretted as the model with main effects and all second order interaction terms, i.e. <code>a + b + c + a:b + a:c + b:c</code> where the colons indicate interactions. The <code>I()</code> function `protects’ the object in it’s argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth.</p>
 </div>
-<div id="logical-values" class="section level3">
-<h3><span class="header-section-number">2.7.2</span> Logical values</h3>
-<p>When we compare values to each other, our calculations no longer return “doubles” but rather <code>TRUE</code> and <code>FALSE</code> values. This is illustrated below:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="dv">10</span> <span class="op">&lt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 less than 9?</span></a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="dv">10</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">9</span>  <span class="co"># is 10 greater than 9?</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-5" title="5"><span class="dv">10</span> <span class="op">&lt;=</span><span class="st"> </span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># less than or equal to?</span></a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="dv">10</span> <span class="op">&gt;=</span><span class="st"> </span>pi <span class="co"># greater than or equal to?</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span><span class="dv">10</span> <span class="co"># equals?</span></a>
-<a class="sourceLine" id="cb15-10" title="10"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb15-11" title="11"><span class="dv">10</span> <span class="op">!=</span><span class="st"> </span><span class="dv">10</span> <span class="co"># does not equal?</span></a>
-<a class="sourceLine" id="cb15-12" title="12"><span class="co">## [1] FALSE</span></a></code></pre></div>
-<p><code>TRUE</code> and <code>FALSE</code> objects are of “logical” data type (known as “Booleans” in many other languages, after the mathematician George Boole).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="kw">typeof</span>(<span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb16-3" title="3">x &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="kw">typeof</span>(x)  <span class="co"># x points to a logical</span></a>
-<a class="sourceLine" id="cb16-5" title="5">x &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb16-6" title="6"><span class="kw">typeof</span>(x)  <span class="co"># the variable x no longer points to a logical</span></a></code></pre></div>
-<p>When working with numerical data, tests of equality can be tricky. For example, consider the following two comparisons:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="dv">10</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Surprised by the result? See below.</span></a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="dv">4</span> <span class="op">==</span><span class="st"> </span>(<span class="kw">sqrt</span>(<span class="dv">4</span>)<span class="op">^</span><span class="dv">2</span>) <span class="co"># Even more confused?</span></a></code></pre></div>
-<p>Mathematically we know that both <span class="math inline">\((\sqrt{10})^2 = 10\)</span> and <span class="math inline">\((\sqrt{4})^2 = 4\)</span> are true statements. Why does R tell us the first statement is false? What we’re running into here are the limits of computer precision. A computer can’t represent <span class="math inline">\(\sqrt 10\)</span> exactly, whereas <span class="math inline">\(\sqrt 4\)</span> can be exactly represented.
-Precision in numerical computing is a complex subject and a detailed discussion is beyond the scope of this course. However, it’s important to be aware of this limitation (this limitation is true of any programming language, not just R).</p>
-<p>To test “near equality” R provides a function called <code>all.equal()</code>. This function takes two inputs – the numerical values to be compared – and returns <code>TRUE</code> if their values are equal up to a certain level of tolerance (defined by the built-in numerical precision of your computer).</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">all.equal</span>(<span class="dv">10</span>, <span class="kw">sqrt</span>(<span class="dv">10</span>)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<p>Here’s another example where the simple equality operator returns an unexpected result, but <code>all.equal()</code> produces the comparison we’re likely after.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">sin</span>(pi) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>  </a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="kw">all.equal</span>(<span class="kw">sin</span>(pi), <span class="dv">0</span>)  </a>
-<a class="sourceLine" id="cb19-4" title="4"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<div id="logical-operators" class="section level4">
-<h4><span class="header-section-number">2.7.2.1</span> Logical operators</h4>
-<p>Logical values support Boolean operations, like logical negation (“not”), “and”, “or”, “xor”, etc. This is illustrated below:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="op">!</span><span class="ot">TRUE</span>  <span class="co"># logical negation -- reads as &quot;not x&quot;</span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># AND: are x and y both TRUE?</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="co">## [1] FALSE</span></a>
-<a class="sourceLine" id="cb20-5" title="5"><span class="ot">TRUE</span> <span class="op">|</span><span class="st"> </span><span class="ot">FALSE</span> <span class="co"># OR: are either x or y TRUE?</span></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="co">## [1] TRUE</span></a>
-<a class="sourceLine" id="cb20-7" title="7"><span class="kw">xor</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)  <span class="co"># XOR: is either x or y TRUE, but not both?</span></a>
-<a class="sourceLine" id="cb20-8" title="8"><span class="co">## [1] TRUE</span></a></code></pre></div>
-<p>The function <code>isTRUE</code> can be useful for evaluating the state of a variable:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span>) <span class="co"># sample a random number in the range 1 to 10</span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="kw">isTRUE</span>(x <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span>)  <span class="co"># was the random number picked greater than 5?</span></a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="co">## [1] FALSE</span></a></code></pre></div>
+<div id="loess-regression" class="section level2">
+<h2><span class="header-section-number">13.2</span> LOESS regression</h2>
+<p>LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
+modeling technique that fits a curve (or surface) to a set of data using
+a large number of local linear regressions. Local weighted regressions are fit
+at numerous regions across the data range, using a weighting function
+that drops off as you move away from the center of the fitting region
+(hence the "local aspect). LOESS combines the simplicity of least
+squares fitting with the flexibility of non-linear techniques and
+doesn’t require the user to specify a functional form ahead of time in
+order to fit the model. It does however require relatively dense
+sampling in order to produce robust fits.</p>
+<p>Formally, at each point <span class="math inline">\(x_i\)</span> we estimate the regression coefficients
+<span class="math inline">\(\hat{\beta}_j(x)\)</span> as the values that minimize:
+<span class="math display">\[
+\sum_{k=1}^n w_k(x_i)(y_k - \beta_0 - \beta_1 x_k - \ldots - \beta_d x_k^2)^2
+\]</span>
+where <span class="math inline">\(d\)</span> is the degree of the polynomial (usually 1 or 2) and <span class="math inline">\(w_k\)</span>
+is a weight function. The most common choice of weighting function is
+called the “tri-cube” function as is defined as:</p>
+<p><span class="math display">\[\begin{align*}
+w_k(x_i) &amp;= (1-|x_i|^3)^3, \mbox{for}\ |x_i| \lt 1 \\
+     &amp;= 0, \mbox{for}\ |x_i| \geq 1
+\end{align*}\]</span>
+where <span class="math inline">\(|x_i|\)</span> is the normalized distance (as determined by the span parameter of the LOESS model) of the observation <span class="math inline">\(x_i\)</span> from the focal observation <span class="math inline">\(x_k\)</span>.</p>
+<p>The primary parameter that a user must decide on when using LOESS is the
+size of the neighborhood function to apply (i.e. over what distance
+should the weight function drop to zero). This is referred to as the
+“span” in the R documentation, or as the parameter <span class="math inline">\(\alpha\)</span> in many of
+the papers that discuss LOESS. The appropriate span can be determined by
+experimentation or, more rigorously by cross-validation.</p>
+<p>We’ll illustrate fitting a Loess model using data on Barack Obama’s approval ratings over the period from 2008 to 2001 (<a href="https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt"><code>obama-polls.txt</code></a>).</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1">polls &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt&#39;</span>,</a>
+<a class="sourceLine" id="cb407-2" title="2">                    <span class="dt">delim=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">trim_ws=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb407-3" title="3"><span class="co"># note that we needed to use &quot;trim_ws&quot; above because there were </span></a>
+<a class="sourceLine" id="cb407-4" title="4"><span class="co"># some lurking spaces in the fields of that tab delimited data file</span></a>
+<a class="sourceLine" id="cb407-5" title="5"></a>
+<a class="sourceLine" id="cb407-6" title="6"><span class="kw">head</span>(polls)</a>
+<a class="sourceLine" id="cb407-7" title="7"><span class="co">## # A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb407-8" title="8"><span class="co">##   Pollster         Dates      `N/Pop` Approve Disapprove Undecided</span></a>
+<a class="sourceLine" id="cb407-9" title="9"><span class="co">##   &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></a>
+<a class="sourceLine" id="cb407-10" title="10"><span class="co">## 1 Rasmussen        9/17-19/11 1500 LV      46         52 -        </span></a>
+<a class="sourceLine" id="cb407-11" title="11"><span class="co">## 2 Rasmussen        9/14-16/11 1500 LV      45         55 -        </span></a>
+<a class="sourceLine" id="cb407-12" title="12"><span class="co">## 3 Gallup           9/13-15/11 1500 A       39         52 -        </span></a>
+<a class="sourceLine" id="cb407-13" title="13"><span class="co">## 4 CBS/Times        9/10-15/11 1452 A       43         50 7        </span></a>
+<a class="sourceLine" id="cb407-14" title="14"><span class="co">## 5 Marist/McClatchy 9/13-14/11 825 RV       39         52 9        </span></a>
+<a class="sourceLine" id="cb407-15" title="15"><span class="co">## 6 Rasmussen        9/11-13/11 1500 LV      45         54 -</span></a></code></pre></div>
+<p>Notice that the <code>Dates</code> column is not very tidy. Each “date” is actually a range of dates of the form <code>Month/DayStart-DayEnd/Year</code> (e.g. “9/1/09” is September 01, 2009). Even nastier, some dates are in the form <code>Month/Day/Year</code> (only a single day) or <code>MonthStart/DayStart-MonthEnd/DayEnd/Year</code> (e.g. “2/26-3/1/11” is February 26,2011 to March 01, 2011) . Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we’re going to use the <code>tidyr::extract()</code> function to employ regular expressions (regex) to parse this complicated data field into it’s constituent parts. For more details on regular expression see the <a href="https://github.com/rstudio/cheatsheets/raw/master/regex.pdf">R Regular Expession Cheat Sheet</a> and <a href="https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions">R for Data Science</a>.</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" title="1">polls &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb408-2" title="2"><span class="st">  </span>polls <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb408-3" title="3"><span class="st">  </span></a>
+<a class="sourceLine" id="cb408-4" title="4"><span class="st">  </span><span class="co"># first separate left most and right most fields as month and year respectively</span></a>
+<a class="sourceLine" id="cb408-5" title="5"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">extract</span>(<span class="st">&quot;Dates&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;month&quot;</span>, <span class="st">&quot;day.range&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="dt">regex=</span><span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)/(.+)/(</span><span class="ch">\\</span><span class="st">d+$)&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-6" title="6"><span class="st">  </span></a>
+<a class="sourceLine" id="cb408-7" title="7"><span class="st">  </span><span class="co"># now deal with the complicated middle field. For simplicities sake we&#39;re just</span></a>
+<a class="sourceLine" id="cb408-8" title="8"><span class="st">  </span><span class="co"># going to focus on extracting the start day</span></a>
+<a class="sourceLine" id="cb408-9" title="9"><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">extract</span>(<span class="st">&quot;day.range&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;day.start&quot;</span>, <span class="st">&quot;day.other&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)(.+)&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-10" title="10"><span class="st">  </span></a>
+<a class="sourceLine" id="cb408-11" title="11"><span class="st">  </span><span class="co"># finally convert YY to 20YY</span></a>
+<a class="sourceLine" id="cb408-12" title="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="dv">2000</span> <span class="op">+</span><span class="st"> </span>year) </a>
+<a class="sourceLine" id="cb408-13" title="13"></a>
+<a class="sourceLine" id="cb408-14" title="14"><span class="kw">head</span>(polls)</a>
+<a class="sourceLine" id="cb408-15" title="15"><span class="co">## # A tibble: 6 x 9</span></a>
+<a class="sourceLine" id="cb408-16" title="16"><span class="co">##   Pollster  month day.start day.other  year `N/Pop` Approve Disapprove Undecided</span></a>
+<a class="sourceLine" id="cb408-17" title="17"><span class="co">##   &lt;chr&gt;     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></a>
+<a class="sourceLine" id="cb408-18" title="18"><span class="co">## 1 Rasmussen     9        17 -19        2011 1500 LV      46         52 -        </span></a>
+<a class="sourceLine" id="cb408-19" title="19"><span class="co">## 2 Rasmussen     9        14 -16        2011 1500 LV      45         55 -        </span></a>
+<a class="sourceLine" id="cb408-20" title="20"><span class="co">## 3 Gallup        9        13 -15        2011 1500 A       39         52 -        </span></a>
+<a class="sourceLine" id="cb408-21" title="21"><span class="co">## 4 CBS/Times     9        10 -15        2011 1452 A       43         50 7        </span></a>
+<a class="sourceLine" id="cb408-22" title="22"><span class="co">## 5 Marist/M…     9        13 -14        2011 825 RV       39         52 9        </span></a>
+<a class="sourceLine" id="cb408-23" title="23"><span class="co">## 6 Rasmussen     9        11 -13        2011 1500 LV      45         54 -</span></a></code></pre></div>
+<p>For the next steps we’ll need the <code>lubridate</code> library (install if needed):</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb409-2" title="2"></a>
+<a class="sourceLine" id="cb409-3" title="3">polls &lt;-</a>
+<a class="sourceLine" id="cb409-4" title="4"><span class="st">  </span>polls <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb409-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">make_date</span>(<span class="dt">year =</span> year, <span class="dt">month=</span>month, <span class="dt">day =</span> day.start))</a>
+<a class="sourceLine" id="cb409-6" title="6"></a>
+<a class="sourceLine" id="cb409-7" title="7"><span class="kw">head</span>(polls)</a>
+<a class="sourceLine" id="cb409-8" title="8"><span class="co">## # A tibble: 6 x 10</span></a>
+<a class="sourceLine" id="cb409-9" title="9"><span class="co">##   Pollster month day.start day.other  year `N/Pop` Approve Disapprove Undecided</span></a>
+<a class="sourceLine" id="cb409-10" title="10"><span class="co">##   &lt;chr&gt;    &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></a>
+<a class="sourceLine" id="cb409-11" title="11"><span class="co">## 1 Rasmuss…     9        17 -19        2011 1500 LV      46         52 -        </span></a>
+<a class="sourceLine" id="cb409-12" title="12"><span class="co">## 2 Rasmuss…     9        14 -16        2011 1500 LV      45         55 -        </span></a>
+<a class="sourceLine" id="cb409-13" title="13"><span class="co">## 3 Gallup       9        13 -15        2011 1500 A       39         52 -        </span></a>
+<a class="sourceLine" id="cb409-14" title="14"><span class="co">## 4 CBS/Tim…     9        10 -15        2011 1452 A       43         50 7        </span></a>
+<a class="sourceLine" id="cb409-15" title="15"><span class="co">## 5 Marist/…     9        13 -14        2011 825 RV       39         52 9        </span></a>
+<a class="sourceLine" id="cb409-16" title="16"><span class="co">## 6 Rasmuss…     9        11 -13        2011 1500 LV      45         54 -        </span></a>
+<a class="sourceLine" id="cb409-17" title="17"><span class="co">## # … with 1 more variable: date &lt;date&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" title="1">polls.plot &lt;-</a>
+<a class="sourceLine" id="cb410-2" title="2"><span class="st">  </span>polls <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb410-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> Approve)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb410-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">pch=</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb410-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Approval Rating&quot;</span>,</a>
+<a class="sourceLine" id="cb410-6" title="6">       <span class="dt">title =</span> <span class="st">&quot;Barack Obama&#39;s Approval Ratings, 2008-2011&quot;</span>)</a>
+<a class="sourceLine" id="cb410-7" title="7"></a>
+<a class="sourceLine" id="cb410-8" title="8">polls.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-407-1.png" width="576" /></p>
+<p>We can fit the LOESS as so, and get back the predicted values using the <code>predict()</code> function:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1">loess.approval &lt;-<span class="st"> </span><span class="kw">loess</span>(Approve <span class="op">~</span><span class="st"> </span><span class="kw">as.numeric</span>(date), <span class="dt">data =</span> polls)</a>
+<a class="sourceLine" id="cb411-2" title="2">loess.predicted.values &lt;-<span class="st"> </span><span class="kw">predict</span>(loess.approval)</a>
+<a class="sourceLine" id="cb411-3" title="3"><span class="kw">head</span>(loess.predicted.values)</a>
+<a class="sourceLine" id="cb411-4" title="4"><span class="co">## [1] 44.55653 44.59349 44.60572 44.64216 44.60572 44.63006</span></a></code></pre></div>
+<p>Usually we’ll want to visualize the LOESS regression, which we can conveniently do with <code>ggplot::geom_smooth</code> without having to explicitly calculate the LOESS:</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" title="1">polls.plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb412-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-409-1.png" width="576" /></p>
+<p>Here’s the same data fit with a smaller <code>span</code> (the paramater that controls the “local neighborhood” size in LOESS):</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">polls.plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb413-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">span=</span><span class="fl">0.1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-410-1.png" width="576" /></p>
+<p>The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.</p>
+<p>For example, we can zoom in on 2011:</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1">polls.plot <span class="op">+</span></a>
+<a class="sourceLine" id="cb414-2" title="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">color=</span><span class="st">&#39;red&#39;</span>, <span class="dt">method=</span><span class="st">&quot;loess&quot;</span>, <span class="dt">se=</span><span class="ot">FALSE</span>, <span class="dt">span=</span><span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb414-3" title="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="kw">ymd</span>(<span class="dv">20110101</span>), <span class="kw">ymd</span>(<span class="dv">20110901</span>)), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">35</span>,<span class="dv">65</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb414-4" title="4"><span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="dt">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb414-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-411-1.png" width="576" /></p>
+<p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.</p>
 </div>
+<div id="logistic-regression" class="section level2">
+<h2><span class="header-section-number">13.3</span> Logistic regression</h2>
+<p>Logistic regression is used when the dependent variable is discrete (often binary). The explanatory variables may be either continuous or discrete.</p>
+<p>Examples:</p>
+<ul>
+<li>Whether a gene is turned off (=0) or on (=1) as a function of levels of various proteins</li>
+<li>Whether an individual is healthy (=0) or diseased (=1) as a function of various risk factors.</li>
+<li>Whether an individual died (=0) or survived (=1) some selective event as a function of behavior, morphology, etc.</li>
+</ul>
+<p>We model the binary response variable, <span class="math inline">\(Y\)</span>, as a function of the predictor variables, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, etc as :</p>
+<p><span class="math display">\[
+P(Y = 1|X_1,\ldots,X_p) = f(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p)
+\]</span></p>
+<p>So we’re modeling the <em>probability of the state of Y as a function of a linear combination of the predictor variables</em>.</p>
+<p>For logistic regression, <span class="math inline">\(f\)</span> is the logistic function:
+<span class="math display">\[
+f(z) = \frac{e^z}{1+e^z} = \frac{1}{1 + e^{-z}}
+\]</span></p>
+<p>Therefore, the bivariate logistic regression is given by:
+<span class="math display">\[
+P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
+\]</span></p>
+<p>Note that <span class="math inline">\(\beta_0\)</span> here is akin to the intercept in our standard linear regression.</p>
+<div id="a-web-app-to-explore-the-logistic-regression-equation" class="section level3">
+<h3><span class="header-section-number">13.3.1</span> A web app to explore the logistic regression equation</h3>
+<p>To help you develop an intuition for the logistic regression equation, I’ve developed <a href="https://magwenelab.shinyapps.io/exploring_logistic_regression/">a small web app</a>, that allows you to explore how the shape of the regression curve responds to changes in the regression coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Open the app in another browser window and play with the sliders that control the coeffients <span class="math inline">\(B_0\)</span> and <span class="math inline">\(B_1\)</span>. In the assignment associated with today’s class you’ll be asked to answer some specific questions based on this app.</p>
 </div>
-<div id="character-strings" class="section level3">
-<h3><span class="header-section-number">2.7.3</span> Character strings</h3>
-<p>Character strings (“character”) represent single textual characters or a longer sequence of characters. They are created by enclosing the characters in text either single our double quotes.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">typeof</span>(<span class="st">&quot;abc&quot;</span>)  <span class="co"># double quotes </span></a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="kw">typeof</span>(<span class="st">&#39;abc&#39;</span>)  <span class="co"># single quotes</span></a>
-<a class="sourceLine" id="cb22-4" title="4"><span class="co">## [1] &quot;character&quot;</span></a></code></pre></div>
-<p>Character strings have a length, which can be found using the <code>nchar</code> function:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">first.name &lt;-<span class="st"> &quot;jasmine&quot;</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="kw">nchar</span>(first.name)</a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="co">## [1] 7</span></a>
-<a class="sourceLine" id="cb23-4" title="4"></a>
-<a class="sourceLine" id="cb23-5" title="5">last.name &lt;-<span class="st"> &#39;smith&#39;</span></a>
-<a class="sourceLine" id="cb23-6" title="6"><span class="kw">nchar</span>(last.name)</a>
-<a class="sourceLine" id="cb23-7" title="7"><span class="co">## [1] 5</span></a></code></pre></div>
-<p>There are a number of built-in functions for manipulating character strings. Here are some of the most common ones.</p>
-<div id="joining-strings" class="section level4">
-<h4><span class="header-section-number">2.7.3.1</span> Joining strings</h4>
-<p>The <code>paste()</code> function joins two characters strings together:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">paste</span>(first.name, last.name)  <span class="co"># join two strings</span></a>
-<a class="sourceLine" id="cb24-2" title="2"><span class="co">## [1] &quot;jasmine smith&quot;</span></a>
-<a class="sourceLine" id="cb24-3" title="3"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>)</a>
-<a class="sourceLine" id="cb24-4" title="4"><span class="co">## [1] &quot;abc def&quot;</span></a></code></pre></div>
-<p>Notice that <code>paste()</code> adds a space between the strings? If we didn’t want the space we can call the <code>paste()</code> function with an optional argument called <code>sep</code> (short for separator) which specifies the character(s) that are inserted between the joined strings.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)  <span class="co"># join with no space; &quot;&quot; is an empty string</span></a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="co">## [1] &quot;abcdef&quot;</span></a>
-<a class="sourceLine" id="cb25-3" title="3"><span class="kw">paste0</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>) <span class="co"># an equivalent function with no space in newer version of R</span></a>
-<a class="sourceLine" id="cb25-4" title="4"><span class="co">## [1] &quot;abcdef&quot;</span></a>
-<a class="sourceLine" id="cb25-5" title="5"><span class="kw">paste</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;def&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;|&quot;</span>) <span class="co"># join with a vertical bar</span></a>
-<a class="sourceLine" id="cb25-6" title="6"><span class="co">## [1] &quot;abc|def&quot;</span></a></code></pre></div>
+<div id="titanic-data-set" class="section level3">
+<h3><span class="header-section-number">13.3.2</span> Titanic data set</h3>
+<p><a href="http://bit.ly/bio304-titanic-data"><code>titanic.csv</code></a> contains information about passengers on the Titanic. Variables in this data set include information such as sex, age, passenger class (1st, 2nd, 3rd), and whether or not they survived the sinking of the ship (0 = died, 1 = survived).</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb415-2" title="2"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb415-3" title="3"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb415-4" title="4"><span class="kw">library</span>(ggthemes)</a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1">titanic &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)</a>
+<a class="sourceLine" id="cb416-2" title="2"><span class="kw">names</span>(titanic)</a>
+<a class="sourceLine" id="cb416-3" title="3"><span class="co">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;       &quot;sibsp&quot;    </span></a>
+<a class="sourceLine" id="cb416-4" title="4"><span class="co">##  [7] &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;     &quot;embarked&quot;  &quot;boat&quot;     </span></a>
+<a class="sourceLine" id="cb416-5" title="5"><span class="co">## [13] &quot;body&quot;      &quot;home.dest&quot;</span></a></code></pre></div>
 </div>
-<div id="splitting-strings" class="section level4">
-<h4><span class="header-section-number">2.7.3.2</span> Splitting strings</h4>
-<p>The <code>strsplit()</code> function allows us to split a character string into substrings according to matches to a specified split string (see <code>?strsplit</code> for details). For example, we could break a sentence into it’s constituent words as follows:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">sentence &lt;-<span class="st"> &quot;Call me Ishmael.&quot;</span></a>
-<a class="sourceLine" id="cb26-2" title="2">words &lt;-<span class="st"> </span><span class="kw">strsplit</span>(sentence, <span class="st">&quot; &quot;</span>)  <span class="co"># split on space</span></a>
-<a class="sourceLine" id="cb26-3" title="3">words</a>
-<a class="sourceLine" id="cb26-4" title="4"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb26-5" title="5"><span class="co">## [1] &quot;Call&quot;     &quot;me&quot;       &quot;Ishmael.&quot;</span></a></code></pre></div>
-<p>Notice that <code>strsplit()</code> is the reverse of <code>paste()</code>.</p>
+<div id="subsetting-the-data" class="section level3">
+<h3><span class="header-section-number">13.3.3</span> Subsetting the data</h3>
+<p>We’ve all heard the phrase, “Women and children first”, so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age. Let’s create separate data subsets for male and female passengers.</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1">male &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;male&quot;</span>)</a>
+<a class="sourceLine" id="cb417-2" title="2">female &lt;-<span class="st"> </span><span class="kw">filter</span>(titanic, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>)</a></code></pre></div>
 </div>
-<div id="substrings" class="section level4">
-<h4><span class="header-section-number">2.7.3.3</span> Substrings</h4>
-<p>The <code>substr()</code> function allows us to extract a substring from a character object by specifying the first and last positions (indices) to use in the extraction:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">substr</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="dv">2</span>, <span class="dv">5</span>)  <span class="co"># get substring from characters 2 to 5</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="co">## [1] &quot;bcde&quot;</span></a>
-<a class="sourceLine" id="cb27-3" title="3"><span class="kw">substr</span>(first.name, <span class="dv">1</span>, <span class="dv">3</span>) <span class="co"># get substring from characters 1 to       </span></a>
-<a class="sourceLine" id="cb27-4" title="4"><span class="co">## [1] &quot;jas&quot;</span></a></code></pre></div>
+<div id="visualizing-survival-as-a-function-of-age" class="section level3">
+<h3><span class="header-section-number">13.3.4</span> Visualizing survival as a function of age</h3>
+<p>Let’s create visualizations of survival as a function of age for the male and female passengers.</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1">fcolor =<span class="st"> &quot;lightcoral&quot;</span></a>
+<a class="sourceLine" id="cb418-2" title="2">mcolor =<span class="st"> &quot;lightsteelblue&quot;</span></a>
+<a class="sourceLine" id="cb418-3" title="3"></a>
+<a class="sourceLine" id="cb418-4" title="4">female.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(female, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-5" title="5"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> fcolor) <span class="op">+</span></a>
+<a class="sourceLine" id="cb418-6" title="6"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)</a>
+<a class="sourceLine" id="cb418-7" title="7"></a>
+<a class="sourceLine" id="cb418-8" title="8">male.plot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(male, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> survived)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-9" title="9"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>, <span class="dt">color =</span> mcolor) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb418-10" title="10"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)</a>
+<a class="sourceLine" id="cb418-11" title="11"></a>
+<a class="sourceLine" id="cb418-12" title="12"><span class="kw">plot_grid</span>(female.plot, male.plot)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-415-1.png" width="864" /></p>
+<p>The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.</p>
 </div>
+<div id="fitting-the-logistic-regression-model" class="section level3">
+<h3><span class="header-section-number">13.3.5</span> Fitting the logistic regression model</h3>
+<p>The function <code>glm</code> (generalized linear model) can be used to fit the logistic regression model (as well as other models). Setting the argument <code>family = binomial</code> gives us logistic regression. Note that when fitting the model the dependent variable needs to be numeric, so if the data is provided as Boolean (logical) TRUE/FALSE values, they should be converted to integers using <code>as.numeric()</code>.</p>
+<p>First we fit the regression for the famale passengers.</p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">fit.female &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, female)</a>
+<a class="sourceLine" id="cb419-2" title="2"><span class="kw">tidy</span>(fit.female)</a>
+<a class="sourceLine" id="cb419-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb419-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
+<a class="sourceLine" id="cb419-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb419-6" title="6"><span class="co">## 1 (Intercept)   0.493    0.254        1.94 0.0523 </span></a>
+<a class="sourceLine" id="cb419-7" title="7"><span class="co">## 2 age           0.0225   0.00854      2.64 0.00834</span></a></code></pre></div>
+<p>The column “estimate” gives the coefficients of the model. The “intercept”" estimate corresponds to <span class="math inline">\(B_0\)</span> in the logistic regression equation, the “age” estimate corresponds to the coefficient <span class="math inline">\(B_1\)</span> in the equation.</p>
+<p>Now we repeat the same step for the male passengers.</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">fit.male &lt;-<span class="st"> </span><span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, male)</a>
+<a class="sourceLine" id="cb420-2" title="2"><span class="kw">tidy</span>(fit.male)</a>
+<a class="sourceLine" id="cb420-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb420-4" title="4"><span class="co">##   term        estimate std.error statistic p.value</span></a>
+<a class="sourceLine" id="cb420-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb420-6" title="6"><span class="co">## 1 (Intercept)  -0.661    0.225       -2.94 0.00329</span></a>
+<a class="sourceLine" id="cb420-7" title="7"><span class="co">## 2 age          -0.0238   0.00728     -3.27 0.00109</span></a></code></pre></div>
+<p>Notice that the female coefficients are both positive, while the male coefficients are negative. We’ll visualize what this means in terms of the model below.</p>
 </div>
+<div id="visualizing-the-logistic-regression" class="section level3">
+<h3><span class="header-section-number">13.3.6</span> Visualizing the logistic regression</h3>
+<p>To visualize the logistic regression fit, we first use the <code>predict</code> function to generate the model predictions about probability of survival as a function of age.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">ages &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span></a>
+<a class="sourceLine" id="cb421-2" title="2"></a>
+<a class="sourceLine" id="cb421-3" title="3">predicted.female &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.female, </a>
+<a class="sourceLine" id="cb421-4" title="4">                            <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
+<a class="sourceLine" id="cb421-5" title="5">                            <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb421-6" title="6"></a>
+<a class="sourceLine" id="cb421-7" title="7">predicted.male &lt;-<span class="st"> </span><span class="kw">predict</span>(fit.male,</a>
+<a class="sourceLine" id="cb421-8" title="8">                          <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages),</a>
+<a class="sourceLine" id="cb421-9" title="9">                          <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</a>
+<a class="sourceLine" id="cb421-10" title="10">                            </a></code></pre></div>
+<p>Having generated the predicted probabilities of survival we can then add these prediction lines to our previous plot using <code>geom_line</code>.</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">female.logistic.plot &lt;-<span class="st"> </span>female.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.female),</a>
+<a class="sourceLine" id="cb422-3" title="3">            <span class="dt">color =</span> fcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb422-4" title="4"></a>
+<a class="sourceLine" id="cb422-5" title="5">male.logistic.plot &lt;-<span class="st"> </span>male.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb422-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">age =</span> ages, <span class="dt">survived =</span> predicted.male),</a>
+<a class="sourceLine" id="cb422-7" title="7">            <span class="dt">color =</span> mcolor, <span class="dt">size =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb422-8" title="8"></a>
+<a class="sourceLine" id="cb422-9" title="9"><span class="kw">plot_grid</span>(female.logistic.plot, male.logistic.plot)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-419-1.png" width="864" /></p>
+<p>We see that for the female passengers, the logistic regression predicts that the probability of survival <em>increases</em> with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age. For the male passengers, the data is consistent with “children first”; for female passengers this model doesn’t seem to hold. However, there are other factors to consider as we’ll see below.</p>
 </div>
-<div id="packages" class="section level2">
-<h2><span class="header-section-number">2.8</span> Packages</h2>
-<p>Packages are libraries of R functions and data that provide additional capabilities and tools beyond the standard library of functions included with R. Hundreds of people around the world have developed packages for R that provide functions and related data structures for conducting many different types of analyses.</p>
-<p>Throughout this course you’ll need to install a variety of packages. Here I show the basic procedure for installing new packages from the console as well as from the R Studio interface.</p>
-<div id="installing-packages-from-the-console" class="section level3">
-<h3><span class="header-section-number">2.8.1</span> Installing packages from the console</h3>
-<p>The function <code>install.packages()</code> provides a quick and conveniet way to install packages from the R console.</p>
+<div id="quick-and-easy-visualization" class="section level3">
+<h3><span class="header-section-number">13.3.7</span> Quick and easy visualization</h3>
+<p>Here’s an alternative “quick and easy” way to generate the plot above using the awesome power of ggplot. The downside of this approach is we don’t generate the detailed information on the model, which is something you’d certainly want to have in any real analysis.</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb423-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb423-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb423-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb423-5" title="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
+<a class="sourceLine" id="cb423-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor))</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-420-1.png" width="864" /></p>
 </div>
-<div id="install-the-tidyverse-package" class="section level3">
-<h3><span class="header-section-number">2.8.2</span> Install the tidyverse package</h3>
-<p>To illustrate the use of <code>install.packages()</code>, we’ll install a collection of packages (a “meta-package”) called the <a href="http://www.tidyverse.org">tidyverse</a>. Here’s how to install the tidyverse meta-package from the R console:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>The first argument to <code>install.packages</code> gives the names of the package we want to install. The second argument, <code>dependencies = TRUE</code>, tells R to install any additional packages that tidyverse depends on.</p>
+<div id="impact-of-sex-and-passenger-class-on-the-models" class="section level3">
+<h3><span class="header-section-number">13.3.8</span> Impact of sex and passenger class on the models</h3>
+<p>In our previous analysis we considered the relationship between survival and age, conditioned (facted) on passenger sex. In a complex data set like this one, it is often useful to condition on multiple variables simultaneously. Lets extend our visualization to look at the regression faceted on both class and sex, using <code>facet_grid</code>:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="kw">ggplot</span>(titanic, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>survived, <span class="dt">color=</span>sex)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb424-2" title="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">width =</span> <span class="dv">0</span>, <span class="dt">height =</span> <span class="fl">0.05</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb424-3" title="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="dt">method.args =</span> <span class="kw">list</span>(<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb424-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="op">+</span><span class="st">  </span></a>
+<a class="sourceLine" id="cb424-5" title="5"><span class="st">  </span><span class="kw">facet_grid</span>(pclass <span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></a>
+<a class="sourceLine" id="cb424-6" title="6"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(fcolor, mcolor)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb424-7" title="7"><span class="st">  </span><span class="kw">theme_few</span>()</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-421-1.png" width="864" /></p>
+<p>Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival. Almost all first class female passengers survived, regardless of age. For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age. The negative relationship between age and survival is stronger still for third class females. Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.</p>
 </div>
-<div id="installing-packages-from-the-rstudio-dialog" class="section level3">
-<h3><span class="header-section-number">2.8.3</span> Installing packages from the RStudio dialog</h3>
-<p>You can also install packages using a graphical dialog provided by RStudio. To do so pick the <code>Packages</code> tab in RStudio, and then click the <code>Install</code> button.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
-<img src="figures/fig-rstudio-packages-tab.png" alt="The Packages tab in RStudio" width="600px" />
-<p class="caption">
-Figure 2.2: The Packages tab in RStudio
-</p>
-</div>
-<p>In the packages entry box you can type the name of the package you wish to install. Let’s install another useful package called “stringr”. Type the package name in the “Packages” field, make sure the “Install dependencies” check box is checked, and then press the “Install” button.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-30"></span>
-<img src="figures/fig-rstudio-package-install-stringr.png" alt="Package Install Dialog" width="300px" />
-<p class="caption">
-Figure 2.3: Package Install Dialog
-</p>
-</div>
-</div>
-<div id="loading-packages-with-the-library-function" class="section level3">
-<h3><span class="header-section-number">2.8.4</span> Loading packages with the <code>library()</code> function</h3>
-<p>Once a package is installed on your computer, the package can be loaded into your R session using the <code>library</code> function. To insure our previous install commands worked correctly, let’s load one of the packages we just installed.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<p>Since the tidyverse pacakge is a “meta-package” it provides some additional info about the sub-packages that got loaded.</p>
-<p>When you load tidyverse, you will also see a message about “Conflicts” as several of the functions provided in the dplyr package (a sub-package in tidyverse) conflict with names of functions provided by the “stats” package which usually gets automically loaded when you start R. The conflicting funcdtions are <code>filter</code> and <code>lag</code>. The conflicting functions in the stats package are <code>lag</code> and <code>filter</code> which are used in time series analysis. The <code>dplyr</code> functions are more generally useful. Furthermore, if you need these masked functions you can still access them by prefacing the function name with the name of the package (e.g. <code>stats::filter</code>).</p>
-<p>We will use the “tidyverse” package for almost every class session and assignment in this class. Get in the habit of including the <code>library(tidyverse)</code> statement in all of your R documents.</p>
-</div>
-</div>
-<div id="the-r-help-system" class="section level2">
-<h2><span class="header-section-number">2.9</span> The R Help System</h2>
-<p>R comes with fairly extensive documentation and a simple help system. You can access HTML versions of the R documentation under the Help tab in Rstudio. The HTML documentation also includes information on any packages you’ve installed. Take a few minutes to browse through the R HTML documentation. In addition to the HTML documentation there is also a search box where you can enter a term to search on (see red arrow in figure below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-32"></span>
-<img src="figures/fig-rstudio-help.png" alt="The RStudio Help tab" width="600px" />
-<p class="caption">
-Figure 2.4: The RStudio Help tab
-</p>
-</div>
-<div id="getting-help-from-the-console" class="section level3">
-<h3><span class="header-section-number">2.9.1</span> Getting help from the console</h3>
-<p>In addition to getting help from the RStudio help tab, you can directly search for help from the console. The help system can be invoked using the <code>help</code> function or the <code>?</code> operator.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">help</span>(<span class="st">&quot;log&quot;</span>)</a>
-<a class="sourceLine" id="cb30-2" title="2">?log</a></code></pre></div>
-<p>If you are using RStudio, the help results will appear in the “Help” tab of the Files/Plots/Packages/Help/Viewer (lower right window by default).</p>
-<p>What if you don’t know the name of the function you want? You can use the <code>help.search()</code> function.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">help.search</span>(<span class="st">&quot;log&quot;</span>)</a></code></pre></div>
-<p>In this case <code>help.search("log")</code> returns all the functions with
-the string <code>log</code> in them. For more on <code>help.search</code> type
-<code>?help.search</code>.</p>
-<p>Other useful help related functions include <code>apropos()</code> and <code>example()</code>, <code>vignette()</code>. <code>apropos</code> returns a list of all objects (including variable names and function names) in the current session that match the input string.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">apropos</span>(<span class="st">&quot;log&quot;</span>)</a>
-<a class="sourceLine" id="cb32-2" title="2"><span class="co">##  [1] &quot;annotation_logticks&quot;   &quot;as.data.frame.logical&quot;</span></a>
-<a class="sourceLine" id="cb32-3" title="3"><span class="co">##  [3] &quot;as.logical&quot;            &quot;as.logical.factor&quot;    </span></a>
-<a class="sourceLine" id="cb32-4" title="4"><span class="co">##  [5] &quot;col_logical&quot;           &quot;dlogis&quot;               </span></a>
-<a class="sourceLine" id="cb32-5" title="5"><span class="co">##  [7] &quot;GeomLogticks&quot;          &quot;is_bare_logical&quot;      </span></a>
-<a class="sourceLine" id="cb32-6" title="6"><span class="co">##  [9] &quot;is_logical&quot;            &quot;is_scalar_logical&quot;    </span></a>
-<a class="sourceLine" id="cb32-7" title="7"><span class="co">## [11] &quot;is.logical&quot;            &quot;log&quot;                  </span></a>
-<a class="sourceLine" id="cb32-8" title="8"><span class="co">## [13] &quot;log10&quot;                 &quot;log1p&quot;                </span></a>
-<a class="sourceLine" id="cb32-9" title="9"><span class="co">## [15] &quot;log2&quot;                  &quot;logb&quot;                 </span></a>
-<a class="sourceLine" id="cb32-10" title="10"><span class="co">## [17] &quot;Logic&quot;                 &quot;logical&quot;              </span></a>
-<a class="sourceLine" id="cb32-11" title="11"><span class="co">## [19] &quot;logLik&quot;                &quot;loglin&quot;               </span></a>
-<a class="sourceLine" id="cb32-12" title="12"><span class="co">## [21] &quot;loglm&quot;                 &quot;loglm1&quot;               </span></a>
-<a class="sourceLine" id="cb32-13" title="13"><span class="co">## [23] &quot;logtrans&quot;              &quot;parse_logical&quot;        </span></a>
-<a class="sourceLine" id="cb32-14" title="14"><span class="co">## [25] &quot;plogis&quot;                &quot;qlogis&quot;               </span></a>
-<a class="sourceLine" id="cb32-15" title="15"><span class="co">## [27] &quot;read_log&quot;              &quot;rlogis&quot;               </span></a>
-<a class="sourceLine" id="cb32-16" title="16"><span class="co">## [29] &quot;scale_x_log10&quot;         &quot;scale_y_log10&quot;        </span></a>
-<a class="sourceLine" id="cb32-17" title="17"><span class="co">## [31] &quot;SSlogis&quot;               &quot;tidyverse_logo&quot;       </span></a>
-<a class="sourceLine" id="cb32-18" title="18"><span class="co">## [33] &quot;tokenizer_log&quot;</span></a></code></pre></div>
-<p><code>example()</code> provides examples of how a function is used.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">example</span>(log)</a>
-<a class="sourceLine" id="cb33-2" title="2"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-3" title="3"><span class="co">## log&gt; log(exp(3))</span></a>
-<a class="sourceLine" id="cb33-4" title="4"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb33-5" title="5"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-6" title="6"><span class="co">## log&gt; log10(1e7) # = 7</span></a>
-<a class="sourceLine" id="cb33-7" title="7"><span class="co">## [1] 7</span></a>
-<a class="sourceLine" id="cb33-8" title="8"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-9" title="9"><span class="co">## log&gt; x &lt;- 10^-(1+2*1:9)</span></a>
-<a class="sourceLine" id="cb33-10" title="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb33-11" title="11"><span class="co">## log&gt; cbind(x, log(1+x), log1p(x), exp(x)-1, expm1(x))</span></a>
-<a class="sourceLine" id="cb33-12" title="12"><span class="co">##           x                                                    </span></a>
-<a class="sourceLine" id="cb33-13" title="13"><span class="co">##  [1,] 1e-03 9.995003e-04 9.995003e-04 1.000500e-03 1.000500e-03</span></a>
-<a class="sourceLine" id="cb33-14" title="14"><span class="co">##  [2,] 1e-05 9.999950e-06 9.999950e-06 1.000005e-05 1.000005e-05</span></a>
-<a class="sourceLine" id="cb33-15" title="15"><span class="co">##  [3,] 1e-07 1.000000e-07 1.000000e-07 1.000000e-07 1.000000e-07</span></a>
-<a class="sourceLine" id="cb33-16" title="16"><span class="co">##  [4,] 1e-09 1.000000e-09 1.000000e-09 1.000000e-09 1.000000e-09</span></a>
-<a class="sourceLine" id="cb33-17" title="17"><span class="co">##  [5,] 1e-11 1.000000e-11 1.000000e-11 1.000000e-11 1.000000e-11</span></a>
-<a class="sourceLine" id="cb33-18" title="18"><span class="co">##  [6,] 1e-13 9.992007e-14 1.000000e-13 9.992007e-14 1.000000e-13</span></a>
-<a class="sourceLine" id="cb33-19" title="19"><span class="co">##  [7,] 1e-15 1.110223e-15 1.000000e-15 1.110223e-15 1.000000e-15</span></a>
-<a class="sourceLine" id="cb33-20" title="20"><span class="co">##  [8,] 1e-17 0.000000e+00 1.000000e-17 0.000000e+00 1.000000e-17</span></a>
-<a class="sourceLine" id="cb33-21" title="21"><span class="co">##  [9,] 1e-19 0.000000e+00 1.000000e-19 0.000000e+00 1.000000e-19</span></a></code></pre></div>
-<p>The <code>vignette()</code> function gives longer, more detailed documentation about libraries. Not all libraries include vignettes, but for those that do it’s usually a good place to get started. For example, the stringr package (which we installed above) includes a vignette. To read it’s vignette, type the following at the console</p>
-<pre><code>vignette(&quot;stringr&quot;)</code></pre>
+<div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level3">
+<h3><span class="header-section-number">13.3.9</span> Fitting multiple models based on groupings use <code>dplyr::do</code></h3>
+<p>In the figure above we used <code>ggplot</code> and <code>facet_grid</code> to visualize logistic regression of survival on age, conditioned on both sex and class. What if we wanted to calculate the terms of the logistic regressions for each combination of these two categorical variables? There are three passenger classes and two sexes, meaning we’d have to create six data subsets and fit the model six times if we used the same approach we used previously. Luckily, <code>dplyr</code> provides a powerful function called <code>do()</code> that allows us to carry out arbitrary computations on grouped data.</p>
+<p>There are two ways to use <code>do()</code>. The first way is to give the expressions you evaluate in <code>do()</code> a name, in which case <code>do()</code> will store the results in a column. The second way to use <code>do()</code> is for the expression to return a data frame.</p>
+<p>In this first example, the model fits are stored in the <code>fits</code> column. When using <code>do()</code> you can refer to the groupings using a period (<code>.</code>):</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">grouped.models &lt;-</a>
+<a class="sourceLine" id="cb425-2" title="2"><span class="st">  </span>titanic <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-4" title="4"><span class="st">  </span><span class="kw">do</span>(<span class="dt">fits =</span> <span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .))</a>
+<a class="sourceLine" id="cb425-5" title="5"></a>
+<a class="sourceLine" id="cb425-6" title="6">grouped.models</a>
+<a class="sourceLine" id="cb425-7" title="7"><span class="co">## # A tibble: 6 x 3</span></a>
+<a class="sourceLine" id="cb425-8" title="8"><span class="co">##   sex    pclass fits  </span></a>
+<a class="sourceLine" id="cb425-9" title="9"><span class="co">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;</span></a>
+<a class="sourceLine" id="cb425-10" title="10"><span class="co">## 1 female      1 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb425-11" title="11"><span class="co">## 2 female      2 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb425-12" title="12"><span class="co">## 3 female      3 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb425-13" title="13"><span class="co">## 4 male        1 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb425-14" title="14"><span class="co">## 5 male        2 &lt;glm&gt; </span></a>
+<a class="sourceLine" id="cb425-15" title="15"><span class="co">## 6 male        3 &lt;glm&gt;</span></a></code></pre></div>
+<p>Notice that the “fits” column doesn’t explicitly print out the details of the model. The object returned by <code>glm()</code> can’t be simply represented as text string (it’s a list), so we seea place holder string that tells us that there is data here represented a glm object. However, we can access the the columns with the fits just like any other variable:</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1"><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span></a>
+<a class="sourceLine" id="cb426-2" title="2"><span class="kw">tidy</span>(grouped.models<span class="op">$</span>fits[[<span class="dv">2</span>]])</a>
+<a class="sourceLine" id="cb426-3" title="3"><span class="co">## # A tibble: 2 x 5</span></a>
+<a class="sourceLine" id="cb426-4" title="4"><span class="co">##   term        estimate std.error statistic  p.value</span></a>
+<a class="sourceLine" id="cb426-5" title="5"><span class="co">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb426-6" title="6"><span class="co">## 1 (Intercept)   3.49      0.904       3.86 0.000112</span></a>
+<a class="sourceLine" id="cb426-7" title="7"><span class="co">## 2 age          -0.0450    0.0255     -1.77 0.0773</span></a></code></pre></div>
+<p>Now we illustrate the second approach to using <code>do()</code>. When no name is provided, <code>do()</code> expects its expression to return a dataframe. Here we use the <code>broom::tidy()</code> function to get the key results of each fit model into a data frame:</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">titanic <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb427-2" title="2"><span class="st">  </span><span class="kw">group_by</span>(sex, pclass) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb427-3" title="3"><span class="st">  </span><span class="kw">do</span>(<span class="kw">tidy</span>(<span class="kw">glm</span>(survived <span class="op">~</span><span class="st"> </span>age, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .)))</a>
+<a class="sourceLine" id="cb427-4" title="4"><span class="co">## # A tibble: 12 x 7</span></a>
+<a class="sourceLine" id="cb427-5" title="5"><span class="co">##    sex    pclass term        estimate std.error statistic    p.value</span></a>
+<a class="sourceLine" id="cb427-6" title="6"><span class="co">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb427-7" title="7"><span class="co">##  1 female      1 (Intercept)  2.90       1.24       2.34  0.0193    </span></a>
+<a class="sourceLine" id="cb427-8" title="8"><span class="co">##  2 female      1 age          0.00960    0.0326     0.294 0.769     </span></a>
+<a class="sourceLine" id="cb427-9" title="9"><span class="co">##  3 female      2 (Intercept)  3.49       0.904      3.86  0.000112  </span></a>
+<a class="sourceLine" id="cb427-10" title="10"><span class="co">##  4 female      2 age         -0.0450     0.0255    -1.77  0.0773    </span></a>
+<a class="sourceLine" id="cb427-11" title="11"><span class="co">##  5 female      3 (Intercept)  0.289      0.341      0.846 0.398     </span></a>
+<a class="sourceLine" id="cb427-12" title="12"><span class="co">##  6 female      3 age         -0.0178     0.0136    -1.31  0.190     </span></a>
+<a class="sourceLine" id="cb427-13" title="13"><span class="co">##  7 male        1 (Intercept)  0.880      0.527      1.67  0.0951    </span></a>
+<a class="sourceLine" id="cb427-14" title="14"><span class="co">##  8 male        1 age         -0.0374     0.0128    -2.93  0.00335   </span></a>
+<a class="sourceLine" id="cb427-15" title="15"><span class="co">##  9 male        2 (Intercept)  1.04       0.599      1.74  0.0818    </span></a>
+<a class="sourceLine" id="cb427-16" title="16"><span class="co">## 10 male        2 age         -0.112      0.0249    -4.50  0.00000672</span></a>
+<a class="sourceLine" id="cb427-17" title="17"><span class="co">## 11 male        3 (Intercept) -0.761      0.342     -2.23  0.0259    </span></a>
+<a class="sourceLine" id="cb427-18" title="18"><span class="co">## 12 male        3 age         -0.0339     0.0134    -2.53  0.0113</span></a></code></pre></div>
+<p>Using this approach we get a nice data frame showing the logistic regression coefficients, and associated statistics (standard error, P-values, etc) for the regression of survival on age, for each combination of sex and class.</p>
 
 </div>
 </div>
@@ -791,8 +788,8 @@ the string <code>log</code> in them. For more on <code>help.search</code> type
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-markdown-and-r-notebooks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="linear-regression-models-ii.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

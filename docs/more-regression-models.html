@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-03-24" />
+<meta name="date" content="2020-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="linear-regression-models-ii.html"/>
-
+<link rel="next" href="principal-components-analysis.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -422,6 +422,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.3.9" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.3.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="14" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Components Analysis</a><ul>
+<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-3"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
+<li class="chapter" data-level="14.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>14.2</b> Matrices as linear transformations</a></li>
+<li class="chapter" data-level="14.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>14.3</b> Eigenanalysis in R</a></li>
+<li class="chapter" data-level="14.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>14.4</b> Principal Components Analysis in R</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>14.4.1</b> Bioenv dataset</a></li>
+<li class="chapter" data-level="14.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>14.4.2</b> PCA of the Bioenv dataset</a></li>
+<li class="chapter" data-level="14.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>14.4.3</b> Calculating Factor Loadings</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>14.5</b> Drawing Figures to Represent PCA</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>14.5.1</b> PC Score Plots</a></li>
+<li class="chapter" data-level="14.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>14.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -593,7 +607,7 @@ experimentation or, more rigorously by cross-validation.</p>
 <a class="sourceLine" id="cb414-4" title="4"><span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="dt">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb414-5" title="5"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</a></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-411-1.png" width="576" /></p>
-<p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in otehr years to see if you can identify drivers behind other approval rating shifts.</p>
+<p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in other years to see if you can identify drivers behind other approval rating shifts.</p>
 </div>
 <div id="logistic-regression" class="section level2">
 <h2><span class="header-section-number">13.3</span> Logistic regression</h2>
@@ -788,8 +802,8 @@ P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
           </div>
         </div>
       </div>
-<a href="linear-regression-models-ii.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="linear-regression-models-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="principal-components-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

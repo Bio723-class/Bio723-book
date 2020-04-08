@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 16 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists</title>
+  <title>Chapter 15 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
   <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 16 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 15 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 16 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 15 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-01-20" />
+<meta name="date" content="2020-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="singular-value-decomposition.html"/>
+<link rel="prev" href="principal-components-analysis.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -349,70 +349,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
+<li class="chapter" data-level="10.5" data-path="matrices-in-r.html"><a href="matrices-in-r.html#solving-sets-of-simultaneous-equations"><i class="fa fa-check"></i><b>10.5</b> Solving sets of simultaneous equations</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
-<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
-<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
-<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
-<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
-<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
-<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
-<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
-<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html"><i class="fa fa-check"></i><b>11</b> Linear Regression Models I</a><ul>
+<li class="chapter" data-level="11.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-functions"><i class="fa fa-check"></i><b>11.1</b> Linear functions</a></li>
+<li class="chapter" data-level="11.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.3</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.4" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#geometry-of-linear-regression"><i class="fa fa-check"></i><b>11.4</b> Geometry of linear regression</a></li>
+<li class="chapter" data-level="11.5" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.5</b> Solution for the least-squares criterion</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#bivariate-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.1</b> Bivariate regression, estimating coefficients</a></li>
+<li class="chapter" data-level="11.5.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#multiple-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.2</b> Multiple regression, estimating coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
-<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
-<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
-<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
-<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+<li class="chapter" data-level="11.6" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residuals"><i class="fa fa-check"></i><b>11.6</b> Residuals</a></li>
+<li class="chapter" data-level="11.7" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.7</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.8" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.8</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.9" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#goodness-of-fit"><i class="fa fa-check"></i><b>11.9</b> Goodness of fit</a></li>
+<li class="chapter" data-level="11.10" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#interpretting-regression"><i class="fa fa-check"></i><b>11.10</b> Interpretting Regression</a></li>
+<li class="chapter" data-level="11.11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.11</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.12" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-regression-model-using-vector-arithmetic"><i class="fa fa-check"></i><b>11.12</b> Calculating the regression model using vector arithmetic</a><ul>
+<li class="chapter" data-level="11.12.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-predicted-values-and-residuals"><i class="fa fa-check"></i><b>11.12.1</b> Calculating the predicted values and residuals</a></li>
 </ul></li>
-<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+<li class="chapter" data-level="11.13" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#plotting-various-aspects-of-a-regression"><i class="fa fa-check"></i><b>11.13</b> Plotting various aspects of a regression</a><ul>
+<li class="chapter" data-level="11.13.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residual-plots"><i class="fa fa-check"></i><b>11.13.1</b> Residual plots</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
-<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+<li class="chapter" data-level="11.14" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models II</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.1</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#standard-libraries"><i class="fa fa-check"></i><b>12.2</b> Standard libraries</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>12.3</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-summary-output-from-lm"><i class="fa fa-check"></i><b>12.3.1</b> Interpretting summary output from lm()</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
-<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
-<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
-<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
-<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
-<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
-<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
-<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#quick-bivariate-regression-plots-in-ggplot"><i class="fa fa-check"></i><b>12.4</b> Quick bivariate regression plots in ggplot</a></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#more-about-the-data-structure-returned-by-lm"><i class="fa fa-check"></i><b>12.5</b> More about the data structure returned by <code>lm()</code></a><ul>
+<li class="chapter" data-level="12.5.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitted-values"><i class="fa fa-check"></i><b>12.5.1</b> Fitted values</a></li>
+<li class="chapter" data-level="12.5.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>12.5.2</b> Getting the model coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
-<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>12.6</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="12.6.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomtidy"><i class="fa fa-check"></i><b>12.6.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="12.6.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomaugment"><i class="fa fa-check"></i><b>12.6.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="12.6.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomglance"><i class="fa fa-check"></i><b>12.6.3</b> <code>broom::glance</code></a></li>
 </ul></li>
-<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
-<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
-<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
-<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
-<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
-<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
-<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#qq-plots"><i class="fa fa-check"></i><b>12.7</b> qq-plots</a></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#multiple-regression"><i class="fa fa-check"></i><b>12.8</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.8.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploration-of-the-trees-data-set"><i class="fa fa-check"></i><b>12.8.1</b> Exploration of the trees data set</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
-<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
-<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
-<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
-<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
-<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
-<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
-<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
 </ul></li>
-<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
-<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.15</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="more-regression-models.html"><a href="more-regression-models.html"><i class="fa fa-check"></i><b>13</b> More regression models</a><ul>
+<li class="chapter" data-level="13.1" data-path="more-regression-models.html"><a href="more-regression-models.html#curvilinear-regression"><i class="fa fa-check"></i><b>13.1</b> Curvilinear regression</a></li>
+<li class="chapter" data-level="13.2" data-path="more-regression-models.html"><a href="more-regression-models.html#loess-regression"><i class="fa fa-check"></i><b>13.2</b> LOESS regression</a></li>
+<li class="chapter" data-level="13.3" data-path="more-regression-models.html"><a href="more-regression-models.html#logistic-regression"><i class="fa fa-check"></i><b>13.3</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="more-regression-models.html"><a href="more-regression-models.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.3.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="more-regression-models.html"><a href="more-regression-models.html#titanic-data-set"><i class="fa fa-check"></i><b>13.3.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3.3" data-path="more-regression-models.html"><a href="more-regression-models.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.3.4" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.3.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.3.5" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.3.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.3.6</b> Visualizing the logistic regression</a></li>
+<li class="chapter" data-level="13.3.7" data-path="more-regression-models.html"><a href="more-regression-models.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.3.7</b> Quick and easy visualization</a></li>
+<li class="chapter" data-level="13.3.8" data-path="more-regression-models.html"><a href="more-regression-models.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.3.8</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.3.9" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.3.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
+<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-3"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
 <li class="chapter" data-level="14.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>14.2</b> Matrices as linear transformations</a></li>
 <li class="chapter" data-level="14.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>14.3</b> Eigenanalysis in R</a></li>
 <li class="chapter" data-level="14.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>14.4</b> Principal Components Analysis in R</a><ul>
@@ -425,27 +436,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>14.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html"><i class="fa fa-check"></i><b>15</b> Singular Value Decomposition</a><ul>
-<li class="chapter" data-level="15.1" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#libraries-6"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
-<li class="chapter" data-level="15.2" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#svd-in-r"><i class="fa fa-check"></i><b>15.2</b> SVD in R</a></li>
-<li class="chapter" data-level="15.3" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#writing-our-own-pca-function-using-svd"><i class="fa fa-check"></i><b>15.3</b> Writing our own PCA function using SVD</a></li>
-<li class="chapter" data-level="15.4" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#writing-a-biplot-function"><i class="fa fa-check"></i><b>15.4</b> Writing a biplot function</a></li>
-<li class="chapter" data-level="15.5" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#data-compression-and-noise-filtering-using-svd"><i class="fa fa-check"></i><b>15.5</b> Data compression and noise filtering using SVD</a><ul>
-<li class="chapter" data-level="15.5.1" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#example-image"><i class="fa fa-check"></i><b>15.5.1</b> Example image</a></li>
+<li class="chapter" data-level="15" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>15</b> Canonical Variates Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-4"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
+<li class="chapter" data-level="15.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>15.2</b> Discriminant Analysis in R</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>15.2.1</b> Shorthand Formulae in R</a></li>
+<li class="chapter" data-level="15.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>15.2.2</b> Working with the output of <code>lda()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#image-compression-using-svd-in-r"><i class="fa fa-check"></i><b>15.6</b> Image compression using SVD in R</a></li>
+<li class="chapter" data-level="15.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>15.3</b> Estimating confidence regions for group means in CVA</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>15.3.1</b> Drawing the CVA confidence regions</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>16</b> Canonical Variates Analysis</a><ul>
-<li class="chapter" data-level="16.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-7"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
-<li class="chapter" data-level="16.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>16.2</b> Discriminant Analysis in R</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>16.2.1</b> Shorthand Formulae in R</a></li>
-<li class="chapter" data-level="16.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>16.2.2</b> Working with the output of <code>lda()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="16.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>16.3</b> Estimating confidence regions for group means in CVA</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>16.3.1</b> Drawing the CVA confidence regions</a></li>
-</ul></li>
-<li class="chapter" data-level="16.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>16.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>16.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>15.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>15.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -466,225 +467,225 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="canonical-variates-analysis" class="section level1">
-<h1><span class="header-section-number">Chapter 16</span> Canonical Variates Analysis</h1>
+<h1><span class="header-section-number">Chapter 15</span> Canonical Variates Analysis</h1>
 <p>Canonical Variates Analysis (CVA) is also referred to in the literature as “Linear Discrimination Analysis” (LDA). Confusingly, there is also a technique usualled called Canonical Correlation Analysis that is sometimes referred to as “Canonical Variates Analysis” in the literature.</p>
 <p>Canonical variate analysis is used for analyzing group structure in multivariate data. Canonical variate axes are directions in multivariate space that maximally separate (discriminate) the pre-defined groups of interest specified in the data.</p>
 <p>Unlike PCA, canonical variate axes are not, in general, orthogonal in the space of the original variables.</p>
-<div id="libraries-7" class="section level2">
-<h2><span class="header-section-number">16.1</span> Libraries</h2>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb481-2" title="2"><span class="kw">library</span>(cowplot)</a>
-<a class="sourceLine" id="cb481-3" title="3"><span class="kw">library</span>(broom)</a>
-<a class="sourceLine" id="cb481-4" title="4"><span class="kw">library</span>(magrittr)</a></code></pre></div>
+<div id="libraries-4" class="section level2">
+<h2><span class="header-section-number">15.1</span> Libraries</h2>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb458-2" title="2"><span class="kw">library</span>(cowplot)</a>
+<a class="sourceLine" id="cb458-3" title="3"><span class="kw">library</span>(broom)</a>
+<a class="sourceLine" id="cb458-4" title="4"><span class="kw">library</span>(magrittr)</a></code></pre></div>
 </div>
 <div id="discriminant-analysis-in-r" class="section level2">
-<h2><span class="header-section-number">16.2</span> Discriminant Analysis in R</h2>
+<h2><span class="header-section-number">15.2</span> Discriminant Analysis in R</h2>
 <p>The function <code>lda()</code>, found in the R library <code>MASS</code>, carries out linear discriminant analysis (i.e. canonical variates analysis).</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1"><span class="kw">library</span>(MASS)</a>
-<a class="sourceLine" id="cb482-2" title="2"></a>
-<a class="sourceLine" id="cb482-3" title="3">lda.iris &lt;-<span class="kw">lda</span>(Species <span class="op">~</span><span class="st"> </span>Sepal.Length <span class="op">+</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width,</a>
-<a class="sourceLine" id="cb482-4" title="4">               iris, <span class="dt">prior=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="op">/</span><span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb482-5" title="5">lda.iris</a>
-<a class="sourceLine" id="cb482-6" title="6"><span class="co">## Call:</span></a>
-<a class="sourceLine" id="cb482-7" title="7"><span class="co">## lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, </span></a>
-<a class="sourceLine" id="cb482-8" title="8"><span class="co">##     data = iris, prior = c(1, 1, 1)/3)</span></a>
-<a class="sourceLine" id="cb482-9" title="9"><span class="co">## </span></a>
-<a class="sourceLine" id="cb482-10" title="10"><span class="co">## Prior probabilities of groups:</span></a>
-<a class="sourceLine" id="cb482-11" title="11"><span class="co">##     setosa versicolor  virginica </span></a>
-<a class="sourceLine" id="cb482-12" title="12"><span class="co">##  0.3333333  0.3333333  0.3333333 </span></a>
-<a class="sourceLine" id="cb482-13" title="13"><span class="co">## </span></a>
-<a class="sourceLine" id="cb482-14" title="14"><span class="co">## Group means:</span></a>
-<a class="sourceLine" id="cb482-15" title="15"><span class="co">##            Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb482-16" title="16"><span class="co">## setosa            5.006       3.428        1.462       0.246</span></a>
-<a class="sourceLine" id="cb482-17" title="17"><span class="co">## versicolor        5.936       2.770        4.260       1.326</span></a>
-<a class="sourceLine" id="cb482-18" title="18"><span class="co">## virginica         6.588       2.974        5.552       2.026</span></a>
-<a class="sourceLine" id="cb482-19" title="19"><span class="co">## </span></a>
-<a class="sourceLine" id="cb482-20" title="20"><span class="co">## Coefficients of linear discriminants:</span></a>
-<a class="sourceLine" id="cb482-21" title="21"><span class="co">##                     LD1         LD2</span></a>
-<a class="sourceLine" id="cb482-22" title="22"><span class="co">## Sepal.Length  0.8293776  0.02410215</span></a>
-<a class="sourceLine" id="cb482-23" title="23"><span class="co">## Sepal.Width   1.5344731  2.16452123</span></a>
-<a class="sourceLine" id="cb482-24" title="24"><span class="co">## Petal.Length -2.2012117 -0.93192121</span></a>
-<a class="sourceLine" id="cb482-25" title="25"><span class="co">## Petal.Width  -2.8104603  2.83918785</span></a>
-<a class="sourceLine" id="cb482-26" title="26"><span class="co">## </span></a>
-<a class="sourceLine" id="cb482-27" title="27"><span class="co">## Proportion of trace:</span></a>
-<a class="sourceLine" id="cb482-28" title="28"><span class="co">##    LD1    LD2 </span></a>
-<a class="sourceLine" id="cb482-29" title="29"><span class="co">## 0.9912 0.0088</span></a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1"><span class="kw">library</span>(MASS)</a>
+<a class="sourceLine" id="cb459-2" title="2"></a>
+<a class="sourceLine" id="cb459-3" title="3">lda.iris &lt;-<span class="kw">lda</span>(Species <span class="op">~</span><span class="st"> </span>Sepal.Length <span class="op">+</span><span class="st"> </span>Sepal.Width <span class="op">+</span><span class="st"> </span>Petal.Length <span class="op">+</span><span class="st"> </span>Petal.Width,</a>
+<a class="sourceLine" id="cb459-4" title="4">               iris, <span class="dt">prior=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="op">/</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb459-5" title="5">lda.iris</a>
+<a class="sourceLine" id="cb459-6" title="6"><span class="co">## Call:</span></a>
+<a class="sourceLine" id="cb459-7" title="7"><span class="co">## lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, </span></a>
+<a class="sourceLine" id="cb459-8" title="8"><span class="co">##     data = iris, prior = c(1, 1, 1)/3)</span></a>
+<a class="sourceLine" id="cb459-9" title="9"><span class="co">## </span></a>
+<a class="sourceLine" id="cb459-10" title="10"><span class="co">## Prior probabilities of groups:</span></a>
+<a class="sourceLine" id="cb459-11" title="11"><span class="co">##     setosa versicolor  virginica </span></a>
+<a class="sourceLine" id="cb459-12" title="12"><span class="co">##  0.3333333  0.3333333  0.3333333 </span></a>
+<a class="sourceLine" id="cb459-13" title="13"><span class="co">## </span></a>
+<a class="sourceLine" id="cb459-14" title="14"><span class="co">## Group means:</span></a>
+<a class="sourceLine" id="cb459-15" title="15"><span class="co">##            Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb459-16" title="16"><span class="co">## setosa            5.006       3.428        1.462       0.246</span></a>
+<a class="sourceLine" id="cb459-17" title="17"><span class="co">## versicolor        5.936       2.770        4.260       1.326</span></a>
+<a class="sourceLine" id="cb459-18" title="18"><span class="co">## virginica         6.588       2.974        5.552       2.026</span></a>
+<a class="sourceLine" id="cb459-19" title="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb459-20" title="20"><span class="co">## Coefficients of linear discriminants:</span></a>
+<a class="sourceLine" id="cb459-21" title="21"><span class="co">##                     LD1         LD2</span></a>
+<a class="sourceLine" id="cb459-22" title="22"><span class="co">## Sepal.Length  0.8293776  0.02410215</span></a>
+<a class="sourceLine" id="cb459-23" title="23"><span class="co">## Sepal.Width   1.5344731  2.16452123</span></a>
+<a class="sourceLine" id="cb459-24" title="24"><span class="co">## Petal.Length -2.2012117 -0.93192121</span></a>
+<a class="sourceLine" id="cb459-25" title="25"><span class="co">## Petal.Width  -2.8104603  2.83918785</span></a>
+<a class="sourceLine" id="cb459-26" title="26"><span class="co">## </span></a>
+<a class="sourceLine" id="cb459-27" title="27"><span class="co">## Proportion of trace:</span></a>
+<a class="sourceLine" id="cb459-28" title="28"><span class="co">##    LD1    LD2 </span></a>
+<a class="sourceLine" id="cb459-29" title="29"><span class="co">## 0.9912 0.0088</span></a></code></pre></div>
 <p>When using <code>lda()</code> we specify a formula, with the grouping variable on the left and the quantitative variables on which you want to bases the discriminant axes, on the left. The <code>prior</code> argument given in the <code>lda()</code> function call isn’t strictly necessary because by default the <code>lda()</code> function will assign equal probabilities among the groups. However I included this argument call to illustrate how to change the prior if you wanted. The output give some simple summary statistics for the group means for each of the variables and then gives the coefficients of the canonical variates. The `Proportion of trace’ output above tells us that 99.12% of the between-group variance is captured along the first discriminant axis.</p>
 <div id="shorthand-formulae-in-r" class="section level3">
-<h3><span class="header-section-number">16.2.1</span> Shorthand Formulae in R</h3>
+<h3><span class="header-section-number">15.2.1</span> Shorthand Formulae in R</h3>
 <p>You’ve encountered the use of model formulae in R throughout the course.
 Relevant to our current example is a shorthand way for specifying multiple variables in a formula. In the example above we called the |lda()| function with a formula of the form:</p>
 <pre><code>Species ~ Sepal.Length + Sepal.Width + ....</code></pre>
 <p>Writing the names of all those variables is tedious and error prone and would be unmanageable if we were analyzing a data set with tens or hundreds of variables. Luckily we can use the shorthand name <code>.</code> to specify all other variables in the data frame except the variable on the left. For example, we can rewrite the <code>lda()</code> call above as:</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1">iris.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris)</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1">iris.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> iris)</a></code></pre></div>
 </div>
 <div id="working-with-the-output-of-lda" class="section level3">
-<h3><span class="header-section-number">16.2.2</span> Working with the output of <code>lda()</code></h3>
+<h3><span class="header-section-number">15.2.2</span> Working with the output of <code>lda()</code></h3>
 <p>The object returned by <code>lda()</code> is of class “lda” with a number of components (see <code>?lda</code> for details):</p>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1"><span class="kw">class</span>(iris.lda)</a>
-<a class="sourceLine" id="cb485-2" title="2"><span class="co">## [1] &quot;lda&quot;</span></a>
-<a class="sourceLine" id="cb485-3" title="3"><span class="kw">names</span>(iris.lda)</a>
-<a class="sourceLine" id="cb485-4" title="4"><span class="co">##  [1] &quot;prior&quot;   &quot;counts&quot;  &quot;means&quot;   &quot;scaling&quot; &quot;lev&quot;     &quot;svd&quot;     &quot;N&quot;      </span></a>
-<a class="sourceLine" id="cb485-5" title="5"><span class="co">##  [8] &quot;call&quot;    &quot;terms&quot;   &quot;xlevels&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1"><span class="kw">class</span>(iris.lda)</a>
+<a class="sourceLine" id="cb462-2" title="2"><span class="co">## [1] &quot;lda&quot;</span></a>
+<a class="sourceLine" id="cb462-3" title="3"><span class="kw">names</span>(iris.lda)</a>
+<a class="sourceLine" id="cb462-4" title="4"><span class="co">##  [1] &quot;prior&quot;   &quot;counts&quot;  &quot;means&quot;   &quot;scaling&quot; &quot;lev&quot;     &quot;svd&quot;     &quot;N&quot;      </span></a>
+<a class="sourceLine" id="cb462-5" title="5"><span class="co">##  [8] &quot;call&quot;    &quot;terms&quot;   &quot;xlevels&quot;</span></a></code></pre></div>
 <p>The <code>scaling</code> component gives the coefficients of the CVA that we can use to calculate the “scores” of the observations in the space of the canonical variates.</p>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1">iris.lda<span class="op">$</span>scaling</a>
-<a class="sourceLine" id="cb486-2" title="2"><span class="co">##                     LD1         LD2</span></a>
-<a class="sourceLine" id="cb486-3" title="3"><span class="co">## Sepal.Length  0.8293776  0.02410215</span></a>
-<a class="sourceLine" id="cb486-4" title="4"><span class="co">## Sepal.Width   1.5344731  2.16452123</span></a>
-<a class="sourceLine" id="cb486-5" title="5"><span class="co">## Petal.Length -2.2012117 -0.93192121</span></a>
-<a class="sourceLine" id="cb486-6" title="6"><span class="co">## Petal.Width  -2.8104603  2.83918785</span></a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" title="1">iris.lda<span class="op">$</span>scaling</a>
+<a class="sourceLine" id="cb463-2" title="2"><span class="co">##                     LD1         LD2</span></a>
+<a class="sourceLine" id="cb463-3" title="3"><span class="co">## Sepal.Length  0.8293776  0.02410215</span></a>
+<a class="sourceLine" id="cb463-4" title="4"><span class="co">## Sepal.Width   1.5344731  2.16452123</span></a>
+<a class="sourceLine" id="cb463-5" title="5"><span class="co">## Petal.Length -2.2012117 -0.93192121</span></a>
+<a class="sourceLine" id="cb463-6" title="6"><span class="co">## Petal.Width  -2.8104603  2.83918785</span></a></code></pre></div>
 <p>The columns <code>LD1</code> and <code>LD2</code> give the coffiecients, <span class="math inline">\(\bf{a}\)</span>, that we can use in the formula <span class="math inline">\(\bf{y}_\text{discrim} = \bf{Xa}\)</span></p>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1">iris.sub &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb487-2" title="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb487-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># drop Species column </span></a>
-<a class="sourceLine" id="cb487-4" title="4"><span class="st">  </span>as.matrix  <span class="co"># cast to matrix for calculations</span></a>
-<a class="sourceLine" id="cb487-5" title="5"></a>
-<a class="sourceLine" id="cb487-6" title="6"><span class="co"># calculate CV scores</span></a>
-<a class="sourceLine" id="cb487-7" title="7">CVA.scores &lt;-<span class="st"> </span>iris.sub <span class="op">%*%</span><span class="st"> </span>iris.lda<span class="op">$</span>scaling</a>
-<a class="sourceLine" id="cb487-8" title="8"></a>
-<a class="sourceLine" id="cb487-9" title="9"><span class="co"># create data frame with scores</span></a>
-<a class="sourceLine" id="cb487-10" title="10">iris.CV &lt;-<span class="st"> </span><span class="kw">data.frame</span>(CVA.scores)</a>
-<a class="sourceLine" id="cb487-11" title="11">iris.CV<span class="op">$</span>Species &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1">iris.sub &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb464-2" title="2"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb464-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># drop Species column </span></a>
+<a class="sourceLine" id="cb464-4" title="4"><span class="st">  </span>as.matrix  <span class="co"># cast to matrix for calculations</span></a>
+<a class="sourceLine" id="cb464-5" title="5"></a>
+<a class="sourceLine" id="cb464-6" title="6"><span class="co"># calculate CV scores</span></a>
+<a class="sourceLine" id="cb464-7" title="7">CVA.scores &lt;-<span class="st"> </span>iris.sub <span class="op">%*%</span><span class="st"> </span>iris.lda<span class="op">$</span>scaling</a>
+<a class="sourceLine" id="cb464-8" title="8"></a>
+<a class="sourceLine" id="cb464-9" title="9"><span class="co"># create data frame with scores</span></a>
+<a class="sourceLine" id="cb464-10" title="10">iris.CV &lt;-<span class="st"> </span><span class="kw">data.frame</span>(CVA.scores)</a>
+<a class="sourceLine" id="cb464-11" title="11">iris.CV<span class="op">$</span>Species &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</a></code></pre></div>
 <p>Having calculated the CVA scores we can now generate a plot:</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1">iris.cva.plot &lt;-</a>
-<a class="sourceLine" id="cb488-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(iris.CV, <span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb488-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species, <span class="dt">shape=</span>Species), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb488-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;CV1&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;CV2&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb488-5" title="5"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)  <span class="co"># keep the unit scaling of the plot fixed at 1</span></a>
-<a class="sourceLine" id="cb488-6" title="6"></a>
-<a class="sourceLine" id="cb488-7" title="7">iris.cva.plot</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-485-1.png" width="768" /></p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" title="1">iris.cva.plot &lt;-</a>
+<a class="sourceLine" id="cb465-2" title="2"><span class="st">  </span><span class="kw">ggplot</span>(iris.CV, <span class="kw">aes</span>(<span class="dt">x =</span> LD1, <span class="dt">y =</span> LD2)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb465-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species, <span class="dt">shape=</span>Species), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb465-4" title="4"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;CV1&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;CV2&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb465-5" title="5"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)  <span class="co"># keep the unit scaling of the plot fixed at 1</span></a>
+<a class="sourceLine" id="cb465-6" title="6"></a>
+<a class="sourceLine" id="cb465-7" title="7">iris.cva.plot</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-461-1.png" width="768" /></p>
 <p>Since most of the between group variation is captured by CV1, a density plot is an alternative in this case:</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1"><span class="kw">ggplot</span>(iris.CV, <span class="kw">aes</span>(<span class="dt">x =</span> LD1)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb489-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb489-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;CV1&quot;</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-486-1.png" width="768" /></p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1"><span class="kw">ggplot</span>(iris.CV, <span class="kw">aes</span>(<span class="dt">x =</span> LD1)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb466-2" title="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb466-3" title="3"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;CV1&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-462-1.png" width="768" /></p>
 <p>The density plot of CV1 makes it clear how well the first canonical variate does in separating the three groups.</p>
 </div>
 </div>
 <div id="estimating-confidence-regions-for-group-means-in-cva" class="section level2">
-<h2><span class="header-section-number">16.3</span> Estimating confidence regions for group means in CVA</h2>
+<h2><span class="header-section-number">15.3</span> Estimating confidence regions for group means in CVA</h2>
 <p>I stated in lecture that for the canonical variate diagram we can estimate the <span class="math inline">\(100(1-\alpha)\)</span> confidence region for a group mean as a circle centered at the mean having a radius <span class="math inline">\((\chi^{2}_{\alpha,r}/n_i)^{1/2}\)</span> where <span class="math inline">\(r\)</span> is the number of canonical variate dimensions considered.</p>
 <p>Using similar reasoning the <span class="math inline">\(100(1-\alpha)\)</span> “tolerance regions” for the whole population is given by a hypersphere centered at the mean with radius <span class="math inline">\((\chi^{2}_{\alpha,r})^{1/2}\)</span>. These tolerance regions are the regions in the CVA space where we expect approximately <span class="math inline">\(100(1-\alpha)\)</span> percent of samples belong to a given group to be found.</p>
 <p>To calculate these confidence regions you could look up the appropriate value of the the <span class="math inline">\(\chi^2\)</span> distribution in a book of statistical tables, or we can use the |qchisq()| function which gives the inverse cumulative probability distribution for the <span class="math inline">\(\chi^2\)</span> function:</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1">chi2 =<span class="st"> </span><span class="kw">qchisq</span>(<span class="fl">0.05</span>,<span class="dv">2</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb490-2" title="2">chi2</a>
-<a class="sourceLine" id="cb490-3" title="3"><span class="co">## [1] 5.991465</span></a>
-<a class="sourceLine" id="cb490-4" title="4"></a>
-<a class="sourceLine" id="cb490-5" title="5">CIregions.mean.and.pop &lt;-</a>
-<a class="sourceLine" id="cb490-6" title="6"><span class="st">  </span>iris.CV <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb490-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb490-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">CV1.mean =</span> <span class="kw">mean</span>(LD1),</a>
-<a class="sourceLine" id="cb490-9" title="9">            <span class="dt">CV2.mean =</span> <span class="kw">mean</span>(LD2),</a>
-<a class="sourceLine" id="cb490-10" title="10">            <span class="dt">mean.radii =</span> <span class="kw">sqrt</span>(chi2<span class="op">/</span><span class="kw">n</span>()),</a>
-<a class="sourceLine" id="cb490-11" title="11">            <span class="dt">popn.radii =</span> <span class="kw">sqrt</span>(chi2))</a>
-<a class="sourceLine" id="cb490-12" title="12"></a>
-<a class="sourceLine" id="cb490-13" title="13">CIregions.mean.and.pop</a>
-<a class="sourceLine" id="cb490-14" title="14"><span class="co">## # A tibble: 3 x 5</span></a>
-<a class="sourceLine" id="cb490-15" title="15"><span class="co">##   Species    CV1.mean CV2.mean mean.radii popn.radii</span></a>
-<a class="sourceLine" id="cb490-16" title="16"><span class="co">##   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb490-17" title="17"><span class="co">## 1 setosa         5.50     6.88      0.346       2.45</span></a>
-<a class="sourceLine" id="cb490-18" title="18"><span class="co">## 2 versicolor    -3.93     5.93      0.346       2.45</span></a>
-<a class="sourceLine" id="cb490-19" title="19"><span class="co">## 3 virginica     -7.89     7.17      0.346       2.45</span></a></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" title="1">chi2 =<span class="st"> </span><span class="kw">qchisq</span>(<span class="fl">0.05</span>,<span class="dv">2</span>, <span class="dt">lower.tail=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb467-2" title="2">chi2</a>
+<a class="sourceLine" id="cb467-3" title="3"><span class="co">## [1] 5.991465</span></a>
+<a class="sourceLine" id="cb467-4" title="4"></a>
+<a class="sourceLine" id="cb467-5" title="5">CIregions.mean.and.pop &lt;-</a>
+<a class="sourceLine" id="cb467-6" title="6"><span class="st">  </span>iris.CV <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb467-7" title="7"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb467-8" title="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">CV1.mean =</span> <span class="kw">mean</span>(LD1),</a>
+<a class="sourceLine" id="cb467-9" title="9">            <span class="dt">CV2.mean =</span> <span class="kw">mean</span>(LD2),</a>
+<a class="sourceLine" id="cb467-10" title="10">            <span class="dt">mean.radii =</span> <span class="kw">sqrt</span>(chi2<span class="op">/</span><span class="kw">n</span>()),</a>
+<a class="sourceLine" id="cb467-11" title="11">            <span class="dt">popn.radii =</span> <span class="kw">sqrt</span>(chi2))</a>
+<a class="sourceLine" id="cb467-12" title="12"></a>
+<a class="sourceLine" id="cb467-13" title="13">CIregions.mean.and.pop</a>
+<a class="sourceLine" id="cb467-14" title="14"><span class="co">## # A tibble: 3 x 5</span></a>
+<a class="sourceLine" id="cb467-15" title="15"><span class="co">##   Species    CV1.mean CV2.mean mean.radii popn.radii</span></a>
+<a class="sourceLine" id="cb467-16" title="16"><span class="co">##   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb467-17" title="17"><span class="co">## 1 setosa         5.50     6.88      0.346       2.45</span></a>
+<a class="sourceLine" id="cb467-18" title="18"><span class="co">## 2 versicolor    -3.93     5.93      0.346       2.45</span></a>
+<a class="sourceLine" id="cb467-19" title="19"><span class="co">## 3 virginica     -7.89     7.17      0.346       2.45</span></a></code></pre></div>
 <div id="drawing-the-cva-confidence-regions" class="section level3">
-<h3><span class="header-section-number">16.3.1</span> Drawing the CVA confidence regions</h3>
+<h3><span class="header-section-number">15.3.1</span> Drawing the CVA confidence regions</h3>
 <p>Surprisingly, <code>ggplot2</code> has no built-in functions for drawing circles, despite having <code>geom_rect()</code> and <code>geom_polygon()</code> functions. Instead we turn to a package called <a href="https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html">ggforce</a> which provides a convenient <code>geom_circle()</code> function as well as a number of other useful extensions of ggplot. Install “ggforce” through the normal package installation mechanism and then load it.</p>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" title="1"><span class="kw">library</span>(ggforce)</a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="kw">library</span>(ggforce)</a></code></pre></div>
 <p>We can then use <code>ggforce::geom_circle()</code> to draw confidence regions for the mean and population in our 2D CVA plot:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1">iris.cva.plot2 &lt;-</a>
-<a class="sourceLine" id="cb492-2" title="2"><span class="st">  </span>iris.cva.plot <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb492-3" title="3"><span class="st">  </span><span class="kw">geom_circle</span>(<span class="dt">data =</span> CIregions.mean.and.pop,</a>
-<a class="sourceLine" id="cb492-4" title="4">              <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x0 =</span> CV1.mean, <span class="dt">y0 =</span> CV2.mean, <span class="dt">r =</span> mean.radii),</a>
-<a class="sourceLine" id="cb492-5" title="5">              <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb492-6" title="6"><span class="st">  </span><span class="kw">geom_circle</span>(<span class="dt">data =</span> CIregions.mean.and.pop,</a>
-<a class="sourceLine" id="cb492-7" title="7">              <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x0 =</span> CV1.mean, <span class="dt">y0 =</span> CV2.mean, <span class="dt">r =</span> popn.radii),</a>
-<a class="sourceLine" id="cb492-8" title="8">              <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </a>
-<a class="sourceLine" id="cb492-9" title="9">              <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a>
-<a class="sourceLine" id="cb492-10" title="10"></a>
-<a class="sourceLine" id="cb492-11" title="11">iris.cva.plot2</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-489-1.png" width="768" /></p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" title="1">iris.cva.plot2 &lt;-</a>
+<a class="sourceLine" id="cb469-2" title="2"><span class="st">  </span>iris.cva.plot <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb469-3" title="3"><span class="st">  </span><span class="kw">geom_circle</span>(<span class="dt">data =</span> CIregions.mean.and.pop,</a>
+<a class="sourceLine" id="cb469-4" title="4">              <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x0 =</span> CV1.mean, <span class="dt">y0 =</span> CV2.mean, <span class="dt">r =</span> mean.radii),</a>
+<a class="sourceLine" id="cb469-5" title="5">              <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb469-6" title="6"><span class="st">  </span><span class="kw">geom_circle</span>(<span class="dt">data =</span> CIregions.mean.and.pop,</a>
+<a class="sourceLine" id="cb469-7" title="7">              <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x0 =</span> CV1.mean, <span class="dt">y0 =</span> CV2.mean, <span class="dt">r =</span> popn.radii),</a>
+<a class="sourceLine" id="cb469-8" title="8">              <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </a>
+<a class="sourceLine" id="cb469-9" title="9">              <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>) </a>
+<a class="sourceLine" id="cb469-10" title="10"></a>
+<a class="sourceLine" id="cb469-11" title="11">iris.cva.plot2</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-465-1.png" width="768" /></p>
 <p>Let’s put the finishing touch on our plots by adding some color coded rug plots to the first CV axis.</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1">iris.cva.plot2 <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb493-2" title="2"><span class="st">  </span><span class="kw">geom_rug</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species),</a>
-<a class="sourceLine" id="cb493-3" title="3">           <span class="dt">sides =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-490-1.png" width="768" /></p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">iris.cva.plot2 <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb470-2" title="2"><span class="st">  </span><span class="kw">geom_rug</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species),</a>
+<a class="sourceLine" id="cb470-3" title="3">           <span class="dt">sides =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-466-1.png" width="768" /></p>
 </div>
 </div>
 <div id="calculating-the-within-and-between-group-covariance-matrices" class="section level2">
-<h2><span class="header-section-number">16.4</span> Calculating the Within and Between Group Covariance Matrices</h2>
+<h2><span class="header-section-number">15.4</span> Calculating the Within and Between Group Covariance Matrices</h2>
 <p>The <code>lda()</code> function conveniently carries out the key steps of a canonical variates analysis for you. However, what if we wanted some of the intermediate matrices relevant to the analysis such as the within- and between group covariances matrices? The code below shows you how to calculate these:</p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" title="1">nobs &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris)</a>
-<a class="sourceLine" id="cb494-2" title="2">ngroups &lt;-<span class="st"> </span><span class="kw">nlevels</span>(iris<span class="op">$</span>Species)</a>
-<a class="sourceLine" id="cb494-3" title="3"></a>
-<a class="sourceLine" id="cb494-4" title="4"><span class="co"># calculate deviations around grand mean</span></a>
-<a class="sourceLine" id="cb494-5" title="5">tot.deviates &lt;-</a>
-<a class="sourceLine" id="cb494-6" title="6"><span class="st">  </span>iris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-8" title="8"><span class="st">  </span><span class="co"># review the course notes on dplyr to remind</span></a>
-<a class="sourceLine" id="cb494-9" title="9"><span class="st">  </span><span class="co"># yourself about how the mutate_all() and funs() fxns work</span></a>
-<a class="sourceLine" id="cb494-10" title="10"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-11" title="11"><span class="st">  </span>as.matrix</a>
-<a class="sourceLine" id="cb494-12" title="12"></a>
-<a class="sourceLine" id="cb494-13" title="13"><span class="co"># Total SSQ and covariance matrix</span></a>
-<a class="sourceLine" id="cb494-14" title="14">ssq.tot &lt;-<span class="st"> </span><span class="kw">t</span>(tot.deviates) <span class="op">%*%</span><span class="st"> </span>tot.deviates</a>
-<a class="sourceLine" id="cb494-15" title="15">cov.tot &lt;-<span class="st"> </span>ssq.tot<span class="op">/</span>nobs  </a>
-<a class="sourceLine" id="cb494-16" title="16"></a>
-<a class="sourceLine" id="cb494-17" title="17"><span class="co"># calculate deviations around group means</span></a>
-<a class="sourceLine" id="cb494-18" title="18">win.deviates &lt;-</a>
-<a class="sourceLine" id="cb494-19" title="19"><span class="st">  </span>iris <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-20" title="20"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-21" title="21"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb494-22" title="22"><span class="st">  </span>ungroup <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-23" title="23"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-24" title="24"><span class="st">  </span>as.matrix</a>
-<a class="sourceLine" id="cb494-25" title="25"><span class="co">## `mutate_all()` ignored the following grouping variables:</span></a>
-<a class="sourceLine" id="cb494-26" title="26"><span class="co">## Column `Species`</span></a>
-<a class="sourceLine" id="cb494-27" title="27"><span class="co">## Use `mutate_at(df, vars(-group_cols()), myoperation)` to silence the message.</span></a>
-<a class="sourceLine" id="cb494-28" title="28"></a>
-<a class="sourceLine" id="cb494-29" title="29"><span class="co"># Within group SSQ and covariance</span></a>
-<a class="sourceLine" id="cb494-30" title="30">ssq.win &lt;-<span class="st"> </span><span class="kw">t</span>(win.deviates) <span class="op">%*%</span><span class="st"> </span>win.deviates</a>
-<a class="sourceLine" id="cb494-31" title="31">cov.win &lt;-<span class="st"> </span>ssq.win<span class="op">/</span>(nobs <span class="op">-</span><span class="st"> </span>ngroups)</a>
-<a class="sourceLine" id="cb494-32" title="32"></a>
-<a class="sourceLine" id="cb494-33" title="33"><span class="co"># Between group deviates</span></a>
-<a class="sourceLine" id="cb494-34" title="34">btw.deviates &lt;-</a>
-<a class="sourceLine" id="cb494-35" title="35"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb494-36" title="36"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb494-37" title="37"><span class="st">  </span><span class="kw">summarize_all</span>(mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb494-38" title="38"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb494-39" title="39"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb494-40" title="40"><span class="st">  </span>as.matrix</a>
-<a class="sourceLine" id="cb494-41" title="41"></a>
-<a class="sourceLine" id="cb494-42" title="42"><span class="co"># Between group SSQ and covariance</span></a>
-<a class="sourceLine" id="cb494-43" title="43">ssq.btw &lt;-<span class="st"> </span>ngroups <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(btw.deviates) <span class="op">%*%</span><span class="st"> </span>btw.deviates</a>
-<a class="sourceLine" id="cb494-44" title="44">cov.btw &lt;-<span class="st"> </span>ssq.btw<span class="op">/</span>(ngroups<span class="dv">-1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" title="1">nobs &lt;-<span class="st"> </span><span class="kw">nrow</span>(iris)</a>
+<a class="sourceLine" id="cb471-2" title="2">ngroups &lt;-<span class="st"> </span><span class="kw">nlevels</span>(iris<span class="op">$</span>Species)</a>
+<a class="sourceLine" id="cb471-3" title="3"></a>
+<a class="sourceLine" id="cb471-4" title="4"><span class="co"># calculate deviations around grand mean</span></a>
+<a class="sourceLine" id="cb471-5" title="5">tot.deviates &lt;-</a>
+<a class="sourceLine" id="cb471-6" title="6"><span class="st">  </span>iris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-8" title="8"><span class="st">  </span><span class="co"># review the course notes on dplyr to remind</span></a>
+<a class="sourceLine" id="cb471-9" title="9"><span class="st">  </span><span class="co"># yourself about how the mutate_all() and funs() fxns work</span></a>
+<a class="sourceLine" id="cb471-10" title="10"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-11" title="11"><span class="st">  </span>as.matrix</a>
+<a class="sourceLine" id="cb471-12" title="12"></a>
+<a class="sourceLine" id="cb471-13" title="13"><span class="co"># Total SSQ and covariance matrix</span></a>
+<a class="sourceLine" id="cb471-14" title="14">ssq.tot &lt;-<span class="st"> </span><span class="kw">t</span>(tot.deviates) <span class="op">%*%</span><span class="st"> </span>tot.deviates</a>
+<a class="sourceLine" id="cb471-15" title="15">cov.tot &lt;-<span class="st"> </span>ssq.tot<span class="op">/</span>nobs  </a>
+<a class="sourceLine" id="cb471-16" title="16"></a>
+<a class="sourceLine" id="cb471-17" title="17"><span class="co"># calculate deviations around group means</span></a>
+<a class="sourceLine" id="cb471-18" title="18">win.deviates &lt;-</a>
+<a class="sourceLine" id="cb471-19" title="19"><span class="st">  </span>iris <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-20" title="20"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-21" title="21"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb471-22" title="22"><span class="st">  </span>ungroup <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-23" title="23"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-24" title="24"><span class="st">  </span>as.matrix</a>
+<a class="sourceLine" id="cb471-25" title="25"><span class="co">## `mutate_all()` ignored the following grouping variables:</span></a>
+<a class="sourceLine" id="cb471-26" title="26"><span class="co">## Column `Species`</span></a>
+<a class="sourceLine" id="cb471-27" title="27"><span class="co">## Use `mutate_at(df, vars(-group_cols()), myoperation)` to silence the message.</span></a>
+<a class="sourceLine" id="cb471-28" title="28"></a>
+<a class="sourceLine" id="cb471-29" title="29"><span class="co"># Within group SSQ and covariance</span></a>
+<a class="sourceLine" id="cb471-30" title="30">ssq.win &lt;-<span class="st"> </span><span class="kw">t</span>(win.deviates) <span class="op">%*%</span><span class="st"> </span>win.deviates</a>
+<a class="sourceLine" id="cb471-31" title="31">cov.win &lt;-<span class="st"> </span>ssq.win<span class="op">/</span>(nobs <span class="op">-</span><span class="st"> </span>ngroups)</a>
+<a class="sourceLine" id="cb471-32" title="32"></a>
+<a class="sourceLine" id="cb471-33" title="33"><span class="co"># Between group deviates</span></a>
+<a class="sourceLine" id="cb471-34" title="34">btw.deviates &lt;-</a>
+<a class="sourceLine" id="cb471-35" title="35"><span class="st">  </span>iris <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb471-36" title="36"><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb471-37" title="37"><span class="st">  </span><span class="kw">summarize_all</span>(mean) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb471-38" title="38"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Species) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb471-39" title="39"><span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(. <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(.))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb471-40" title="40"><span class="st">  </span>as.matrix</a>
+<a class="sourceLine" id="cb471-41" title="41"></a>
+<a class="sourceLine" id="cb471-42" title="42"><span class="co"># Between group SSQ and covariance</span></a>
+<a class="sourceLine" id="cb471-43" title="43">ssq.btw &lt;-<span class="st"> </span>ngroups <span class="op">*</span><span class="st"> </span><span class="kw">t</span>(btw.deviates) <span class="op">%*%</span><span class="st"> </span>btw.deviates</a>
+<a class="sourceLine" id="cb471-44" title="44">cov.btw &lt;-<span class="st"> </span>ssq.btw<span class="op">/</span>(ngroups<span class="dv">-1</span>)</a></code></pre></div>
 <div id="recapitulating-the-cva-analysis-of-lda" class="section level3">
-<h3><span class="header-section-number">16.4.1</span> Recapitulating the CVA analysis of <code>lda()</code></h3>
+<h3><span class="header-section-number">15.4.1</span> Recapitulating the CVA analysis of <code>lda()</code></h3>
 <p>If we wanted to recapitulate the calculations that the <code>lda()</code> function carries out, we can do so based on the within- and between-group covariance matrices we estimated in the previous code block:</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1"><span class="co"># Cacluate the  eigenvectors of W^{-1}B</span></a>
-<a class="sourceLine" id="cb495-2" title="2">WinvB =<span class="st"> </span><span class="kw">solve</span>(cov.win) <span class="op">%*%</span><span class="st"> </span>cov.btw</a>
-<a class="sourceLine" id="cb495-3" title="3">eigin.WinvB =<span class="st"> </span><span class="kw">eigen</span>(WinvB)</a>
-<a class="sourceLine" id="cb495-4" title="4"></a>
-<a class="sourceLine" id="cb495-5" title="5">cva.vecs &lt;-<span class="st"> </span><span class="kw">Re</span>(eigin.WinvB<span class="op">$</span>vectors)[,<span class="dv">1</span><span class="op">:</span>ngroups<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb495-6" title="6">cva.vals &lt;-<span class="st"> </span><span class="kw">Re</span>(eigin.WinvB<span class="op">$</span>values)[<span class="dv">1</span><span class="op">:</span>ngroups<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb495-7" title="7"></a>
-<a class="sourceLine" id="cb495-8" title="8">unscaled.scores &lt;-<span class="st"> </span>win.deviates <span class="op">%*%</span><span class="st"> </span>cva.vecs</a>
-<a class="sourceLine" id="cb495-9" title="9"></a>
-<a class="sourceLine" id="cb495-10" title="10"><span class="co"># figure out scaling so group covariance matrix is spherical</span></a>
-<a class="sourceLine" id="cb495-11" title="11">scaling &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>((<span class="kw">t</span>(unscaled.scores) <span class="op">%*%</span><span class="st"> </span>unscaled.scores)<span class="op">/</span>(nobs<span class="op">-</span>ngroups)))</a>
-<a class="sourceLine" id="cb495-12" title="12"></a>
-<a class="sourceLine" id="cb495-13" title="13"><span class="co"># compare to &quot;scaling&quot; component object returned by lda()</span></a>
-<a class="sourceLine" id="cb495-14" title="14">scaled.cva.vecs &lt;-<span class="st"> </span>cva.vecs <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(scaling) </a>
-<a class="sourceLine" id="cb495-15" title="15"></a>
-<a class="sourceLine" id="cb495-16" title="16">cva.scores &lt;-<span class="st"> </span>iris.sub <span class="op">%*%</span><span class="st"> </span>scaled.cva.vecs</a>
-<a class="sourceLine" id="cb495-17" title="17"></a>
-<a class="sourceLine" id="cb495-18" title="18"><span class="kw">colnames</span>(cva.scores) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CV1&quot;</span>,<span class="st">&quot;CV2&quot;</span>)</a>
-<a class="sourceLine" id="cb495-19" title="19">cva.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(cva.scores)</a>
-<a class="sourceLine" id="cb495-20" title="20">cva.scores<span class="op">$</span>Species &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</a></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1"><span class="co"># Cacluate the  eigenvectors of W^{-1}B</span></a>
+<a class="sourceLine" id="cb472-2" title="2">WinvB =<span class="st"> </span><span class="kw">solve</span>(cov.win) <span class="op">%*%</span><span class="st"> </span>cov.btw</a>
+<a class="sourceLine" id="cb472-3" title="3">eigin.WinvB =<span class="st"> </span><span class="kw">eigen</span>(WinvB)</a>
+<a class="sourceLine" id="cb472-4" title="4"></a>
+<a class="sourceLine" id="cb472-5" title="5">cva.vecs &lt;-<span class="st"> </span><span class="kw">Re</span>(eigin.WinvB<span class="op">$</span>vectors)[,<span class="dv">1</span><span class="op">:</span>ngroups<span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb472-6" title="6">cva.vals &lt;-<span class="st"> </span><span class="kw">Re</span>(eigin.WinvB<span class="op">$</span>values)[<span class="dv">1</span><span class="op">:</span>ngroups<span class="dv">-1</span>]</a>
+<a class="sourceLine" id="cb472-7" title="7"></a>
+<a class="sourceLine" id="cb472-8" title="8">unscaled.scores &lt;-<span class="st"> </span>win.deviates <span class="op">%*%</span><span class="st"> </span>cva.vecs</a>
+<a class="sourceLine" id="cb472-9" title="9"></a>
+<a class="sourceLine" id="cb472-10" title="10"><span class="co"># figure out scaling so group covariance matrix is spherical</span></a>
+<a class="sourceLine" id="cb472-11" title="11">scaling &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>((<span class="kw">t</span>(unscaled.scores) <span class="op">%*%</span><span class="st"> </span>unscaled.scores)<span class="op">/</span>(nobs<span class="op">-</span>ngroups)))</a>
+<a class="sourceLine" id="cb472-12" title="12"></a>
+<a class="sourceLine" id="cb472-13" title="13"><span class="co"># compare to &quot;scaling&quot; component object returned by lda()</span></a>
+<a class="sourceLine" id="cb472-14" title="14">scaled.cva.vecs &lt;-<span class="st"> </span>cva.vecs <span class="op">%*%</span><span class="st"> </span><span class="kw">diag</span>(scaling) </a>
+<a class="sourceLine" id="cb472-15" title="15"></a>
+<a class="sourceLine" id="cb472-16" title="16">cva.scores &lt;-<span class="st"> </span>iris.sub <span class="op">%*%</span><span class="st"> </span>scaled.cva.vecs</a>
+<a class="sourceLine" id="cb472-17" title="17"></a>
+<a class="sourceLine" id="cb472-18" title="18"><span class="kw">colnames</span>(cva.scores) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;CV1&quot;</span>,<span class="st">&quot;CV2&quot;</span>)</a>
+<a class="sourceLine" id="cb472-19" title="19">cva.scores &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(cva.scores)</a>
+<a class="sourceLine" id="cb472-20" title="20">cva.scores<span class="op">$</span>Species &lt;-<span class="st"> </span>iris<span class="op">$</span>Species</a></code></pre></div>
 <p>Let’s plot the set of CVA scores that we calculated “by hand” to visually confirm our analysis produced similar results to the <code>lda()</code> function:</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1"><span class="kw">ggplot</span>(cva.scores, <span class="kw">aes</span>(<span class="dt">x =</span> CV1, <span class="dt">y =</span> CV2)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb496-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species, <span class="dt">shape=</span>Species)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb496-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-493-1.png" width="768" /></p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" title="1"><span class="kw">ggplot</span>(cva.scores, <span class="kw">aes</span>(<span class="dt">x =</span> CV1, <span class="dt">y =</span> CV2)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb473-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Species, <span class="dt">shape=</span>Species)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb473-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-469-1.png" width="768" /></p>
 <p>Note that the CVA ordination above is “flipped” left-right relative to our earlier CVA figures. Canonical variates, like principal components, are identical with respect to reflection.</p>
 
 </div>
@@ -695,7 +696,7 @@ Relevant to our current example is a shorthand way for specifying multiple varia
           </div>
         </div>
       </div>
-<a href="singular-value-decomposition.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="principal-components-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

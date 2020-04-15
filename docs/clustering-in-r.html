@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists</title>
-  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 16 Clustering in R | Biology 723: Statistical Computing for Biologists</title>
+  <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
+  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists" />
+  <meta property="og:title" content="Chapter 16 Clustering in R | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
   
   
@@ -17,23 +16,23 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 17 Clustering in R | Biology 723: Statistical Computing for Biologists" />
+  <meta name="twitter:title" content="Chapter 16 Clustering in R | Biology 723: Statistical Computing for Biologists" />
   
   <meta name="twitter:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
 
-<meta name="author" content="Paul M. Magwene">
+<meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2019-04-17">
+<meta name="date" content="2020-04-14" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="canonical-variates-analysis.html">
-<link rel="next" href="simulation-i-sampling-distributions.html">
+<link rel="prev" href="canonical-variates-analysis.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,11 +48,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
 <script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
 <script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
-<script src="libs/rglWebGL-binding-0.99.16/rglWebGL.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
@@ -63,7 +65,6 @@ a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
 a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -206,126 +207,126 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>5</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>5.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>5.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="5.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>5.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="5.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>5.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>5.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="5.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>5.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="5.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>5.5.3</b> Rotating plot coordinates</a></li>
+<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a><ul>
+<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>5.1.1</b> Function arguments</a></li>
+<li class="chapter" data-level="5.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>5.1.2</b> Writing functions with optional arguments</a></li>
+<li class="chapter" data-level="5.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>5.1.3</b> Putting R functions in Scripts</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>5.6</b> Histograms</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>5.6.1</b> Variations on histograms when considering categorical data</a></li>
+<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>5.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
+<li class="chapter" data-level="5.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>5.2.2</b> for loops</a></li>
+<li class="chapter" data-level="5.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>5.2.3</b> <code>break</code> statement</a></li>
+<li class="chapter" data-level="5.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>5.2.4</b> <code>repeat</code> loops</a></li>
+<li class="chapter" data-level="5.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>5.2.5</b> <code>next</code> statement</a></li>
+<li class="chapter" data-level="5.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>5.2.6</b> while statements</a></li>
+<li class="chapter" data-level="5.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>5.2.7</b> <code>ifelse</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>5.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="5.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>5.8</b> Density plots</a></li>
-<li class="chapter" data-level="5.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>5.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="5.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>5.10</b> Boxplots</a></li>
-<li class="chapter" data-level="5.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>5.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="5.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>5.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="5.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>5.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="5.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>5.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="5.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="5.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>5.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>5.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="5.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>5.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="5.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>5.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="5.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>5.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="5.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>5.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="5.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>5.17.1</b> Scatter plots</a></li>
-<li class="chapter" data-level="5.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>5.17.2</b> Adding a trend line to a scatter plot</a></li>
-</ul></li>
-<li class="chapter" data-level="5.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>5.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="5.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>5.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="5.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>5.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="5.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>5.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="5.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>5.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>6</b> Introduction to <code>dplyr</code></a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>6.1</b> Libraries</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>6.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>6.2.1</b> Reading Excel files</a></li>
-<li class="chapter" data-level="6.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>6.2.2</b> Example data: NC Births</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>6.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>6.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>6.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>6.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>6.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>6.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="6.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>6.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="6.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>6.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>6.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="6.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>6.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="6.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>6.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="6.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>6.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>6.6</b> Pipes</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>6.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="6.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>6.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="6.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>6.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="6.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>6.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="6.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>6.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="6.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>6.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="6.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>6.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="6.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>6.6.8</b> The exposition pipe operator</a></li>
+<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>5.3.1</b> basic <code>map</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>5.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>5.3.3</b> mapping in parallel using <code>map2</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>5.3.4</b> <code>map</code> variants that return vectors</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>7</b> Data wrangling</a><ul>
-<li class="chapter" data-level="7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>7.2</b> Data</a></li>
-<li class="chapter" data-level="7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>7.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="7.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>7.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>7.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="7.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>7.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Introduction to ggplot2</a><ul>
+<li class="chapter" data-level="6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Loading ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example data set: Anderson’s Iris Data</a></li>
+<li class="chapter" data-level="6.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Template for single layer plots in ggplot2</a></li>
+<li class="chapter" data-level="6.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>6.4</b> An aside about function arguments</a></li>
+<li class="chapter" data-level="6.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>6.5</b> Strip plots</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>6.5.1</b> Jittering data</a></li>
+<li class="chapter" data-level="6.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>6.5.2</b> Adding categorical information</a></li>
+<li class="chapter" data-level="6.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>6.5.3</b> Rotating plot coordinates</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>7.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="7.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>7.6</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>7.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>7.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="7.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>7.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="7.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>7.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="7.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>7.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="7.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>7.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="6.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>6.6</b> Histograms</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>6.6.1</b> Variations on histograms when considering categorical data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>7.7</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="7.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>7.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="7.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>7.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="7.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>7.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="6.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>6.7</b> Faceting to depict categorical information</a></li>
+<li class="chapter" data-level="6.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>6.8</b> Density plots</a></li>
+<li class="chapter" data-level="6.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>6.9</b> Violin or Beanplot</a></li>
+<li class="chapter" data-level="6.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>6.10</b> Boxplots</a></li>
+<li class="chapter" data-level="6.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>6.11</b> Building complex visualizations with layers</a></li>
+<li class="chapter" data-level="6.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>6.12</b> Useful combination plots</a><ul>
+<li class="chapter" data-level="6.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>6.12.1</b> Boxplot plus strip plot</a></li>
+<li class="chapter" data-level="6.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>6.12.2</b> Setting shared aesthetics</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>7.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="7.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>7.9</b> Exploring bivariate relationships using “wide” data</a><ul>
-<li class="chapter" data-level="7.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>7.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="7.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>7.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="7.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>7.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="7.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>7.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="6.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.13</b> ggplot layers can be assigned to variables</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>6.13.1</b> Violin plot plus strip plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>6.14</b> Adding titles and tweaking axis labels</a></li>
+<li class="chapter" data-level="6.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>6.15</b> ggplot2 themes</a><ul>
+<li class="chapter" data-level="6.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>6.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
+</ul></li>
+<li class="chapter" data-level="6.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.16</b> Other aspects of ggplots can be assigned to variables</a></li>
+<li class="chapter" data-level="6.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>6.17</b> Bivariate plots</a><ul>
+<li class="chapter" data-level="6.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.17.1</b> Scatter plots</a></li>
+<li class="chapter" data-level="6.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>6.17.2</b> Adding a trend line to a scatter plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>6.18</b> Bivariate density plots</a></li>
+<li class="chapter" data-level="6.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>6.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
+<li class="chapter" data-level="6.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>6.20</b> Density plots with fill</a></li>
+<li class="chapter" data-level="6.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>6.21</b> 2D bin and hex plots</a></li>
+<li class="chapter" data-level="6.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>6.22</b> The <code>cowplot</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>7</b> Introduction to <code>dplyr</code></a><ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>7.2</b> Reading data with the <code>readr</code> package</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>7.2.1</b> Reading Excel files</a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>7.2.2</b> Example data: NC Births</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>7.3</b> A note on “tibbles”</a></li>
+<li class="chapter" data-level="7.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>7.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>7.5</b> dplyr’s “verbs”</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>7.5.1</b> <code>select</code></a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>7.5.2</b> <code>filter</code></a></li>
+<li class="chapter" data-level="7.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="7.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.5.4</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="7.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.5.5</b> <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>7.5.6</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="7.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>7.5.7</b> Combining grouping and summarizing</a></li>
+<li class="chapter" data-level="7.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>7.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
+<li class="chapter" data-level="7.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>7.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>7.6</b> Pipes</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>7.6.1</b> Install and load <code>magrittr</code></a></li>
+<li class="chapter" data-level="7.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>7.6.2</b> The basic pipe operator</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>7.6.3</b> An example without pipes</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>7.6.4</b> The same example using pipes</a></li>
+<li class="chapter" data-level="7.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>7.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
+<li class="chapter" data-level="7.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>7.6.6</b> Compound assignment pipe operator</a></li>
+<li class="chapter" data-level="7.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.6.7</b> The dot operator with pipes</a></li>
+<li class="chapter" data-level="7.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.6.8</b> The exposition pipe operator</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>8</b> Functions and control flow statements</a><ul>
-<li class="chapter" data-level="8.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>8.1</b> Writing your own functions</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>8.1.1</b> Function arguments</a></li>
-<li class="chapter" data-level="8.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>8.1.2</b> Writing functions with optional arguments</a></li>
-<li class="chapter" data-level="8.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>8.1.3</b> Putting R functions in Scripts</a></li>
+<li class="chapter" data-level="8" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>8</b> Data wrangling</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
+<li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>8.2</b> Control flow statements</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>8.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
-<li class="chapter" data-level="8.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>8.2.2</b> for loops</a></li>
-<li class="chapter" data-level="8.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>8.2.3</b> <code>break</code> statement</a></li>
-<li class="chapter" data-level="8.2.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#repeat-loops"><i class="fa fa-check"></i><b>8.2.4</b> <code>repeat</code> loops</a></li>
-<li class="chapter" data-level="8.2.5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#next-statement"><i class="fa fa-check"></i><b>8.2.5</b> <code>next</code> statement</a></li>
-<li class="chapter" data-level="8.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>8.2.6</b> while statements</a></li>
-<li class="chapter" data-level="8.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>8.2.7</b> <code>ifelse</code></a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>8.3</b> <code>map</code> and related tools</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>8.3.1</b> basic <code>map</code></a></li>
-<li class="chapter" data-level="8.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>8.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
-<li class="chapter" data-level="8.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>8.3.3</b> mapping in parallel using <code>map2</code></a></li>
-<li class="chapter" data-level="8.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>8.3.4</b> <code>map</code> variants that return vectors</a></li>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a><ul>
+<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a><ul>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a><ul>
@@ -348,70 +349,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
+<li class="chapter" data-level="10.5" data-path="matrices-in-r.html"><a href="matrices-in-r.html#solving-sets-of-simultaneous-equations"><i class="fa fa-check"></i><b>10.5</b> Solving sets of simultaneous equations</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html"><i class="fa fa-check"></i><b>11</b> Fitting Regression Models in R</a><ul>
-<li class="chapter" data-level="11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-terminology"><i class="fa fa-check"></i><b>11.1</b> Regression terminology</a></li>
-<li class="chapter" data-level="11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.2</b> The optimality criterion for least-squares regression</a></li>
-<li class="chapter" data-level="11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#vector-geometric-perspective"><i class="fa fa-check"></i><b>11.3</b> Vector geometric perspective</a></li>
-<li class="chapter" data-level="11.4" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.4</b> Solution for the least-squares criterion</a></li>
-<li class="chapter" data-level="11.5" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#libraries-3"><i class="fa fa-check"></i><b>11.5</b> Libraries</a></li>
-<li class="chapter" data-level="11.6" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.6</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="11.7" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>11.7</b> Specifying Regression Models in R</a><ul>
-<li class="chapter" data-level="11.7.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#fitted-values"><i class="fa fa-check"></i><b>11.7.1</b> Fitted values</a></li>
-<li class="chapter" data-level="11.7.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>11.7.2</b> Getting the model coefficients</a></li>
+<li class="chapter" data-level="11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html"><i class="fa fa-check"></i><b>11</b> Linear Regression Models I</a><ul>
+<li class="chapter" data-level="11.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-functions"><i class="fa fa-check"></i><b>11.1</b> Linear functions</a></li>
+<li class="chapter" data-level="11.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.3</b> The optimality criterion for least-squares regression</a></li>
+<li class="chapter" data-level="11.4" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#geometry-of-linear-regression"><i class="fa fa-check"></i><b>11.4</b> Geometry of linear regression</a></li>
+<li class="chapter" data-level="11.5" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.5</b> Solution for the least-squares criterion</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#bivariate-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.1</b> Bivariate regression, estimating coefficients</a></li>
+<li class="chapter" data-level="11.5.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#multiple-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.2</b> Multiple regression, estimating coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="11.8" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#residuals"><i class="fa fa-check"></i><b>11.8</b> Residuals</a></li>
-<li class="chapter" data-level="11.9" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.9</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="11.10" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.10</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="11.11" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>11.11</b> Broom: a library for converting model results into data frames</a><ul>
-<li class="chapter" data-level="11.11.1" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomtidy"><i class="fa fa-check"></i><b>11.11.1</b> <code>broom::tidy</code></a></li>
-<li class="chapter" data-level="11.11.2" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomaugment"><i class="fa fa-check"></i><b>11.11.2</b> <code>broom::augment</code></a></li>
-<li class="chapter" data-level="11.11.3" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#broomglance"><i class="fa fa-check"></i><b>11.11.3</b> <code>broom::glance</code></a></li>
+<li class="chapter" data-level="11.6" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residuals"><i class="fa fa-check"></i><b>11.6</b> Residuals</a></li>
+<li class="chapter" data-level="11.7" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.7</b> Regression as sum-of-squares decomposition</a></li>
+<li class="chapter" data-level="11.8" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.8</b> Variance “explained” by a regression model</a></li>
+<li class="chapter" data-level="11.9" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#goodness-of-fit"><i class="fa fa-check"></i><b>11.9</b> Goodness of fit</a></li>
+<li class="chapter" data-level="11.10" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#interpretting-regression"><i class="fa fa-check"></i><b>11.10</b> Interpretting Regression</a></li>
+<li class="chapter" data-level="11.11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.11</b> Illustrating linear regression with simulated data</a></li>
+<li class="chapter" data-level="11.12" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-regression-model-using-vector-arithmetic"><i class="fa fa-check"></i><b>11.12</b> Calculating the regression model using vector arithmetic</a><ul>
+<li class="chapter" data-level="11.12.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-predicted-values-and-residuals"><i class="fa fa-check"></i><b>11.12.1</b> Calculating the predicted values and residuals</a></li>
 </ul></li>
-<li class="chapter" data-level="11.12" data-path="fitting-regression-models-in-r.html"><a href="fitting-regression-models-in-r.html#example-predicting-lion-age-based-on-nose-color"><i class="fa fa-check"></i><b>11.12</b> Example: Predicting lion age based on nose color</a></li>
+<li class="chapter" data-level="11.13" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#plotting-various-aspects-of-a-regression"><i class="fa fa-check"></i><b>11.13</b> Plotting various aspects of a regression</a><ul>
+<li class="chapter" data-level="11.13.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residual-plots"><i class="fa fa-check"></i><b>11.13.1</b> Residual plots</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="multiple-regression.html"><a href="multiple-regression.html"><i class="fa fa-check"></i><b>12</b> Multiple Regression</a><ul>
-<li class="chapter" data-level="12.1" data-path="multiple-regression.html"><a href="multiple-regression.html#review-of-bivariate-regression"><i class="fa fa-check"></i><b>12.1</b> Review of bivariate regression</a></li>
-<li class="chapter" data-level="12.2" data-path="multiple-regression.html"><a href="multiple-regression.html#multiple-regression-1"><i class="fa fa-check"></i><b>12.2</b> Multiple regression</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="multiple-regression.html"><a href="multiple-regression.html#variable-space-interpretation"><i class="fa fa-check"></i><b>12.2.1</b> Variable space interpretation</a></li>
+<li class="chapter" data-level="11.14" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
 </ul></li>
-<li class="chapter" data-level="12.3" data-path="multiple-regression.html"><a href="multiple-regression.html#subject-space-representation"><i class="fa fa-check"></i><b>12.3</b> Subject space representation</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="multiple-regression.html"><a href="multiple-regression.html#coefficient-of-determination-for-multiple-regression"><i class="fa fa-check"></i><b>12.3.1</b> Coefficient of determination for multiple regression</a></li>
+<li class="chapter" data-level="12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models II</a><ul>
+<li class="chapter" data-level="12.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.1</b> New Libraries to install</a></li>
+<li class="chapter" data-level="12.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#standard-libraries"><i class="fa fa-check"></i><b>12.2</b> Standard libraries</a></li>
+<li class="chapter" data-level="12.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>12.3</b> Specifying Regression Models in R</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-summary-output-from-lm"><i class="fa fa-check"></i><b>12.3.1</b> Interpretting summary output from lm()</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-multiple-regression"><i class="fa fa-check"></i><b>12.4</b> Interpretting Multiple Regression</a></li>
-<li class="chapter" data-level="12.5" data-path="multiple-regression.html"><a href="multiple-regression.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.5</b> New Libraries to install</a></li>
-<li class="chapter" data-level="12.6" data-path="multiple-regression.html"><a href="multiple-regression.html#libraries-4"><i class="fa fa-check"></i><b>12.6</b> Libraries</a></li>
-<li class="chapter" data-level="12.7" data-path="multiple-regression.html"><a href="multiple-regression.html#examplar-data"><i class="fa fa-check"></i><b>12.7</b> Examplar data</a></li>
-<li class="chapter" data-level="12.8" data-path="multiple-regression.html"><a href="multiple-regression.html#data-exploration"><i class="fa fa-check"></i><b>12.8</b> Data exploration</a></li>
-<li class="chapter" data-level="12.9" data-path="multiple-regression.html"><a href="multiple-regression.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
-<li class="chapter" data-level="12.9.1" data-path="multiple-regression.html"><a href="multiple-regression.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
-<li class="chapter" data-level="12.9.2" data-path="multiple-regression.html"><a href="multiple-regression.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
+<li class="chapter" data-level="12.4" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#quick-bivariate-regression-plots-in-ggplot"><i class="fa fa-check"></i><b>12.4</b> Quick bivariate regression plots in ggplot</a></li>
+<li class="chapter" data-level="12.5" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#more-about-the-data-structure-returned-by-lm"><i class="fa fa-check"></i><b>12.5</b> More about the data structure returned by <code>lm()</code></a><ul>
+<li class="chapter" data-level="12.5.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitted-values"><i class="fa fa-check"></i><b>12.5.1</b> Fitted values</a></li>
+<li class="chapter" data-level="12.5.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>12.5.2</b> Getting the model coefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="12.10" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
-<li class="chapter" data-level="12.10.1" data-path="multiple-regression.html"><a href="multiple-regression.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+<li class="chapter" data-level="12.6" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>12.6</b> Broom: a library for converting model results into data frames</a><ul>
+<li class="chapter" data-level="12.6.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomtidy"><i class="fa fa-check"></i><b>12.6.1</b> <code>broom::tidy</code></a></li>
+<li class="chapter" data-level="12.6.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomaugment"><i class="fa fa-check"></i><b>12.6.2</b> <code>broom::augment</code></a></li>
+<li class="chapter" data-level="12.6.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomglance"><i class="fa fa-check"></i><b>12.6.3</b> <code>broom::glance</code></a></li>
 </ul></li>
-<li class="chapter" data-level="12.11" data-path="multiple-regression.html"><a href="multiple-regression.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
-<li class="chapter" data-level="12.12" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
-<li class="chapter" data-level="12.13" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
-<li class="chapter" data-level="12.14" data-path="multiple-regression.html"><a href="multiple-regression.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
-<li class="chapter" data-level="12.15" data-path="multiple-regression.html"><a href="multiple-regression.html#fitting-a-curvilinear-model-using-lm"><i class="fa fa-check"></i><b>12.15</b> Fitting a curvilinear model using lm()</a></li>
-<li class="chapter" data-level="12.16" data-path="multiple-regression.html"><a href="multiple-regression.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.16</b> Exploring the impact of nearly collinear predictors on regression</a></li>
-<li class="chapter" data-level="12.17" data-path="multiple-regression.html"><a href="multiple-regression.html#loess-models"><i class="fa fa-check"></i><b>12.17</b> LOESS Models</a></li>
+<li class="chapter" data-level="12.7" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#qq-plots"><i class="fa fa-check"></i><b>12.7</b> qq-plots</a></li>
+<li class="chapter" data-level="12.8" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#multiple-regression"><i class="fa fa-check"></i><b>12.8</b> Multiple regression</a><ul>
+<li class="chapter" data-level="12.8.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploration-of-the-trees-data-set"><i class="fa fa-check"></i><b>12.8.1</b> Exploration of the trees data set</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic regression</a><ul>
-<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.1</b> A web app to explore the logistic regression equation</a></li>
-<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#titanic-data-set"><i class="fa fa-check"></i><b>13.2</b> Titanic data set</a></li>
-<li class="chapter" data-level="13.3" data-path="logistic-regression.html"><a href="logistic-regression.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3</b> Subsetting the data</a></li>
-<li class="chapter" data-level="13.4" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.4</b> Visualizing survival as a function of age</a></li>
-<li class="chapter" data-level="13.5" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.5</b> Fitting the logistic regression model</a></li>
-<li class="chapter" data-level="13.6" data-path="logistic-regression.html"><a href="logistic-regression.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.6</b> Visualizing the logistic regression</a><ul>
-<li class="chapter" data-level="13.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.6.1</b> Quick and easy visualization</a></li>
+<li class="chapter" data-level="12.9" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
+<li class="chapter" data-level="12.9.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
+<li class="chapter" data-level="12.9.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
 </ul></li>
-<li class="chapter" data-level="13.7" data-path="logistic-regression.html"><a href="logistic-regression.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.7</b> Impact of sex and passenger class on the models</a></li>
-<li class="chapter" data-level="13.8" data-path="logistic-regression.html"><a href="logistic-regression.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.8</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+<li class="chapter" data-level="12.10" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
+<li class="chapter" data-level="12.10.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
+</ul></li>
+<li class="chapter" data-level="12.11" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
+<li class="chapter" data-level="12.12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
+<li class="chapter" data-level="12.13" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
+<li class="chapter" data-level="12.14" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
+<li class="chapter" data-level="12.15" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.15</b> Exploring the impact of nearly collinear predictors on regression</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="more-regression-models.html"><a href="more-regression-models.html"><i class="fa fa-check"></i><b>13</b> More regression models</a><ul>
+<li class="chapter" data-level="13.1" data-path="more-regression-models.html"><a href="more-regression-models.html#curvilinear-regression"><i class="fa fa-check"></i><b>13.1</b> Curvilinear regression</a></li>
+<li class="chapter" data-level="13.2" data-path="more-regression-models.html"><a href="more-regression-models.html#loess-regression"><i class="fa fa-check"></i><b>13.2</b> LOESS regression</a></li>
+<li class="chapter" data-level="13.3" data-path="more-regression-models.html"><a href="more-regression-models.html#logistic-regression"><i class="fa fa-check"></i><b>13.3</b> Logistic regression</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="more-regression-models.html"><a href="more-regression-models.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.3.1</b> A web app to explore the logistic regression equation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="more-regression-models.html"><a href="more-regression-models.html#titanic-data-set"><i class="fa fa-check"></i><b>13.3.2</b> Titanic data set</a></li>
+<li class="chapter" data-level="13.3.3" data-path="more-regression-models.html"><a href="more-regression-models.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3.3</b> Subsetting the data</a></li>
+<li class="chapter" data-level="13.3.4" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.3.4</b> Visualizing survival as a function of age</a></li>
+<li class="chapter" data-level="13.3.5" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.3.5</b> Fitting the logistic regression model</a></li>
+<li class="chapter" data-level="13.3.6" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.3.6</b> Visualizing the logistic regression</a></li>
+<li class="chapter" data-level="13.3.7" data-path="more-regression-models.html"><a href="more-regression-models.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.3.7</b> Quick and easy visualization</a></li>
+<li class="chapter" data-level="13.3.8" data-path="more-regression-models.html"><a href="more-regression-models.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.3.8</b> Impact of sex and passenger class on the models</a></li>
+<li class="chapter" data-level="13.3.9" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.3.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-5"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
+<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-3"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
 <li class="chapter" data-level="14.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>14.2</b> Matrices as linear transformations</a></li>
 <li class="chapter" data-level="14.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>14.3</b> Eigenanalysis in R</a></li>
 <li class="chapter" data-level="14.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>14.4</b> Principal Components Analysis in R</a><ul>
@@ -424,97 +436,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>14.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html"><i class="fa fa-check"></i><b>15</b> Singular Value Decomposition</a><ul>
-<li class="chapter" data-level="15.1" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#libraries-6"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
-<li class="chapter" data-level="15.2" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#svd-in-r"><i class="fa fa-check"></i><b>15.2</b> SVD in R</a></li>
-<li class="chapter" data-level="15.3" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#writing-our-own-pca-function-using-svd"><i class="fa fa-check"></i><b>15.3</b> Writing our own PCA function using SVD</a></li>
-<li class="chapter" data-level="15.4" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#writing-a-biplot-function"><i class="fa fa-check"></i><b>15.4</b> Writing a biplot function</a></li>
-<li class="chapter" data-level="15.5" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#data-compression-and-noise-filtering-using-svd"><i class="fa fa-check"></i><b>15.5</b> Data compression and noise filtering using SVD</a><ul>
-<li class="chapter" data-level="15.5.1" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#example-image"><i class="fa fa-check"></i><b>15.5.1</b> Example image</a></li>
+<li class="chapter" data-level="15" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>15</b> Canonical Variates Analysis</a><ul>
+<li class="chapter" data-level="15.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-4"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
+<li class="chapter" data-level="15.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>15.2</b> Discriminant Analysis in R</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>15.2.1</b> Shorthand Formulae in R</a></li>
+<li class="chapter" data-level="15.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>15.2.2</b> Working with the output of <code>lda()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="15.6" data-path="singular-value-decomposition.html"><a href="singular-value-decomposition.html#image-compression-using-svd-in-r"><i class="fa fa-check"></i><b>15.6</b> Image compression using SVD in R</a></li>
+<li class="chapter" data-level="15.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>15.3</b> Estimating confidence regions for group means in CVA</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>15.3.1</b> Drawing the CVA confidence regions</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>16</b> Canonical Variates Analysis</a><ul>
-<li class="chapter" data-level="16.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-7"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
-<li class="chapter" data-level="16.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>16.2</b> Discriminant Analysis in R</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>16.2.1</b> Shorthand Formulae in R</a></li>
-<li class="chapter" data-level="16.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>16.2.2</b> Working with the output of <code>lda()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="16.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>16.3</b> Estimating confidence regions for group means in CVA</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>16.3.1</b> Drawing the CVA confidence regions</a></li>
-</ul></li>
-<li class="chapter" data-level="16.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>16.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
-<li class="chapter" data-level="16.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>16.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
+<li class="chapter" data-level="15.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>15.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>15.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>17</b> Clustering in R</a><ul>
-<li class="chapter" data-level="17.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-8"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
-<li class="chapter" data-level="17.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>17.2</b> Data set</a></li>
-<li class="chapter" data-level="17.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>17.3</b> Hierarchical Clustering in R</a></li>
-<li class="chapter" data-level="17.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>17.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
-<li class="chapter" data-level="17.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>17.5</b> Plotting dendrograms in dendextend</a></li>
-<li class="chapter" data-level="17.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>17.6</b> Cutting dendrograms</a></li>
-<li class="chapter" data-level="17.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>17.7</b> Looking at clusters</a></li>
-<li class="chapter" data-level="17.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>17.8</b> Generating a heat map from a cluster</a></li>
-<li class="chapter" data-level="17.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>17.9</b> Working with sub-trees</a></li>
-<li class="chapter" data-level="17.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>17.10</b> Setting dendrogram parameters in dendextend</a></li>
-<li class="chapter" data-level="17.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>17.11</b> Combining heatmaps and dendrograms</a></li>
-<li class="chapter" data-level="17.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>17.12</b> K-means/K-medoids Clustering in R</a><ul>
-<li class="chapter" data-level="17.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>17.12.1</b> Heat map from k-medoids cluster</a></li>
+<li class="chapter" data-level="16" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>16</b> Clustering in R</a><ul>
+<li class="chapter" data-level="16.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-5"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
+<li class="chapter" data-level="16.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>16.2</b> Data set</a></li>
+<li class="chapter" data-level="16.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>16.3</b> Hierarchical Clustering in R</a></li>
+<li class="chapter" data-level="16.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>16.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
+<li class="chapter" data-level="16.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>16.5</b> Plotting dendrograms in dendextend</a></li>
+<li class="chapter" data-level="16.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>16.6</b> Cutting dendrograms</a></li>
+<li class="chapter" data-level="16.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>16.7</b> Looking at clusters</a></li>
+<li class="chapter" data-level="16.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>16.8</b> Generating a heat map from a cluster</a></li>
+<li class="chapter" data-level="16.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>16.9</b> Working with sub-trees</a></li>
+<li class="chapter" data-level="16.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>16.10</b> Setting dendrogram parameters in dendextend</a></li>
+<li class="chapter" data-level="16.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>16.11</b> Combining heatmaps and dendrograms</a></li>
+<li class="chapter" data-level="16.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>16.12</b> K-means/K-medoids Clustering in R</a><ul>
+<li class="chapter" data-level="16.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>16.12.1</b> Heat map from k-medoids cluster</a></li>
 </ul></li>
-<li class="chapter" data-level="17.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>17.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
-<li class="chapter" data-level="17.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>17.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
-<li class="chapter" data-level="17.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>17.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
+<li class="chapter" data-level="16.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>16.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
+<li class="chapter" data-level="16.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>16.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
+<li class="chapter" data-level="16.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>16.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="17.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>17.14</b> Depicting the data within clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html"><i class="fa fa-check"></i><b>18</b> Simulation I: Sampling distributions</a><ul>
-<li class="chapter" data-level="18.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distrubtions"><i class="fa fa-check"></i><b>18.1</b> Sampling distrubtions</a></li>
-<li class="chapter" data-level="18.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-sampling-from-an-underlying-population"><i class="fa fa-check"></i><b>18.2</b> Simulating sampling from an underlying population</a></li>
-<li class="chapter" data-level="18.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>18.3</b> Seeding the pseudo-random number generator</a></li>
-<li class="chapter" data-level="18.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#libraries-9"><i class="fa fa-check"></i><b>18.4</b> Libraries</a><ul>
-<li class="chapter" data-level="18.4.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#properties-of-the-underlying-population"><i class="fa fa-check"></i><b>18.4.1</b> Properties of the underlying population</a></li>
-<li class="chapter" data-level="18.4.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#other-r-functions-related-to-the-normal-distribution"><i class="fa fa-check"></i><b>18.4.2</b> Other R functions related to the normal distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="18.5" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>18.5</b> Random sampling from the simulated population</a><ul>
-<li class="chapter" data-level="18.5.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>18.5.1</b> Another random sample</a></li>
-<li class="chapter" data-level="18.5.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>18.5.2</b> Simulating the generation of many random samples</a></li>
-<li class="chapter" data-level="18.5.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>18.5.3</b> A function to estimate statistics of interest in a random sample</a></li>
-<li class="chapter" data-level="18.5.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>18.5.4</b> Generating statistics for many random samples</a></li>
-</ul></li>
-<li class="chapter" data-level="18.6" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>18.6</b> Simulated sampling distribution of the mean</a><ul>
-<li class="chapter" data-level="18.6.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#differences-between-sampling-distributions-and-samplepopulation-distributions"><i class="fa fa-check"></i><b>18.6.1</b> Differences between sampling distributions and sample/population distributions</a></li>
-<li class="chapter" data-level="18.6.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest"><i class="fa fa-check"></i><b>18.6.2</b> Using sampling distributions to understand the behavior of statistics of interest</a></li>
-<li class="chapter" data-level="18.6.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.3</b> Sampling distributions for different sample sizes</a></li>
-<li class="chapter" data-level="18.6.4" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>18.6.4</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
-</ul></li>
-<li class="chapter" data-level="18.7" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>18.7</b> Standard Error of the Mean</a></li>
-<li class="chapter" data-level="18.8" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>18.8</b> Sampling Distribution of the Standard Deviation</a><ul>
-<li class="chapter" data-level="18.8.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#standard-error-of-standard-deviations"><i class="fa fa-check"></i><b>18.8.1</b> Standard error of standard deviations</a></li>
-</ul></li>
-<li class="chapter" data-level="18.9" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>18.9</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a><ul>
-<li class="chapter" data-level="18.9.1" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>18.9.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
-<li class="chapter" data-level="18.9.2" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>18.9.2</b> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
-<li class="chapter" data-level="18.9.3" data-path="simulation-i-sampling-distributions.html"><a href="simulation-i-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>18.9.3</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>19</b> Simulating confidence intervals</a><ul>
-<li class="chapter" data-level="19.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>19.1</b> Confidence intervals</a></li>
-<li class="chapter" data-level="19.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>19.2</b> Generic formulation for confidence intervals</a></li>
-<li class="chapter" data-level="19.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>19.3</b> Example: Confidence intervals for the mean</a><ul>
-<li class="chapter" data-level="19.3.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulation-of-means"><i class="fa fa-check"></i><b>19.3.1</b> Simulation of means</a></li>
-<li class="chapter" data-level="19.3.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means"><i class="fa fa-check"></i><b>19.3.2</b> Distance between sample means and true means</a></li>
-<li class="chapter" data-level="19.3.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calculating-a-ci"><i class="fa fa-check"></i><b>19.3.3</b> Calculating a CI</a></li>
-</ul></li>
-<li class="chapter" data-level="19.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#a-problem-arises"><i class="fa fa-check"></i><b>19.4</b> A problem arises!</a></li>
-<li class="chapter" data-level="19.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors"><i class="fa fa-check"></i><b>19.5</b> Confidence intervals under sample estimates of standard errors</a><ul>
-<li class="chapter" data-level="19.5.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses"><i class="fa fa-check"></i><b>19.5.1</b> The spread of sample estimates of the mean in units of true and estimates SEs</a></li>
-<li class="chapter" data-level="19.5.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean"><i class="fa fa-check"></i><b>19.5.2</b> Quantifying deviations of sample estimates of the mean</a></li>
-</ul></li>
-<li class="chapter" data-level="19.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean"><i class="fa fa-check"></i><b>19.6</b> t-distribution for confidence intervals of the mean</a><ul>
-<li class="chapter" data-level="19.6.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution"><i class="fa fa-check"></i><b>19.6.1</b> t-distribution vs standard normal distribution</a></li>
-<li class="chapter" data-level="19.6.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution"><i class="fa fa-check"></i><b>19.6.2</b> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</a></li>
-</ul></li>
+<li class="chapter" data-level="16.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>16.14</b> Depicting the data within clusters</a></li>
 </ul></li>
 </ul>
 
@@ -534,39 +488,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="clustering-in-r" class="section level1">
-<h1><span class="header-section-number">Chapter 17</span> Clustering in R</h1>
-<div id="libraries-8" class="section level2">
-<h2><span class="header-section-number">17.1</span> Libraries</h2>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(RColorBrewer)</code></pre>
+<h1><span class="header-section-number">Chapter 16</span> Clustering in R</h1>
+<div id="libraries-5" class="section level2">
+<h2><span class="header-section-number">16.1</span> Libraries</h2>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb474-2" title="2"><span class="kw">library</span>(RColorBrewer)</a></code></pre></div>
 </div>
 <div id="data-set" class="section level2">
-<h2><span class="header-section-number">17.2</span> Data set</h2>
+<h2><span class="header-section-number">16.2</span> Data set</h2>
 <p>To illustrate clustering method, we’ll use a subset of the Spellman et al. gene expression data set we introduced in the <a href="https://bio723-class.github.io/Bio723-book/data-wrangling.html">Data Wrangling</a> chapter. Recall that, Spellman and colleagues tried to identify all the genes in the yeast genome (&gt;6000 genes) that exhibited oscillatory behaviors suggestive of cell cycle regulation. To do so, they measured gene expression over time, using six different types of cell cycle synchronization experiments.</p>
 <p>Rather than working with the whole genome, we’re going to focus on clustering ~700 genes that Spellman and colleagues identified as oscillatory. This data set can be loaded from <a href="https://github.com/Bio723-class/example-datasets/raw/master/spellman-wide.csv">this link</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/spellman-wide.csv&quot;</span>)
-<span class="kw">dim</span>(spellman)
-<span class="co">## [1]  73 726</span></code></pre>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" title="1">spellman &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/spellman-wide.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb475-2" title="2"><span class="kw">dim</span>(spellman)</a>
+<a class="sourceLine" id="cb475-3" title="3"><span class="co">## [1]  73 726</span></a></code></pre></div>
 <p>This data is provided in a tidy “wide” format with genes in columns. The first two columns give the experiment name and the corresponding time point at which the sample was collected. Let’s confirm that the case by looking at the first few rows and columns of the data:</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]
-<span class="co">## # A tibble: 5 x 8</span>
-<span class="co">##   expt   time YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C</span>
-<span class="co">##   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">## 1 alpha     0  -0.36     1.04    0.21    0.01   -0.3    -0.48</span>
-<span class="co">## 2 alpha     7  -0.42     0.19   -0.2     0.07   -0.45   -0.42</span>
-<span class="co">## 3 alpha    14   0.290    0.47    0.2     0.17    0.75    0.87</span>
-<span class="co">## 4 alpha    21  -0.14    -1.03    0.15   NA       0.37    0.92</span>
-<span class="co">## 5 alpha    28  -0.19    -0.63    0.38   -0.1     0.27    0.67</span></code></pre>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">spellman[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]</a>
+<a class="sourceLine" id="cb476-2" title="2"><span class="co">## # A tibble: 5 x 8</span></a>
+<a class="sourceLine" id="cb476-3" title="3"><span class="co">##   expt   time YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C</span></a>
+<a class="sourceLine" id="cb476-4" title="4"><span class="co">##   &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb476-5" title="5"><span class="co">## 1 alpha     0  -0.36     1.04    0.21    0.01   -0.3    -0.48</span></a>
+<a class="sourceLine" id="cb476-6" title="6"><span class="co">## 2 alpha     7  -0.42     0.19   -0.2     0.07   -0.45   -0.42</span></a>
+<a class="sourceLine" id="cb476-7" title="7"><span class="co">## 3 alpha    14   0.290    0.47    0.2     0.17    0.75    0.87</span></a>
+<a class="sourceLine" id="cb476-8" title="8"><span class="co">## 4 alpha    21  -0.14    -1.03    0.15   NA       0.37    0.92</span></a>
+<a class="sourceLine" id="cb476-9" title="9"><span class="co">## 5 alpha    28  -0.19    -0.63    0.38   -0.1     0.27    0.67</span></a></code></pre></div>
 </div>
 <div id="hierarchical-clustering-in-r" class="section level2">
-<h2><span class="header-section-number">17.3</span> Hierarchical Clustering in R</h2>
+<h2><span class="header-section-number">16.3</span> Hierarchical Clustering in R</h2>
 <p>Hierarchical clustering in R can be carried out using the <code>hclust()</code> function. The <code>method</code> argument to <code>hclust</code> determines the group distance function used (single linkage, complete linkage, average, etc.).</p>
 <p>The input to <code>hclust()</code> is a dissimilarity matrix. The function <code>dist()</code> provides some of the basic dissimilarity measures (e.g. Euclidean, Manhattan, Canberra; see method argument of <code>dist</code>) but you can convert an arbitrary square matrix to a distance object by applying the <code>as.dist</code> function to the matrix.</p>
 <p>We’re primarily interested in clustering the variables of our data set – genes – in order to discover what sets of gene are expressed in similar patterns (motivated by the idea that genes that are expressed in a similar manner are likely regulated by the same sets of transcription factors). So we need an appropriate similarity/dissimilarity measure for variables. The correlation coefficient is a suitable measure of linear association between variables. Correlations range from 1 for perfectly correlated variables to -1 for anti-correlated variables. Uncorrelated variables have values near zero. Correlation is a measure of similarity so we’ll turn it to into a measure of dissimilarity before passing it to the <code>as.dist</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman.cor &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(spellman, <span class="op">-</span>time, <span class="op">-</span>expt) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">cor</span>(<span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>)
-
-spellman.dist &lt;-<span class="st"> </span><span class="kw">as.dist</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>spellman.cor)</code></pre>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb477-1" title="1">spellman.cor &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(spellman, <span class="op">-</span>time, <span class="op">-</span>expt) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb477-2" title="2"><span class="st">  </span><span class="kw">cor</span>(<span class="dt">use=</span><span class="st">&quot;pairwise.complete.obs&quot;</span>)</a>
+<a class="sourceLine" id="cb477-3" title="3"></a>
+<a class="sourceLine" id="cb477-4" title="4">spellman.dist &lt;-<span class="st"> </span><span class="kw">as.dist</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>spellman.cor)</a></code></pre></div>
 <p>The <code>use</code> argument to the <code>cor</code> function specifies that when there are missing
 values, the function should use all the available observations that have data
 necessary to calculate a correlation for any given pair of genes. We then turn
@@ -575,94 +529,94 @@ positively correlated variables have distance 0) and passing it to the <code>as.
 function.</p>
 <p>We’re now ready to put the <code>hclust</code> function to use. We first generate the
 hierarchical clustering, use the “complete linkage” method (see lecture slides):</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman.tree &lt;-<span class="st"> </span><span class="kw">hclust</span>(spellman.dist, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</code></pre>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1">spellman.tree &lt;-<span class="st"> </span><span class="kw">hclust</span>(spellman.dist, <span class="dt">method=</span><span class="st">&quot;complete&quot;</span>)</a></code></pre></div>
 <p>Having generated the tree object, we can plot it using the multipurpose <code>plot()</code> function (Note that <code>plot()</code> is part of the base R graphics package, and hence unrelated to ggplot):</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.tree)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-497-1.png" width="960" /></p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="kw">plot</span>(spellman.tree)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-475-1.png" width="960" /></p>
 <p>Ugh - that’s an ugly plot! One major problem is that the text labels at the
 bottom of the tree are too large, and they’re overlapping each other. We can
 tweak that a little by changing the text size with the <code>cex</code> parameter.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.tree, <span class="dt">cex=</span><span class="fl">0.2</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-498-1.png" width="960" /></p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="kw">plot</span>(spellman.tree, <span class="dt">cex=</span><span class="fl">0.2</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-476-1.png" width="960" /></p>
 <p>That’s a little better, but we’re going to need some additional tools to wrangle this dendrogram into a more usable state.</p>
 </div>
 <div id="manipulating-hierarchical-clusterings-with-dendextend" class="section level2">
-<h2><span class="header-section-number">17.4</span> Manipulating hierarchical clusterings with dendextend</h2>
+<h2><span class="header-section-number">16.4</span> Manipulating hierarchical clusterings with dendextend</h2>
 <p>To work with and manipulate hierarchical clusterings and to create nicer dendrograms we’re going to use a package called <a href="https://cran.r-project.org/web/packages/dendextend/vignettes/introduction.html">dendextend</a>. Install dendextend via one of the standard package installation mechanisms before proceeding.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dendextend)</code></pre>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1"><span class="kw">library</span>(dendextend)</a></code></pre></div>
 <p>First we’ll create a <code>dendrogram</code> object from our clustering tree, and use some
 <code>dendextend</code> features to examine a few of the properties of the dendrogram.</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman.dend &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(spellman.tree) <span class="co"># create dendrogram object</span></code></pre>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1">spellman.dend &lt;-<span class="st"> </span><span class="kw">as.dendrogram</span>(spellman.tree) <span class="co"># create dendrogram object</span></a></code></pre></div>
 <p><code>dendextend</code> includes a number of functions for examing the tree. For example, to examine the number of “leaves” (= # of genes we clustered) or nodes (= # of leaves + number of internal joins) in the tree we can do the following:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nleaves</span>(spellman.dend)  <span class="co"># number of leaves in tree</span>
-<span class="co">## [1] 724</span>
-<span class="kw">nnodes</span>(spellman.dend)  <span class="co"># number of nodes (=leaves + joins) in tree</span>
-<span class="co">## [1] 1447</span></code></pre>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1"><span class="kw">nleaves</span>(spellman.dend)  <span class="co"># number of leaves in tree</span></a>
+<a class="sourceLine" id="cb483-2" title="2"><span class="co">## [1] 724</span></a>
+<a class="sourceLine" id="cb483-3" title="3"><span class="kw">nnodes</span>(spellman.dend)  <span class="co"># number of nodes (=leaves + joins) in tree</span></a>
+<a class="sourceLine" id="cb483-4" title="4"><span class="co">## [1] 1447</span></a></code></pre></div>
 </div>
 <div id="plotting-dendrograms-in-dendextend" class="section level2">
-<h2><span class="header-section-number">17.5</span> Plotting dendrograms in dendextend</h2>
+<h2><span class="header-section-number">16.5</span> Plotting dendrograms in dendextend</h2>
 <p>The plot function for <code>dendextend</code> dendrogram objects (see <code>?plot.dendrogram</code>) has a number of additional parameters that allows us to tweak the plot. For example, for large dendrograms it often makes sense to remove the leaf labels entirely as they will often be too small to read. This can be accomplished using the <code>leaflab</code> argument:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(spellman.dend, <span class="dt">leaflab =</span> <span class="st">&quot;none&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-502-1.png" width="960" /></p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1"><span class="kw">plot</span>(spellman.dend, <span class="dt">leaflab =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-480-1.png" width="960" /></p>
 </div>
 <div id="cutting-dendrograms" class="section level2">
-<h2><span class="header-section-number">17.6</span> Cutting dendrograms</h2>
+<h2><span class="header-section-number">16.6</span> Cutting dendrograms</h2>
 <p>When looking at the figure we just generated it looks like there may be four
 major clusters. We’ll use the <code>cutree</code> function to cut the tree into four pieces
 and examine the implied clustering (note that the <code>cutree</code> function can also be
 used to cut the tree at a specified height).</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>)
-<span class="kw">table</span>(clusters)
-<span class="co">## clusters</span>
-<span class="co">##   1   2   3   4 </span>
-<span class="co">## 189 144 227 164</span></code></pre>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb485-2" title="2"><span class="kw">table</span>(clusters)</a>
+<a class="sourceLine" id="cb485-3" title="3"><span class="co">## clusters</span></a>
+<a class="sourceLine" id="cb485-4" title="4"><span class="co">##   1   2   3   4 </span></a>
+<a class="sourceLine" id="cb485-5" title="5"><span class="co">## 189 144 227 164</span></a></code></pre></div>
 <p>When we cut the tree we got four clusters, whose size is given by the <code>table</code> command above. If you examine the <code>cutree</code> documentation (reminder: use <code>?cutree</code> from the command line) you will see that it returns a vector of integers, giving the corresponding cluster to which each variable (gene) is assigned. The code below shows the cluster assignments for the first six genes.</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]
-<span class="co">## YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C </span>
-<span class="co">##       1       2       3       4       3       3</span></code></pre>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1">clusters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</a>
+<a class="sourceLine" id="cb486-2" title="2"><span class="co">## YAL022C YAL040C YAL053W YAL067C YAR003W YAR007C </span></a>
+<a class="sourceLine" id="cb486-3" title="3"><span class="co">##       1       2       3       4       3       3</span></a></code></pre></div>
 <p>Next let’s create a nicer plot that highlights each of the clusters. The
 function <code>color_branches()</code> does essentially the same thing as <code>cutree</code> but it
 returns information that the <code>plot</code> function can use to appropriately color
 branches of the tree according to cluster membership.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-505-1.png" width="960" /></p>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">4</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-483-1.png" width="960" /></p>
 <p>Now we’re getting somewhere! However, our clusters are still pretty big. Let’s
 check out the clusterings we get when we cut with eight clusters rather than
 four.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-506-1.png" width="960" />
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1"><span class="kw">plot</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-484-1.png" width="960" />
 And here are the number of genes in each cluster:</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>, <span class="dt">order_clusters_as_data =</span> <span class="ot">FALSE</span>)
-<span class="kw">table</span>(clusters)
-<span class="co">## clusters</span>
-<span class="co">##   1   2   3   4   5   6   7   8 </span>
-<span class="co">## 164 169  58  81 108  74  16  54</span></code></pre>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1">clusters &lt;-<span class="st"> </span><span class="kw">cutree</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>, <span class="dt">order_clusters_as_data =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb489-2" title="2"><span class="kw">table</span>(clusters)</a>
+<a class="sourceLine" id="cb489-3" title="3"><span class="co">## clusters</span></a>
+<a class="sourceLine" id="cb489-4" title="4"><span class="co">##   1   2   3   4   5   6   7   8 </span></a>
+<a class="sourceLine" id="cb489-5" title="5"><span class="co">## 164 169  58  81 108  74  16  54</span></a></code></pre></div>
 </div>
 <div id="looking-at-clusters" class="section level2">
-<h2><span class="header-section-number">17.7</span> Looking at clusters</h2>
+<h2><span class="header-section-number">16.7</span> Looking at clusters</h2>
 <p>To further explore the clusters, let’s create a data frame that holds the information about genes and their cluster assignments:</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(clusters), <span class="dt">cluster =</span> clusters)</code></pre>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(clusters), <span class="dt">cluster =</span> clusters)</a></code></pre></div>
 <p>Having created this data frame, it’s straightforward to lookup the cluster to which a gene belongs:</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters.df[<span class="st">&quot;YAL022C&quot;</span>,]
-<span class="co">## # A tibble: 1 x 2</span>
-<span class="co">##   gene    cluster</span>
-<span class="co">##   &lt;fct&gt;     &lt;int&gt;</span>
-<span class="co">## 1 YAL022C       5</span></code></pre>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" title="1">clusters.df[<span class="st">&quot;YAL022C&quot;</span>,]</a>
+<a class="sourceLine" id="cb491-2" title="2"><span class="co">## # A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb491-3" title="3"><span class="co">##   gene    cluster</span></a>
+<a class="sourceLine" id="cb491-4" title="4"><span class="co">##   &lt;fct&gt;     &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb491-5" title="5"><span class="co">## 1 YAL022C       5</span></a></code></pre></div>
 <p>or to get all the names of genes in a given cluster:</p>
-<pre class="sourceCode r"><code class="sourceCode r">cluster3.genes &lt;-<span class="st"> </span><span class="kw">filter</span>(clusters.df, cluster <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)<span class="op">$</span>gene
-
-<span class="kw">cat</span>(<span class="kw">as.character</span>(cluster3.genes[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]), <span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>);
-<span class="co">## YEL068C</span>
-<span class="co">## YOR242C</span>
-<span class="co">## YKL172W</span>
-<span class="co">## YBR087W</span>
-<span class="co">## YJR043C</span>
-<span class="co">## YLR154C</span>
-<span class="co">## YGR276C</span>
-<span class="co">## YGR042W</span>
-<span class="co">## YPL232W</span>
-<span class="co">## YOR355W</span>
-<span class="co">## FALSE</span></code></pre>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb492-1" title="1">cluster3.genes &lt;-<span class="st"> </span><span class="kw">filter</span>(clusters.df, cluster <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)<span class="op">$</span>gene</a>
+<a class="sourceLine" id="cb492-2" title="2"></a>
+<a class="sourceLine" id="cb492-3" title="3"><span class="kw">cat</span>(<span class="kw">as.character</span>(cluster3.genes[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]), <span class="dt">quote=</span><span class="ot">FALSE</span>,<span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>);</a>
+<a class="sourceLine" id="cb492-4" title="4"><span class="co">## YEL068C</span></a>
+<a class="sourceLine" id="cb492-5" title="5"><span class="co">## YOR242C</span></a>
+<a class="sourceLine" id="cb492-6" title="6"><span class="co">## YKL172W</span></a>
+<a class="sourceLine" id="cb492-7" title="7"><span class="co">## YBR087W</span></a>
+<a class="sourceLine" id="cb492-8" title="8"><span class="co">## YJR043C</span></a>
+<a class="sourceLine" id="cb492-9" title="9"><span class="co">## YLR154C</span></a>
+<a class="sourceLine" id="cb492-10" title="10"><span class="co">## YGR276C</span></a>
+<a class="sourceLine" id="cb492-11" title="11"><span class="co">## YGR042W</span></a>
+<a class="sourceLine" id="cb492-12" title="12"><span class="co">## YPL232W</span></a>
+<a class="sourceLine" id="cb492-13" title="13"><span class="co">## YOR355W</span></a>
+<a class="sourceLine" id="cb492-14" title="14"><span class="co">## FALSE</span></a></code></pre></div>
 <p>Note the use of the <code>cat</code> function to print out a list of the gene names for
 cluster 7, with the names separated by returns (<code>"\n"</code>). This is useful if you
 want to cut and paste the gene names into a document, or an online analysis tool
@@ -670,155 +624,155 @@ such as various Gene Ontology (GO) browsers (we’ll talk about these in a later
 class session).</p>
 </div>
 <div id="generating-a-heat-map-from-a-cluster" class="section level2">
-<h2><span class="header-section-number">17.8</span> Generating a heat map from a cluster</h2>
+<h2><span class="header-section-number">16.8</span> Generating a heat map from a cluster</h2>
 <p>Let’s generate a heat map showing the expression of all the genes in the alpha factor experiment for the first cluster that we found above. To generate this visualization it will be convenient to work with the data in a tidy long format, so we use <code>dplyr::gather</code> to restructure the data first:</p>
-<pre class="sourceCode r"><code class="sourceCode r">spellman.long &lt;-<span class="st"> </span><span class="kw">gather</span>(spellman, gene, expression, <span class="op">-</span>time, <span class="op">-</span>expt) 
-<span class="kw">head</span>(spellman.long)
-<span class="co">## # A tibble: 6 x 4</span>
-<span class="co">##   expt   time gene    expression</span>
-<span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
-<span class="co">## 1 alpha     0 YAL022C     -0.36 </span>
-<span class="co">## 2 alpha     7 YAL022C     -0.42 </span>
-<span class="co">## 3 alpha    14 YAL022C      0.290</span>
-<span class="co">## 4 alpha    21 YAL022C     -0.14 </span>
-<span class="co">## 5 alpha    28 YAL022C     -0.19 </span>
-<span class="co">## 6 alpha    35 YAL022C     -0.52</span></code></pre>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1">spellman.long &lt;-<span class="st"> </span><span class="kw">gather</span>(spellman, gene, expression, <span class="op">-</span>time, <span class="op">-</span>expt) </a>
+<a class="sourceLine" id="cb493-2" title="2"><span class="kw">head</span>(spellman.long)</a>
+<a class="sourceLine" id="cb493-3" title="3"><span class="co">## # A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb493-4" title="4"><span class="co">##   expt   time gene    expression</span></a>
+<a class="sourceLine" id="cb493-5" title="5"><span class="co">##   &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb493-6" title="6"><span class="co">## 1 alpha     0 YAL022C     -0.36 </span></a>
+<a class="sourceLine" id="cb493-7" title="7"><span class="co">## 2 alpha     7 YAL022C     -0.42 </span></a>
+<a class="sourceLine" id="cb493-8" title="8"><span class="co">## 3 alpha    14 YAL022C      0.290</span></a>
+<a class="sourceLine" id="cb493-9" title="9"><span class="co">## 4 alpha    21 YAL022C     -0.14 </span></a>
+<a class="sourceLine" id="cb493-10" title="10"><span class="co">## 5 alpha    28 YAL022C     -0.19 </span></a>
+<a class="sourceLine" id="cb493-11" title="11"><span class="co">## 6 alpha    35 YAL022C     -0.52</span></a></code></pre></div>
 <p>Having restructured the data we can now generate our desired heat map:</p>
-<pre class="sourceCode r"><code class="sourceCode r">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span>
-
-spellman.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>cluster3.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-512-1.png" width="576" /></p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb494-1" title="1">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">8</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span></a>
+<a class="sourceLine" id="cb494-2" title="2"></a>
+<a class="sourceLine" id="cb494-3" title="3">spellman.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb494-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>cluster3.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb494-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb494-6" title="6"><span class="st">  </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb494-7" title="7"><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb494-8" title="8"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-490-1.png" width="576" /></p>
 </div>
 <div id="working-with-sub-trees" class="section level2">
-<h2><span class="header-section-number">17.9</span> Working with sub-trees</h2>
+<h2><span class="header-section-number">16.9</span> Working with sub-trees</h2>
 <p>The <code>cutree()</code> function illustrated above gives us the groupings implied by cutting the tree at a certain height. However, it does not explicitly return objects representing the sub-trees themselves. If you want to do computations or generate figures of the sub-trees, you’ll need to use the <code>cut()</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note that I determined the height to cut at by looking at the colored dendrogram</span>
-<span class="co"># plot above for 8 clusters</span>
-sub.trees &lt;-<span class="st"> </span><span class="kw">cut</span>(spellman.dend, <span class="dt">h =</span> <span class="fl">1.48</span>)</code></pre>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1"><span class="co"># note that I determined the height to cut at by looking at the colored dendrogram</span></a>
+<a class="sourceLine" id="cb495-2" title="2"><span class="co"># plot above for 8 clusters</span></a>
+<a class="sourceLine" id="cb495-3" title="3">sub.trees &lt;-<span class="st"> </span><span class="kw">cut</span>(spellman.dend, <span class="dt">h =</span> <span class="fl">1.48</span>)</a></code></pre></div>
 <p>The <code>cut</code> function returns multiple sub-trees designated <code>upper</code> and
 <code>lower</code>. The upper tree is the tree “above” the cut, while the multiple
 “lower” trees represent the disconnected sub-trees “below” the cut. For
 purposes of clustering you usually are most interested in the sub-trees
 (clusters) below the cut.</p>
-<pre class="sourceCode r"><code class="sourceCode r">sub.trees<span class="op">$</span>lower
-<span class="co">## [[1]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 164 members total, at height 1.469983 </span>
-<span class="co">## </span>
-<span class="co">## [[2]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 169 members total, at height 1.178098 </span>
-<span class="co">## </span>
-<span class="co">## [[3]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836 </span>
-<span class="co">## </span>
-<span class="co">## [[4]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 81 members total, at height 1.231597 </span>
-<span class="co">## </span>
-<span class="co">## [[5]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 108 members total, at height 1.366951 </span>
-<span class="co">## </span>
-<span class="co">## [[6]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 74 members total, at height 1.463623 </span>
-<span class="co">## </span>
-<span class="co">## [[7]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 16 members total, at height 1.041689 </span>
-<span class="co">## </span>
-<span class="co">## [[8]]</span>
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 54 members total, at height 1.188419</span></code></pre>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb496-1" title="1">sub.trees<span class="op">$</span>lower</a>
+<a class="sourceLine" id="cb496-2" title="2"><span class="co">## [[1]]</span></a>
+<a class="sourceLine" id="cb496-3" title="3"><span class="co">## &#39;dendrogram&#39; with 2 branches and 164 members total, at height 1.469983 </span></a>
+<a class="sourceLine" id="cb496-4" title="4"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-5" title="5"><span class="co">## [[2]]</span></a>
+<a class="sourceLine" id="cb496-6" title="6"><span class="co">## &#39;dendrogram&#39; with 2 branches and 169 members total, at height 1.178098 </span></a>
+<a class="sourceLine" id="cb496-7" title="7"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-8" title="8"><span class="co">## [[3]]</span></a>
+<a class="sourceLine" id="cb496-9" title="9"><span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836 </span></a>
+<a class="sourceLine" id="cb496-10" title="10"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-11" title="11"><span class="co">## [[4]]</span></a>
+<a class="sourceLine" id="cb496-12" title="12"><span class="co">## &#39;dendrogram&#39; with 2 branches and 81 members total, at height 1.231597 </span></a>
+<a class="sourceLine" id="cb496-13" title="13"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-14" title="14"><span class="co">## [[5]]</span></a>
+<a class="sourceLine" id="cb496-15" title="15"><span class="co">## &#39;dendrogram&#39; with 2 branches and 108 members total, at height 1.366951 </span></a>
+<a class="sourceLine" id="cb496-16" title="16"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-17" title="17"><span class="co">## [[6]]</span></a>
+<a class="sourceLine" id="cb496-18" title="18"><span class="co">## &#39;dendrogram&#39; with 2 branches and 74 members total, at height 1.463623 </span></a>
+<a class="sourceLine" id="cb496-19" title="19"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-20" title="20"><span class="co">## [[7]]</span></a>
+<a class="sourceLine" id="cb496-21" title="21"><span class="co">## &#39;dendrogram&#39; with 2 branches and 16 members total, at height 1.041689 </span></a>
+<a class="sourceLine" id="cb496-22" title="22"><span class="co">## </span></a>
+<a class="sourceLine" id="cb496-23" title="23"><span class="co">## [[8]]</span></a>
+<a class="sourceLine" id="cb496-24" title="24"><span class="co">## &#39;dendrogram&#39; with 2 branches and 54 members total, at height 1.188419</span></a></code></pre></div>
 <p>We can retrieve any particular sub-tree by indexing into the list:</p>
-<pre class="sourceCode r"><code class="sourceCode r">cluster3.tree &lt;-<span class="st"> </span>sub.trees<span class="op">$</span>lower[[<span class="dv">3</span>]]
-cluster3.tree
-<span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836</span>
-<span class="kw">nleaves</span>(cluster3.tree)
-<span class="co">## [1] 58</span></code></pre>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1">cluster3.tree &lt;-<span class="st"> </span>sub.trees<span class="op">$</span>lower[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb497-2" title="2">cluster3.tree</a>
+<a class="sourceLine" id="cb497-3" title="3"><span class="co">## &#39;dendrogram&#39; with 2 branches and 58 members total, at height 1.32836</span></a>
+<a class="sourceLine" id="cb497-4" title="4"><span class="kw">nleaves</span>(cluster3.tree)</a>
+<a class="sourceLine" id="cb497-5" title="5"><span class="co">## [1] 58</span></a></code></pre></div>
 </div>
 <div id="setting-dendrogram-parameters-in-dendextend" class="section level2">
-<h2><span class="header-section-number">17.10</span> Setting dendrogram parameters in dendextend</h2>
+<h2><span class="header-section-number">16.10</span> Setting dendrogram parameters in dendextend</h2>
 <p><code>dendextend</code> has a generic function – <code>set()</code> – for changing the parameters associated with dendrograms. The basic form of the function is <code>set(object, what, value)</code>, where <code>object</code> is the dendrogram you’re working with, <code>what</code> is a character string indicating the parameter you want to change, and <code>value</code> is the setting you wishing to assign to that parameter.</p>
 <p>A full list of dendrogram parameters that can be changed is provided in the <a href="https://cran.r-project.org/web/packages/dendextend/vignettes/introduction.html#the-set-function">dendextend</a> documentation.</p>
 <p>We’ll use the <code>set</code> function to make a nice diagram of our cluster 3 sub-tree:</p>
-<pre class="sourceCode r"><code class="sourceCode r">cluster3.tree  <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_cex&quot;</span>, <span class="fl">0.45</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="st">&quot;red&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz =</span> <span class="ot">TRUE</span>)  <span class="co"># plot horizontally</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-516-1.png" width="576" /></p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1">cluster3.tree  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb498-2" title="2"><span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_cex&quot;</span>, <span class="fl">0.45</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb498-3" title="3"><span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="st">&quot;red&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb498-4" title="4"><span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz =</span> <span class="ot">TRUE</span>)  <span class="co"># plot horizontally</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-494-1.png" width="576" /></p>
 </div>
 <div id="combining-heatmaps-and-dendrograms" class="section level2">
-<h2><span class="header-section-number">17.11</span> Combining heatmaps and dendrograms</h2>
+<h2><span class="header-section-number">16.11</span> Combining heatmaps and dendrograms</h2>
 <p>A common visualization used in transcriptome studies is to combine dendrograms and heatmaps. To do this with a minimum of fuss we’ll use a package called “gplots” which includes a heatmap function that will also plot dendrograms next. Install “gplots” via the standard package installation mechanism.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gplots)</code></pre>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb499-1" title="1"><span class="kw">library</span>(gplots)</a></code></pre></div>
 <p>The gplots function we will use is called <code>heatmap.2</code>. This function requires as input our data in the form of a matrix. If you provide no other information <code>heatmap.2</code> will carry out clustering for you, clustering both the rows and columns of the data matrix.</p>
 <p>However, here we want to draw a dendrogram (representing similarity among variables) we’ve already calculated, and to create a heat map just for the alpha factor data, so we need to do some pre-calculations and tweak the <code>heatmap.2</code> arguments:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subset out the alpha factor data</span>
-alpha.factor &lt;-<span class="st"> </span><span class="kw">filter</span>(spellman, expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>)
-
-<span class="co"># create matrix after dropping time and expt columns</span>
-alpha.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dplyr<span class="op">::</span><span class="kw">select</span>(alpha.factor, <span class="op">-</span>time, <span class="op">-</span>expt)) <span class="co"># drop time, expt columns</span>
-
-<span class="co"># set row names to corresponding time points for nice plotting</span>
-<span class="kw">row.names</span>(alpha.mtx) &lt;-<span class="st"> </span>alpha.factor<span class="op">$</span>time
-
-<span class="co"># transpose the matrix so genes are drawn in rows</span>
-transposed.alpha.mtx &lt;-<span class="st"> </span><span class="kw">t</span>(alpha.mtx)</code></pre>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1"><span class="co"># subset out the alpha factor data</span></a>
+<a class="sourceLine" id="cb500-2" title="2">alpha.factor &lt;-<span class="st"> </span><span class="kw">filter</span>(spellman, expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>)</a>
+<a class="sourceLine" id="cb500-3" title="3"></a>
+<a class="sourceLine" id="cb500-4" title="4"><span class="co"># create matrix after dropping time and expt columns</span></a>
+<a class="sourceLine" id="cb500-5" title="5">alpha.mtx &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dplyr<span class="op">::</span><span class="kw">select</span>(alpha.factor, <span class="op">-</span>time, <span class="op">-</span>expt)) <span class="co"># drop time, expt columns</span></a>
+<a class="sourceLine" id="cb500-6" title="6"></a>
+<a class="sourceLine" id="cb500-7" title="7"><span class="co"># set row names to corresponding time points for nice plotting</span></a>
+<a class="sourceLine" id="cb500-8" title="8"><span class="kw">row.names</span>(alpha.mtx) &lt;-<span class="st"> </span>alpha.factor<span class="op">$</span>time</a>
+<a class="sourceLine" id="cb500-9" title="9"></a>
+<a class="sourceLine" id="cb500-10" title="10"><span class="co"># transpose the matrix so genes are drawn in rows</span></a>
+<a class="sourceLine" id="cb500-11" title="11">transposed.alpha.mtx &lt;-<span class="st"> </span><span class="kw">t</span>(alpha.mtx)</a></code></pre></div>
 <p>Having defined the data we want to plot in the heatmap we can now use <code>heatmap.2</code> as follows</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># this is a large figure, so if working in RMarkdown document I suggest specifying</span>
-<span class="co"># the code block header as so to make the figure large</span>
-<span class="co"># {r, fig.width = 8, fig.height = 8}</span>
-<span class="kw">heatmap.2</span>(transposed.alpha.mtx,
-          <span class="dt">Rowv =</span> cluster3.tree,  <span class="co"># use the dendrogram previously calculated</span>
-          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t mess with my columns! (i.e. keep current ordering )</span>
-          <span class="dt">dendrogram =</span> <span class="st">&quot;row&quot;</span>,   <span class="co"># only draw row dendrograms</span>
-          <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">9</span>),  <span class="co"># OPTIONAL: set break points for colors</span>
-          <span class="dt">col =</span> color.scheme,  <span class="co"># use previously defined colors</span>
-          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,  <span class="co"># remove distracting elements of plot</span>
-          <span class="dt">xlab =</span> <span class="st">&quot;Time (mins)&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-519-1.png" width="768" /></p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb501-1" title="1"><span class="co"># this is a large figure, so if working in RMarkdown document I suggest specifying</span></a>
+<a class="sourceLine" id="cb501-2" title="2"><span class="co"># the code block header as so to make the figure large</span></a>
+<a class="sourceLine" id="cb501-3" title="3"><span class="co"># {r, fig.width = 8, fig.height = 8}</span></a>
+<a class="sourceLine" id="cb501-4" title="4"><span class="kw">heatmap.2</span>(transposed.alpha.mtx,</a>
+<a class="sourceLine" id="cb501-5" title="5">          <span class="dt">Rowv =</span> cluster3.tree,  <span class="co"># use the dendrogram previously calculated</span></a>
+<a class="sourceLine" id="cb501-6" title="6">          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t mess with my columns! (i.e. keep current ordering )</span></a>
+<a class="sourceLine" id="cb501-7" title="7">          <span class="dt">dendrogram =</span> <span class="st">&quot;row&quot;</span>,   <span class="co"># only draw row dendrograms</span></a>
+<a class="sourceLine" id="cb501-8" title="8">          <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">length.out =</span> <span class="dv">9</span>),  <span class="co"># OPTIONAL: set break points for colors</span></a>
+<a class="sourceLine" id="cb501-9" title="9">          <span class="dt">col =</span> color.scheme,  <span class="co"># use previously defined colors</span></a>
+<a class="sourceLine" id="cb501-10" title="10">          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,  <span class="co"># remove distracting elements of plot</span></a>
+<a class="sourceLine" id="cb501-11" title="11">          <span class="dt">xlab =</span> <span class="st">&quot;Time (mins)&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-497-1.png" width="768" /></p>
 </div>
 <div id="k-meansk-medoids-clustering-in-r" class="section level2">
-<h2><span class="header-section-number">17.12</span> K-means/K-medoids Clustering in R</h2>
+<h2><span class="header-section-number">16.12</span> K-means/K-medoids Clustering in R</h2>
 <p>The <code>kmeans()</code> function calculates standard k-means clusters in R. However, we’re actually going to use a related function that calculates “k-medoids” clustering. K-medoids clustering differs from k-means in that the objective function is to minimize the sum of dissimilarities from the cluster centers (“medoids”) rather then the sum of squared distances. K-medoids clustering tends to be more robust to outliers than K-means. Another advantage for our purposes is that the k-medoids algorithm, unlike the standard implementation of k-means, can accept a distance or dissimilarity matrix as input.</p>
 <p>K-medoids clustering is implemented in the function <code>pam()</code> (Partitioning Around Medoids), which is found in a package called <code>cluster</code> that is included with the standard R installation.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(cluster)
-spellman.kmedoids &lt;-<span class="st"> </span><span class="kw">pam</span>(spellman.dist, <span class="dv">8</span>) <span class="co"># create k-medoids clustering with 8 clusters</span>
-kclusters &lt;-<span class="st"> </span>spellman.kmedoids<span class="op">$</span>cluster
-<span class="kw">table</span>(kclusters)
-<span class="co">## kclusters</span>
-<span class="co">##   1   2   3   4   5   6   7   8 </span>
-<span class="co">## 121 104  70  95  85  94  65  90</span></code></pre>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1"><span class="kw">library</span>(cluster)</a>
+<a class="sourceLine" id="cb502-2" title="2">spellman.kmedoids &lt;-<span class="st"> </span><span class="kw">pam</span>(spellman.dist, <span class="dv">8</span>) <span class="co"># create k-medoids clustering with 8 clusters</span></a>
+<a class="sourceLine" id="cb502-3" title="3">kclusters &lt;-<span class="st"> </span>spellman.kmedoids<span class="op">$</span>cluster</a>
+<a class="sourceLine" id="cb502-4" title="4"><span class="kw">table</span>(kclusters)</a>
+<a class="sourceLine" id="cb502-5" title="5"><span class="co">## kclusters</span></a>
+<a class="sourceLine" id="cb502-6" title="6"><span class="co">##   1   2   3   4   5   6   7   8 </span></a>
+<a class="sourceLine" id="cb502-7" title="7"><span class="co">## 121 104  70  95  85  94  65  90</span></a></code></pre></div>
 <p>K-medoids (or K-means) will, in general, find different clusterings than our hierarchical clustering illustrated previously. For comparison with our earlier hierarchical clustering results, lets plot the k-medoids inferred clusters back onto our earlier dendrogram.</p>
-<pre class="sourceCode r"><code class="sourceCode r"> <span class="co"># reorder genes so they match the dendrogram</span>
-kclusters.reordered &lt;-<span class="st"> </span>kclusters[<span class="kw">order.dendrogram</span>(spellman.dend)]
-
-<span class="co"># get  branch colors so we&#39;re using the same palette</span>
-dend.colors &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">get_leaves_branches_attr</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>), <span class="dt">attr=</span><span class="st">&quot;col&quot;</span>))
-
-<span class="co"># color the branches according to their k-means cluster assignment</span>
-<span class="kw">plot</span>(<span class="kw">branches_attr_by_clusters</span>(spellman.dend, kclusters.reordered , dend.colors),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-521-1.png" width="960" /></p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1"> <span class="co"># reorder genes so they match the dendrogram</span></a>
+<a class="sourceLine" id="cb503-2" title="2">kclusters.reordered &lt;-<span class="st"> </span>kclusters[<span class="kw">order.dendrogram</span>(spellman.dend)]</a>
+<a class="sourceLine" id="cb503-3" title="3"></a>
+<a class="sourceLine" id="cb503-4" title="4"><span class="co"># get  branch colors so we&#39;re using the same palette</span></a>
+<a class="sourceLine" id="cb503-5" title="5">dend.colors &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">get_leaves_branches_attr</span>(<span class="kw">color_branches</span>(spellman.dend, <span class="dt">k=</span><span class="dv">8</span>), <span class="dt">attr=</span><span class="st">&quot;col&quot;</span>))</a>
+<a class="sourceLine" id="cb503-6" title="6"></a>
+<a class="sourceLine" id="cb503-7" title="7"><span class="co"># color the branches according to their k-means cluster assignment</span></a>
+<a class="sourceLine" id="cb503-8" title="8"><span class="kw">plot</span>(<span class="kw">branches_attr_by_clusters</span>(spellman.dend, kclusters.reordered , dend.colors),<span class="dt">leaflab=</span><span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-499-1.png" width="960" /></p>
 <p>Comparing the inferred k-medoids clustering to our previous complete linkage
 clustering we see some clusters that are similar between the two, but there are
 also significant differences.</p>
 <div id="heat-map-from-k-medoids-cluster" class="section level3">
-<h3><span class="header-section-number">17.12.1</span> Heat map from k-medoids cluster</h3>
+<h3><span class="header-section-number">16.12.1</span> Heat map from k-medoids cluster</h3>
 <p>In the same manner we generated a heat map for one of the hierarchical clustering sub-trees, we can generate a similar heat map for a k-medoids cluster. Let’s examine cluster 4:</p>
-<pre class="sourceCode r"><code class="sourceCode r">kcluster4.genes &lt;-<span class="st"> </span><span class="kw">names</span>(kclusters[kclusters <span class="op">==</span><span class="st"> </span><span class="dv">4</span>])
-
-spellman.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>kcluster4.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;K-medoids Clustering of Spellman et al. Data</span><span class="ch">\n</span><span class="st">Cluster 4&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-522-1.png" width="576" /></p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" title="1">kcluster4.genes &lt;-<span class="st"> </span><span class="kw">names</span>(kclusters[kclusters <span class="op">==</span><span class="st"> </span><span class="dv">4</span>])</a>
+<a class="sourceLine" id="cb504-2" title="2"></a>
+<a class="sourceLine" id="cb504-3" title="3">spellman.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb504-4" title="4"><span class="st">  </span><span class="kw">filter</span>(gene <span class="op">%in%</span><span class="st"> </span>kcluster4.genes <span class="op">&amp;</span><span class="st"> </span>expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb504-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">y =</span> gene)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb504-6" title="6"><span class="st">    </span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> expression)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb504-7" title="7"><span class="st">    </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colors=</span>color.scheme, <span class="dt">limits=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb504-8" title="8"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;K-medoids Clustering of Spellman et al. Data</span><span class="ch">\n</span><span class="st">Cluster 4&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb504-9" title="9"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">6</span>))  <span class="co"># set size of y axis labels</span></a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-500-1.png" width="576" /></p>
 </div>
 </div>
 <div id="combining-clusters-and-correlation-matrix-heatmaps" class="section level2">
-<h2><span class="header-section-number">17.13</span> Combining clusters and correlation matrix heatmaps</h2>
+<h2><span class="header-section-number">16.13</span> Combining clusters and correlation matrix heatmaps</h2>
 <p>How do we know if we have a sensible clustering? For example, above we illustrated how to use complete linkage clustering and the k-medoids algorithm to produce two different clusterings of the same data. We produce a result with 8 clusters for each, but there were significant differences in terms of the membership of genes in each cluster. Which one of these methods produced a “better” result for the data in hand?</p>
 <p>There are many criteria – biological, mathematical, computational – one might apply to answer such a question, but for now let’s consider the idea that a good clustering is one that produces “natural groups” in data. In the lecture slides , I proferred the following “common sense” definition of natural groups:</p>
 <dl>
@@ -829,83 +783,83 @@ spellman.long <span class="op">%&gt;%</span>
 <p>How might we evaluate a proposed clustering with respect to this definition of natural groups? One way to do so is the examine our matrix of similarity according to the implied clusters to see if the clusters are consistent with high within group similarity and low between group similarity.</p>
 <p>In the clustering applications we’ve looked at so far, our measure of similarity has been based on correlations. We’ll first look at the “raw” correlation matrix, unsorted with respect to the implied clusterings, and then we’ll take a look at the correlation matrix sorted by hierarchical clustering and then k-medoids clustering.</p>
 <p>We can use the <code>heatmap.2()</code> function to visualize the correlation matrix.</p>
-<pre class="sourceCode r"><code class="sourceCode r">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">10</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span>
-
-<span class="kw">heatmap.2</span>(spellman.cor, 
-          <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster rows</span>
-          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster columns</span>
-          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, <span class="co"># don&#39;t draw dendrograms</span>
-          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>, 
-          <span class="dt">col =</span> color.scheme, <span class="dt">keysize  =</span> <span class="dv">1</span>,
-          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>,
-          <span class="dt">xlab =</span> <span class="st">&quot;genes&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;genes&quot;</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-523-1.png" width="768" /></p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" title="1">color.scheme &lt;-<span class="st"> </span><span class="kw">rev</span>(<span class="kw">brewer.pal</span>(<span class="dv">10</span>,<span class="st">&quot;RdBu&quot;</span>)) <span class="co"># generate the color scheme to use</span></a>
+<a class="sourceLine" id="cb505-2" title="2"></a>
+<a class="sourceLine" id="cb505-3" title="3"><span class="kw">heatmap.2</span>(spellman.cor, </a>
+<a class="sourceLine" id="cb505-4" title="4">          <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster rows</span></a>
+<a class="sourceLine" id="cb505-5" title="5">          <span class="dt">Colv =</span> <span class="ot">NULL</span>, <span class="co"># don&#39;t cluster columns</span></a>
+<a class="sourceLine" id="cb505-6" title="6">          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, <span class="co"># don&#39;t draw dendrograms</span></a>
+<a class="sourceLine" id="cb505-7" title="7">          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>, </a>
+<a class="sourceLine" id="cb505-8" title="8">          <span class="dt">col =</span> color.scheme, <span class="dt">keysize  =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb505-9" title="9">          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb505-10" title="10">          <span class="dt">xlab =</span> <span class="st">&quot;genes&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;genes&quot;</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-501-1.png" width="768" /></p>
 <p>A correlation matrix is a square symmetric matrix. The dark red line down the diagonal represents correlations of genes with themselves (i.e. perfectly correlated). Off diagonal elements range from blue (negative correlations) to gray (near zero correlations) to red (positive correlations).</p>
 <div id="hierarchical-clustering-visualized-on-correlation-matrix" class="section level3">
-<h3><span class="header-section-number">17.13.1</span> Hierarchical clustering, visualized on correlation matrix</h3>
+<h3><span class="header-section-number">16.13.1</span> Hierarchical clustering, visualized on correlation matrix</h3>
 <p>Now let’s re-generate the heatmap of the correlation matrix with the genes sorted by our hierarchical clustering:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(spellman.cor, 
-          <span class="dt">Rowv =</span> <span class="kw">ladderize</span>(spellman.dend), 
-          <span class="dt">Colv =</span> <span class="kw">ladderize</span>(spellman.dend), 
-          <span class="dt">dendrogram =</span> <span class="st">&quot;both&quot;</span>, 
-          <span class="dt">revC =</span> <span class="ot">TRUE</span>,  <span class="co"># rev column order of dendrogram so conforms to natural representation</span>
-          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, 
-          <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,
-          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,
-          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-524-1.png" width="768" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1"><span class="kw">heatmap.2</span>(spellman.cor, </a>
+<a class="sourceLine" id="cb506-2" title="2">          <span class="dt">Rowv =</span> <span class="kw">ladderize</span>(spellman.dend), </a>
+<a class="sourceLine" id="cb506-3" title="3">          <span class="dt">Colv =</span> <span class="kw">ladderize</span>(spellman.dend), </a>
+<a class="sourceLine" id="cb506-4" title="4">          <span class="dt">dendrogram =</span> <span class="st">&quot;both&quot;</span>, </a>
+<a class="sourceLine" id="cb506-5" title="5">          <span class="dt">revC =</span> <span class="ot">TRUE</span>,  <span class="co"># rev column order of dendrogram so conforms to natural representation</span></a>
+<a class="sourceLine" id="cb506-6" title="6">          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, </a>
+<a class="sourceLine" id="cb506-7" title="7">          <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,</a>
+<a class="sourceLine" id="cb506-8" title="8">          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb506-9" title="9">          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-502-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>This reordered correlation matrix (and accompanying dendrograms) are useful for a number of purposes. First, the block structure along the diagonal indicates the correlation structure within the implied clusters. Uniformity in sign and magnitude of the on-diagongal blocks is an indicator of “within cluster” similarity. The off-diagonal blocks indicate the relationship <em>between clusters</em>. For example, the four “major” clusterings implied by the dendrogram are apparent in the block structure of the correlation matrix, but we also see that the two clusters at the bottom of the figure show some patches of weak or even negative correlations, suggesting that those may not be natural clusters. Also apparent are relationships between clusters – for example we see that genes in the first cluster (upper left of diagram) share strong positive correlations with many genes in the right half of the second cluster. The same relationship, though to a lesser extant, is apparent between clusters one and four.</p>
 </div>
 <div id="k-medoids-clustering-visualized-on-the-correlation-matrix" class="section level3">
-<h3><span class="header-section-number">17.13.2</span> K-medoids clustering visualized on the correlation matrix</h3>
+<h3><span class="header-section-number">16.13.2</span> K-medoids clustering visualized on the correlation matrix</h3>
 <p>Let’s do a similar sorting of the correlation matrix based on k-medoids clustering.</p>
 <p>Since there is no dendrogram to pass to the <code>heatmap.2</code> function, we’ll sort the correlation matrix ourselves by indexing on the output of the <code>order</code> function applied to the cluster assignments (read the <code>order</code> function help for more info).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reorder correlation matrix by ordering given by clustering</span>
-kmedoids.cor &lt;-<span class="st"> </span>spellman.cor[<span class="kw">order</span>(kclusters), <span class="kw">order</span>(kclusters)]</code></pre>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="co"># reorder correlation matrix by ordering given by clustering</span></a>
+<a class="sourceLine" id="cb507-2" title="2">kmedoids.cor &lt;-<span class="st"> </span>spellman.cor[<span class="kw">order</span>(kclusters), <span class="kw">order</span>(kclusters)]</a></code></pre></div>
 <p>Having reordered the correlation matrix by the k-clusters, we can again use the <code>heatmap.2</code> function to visualize the results.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">heatmap.2</span>(kmedoids.cor, <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="dt">Colv =</span> <span class="ot">NULL</span>, 
-          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, 
-          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,
-          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,
-          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-526-1.png" width="768" /></p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" title="1"><span class="kw">heatmap.2</span>(kmedoids.cor, <span class="dt">Rowv =</span> <span class="ot">NULL</span>, <span class="dt">Colv =</span> <span class="ot">NULL</span>, </a>
+<a class="sourceLine" id="cb508-2" title="2">          <span class="dt">dendrogram =</span> <span class="st">&quot;none&quot;</span>, </a>
+<a class="sourceLine" id="cb508-3" title="3">          <span class="dt">trace =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">density.info =</span> <span class="st">&quot;none&quot;</span>,</a>
+<a class="sourceLine" id="cb508-4" title="4">          <span class="dt">col =</span> color.scheme, <span class="dt">key =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb508-5" title="5">          <span class="dt">labRow =</span> <span class="ot">FALSE</span>, <span class="dt">labCol =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-504-1.png" width="768" /></p>
 <p>The diagram has the same interpretation as the previous figure. However, here we notice that the clusters seem to be more internally consistent, as evidence by the greater within cluster uniformity of correlations. Positive and negative relationships between clusters are also readily apparent in this figure.</p>
 </div>
 </div>
 <div id="depicting-the-data-within-clusters" class="section level2">
-<h2><span class="header-section-number">17.14</span> Depicting the data within clusters</h2>
+<h2><span class="header-section-number">16.14</span> Depicting the data within clusters</h2>
 <p>As a final step we’ll generate a figure depicting the time series behavior of genes in different clusters. Overlain over the individual gene expression time series, we’ll overlay the average time series for each cluster. I illustrate this with clusters generated by hierarchical clustering. This is easily adapted to clusterings generated by other methods.</p>
 <p>Create a data frame holding cluster membership for each gene.</p>
-<pre class="sourceCode r"><code class="sourceCode r">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(kclusters), 
-                          <span class="dt">cluster =</span> <span class="kw">as.factor</span>(kclusters))</code></pre>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1">clusters.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">gene =</span> <span class="kw">names</span>(kclusters), </a>
+<a class="sourceLine" id="cb509-2" title="2">                          <span class="dt">cluster =</span> <span class="kw">as.factor</span>(kclusters))</a></code></pre></div>
 <p>For the purposes of easy plotting in ggplot, we want to combine the information about cluster assignment to the original data. However the cluster assignments and corresponding names aren’t necessarily in the same order as our original data frame. We’ll use a “left join” to combine the two data frames, matching on the “gene” column:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># do a left_join, combining the information in spellman.long</span>
-<span class="co"># with clusters.df (matched on gene).  This effectively adds the</span>
-<span class="co"># cluster information as a new column to spellman.long data frame</span>
-<span class="co"># keeping the appropriate matches by gene name</span>
-alpha.long &lt;-<span class="st"> </span>
-<span class="st">  </span>spellman.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">left_join</span>(clusters.df, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>))</code></pre>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb510-1" title="1"><span class="co"># do a left_join, combining the information in spellman.long</span></a>
+<a class="sourceLine" id="cb510-2" title="2"><span class="co"># with clusters.df (matched on gene).  This effectively adds the</span></a>
+<a class="sourceLine" id="cb510-3" title="3"><span class="co"># cluster information as a new column to spellman.long data frame</span></a>
+<a class="sourceLine" id="cb510-4" title="4"><span class="co"># keeping the appropriate matches by gene name</span></a>
+<a class="sourceLine" id="cb510-5" title="5">alpha.long &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb510-6" title="6"><span class="st">  </span>spellman.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb510-7" title="7"><span class="st">  </span><span class="kw">filter</span>(expt <span class="op">==</span><span class="st"> &quot;alpha&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb510-8" title="8"><span class="st">  </span><span class="kw">left_join</span>(clusters.df, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;gene&quot;</span>))</a></code></pre></div>
 <p>Next we calculate cluster means:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the mean at each time point within each cluster</span>
-cluster.means &lt;-
-<span class="st">  </span>alpha.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(cluster, time) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.exp =</span> <span class="kw">mean</span>(expression, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" title="1"><span class="co"># calculate the mean at each time point within each cluster</span></a>
+<a class="sourceLine" id="cb511-2" title="2">cluster.means &lt;-</a>
+<a class="sourceLine" id="cb511-3" title="3"><span class="st">  </span>alpha.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb511-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(cluster, time) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb511-5" title="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean.exp =</span> <span class="kw">mean</span>(expression, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <p>And finally we plot the time series data for each cluster, with the clusters means overlain:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># draw a figure showing time varying gene expression</span>
-<span class="co"># in each cluster, overlain with the each clusters </span>
-<span class="co"># mean time series</span>
-alpha.long <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(time, expression, <span class="dt">group=</span>gene)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha=</span><span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(time, mean.exp, <span class="dt">group=</span><span class="ot">NULL</span>,<span class="dt">color=</span>cluster),
-            <span class="dt">data =</span> cluster.means,
-            <span class="dt">size=</span><span class="fl">1.1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>cluster, <span class="dt">ncol=</span><span class="dv">4</span>)</code></pre>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-530-1.png" width="672" /></p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb512-1" title="1"><span class="co"># draw a figure showing time varying gene expression</span></a>
+<a class="sourceLine" id="cb512-2" title="2"><span class="co"># in each cluster, overlain with the each clusters </span></a>
+<a class="sourceLine" id="cb512-3" title="3"><span class="co"># mean time series</span></a>
+<a class="sourceLine" id="cb512-4" title="4">alpha.long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb512-5" title="5"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(time, expression, <span class="dt">group=</span>gene)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb512-6" title="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">alpha=</span><span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb512-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(time, mean.exp, <span class="dt">group=</span><span class="ot">NULL</span>,<span class="dt">color=</span>cluster),</a>
+<a class="sourceLine" id="cb512-8" title="8">            <span class="dt">data =</span> cluster.means,</a>
+<a class="sourceLine" id="cb512-9" title="9">            <span class="dt">size=</span><span class="fl">1.1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb512-10" title="10"><span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="fl">2.5</span>, <span class="fl">2.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb512-11" title="11"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>cluster, <span class="dt">ncol=</span><span class="dv">4</span>)</a></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-508-1.png" width="672" /></p>
 <p>To my eye, oscillatory behavior is fairly apparent in most of the clusters except cluster 7.</p>
 
 </div>
@@ -915,17 +869,19 @@ alpha.long <span class="op">%&gt;%</span>
           </div>
         </div>
       </div>
-<a href="canonical-variates-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simulation-i-sampling-distributions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="canonical-variates-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -933,12 +889,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -950,6 +905,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -971,8 +930,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

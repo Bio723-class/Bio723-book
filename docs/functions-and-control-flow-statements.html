@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Functions and control flow statements | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.17.2 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Functions and control flow statements | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2020-04-14" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,8 @@
   
   
 <link rel="prev" href="data-structures.html"/>
-<link rel="next" href="introduction-to-ggplot2.html"/>
+
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,35 +51,29 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
-<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
-<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -134,51 +129,62 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#accessing-older-versions-of-the-course-notes"><i class="fa fa-check"></i><b>1.1</b> Accessing older versions of the course notes</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#how-to-use-these-lecture-notes"><i class="fa fa-check"></i><b>1.2</b> How to use these lecture notes</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a><ul>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
 <li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#what-is-rstudio"><i class="fa fa-check"></i><b>2.2</b> What is RStudio?</a></li>
 <li class="chapter" data-level="2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#entering-commands-in-the-console"><i class="fa fa-check"></i><b>2.3</b> Entering commands in the console</a></li>
 <li class="chapter" data-level="2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#comments"><i class="fa fa-check"></i><b>2.4</b> Comments</a></li>
-<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a><ul>
+<li class="chapter" data-level="2.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#using-r-as-a-calculator"><i class="fa fa-check"></i><b>2.5</b> Using R as a Calculator</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#common-mathematical-functions"><i class="fa fa-check"></i><b>2.5.1</b> Common mathematical functions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment"><i class="fa fa-check"></i><b>2.6</b> Variable assignment</a><ul>
+<li class="chapter" data-level="2.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#variable-assignment"><i class="fa fa-check"></i><b>2.6</b> Variable assignment</a>
+<ul>
 <li class="chapter" data-level="2.6.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#valid-variable-names"><i class="fa fa-check"></i><b>2.6.1</b> Valid variable names</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.7</b> Data types</a><ul>
+<li class="chapter" data-level="2.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.7</b> Data types</a>
+<ul>
 <li class="chapter" data-level="2.7.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#numeric-data-types"><i class="fa fa-check"></i><b>2.7.1</b> Numeric data types</a></li>
 <li class="chapter" data-level="2.7.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#logical-values"><i class="fa fa-check"></i><b>2.7.2</b> Logical values</a></li>
 <li class="chapter" data-level="2.7.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#character-strings"><i class="fa fa-check"></i><b>2.7.3</b> Character strings</a></li>
 </ul></li>
-<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.8</b> Packages</a><ul>
+<li class="chapter" data-level="2.8" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#packages"><i class="fa fa-check"></i><b>2.8</b> Packages</a>
+<ul>
 <li class="chapter" data-level="2.8.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-console"><i class="fa fa-check"></i><b>2.8.1</b> Installing packages from the console</a></li>
 <li class="chapter" data-level="2.8.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#install-the-tidyverse-package"><i class="fa fa-check"></i><b>2.8.2</b> Install the tidyverse package</a></li>
 <li class="chapter" data-level="2.8.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#installing-packages-from-the-rstudio-dialog"><i class="fa fa-check"></i><b>2.8.3</b> Installing packages from the RStudio dialog</a></li>
 <li class="chapter" data-level="2.8.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#loading-packages-with-the-library-function"><i class="fa fa-check"></i><b>2.8.4</b> Loading packages with the <code>library()</code> function</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a><ul>
+<li class="chapter" data-level="2.9" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-r-help-system"><i class="fa fa-check"></i><b>2.9</b> The R Help System</a>
+<ul>
 <li class="chapter" data-level="2.9.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#getting-help-from-the-console"><i class="fa fa-check"></i><b>2.9.1</b> Getting help from the console</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>3</b> R Markdown and R Notebooks</a><ul>
+<li class="chapter" data-level="3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html"><i class="fa fa-check"></i><b>3</b> R Markdown and R Notebooks</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#r-notebooks"><i class="fa fa-check"></i><b>3.1</b> R Notebooks</a></li>
 <li class="chapter" data-level="3.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook"><i class="fa fa-check"></i><b>3.2</b> Creating an R Notebook</a></li>
 <li class="chapter" data-level="3.3" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template"><i class="fa fa-check"></i><b>3.3</b> The default R Notebook template</a></li>
-<li class="chapter" data-level="3.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>3.4</b> Code and Non-code blocks</a><ul>
+<li class="chapter" data-level="3.4" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks"><i class="fa fa-check"></i><b>3.4</b> Code and Non-code blocks</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#non-code-blocks"><i class="fa fa-check"></i><b>3.4.1</b> Non-code blocks</a></li>
 <li class="chapter" data-level="3.4.2" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#code-blocks"><i class="fa fa-check"></i><b>3.4.2</b> Code blocks</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-a-code-chunk"><i class="fa fa-check"></i><b>3.5</b> Running a code chunk</a></li>
 <li class="chapter" data-level="3.6" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above"><i class="fa fa-check"></i><b>3.6</b> Running all code chunks above</a></li>
-<li class="chapter" data-level="3.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-an-r-markdown-to-html"><i class="fa fa-check"></i><b>3.7</b> “Knitting an” R Markdown to HTML</a></li>
+<li class="chapter" data-level="3.7" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#knitting-r-markdown-to-html"><i class="fa fa-check"></i><b>3.7</b> “Knitting” R Markdown to HTML</a></li>
 <li class="chapter" data-level="3.8" data-path="r-markdown-and-r-notebooks.html"><a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook"><i class="fa fa-check"></i><b>3.8</b> Sharing your reproducible R Notebook</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>4</b> Data structures</a><ul>
-<li class="chapter" data-level="4.1" data-path="data-structures.html"><a href="data-structures.html#vectors"><i class="fa fa-check"></i><b>4.1</b> Vectors</a><ul>
+<li class="chapter" data-level="4" data-path="data-structures.html"><a href="data-structures.html"><i class="fa fa-check"></i><b>4</b> Data structures</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="data-structures.html"><a href="data-structures.html#vectors"><i class="fa fa-check"></i><b>4.1</b> Vectors</a>
+<ul>
 <li class="chapter" data-level="4.1.1" data-path="data-structures.html"><a href="data-structures.html#vector-arithmetic"><i class="fa fa-check"></i><b>4.1.1</b> Vector Arithmetic</a></li>
 <li class="chapter" data-level="4.1.2" data-path="data-structures.html"><a href="data-structures.html#vector-recycling"><i class="fa fa-check"></i><b>4.1.2</b> Vector recycling</a></li>
 <li class="chapter" data-level="4.1.3" data-path="data-structures.html"><a href="data-structures.html#simple-statistical-functions-for-numeric-vectors"><i class="fa fa-check"></i><b>4.1.3</b> Simple statistical functions for numeric vectors</a></li>
@@ -189,7 +195,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.8" data-path="data-structures.html"><a href="data-structures.html#vectors-from-regular-sequences"><i class="fa fa-check"></i><b>4.1.8</b> Vectors from regular sequences</a></li>
 <li class="chapter" data-level="4.1.9" data-path="data-structures.html"><a href="data-structures.html#additional-functions-for-working-with-vectors"><i class="fa fa-check"></i><b>4.1.9</b> Additional functions for working with vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>4.2</b> Lists</a><ul>
+<li class="chapter" data-level="4.2" data-path="data-structures.html"><a href="data-structures.html#lists"><i class="fa fa-check"></i><b>4.2</b> Lists</a>
+<ul>
 <li class="chapter" data-level="4.2.1" data-path="data-structures.html"><a href="data-structures.html#length-and-type-of-lists"><i class="fa fa-check"></i><b>4.2.1</b> Length and type of lists</a></li>
 <li class="chapter" data-level="4.2.2" data-path="data-structures.html"><a href="data-structures.html#indexing-lists"><i class="fa fa-check"></i><b>4.2.2</b> Indexing lists</a></li>
 <li class="chapter" data-level="4.2.3" data-path="data-structures.html"><a href="data-structures.html#naming-list-elements"><i class="fa fa-check"></i><b>4.2.3</b> Naming list elements</a></li>
@@ -198,7 +205,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.6" data-path="data-structures.html"><a href="data-structures.html#combining-lists"><i class="fa fa-check"></i><b>4.2.6</b> Combining lists</a></li>
 <li class="chapter" data-level="4.2.7" data-path="data-structures.html"><a href="data-structures.html#converting-lists-to-vectors"><i class="fa fa-check"></i><b>4.2.7</b> Converting lists to vectors</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="data-structures.html"><a href="data-structures.html#data-frames"><i class="fa fa-check"></i><b>4.3</b> Data frames</a><ul>
+<li class="chapter" data-level="4.3" data-path="data-structures.html"><a href="data-structures.html#data-frames"><i class="fa fa-check"></i><b>4.3</b> Data frames</a>
+<ul>
 <li class="chapter" data-level="4.3.1" data-path="data-structures.html"><a href="data-structures.html#creating-a-data-frame"><i class="fa fa-check"></i><b>4.3.1</b> Creating a data frame</a></li>
 <li class="chapter" data-level="4.3.2" data-path="data-structures.html"><a href="data-structures.html#type-and-class-for-data-frames"><i class="fa fa-check"></i><b>4.3.2</b> Type and class for data frames</a></li>
 <li class="chapter" data-level="4.3.3" data-path="data-structures.html"><a href="data-structures.html#length-and-dimension-for-data-frames"><i class="fa fa-check"></i><b>4.3.3</b> Length and dimension for data frames</a></li>
@@ -207,13 +215,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.6" data-path="data-structures.html"><a href="data-structures.html#adding-columns-to-a-data-frame"><i class="fa fa-check"></i><b>4.3.6</b> Adding columns to a data frame</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a><ul>
-<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a><ul>
+<li class="chapter" data-level="5" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html"><i class="fa fa-check"></i><b>5</b> Functions and control flow statements</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-your-own-functions"><i class="fa fa-check"></i><b>5.1</b> Writing your own functions</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#function-arguments"><i class="fa fa-check"></i><b>5.1.1</b> Function arguments</a></li>
 <li class="chapter" data-level="5.1.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#writing-functions-with-optional-arguments"><i class="fa fa-check"></i><b>5.1.2</b> Writing functions with optional arguments</a></li>
 <li class="chapter" data-level="5.1.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#putting-r-functions-in-scripts"><i class="fa fa-check"></i><b>5.1.3</b> Putting R functions in Scripts</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a><ul>
+<li class="chapter" data-level="5.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#control-flow-statements"><i class="fa fa-check"></i><b>5.2</b> Control flow statements</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#if-and-if-else-statements"><i class="fa fa-check"></i><b>5.2.1</b> <code>if</code> and <code>if-else</code> statements</a></li>
 <li class="chapter" data-level="5.2.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#for-loops"><i class="fa fa-check"></i><b>5.2.2</b> for loops</a></li>
 <li class="chapter" data-level="5.2.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#break-statement"><i class="fa fa-check"></i><b>5.2.3</b> <code>break</code> statement</a></li>
@@ -222,253 +233,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.6" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#while-statements"><i class="fa fa-check"></i><b>5.2.6</b> while statements</a></li>
 <li class="chapter" data-level="5.2.7" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#ifelse"><i class="fa fa-check"></i><b>5.2.7</b> <code>ifelse</code></a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a><ul>
+<li class="chapter" data-level="5.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-and-related-tools"><i class="fa fa-check"></i><b>5.3</b> <code>map</code> and related tools</a>
+<ul>
 <li class="chapter" data-level="5.3.1" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#basic-map"><i class="fa fa-check"></i><b>5.3.1</b> basic <code>map</code></a></li>
 <li class="chapter" data-level="5.3.2" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map_if-and-map_at"><i class="fa fa-check"></i><b>5.3.2</b> <code>map_if</code> and <code>map_at</code></a></li>
 <li class="chapter" data-level="5.3.3" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#mapping-in-parallel-using-map2"><i class="fa fa-check"></i><b>5.3.3</b> mapping in parallel using <code>map2</code></a></li>
 <li class="chapter" data-level="5.3.4" data-path="functions-and-control-flow-statements.html"><a href="functions-and-control-flow-statements.html#map-variants-that-return-vectors"><i class="fa fa-check"></i><b>5.3.4</b> <code>map</code> variants that return vectors</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html"><i class="fa fa-check"></i><b>6</b> Introduction to ggplot2</a><ul>
-<li class="chapter" data-level="6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#loading-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Loading ggplot2</a></li>
-<li class="chapter" data-level="6.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#example-data-set-andersons-iris-data"><i class="fa fa-check"></i><b>6.2</b> Example data set: Anderson’s Iris Data</a></li>
-<li class="chapter" data-level="6.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#template-for-single-layer-plots-in-ggplot2"><i class="fa fa-check"></i><b>6.3</b> Template for single layer plots in ggplot2</a></li>
-<li class="chapter" data-level="6.4" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#an-aside-about-function-arguments"><i class="fa fa-check"></i><b>6.4</b> An aside about function arguments</a></li>
-<li class="chapter" data-level="6.5" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#strip-plots"><i class="fa fa-check"></i><b>6.5</b> Strip plots</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#jittering-data"><i class="fa fa-check"></i><b>6.5.1</b> Jittering data</a></li>
-<li class="chapter" data-level="6.5.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-categorical-information"><i class="fa fa-check"></i><b>6.5.2</b> Adding categorical information</a></li>
-<li class="chapter" data-level="6.5.3" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#rotating-plot-coordinates"><i class="fa fa-check"></i><b>6.5.3</b> Rotating plot coordinates</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#histograms"><i class="fa fa-check"></i><b>6.6</b> Histograms</a><ul>
-<li class="chapter" data-level="6.6.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#variations-on-histograms-when-considering-categorical-data"><i class="fa fa-check"></i><b>6.6.1</b> Variations on histograms when considering categorical data</a></li>
-</ul></li>
-<li class="chapter" data-level="6.7" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#faceting-to-depict-categorical-information"><i class="fa fa-check"></i><b>6.7</b> Faceting to depict categorical information</a></li>
-<li class="chapter" data-level="6.8" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots"><i class="fa fa-check"></i><b>6.8</b> Density plots</a></li>
-<li class="chapter" data-level="6.9" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-or-beanplot"><i class="fa fa-check"></i><b>6.9</b> Violin or Beanplot</a></li>
-<li class="chapter" data-level="6.10" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplots"><i class="fa fa-check"></i><b>6.10</b> Boxplots</a></li>
-<li class="chapter" data-level="6.11" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#building-complex-visualizations-with-layers"><i class="fa fa-check"></i><b>6.11</b> Building complex visualizations with layers</a></li>
-<li class="chapter" data-level="6.12" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#useful-combination-plots"><i class="fa fa-check"></i><b>6.12</b> Useful combination plots</a><ul>
-<li class="chapter" data-level="6.12.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#boxplot-plus-strip-plot"><i class="fa fa-check"></i><b>6.12.1</b> Boxplot plus strip plot</a></li>
-<li class="chapter" data-level="6.12.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#setting-shared-aesthetics"><i class="fa fa-check"></i><b>6.12.2</b> Setting shared aesthetics</a></li>
-</ul></li>
-<li class="chapter" data-level="6.13" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot-layers-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.13</b> ggplot layers can be assigned to variables</a><ul>
-<li class="chapter" data-level="6.13.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#violin-plot-plus-strip-plot"><i class="fa fa-check"></i><b>6.13.1</b> Violin plot plus strip plot</a></li>
-</ul></li>
-<li class="chapter" data-level="6.14" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-titles-and-tweaking-axis-labels"><i class="fa fa-check"></i><b>6.14</b> Adding titles and tweaking axis labels</a></li>
-<li class="chapter" data-level="6.15" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#ggplot2-themes"><i class="fa fa-check"></i><b>6.15</b> ggplot2 themes</a><ul>
-<li class="chapter" data-level="6.15.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#further-customization-with-ggplot2theme"><i class="fa fa-check"></i><b>6.15.1</b> Further customization with <code>ggplot2::theme</code></a></li>
-</ul></li>
-<li class="chapter" data-level="6.16" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#other-aspects-of-ggplots-can-be-assigned-to-variables"><i class="fa fa-check"></i><b>6.16</b> Other aspects of ggplots can be assigned to variables</a></li>
-<li class="chapter" data-level="6.17" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-plots"><i class="fa fa-check"></i><b>6.17</b> Bivariate plots</a><ul>
-<li class="chapter" data-level="6.17.1" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#scatter-plots"><i class="fa fa-check"></i><b>6.17.1</b> Scatter plots</a></li>
-<li class="chapter" data-level="6.17.2" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#adding-a-trend-line-to-a-scatter-plot"><i class="fa fa-check"></i><b>6.17.2</b> Adding a trend line to a scatter plot</a></li>
-</ul></li>
-<li class="chapter" data-level="6.18" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#bivariate-density-plots"><i class="fa fa-check"></i><b>6.18</b> Bivariate density plots</a></li>
-<li class="chapter" data-level="6.19" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#combining-scatter-plots-and-density-plots-with-categorical-information"><i class="fa fa-check"></i><b>6.19</b> Combining Scatter Plots and Density Plots with Categorical Information</a></li>
-<li class="chapter" data-level="6.20" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#density-plots-with-fill"><i class="fa fa-check"></i><b>6.20</b> Density plots with fill</a></li>
-<li class="chapter" data-level="6.21" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#d-bin-and-hex-plots"><i class="fa fa-check"></i><b>6.21</b> 2D bin and hex plots</a></li>
-<li class="chapter" data-level="6.22" data-path="introduction-to-ggplot2.html"><a href="introduction-to-ggplot2.html#the-cowplot-package"><i class="fa fa-check"></i><b>6.22</b> The <code>cowplot</code> package</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html"><i class="fa fa-check"></i><b>7</b> Introduction to <code>dplyr</code></a><ul>
-<li class="chapter" data-level="7.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#libraries"><i class="fa fa-check"></i><b>7.1</b> Libraries</a></li>
-<li class="chapter" data-level="7.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-data-with-the-readr-package"><i class="fa fa-check"></i><b>7.2</b> Reading data with the <code>readr</code> package</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#reading-excel-files"><i class="fa fa-check"></i><b>7.2.1</b> Reading Excel files</a></li>
-<li class="chapter" data-level="7.2.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#example-data-nc-births"><i class="fa fa-check"></i><b>7.2.2</b> Example data: NC Births</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#a-note-on-tibbles"><i class="fa fa-check"></i><b>7.3</b> A note on “tibbles”</a></li>
-<li class="chapter" data-level="7.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr"><i class="fa fa-check"></i><b>7.4</b> Data filtering and transformation with <code>dplyr</code></a></li>
-<li class="chapter" data-level="7.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#dplyrs-verbs"><i class="fa fa-check"></i><b>7.5</b> dplyr’s “verbs”</a><ul>
-<li class="chapter" data-level="7.5.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#select"><i class="fa fa-check"></i><b>7.5.1</b> <code>select</code></a></li>
-<li class="chapter" data-level="7.5.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#filter"><i class="fa fa-check"></i><b>7.5.2</b> <code>filter</code></a></li>
-<li class="chapter" data-level="7.5.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#mutate"><i class="fa fa-check"></i><b>7.5.3</b> <code>mutate</code></a></li>
-<li class="chapter" data-level="7.5.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#arrange"><i class="fa fa-check"></i><b>7.5.4</b> <code>arrange</code></a></li>
-<li class="chapter" data-level="7.5.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#summarize"><i class="fa fa-check"></i><b>7.5.5</b> <code>summarize</code></a></li>
-<li class="chapter" data-level="7.5.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#group_by"><i class="fa fa-check"></i><b>7.5.6</b> <code>group_by</code></a></li>
-<li class="chapter" data-level="7.5.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-grouping-and-summarizing"><i class="fa fa-check"></i><b>7.5.7</b> Combining grouping and summarizing</a></li>
-<li class="chapter" data-level="7.5.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize"><i class="fa fa-check"></i><b>7.5.8</b> Scoped variants of <code>mutate</code> and <code>summarize</code></a></li>
-<li class="chapter" data-level="7.5.9" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2"><i class="fa fa-check"></i><b>7.5.9</b> Combining summarize with grouping aesthetics in <code>ggplot2</code></a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#pipes"><i class="fa fa-check"></i><b>7.6</b> Pipes</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#install-and-load-magrittr"><i class="fa fa-check"></i><b>7.6.1</b> Install and load <code>magrittr</code></a></li>
-<li class="chapter" data-level="7.6.2" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-basic-pipe-operator"><i class="fa fa-check"></i><b>7.6.2</b> The basic pipe operator</a></li>
-<li class="chapter" data-level="7.6.3" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#an-example-without-pipes"><i class="fa fa-check"></i><b>7.6.3</b> An example without pipes</a></li>
-<li class="chapter" data-level="7.6.4" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-same-example-using-pipes"><i class="fa fa-check"></i><b>7.6.4</b> The same example using pipes</a></li>
-<li class="chapter" data-level="7.6.5" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable"><i class="fa fa-check"></i><b>7.6.5</b> Assigning the output of a statement involving pipes to a variable</a></li>
-<li class="chapter" data-level="7.6.6" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#compound-assignment-pipe-operator"><i class="fa fa-check"></i><b>7.6.6</b> Compound assignment pipe operator</a></li>
-<li class="chapter" data-level="7.6.7" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-dot-operator-with-pipes"><i class="fa fa-check"></i><b>7.6.7</b> The dot operator with pipes</a></li>
-<li class="chapter" data-level="7.6.8" data-path="introduction-to-dplyr.html"><a href="introduction-to-dplyr.html#the-exposition-pipe-operator"><i class="fa fa-check"></i><b>7.6.8</b> The exposition pipe operator</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>8</b> Data wrangling</a><ul>
-<li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
-<li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
-</ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a><ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
-</ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a><ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a><ul>
-<li class="chapter" data-level="9.1" data-path="vector-algebra.html"><a href="vector-algebra.html#libraries-2"><i class="fa fa-check"></i><b>9.1</b> Libraries</a></li>
-<li class="chapter" data-level="9.2" data-path="vector-algebra.html"><a href="vector-algebra.html#vector-mathematics-in-r"><i class="fa fa-check"></i><b>9.2</b> Vector Mathematics in R</a></li>
-<li class="chapter" data-level="9.3" data-path="vector-algebra.html"><a href="vector-algebra.html#simple-statistics-in-vector-form"><i class="fa fa-check"></i><b>9.3</b> Simple statistics in vector form</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="vector-algebra.html"><a href="vector-algebra.html#mean"><i class="fa fa-check"></i><b>9.3.1</b> Mean</a></li>
-<li class="chapter" data-level="9.3.2" data-path="vector-algebra.html"><a href="vector-algebra.html#mean-centering"><i class="fa fa-check"></i><b>9.3.2</b> Mean centering</a></li>
-<li class="chapter" data-level="9.3.3" data-path="vector-algebra.html"><a href="vector-algebra.html#variance-and-standard-deviation"><i class="fa fa-check"></i><b>9.3.3</b> Variance and standard deviation</a></li>
-<li class="chapter" data-level="9.3.4" data-path="vector-algebra.html"><a href="vector-algebra.html#covariance-and-correlation"><i class="fa fa-check"></i><b>9.3.4</b> Covariance and correlation</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="matrices-in-r.html"><a href="matrices-in-r.html"><i class="fa fa-check"></i><b>10</b> Matrices in R</a><ul>
-<li class="chapter" data-level="10.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#creating-matrices-in-r"><i class="fa fa-check"></i><b>10.1</b> Creating matrices in R</a></li>
-<li class="chapter" data-level="10.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-arithmetic-operations-in-r"><i class="fa fa-check"></i><b>10.2</b> Matrix arithmetic operations in R</a></li>
-<li class="chapter" data-level="10.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#descriptive-statistics-as-matrix-functions"><i class="fa fa-check"></i><b>10.3</b> Descriptive statistics as matrix functions</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="matrices-in-r.html"><a href="matrices-in-r.html#mean-vector-and-matrix"><i class="fa fa-check"></i><b>10.3.1</b> Mean vector and matrix</a></li>
-<li class="chapter" data-level="10.3.2" data-path="matrices-in-r.html"><a href="matrices-in-r.html#deviation-matrix"><i class="fa fa-check"></i><b>10.3.2</b> Deviation matrix</a></li>
-<li class="chapter" data-level="10.3.3" data-path="matrices-in-r.html"><a href="matrices-in-r.html#covariance-matrix"><i class="fa fa-check"></i><b>10.3.3</b> Covariance matrix</a></li>
-<li class="chapter" data-level="10.3.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#correlation-matrix"><i class="fa fa-check"></i><b>10.3.4</b> Correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="matrices-in-r.html"><a href="matrices-in-r.html#matrix-inverse"><i class="fa fa-check"></i><b>10.4</b> Matrix Inverse</a></li>
-<li class="chapter" data-level="10.5" data-path="matrices-in-r.html"><a href="matrices-in-r.html#solving-sets-of-simultaneous-equations"><i class="fa fa-check"></i><b>10.5</b> Solving sets of simultaneous equations</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html"><i class="fa fa-check"></i><b>11</b> Linear Regression Models I</a><ul>
-<li class="chapter" data-level="11.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-functions"><i class="fa fa-check"></i><b>11.1</b> Linear functions</a></li>
-<li class="chapter" data-level="11.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear regression</a></li>
-<li class="chapter" data-level="11.3" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#the-optimality-criterion-for-least-squares-regression"><i class="fa fa-check"></i><b>11.3</b> The optimality criterion for least-squares regression</a></li>
-<li class="chapter" data-level="11.4" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#geometry-of-linear-regression"><i class="fa fa-check"></i><b>11.4</b> Geometry of linear regression</a></li>
-<li class="chapter" data-level="11.5" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#solution-for-the-least-squares-criterion"><i class="fa fa-check"></i><b>11.5</b> Solution for the least-squares criterion</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#bivariate-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.1</b> Bivariate regression, estimating coefficients</a></li>
-<li class="chapter" data-level="11.5.2" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#multiple-regression-estimating-coefficients"><i class="fa fa-check"></i><b>11.5.2</b> Multiple regression, estimating coefficients</a></li>
-</ul></li>
-<li class="chapter" data-level="11.6" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residuals"><i class="fa fa-check"></i><b>11.6</b> Residuals</a></li>
-<li class="chapter" data-level="11.7" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#regression-as-sum-of-squares-decomposition"><i class="fa fa-check"></i><b>11.7</b> Regression as sum-of-squares decomposition</a></li>
-<li class="chapter" data-level="11.8" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#variance-explained-by-a-regression-model"><i class="fa fa-check"></i><b>11.8</b> Variance “explained” by a regression model</a></li>
-<li class="chapter" data-level="11.9" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#goodness-of-fit"><i class="fa fa-check"></i><b>11.9</b> Goodness of fit</a></li>
-<li class="chapter" data-level="11.10" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#interpretting-regression"><i class="fa fa-check"></i><b>11.10</b> Interpretting Regression</a></li>
-<li class="chapter" data-level="11.11" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#illustrating-linear-regression-with-simulated-data"><i class="fa fa-check"></i><b>11.11</b> Illustrating linear regression with simulated data</a></li>
-<li class="chapter" data-level="11.12" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-regression-model-using-vector-arithmetic"><i class="fa fa-check"></i><b>11.12</b> Calculating the regression model using vector arithmetic</a><ul>
-<li class="chapter" data-level="11.12.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-predicted-values-and-residuals"><i class="fa fa-check"></i><b>11.12.1</b> Calculating the predicted values and residuals</a></li>
-</ul></li>
-<li class="chapter" data-level="11.13" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#plotting-various-aspects-of-a-regression"><i class="fa fa-check"></i><b>11.13</b> Plotting various aspects of a regression</a><ul>
-<li class="chapter" data-level="11.13.1" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#residual-plots"><i class="fa fa-check"></i><b>11.13.1</b> Residual plots</a></li>
-</ul></li>
-<li class="chapter" data-level="11.14" data-path="linear-regression-models-i.html"><a href="linear-regression-models-i.html#calculating-the-coefficient-of-determination"><i class="fa fa-check"></i><b>11.14</b> Calculating the coefficient of determination</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html"><i class="fa fa-check"></i><b>12</b> Linear Regression Models II</a><ul>
-<li class="chapter" data-level="12.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#new-libraries-to-install"><i class="fa fa-check"></i><b>12.1</b> New Libraries to install</a></li>
-<li class="chapter" data-level="12.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#standard-libraries"><i class="fa fa-check"></i><b>12.2</b> Standard libraries</a></li>
-<li class="chapter" data-level="12.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#specifying-regression-models-in-r"><i class="fa fa-check"></i><b>12.3</b> Specifying Regression Models in R</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-summary-output-from-lm"><i class="fa fa-check"></i><b>12.3.1</b> Interpretting summary output from lm()</a></li>
-</ul></li>
-<li class="chapter" data-level="12.4" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#quick-bivariate-regression-plots-in-ggplot"><i class="fa fa-check"></i><b>12.4</b> Quick bivariate regression plots in ggplot</a></li>
-<li class="chapter" data-level="12.5" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#more-about-the-data-structure-returned-by-lm"><i class="fa fa-check"></i><b>12.5</b> More about the data structure returned by <code>lm()</code></a><ul>
-<li class="chapter" data-level="12.5.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitted-values"><i class="fa fa-check"></i><b>12.5.1</b> Fitted values</a></li>
-<li class="chapter" data-level="12.5.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#getting-the-model-coefficients"><i class="fa fa-check"></i><b>12.5.2</b> Getting the model coefficients</a></li>
-</ul></li>
-<li class="chapter" data-level="12.6" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broom-a-library-for-converting-model-results-into-data-frames"><i class="fa fa-check"></i><b>12.6</b> Broom: a library for converting model results into data frames</a><ul>
-<li class="chapter" data-level="12.6.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomtidy"><i class="fa fa-check"></i><b>12.6.1</b> <code>broom::tidy</code></a></li>
-<li class="chapter" data-level="12.6.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomaugment"><i class="fa fa-check"></i><b>12.6.2</b> <code>broom::augment</code></a></li>
-<li class="chapter" data-level="12.6.3" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#broomglance"><i class="fa fa-check"></i><b>12.6.3</b> <code>broom::glance</code></a></li>
-</ul></li>
-<li class="chapter" data-level="12.7" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#qq-plots"><i class="fa fa-check"></i><b>12.7</b> qq-plots</a></li>
-<li class="chapter" data-level="12.8" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#multiple-regression"><i class="fa fa-check"></i><b>12.8</b> Multiple regression</a><ul>
-<li class="chapter" data-level="12.8.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploration-of-the-trees-data-set"><i class="fa fa-check"></i><b>12.8.1</b> Exploration of the trees data set</a></li>
-</ul></li>
-<li class="chapter" data-level="12.9" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#d-plots"><i class="fa fa-check"></i><b>12.9</b> 3D Plots</a><ul>
-<li class="chapter" data-level="12.9.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#scatterplot3d"><i class="fa fa-check"></i><b>12.9.1</b> scatterplot3d</a></li>
-<li class="chapter" data-level="12.9.2" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#rgl"><i class="fa fa-check"></i><b>12.9.2</b> rgl</a></li>
-</ul></li>
-<li class="chapter" data-level="12.10" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#fitting-the-regression-model"><i class="fa fa-check"></i><b>12.10</b> Fitting the regression model</a><ul>
-<li class="chapter" data-level="12.10.1" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#visualizing-the-regression-model-in-scatterplot3d"><i class="fa fa-check"></i><b>12.10.1</b> Visualizing the regression model in scatterplot3d</a></li>
-</ul></li>
-<li class="chapter" data-level="12.11" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#interpretting-the-regression-model"><i class="fa fa-check"></i><b>12.11</b> Interpretting the regression model</a></li>
-<li class="chapter" data-level="12.12" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-vector-geometry-of-the-regression-model"><i class="fa fa-check"></i><b>12.12</b> Exploring the Vector Geometry of the Regression Model</a></li>
-<li class="chapter" data-level="12.13" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-residuals-from-the-model-fit"><i class="fa fa-check"></i><b>12.13</b> Exploring the Residuals from the Model Fit</a></li>
-<li class="chapter" data-level="12.14" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#an-alternate-model"><i class="fa fa-check"></i><b>12.14</b> An alternate model</a></li>
-<li class="chapter" data-level="12.15" data-path="linear-regression-models-ii.html"><a href="linear-regression-models-ii.html#exploring-the-impact-of-nearly-collinear-predictors-on-regression"><i class="fa fa-check"></i><b>12.15</b> Exploring the impact of nearly collinear predictors on regression</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="more-regression-models.html"><a href="more-regression-models.html"><i class="fa fa-check"></i><b>13</b> More regression models</a><ul>
-<li class="chapter" data-level="13.1" data-path="more-regression-models.html"><a href="more-regression-models.html#curvilinear-regression"><i class="fa fa-check"></i><b>13.1</b> Curvilinear regression</a></li>
-<li class="chapter" data-level="13.2" data-path="more-regression-models.html"><a href="more-regression-models.html#loess-regression"><i class="fa fa-check"></i><b>13.2</b> LOESS regression</a></li>
-<li class="chapter" data-level="13.3" data-path="more-regression-models.html"><a href="more-regression-models.html#logistic-regression"><i class="fa fa-check"></i><b>13.3</b> Logistic regression</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="more-regression-models.html"><a href="more-regression-models.html#a-web-app-to-explore-the-logistic-regression-equation"><i class="fa fa-check"></i><b>13.3.1</b> A web app to explore the logistic regression equation</a></li>
-<li class="chapter" data-level="13.3.2" data-path="more-regression-models.html"><a href="more-regression-models.html#titanic-data-set"><i class="fa fa-check"></i><b>13.3.2</b> Titanic data set</a></li>
-<li class="chapter" data-level="13.3.3" data-path="more-regression-models.html"><a href="more-regression-models.html#subsetting-the-data"><i class="fa fa-check"></i><b>13.3.3</b> Subsetting the data</a></li>
-<li class="chapter" data-level="13.3.4" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-survival-as-a-function-of-age"><i class="fa fa-check"></i><b>13.3.4</b> Visualizing survival as a function of age</a></li>
-<li class="chapter" data-level="13.3.5" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-the-logistic-regression-model"><i class="fa fa-check"></i><b>13.3.5</b> Fitting the logistic regression model</a></li>
-<li class="chapter" data-level="13.3.6" data-path="more-regression-models.html"><a href="more-regression-models.html#visualizing-the-logistic-regression"><i class="fa fa-check"></i><b>13.3.6</b> Visualizing the logistic regression</a></li>
-<li class="chapter" data-level="13.3.7" data-path="more-regression-models.html"><a href="more-regression-models.html#quick-and-easy-visualization"><i class="fa fa-check"></i><b>13.3.7</b> Quick and easy visualization</a></li>
-<li class="chapter" data-level="13.3.8" data-path="more-regression-models.html"><a href="more-regression-models.html#impact-of-sex-and-passenger-class-on-the-models"><i class="fa fa-check"></i><b>13.3.8</b> Impact of sex and passenger class on the models</a></li>
-<li class="chapter" data-level="13.3.9" data-path="more-regression-models.html"><a href="more-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>13.3.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html"><i class="fa fa-check"></i><b>14</b> Principal Components Analysis</a><ul>
-<li class="chapter" data-level="14.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#libraries-3"><i class="fa fa-check"></i><b>14.1</b> Libraries</a></li>
-<li class="chapter" data-level="14.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#matrices-as-linear-transformations"><i class="fa fa-check"></i><b>14.2</b> Matrices as linear transformations</a></li>
-<li class="chapter" data-level="14.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#eigenanalysis-in-r"><i class="fa fa-check"></i><b>14.3</b> Eigenanalysis in R</a></li>
-<li class="chapter" data-level="14.4" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#principal-components-analysis-in-r"><i class="fa fa-check"></i><b>14.4</b> Principal Components Analysis in R</a><ul>
-<li class="chapter" data-level="14.4.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#bioenv-dataset"><i class="fa fa-check"></i><b>14.4.1</b> Bioenv dataset</a></li>
-<li class="chapter" data-level="14.4.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pca-of-the-bioenv-dataset"><i class="fa fa-check"></i><b>14.4.2</b> PCA of the Bioenv dataset</a></li>
-<li class="chapter" data-level="14.4.3" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#calculating-factor-loadings"><i class="fa fa-check"></i><b>14.4.3</b> Calculating Factor Loadings</a></li>
-</ul></li>
-<li class="chapter" data-level="14.5" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#drawing-figures-to-represent-pca"><i class="fa fa-check"></i><b>14.5</b> Drawing Figures to Represent PCA</a><ul>
-<li class="chapter" data-level="14.5.1" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#pc-score-plots"><i class="fa fa-check"></i><b>14.5.1</b> PC Score Plots</a></li>
-<li class="chapter" data-level="14.5.2" data-path="principal-components-analysis.html"><a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space"><i class="fa fa-check"></i><b>14.5.2</b> Simultaneous Depiction of Observations and Variables in the PC Space</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html"><i class="fa fa-check"></i><b>15</b> Canonical Variates Analysis</a><ul>
-<li class="chapter" data-level="15.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#libraries-4"><i class="fa fa-check"></i><b>15.1</b> Libraries</a></li>
-<li class="chapter" data-level="15.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#discriminant-analysis-in-r"><i class="fa fa-check"></i><b>15.2</b> Discriminant Analysis in R</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#shorthand-formulae-in-r"><i class="fa fa-check"></i><b>15.2.1</b> Shorthand Formulae in R</a></li>
-<li class="chapter" data-level="15.2.2" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#working-with-the-output-of-lda"><i class="fa fa-check"></i><b>15.2.2</b> Working with the output of <code>lda()</code></a></li>
-</ul></li>
-<li class="chapter" data-level="15.3" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva"><i class="fa fa-check"></i><b>15.3</b> Estimating confidence regions for group means in CVA</a><ul>
-<li class="chapter" data-level="15.3.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions"><i class="fa fa-check"></i><b>15.3.1</b> Drawing the CVA confidence regions</a></li>
-</ul></li>
-<li class="chapter" data-level="15.4" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices"><i class="fa fa-check"></i><b>15.4</b> Calculating the Within and Between Group Covariance Matrices</a><ul>
-<li class="chapter" data-level="15.4.1" data-path="canonical-variates-analysis.html"><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda"><i class="fa fa-check"></i><b>15.4.1</b> Recapitulating the CVA analysis of <code>lda()</code></a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="clustering-in-r.html"><a href="clustering-in-r.html"><i class="fa fa-check"></i><b>16</b> Clustering in R</a><ul>
-<li class="chapter" data-level="16.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#libraries-5"><i class="fa fa-check"></i><b>16.1</b> Libraries</a></li>
-<li class="chapter" data-level="16.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#data-set"><i class="fa fa-check"></i><b>16.2</b> Data set</a></li>
-<li class="chapter" data-level="16.3" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-in-r"><i class="fa fa-check"></i><b>16.3</b> Hierarchical Clustering in R</a></li>
-<li class="chapter" data-level="16.4" data-path="clustering-in-r.html"><a href="clustering-in-r.html#manipulating-hierarchical-clusterings-with-dendextend"><i class="fa fa-check"></i><b>16.4</b> Manipulating hierarchical clusterings with dendextend</a></li>
-<li class="chapter" data-level="16.5" data-path="clustering-in-r.html"><a href="clustering-in-r.html#plotting-dendrograms-in-dendextend"><i class="fa fa-check"></i><b>16.5</b> Plotting dendrograms in dendextend</a></li>
-<li class="chapter" data-level="16.6" data-path="clustering-in-r.html"><a href="clustering-in-r.html#cutting-dendrograms"><i class="fa fa-check"></i><b>16.6</b> Cutting dendrograms</a></li>
-<li class="chapter" data-level="16.7" data-path="clustering-in-r.html"><a href="clustering-in-r.html#looking-at-clusters"><i class="fa fa-check"></i><b>16.7</b> Looking at clusters</a></li>
-<li class="chapter" data-level="16.8" data-path="clustering-in-r.html"><a href="clustering-in-r.html#generating-a-heat-map-from-a-cluster"><i class="fa fa-check"></i><b>16.8</b> Generating a heat map from a cluster</a></li>
-<li class="chapter" data-level="16.9" data-path="clustering-in-r.html"><a href="clustering-in-r.html#working-with-sub-trees"><i class="fa fa-check"></i><b>16.9</b> Working with sub-trees</a></li>
-<li class="chapter" data-level="16.10" data-path="clustering-in-r.html"><a href="clustering-in-r.html#setting-dendrogram-parameters-in-dendextend"><i class="fa fa-check"></i><b>16.10</b> Setting dendrogram parameters in dendextend</a></li>
-<li class="chapter" data-level="16.11" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-heatmaps-and-dendrograms"><i class="fa fa-check"></i><b>16.11</b> Combining heatmaps and dendrograms</a></li>
-<li class="chapter" data-level="16.12" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-meansk-medoids-clustering-in-r"><i class="fa fa-check"></i><b>16.12</b> K-means/K-medoids Clustering in R</a><ul>
-<li class="chapter" data-level="16.12.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#heat-map-from-k-medoids-cluster"><i class="fa fa-check"></i><b>16.12.1</b> Heat map from k-medoids cluster</a></li>
-</ul></li>
-<li class="chapter" data-level="16.13" data-path="clustering-in-r.html"><a href="clustering-in-r.html#combining-clusters-and-correlation-matrix-heatmaps"><i class="fa fa-check"></i><b>16.13</b> Combining clusters and correlation matrix heatmaps</a><ul>
-<li class="chapter" data-level="16.13.1" data-path="clustering-in-r.html"><a href="clustering-in-r.html#hierarchical-clustering-visualized-on-correlation-matrix"><i class="fa fa-check"></i><b>16.13.1</b> Hierarchical clustering, visualized on correlation matrix</a></li>
-<li class="chapter" data-level="16.13.2" data-path="clustering-in-r.html"><a href="clustering-in-r.html#k-medoids-clustering-visualized-on-the-correlation-matrix"><i class="fa fa-check"></i><b>16.13.2</b> K-medoids clustering visualized on the correlation matrix</a></li>
-</ul></li>
-<li class="chapter" data-level="16.14" data-path="clustering-in-r.html"><a href="clustering-in-r.html#depicting-the-data-within-clusters"><i class="fa fa-check"></i><b>16.14</b> Depicting the data within clusters</a></li>
 </ul></li>
 </ul>
 
@@ -487,120 +258,120 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="functions-and-control-flow-statements" class="section level1">
+<div id="functions-and-control-flow-statements" class="section level1" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Functions and control flow statements</h1>
-<div id="writing-your-own-functions" class="section level2">
+<div id="writing-your-own-functions" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Writing your own functions</h2>
 <p>So far we’ve been using a variety of built in functions in R. However the real power of a programming language is the ability to write your own functions. Functions are a mechanism for organizing and abstracting a set of related computations. We usually write functions to represent sets of computations that we apply frequently, or to represent some conceptually coherent set of manipulations to data.</p>
 <p><code>function() {expr}</code> defines a simplest form of R functions. <code>function()</code> packs the following expressions in <code>{}</code> as a function so they can be assigned to and run by a name. For example,</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="co">#assgin a function called &quot;PrintSignature&quot;</span></a>
-<a class="sourceLine" id="cb104-2" title="2">PrintSignature &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb104-3" title="3">    <span class="kw">paste</span>(<span class="st">&quot;Dr. Paul Magwene at Duke University&quot;</span>, <span class="kw">date</span>())</a>
-<a class="sourceLine" id="cb104-4" title="4">    } </a>
-<a class="sourceLine" id="cb104-5" title="5"><span class="kw">PrintSignature</span>() <span class="co">#run the function by its name</span></a>
-<a class="sourceLine" id="cb104-6" title="6"><span class="co">## [1] &quot;Dr. Paul Magwene at Duke University Mon Jan 20 12:14:58 2020&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="functions-and-control-flow-statements.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co">#assgin a function called &quot;PrintSignature&quot;</span></span>
+<span id="cb104-2"><a href="functions-and-control-flow-statements.html#cb104-2" aria-hidden="true" tabindex="-1"></a>PrintSignature <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb104-3"><a href="functions-and-control-flow-statements.html#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Dr. Paul Magwene at Duke University&quot;</span>, <span class="fu">date</span>())</span>
+<span id="cb104-4"><a href="functions-and-control-flow-statements.html#cb104-4" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb104-5"><a href="functions-and-control-flow-statements.html#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="fu">PrintSignature</span>() <span class="co">#run the function by its name</span></span>
+<span id="cb104-6"><a href="functions-and-control-flow-statements.html#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Dr. Paul Magwene at Duke University Wed Jan 20 13:50:54 2021&quot;</span></span></code></pre></div>
 <p>The more general form of an R function is as follows:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">funcname &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2) {</a>
-<a class="sourceLine" id="cb105-2" title="2"> <span class="co"># one or more expressions that operate on the fxn arguments</span></a>
-<a class="sourceLine" id="cb105-3" title="3"> <span class="co"># last expression is the object returned</span></a>
-<a class="sourceLine" id="cb105-4" title="4"> <span class="co"># or you can explicitly return an object</span></a>
-<a class="sourceLine" id="cb105-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="functions-and-control-flow-statements.html#cb105-1" aria-hidden="true" tabindex="-1"></a>funcname <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, arg2) {</span>
+<span id="cb105-2"><a href="functions-and-control-flow-statements.html#cb105-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># one or more expressions that operate on the fxn arguments</span></span>
+<span id="cb105-3"><a href="functions-and-control-flow-statements.html#cb105-3" aria-hidden="true" tabindex="-1"></a> <span class="co"># last expression is the object returned</span></span>
+<span id="cb105-4"><a href="functions-and-control-flow-statements.html#cb105-4" aria-hidden="true" tabindex="-1"></a> <span class="co"># or you can explicitly return an object</span></span>
+<span id="cb105-5"><a href="functions-and-control-flow-statements.html#cb105-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Arg1 and arg2 are function arguments that allow you to pass different values to the expressions every time you run the function. Function arguments are given in the parentheses after <code>function</code> and seperated by <code>,</code>. You can add as many arguments as you want. To make this concrete, here’s an example where we define a function to calculate the area of a circle:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){</a>
-<a class="sourceLine" id="cb106-2" title="2">  <span class="kw">return</span>(pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb106-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="functions-and-control-flow-statements.html#cb106-1" aria-hidden="true" tabindex="-1"></a>area.of.circle <span class="ot">&lt;-</span> <span class="cf">function</span>(r){</span>
+<span id="cb106-2"><a href="functions-and-control-flow-statements.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pi <span class="sc">*</span> r<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb106-3"><a href="functions-and-control-flow-statements.html#cb106-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Since R returns the value of the last expression in the function, the <code>return</code> call is optional and we could have simply written:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r){</a>
-<a class="sourceLine" id="cb107-2" title="2">  pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb107-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="functions-and-control-flow-statements.html#cb107-1" aria-hidden="true" tabindex="-1"></a>area.of.circle <span class="ot">&lt;-</span> <span class="cf">function</span>(r){</span>
+<span id="cb107-2"><a href="functions-and-control-flow-statements.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  pi <span class="sc">*</span> r<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb107-3"><a href="functions-and-control-flow-statements.html#cb107-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Very short and concise functions are often written as a single line. In practice I’d probably write the above function as:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="functions-and-control-flow-statements.html#cb108-1" aria-hidden="true" tabindex="-1"></a>area.of.circle <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {pi <span class="sc">*</span> r<span class="sc">^</span><span class="dv">2</span>}</span></code></pre></div>
 <p>The <code>area.of.circle</code> function takes one argument, <code>r</code>, and calculates the area of a circle with radius r. Having defined the function we can immediately put it to use:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="kw">area.of.circle</span>(<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb109-2" title="2"><span class="co">## [1] 28.27433</span></a>
-<a class="sourceLine" id="cb109-3" title="3"></a>
-<a class="sourceLine" id="cb109-4" title="4">radius &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb109-5" title="5"><span class="kw">area.of.circle</span>(radius)</a>
-<a class="sourceLine" id="cb109-6" title="6"><span class="co">## [1] 50.26548</span></a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="functions-and-control-flow-statements.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">area.of.circle</span>(<span class="dv">3</span>)</span>
+<span id="cb109-2"><a href="functions-and-control-flow-statements.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 28.27433</span></span>
+<span id="cb109-3"><a href="functions-and-control-flow-statements.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="functions-and-control-flow-statements.html#cb109-4" aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb109-5"><a href="functions-and-control-flow-statements.html#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="fu">area.of.circle</span>(radius)</span>
+<span id="cb109-6"><a href="functions-and-control-flow-statements.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 50.26548</span></span></code></pre></div>
 <p>If you type a function name without parentheses R shows you the
 function’s definition. This works for built-in functions as well
 (thought sometimes these functions are defined in C code in which case R
 will tell you that the function is a <code>.Primitive</code>).</p>
-<div id="function-arguments" class="section level3">
+<div id="function-arguments" class="section level3" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Function arguments</h3>
 <p>Function arguments can specify the data that a function operates on or parameters that the function use, i.e., the “input” or “independent varialbe” of the function. Any R objects can be taken as function arguments, including bare numbers, vectors, lists, data.frames, names of assigned variables, and even other functions. Each argument only takes a single R object, so if you have complicated input or uncertain length of input, it’s better to design some arguments that take vectors or lists. Function arguments can be either required or optional. In the case of optional arguments, a default value is assigned if the argument is not given.</p>
 <p>Take for example the <code>log</code> function. If you examine the help file for the <code>log</code> function (type <code>?log</code> now) you’ll see that it takes two arguments, refered to as <code>x</code> and <code>base</code>. The
 argument <code>x</code> represents the numeric vector you pass to the function and is a required argument (see what happens when you type <code>log()</code> without giving an argument). The argument <code>base</code> is optional. By default the value of <code>base</code> is <span class="math inline">\(e = 2.71828\ldots\)</span>. Therefore by default the <code>log</code> function returns natural logarithms. If you want logarithms to a different base you can change the <code>base</code> argument as in the following examples:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1"><span class="kw">log</span>(<span class="dv">2</span>) <span class="co"># log of 2, base e</span></a>
-<a class="sourceLine" id="cb110-2" title="2"><span class="co">## [1] 0.6931472</span></a>
-<a class="sourceLine" id="cb110-3" title="3"><span class="kw">log</span>(<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># log of 2, base 2</span></a>
-<a class="sourceLine" id="cb110-4" title="4"><span class="co">## [1] 1</span></a>
-<a class="sourceLine" id="cb110-5" title="5"><span class="kw">log</span>(<span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># log of 2, base 4</span></a>
-<a class="sourceLine" id="cb110-6" title="6"><span class="co">## [1] 0.5</span></a></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="functions-and-control-flow-statements.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">2</span>) <span class="co"># log of 2, base e</span></span>
+<span id="cb110-2"><a href="functions-and-control-flow-statements.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.6931472</span></span>
+<span id="cb110-3"><a href="functions-and-control-flow-statements.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">2</span>,<span class="dv">2</span>) <span class="co"># log of 2, base 2</span></span>
+<span id="cb110-4"><a href="functions-and-control-flow-statements.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span>
+<span id="cb110-5"><a href="functions-and-control-flow-statements.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">2</span>, <span class="dv">4</span>) <span class="co"># log of 2, base 4</span></span>
+<span id="cb110-6"><a href="functions-and-control-flow-statements.html#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.5</span></span></code></pre></div>
 <p>Because base 2 and base 10 logarithms are fairly commonly used, there are convenient aliases for calling <code>log</code> with these bases.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">log2</span>(<span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb111-2" title="2"><span class="co">## [1] 3</span></a>
-<a class="sourceLine" id="cb111-3" title="3"><span class="kw">log10</span>(<span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb111-4" title="4"><span class="co">## [1] 2</span></a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="functions-and-control-flow-statements.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log2</span>(<span class="dv">8</span>)</span>
+<span id="cb111-2"><a href="functions-and-control-flow-statements.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
+<span id="cb111-3"><a href="functions-and-control-flow-statements.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log10</span>(<span class="dv">100</span>)</span>
+<span id="cb111-4"><a href="functions-and-control-flow-statements.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span></code></pre></div>
 </div>
-<div id="writing-functions-with-optional-arguments" class="section level3">
+<div id="writing-functions-with-optional-arguments" class="section level3" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Writing functions with optional arguments</h3>
 <p>To write a function that has an optional argument, you can simply specify the optional argument and its default value in the function definition as so:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1"><span class="co"># a function to substitute missing values in a vector</span></a>
-<a class="sourceLine" id="cb112-2" title="2">sub.missing &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">sub.value =</span> <span class="dv">-99</span>){</a>
-<a class="sourceLine" id="cb112-3" title="3">  x[<span class="kw">is.na</span>(x)] &lt;-<span class="st"> </span>sub.value</a>
-<a class="sourceLine" id="cb112-4" title="4">  <span class="kw">return</span>(x)</a>
-<a class="sourceLine" id="cb112-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="functions-and-control-flow-statements.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a function to substitute missing values in a vector</span></span>
+<span id="cb112-2"><a href="functions-and-control-flow-statements.html#cb112-2" aria-hidden="true" tabindex="-1"></a>sub.missing <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">sub.value =</span> <span class="sc">-</span><span class="dv">99</span>){</span>
+<span id="cb112-3"><a href="functions-and-control-flow-statements.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  x[<span class="fu">is.na</span>(x)] <span class="ot">&lt;-</span> sub.value</span>
+<span id="cb112-4"><a href="functions-and-control-flow-statements.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb112-5"><a href="functions-and-control-flow-statements.html#cb112-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>You can then use this function as so:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">m &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="kw">sub.missing</span>(m, <span class="dv">-999</span>)  <span class="co"># explicitly define sub.value</span></a>
-<a class="sourceLine" id="cb113-3" title="3"><span class="co">## [1]    1    2 -999    4</span></a>
-<a class="sourceLine" id="cb113-4" title="4"><span class="kw">sub.missing</span>(m, <span class="dt">sub.value =</span> <span class="dv">-333</span>) <span class="co"># more explicit syntax</span></a>
-<a class="sourceLine" id="cb113-5" title="5"><span class="co">## [1]    1    2 -333    4</span></a>
-<a class="sourceLine" id="cb113-6" title="6"><span class="kw">sub.missing</span>(m)   <span class="co"># use default sub.value</span></a>
-<a class="sourceLine" id="cb113-7" title="7"><span class="co">## [1]   1   2 -99   4</span></a>
-<a class="sourceLine" id="cb113-8" title="8">m  <span class="co"># notice that m wasn&#39;t modified within the function</span></a>
-<a class="sourceLine" id="cb113-9" title="9"><span class="co">## [1]  1  2 NA  4</span></a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="functions-and-control-flow-statements.html#cb113-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb113-2"><a href="functions-and-control-flow-statements.html#cb113-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sub.missing</span>(m, <span class="sc">-</span><span class="dv">999</span>)  <span class="co"># explicitly define sub.value</span></span>
+<span id="cb113-3"><a href="functions-and-control-flow-statements.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]    1    2 -999    4</span></span>
+<span id="cb113-4"><a href="functions-and-control-flow-statements.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sub.missing</span>(m, <span class="at">sub.value =</span> <span class="sc">-</span><span class="dv">333</span>) <span class="co"># more explicit syntax</span></span>
+<span id="cb113-5"><a href="functions-and-control-flow-statements.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]    1    2 -333    4</span></span>
+<span id="cb113-6"><a href="functions-and-control-flow-statements.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sub.missing</span>(m)   <span class="co"># use default sub.value</span></span>
+<span id="cb113-7"><a href="functions-and-control-flow-statements.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]   1   2 -99   4</span></span>
+<span id="cb113-8"><a href="functions-and-control-flow-statements.html#cb113-8" aria-hidden="true" tabindex="-1"></a>m  <span class="co"># notice that m wasn&#39;t modified within the function</span></span>
+<span id="cb113-9"><a href="functions-and-control-flow-statements.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  1  2 NA  4</span></span></code></pre></div>
 <p>Notice that when we called <code>sub.missing</code> with our vector <code>m</code>, the vector did <em>not</em> get modified in the function body. Rather a new vector, <code>x</code> was created within the function and returned. However, if you did the missing value subsitute outside of a function call, then the vector would be modified:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">n &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb114-2" title="2">n[<span class="kw">is.na</span>(n)] &lt;-<span class="st"> </span><span class="dv">-99</span></a>
-<a class="sourceLine" id="cb114-3" title="3">n</a>
-<a class="sourceLine" id="cb114-4" title="4"><span class="co">## [1]   1   2 -99   4</span></a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="functions-and-control-flow-statements.html#cb114-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb114-2"><a href="functions-and-control-flow-statements.html#cb114-2" aria-hidden="true" tabindex="-1"></a>n[<span class="fu">is.na</span>(n)] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">99</span></span>
+<span id="cb114-3"><a href="functions-and-control-flow-statements.html#cb114-3" aria-hidden="true" tabindex="-1"></a>n</span>
+<span id="cb114-4"><a href="functions-and-control-flow-statements.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]   1   2 -99   4</span></span></code></pre></div>
 </div>
-<div id="putting-r-functions-in-scripts" class="section level3">
+<div id="putting-r-functions-in-scripts" class="section level3" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Putting R functions in Scripts</h3>
 <p>When you define a function at the interactive prompt and then close the interpreter your function definition will be lost. The simple way around this is to define your R functions in a script that you can than access at any time.</p>
 <p>In RStudio choose <code>File &gt; New File &gt; R Script</code>. This will bring up a blank editor window. Type your function(s) into the editor. Everything in this file will be interpretted as R code, so you should not use the code block notation that is used in Markdown notebooks. Save the source file in your R working directory with a name like
 <code>myfxns.R</code>.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1"><span class="co"># functions defined in myfxns.R</span></a>
-<a class="sourceLine" id="cb115-2" title="2"></a>
-<a class="sourceLine" id="cb115-3" title="3">area.of.circle &lt;-<span class="st"> </span><span class="cf">function</span>(r) {pi <span class="op">*</span><span class="st"> </span>r<span class="op">^</span><span class="dv">2</span>}</a>
-<a class="sourceLine" id="cb115-4" title="4"></a>
-<a class="sourceLine" id="cb115-5" title="5">area.of.rectangle &lt;-<span class="st"> </span><span class="cf">function</span>(l, w) {l <span class="op">*</span><span class="st"> </span>w}</a>
-<a class="sourceLine" id="cb115-6" title="6"></a>
-<a class="sourceLine" id="cb115-7" title="7">area.of.triangle &lt;-<span class="st"> </span><span class="cf">function</span>(b, h) {<span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>b <span class="op">*</span><span class="st"> </span>h }</a></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="functions-and-control-flow-statements.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># functions defined in myfxns.R</span></span>
+<span id="cb115-2"><a href="functions-and-control-flow-statements.html#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="functions-and-control-flow-statements.html#cb115-3" aria-hidden="true" tabindex="-1"></a>area.of.circle <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {pi <span class="sc">*</span> r<span class="sc">^</span><span class="dv">2</span>}</span>
+<span id="cb115-4"><a href="functions-and-control-flow-statements.html#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="functions-and-control-flow-statements.html#cb115-5" aria-hidden="true" tabindex="-1"></a>area.of.rectangle <span class="ot">&lt;-</span> <span class="cf">function</span>(l, w) {l <span class="sc">*</span> w}</span>
+<span id="cb115-6"><a href="functions-and-control-flow-statements.html#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-7"><a href="functions-and-control-flow-statements.html#cb115-7" aria-hidden="true" tabindex="-1"></a>area.of.triangle <span class="ot">&lt;-</span> <span class="cf">function</span>(b, h) {<span class="fl">0.5</span> <span class="sc">*</span> b <span class="sc">*</span> h }</span></code></pre></div>
 <p>Once your functions are in a script file you can make them accesible by using the <code>source</code> function, which reads the named file as input and evaluates any definitions or statements in the input file (See also the <code>Source</code> button in the R Studio GUI):</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1"><span class="kw">source</span>(<span class="st">&quot;myfxns.R&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="functions-and-control-flow-statements.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;myfxns.R&quot;</span>)</span></code></pre></div>
 <p>Having sourced the file you can now use your functions like so:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1">radius &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb117-2" title="2">len &lt;-<span class="st"> </span><span class="dv">4</span></a>
-<a class="sourceLine" id="cb117-3" title="3">width &lt;-<span class="st"> </span><span class="dv">5</span></a>
-<a class="sourceLine" id="cb117-4" title="4">base &lt;-<span class="st"> </span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb117-5" title="5">height &lt;-<span class="st"> </span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb117-6" title="6"></a>
-<a class="sourceLine" id="cb117-7" title="7"><span class="kw">area.of.circle</span>(radius)</a>
-<a class="sourceLine" id="cb117-8" title="8"><span class="co">## [1] 28.27433</span></a>
-<a class="sourceLine" id="cb117-9" title="9"><span class="kw">area.of.rectangle</span>(len, width)</a>
-<a class="sourceLine" id="cb117-10" title="10"><span class="co">## [1] 20</span></a>
-<a class="sourceLine" id="cb117-11" title="11"><span class="kw">area.of.triangle</span>(base, height)</a>
-<a class="sourceLine" id="cb117-12" title="12"><span class="co">## [1] 21</span></a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="functions-and-control-flow-statements.html#cb117-1" aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb117-2"><a href="functions-and-control-flow-statements.html#cb117-2" aria-hidden="true" tabindex="-1"></a>len <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb117-3"><a href="functions-and-control-flow-statements.html#cb117-3" aria-hidden="true" tabindex="-1"></a>width <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb117-4"><a href="functions-and-control-flow-statements.html#cb117-4" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb117-5"><a href="functions-and-control-flow-statements.html#cb117-5" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb117-6"><a href="functions-and-control-flow-statements.html#cb117-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-7"><a href="functions-and-control-flow-statements.html#cb117-7" aria-hidden="true" tabindex="-1"></a><span class="fu">area.of.circle</span>(radius)</span>
+<span id="cb117-8"><a href="functions-and-control-flow-statements.html#cb117-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 28.27433</span></span>
+<span id="cb117-9"><a href="functions-and-control-flow-statements.html#cb117-9" aria-hidden="true" tabindex="-1"></a><span class="fu">area.of.rectangle</span>(len, width)</span>
+<span id="cb117-10"><a href="functions-and-control-flow-statements.html#cb117-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 20</span></span>
+<span id="cb117-11"><a href="functions-and-control-flow-statements.html#cb117-11" aria-hidden="true" tabindex="-1"></a><span class="fu">area.of.triangle</span>(base, height)</span>
+<span id="cb117-12"><a href="functions-and-control-flow-statements.html#cb117-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 21</span></span></code></pre></div>
 <p>Note that if you change the source file, such as correcting a mistake or adding a new function, you need to call the <code>source</code> function again to make those changes available.</p>
 </div>
 </div>
-<div id="control-flow-statements" class="section level2">
+<div id="control-flow-statements" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Control flow statements</h2>
 <p>Control flow statements control the order of execution of different pieces of code. They can be used to do things like make sure code is only run when certain conditions are met, to iterate through data structures, to repeat something until a specified event happens, etc. Control flow statements are frequently used when writing functions or carrying out complex data transformation.</p>
-<div id="if-and-if-else-statements" class="section level3">
+<div id="if-and-if-else-statements" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> <code>if</code> and <code>if-else</code> statements</h3>
 <p><code>if</code> and <code>if-else</code> blocks allow you to structure the flow of execution so that certain expressions are executed only if particular conditions are met.</p>
 <p>The general form of an <code>if</code> expression is:</p>
@@ -609,14 +380,14 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Boolean expression is true
 }</code></pre>
 <p>Here’s a simple <code>if</code> expression in which we check whether a number is less than 0.5, and if so assign a values to a variable.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)  <span class="co"># runif generates a random number between 0 and 1</span></a>
-<a class="sourceLine" id="cb119-2" title="2">face &lt;-<span class="st"> </span><span class="ot">NULL</span>  <span class="co"># set face to a NULL value</span></a>
-<a class="sourceLine" id="cb119-3" title="3"></a>
-<a class="sourceLine" id="cb119-4" title="4"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb119-5" title="5">  face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb119-6" title="6">}</a>
-<a class="sourceLine" id="cb119-7" title="7">face</a>
-<a class="sourceLine" id="cb119-8" title="8"><span class="co">## NULL</span></a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="functions-and-control-flow-statements.html#cb119-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)  <span class="co"># runif generates a random number between 0 and 1</span></span>
+<span id="cb119-2"><a href="functions-and-control-flow-statements.html#cb119-2" aria-hidden="true" tabindex="-1"></a>face <span class="ot">&lt;-</span> <span class="cn">NULL</span>  <span class="co"># set face to a NULL value</span></span>
+<span id="cb119-3"><a href="functions-and-control-flow-statements.html#cb119-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="functions-and-control-flow-statements.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
+<span id="cb119-5"><a href="functions-and-control-flow-statements.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  face <span class="ot">&lt;-</span> <span class="st">&quot;heads&quot;</span></span>
+<span id="cb119-6"><a href="functions-and-control-flow-statements.html#cb119-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb119-7"><a href="functions-and-control-flow-statements.html#cb119-7" aria-hidden="true" tabindex="-1"></a>face</span>
+<span id="cb119-8"><a href="functions-and-control-flow-statements.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="do">## NULL</span></span></code></pre></div>
 <p>The <code>else</code> clause specifies what to do in the event that the <code>if</code> statement is <em>not</em> true. The combined general for of an <code>if-else</code> expression is:</p>
 <pre><code>if (Boolean expression) {
   Code to execute if 
@@ -626,58 +397,58 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Boolean expression is false
 }</code></pre>
 <p>Our previous example makes more sense if we include an <code>else</code> clause.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb121-2" title="2"></a>
-<a class="sourceLine" id="cb121-3" title="3"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb121-4" title="4">  face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb121-5" title="5">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb121-6" title="6">  face &lt;-<span class="st"> &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb121-7" title="7">}</a>
-<a class="sourceLine" id="cb121-8" title="8"></a>
-<a class="sourceLine" id="cb121-9" title="9">face</a>
-<a class="sourceLine" id="cb121-10" title="10"><span class="co">## [1] &quot;heads&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="functions-and-control-flow-statements.html#cb121-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb121-2"><a href="functions-and-control-flow-statements.html#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-3"><a href="functions-and-control-flow-statements.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
+<span id="cb121-4"><a href="functions-and-control-flow-statements.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  face <span class="ot">&lt;-</span> <span class="st">&quot;heads&quot;</span></span>
+<span id="cb121-5"><a href="functions-and-control-flow-statements.html#cb121-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb121-6"><a href="functions-and-control-flow-statements.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  face <span class="ot">&lt;-</span> <span class="st">&quot;tails&quot;</span></span>
+<span id="cb121-7"><a href="functions-and-control-flow-statements.html#cb121-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb121-8"><a href="functions-and-control-flow-statements.html#cb121-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-9"><a href="functions-and-control-flow-statements.html#cb121-9" aria-hidden="true" tabindex="-1"></a>face</span>
+<span id="cb121-10"><a href="functions-and-control-flow-statements.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;tails&quot;</span></span></code></pre></div>
 <p>With the addition of the <code>else</code> statement, this simple code block can be thought of as simulating the toss of a coin.</p>
-<div id="if-else-in-a-function" class="section level4">
+<div id="if-else-in-a-function" class="section level4" number="5.2.1.1">
 <h4><span class="header-section-number">5.2.1.1</span> <code>if-else</code> in a function</h4>
 <p>Let’s take our “if-else” example above and turn it into a function we’ll call <code>coin.flip</code>. A literal re-interpretation of our previous code in the context of a function is something like this:</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="co"># coin.flip.literal takes no arguments</span></a>
-<a class="sourceLine" id="cb122-2" title="2">coin.flip.literal &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb122-3" title="3">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb122-4" title="4">  <span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb122-5" title="5">    face &lt;-<span class="st"> &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb122-6" title="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb122-7" title="7">    face &lt;-<span class="st"> &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb122-8" title="8">  }</a>
-<a class="sourceLine" id="cb122-9" title="9">  face</a>
-<a class="sourceLine" id="cb122-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="functions-and-control-flow-statements.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># coin.flip.literal takes no arguments</span></span>
+<span id="cb122-2"><a href="functions-and-control-flow-statements.html#cb122-2" aria-hidden="true" tabindex="-1"></a>coin.flip.literal <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb122-3"><a href="functions-and-control-flow-statements.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb122-4"><a href="functions-and-control-flow-statements.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
+<span id="cb122-5"><a href="functions-and-control-flow-statements.html#cb122-5" aria-hidden="true" tabindex="-1"></a>    face <span class="ot">&lt;-</span> <span class="st">&quot;heads&quot;</span></span>
+<span id="cb122-6"><a href="functions-and-control-flow-statements.html#cb122-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb122-7"><a href="functions-and-control-flow-statements.html#cb122-7" aria-hidden="true" tabindex="-1"></a>    face <span class="ot">&lt;-</span> <span class="st">&quot;tails&quot;</span></span>
+<span id="cb122-8"><a href="functions-and-control-flow-statements.html#cb122-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb122-9"><a href="functions-and-control-flow-statements.html#cb122-9" aria-hidden="true" tabindex="-1"></a>  face</span>
+<span id="cb122-10"><a href="functions-and-control-flow-statements.html#cb122-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><code>coin.flip.literal</code> is pretty long for what it does — we created a temporary variable <code>x</code> that is only used once, and we created the variable <code>face</code> to hold the results of our <code>if-else</code> statement, but then immediately returned the result. This is inefficient and decreases readability of our function. A much more compact implementation of this function is as follows:</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1">coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb123-2" title="2">  <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>) {</a>
-<a class="sourceLine" id="cb123-3" title="3">    <span class="kw">return</span>(<span class="st">&quot;heads&quot;</span>)</a>
-<a class="sourceLine" id="cb123-4" title="4">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb123-5" title="5">    <span class="kw">return</span>(<span class="st">&quot;tails&quot;</span>)</a>
-<a class="sourceLine" id="cb123-6" title="6">  }</a>
-<a class="sourceLine" id="cb123-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="functions-and-control-flow-statements.html#cb123-1" aria-hidden="true" tabindex="-1"></a>coin.flip <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb123-2"><a href="functions-and-control-flow-statements.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> <span class="fl">0.5</span>) {</span>
+<span id="cb123-3"><a href="functions-and-control-flow-statements.html#cb123-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">&quot;heads&quot;</span>)</span>
+<span id="cb123-4"><a href="functions-and-control-flow-statements.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb123-5"><a href="functions-and-control-flow-statements.html#cb123-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="st">&quot;tails&quot;</span>)</span>
+<span id="cb123-6"><a href="functions-and-control-flow-statements.html#cb123-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb123-7"><a href="functions-and-control-flow-statements.html#cb123-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Note that in our new version of <code>coin.flip</code> we don’t bother to create temporary the variables <code>x</code> and <code>face</code> and we immediately return the results within the <code>if-else</code> statement.</p>
 </div>
-<div id="multiple-if-else-statements" class="section level4">
+<div id="multiple-if-else-statements" class="section level4" number="5.2.1.2">
 <h4><span class="header-section-number">5.2.1.2</span> Multiple <code>if-else</code> statements</h4>
 <p>When there are more than two possible outcomes of interest, multiple <code>if-else</code> statements can be chained together. Here is an example with three outcomes:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1">x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span>)  <span class="co"># sample a random integer between -5 and 5</span></a>
-<a class="sourceLine" id="cb124-2" title="2"></a>
-<a class="sourceLine" id="cb124-3" title="3"><span class="cf">if</span> (x <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb124-4" title="4">  sign.x &lt;-<span class="st"> &quot;Negative&quot;</span></a>
-<a class="sourceLine" id="cb124-5" title="5">} <span class="cf">else</span> <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb124-6" title="6">  sign.x &lt;-<span class="st"> &quot;Positive&quot;</span></a>
-<a class="sourceLine" id="cb124-7" title="7">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb124-8" title="8">  sign.x &lt;-<span class="st"> &quot;Zero&quot;</span></a>
-<a class="sourceLine" id="cb124-9" title="9">}</a>
-<a class="sourceLine" id="cb124-10" title="10"></a>
-<a class="sourceLine" id="cb124-11" title="11">sign.x</a>
-<a class="sourceLine" id="cb124-12" title="12"><span class="co">## [1] &quot;Positive&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="functions-and-control-flow-statements.html#cb124-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="sc">-</span><span class="dv">5</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span>)  <span class="co"># sample a random integer between -5 and 5</span></span>
+<span id="cb124-2"><a href="functions-and-control-flow-statements.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="functions-and-control-flow-statements.html#cb124-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
+<span id="cb124-4"><a href="functions-and-control-flow-statements.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  sign.x <span class="ot">&lt;-</span> <span class="st">&quot;Negative&quot;</span></span>
+<span id="cb124-5"><a href="functions-and-control-flow-statements.html#cb124-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb124-6"><a href="functions-and-control-flow-statements.html#cb124-6" aria-hidden="true" tabindex="-1"></a>  sign.x <span class="ot">&lt;-</span> <span class="st">&quot;Positive&quot;</span></span>
+<span id="cb124-7"><a href="functions-and-control-flow-statements.html#cb124-7" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb124-8"><a href="functions-and-control-flow-statements.html#cb124-8" aria-hidden="true" tabindex="-1"></a>  sign.x <span class="ot">&lt;-</span> <span class="st">&quot;Zero&quot;</span></span>
+<span id="cb124-9"><a href="functions-and-control-flow-statements.html#cb124-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb124-10"><a href="functions-and-control-flow-statements.html#cb124-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-11"><a href="functions-and-control-flow-statements.html#cb124-11" aria-hidden="true" tabindex="-1"></a>sign.x</span>
+<span id="cb124-12"><a href="functions-and-control-flow-statements.html#cb124-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Positive&quot;</span></span></code></pre></div>
 </div>
 </div>
-<div id="for-loops" class="section level3">
+<div id="for-loops" class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> for loops</h3>
 <p>A <code>for</code> statement iterates over the elements of a sequence (such as vectors or lists). A common use of for statements is to carry out a calculation on each element of a sequence (but see the discussion of <code>map</code> below) or to make a calculation that involves all the elements of a sequence.</p>
 <p>The general form of a for loop is:</p>
@@ -686,234 +457,242 @@ argument <code>x</code> represents the numeric vector you pass to the function a
   Evaluate one or more expressions
 }</code></pre>
 <p>As an example, say we wanted to call our <code>coin.flip</code> function multiple times. We could use a for loop to do so as follows:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">flips &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># empty vector to hold outcomes of coin flips</span></a>
-<a class="sourceLine" id="cb126-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb126-3" title="3">  flips &lt;-<span class="st"> </span><span class="kw">c</span>(flips, <span class="kw">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span></a>
-<a class="sourceLine" id="cb126-4" title="4">}</a>
-<a class="sourceLine" id="cb126-5" title="5">flips</a>
-<a class="sourceLine" id="cb126-6" title="6"><span class="co">##  [1] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb126-7" title="7"><span class="co">## [10] &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot;</span></a>
-<a class="sourceLine" id="cb126-8" title="8"><span class="co">## [19] &quot;tails&quot; &quot;tails&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="functions-and-control-flow-statements.html#cb126-1" aria-hidden="true" tabindex="-1"></a>flips <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># empty vector to hold outcomes of coin flips</span></span>
+<span id="cb126-2"><a href="functions-and-control-flow-statements.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb126-3"><a href="functions-and-control-flow-statements.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  flips <span class="ot">&lt;-</span> <span class="fu">c</span>(flips, <span class="fu">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span></span>
+<span id="cb126-4"><a href="functions-and-control-flow-statements.html#cb126-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb126-5"><a href="functions-and-control-flow-statements.html#cb126-5" aria-hidden="true" tabindex="-1"></a>flips</span>
+<span id="cb126-6"><a href="functions-and-control-flow-statements.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></span>
+<span id="cb126-7"><a href="functions-and-control-flow-statements.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
+<span id="cb126-8"><a href="functions-and-control-flow-statements.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [19] &quot;tails&quot; &quot;tails&quot;</span></span></code></pre></div>
 <p>Let’s use a <code>for</code> loop to create a <code>multi.coin.flip</code> function thats accepts an optional argument <code>n</code> that specifies the number of coin flips to carry out:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1">multi.coin.flip &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n =</span> <span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb127-2" title="2">  <span class="co"># create an empty character vector of length n</span></a>
-<a class="sourceLine" id="cb127-3" title="3">  <span class="co"># it&#39;s more efficient to create an empty vector of the right</span></a>
-<a class="sourceLine" id="cb127-4" title="4">  <span class="co"># length than to &quot;grow&quot; a vector with each iteration</span></a>
-<a class="sourceLine" id="cb127-5" title="5">  flips &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode=</span><span class="st">&quot;character&quot;</span>, <span class="dt">length=</span>n)  </a>
-<a class="sourceLine" id="cb127-6" title="6">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) {</a>
-<a class="sourceLine" id="cb127-7" title="7">    flips[i] &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()</a>
-<a class="sourceLine" id="cb127-8" title="8">  }</a>
-<a class="sourceLine" id="cb127-9" title="9">  flips</a>
-<a class="sourceLine" id="cb127-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="functions-and-control-flow-statements.html#cb127-1" aria-hidden="true" tabindex="-1"></a>multi.coin.flip <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">1</span>) {</span>
+<span id="cb127-2"><a href="functions-and-control-flow-statements.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create an empty character vector of length n</span></span>
+<span id="cb127-3"><a href="functions-and-control-flow-statements.html#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># it&#39;s more efficient to create an empty vector of the right</span></span>
+<span id="cb127-4"><a href="functions-and-control-flow-statements.html#cb127-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># length than to &quot;grow&quot; a vector with each iteration</span></span>
+<span id="cb127-5"><a href="functions-and-control-flow-statements.html#cb127-5" aria-hidden="true" tabindex="-1"></a>  flips <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">&quot;character&quot;</span>, <span class="at">length=</span>n)  </span>
+<span id="cb127-6"><a href="functions-and-control-flow-statements.html#cb127-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb127-7"><a href="functions-and-control-flow-statements.html#cb127-7" aria-hidden="true" tabindex="-1"></a>    flips[i] <span class="ot">&lt;-</span> <span class="fu">coin.flip</span>()</span>
+<span id="cb127-8"><a href="functions-and-control-flow-statements.html#cb127-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb127-9"><a href="functions-and-control-flow-statements.html#cb127-9" aria-hidden="true" tabindex="-1"></a>  flips</span>
+<span id="cb127-10"><a href="functions-and-control-flow-statements.html#cb127-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>With this new definition, a single call of <code>coin.flip</code> returns a single outcome:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1"><span class="kw">multi.coin.flip</span>()</a>
-<a class="sourceLine" id="cb128-2" title="2"><span class="co">## [1] &quot;tails&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="functions-and-control-flow-statements.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">multi.coin.flip</span>()</span>
+<span id="cb128-2"><a href="functions-and-control-flow-statements.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;tails&quot;</span></span></code></pre></div>
 <p>And calling <code>multi.coin.flip</code> with a numeric argument returns multiple coin flips:</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="kw">multi.coin.flip</span>(<span class="dt">n=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb129-2" title="2"><span class="co">##  [1] &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span></a>
-<a class="sourceLine" id="cb129-3" title="3"><span class="co">## [10] &quot;tails&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="functions-and-control-flow-statements.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">multi.coin.flip</span>(<span class="at">n=</span><span class="dv">10</span>)</span>
+<span id="cb129-2"><a href="functions-and-control-flow-statements.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
+<span id="cb129-3"><a href="functions-and-control-flow-statements.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;tails&quot;</span></span></code></pre></div>
 </div>
-<div id="break-statement" class="section level3">
+<div id="break-statement" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> <code>break</code> statement</h3>
 <p>A <code>break</code> statement allows you to exit a loop even if it hasn’t completed. This is useful for ending a control statement when some criteria has been satisfied. <code>break</code> statements are usually nested in <code>if</code> statements.</p>
 <p>In the following example we use a <code>break</code> statement inside a <code>for</code> loop. In this example, we pick random real numbers between 0 and 1, accumulating them in a vector (<code>random.numbers</code>). The <code>for</code> loop insures that we never pick more than 20 random numbers before the loop ends. However, the <code>break</code> statement allows the loop to end prematurely if the number picked is greater than 0.95.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
-<a class="sourceLine" id="cb130-2" title="2"></a>
-<a class="sourceLine" id="cb130-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb130-4" title="4">  x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb130-5" title="5">  random.numbers &lt;-<span class="st"> </span><span class="kw">c</span>(random.numbers, x)</a>
-<a class="sourceLine" id="cb130-6" title="6">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.95</span>) {</a>
-<a class="sourceLine" id="cb130-7" title="7">    <span class="cf">break</span></a>
-<a class="sourceLine" id="cb130-8" title="8">  }</a>
-<a class="sourceLine" id="cb130-9" title="9">}</a>
-<a class="sourceLine" id="cb130-10" title="10"></a>
-<a class="sourceLine" id="cb130-11" title="11">random.numbers</a>
-<a class="sourceLine" id="cb130-12" title="12"><span class="co">## [1] 0.3958900 0.3041062 0.6094415 0.5865021 0.2046137 0.3779727 0.9634595</span></a></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="functions-and-control-flow-statements.html#cb130-1" aria-hidden="true" tabindex="-1"></a>random.numbers <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb130-2"><a href="functions-and-control-flow-statements.html#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="functions-and-control-flow-statements.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb130-4"><a href="functions-and-control-flow-statements.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb130-5"><a href="functions-and-control-flow-statements.html#cb130-5" aria-hidden="true" tabindex="-1"></a>  random.numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(random.numbers, x)</span>
+<span id="cb130-6"><a href="functions-and-control-flow-statements.html#cb130-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="fl">0.95</span>) {</span>
+<span id="cb130-7"><a href="functions-and-control-flow-statements.html#cb130-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb130-8"><a href="functions-and-control-flow-statements.html#cb130-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb130-9"><a href="functions-and-control-flow-statements.html#cb130-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb130-10"><a href="functions-and-control-flow-statements.html#cb130-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-11"><a href="functions-and-control-flow-statements.html#cb130-11" aria-hidden="true" tabindex="-1"></a>random.numbers</span>
+<span id="cb130-12"><a href="functions-and-control-flow-statements.html#cb130-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4821866 0.9893096</span></span></code></pre></div>
 </div>
-<div id="repeat-loops" class="section level3">
+<div id="repeat-loops" class="section level3" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> <code>repeat</code> loops</h3>
 <p>A <code>repeat</code> loop will loop indefinitely until we explicitly break out of the loop with a <code>break</code> statement. For example, here’s an example of how we can use <code>repeat</code> and <code>break</code> to simulate flipping coins until we get a head:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1">ct &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb131-2" title="2"><span class="cf">repeat</span> {</a>
-<a class="sourceLine" id="cb131-3" title="3">  flip &lt;-<span class="st"> </span><span class="kw">coin.flip</span>()</a>
-<a class="sourceLine" id="cb131-4" title="4">  ct &lt;-<span class="st"> </span>ct <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb131-5" title="5">  <span class="cf">if</span> (flip <span class="op">==</span><span class="st"> &quot;heads&quot;</span>){</a>
-<a class="sourceLine" id="cb131-6" title="6">    <span class="cf">break</span></a>
-<a class="sourceLine" id="cb131-7" title="7">  }</a>
-<a class="sourceLine" id="cb131-8" title="8">}</a>
-<a class="sourceLine" id="cb131-9" title="9"></a>
-<a class="sourceLine" id="cb131-10" title="10">ct</a>
-<a class="sourceLine" id="cb131-11" title="11"><span class="co">## [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="functions-and-control-flow-statements.html#cb131-1" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb131-2"><a href="functions-and-control-flow-statements.html#cb131-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb131-3"><a href="functions-and-control-flow-statements.html#cb131-3" aria-hidden="true" tabindex="-1"></a>  flip <span class="ot">&lt;-</span> <span class="fu">coin.flip</span>()</span>
+<span id="cb131-4"><a href="functions-and-control-flow-statements.html#cb131-4" aria-hidden="true" tabindex="-1"></a>  ct <span class="ot">&lt;-</span> ct <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb131-5"><a href="functions-and-control-flow-statements.html#cb131-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (flip <span class="sc">==</span> <span class="st">&quot;heads&quot;</span>){</span>
+<span id="cb131-6"><a href="functions-and-control-flow-statements.html#cb131-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb131-7"><a href="functions-and-control-flow-statements.html#cb131-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb131-8"><a href="functions-and-control-flow-statements.html#cb131-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb131-9"><a href="functions-and-control-flow-statements.html#cb131-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb131-10"><a href="functions-and-control-flow-statements.html#cb131-10" aria-hidden="true" tabindex="-1"></a>ct</span>
+<span id="cb131-11"><a href="functions-and-control-flow-statements.html#cb131-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span></code></pre></div>
 </div>
-<div id="next-statement" class="section level3">
+<div id="next-statement" class="section level3" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> <code>next</code> statement</h3>
 <p>A <code>next</code> satement allows you to halt the processing of the current iteration of a loop and immediately move to the next item of the loop. This is useful when you want to skip calculations for certain elements of a sequence:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1">sum.not.div3 &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb132-2" title="2"></a>
-<a class="sourceLine" id="cb132-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>) {</a>
-<a class="sourceLine" id="cb132-4" title="4">  <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">3</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) { <span class="co"># skip summing values that are evenly divisible by three</span></a>
-<a class="sourceLine" id="cb132-5" title="5">    <span class="cf">next</span></a>
-<a class="sourceLine" id="cb132-6" title="6">  }</a>
-<a class="sourceLine" id="cb132-7" title="7">  sum.not.div3 &lt;-<span class="st"> </span>sum.not.div3 <span class="op">+</span><span class="st"> </span>i</a>
-<a class="sourceLine" id="cb132-8" title="8">}</a>
-<a class="sourceLine" id="cb132-9" title="9">sum.not.div3</a>
-<a class="sourceLine" id="cb132-10" title="10"><span class="co">## [1] 147</span></a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="functions-and-control-flow-statements.html#cb132-1" aria-hidden="true" tabindex="-1"></a>sum.not.div3 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb132-2"><a href="functions-and-control-flow-statements.html#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="functions-and-control-flow-statements.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) {</span>
+<span id="cb132-4"><a href="functions-and-control-flow-statements.html#cb132-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span>) { <span class="co"># skip summing values that are evenly divisible by three</span></span>
+<span id="cb132-5"><a href="functions-and-control-flow-statements.html#cb132-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span></span>
+<span id="cb132-6"><a href="functions-and-control-flow-statements.html#cb132-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb132-7"><a href="functions-and-control-flow-statements.html#cb132-7" aria-hidden="true" tabindex="-1"></a>  sum.not.div3 <span class="ot">&lt;-</span> sum.not.div3 <span class="sc">+</span> i</span>
+<span id="cb132-8"><a href="functions-and-control-flow-statements.html#cb132-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb132-9"><a href="functions-and-control-flow-statements.html#cb132-9" aria-hidden="true" tabindex="-1"></a>sum.not.div3</span>
+<span id="cb132-10"><a href="functions-and-control-flow-statements.html#cb132-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 147</span></span></code></pre></div>
 </div>
-<div id="while-statements" class="section level3">
+<div id="while-statements" class="section level3" number="5.2.6">
 <h3><span class="header-section-number">5.2.6</span> while statements</h3>
 <p>A <code>while</code> statement iterates as long as the condition statement it contains is true. In the following example, the <code>while</code> loop calls <code>coin.flip</code> until “heads” is the result, and keeps track of the number of flips. Note that this represents the same logic as the <code>repeat-break</code> example we saw earlier, but in a a more compact form.</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1">first.head &lt;-<span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb133-2" title="2"></a>
-<a class="sourceLine" id="cb133-3" title="3"><span class="cf">while</span>(<span class="kw">coin.flip</span>() <span class="op">==</span><span class="st"> &quot;tails&quot;</span>){</a>
-<a class="sourceLine" id="cb133-4" title="4">  first.head &lt;-<span class="st"> </span>first.head <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb133-5" title="5">}</a>
-<a class="sourceLine" id="cb133-6" title="6"></a>
-<a class="sourceLine" id="cb133-7" title="7">first.head</a>
-<a class="sourceLine" id="cb133-8" title="8"><span class="co">## [1] 1</span></a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="functions-and-control-flow-statements.html#cb133-1" aria-hidden="true" tabindex="-1"></a>first.head <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb133-2"><a href="functions-and-control-flow-statements.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="functions-and-control-flow-statements.html#cb133-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="fu">coin.flip</span>() <span class="sc">==</span> <span class="st">&quot;tails&quot;</span>){</span>
+<span id="cb133-4"><a href="functions-and-control-flow-statements.html#cb133-4" aria-hidden="true" tabindex="-1"></a>  first.head <span class="ot">&lt;-</span> first.head <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb133-5"><a href="functions-and-control-flow-statements.html#cb133-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb133-6"><a href="functions-and-control-flow-statements.html#cb133-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-7"><a href="functions-and-control-flow-statements.html#cb133-7" aria-hidden="true" tabindex="-1"></a>first.head</span>
+<span id="cb133-8"><a href="functions-and-control-flow-statements.html#cb133-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code></pre></div>
 </div>
-<div id="ifelse" class="section level3">
+<div id="ifelse" class="section level3" number="5.2.7">
 <h3><span class="header-section-number">5.2.7</span> <code>ifelse</code></h3>
 <p>The <code>ifelse</code> function is equivalent to a <code>for</code>-loop with a nested <code>if-else</code> statement. <code>ifelse</code> applies the specified test to each element of a vector, and returns different values depending on if the test is true or false.</p>
 <p>Here’s an example of using <code>ifelse</code> to replace <code>NA</code> elements in a vector with zeros.</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb134-2" title="2">newx &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.na</span>(x), <span class="dv">0</span>, x)</a>
-<a class="sourceLine" id="cb134-3" title="3">newx</a>
-<a class="sourceLine" id="cb134-4" title="4"><span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="functions-and-control-flow-statements.html#cb134-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="cn">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb134-2"><a href="functions-and-control-flow-statements.html#cb134-2" aria-hidden="true" tabindex="-1"></a>newx <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(x), <span class="dv">0</span>, x)</span>
+<span id="cb134-3"><a href="functions-and-control-flow-statements.html#cb134-3" aria-hidden="true" tabindex="-1"></a>newx</span>
+<span id="cb134-4"><a href="functions-and-control-flow-statements.html#cb134-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 3 1 4 5 9 0 2 6 5 4</span></span></code></pre></div>
 <p>The equivalent for-loop could be written as:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb135-2" title="2">newx &lt;-<span class="st"> </span><span class="kw">c</span>()  <span class="co"># create an empty vector</span></a>
-<a class="sourceLine" id="cb135-3" title="3"><span class="cf">for</span> (elem <span class="cf">in</span> x) {</a>
-<a class="sourceLine" id="cb135-4" title="4">  <span class="cf">if</span> (<span class="kw">is.na</span>(elem)) {</a>
-<a class="sourceLine" id="cb135-5" title="5">    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, <span class="dv">0</span>)  <span class="co"># append zero to newx</span></a>
-<a class="sourceLine" id="cb135-6" title="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb135-7" title="7">    newx &lt;-<span class="st"> </span><span class="kw">c</span>(newx, elem)  <span class="co"># append elem to newx</span></a>
-<a class="sourceLine" id="cb135-8" title="8">  }</a>
-<a class="sourceLine" id="cb135-9" title="9">}</a>
-<a class="sourceLine" id="cb135-10" title="10">newx</a>
-<a class="sourceLine" id="cb135-11" title="11"><span class="co">##  [1] 3 1 4 5 9 0 2 6 5 4</span></a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="functions-and-control-flow-statements.html#cb135-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="cn">NA</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb135-2"><a href="functions-and-control-flow-statements.html#cb135-2" aria-hidden="true" tabindex="-1"></a>newx <span class="ot">&lt;-</span> <span class="fu">c</span>()  <span class="co"># create an empty vector</span></span>
+<span id="cb135-3"><a href="functions-and-control-flow-statements.html#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (elem <span class="cf">in</span> x) {</span>
+<span id="cb135-4"><a href="functions-and-control-flow-statements.html#cb135-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(elem)) {</span>
+<span id="cb135-5"><a href="functions-and-control-flow-statements.html#cb135-5" aria-hidden="true" tabindex="-1"></a>    newx <span class="ot">&lt;-</span> <span class="fu">c</span>(newx, <span class="dv">0</span>)  <span class="co"># append zero to newx</span></span>
+<span id="cb135-6"><a href="functions-and-control-flow-statements.html#cb135-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb135-7"><a href="functions-and-control-flow-statements.html#cb135-7" aria-hidden="true" tabindex="-1"></a>    newx <span class="ot">&lt;-</span> <span class="fu">c</span>(newx, elem)  <span class="co"># append elem to newx</span></span>
+<span id="cb135-8"><a href="functions-and-control-flow-statements.html#cb135-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb135-9"><a href="functions-and-control-flow-statements.html#cb135-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb135-10"><a href="functions-and-control-flow-statements.html#cb135-10" aria-hidden="true" tabindex="-1"></a>newx</span>
+<span id="cb135-11"><a href="functions-and-control-flow-statements.html#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 3 1 4 5 9 0 2 6 5 4</span></span></code></pre></div>
 <p>The <code>ifelse</code> function is clearly a more compact and readable way to accomplish this.</p>
 </div>
 </div>
-<div id="map-and-related-tools" class="section level2">
+<div id="map-and-related-tools" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> <code>map</code> and related tools</h2>
 <p>Another common situation is applying a function to every element of a list or vector. Again, we could use a <code>for</code> loop, but the <code>map</code> functions often are better alternatives.</p>
 <p>NOTE: <code>map</code> is a relative newcomer to R and must be loaded with the <code>purrr</code> package (<code>purrr</code> is loaded when we load <code>tidyverse</code>). Although base R has a complicated series of “apply” functions (<code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>vapply</code>, <code>mapply</code>), <code>map</code> provides similar functionality with a more consistent interface. We won’t use the <code>apply</code> functions in this class, but you may see them in older code.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="functions-and-control-flow-statements.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb136-2"><a href="functions-and-control-flow-statements.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Attaching packages ─────────────── tidyverse 1.3.0 ──</span></span>
+<span id="cb136-3"><a href="functions-and-control-flow-statements.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4</span></span>
+<span id="cb136-4"><a href="functions-and-control-flow-statements.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ tibble  3.0.3     ✓ dplyr   1.0.2</span></span>
+<span id="cb136-5"><a href="functions-and-control-flow-statements.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ tidyr   1.1.2     ✓ stringr 1.4.0</span></span>
+<span id="cb136-6"><a href="functions-and-control-flow-statements.html#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ readr   1.4.0     ✓ forcats 0.5.0</span></span>
+<span id="cb136-7"><a href="functions-and-control-flow-statements.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Conflicts ────────────────── tidyverse_conflicts() ──</span></span>
+<span id="cb136-8"><a href="functions-and-control-flow-statements.html#cb136-8" aria-hidden="true" tabindex="-1"></a><span class="do">## x dplyr::filter() masks stats::filter()</span></span>
+<span id="cb136-9"><a href="functions-and-control-flow-statements.html#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="do">## x dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
 <hr />
-<div id="basic-map" class="section level3">
+<div id="basic-map" class="section level3" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> basic <code>map</code></h3>
 <p>Typically, <code>map</code> takes two arguments – a sequence (a vector, list, or data frame) and a function. It then applies the function to each element of the sequence, returning the results as a list.</p>
 <p>To illustrate <code>map</code>, let’s consider an example with a list of 2-vectors, where each vector gives the min and max values of some variable of interest for individuals in a sample (e.g. resting heart rate and maximum heart rate during exercise). We can use the <code>map</code> function to quickly generate the difference between the resting and maximum heart rates:</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1">heart.rates &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">bob =</span> <span class="kw">c</span>(<span class="dv">60</span>, <span class="dv">120</span>), <span class="dt">fred =</span> <span class="kw">c</span>(<span class="dv">79</span>, <span class="dv">150</span>), <span class="dt">jim =</span> <span class="kw">c</span>(<span class="dv">66</span>, <span class="dv">110</span>))</a>
-<a class="sourceLine" id="cb137-2" title="2">diff.fxn &lt;-<span class="st"> </span><span class="cf">function</span>(x) {x[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>x[<span class="dv">1</span>]}</a>
-<a class="sourceLine" id="cb137-3" title="3"></a>
-<a class="sourceLine" id="cb137-4" title="4"><span class="kw">map</span>(heart.rates, diff.fxn)</a>
-<a class="sourceLine" id="cb137-5" title="5"><span class="co">## $bob</span></a>
-<a class="sourceLine" id="cb137-6" title="6"><span class="co">## [1] 60</span></a>
-<a class="sourceLine" id="cb137-7" title="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb137-8" title="8"><span class="co">## $fred</span></a>
-<a class="sourceLine" id="cb137-9" title="9"><span class="co">## [1] 71</span></a>
-<a class="sourceLine" id="cb137-10" title="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb137-11" title="11"><span class="co">## $jim</span></a>
-<a class="sourceLine" id="cb137-12" title="12"><span class="co">## [1] 44</span></a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="functions-and-control-flow-statements.html#cb137-1" aria-hidden="true" tabindex="-1"></a>heart.rates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">bob =</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">120</span>), <span class="at">fred =</span> <span class="fu">c</span>(<span class="dv">79</span>, <span class="dv">150</span>), <span class="at">jim =</span> <span class="fu">c</span>(<span class="dv">66</span>, <span class="dv">110</span>))</span>
+<span id="cb137-2"><a href="functions-and-control-flow-statements.html#cb137-2" aria-hidden="true" tabindex="-1"></a>diff.fxn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x[<span class="dv">2</span>] <span class="sc">-</span> x[<span class="dv">1</span>]}</span>
+<span id="cb137-3"><a href="functions-and-control-flow-statements.html#cb137-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-4"><a href="functions-and-control-flow-statements.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(heart.rates, diff.fxn)</span>
+<span id="cb137-5"><a href="functions-and-control-flow-statements.html#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="do">## $bob</span></span>
+<span id="cb137-6"><a href="functions-and-control-flow-statements.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 60</span></span>
+<span id="cb137-7"><a href="functions-and-control-flow-statements.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb137-8"><a href="functions-and-control-flow-statements.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="do">## $fred</span></span>
+<span id="cb137-9"><a href="functions-and-control-flow-statements.html#cb137-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 71</span></span>
+<span id="cb137-10"><a href="functions-and-control-flow-statements.html#cb137-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb137-11"><a href="functions-and-control-flow-statements.html#cb137-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $jim</span></span>
+<span id="cb137-12"><a href="functions-and-control-flow-statements.html#cb137-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 44</span></span></code></pre></div>
 <p>As a second example, here’s how we could use <code>map</code> to get the class of each object in a list:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1">x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="kw">list</span>(<span class="dt">lead =</span> <span class="st">&quot;Michael&quot;</span>, <span class="dt">keyboard =</span> <span class="st">&quot;Jermaine&quot;</span>))</a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="kw">map</span>(x, class)</a>
-<a class="sourceLine" id="cb138-3" title="3"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb138-4" title="4"><span class="co">## [1] &quot;numeric&quot;</span></a>
-<a class="sourceLine" id="cb138-5" title="5"><span class="co">## </span></a>
-<a class="sourceLine" id="cb138-6" title="6"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb138-7" title="7"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb138-8" title="8"><span class="co">## </span></a>
-<a class="sourceLine" id="cb138-9" title="9"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb138-10" title="10"><span class="co">## [1] &quot;character&quot;</span></a>
-<a class="sourceLine" id="cb138-11" title="11"><span class="co">## </span></a>
-<a class="sourceLine" id="cb138-12" title="12"><span class="co">## [[4]]</span></a>
-<a class="sourceLine" id="cb138-13" title="13"><span class="co">## [1] &quot;list&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="functions-and-control-flow-statements.html#cb138-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="fu">list</span>(<span class="at">lead =</span> <span class="st">&quot;Michael&quot;</span>, <span class="at">keyboard =</span> <span class="st">&quot;Jermaine&quot;</span>))</span>
+<span id="cb138-2"><a href="functions-and-control-flow-statements.html#cb138-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(x, class)</span>
+<span id="cb138-3"><a href="functions-and-control-flow-statements.html#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [[1]]</span></span>
+<span id="cb138-4"><a href="functions-and-control-flow-statements.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;numeric&quot;</span></span>
+<span id="cb138-5"><a href="functions-and-control-flow-statements.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb138-6"><a href="functions-and-control-flow-statements.html#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [[2]]</span></span>
+<span id="cb138-7"><a href="functions-and-control-flow-statements.html#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
+<span id="cb138-8"><a href="functions-and-control-flow-statements.html#cb138-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb138-9"><a href="functions-and-control-flow-statements.html#cb138-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [[3]]</span></span>
+<span id="cb138-10"><a href="functions-and-control-flow-statements.html#cb138-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
+<span id="cb138-11"><a href="functions-and-control-flow-statements.html#cb138-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb138-12"><a href="functions-and-control-flow-statements.html#cb138-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [[4]]</span></span>
+<span id="cb138-13"><a href="functions-and-control-flow-statements.html#cb138-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;list&quot;</span></span></code></pre></div>
 <hr />
 </div>
-<div id="map_if-and-map_at" class="section level3">
+<div id="map_if-and-map_at" class="section level3" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> <code>map_if</code> and <code>map_at</code></h3>
 <p><code>map_if</code> is a variant of <code>map</code> that takes a predicate function (a function that evaluates to TRUE or FALSE) to determine which elements of the input sequence are transformed by the map function. All elements of the sequence that do not meet the predicate are left un-transformed. Like <code>map</code>, <code>map_if</code> always returns a list.</p>
 <p>Here’s an example where we use <code>map_if</code> to apply the <code>stringr::str_to_upper</code> function to those columns of a data frame that are character vectors, and apply <code>abs</code> to obtain the absolute value of a numeric column:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1">a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb139-2" title="2">b &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>)</a>
-<a class="sourceLine" id="cb139-3" title="3">c &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;u&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;w&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</a>
-<a class="sourceLine" id="cb139-4" title="4">df &lt;-<span class="st"> </span><span class="kw">data_frame</span>(a, b, c)</a>
-<a class="sourceLine" id="cb139-5" title="5"><span class="kw">head</span>(df)</a>
-<a class="sourceLine" id="cb139-6" title="6"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb139-7" title="7"><span class="co">##         a b     c    </span></a>
-<a class="sourceLine" id="cb139-8" title="8"><span class="co">##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb139-9" title="9"><span class="co">## 1  0.321  a     u    </span></a>
-<a class="sourceLine" id="cb139-10" title="10"><span class="co">## 2  0.498  b     v    </span></a>
-<a class="sourceLine" id="cb139-11" title="11"><span class="co">## 3  0.0906 c     w    </span></a>
-<a class="sourceLine" id="cb139-12" title="12"><span class="co">## 4 -3.50   d     x    </span></a>
-<a class="sourceLine" id="cb139-13" title="13"><span class="co">## 5 -0.499  e     y    </span></a>
-<a class="sourceLine" id="cb139-14" title="14"><span class="co">## 6 -0.622  f     z</span></a>
-<a class="sourceLine" id="cb139-15" title="15"></a>
-<a class="sourceLine" id="cb139-16" title="16">df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df, is.character, str_to_upper)</a>
-<a class="sourceLine" id="cb139-17" title="17">df2 &lt;-<span class="st"> </span><span class="kw">map_if</span>(df2, is.numeric, abs)</a>
-<a class="sourceLine" id="cb139-18" title="18"><span class="kw">head</span>(df2)</a>
-<a class="sourceLine" id="cb139-19" title="19"><span class="co">## $a</span></a>
-<a class="sourceLine" id="cb139-20" title="20"><span class="co">## [1] 0.32054824 0.49756946 0.09058403 3.49604835 0.49885159 0.62241553</span></a>
-<a class="sourceLine" id="cb139-21" title="21"><span class="co">## </span></a>
-<a class="sourceLine" id="cb139-22" title="22"><span class="co">## $b</span></a>
-<a class="sourceLine" id="cb139-23" title="23"><span class="co">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></a>
-<a class="sourceLine" id="cb139-24" title="24"><span class="co">## </span></a>
-<a class="sourceLine" id="cb139-25" title="25"><span class="co">## $c</span></a>
-<a class="sourceLine" id="cb139-26" title="26"><span class="co">## [1] &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="functions-and-control-flow-statements.html#cb139-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">6</span>)</span>
+<span id="cb139-2"><a href="functions-and-control-flow-statements.html#cb139-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;f&quot;</span>)</span>
+<span id="cb139-3"><a href="functions-and-control-flow-statements.html#cb139-3" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;u&quot;</span>, <span class="st">&quot;v&quot;</span>, <span class="st">&quot;w&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>)</span>
+<span id="cb139-4"><a href="functions-and-control-flow-statements.html#cb139-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(a, b, c)</span>
+<span id="cb139-5"><a href="functions-and-control-flow-statements.html#cb139-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb139-6"><a href="functions-and-control-flow-statements.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
+<span id="cb139-7"><a href="functions-and-control-flow-statements.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="do">##        a b     c    </span></span>
+<span id="cb139-8"><a href="functions-and-control-flow-statements.html#cb139-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb139-9"><a href="functions-and-control-flow-statements.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  0.206 a     u    </span></span>
+<span id="cb139-10"><a href="functions-and-control-flow-statements.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -2.16  b     v    </span></span>
+<span id="cb139-11"><a href="functions-and-control-flow-statements.html#cb139-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 -0.313 c     w    </span></span>
+<span id="cb139-12"><a href="functions-and-control-flow-statements.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 -0.564 d     x    </span></span>
+<span id="cb139-13"><a href="functions-and-control-flow-statements.html#cb139-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  0.653 e     y    </span></span>
+<span id="cb139-14"><a href="functions-and-control-flow-statements.html#cb139-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  1.29  f     z</span></span>
+<span id="cb139-15"><a href="functions-and-control-flow-statements.html#cb139-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-16"><a href="functions-and-control-flow-statements.html#cb139-16" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">map_if</span>(df, is.character, str_to_upper)</span>
+<span id="cb139-17"><a href="functions-and-control-flow-statements.html#cb139-17" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">map_if</span>(df2, is.numeric, abs)</span>
+<span id="cb139-18"><a href="functions-and-control-flow-statements.html#cb139-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2)</span>
+<span id="cb139-19"><a href="functions-and-control-flow-statements.html#cb139-19" aria-hidden="true" tabindex="-1"></a><span class="do">## $a</span></span>
+<span id="cb139-20"><a href="functions-and-control-flow-statements.html#cb139-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2055896 2.1615403 0.3134579 0.5635013 0.6531054 1.2947438</span></span>
+<span id="cb139-21"><a href="functions-and-control-flow-statements.html#cb139-21" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb139-22"><a href="functions-and-control-flow-statements.html#cb139-22" aria-hidden="true" tabindex="-1"></a><span class="do">## $b</span></span>
+<span id="cb139-23"><a href="functions-and-control-flow-statements.html#cb139-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></span>
+<span id="cb139-24"><a href="functions-and-control-flow-statements.html#cb139-24" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb139-25"><a href="functions-and-control-flow-statements.html#cb139-25" aria-hidden="true" tabindex="-1"></a><span class="do">## $c</span></span>
+<span id="cb139-26"><a href="functions-and-control-flow-statements.html#cb139-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</span></span></code></pre></div>
 <p>Note that <code>df2</code> is a list, not a data frame. We can convert <code>df2</code> to a data frame <code>df3</code>, using the <code>as_data_frame()</code> function:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1"><span class="co"># Next, create data frame df3 </span></a>
-<a class="sourceLine" id="cb140-2" title="2">df3 &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(df2)</a>
-<a class="sourceLine" id="cb140-3" title="3"><span class="kw">head</span>(df3)</a>
-<a class="sourceLine" id="cb140-4" title="4"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb140-5" title="5"><span class="co">##        a b     c    </span></a>
-<a class="sourceLine" id="cb140-6" title="6"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb140-7" title="7"><span class="co">## 1 0.321  A     U    </span></a>
-<a class="sourceLine" id="cb140-8" title="8"><span class="co">## 2 0.498  B     V    </span></a>
-<a class="sourceLine" id="cb140-9" title="9"><span class="co">## 3 0.0906 C     W    </span></a>
-<a class="sourceLine" id="cb140-10" title="10"><span class="co">## 4 3.50   D     X    </span></a>
-<a class="sourceLine" id="cb140-11" title="11"><span class="co">## 5 0.499  E     Y    </span></a>
-<a class="sourceLine" id="cb140-12" title="12"><span class="co">## 6 0.622  F     Z</span></a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="functions-and-control-flow-statements.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Next, create data frame df3 </span></span>
+<span id="cb140-2"><a href="functions-and-control-flow-statements.html#cb140-2" aria-hidden="true" tabindex="-1"></a>df3 <span class="ot">&lt;-</span> <span class="fu">as_data_frame</span>(df2)</span>
+<span id="cb140-3"><a href="functions-and-control-flow-statements.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df3)</span>
+<span id="cb140-4"><a href="functions-and-control-flow-statements.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
+<span id="cb140-5"><a href="functions-and-control-flow-statements.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="do">##       a b     c    </span></span>
+<span id="cb140-6"><a href="functions-and-control-flow-statements.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb140-7"><a href="functions-and-control-flow-statements.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.206 A     U    </span></span>
+<span id="cb140-8"><a href="functions-and-control-flow-statements.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2.16  B     V    </span></span>
+<span id="cb140-9"><a href="functions-and-control-flow-statements.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 0.313 C     W    </span></span>
+<span id="cb140-10"><a href="functions-and-control-flow-statements.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.564 D     X    </span></span>
+<span id="cb140-11"><a href="functions-and-control-flow-statements.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 0.653 E     Y    </span></span>
+<span id="cb140-12"><a href="functions-and-control-flow-statements.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.29  F     Z</span></span></code></pre></div>
 <hr />
 <p>Note that if our goal is to apply functions to the columns of a data frame, it may be easier with <code>dplyr::mutate()</code>:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"></a>
-<a class="sourceLine" id="cb141-2" title="2">df4 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb141-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">a =</span> <span class="kw">abs</span>(a),</a>
-<a class="sourceLine" id="cb141-4" title="4">         <span class="dt">b =</span> <span class="kw">str_to_upper</span>(b),</a>
-<a class="sourceLine" id="cb141-5" title="5">         <span class="dt">c =</span> <span class="kw">str_to_upper</span>(c))</a>
-<a class="sourceLine" id="cb141-6" title="6"></a>
-<a class="sourceLine" id="cb141-7" title="7"><span class="kw">head</span>(df4)</a>
-<a class="sourceLine" id="cb141-8" title="8"><span class="co">## # A tibble: 6 x 3</span></a>
-<a class="sourceLine" id="cb141-9" title="9"><span class="co">##        a b     c    </span></a>
-<a class="sourceLine" id="cb141-10" title="10"><span class="co">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></a>
-<a class="sourceLine" id="cb141-11" title="11"><span class="co">## 1 0.321  A     U    </span></a>
-<a class="sourceLine" id="cb141-12" title="12"><span class="co">## 2 0.498  B     V    </span></a>
-<a class="sourceLine" id="cb141-13" title="13"><span class="co">## 3 0.0906 C     W    </span></a>
-<a class="sourceLine" id="cb141-14" title="14"><span class="co">## 4 3.50   D     X    </span></a>
-<a class="sourceLine" id="cb141-15" title="15"><span class="co">## 5 0.499  E     Y    </span></a>
-<a class="sourceLine" id="cb141-16" title="16"><span class="co">## 6 0.622  F     Z</span></a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="functions-and-control-flow-statements.html#cb141-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-2"><a href="functions-and-control-flow-statements.html#cb141-2" aria-hidden="true" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb141-3"><a href="functions-and-control-flow-statements.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">a =</span> <span class="fu">abs</span>(a),</span>
+<span id="cb141-4"><a href="functions-and-control-flow-statements.html#cb141-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">b =</span> <span class="fu">str_to_upper</span>(b),</span>
+<span id="cb141-5"><a href="functions-and-control-flow-statements.html#cb141-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">c =</span> <span class="fu">str_to_upper</span>(c))</span>
+<span id="cb141-6"><a href="functions-and-control-flow-statements.html#cb141-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-7"><a href="functions-and-control-flow-statements.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df4)</span>
+<span id="cb141-8"><a href="functions-and-control-flow-statements.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
+<span id="cb141-9"><a href="functions-and-control-flow-statements.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="do">##       a b     c    </span></span>
+<span id="cb141-10"><a href="functions-and-control-flow-statements.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
+<span id="cb141-11"><a href="functions-and-control-flow-statements.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.206 A     U    </span></span>
+<span id="cb141-12"><a href="functions-and-control-flow-statements.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2.16  B     V    </span></span>
+<span id="cb141-13"><a href="functions-and-control-flow-statements.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 0.313 C     W    </span></span>
+<span id="cb141-14"><a href="functions-and-control-flow-statements.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.564 D     X    </span></span>
+<span id="cb141-15"><a href="functions-and-control-flow-statements.html#cb141-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 0.653 E     Y    </span></span>
+<span id="cb141-16"><a href="functions-and-control-flow-statements.html#cb141-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.29  F     Z</span></span></code></pre></div>
 <hr />
 </div>
-<div id="mapping-in-parallel-using-map2" class="section level3">
+<div id="mapping-in-parallel-using-map2" class="section level3" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> mapping in parallel using <code>map2</code></h3>
 <p>The <code>map2</code> function applies a transformation function to two sequences in parallel. The following example illustrates this:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1">first.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Fred&quot;</span>)</a>
-<a class="sourceLine" id="cb142-2" title="2">last.names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Smith&quot;</span>, <span class="st">&quot;Hernandez&quot;</span>, <span class="st">&quot;Kidogo&quot;</span>)</a>
-<a class="sourceLine" id="cb142-3" title="3"></a>
-<a class="sourceLine" id="cb142-4" title="4"><span class="kw">map2</span>(first.names, last.names, str_c, <span class="dt">sep=</span><span class="st">&quot; &quot;</span>)</a>
-<a class="sourceLine" id="cb142-5" title="5"><span class="co">## [[1]]</span></a>
-<a class="sourceLine" id="cb142-6" title="6"><span class="co">## [1] &quot;John Smith&quot;</span></a>
-<a class="sourceLine" id="cb142-7" title="7"><span class="co">## </span></a>
-<a class="sourceLine" id="cb142-8" title="8"><span class="co">## [[2]]</span></a>
-<a class="sourceLine" id="cb142-9" title="9"><span class="co">## [1] &quot;Mary Hernandez&quot;</span></a>
-<a class="sourceLine" id="cb142-10" title="10"><span class="co">## </span></a>
-<a class="sourceLine" id="cb142-11" title="11"><span class="co">## [[3]]</span></a>
-<a class="sourceLine" id="cb142-12" title="12"><span class="co">## [1] &quot;Fred Kidogo&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="functions-and-control-flow-statements.html#cb142-1" aria-hidden="true" tabindex="-1"></a>first.names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;John&quot;</span>, <span class="st">&quot;Mary&quot;</span>, <span class="st">&quot;Fred&quot;</span>)</span>
+<span id="cb142-2"><a href="functions-and-control-flow-statements.html#cb142-2" aria-hidden="true" tabindex="-1"></a>last.names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Smith&quot;</span>, <span class="st">&quot;Hernandez&quot;</span>, <span class="st">&quot;Kidogo&quot;</span>)</span>
+<span id="cb142-3"><a href="functions-and-control-flow-statements.html#cb142-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-4"><a href="functions-and-control-flow-statements.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map2</span>(first.names, last.names, str_c, <span class="at">sep=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb142-5"><a href="functions-and-control-flow-statements.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [[1]]</span></span>
+<span id="cb142-6"><a href="functions-and-control-flow-statements.html#cb142-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;John Smith&quot;</span></span>
+<span id="cb142-7"><a href="functions-and-control-flow-statements.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb142-8"><a href="functions-and-control-flow-statements.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [[2]]</span></span>
+<span id="cb142-9"><a href="functions-and-control-flow-statements.html#cb142-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Mary Hernandez&quot;</span></span>
+<span id="cb142-10"><a href="functions-and-control-flow-statements.html#cb142-10" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb142-11"><a href="functions-and-control-flow-statements.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [[3]]</span></span>
+<span id="cb142-12"><a href="functions-and-control-flow-statements.html#cb142-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Fred Kidogo&quot;</span></span></code></pre></div>
 <p>Note how we can specify arguments to the transformation function as additional arguments to <code>map2</code> (i.e., the <code>sep</code> argument gets passed to <code>str_c</code>)</p>
 <hr />
 </div>
-<div id="map-variants-that-return-vectors" class="section level3">
+<div id="map-variants-that-return-vectors" class="section level3" number="5.3.4">
 <h3><span class="header-section-number">5.3.4</span> <code>map</code> variants that return vectors</h3>
 <p><code>map</code>, <code>map_if</code>, and <code>map_at</code> <em>always return lists</em>. The <code>purrr</code> library also has a series of <code>map</code> variants that <em>return vectors</em>:</p>
 <ul>
@@ -922,27 +701,27 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <li><code>map_int</code> (integer vectors)</li>
 <li><code>map_dbl</code> (double vectors)</li>
 </ul>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="co"># compare the outputs of map and map_chr</span></a>
-<a class="sourceLine" id="cb143-2" title="2">a &lt;-<span class="st"> </span><span class="kw">map</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)</a>
-<a class="sourceLine" id="cb143-3" title="3"><span class="kw">str</span>(a)</a>
-<a class="sourceLine" id="cb143-4" title="4"><span class="co">## List of 6</span></a>
-<a class="sourceLine" id="cb143-5" title="5"><span class="co">##  $ : chr &quot;A&quot;</span></a>
-<a class="sourceLine" id="cb143-6" title="6"><span class="co">##  $ : chr &quot;B&quot;</span></a>
-<a class="sourceLine" id="cb143-7" title="7"><span class="co">##  $ : chr &quot;C&quot;</span></a>
-<a class="sourceLine" id="cb143-8" title="8"><span class="co">##  $ : chr &quot;D&quot;</span></a>
-<a class="sourceLine" id="cb143-9" title="9"><span class="co">##  $ : chr &quot;E&quot;</span></a>
-<a class="sourceLine" id="cb143-10" title="10"><span class="co">##  $ : chr &quot;F&quot;</span></a>
-<a class="sourceLine" id="cb143-11" title="11"></a>
-<a class="sourceLine" id="cb143-12" title="12">b &lt;-<span class="st"> </span><span class="kw">map_chr</span>(letters[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>], str_to_upper)</a>
-<a class="sourceLine" id="cb143-13" title="13"><span class="kw">str</span>(b) <span class="co"># a vector</span></a>
-<a class="sourceLine" id="cb143-14" title="14"><span class="co">##  chr [1:6] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="functions-and-control-flow-statements.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare the outputs of map and map_chr</span></span>
+<span id="cb143-2"><a href="functions-and-control-flow-statements.html#cb143-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">map</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], str_to_upper)</span>
+<span id="cb143-3"><a href="functions-and-control-flow-statements.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(a)</span>
+<span id="cb143-4"><a href="functions-and-control-flow-statements.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="do">## List of 6</span></span>
+<span id="cb143-5"><a href="functions-and-control-flow-statements.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;A&quot;</span></span>
+<span id="cb143-6"><a href="functions-and-control-flow-statements.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;B&quot;</span></span>
+<span id="cb143-7"><a href="functions-and-control-flow-statements.html#cb143-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;C&quot;</span></span>
+<span id="cb143-8"><a href="functions-and-control-flow-statements.html#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;D&quot;</span></span>
+<span id="cb143-9"><a href="functions-and-control-flow-statements.html#cb143-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;E&quot;</span></span>
+<span id="cb143-10"><a href="functions-and-control-flow-statements.html#cb143-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ : chr &quot;F&quot;</span></span>
+<span id="cb143-11"><a href="functions-and-control-flow-statements.html#cb143-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-12"><a href="functions-and-control-flow-statements.html#cb143-12" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">map_chr</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], str_to_upper)</span>
+<span id="cb143-13"><a href="functions-and-control-flow-statements.html#cb143-13" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(b) <span class="co"># a vector</span></span>
+<span id="cb143-14"><a href="functions-and-control-flow-statements.html#cb143-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  chr [1:6] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></span></code></pre></div>
 <p>Here’s an example using <code>map_dbl</code>, where we create a data frame with three columns, and compute the median of each column:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="co"># Make data frame for analysis</span></a>
-<a class="sourceLine" id="cb144-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">100</span>))</a>
-<a class="sourceLine" id="cb144-3" title="3"></a>
-<a class="sourceLine" id="cb144-4" title="4"><span class="kw">map_dbl</span>(df, median) <span class="co"># median of each column of df</span></a>
-<a class="sourceLine" id="cb144-5" title="5"><span class="co">##            a            b            c </span></a>
-<a class="sourceLine" id="cb144-6" title="6"><span class="co">##  0.009330202 -0.074178829 -0.156025035</span></a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="functions-and-control-flow-statements.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make data frame for analysis</span></span>
+<span id="cb144-2"><a href="functions-and-control-flow-statements.html#cb144-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb144-3"><a href="functions-and-control-flow-statements.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-4"><a href="functions-and-control-flow-statements.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(df, median) <span class="co"># median of each column of df</span></span>
+<span id="cb144-5"><a href="functions-and-control-flow-statements.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          a          b          c </span></span>
+<span id="cb144-6"><a href="functions-and-control-flow-statements.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="do">## -0.1126584  0.1177637  0.2492230</span></span></code></pre></div>
 
 </div>
 </div>
@@ -952,8 +731,8 @@ argument <code>x</code> represents the numeric vector you pass to the function a
           </div>
         </div>
       </div>
-<a href="data-structures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-structures.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

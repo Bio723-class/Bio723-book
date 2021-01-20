@@ -134,7 +134,7 @@ knitr::include_graphics("./figures/fig-code-chunk-runall.png")
 
 
 
-## "Knitting an" R Markdown to HTML
+## "Knitting" R Markdown to HTML
 
 Save your R Notebook as `first_rnotebook.Rmd` (RStudio will automatically add the `.Rmd` extension so you don't need to type it).  You can generate an HTML version of your notebook by clicking the "Preview" menu on the Notebook taskbar and then choosing "Knit to HTML" (see image below).
 

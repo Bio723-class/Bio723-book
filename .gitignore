@@ -8,3 +8,4 @@ _bookdown_files/
 _bookdown_files/bio723-book_cache/*
 _bookdown_files/bio723-book_cache/
 *.rdx
+.DS_Store

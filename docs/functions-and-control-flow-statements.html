@@ -350,7 +350,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb104-3"><a href="functions-and-control-flow-statements.html#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Dr. Paul Magwene at Duke University&quot;</span>, <span class="fu">date</span>())</span>
 <span id="cb104-4"><a href="functions-and-control-flow-statements.html#cb104-4" aria-hidden="true" tabindex="-1"></a>    } </span>
 <span id="cb104-5"><a href="functions-and-control-flow-statements.html#cb104-5" aria-hidden="true" tabindex="-1"></a><span class="fu">PrintSignature</span>() <span class="co">#run the function by its name</span></span>
-<span id="cb104-6"><a href="functions-and-control-flow-statements.html#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Dr. Paul Magwene at Duke University Wed Jan 20 13:50:54 2021&quot;</span></span></code></pre></div>
+<span id="cb104-6"><a href="functions-and-control-flow-statements.html#cb104-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Dr. Paul Magwene at Duke University Wed Jan 27 16:35:40 2021&quot;</span></span></code></pre></div>
 <p>The more general form of an R function is as follows:</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="functions-and-control-flow-statements.html#cb105-1" aria-hidden="true" tabindex="-1"></a>funcname <span class="ot">&lt;-</span> <span class="cf">function</span>(arg1, arg2) {</span>
 <span id="cb105-2"><a href="functions-and-control-flow-statements.html#cb105-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># one or more expressions that operate on the fxn arguments</span></span>
@@ -487,7 +487,7 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb121-7"><a href="functions-and-control-flow-statements.html#cb121-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb121-8"><a href="functions-and-control-flow-statements.html#cb121-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb121-9"><a href="functions-and-control-flow-statements.html#cb121-9" aria-hidden="true" tabindex="-1"></a>face</span>
-<span id="cb121-10"><a href="functions-and-control-flow-statements.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;tails&quot;</span></span></code></pre></div>
+<span id="cb121-10"><a href="functions-and-control-flow-statements.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;heads&quot;</span></span></code></pre></div>
 <p>With the addition of the <code>else</code> statement, this simple code block can be thought of as simulating the toss of a coin.</p>
 <div id="if-else-in-a-function" class="section level4" number="5.2.1.1">
 <h4><span class="header-section-number">5.2.1.1</span> <code>if-else</code> in a function</h4>
@@ -526,7 +526,7 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb124-9"><a href="functions-and-control-flow-statements.html#cb124-9" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb124-10"><a href="functions-and-control-flow-statements.html#cb124-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb124-11"><a href="functions-and-control-flow-statements.html#cb124-11" aria-hidden="true" tabindex="-1"></a>sign.x</span>
-<span id="cb124-12"><a href="functions-and-control-flow-statements.html#cb124-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Positive&quot;</span></span></code></pre></div>
+<span id="cb124-12"><a href="functions-and-control-flow-statements.html#cb124-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Negative&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="for-loops" class="section level3" number="5.2.2">
@@ -543,9 +543,9 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb126-3"><a href="functions-and-control-flow-statements.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  flips <span class="ot">&lt;-</span> <span class="fu">c</span>(flips, <span class="fu">coin.flip</span>())  <span class="co"># flip coin and add to our vector</span></span>
 <span id="cb126-4"><a href="functions-and-control-flow-statements.html#cb126-4" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb126-5"><a href="functions-and-control-flow-statements.html#cb126-5" aria-hidden="true" tabindex="-1"></a>flips</span>
-<span id="cb126-6"><a href="functions-and-control-flow-statements.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot;</span></span>
-<span id="cb126-7"><a href="functions-and-control-flow-statements.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
-<span id="cb126-8"><a href="functions-and-control-flow-statements.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [19] &quot;tails&quot; &quot;tails&quot;</span></span></code></pre></div>
+<span id="cb126-6"><a href="functions-and-control-flow-statements.html#cb126-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
+<span id="cb126-7"><a href="functions-and-control-flow-statements.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot;</span></span>
+<span id="cb126-8"><a href="functions-and-control-flow-statements.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [19] &quot;heads&quot; &quot;heads&quot;</span></span></code></pre></div>
 <p>Let’s use a <code>for</code> loop to create a <code>multi.coin.flip</code> function thats accepts an optional argument <code>n</code> that specifies the number of coin flips to carry out:</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="functions-and-control-flow-statements.html#cb127-1" aria-hidden="true" tabindex="-1"></a>multi.coin.flip <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">1</span>) {</span>
 <span id="cb127-2"><a href="functions-and-control-flow-statements.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># create an empty character vector of length n</span></span>
@@ -562,7 +562,7 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb128-2"><a href="functions-and-control-flow-statements.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;tails&quot;</span></span></code></pre></div>
 <p>And calling <code>multi.coin.flip</code> with a numeric argument returns multiple coin flips:</p>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="functions-and-control-flow-statements.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">multi.coin.flip</span>(<span class="at">n=</span><span class="dv">10</span>)</span>
-<span id="cb129-2"><a href="functions-and-control-flow-statements.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
+<span id="cb129-2"><a href="functions-and-control-flow-statements.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;tails&quot; &quot;heads&quot; &quot;heads&quot; &quot;tails&quot; &quot;tails&quot; &quot;heads&quot; &quot;tails&quot; &quot;heads&quot; &quot;heads&quot;</span></span>
 <span id="cb129-3"><a href="functions-and-control-flow-statements.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [10] &quot;tails&quot;</span></span></code></pre></div>
 </div>
 <div id="break-statement" class="section level3" number="5.2.3">
@@ -580,7 +580,7 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb130-9"><a href="functions-and-control-flow-statements.html#cb130-9" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb130-10"><a href="functions-and-control-flow-statements.html#cb130-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb130-11"><a href="functions-and-control-flow-statements.html#cb130-11" aria-hidden="true" tabindex="-1"></a>random.numbers</span>
-<span id="cb130-12"><a href="functions-and-control-flow-statements.html#cb130-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4821866 0.9893096</span></span></code></pre></div>
+<span id="cb130-12"><a href="functions-and-control-flow-statements.html#cb130-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7993929 0.9054563 0.9547424</span></span></code></pre></div>
 </div>
 <div id="repeat-loops" class="section level3" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> <code>repeat</code> loops</h3>
@@ -595,7 +595,7 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb131-8"><a href="functions-and-control-flow-statements.html#cb131-8" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb131-9"><a href="functions-and-control-flow-statements.html#cb131-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb131-10"><a href="functions-and-control-flow-statements.html#cb131-10" aria-hidden="true" tabindex="-1"></a>ct</span>
-<span id="cb131-11"><a href="functions-and-control-flow-statements.html#cb131-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 6</span></span></code></pre></div>
+<span id="cb131-11"><a href="functions-and-control-flow-statements.html#cb131-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span></code></pre></div>
 </div>
 <div id="next-statement" class="section level3" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> <code>next</code> statement</h3>
@@ -651,12 +651,12 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <p>Another common situation is applying a function to every element of a list or vector. Again, we could use a <code>for</code> loop, but the <code>map</code> functions often are better alternatives.</p>
 <p>NOTE: <code>map</code> is a relative newcomer to R and must be loaded with the <code>purrr</code> package (<code>purrr</code> is loaded when we load <code>tidyverse</code>). Although base R has a complicated series of “apply” functions (<code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>vapply</code>, <code>mapply</code>), <code>map</code> provides similar functionality with a more consistent interface. We won’t use the <code>apply</code> functions in this class, but you may see them in older code.</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="functions-and-control-flow-statements.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb136-2"><a href="functions-and-control-flow-statements.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Attaching packages ─────────────── tidyverse 1.3.0 ──</span></span>
-<span id="cb136-3"><a href="functions-and-control-flow-statements.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4</span></span>
-<span id="cb136-4"><a href="functions-and-control-flow-statements.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ tibble  3.0.3     ✓ dplyr   1.0.2</span></span>
+<span id="cb136-2"><a href="functions-and-control-flow-statements.html#cb136-2" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</span></span>
+<span id="cb136-3"><a href="functions-and-control-flow-statements.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4</span></span>
+<span id="cb136-4"><a href="functions-and-control-flow-statements.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ tibble  3.0.5     ✓ dplyr   1.0.3</span></span>
 <span id="cb136-5"><a href="functions-and-control-flow-statements.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ tidyr   1.1.2     ✓ stringr 1.4.0</span></span>
 <span id="cb136-6"><a href="functions-and-control-flow-statements.html#cb136-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ✓ readr   1.4.0     ✓ forcats 0.5.0</span></span>
-<span id="cb136-7"><a href="functions-and-control-flow-statements.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Conflicts ────────────────── tidyverse_conflicts() ──</span></span>
+<span id="cb136-7"><a href="functions-and-control-flow-statements.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span id="cb136-8"><a href="functions-and-control-flow-statements.html#cb136-8" aria-hidden="true" tabindex="-1"></a><span class="do">## x dplyr::filter() masks stats::filter()</span></span>
 <span id="cb136-9"><a href="functions-and-control-flow-statements.html#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="do">## x dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
 <hr />
@@ -704,18 +704,18 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb139-6"><a href="functions-and-control-flow-statements.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
 <span id="cb139-7"><a href="functions-and-control-flow-statements.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="do">##        a b     c    </span></span>
 <span id="cb139-8"><a href="functions-and-control-flow-statements.html#cb139-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb139-9"><a href="functions-and-control-flow-statements.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  0.206 a     u    </span></span>
-<span id="cb139-10"><a href="functions-and-control-flow-statements.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -2.16  b     v    </span></span>
-<span id="cb139-11"><a href="functions-and-control-flow-statements.html#cb139-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 -0.313 c     w    </span></span>
-<span id="cb139-12"><a href="functions-and-control-flow-statements.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 -0.564 d     x    </span></span>
-<span id="cb139-13"><a href="functions-and-control-flow-statements.html#cb139-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  0.653 e     y    </span></span>
-<span id="cb139-14"><a href="functions-and-control-flow-statements.html#cb139-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  1.29  f     z</span></span>
+<span id="cb139-9"><a href="functions-and-control-flow-statements.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  0.874 a     u    </span></span>
+<span id="cb139-10"><a href="functions-and-control-flow-statements.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -1.13  b     v    </span></span>
+<span id="cb139-11"><a href="functions-and-control-flow-statements.html#cb139-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  1.60  c     w    </span></span>
+<span id="cb139-12"><a href="functions-and-control-flow-statements.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  0.597 d     x    </span></span>
+<span id="cb139-13"><a href="functions-and-control-flow-statements.html#cb139-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 -1.50  e     y    </span></span>
+<span id="cb139-14"><a href="functions-and-control-flow-statements.html#cb139-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 -0.512 f     z</span></span>
 <span id="cb139-15"><a href="functions-and-control-flow-statements.html#cb139-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb139-16"><a href="functions-and-control-flow-statements.html#cb139-16" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">map_if</span>(df, is.character, str_to_upper)</span>
 <span id="cb139-17"><a href="functions-and-control-flow-statements.html#cb139-17" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">map_if</span>(df2, is.numeric, abs)</span>
 <span id="cb139-18"><a href="functions-and-control-flow-statements.html#cb139-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df2)</span>
 <span id="cb139-19"><a href="functions-and-control-flow-statements.html#cb139-19" aria-hidden="true" tabindex="-1"></a><span class="do">## $a</span></span>
-<span id="cb139-20"><a href="functions-and-control-flow-statements.html#cb139-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2055896 2.1615403 0.3134579 0.5635013 0.6531054 1.2947438</span></span>
+<span id="cb139-20"><a href="functions-and-control-flow-statements.html#cb139-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8735154 1.1325669 1.5962971 0.5967004 1.4963274 0.5116802</span></span>
 <span id="cb139-21"><a href="functions-and-control-flow-statements.html#cb139-21" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb139-22"><a href="functions-and-control-flow-statements.html#cb139-22" aria-hidden="true" tabindex="-1"></a><span class="do">## $b</span></span>
 <span id="cb139-23"><a href="functions-and-control-flow-statements.html#cb139-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot;</span></span>
@@ -729,12 +729,12 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb140-4"><a href="functions-and-control-flow-statements.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
 <span id="cb140-5"><a href="functions-and-control-flow-statements.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="do">##       a b     c    </span></span>
 <span id="cb140-6"><a href="functions-and-control-flow-statements.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb140-7"><a href="functions-and-control-flow-statements.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.206 A     U    </span></span>
-<span id="cb140-8"><a href="functions-and-control-flow-statements.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2.16  B     V    </span></span>
-<span id="cb140-9"><a href="functions-and-control-flow-statements.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 0.313 C     W    </span></span>
-<span id="cb140-10"><a href="functions-and-control-flow-statements.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.564 D     X    </span></span>
-<span id="cb140-11"><a href="functions-and-control-flow-statements.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 0.653 E     Y    </span></span>
-<span id="cb140-12"><a href="functions-and-control-flow-statements.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.29  F     Z</span></span></code></pre></div>
+<span id="cb140-7"><a href="functions-and-control-flow-statements.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.874 A     U    </span></span>
+<span id="cb140-8"><a href="functions-and-control-flow-statements.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1.13  B     V    </span></span>
+<span id="cb140-9"><a href="functions-and-control-flow-statements.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1.60  C     W    </span></span>
+<span id="cb140-10"><a href="functions-and-control-flow-statements.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.597 D     X    </span></span>
+<span id="cb140-11"><a href="functions-and-control-flow-statements.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1.50  E     Y    </span></span>
+<span id="cb140-12"><a href="functions-and-control-flow-statements.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 0.512 F     Z</span></span></code></pre></div>
 <hr />
 <p>Note that if our goal is to apply functions to the columns of a data frame, it may be easier with <code>dplyr::mutate()</code>:</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="functions-and-control-flow-statements.html#cb141-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -747,12 +747,12 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb141-8"><a href="functions-and-control-flow-statements.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
 <span id="cb141-9"><a href="functions-and-control-flow-statements.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="do">##       a b     c    </span></span>
 <span id="cb141-10"><a href="functions-and-control-flow-statements.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;</span></span>
-<span id="cb141-11"><a href="functions-and-control-flow-statements.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.206 A     U    </span></span>
-<span id="cb141-12"><a href="functions-and-control-flow-statements.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 2.16  B     V    </span></span>
-<span id="cb141-13"><a href="functions-and-control-flow-statements.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 0.313 C     W    </span></span>
-<span id="cb141-14"><a href="functions-and-control-flow-statements.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.564 D     X    </span></span>
-<span id="cb141-15"><a href="functions-and-control-flow-statements.html#cb141-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 0.653 E     Y    </span></span>
-<span id="cb141-16"><a href="functions-and-control-flow-statements.html#cb141-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 1.29  F     Z</span></span></code></pre></div>
+<span id="cb141-11"><a href="functions-and-control-flow-statements.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 0.874 A     U    </span></span>
+<span id="cb141-12"><a href="functions-and-control-flow-statements.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 1.13  B     V    </span></span>
+<span id="cb141-13"><a href="functions-and-control-flow-statements.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 1.60  C     W    </span></span>
+<span id="cb141-14"><a href="functions-and-control-flow-statements.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 0.597 D     X    </span></span>
+<span id="cb141-15"><a href="functions-and-control-flow-statements.html#cb141-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 1.50  E     Y    </span></span>
+<span id="cb141-16"><a href="functions-and-control-flow-statements.html#cb141-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 0.512 F     Z</span></span></code></pre></div>
 <hr />
 </div>
 <div id="mapping-in-parallel-using-map2" class="section level3" number="5.3.3">
@@ -801,8 +801,8 @@ argument <code>x</code> represents the numeric vector you pass to the function a
 <span id="cb144-2"><a href="functions-and-control-flow-statements.html#cb144-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">b =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>),<span class="at">c =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
 <span id="cb144-3"><a href="functions-and-control-flow-statements.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb144-4"><a href="functions-and-control-flow-statements.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="fu">map_dbl</span>(df, median) <span class="co"># median of each column of df</span></span>
-<span id="cb144-5"><a href="functions-and-control-flow-statements.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="do">##          a          b          c </span></span>
-<span id="cb144-6"><a href="functions-and-control-flow-statements.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="do">## -0.1126584  0.1177637  0.2492230</span></span></code></pre></div>
+<span id="cb144-5"><a href="functions-and-control-flow-statements.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="do">##           a           b           c </span></span>
+<span id="cb144-6"><a href="functions-and-control-flow-statements.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="do">## -0.10672923 -0.16857315 -0.03542569</span></span></code></pre></div>
 
 </div>
 </div>

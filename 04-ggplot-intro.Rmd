@@ -620,7 +620,7 @@ setosa.sepals +
 ```
 
 
-A hex plot is similar to a 2D bin plot but uses hexagonal regions instead of squares. Hexagonal bins are useful because they can somtimes avoid visual artefacts sometimes apparent with square bins:
+A hex plot is similar to a 2D bin plot but uses hexagonal regions instead of squares. Hexagonal bins are useful because they can  avoid visual artefacts sometimes apparent with square bins:
 
 ```{r}
 setosa.sepals + 

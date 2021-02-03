@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-02-02" />
+<meta name="date" content="2021-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -435,7 +435,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="data-wrangling.html#cb253-1" aria-hidden="true" tabindex="-1"></a>spellman.clean <span class="ot">&lt;-</span> </span>
 <span id="cb253-2"><a href="data-wrangling.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  spellman <span class="sc">%&gt;%</span></span>
 <span id="cb253-3"><a href="data-wrangling.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">gene =</span> X1)</span></code></pre></div>
-<p>Note the use of the compound assingment operator – <code>%&lt;&gt;%</code> – from the <code>magrittr</code> package, which we introduced in our last class session.</p>
 </div>
 <div id="dropping-unneeded-columns" class="section level2" number="8.4">
 <h2><span class="header-section-number">8.4</span> Dropping unneeded columns</h2>
@@ -491,24 +490,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb258-3"><a href="data-wrangling.html#cb258-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(spellman)[<span class="fu">colSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(spellman)) <span class="sc">==</span> <span class="dv">0</span>]</span>
 <span id="cb258-4"><a href="data-wrangling.html#cb258-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;clb&quot;   &quot;alpha&quot; &quot;cdc15&quot; &quot;cdc28&quot; &quot;elu&quot;</span></span></code></pre></div>
 <p>We can combine the <code>colSums(!is.na())</code> idiom with the <code>dplyr::select_if</code> function to quickly remove all empty columns as so:</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="data-wrangling.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this broke in dplyr 0.80 due to a bug (https://github.com/tidyverse/dplyr/issues/4213)</span></span>
-<span id="cb259-2"><a href="data-wrangling.html#cb259-2" aria-hidden="true" tabindex="-1"></a><span class="co"># supposedly a fix is on the way. In the iterim, a work around is included</span></span>
-<span id="cb259-3"><a href="data-wrangling.html#cb259-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb259-4"><a href="data-wrangling.html#cb259-4" aria-hidden="true" tabindex="-1"></a><span class="co">#spellman.clean %&lt;&gt;%</span></span>
-<span id="cb259-5"><a href="data-wrangling.html#cb259-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># keep ONLY the non-empty columns</span></span>
-<span id="cb259-6"><a href="data-wrangling.html#cb259-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select_if(colSums(!is.na(.)) &gt; 0)  </span></span>
-<span id="cb259-7"><a href="data-wrangling.html#cb259-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb259-8"><a href="data-wrangling.html#cb259-8" aria-hidden="true" tabindex="-1"></a>not.all.na <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { </span>
-<span id="cb259-9"><a href="data-wrangling.html#cb259-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
-<span id="cb259-10"><a href="data-wrangling.html#cb259-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
-<span id="cb259-11"><a href="data-wrangling.html#cb259-11" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb259-12"><a href="data-wrangling.html#cb259-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span> {</span>
-<span id="cb259-13"><a href="data-wrangling.html#cb259-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb259-14"><a href="data-wrangling.html#cb259-14" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb259-15"><a href="data-wrangling.html#cb259-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb259-16"><a href="data-wrangling.html#cb259-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb259-17"><a href="data-wrangling.html#cb259-17" aria-hidden="true" tabindex="-1"></a>spellman.clean <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb259-18"><a href="data-wrangling.html#cb259-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(not.all.na)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="data-wrangling.html#cb259-1" aria-hidden="true" tabindex="-1"></a>spellman.clean <span class="sc">%&lt;&gt;%</span>   <span class="co"># note use of magritrr $&lt;&gt;% operator here</span></span>
+<span id="cb259-2"><a href="data-wrangling.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#keep ONLY the non-empty columns</span></span>
+<span id="cb259-3"><a href="data-wrangling.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(<span class="fu">colSums</span>(<span class="sc">!</span><span class="fu">is.na</span>(.)) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 </div>
 <div id="dropping-columns-by-matching-names" class="section level3" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Dropping columns by matching names</h3>

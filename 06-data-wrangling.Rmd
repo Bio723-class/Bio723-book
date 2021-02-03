@@ -70,7 +70,6 @@ spellman.clean <-
   rename(gene = X1)
 ```
 
-Note the use of the compound assingment operator -- `%<>%` -- from the `magrittr` package, which we introduced in our last class session.
 
 
 ## Dropping unneeded columns
@@ -126,24 +125,10 @@ names(spellman)[colSums(!is.na(spellman)) == 0]
 We can combine the `colSums(!is.na())` idiom with the `dplyr::select_if` function to quickly remove all empty columns as so:
 
 ```{r}
-# this broke in dplyr 0.80 due to a bug (https://github.com/tidyverse/dplyr/issues/4213)
-# supposedly a fix is on the way. In the iterim, a work around is included
+spellman.clean %<>%   # note use of magritrr $<>% operator here
+  #keep ONLY the non-empty columns
+  select_if(colSums(!is.na(.)) > 0)
 
-#spellman.clean %<>%
-  # keep ONLY the non-empty columns
-  #select_if(colSums(!is.na(.)) > 0)  
-
-not.all.na <- function(x) { 
-  if (sum(!is.na(x)) > 0){
-    return(TRUE)
-    }
-  else {
-    return(FALSE)
-    }
-}
-
-spellman.clean %<>%
-  select_if(not.all.na)
 ```
 
 

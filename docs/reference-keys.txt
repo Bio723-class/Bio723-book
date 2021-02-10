@@ -189,3 +189,11 @@ large-scale-patterns-of-correlations
 adding-new-columns-and-combining-filtered-data-frames
 a-heat-mapped-sorted-by-correlations
 a-fancy-figure
+vector-algebra
+libraries-2
+vector-mathematics-in-r
+simple-statistics-in-vector-form
+mean
+mean-centering
+variance-and-standard-deviation
+covariance-and-correlation

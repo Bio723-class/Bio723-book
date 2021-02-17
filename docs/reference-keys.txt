@@ -197,3 +197,13 @@ mean
 mean-centering
 variance-and-standard-deviation
 covariance-and-correlation
+matrices-in-r
+creating-matrices-in-r
+matrix-arithmetic-operations-in-r
+descriptive-statistics-as-matrix-functions
+mean-vector-and-matrix
+deviation-matrix
+covariance-matrix
+correlation-matrix
+matrix-inverse
+solving-sets-of-simultaneous-equations

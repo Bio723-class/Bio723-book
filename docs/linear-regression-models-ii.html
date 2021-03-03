@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-03-02" />
+<meta name="date" content="2021-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -475,7 +475,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>broom</code></li>
 <li><code>scatterplot3d</code></li>
-<li><code>rgl</code> – NOTE: On OS X, <code>rgl</code> requires you to install a program called XQuartz. XQuartz can be downloaded from the <a href="https://www.xquartz.org">XQuartz Home Page</a>. If you’re on a Mac, install XQuartz before installing <code>rgl</code>. You may have to reboot your computer after installing XQuartz.</li>
 </ul>
 </div>
 <div id="standard-libraries" class="section level2" number="12.2">
@@ -485,7 +484,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="specifying-regression-models-in-r" class="section level2" number="12.3">
 <h2><span class="header-section-number">12.3</span> Specifying Regression Models in R</h2>
 <p>As one would expect, R has a built-in function for fitting linear regression models. The function <code>lm()</code> can be used to fit bivariate and multiple regression models, as well asanalysis of variance, analysis of covariance, and other linear models.</p>
-<p>We’ll start by illustrating bivariate regression with the <a href="https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv">lion nose pigmentation data set</a> introduced in the in-class assignment last week. Let’s load the lion data and remind ourselves of the basic structure:</p>
+<p>We’ll start by illustrating bivariate regression with the <a href="https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv">lion nose pigmentation data set</a> introduced in the assignment for the previous class session. Let’s load the lion data and remind ourselves of the basic structure:</p>
 <div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="linear-regression-models-ii.html#cb362-1" aria-hidden="true" tabindex="-1"></a>lions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv&quot;</span>)</span>
 <span id="cb362-2"><a href="linear-regression-models-ii.html#cb362-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb362-3"><a href="linear-regression-models-ii.html#cb362-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification ────────────────────────────────────────────────────────</span></span>

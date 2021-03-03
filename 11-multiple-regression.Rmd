@@ -8,7 +8,7 @@ We'll be using several new packages for this class session. Install the followin
 
 * `broom`
 * `scatterplot3d`
-* `rgl` -- NOTE: On OS X, `rgl` requires you to install a program called XQuartz. XQuartz can be downloaded from the [XQuartz Home Page](https://www.xquartz.org). If you're on a Mac, install XQuartz before installing `rgl`. You may have to reboot your computer after installing XQuartz.
+
 
 ## Standard libraries
 
@@ -21,7 +21,7 @@ library(tidyverse)
 
 As one would expect, R has a built-in function for fitting linear regression models. The function `lm()` can be used to fit bivariate and multiple regression models, as well asanalysis of variance, analysis of covariance, and other linear models.  
 
-We'll start by illustrating bivariate regression with the [lion nose pigmentation data set](https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv) introduced in the in-class assignment last week. Let's load the lion data and remind ourselves of the basic structure:
+We'll start by illustrating bivariate regression with the [lion nose pigmentation data set](https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv) introduced in the assignment for the previous class session. Let's load the lion data and remind ourselves of the basic structure:
 
 ```{r}
 lions <- read_csv("https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv")
@@ -272,24 +272,24 @@ For more examples of how you can modify plots generated with the  `scatterplot3d
 
 
 
-### rgl
+<!-- ### rgl -->
 
-The package `rgl` is another package that we can use for 3D visualization. `rgl` is powerful because it lets us create interactive plots we can rotate and zoom in/out on. 
+<!-- The package `rgl` is another package that we can use for 3D visualization. `rgl` is powerful because it lets us create interactive plots we can rotate and zoom in/out on.  -->
 
-You can then create an interactive 3D plot as so:
+<!-- You can then create an interactive 3D plot as so: -->
 
-```{r}
-library(rgl)
+<!-- ```{r} -->
+<!-- library(rgl) -->
 
-# create 3D scatter, using spheres to draw points
-plot3d(trees$Girth, trees$Height, trees$Volume,
-      xlab = "Girth", ylab = "Height", zlab = "Volume",
-       type = "s", 
-       size = 1.5,
-       col = "red")
+<!-- # create 3D scatter, using spheres to draw points -->
+<!-- plot3d(trees$Girth, trees$Height, trees$Volume, -->
+<!--       xlab = "Girth", ylab = "Height", zlab = "Volume", -->
+<!--        type = "s",  -->
+<!--        size = 1.5, -->
+<!--        col = "red") -->
 
-rglwidget() # only need to include this line if using in a markdown document
-```
+<!-- rglwidget() # only need to include this line if using in a markdown document -->
+<!-- ``` -->
 
 
 ## Fitting the regression model
@@ -321,22 +321,22 @@ p <- scatterplot3d(trees, angle=55,type='h',
 p$plane3d(fit.trees, col='orangered')
 ```
 
-If instead of `scatterplot3d`, we wanted to use `rgl` to depict the model fit we can use the `rgl.planes` function as shown below.
+<!-- If instead of `scatterplot3d`, we wanted to use `rgl` to depict the model fit we can use the `rgl.planes` function as shown below. -->
 
-```{r, eval=FALSE}
-coefs <- coef(fit.trees)
-b1 <- coefs["Girth"]
-b2 <- coefs["Height"]
-c <- -1
-a <- coefs["(Intercept)"]
-plot3d(trees$Girth, trees$Height, trees$Volume,
-      xlab = "Girth", ylab = "Height", zlab = "Volume", 
-       type = "s", 
-       size = 1.5,
-       col = "red")
-rgl.planes(b1, b2, c, a, alpha = 0.8, color = "gray")
-rglwidget()
-```
+<!-- ```{r, eval=FALSE} -->
+<!-- coefs <- coef(fit.trees) -->
+<!-- b1 <- coefs["Girth"] -->
+<!-- b2 <- coefs["Height"] -->
+<!-- c <- -1 -->
+<!-- a <- coefs["(Intercept)"] -->
+<!-- plot3d(trees$Girth, trees$Height, trees$Volume, -->
+<!--       xlab = "Girth", ylab = "Height", zlab = "Volume",  -->
+<!--        type = "s",  -->
+<!--        size = 1.5, -->
+<!--        col = "red") -->
+<!-- rgl.planes(b1, b2, c, a, alpha = 0.8, color = "gray") -->
+<!-- rglwidget() -->
+<!-- ``` -->
 
 
 From the figures it looks like the regression model fits pretty well, as we anticipated  from the pairwise relationships.  

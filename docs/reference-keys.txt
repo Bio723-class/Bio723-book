@@ -255,3 +255,14 @@ exploring-the-vector-geometry-of-the-regression-model
 exploring-the-residuals-from-the-model-fit
 an-alternate-model
 exploring-the-impact-of-nearly-collinear-predictors-on-regression
+principal-components-analysis
+libraries-3
+matrices-as-linear-transformations
+eigenanalysis-in-r
+principal-components-analysis-in-r
+bioenv-dataset
+pca-of-the-bioenv-dataset
+calculating-factor-loadings
+drawing-figures-to-represent-pca
+pc-score-plots
+simultaneous-depiction-of-observations-and-variables-in-the-pc-space

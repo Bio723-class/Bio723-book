@@ -8,7 +8,7 @@ rmd_files: ["index.Rmd", "01-getting-started-R.Rmd", "02-intro-R-markdown.Rmd", 
 "07-functions-and-control-flow.Rmd", "04-ggplot-intro.Rmd", "05-dplyr-intro.Rmd",
 "06-data-wrangling.Rmd", "08-vector-algebra.Rmd", "09-matrices.Rmd",
 "10-linear-regression.Rmd", "11-multiple-regression.Rmd",
-"13-principal-components.Rmd"]
+"13-principal-components.Rmd", "14-CVA.Rmd"]
 #, "12-additional-regression-models.Rmd",
 #"13-principal-components.Rmd", "14-CVA.Rmd",
 #"16-clustering.Rmd"]

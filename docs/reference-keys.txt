@@ -266,3 +266,12 @@ calculating-factor-loadings
 drawing-figures-to-represent-pca
 pc-score-plots
 simultaneous-depiction-of-observations-and-variables-in-the-pc-space
+canonical-variates-analysis
+libraries-4
+discriminant-analysis-in-r
+shorthand-formulae-in-r
+working-with-the-output-of-lda
+estimating-confidence-regions-for-group-means-in-cva
+drawing-the-cva-confidence-regions
+calculating-the-within-and-between-group-covariance-matrices
+recapitulating-the-cva-analysis-of-lda

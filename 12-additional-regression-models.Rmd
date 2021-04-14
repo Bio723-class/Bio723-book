@@ -1,37 +1,37 @@
-# More regression models
+# Non-linear regression models
 
-## Curvilinear regression
+<!-- ## Curvilinear regression -->
 
-In the previous chapter we used the built-in `trees` data set, which consists of measurements of the girth, height, and volume of 31 black cherry trees, to illustrate the fitting of multiple regression models.
+<!-- In the previous chapter we used the built-in `trees` data set, which consists of measurements of the girth, height, and volume of 31 black cherry trees, to illustrate the fitting of multiple regression models. -->
 
-After exploring the data set and examining residuals from the model fit we realized that: 
+<!-- After exploring the data set and examining residuals from the model fit we realized that:  -->
 
-  a) the residual from the linear model suggested a straight line relationship might not be appropriate so we transformed the volume data in order to fit a straight line relationship between $\sqrt[3]{V}$  and Girth and Height.
+<!--   a) the residual from the linear model suggested a straight line relationship might not be appropriate so we transformed the volume data in order to fit a straight line relationship between $\sqrt[3]{V}$  and Girth and Height. -->
 
-  a) A model based on Girth as the only predictor variable is almost as good as one involving both Girth and Height.
-  
-Here we illustrate how to fit a cubic regression to the model `Volume ~ Girth`. Remember that a cubic regression is still a form of linear regression, as it's in the coefficients.
+<!--   a) A model based on Girth as the only predictor variable is almost as good as one involving both Girth and Height. -->
 
-```{r, prompt=FALSE, collapse=TRUE, results='markup'}
-fit.curvilinear <- lm(Volume ~ I(Girth^3), data=trees)
+<!-- Here we illustrate how to fit a cubic regression to the model `Volume ~ Girth`. Remember that a cubic regression is still a form of linear regression, as it's in the coefficients. -->
 
-broom::tidy(fit.curvilinear)
+<!-- ```{r, prompt=FALSE, collapse=TRUE, results='markup'} -->
+<!-- fit.curvilinear <- lm(Volume ~ I(Girth^3), data=trees) -->
 
-broom::glance(fit.curvilinear)
-```
+<!-- broom::tidy(fit.curvilinear) -->
 
-Here's how we can visualize the corresponding curvilinear regression using ggplot:
+<!-- broom::glance(fit.curvilinear) -->
+<!-- ``` -->
 
-```{r}
-ggplot(trees, aes(x = Girth, y = Volume)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", 
-              formula = y ~ I(x^3),
-              se = FALSE)
-```
+<!-- Here's how we can visualize the corresponding curvilinear regression using ggplot: -->
+
+<!-- ```{r} -->
+<!-- ggplot(trees, aes(x = Girth, y = Volume)) +  -->
+<!--   geom_point() +  -->
+<!--   geom_smooth(method = "lm",  -->
+<!--               formula = y ~ I(x^3), -->
+<!--               se = FALSE) -->
+<!-- ``` -->
 
 
-The `I()` function used above requires a little explanation.  Normally, the R formula syntax (see `?formula`) treats the carat symbol, `^`, as short-hand for factor crossing to the specified degree.  For example, the formula `(a+b+c)^2` would be interpretted as the model with main effects and all second order interaction terms, i.e. `a + b + c + a:b + a:c + b:c` where the colons indicate interactions.  The `I()` function `protects' the object in it's argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth.
+<!-- The `I()` function used above requires a little explanation.  Normally, the R formula syntax (see `?formula`) treats the carat symbol, `^`, as short-hand for factor crossing to the specified degree.  For example, the formula `(a+b+c)^2` would be interpretted as the model with main effects and all second order interaction terms, i.e. `a + b + c + a:b + a:c + b:c` where the colons indicate interactions.  The `I()` function `protects' the object in it's argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth. -->
 
 
 ## LOESS regression

@@ -293,3 +293,15 @@ combining-clusters-and-correlation-matrix-heatmaps
 hierarchical-clustering-visualized-on-correlation-matrix
 k-medoids-clustering-visualized-on-the-correlation-matrix
 depicting-the-data-within-clusters
+non-linear-regression-models
+loess-regression
+logistic-regression
+a-web-app-to-explore-the-logistic-regression-equation
+titanic-data-set
+subsetting-the-data
+visualizing-survival-as-a-function-of-age
+fitting-the-logistic-regression-model
+visualizing-the-logistic-regression
+quick-and-easy-visualization
+impact-of-sex-and-passenger-class-on-the-models
+fitting-multiple-models-based-on-groupings-use-dplyrdo

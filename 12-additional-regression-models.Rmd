@@ -37,7 +37,7 @@
 ## LOESS regression
 
 
-LOESS (aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
+LOESS (`Locally estimated scatterplot smoothing', aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
 modeling technique that fits a curve (or surface) to a set of data using
 a large number of local linear regressions. Local weighted regressions are fit
 at numerous regions across the data range, using a weighting function

@@ -24,7 +24,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-14" />
+<meta name="date" content="2021-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="clustering-in-r.html"/>
-
+<link rel="next" href="randomization-jackknife-and-bootstrap.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -523,6 +523,84 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2.9" data-path="non-linear-regression-models.html"><a href="non-linear-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo"><i class="fa fa-check"></i><b>16.2.9</b> Fitting multiple models based on groupings use <code>dplyr::do</code></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html"><i class="fa fa-check"></i><b>17</b> Randomization, Jackknife, and Bootstrap</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#libraries-6"><i class="fa fa-check"></i><b>17.1</b> Libraries</a></li>
+<li class="chapter" data-level="17.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#randomization"><i class="fa fa-check"></i><b>17.2</b> Randomization</a></li>
+<li class="chapter" data-level="17.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-a-difference-in-means"><i class="fa fa-check"></i><b>17.3</b> Using randomization to test for a difference in means</a></li>
+<li class="chapter" data-level="17.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#using-randomization-to-test-for-equality-of-variances"><i class="fa fa-check"></i><b>17.4</b> Using randomization to test for equality of variances</a></li>
+<li class="chapter" data-level="17.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#jackknifing-in-r"><i class="fa fa-check"></i><b>17.5</b> Jackknifing in R</a></li>
+<li class="chapter" data-level="17.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bootstrapping-in-r"><i class="fa fa-check"></i><b>17.6</b> Bootstrapping in R</a>
+<ul>
+<li class="chapter" data-level="17.6.1" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#a-more-sophisticated-application-of-the-bootstrap"><i class="fa fa-check"></i><b>17.6.1</b> A more sophisticated application of the bootstrap</a></li>
+<li class="chapter" data-level="17.6.2" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#about-logistic-regression"><i class="fa fa-check"></i><b>17.6.2</b> About logistic regression</a></li>
+<li class="chapter" data-level="17.6.3" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#bumpus-house-sparrow-data-set"><i class="fa fa-check"></i><b>17.6.3</b> Bumpus house sparrow data set</a></li>
+<li class="chapter" data-level="17.6.4" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#predicting-survival-as-a-function-of-body-weight"><i class="fa fa-check"></i><b>17.6.4</b> Predicting survival as a function of body weight</a></li>
+<li class="chapter" data-level="17.6.5" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#fitting-the-logistic-regression"><i class="fa fa-check"></i><b>17.6.5</b> Fitting the logistic regression</a></li>
+<li class="chapter" data-level="17.6.6" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#defining-an-appropriate-function-for-boot"><i class="fa fa-check"></i><b>17.6.6</b> Defining an appropriate function for <code>boot</code></a></li>
+<li class="chapter" data-level="17.6.7" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#calculating-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.6.7</b> Calculating bootstrap confidence intervals</a></li>
+<li class="chapter" data-level="17.6.8" data-path="randomization-jackknife-and-bootstrap.html"><a href="randomization-jackknife-and-bootstrap.html#visualizing-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.6.8</b> Visualizing bootstrap confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html"><i class="fa fa-check"></i><b>A</b> Simulating sampling distributions</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distributions"><i class="fa fa-check"></i><b>A.1</b> Sampling distributions</a></li>
+<li class="chapter" data-level="A.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulating-sampling-from-an-underlying-population"><i class="fa fa-check"></i><b>A.2</b> Simulating sampling from an underlying population</a></li>
+<li class="chapter" data-level="A.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#seeding-the-pseudo-random-number-generator"><i class="fa fa-check"></i><b>A.3</b> Seeding the pseudo-random number generator</a></li>
+<li class="chapter" data-level="A.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#libraries-7"><i class="fa fa-check"></i><b>A.4</b> Libraries</a>
+<ul>
+<li class="chapter" data-level="A.4.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#properties-of-the-underlying-population"><i class="fa fa-check"></i><b>A.4.1</b> Properties of the underlying population</a></li>
+<li class="chapter" data-level="A.4.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#other-r-functions-related-to-the-normal-distribution"><i class="fa fa-check"></i><b>A.4.2</b> Other R functions related to the normal distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="A.5" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#random-sampling-from-the-simulated-population"><i class="fa fa-check"></i><b>A.5</b> Random sampling from the simulated population</a>
+<ul>
+<li class="chapter" data-level="A.5.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#another-random-sample"><i class="fa fa-check"></i><b>A.5.1</b> Another random sample</a></li>
+<li class="chapter" data-level="A.5.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulating-the-generation-of-many-random-samples"><i class="fa fa-check"></i><b>A.5.2</b> Simulating the generation of many random samples</a></li>
+<li class="chapter" data-level="A.5.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#a-function-to-estimate-statistics-of-interest-in-a-random-sample"><i class="fa fa-check"></i><b>A.5.3</b> A function to estimate statistics of interest in a random sample</a></li>
+<li class="chapter" data-level="A.5.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#generating-statistics-for-many-random-samples"><i class="fa fa-check"></i><b>A.5.4</b> Generating statistics for many random samples</a></li>
+</ul></li>
+<li class="chapter" data-level="A.6" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#simulated-sampling-distribution-of-the-mean"><i class="fa fa-check"></i><b>A.6</b> Simulated sampling distribution of the mean</a>
+<ul>
+<li class="chapter" data-level="A.6.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#differences-between-sampling-distributions-and-samplepopulation-distributions"><i class="fa fa-check"></i><b>A.6.1</b> Differences between sampling distributions and sample/population distributions</a></li>
+<li class="chapter" data-level="A.6.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#using-sampling-distributions-to-understand-the-behavior-of-statistics-of-interest"><i class="fa fa-check"></i><b>A.6.2</b> Using sampling distributions to understand the behavior of statistics of interest</a></li>
+<li class="chapter" data-level="A.6.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distributions-for-different-sample-sizes"><i class="fa fa-check"></i><b>A.6.3</b> Sampling distributions for different sample sizes</a></li>
+<li class="chapter" data-level="A.6.4" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#discussion-of-trends-for-sampling-distributions-of-different-sample-sizes"><i class="fa fa-check"></i><b>A.6.4</b> Discussion of trends for sampling distributions of different sample sizes</a></li>
+</ul></li>
+<li class="chapter" data-level="A.7" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#standard-error-of-the-mean"><i class="fa fa-check"></i><b>A.7</b> Standard Error of the Mean</a></li>
+<li class="chapter" data-level="A.8" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#sampling-distribution-of-the-standard-deviation"><i class="fa fa-check"></i><b>A.8</b> Sampling Distribution of the Standard Deviation</a>
+<ul>
+<li class="chapter" data-level="A.8.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#standard-error-of-standard-deviations"><i class="fa fa-check"></i><b>A.8.1</b> Standard error of standard deviations</a></li>
+</ul></li>
+<li class="chapter" data-level="A.9" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#what-happens-to-the-sampling-distribution-of-the-mean-and-standard-deviation-when-our-sample-size-is-small"><i class="fa fa-check"></i><b>A.9</b> What happens to the sampling distribution of the mean and standard deviation when our sample size is small?</a>
+<ul>
+<li class="chapter" data-level="A.9.1" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#for-small-samples-sample-standard-deviations-systematically-underestimate-the-population-standard-deviation"><i class="fa fa-check"></i><b>A.9.1</b> For small samples, sample standard deviations systematically underestimate the population standard deviation</a></li>
+<li class="chapter" data-level="A.9.2" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#underestimates-of-the-standard-deviation-for-small-n-lead-to-understimates-of-the-se-of-the-mean"><i class="fa fa-check"></i><b>A.9.2</b> Underestimates of the standard deviation for small <span class="math inline">\(n\)</span> lead to understimates of the SE of the mean</a></li>
+<li class="chapter" data-level="A.9.3" data-path="simulating-sampling-distributions.html"><a href="simulating-sampling-distributions.html#the-t-distribution-is-the-appropriate-distribution-for-describing-the-sampling-distribution-of-the-mean-when-n-is-small"><i class="fa fa-check"></i><b>A.9.3</b> The t-distribution is the appropriate distribution for describing the sampling distribution of the mean when <span class="math inline">\(n\)</span> is small</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html"><i class="fa fa-check"></i><b>B</b> Simulating confidence intervals</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals"><i class="fa fa-check"></i><b>B.1</b> Confidence intervals</a></li>
+<li class="chapter" data-level="B.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals"><i class="fa fa-check"></i><b>B.2</b> Generic formulation for confidence intervals</a></li>
+<li class="chapter" data-level="B.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean"><i class="fa fa-check"></i><b>B.3</b> Example: Confidence intervals for the mean</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#simulation-of-means"><i class="fa fa-check"></i><b>B.3.1</b> Simulation of means</a></li>
+<li class="chapter" data-level="B.3.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means"><i class="fa fa-check"></i><b>B.3.2</b> Distance between sample means and true means</a></li>
+<li class="chapter" data-level="B.3.3" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#calculating-a-ci"><i class="fa fa-check"></i><b>B.3.3</b> Calculating a CI</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#a-problem-arises"><i class="fa fa-check"></i><b>B.4</b> A problem arises!</a></li>
+<li class="chapter" data-level="B.5" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors"><i class="fa fa-check"></i><b>B.5</b> Confidence intervals under sample estimates of standard errors</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses"><i class="fa fa-check"></i><b>B.5.1</b> The spread of sample estimates of the mean in units of true and estimates SEs</a></li>
+<li class="chapter" data-level="B.5.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean"><i class="fa fa-check"></i><b>B.5.2</b> Quantifying deviations of sample estimates of the mean</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean"><i class="fa fa-check"></i><b>B.6</b> t-distribution for confidence intervals of the mean</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution"><i class="fa fa-check"></i><b>B.6.1</b> t-distribution vs standard normal distribution</a></li>
+<li class="chapter" data-level="B.6.2" data-path="simulating-confidence-intervals.html"><a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution"><i class="fa fa-check"></i><b>B.6.2</b> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</a></li>
+</ul></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -881,8 +959,8 @@ P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
           </div>
         </div>
       </div>
-<a href="clustering-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="clustering-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="randomization-jackknife-and-bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

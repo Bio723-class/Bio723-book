@@ -9,7 +9,13 @@ rmd_files: ["index.Rmd", "01-getting-started-R.Rmd", "02-intro-R-markdown.Rmd", 
 "06-data-wrangling.Rmd", "08-vector-algebra.Rmd", "09-matrices.Rmd",
 "10-linear-regression.Rmd", "11-multiple-regression.Rmd",
 "13-principal-components.Rmd", "14-CVA.Rmd", "16-clustering.Rmd",
-"12-additional-regression-models.Rmd"]
+"12-additional-regression-models.Rmd",
+"14-randomization-jackknife-bootstrap.Rmd",
+"appendix.Rmd",
+"17-simulating-sampling-distributions.Rmd",
+"18-simulating-confidence-intervals.Rmd"]
+#"12-sampling-distns.Rmd",
+#"13-confidence-intervals.Rmd",]
 #, "12-additional-regression-models.Rmd",
 #"13-principal-components.Rmd", "14-CVA.Rmd",
 #"16-clustering.Rmd"]

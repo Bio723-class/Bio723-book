@@ -1,11 +1,11 @@
-# Simulation I: Sampling distributions
+# Simulating sampling distributions
 
-In our final two class sessions we will explore how we can use R to carry out statistical simulations. Such simulations can be useful for a variety of purposes, such as understanding classical results in statistical inference, deriving novel results for unusual statistics or underlying distributions, or to help design experiments.  More generally, simulation is a useful tool for honing our intuition or revealing key properties about complex systems.
+In these appendices we will explore how we can use R to carry out statistical simulations. Such simulations can be useful for a variety of purposes, such as understanding classical results in statistical inference, deriving novel results for unusual statistics or underlying distributions, or to help design experiments.  More generally, simulation is a useful tool for honing our intuition or revealing key properties about complex systems.
 
 In this chapter we will focus on how we can use simulation to derive well known and not so well known results regarding sampling distributions for a variety of statistics.
 
 
-## Sampling distrubtions
+## Sampling distributions
 
 Usually when we collect biological data, it's because we're trying to learn  about some underlying "population" of interest.  Population here could refer to an actual population (e.g. all males over 20 in the United States; brushtail possums in the state of Victoria, Australia), an abstract population (e.g. corn plants grown from Monsanto "round up ready" seed; yeast cells with genotypes identical to the reference strain S288c), outcomes of a stochastic process we can observe and measure (e.g. meiotic recombination in flies;  rainfall per square meter in the Brazilian amazon), etc.
 
@@ -465,7 +465,7 @@ ggplot(sampling.distn.sd.table, aes(x = sample.size, y = sd.of.sds)) +
 
 We would hope that, regardless of sample size, the sampling distributions of both the mean and standard deviation should be centered around the true population value, $\mu$ and $\sigma$ respectively.  That seemed to be the case for the modest to large sample sizes we've looked at so far (30 to 500 observations).  Does this also hold for small samples? Let's use simulation to explore how well this is expectation is met for small samples.
 
-As we've done before, we simulate the sampling distribution of the mean and standard deviation for samples of varying size. Because we're dealing with small samples we'll use larger simulations (5000 samples) so we get better estiamtes of their behavior (in general, the noisier the process you're simulating the more simulations you should do)
+As we've done before, we simulate the sampling distribution of the mean and standard deviation for samples of varying size. Because we're dealing with small samples we'll use larger simulations (5000 samples) so we get better estimates of their behavior (in general, the noisier the process you're simulating the more simulations you should do)
 
 ```{r}
 # A new version of rnorm.stats that includes the sample estimate of the
@@ -478,11 +478,11 @@ rnorm.stats.2 <- function(n, mu, sigma) {
              sample.estimate.SE = sample.sd/sqrt(sample.size))
 }
 
-# sample sizes we'll conside
+# sample sizes we'll consider
 ssizes <- c(2, 3, 4, 5, 7, 10, 20, 30, 50)
 
 # number of samples to draw *for each sample size*
-nsamples <- 5000
+nsamples <- 2500
 
 # create a data frame with empty columns
 df.combined.small <- data_frame(sample.size = double(), 

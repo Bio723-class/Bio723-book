@@ -25,15 +25,15 @@ Let's first two vectors to represent this set of measurements, and then create a
 male.mandibles <- c(120,107,110,116,114,111,113,117,114,112)
 female.mandibles <- c(110,111,107,108,110,105,107,106,111,111)
 
-jackals <- data_frame(sex = c(rep("m",10),rep("f",10)), 
-                      mandible.length = c(male.mandibles,female.mandibles))
+jackals <- tibble(sex = c(rep("m",10),rep("f",10)), 
+                  mandible.length = c(male.mandibles,female.mandibles))
 ```
 
 And we'll create a simple strip chart to visualize the data
 
 ```{r}
 ggplot(jackals, aes(x = sex, y = mandible.length, color = sex)) + 
-  geom_jitter(width=0.1, height=0,size=2,alpha=0.5)
+  geom_jitter(width=0.1, height=0,size=2,alpha=0.75)
 ```
 
 Having done so, let's look at the male and female means and the difference between them:
@@ -116,7 +116,12 @@ Now let's examine the distribution, using a function called `quickplot()` which 
 quickplot(rsample, geom='histogram',
           bins=20,
           main="Histogram of randomized differences\nin male and female means",
-          xlab = "mean(males) - mean(females)")  
+          xlab = "mean(males) - mean(females)")  + 
+  annotate(geom = "curve", x = 4.8, y = 50, xend = 4.8, yend = 5, curvature=0,
+           color='red',arrow = arrow(length = unit(2, "mm"))) + 
+  annotate(geom = "text", x = 4.8, y = 60,
+           label = "Observed\ndifference", hjust = "center")
+
 ```
 
 
@@ -230,7 +235,7 @@ jack.vars <- jknife(psample, var)
 Here is the 95% CI for the means and variances:
 
 ```{r}
-jack.means$cin # 95% bootstreap CI for mean
+jack.means$ci # 95% bootstreap CI for mean
 jack.vars$ci # 95% boostrap CI for vars
 ```
 
@@ -390,7 +395,7 @@ Let's first carry out a logistic regression predicting survival as a function of
 First we'll load the data:
 
 ```{r}
-bumpus <- read_tsv("https://raw.githubusercontent.com/bio304-class/bio304-fall2017/master/datasets/bumpus-data.txt")
+bumpus <- read_tsv("https://github.com/bio304-class/bio304-course-notes/raw/master/datasets/bumpus-data.txt")
 ```
 
 
@@ -523,7 +528,7 @@ for (i in 1:nreps) {
 }
 
 # cast the matrix of predictions as a data frame
-predicted.mtx.df <- as_data_frame(predicted.mtx)
+predicted.mtx.df <- as_tibble(predicted.mtx)
 ```
 
 For reference, we also create the prediction for the original sample we have in had.  Here we can use the built-in `predict()` function along with the original logistic regression fit object:

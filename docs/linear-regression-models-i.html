@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 Linear Regression Models I | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 Linear Regression Models I | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="matrices-in-r.html"/>
 <link rel="next" href="linear-regression-models-ii.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,24 +623,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="linear-regression-models-i" class="section level1" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Linear Regression Models I</h1>
+<div id="linear-regression-models-i" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapter 11</span> Linear Regression Models I<a href="linear-regression-models-i.html#linear-regression-models-i" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Statistical models are quantitative statements about how we think variables are related to each other.
-Linear models are among the simplest statistical models. In a linear model relating two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the general form of the model can be stated as “I assume that <span class="math inline">\(Y\)</span> can be expressed as a linear function of <span class="math inline">\(X\)</span>.” The process of <em>model fitting</em> is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.</p>
+Linear models are among the simplest statistical models. In a linear model relating two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the general form of the model can be stated as “I assume that <span class="math inline">\(Y\)</span> can be expressed as a linear function of <span class="math inline">\(X\)</span>”. The process of <em>model fitting</em> is then the task of finding the coefficients (parameters) of the linear model which best fit the observed data.</p>
 <p>As we talk about regression models we’ll frequently use the following terms:</p>
 <ul>
 <li><p><strong>Predictors, explanatory, or independent variable</strong> – the variables from which we want to make our prediction.</p></li>
 <li><p><strong>Outcomes, dependent, or response variable</strong> – the variable we are trying to predict in our models.</p></li>
 </ul>
-<div id="linear-functions" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Linear functions</h2>
+<div id="linear-functions" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Linear functions<a href="linear-regression-models-i.html#linear-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A linear function of a single variable <span class="math inline">\(X\)</span> can be written as:</p>
 <p><span class="math display">\[
 f(X) = a + bX
 \]</span></p>
 <p>where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are constants. In geometric terms <span class="math inline">\(b\)</span> is the <em>slope of the line</em> and <span class="math inline">\(a\)</span> is the value of the function when <span class="math inline">\(X\)</span> is zero (usually the referred to as the “Y-intercept”). The slope tells you have much <span class="math inline">\(f(X)\)</span> changes per unit change of <span class="math inline">\(X\)</span>. If we treat <span class="math inline">\(X\)</span> as a vector, this linear function can be expressed as the vector equation:</p>
 <p><span class="math display">\[
-f(\vec{\mathbf{x}}) = a\vec{\mathbf{1}} + b\vec{\mathbf{x}} 
+f(\vec{\mathbf{x}}) = a\vec{\mathbf{1}} + b\vec{\mathbf{x}}
 = a\begin{bmatrix}1 \\ 1 \\ \vdots \\ 1\end{bmatrix} + b\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_p\end{bmatrix}
 \]</span></p>
 <p>We can also create linear functions of multiple variables, <span class="math inline">\(X_1, X_2, \ldots, X_m\)</span>. A linear function of multiple variables can be expressed as:</p>
@@ -656,7 +661,7 @@ f(\vec{\mathbf{x}_1}, \vec{\mathbf{x}_2}, \ldots, \vec{\mathbf{x}_m}) = \mathbf{
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-\mathbf{X} = 
+\mathbf{X} =
 \begin{bmatrix}
 1 &amp; x_{1,1} &amp; x_{1,2} &amp; \cdots &amp; x_{1,m} \\
 1 &amp; x_{2,1} &amp; x_{2,2} &amp; \cdots &amp; x_{2,m} \\
@@ -664,7 +669,7 @@ f(\vec{\mathbf{x}_1}, \vec{\mathbf{x}_2}, \ldots, \vec{\mathbf{x}_m}) = \mathbf{
 1 &amp; x_{n,1} &amp; x_{n,2} &amp; \cdots &amp; x_{n,m} \\
 \end{bmatrix}
 \text{ and }
-\vec{\mathbf{b}} = 
+\vec{\mathbf{b}} =
 \begin{bmatrix}
 a \\
 b_1 \\
@@ -674,12 +679,12 @@ b_m
 \end{bmatrix}
 \]</span></p>
 </div>
-<div id="linear-regression" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> Linear regression</h2>
+<div id="linear-regression" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Linear regression<a href="linear-regression-models-i.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In <strong>bivariate linear regression</strong> we assume that our outcome variable (<span class="math inline">\(Y\)</span>) can be expressed as a linear function of a single predictor variable (<span class="math inline">\(X\)</span>) plus an error term. The error term can be thought of as the portion of <span class="math inline">\(Y\)</span> that is “unexplained” by the linear function.</p>
 <p><span class="math display">\[
 \begin{eqnarray*}
-Y &amp;=&amp; f(X) + \text{error} \\ 
+Y &amp;=&amp; f(X) + \text{error} \\
   &amp;=&amp; a + bX + \text{error}
 \end{eqnarray*}
 \]</span>
@@ -693,11 +698,11 @@ Y = f(X_1, X_2,\ldots,X_m) + \epsilon
 \]</span></p>
 <p>The vector representation of the multiple regression model is:</p>
 <p><span class="math display">\[
-\vec{\mathbf{y}} = a\vec{\mathbf{1}} + b_1\vec{\mathbf{x}_1} + b_2\vec{\mathbf{x}_2} + \ldots + b_m\vec{\mathbf{x}_m} + \vec{\mathbf{e}} 
+\vec{\mathbf{y}} = a\vec{\mathbf{1}} + b_1\vec{\mathbf{x}_1} + b_2\vec{\mathbf{x}_2} + \ldots + b_m\vec{\mathbf{x}_m} + \vec{\mathbf{e}}
 \]</span></p>
 <p>In matrix form, this is represented as:</p>
 <p><span class="math display">\[
-\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}} 
+\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}}
 \]</span>
 where <span class="math inline">\(\mathbf{X}\vec{\mathbf{b}}\)</span> is a matrix of the predictor variables with the ones vector prepended to it as described above.</p>
 <p>We see that bivariate linear regression is just a special case of multiple regression.</p>
@@ -707,11 +712,11 @@ Y = \widehat{Y}+ \epsilon
 \]</span></p>
 <p>The equivalent vector representation is:</p>
 <p><span class="math display">\[
-\vec{\mathbf{y}} = \vec{\widehat{\mathbf{y}}} + \vec{\mathbf{e}} 
+\vec{\mathbf{y}} = \vec{\widehat{\mathbf{y}}} + \vec{\mathbf{e}}
 \]</span></p>
 </div>
-<div id="the-optimality-criterion-for-least-squares-regression" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> The optimality criterion for least-squares regression</h2>
+<div id="the-optimality-criterion-for-least-squares-regression" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> The optimality criterion for least-squares regression<a href="linear-regression-models-i.html#the-optimality-criterion-for-least-squares-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are infinitely many linear functions of <span class="math inline">\(X\)</span> we could define. Which linear function provides the best fit given our observed values of<span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>? In order to fit a model to data, we have to specify some criterion for judging how well alternate models perform.</p>
 <p>For regression, the optimality criterion can be expressed as “Find the linear function, <span class="math inline">\(\widehat{Y} = f(X)\)</span>, that minimizes the following quantity:”</p>
 <p><span class="math display">\[
@@ -723,17 +728,17 @@ In vector terms we are minimizing:</p>
 \]</span></p>
 <p>That is, our goal is to find the linear function of <span class="math inline">\(X\)</span> that minimizes the sum of squared deviations between the predicted values of <span class="math inline">\(y\)</span> and the observed values of <span class="math inline">\(y\)</span>. This is known as the <em>least-squares criterion</em>.</p>
 </div>
-<div id="geometry-of-linear-regression" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Geometry of linear regression</h2>
+<div id="geometry-of-linear-regression" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Geometry of linear regression<a href="linear-regression-models-i.html#geometry-of-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The figure below represents the variable space (A) and subject space (B) representations of bivariate linear regression.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-343"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-347"></span>
 <img src="figures/fig-regression-geometry.png" alt="Graphical representations of  bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
 <p class="caption">
 Figure 11.1: Graphical representations of bivariate linear least squares regression. A) variable space representation; B) subject space (vector) representation
 </p>
 </div>
 <p>Similarly, the next below represents the variable space (A) and subject space (B) representations of multiple regression of a single outcome variable onto two predictor variables.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-344"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-348"></span>
 <img src="figures/fig-multi-regression-geometry.png" alt="Graphical representations of  multiple regression. A) variable space representation; B) subject space (vector) representation " width="80%" />
 <p class="caption">
 Figure 11.2: Graphical representations of multiple regression. A) variable space representation; B) subject space (vector) representation
@@ -741,12 +746,12 @@ Figure 11.2: Graphical representations of multiple regression. A) variable space
 </div>
 <p>Notice that in both representations, the error term (the portion of <span class="math inline">\(Y\)</span> unexplained by the regression model) is orthogonal to the subspace defined by the predictor variables.</p>
 </div>
-<div id="solution-for-the-least-squares-criterion" class="section level2" number="11.5">
-<h2><span class="header-section-number">11.5</span> Solution for the least-squares criterion</h2>
+<div id="solution-for-the-least-squares-criterion" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Solution for the least-squares criterion<a href="linear-regression-models-i.html#solution-for-the-least-squares-criterion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The least-squares optimality criterion tells us to find the best fitting regression model, we need to solve for <span class="math inline">\(\widehat{\vec{\mathbf{y}}} = a\vec{\mathbf{1}} + b\vec{\mathbf{x}}\)</span> such that <span class="math inline">\(|\vec{\mathbf{e}}|^2 = |\vec{\mathbf{y}} - \vec{\widehat{\mathbf{y}}} |^2\)</span> is as small as possible. That is we need to find the values <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> that minimize the length of <span class="math inline">\(\vec{\mathbf{e}}\)</span>. How do we do that?</p>
 <p>I will discuss how to do solve this optimization problem for mean centered variables in class, using simultaneous linear equations. See Wickens chapters 3 and 4 for the general case.</p>
-<div id="bivariate-regression-estimating-coefficients" class="section level3" number="11.5.1">
-<h3><span class="header-section-number">11.5.1</span> Bivariate regression, estimating coefficients</h3>
+<div id="bivariate-regression-estimating-coefficients" class="section level3 hasAnchor" number="11.5.1">
+<h3><span class="header-section-number">11.5.1</span> Bivariate regression, estimating coefficients<a href="linear-regression-models-i.html#bivariate-regression-estimating-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For the bivariate case, the values of <span class="math inline">\(b\)</span> (slope) and <span class="math inline">\(a\)</span> (intercept) that minimize the sum of squared deviations described above are:</p>
 <p><span class="math display">\[\begin{align}
 b &amp;= \frac{s_{xy}}{s^2_x} = r_{xy}\frac{s_y}{s_x}\\
@@ -759,11 +764,11 @@ a &amp;= \overline{Y} - b\overline{X}
 b = \frac{\vec{x} \cdot \vec{y}}{\vec{x} \cdot \vec{x}}
 \]</span></p>
 </div>
-<div id="multiple-regression-estimating-coefficients" class="section level3" number="11.5.2">
-<h3><span class="header-section-number">11.5.2</span> Multiple regression, estimating coefficients</h3>
+<div id="multiple-regression-estimating-coefficients" class="section level3 hasAnchor" number="11.5.2">
+<h3><span class="header-section-number">11.5.2</span> Multiple regression, estimating coefficients<a href="linear-regression-models-i.html#multiple-regression-estimating-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For the multiple regression case:</p>
 <p><span class="math display">\[
-\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}} 
+\vec{\mathbf{y}} = \mathbf{X}\vec{\mathbf{b}} +  \vec{\mathbf{e}}
 \]</span></p>
 <p>we can estimate the vector of regression coefficients as:</p>
 <p><span class="math display">\[
@@ -772,16 +777,16 @@ b = \frac{\vec{x} \cdot \vec{y}}{\vec{x} \cdot \vec{x}}
 Note the similarity between the matrix solution for the multiple regression case and the vector solution for the bivariate case.</p>
 </div>
 </div>
-<div id="residuals" class="section level2" number="11.6">
-<h2><span class="header-section-number">11.6</span> Residuals</h2>
+<div id="residuals" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Residuals<a href="linear-regression-models-i.html#residuals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Residuals are the difference between the observed values of <span class="math inline">\(Y\)</span> and the predicted values, i.e. the “error” term in our model above. You can think of residuals as the proportion of <span class="math inline">\(Y\)</span> unaccounted for by the model.</p>
 <p><span class="math display">\[
 \text{residuals} = \vec{\mathbf{e}} = \vec{\mathbf{y}} - \vec{\widehat{\mathbf{y}}}
 \]</span></p>
 <p>When the linear regression model is appropriate to the data, residuals should be approximately normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of <span class="math inline">\(X\)</span>.</p>
 </div>
-<div id="regression-as-sum-of-squares-decomposition" class="section level2" number="11.7">
-<h2><span class="header-section-number">11.7</span> Regression as sum-of-squares decomposition</h2>
+<div id="regression-as-sum-of-squares-decomposition" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> Regression as sum-of-squares decomposition<a href="linear-regression-models-i.html#regression-as-sum-of-squares-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Regression can be viewed as a decomposition of the sum-of-squared (SS) deviations.</p>
 <p><span class="math display">\[
 SS_\mbox{total} = SS_\mbox{regression} + SS_\mbox{residuals}
@@ -799,10 +804,10 @@ SS_\mbox{residuals} = |\vec{\mathbf{e}}|^2 \\
 \end{eqnarray*}
 \]</span></p>
 </div>
-<div id="variance-explained-by-a-regression-model" class="section level2" number="11.8">
-<h2><span class="header-section-number">11.8</span> Variance “explained” by a regression model</h2>
+<div id="variance-explained-by-a-regression-model" class="section level2 hasAnchor" number="11.8">
+<h2><span class="header-section-number">11.8</span> Variance “explained” by a regression model<a href="linear-regression-models-i.html#variance-explained-by-a-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use the sum-of-square decomposition to understand the relative proportion of variance “explained” (accounted for) by the regression model.</p>
-<p>We call this quantity the “Coefficient of Determination,” designated <span class="math inline">\(R^2\)</span>.<br />
+<p>We call this quantity the “Coefficient of Determination”, designated <span class="math inline">\(R^2\)</span>.<br />
 <span class="math display">\[
 R^2 = \left( 1 - \frac{SS_{residuals}}{SS_{total}} \right)
 \]</span></p>
@@ -812,18 +817,18 @@ R^2 = \left(1 - \frac{|\vec{\mathbf{e}}|^2}{|\vec{\mathbf{y}}|^2}\right) = \frac
 \]</span></p>
 <p>where the respective vectors are mean centered.</p>
 </div>
-<div id="goodness-of-fit" class="section level2" number="11.9">
-<h2><span class="header-section-number">11.9</span> Goodness of fit</h2>
+<div id="goodness-of-fit" class="section level2 hasAnchor" number="11.9">
+<h2><span class="header-section-number">11.9</span> Goodness of fit<a href="linear-regression-models-i.html#goodness-of-fit" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The larger the coefficient of determination (maximum 1), the better the fit of the model.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-345"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-349"></span>
 <img src="figures/fig-goodness-fit.png" alt="Vector geometric representations of  bivariate linear least squares regressions with A) good fit; b) bad fit." width="60%" />
 <p class="caption">
 Figure 11.3: Vector geometric representations of bivariate linear least squares regressions with A) good fit; b) bad fit.
 </p>
 </div>
 </div>
-<div id="interpretting-regression" class="section level2" number="11.10">
-<h2><span class="header-section-number">11.10</span> Interpretting Regression</h2>
+<div id="interpretting-regression" class="section level2 hasAnchor" number="11.10">
+<h2><span class="header-section-number">11.10</span> Interpretting Regression<a href="linear-regression-models-i.html#interpretting-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here are some things to keep in mind when interpretting a multple regression:</p>
 <ul>
 <li><p>In most cases of regression, causal interpretation of the model is not justified.</p></li>
@@ -832,109 +837,109 @@ Figure 11.3: Vector geometric representations of bivariate linear least squares 
 <li><p>If the explanatory variables (<span class="math inline">\(X_1, X_2,\ldots,X_m\)</span>) are highly correlated, then the regression solution can be “unstable” – a small change in the data could lead to a large change in the regression model.</p></li>
 </ul>
 </div>
-<div id="illustrating-linear-regression-with-simulated-data" class="section level2" number="11.11">
-<h2><span class="header-section-number">11.11</span> Illustrating linear regression with simulated data</h2>
+<div id="illustrating-linear-regression-with-simulated-data" class="section level2 hasAnchor" number="11.11">
+<h2><span class="header-section-number">11.11</span> Illustrating linear regression with simulated data<a href="linear-regression-models-i.html#illustrating-linear-regression-with-simulated-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To illustrate how regression works, we’ll use a simulated data set where we specify the relationship between two variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Using a simulation is desirable because it allows us to know what the “true” underlying model that relates <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is, so we can evaluate how well we do in terms of recovering the model.</p>
 <p>Let’s generate two vectors representing the variable, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, where <span class="math inline">\(Y\)</span> is a function of <span class="math inline">\(X\)</span> plus some independent noise. As specified below, the “true” relationship is <span class="math inline">\(Y = 1.5X + 1.0 + \epsilon_y\)</span> where <span class="math inline">\(\epsilon_y\)</span> is a noise term.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="linear-regression-models-i.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this seeds our random number generator</span></span>
-<span id="cb349-2"><a href="linear-regression-models-i.html#cb349-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by setting a seed, we can make random simulation reproducible!</span></span>
-<span id="cb349-3"><a href="linear-regression-models-i.html#cb349-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190227</span>)  </span>
-<span id="cb349-4"><a href="linear-regression-models-i.html#cb349-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-5"><a href="linear-regression-models-i.html#cb349-5" aria-hidden="true" tabindex="-1"></a>npts <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb349-6"><a href="linear-regression-models-i.html#cb349-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-7"><a href="linear-regression-models-i.html#cb349-7" aria-hidden="true" tabindex="-1"></a><span class="co"># specify coefficients of the simulation</span></span>
-<span id="cb349-8"><a href="linear-regression-models-i.html#cb349-8" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
-<span id="cb349-9"><a href="linear-regression-models-i.html#cb349-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
-<span id="cb349-10"><a href="linear-regression-models-i.html#cb349-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate draws of X with noise</span></span>
-<span id="cb349-11"><a href="linear-regression-models-i.html#cb349-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">length.out =</span> npts) <span class="sc">+</span> <span class="fu">rnorm</span>(npts)</span>
-<span id="cb349-12"><a href="linear-regression-models-i.html#cb349-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-13"><a href="linear-regression-models-i.html#cb349-13" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate corresponding Y as a function of X with noise</span></span>
-<span id="cb349-14"><a href="linear-regression-models-i.html#cb349-14" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> a <span class="sc">+</span> b<span class="sc">*</span>X <span class="sc">+</span> <span class="fu">rnorm</span>(npts, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = a + bX  + noise</span></span>
-<span id="cb349-15"><a href="linear-regression-models-i.html#cb349-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-16"><a href="linear-regression-models-i.html#cb349-16" aria-hidden="true" tabindex="-1"></a>df.xy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="linear-regression-models-i.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this seeds our random number generator</span></span>
+<span id="cb353-2"><a href="linear-regression-models-i.html#cb353-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by setting a seed, we can make random simulation reproducible!</span></span>
+<span id="cb353-3"><a href="linear-regression-models-i.html#cb353-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190227</span>)  </span>
+<span id="cb353-4"><a href="linear-regression-models-i.html#cb353-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-5"><a href="linear-regression-models-i.html#cb353-5" aria-hidden="true" tabindex="-1"></a>npts <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb353-6"><a href="linear-regression-models-i.html#cb353-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-7"><a href="linear-regression-models-i.html#cb353-7" aria-hidden="true" tabindex="-1"></a><span class="co"># specify coefficients of the simulation</span></span>
+<span id="cb353-8"><a href="linear-regression-models-i.html#cb353-8" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">1.0</span></span>
+<span id="cb353-9"><a href="linear-regression-models-i.html#cb353-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fl">1.5</span></span>
+<span id="cb353-10"><a href="linear-regression-models-i.html#cb353-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate draws of X with noise</span></span>
+<span id="cb353-11"><a href="linear-regression-models-i.html#cb353-11" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">length.out =</span> npts) <span class="sc">+</span> <span class="fu">rnorm</span>(npts)</span>
+<span id="cb353-12"><a href="linear-regression-models-i.html#cb353-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-13"><a href="linear-regression-models-i.html#cb353-13" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate corresponding Y as a function of X with noise</span></span>
+<span id="cb353-14"><a href="linear-regression-models-i.html#cb353-14" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> a <span class="sc">+</span> b<span class="sc">*</span>X <span class="sc">+</span> <span class="fu">rnorm</span>(npts, <span class="at">sd =</span> <span class="dv">2</span>)  <span class="co"># Y = a + bX  + noise</span></span>
+<span id="cb353-15"><a href="linear-regression-models-i.html#cb353-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-16"><a href="linear-regression-models-i.html#cb353-16" aria-hidden="true" tabindex="-1"></a>df.xy <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y)</span></code></pre></div>
 <p>Having generated some simulated data, let’s visualize it using <code>ggplot</code> and a new library called <code>ggMarginal</code> (install ggMarginal via the standard package installation mechanism). <code>ggMarginal</code> is a package for adding “marginal” plots to a figure.</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="linear-regression-models-i.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb350-2"><a href="linear-regression-models-i.html#cb350-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span></span>
-<span id="cb350-3"><a href="linear-regression-models-i.html#cb350-3" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># install if you don&#39;t already have it</span></span></code></pre></div>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="linear-regression-models-i.html#cb351-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df.xy, <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb351-2"><a href="linear-regression-models-i.html#cb351-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="at">bins =</span> <span class="dv">11</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-348-1.png" width="576" /></p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="linear-regression-models-i.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb354-2"><a href="linear-regression-models-i.html#cb354-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)  <span class="co"># a new library, provides ggMarginal plot (see below)</span></span>
+<span id="cb354-3"><a href="linear-regression-models-i.html#cb354-3" aria-hidden="true" tabindex="-1"></a>                  <span class="co"># install if you don&#39;t already have it</span></span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="linear-regression-models-i.html#cb355-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df.xy, <span class="fu">aes</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb355-2"><a href="linear-regression-models-i.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggMarginal</span>(p, <span class="at">type =</span> <span class="st">&quot;histogram&quot;</span>, <span class="at">bins =</span> <span class="dv">11</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-352-1.png" width="576" /></p>
 <p>As shown here, we plot a scatter plot of X and Y, and on the margins of the figure we graphed the respective histogram of X and Y individually. This is a very useful visualization that allows us to see both the univariate and bivariate patterns in the data in one figure.</p>
 </div>
-<div id="calculating-the-regression-model-using-vector-arithmetic" class="section level2" number="11.12">
-<h2><span class="header-section-number">11.12</span> Calculating the regression model using vector arithmetic</h2>
+<div id="calculating-the-regression-model-using-vector-arithmetic" class="section level2 hasAnchor" number="11.12">
+<h2><span class="header-section-number">11.12</span> Calculating the regression model using vector arithmetic<a href="linear-regression-models-i.html#calculating-the-regression-model-using-vector-arithmetic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Fitting the bivariate regression using vector operations is straight foward:</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="linear-regression-models-i.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mean centered vectors</span></span>
-<span id="cb352-2"><a href="linear-regression-models-i.html#cb352-2" aria-hidden="true" tabindex="-1"></a>X.ctr <span class="ot">&lt;-</span> X <span class="sc">-</span> <span class="fu">mean</span>(X)</span>
-<span id="cb352-3"><a href="linear-regression-models-i.html#cb352-3" aria-hidden="true" tabindex="-1"></a>Y.ctr <span class="ot">&lt;-</span> Y <span class="sc">-</span> <span class="fu">mean</span>(Y)</span>
-<span id="cb352-4"><a href="linear-regression-models-i.html#cb352-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb352-5"><a href="linear-regression-models-i.html#cb352-5" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate coefficients</span></span>
-<span id="cb352-6"><a href="linear-regression-models-i.html#cb352-6" aria-hidden="true" tabindex="-1"></a>b.est <span class="ot">&lt;-</span> (X.ctr <span class="sc">%*%</span> Y.ctr)<span class="sc">/</span>(X.ctr <span class="sc">%*%</span> X.ctr)</span>
-<span id="cb352-7"><a href="linear-regression-models-i.html#cb352-7" aria-hidden="true" tabindex="-1"></a>a.est <span class="ot">&lt;-</span> <span class="fu">mean</span>(Y) <span class="sc">-</span> b.est <span class="sc">*</span> <span class="fu">mean</span>(X)</span>
-<span id="cb352-8"><a href="linear-regression-models-i.html#cb352-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb352-9"><a href="linear-regression-models-i.html#cb352-9" aria-hidden="true" tabindex="-1"></a><span class="co"># I use `drop` here to turn this matrices back to scalar values</span></span>
-<span id="cb352-10"><a href="linear-regression-models-i.html#cb352-10" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">intercept =</span> <span class="fu">drop</span>(a.est), <span class="at">slope =</span> <span class="fu">drop</span>(b.est))</span>
-<span id="cb352-11"><a href="linear-regression-models-i.html#cb352-11" aria-hidden="true" tabindex="-1"></a>regression</span>
-<span id="cb352-12"><a href="linear-regression-models-i.html#cb352-12" aria-hidden="true" tabindex="-1"></a><span class="do">## $intercept</span></span>
-<span id="cb352-13"><a href="linear-regression-models-i.html#cb352-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.819327</span></span>
-<span id="cb352-14"><a href="linear-regression-models-i.html#cb352-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb352-15"><a href="linear-regression-models-i.html#cb352-15" aria-hidden="true" tabindex="-1"></a><span class="do">## $slope</span></span>
-<span id="cb352-16"><a href="linear-regression-models-i.html#cb352-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.197603</span></span></code></pre></div>
-<div id="calculating-the-predicted-values-and-residuals" class="section level3" number="11.12.1">
-<h3><span class="header-section-number">11.12.1</span> Calculating the predicted values and residuals</h3>
-<p>Having fit the model, the fitted (predicted) values <span class="math inline">\(\vec{\widehat{\mathbf{y}}}\)</span> and the residuals, <span class="math inline">\(\vec{\mathbf{e}}\)</span> can also be found easily.</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="linear-regression-models-i.html#cb353-1" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> regression<span class="sc">$</span>intercept <span class="sc">+</span> regression<span class="sc">$</span>slope <span class="sc">*</span> X</span>
-<span id="cb353-2"><a href="linear-regression-models-i.html#cb353-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> Y <span class="sc">-</span> Yhat</span></code></pre></div>
-<p>Let’s create a new data frame that include the observed X and Y values plus the predicted and residual values for easy plotting:</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="linear-regression-models-i.html#cb354-1" aria-hidden="true" tabindex="-1"></a>regression.df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">fitted =</span> Yhat, <span class="at">residuals =</span> e)</span></code></pre></div>
-</div>
-</div>
-<div id="plotting-various-aspects-of-a-regression" class="section level2" number="11.13">
-<h2><span class="header-section-number">11.13</span> Plotting various aspects of a regression</h2>
-<p>Now let’s visualize the observed values of X and Y (in black), as well as the predicted values of Y (in red). For every black point, representing the observed value of X and the corresponding observed value of Y, there is a corresponding red point that shows the observed value of X and the corresponding predicted value of Y from the regression model.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="linear-regression-models-i.html#cb355-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="ot">&lt;-</span> </span>
-<span id="cb355-2"><a href="linear-regression-models-i.html#cb355-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X,Y)) <span class="sc">+</span></span>
-<span id="cb355-3"><a href="linear-regression-models-i.html#cb355-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb355-4"><a href="linear-regression-models-i.html#cb355-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(X, fitted), <span class="at">color=</span><span class="st">&#39;red&#39;</span>)</span>
-<span id="cb355-5"><a href="linear-regression-models-i.html#cb355-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-6"><a href="linear-regression-models-i.html#cb355-6" aria-hidden="true" tabindex="-1"></a>regr.plot</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-352-1.png" width="576" /></p>
-<p>We can use <code>geom_abline()</code> to add a straight line with a given slope and intercept</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="linear-regression-models-i.html#cb356-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="ot">&lt;-</span></span>
-<span id="cb356-2"><a href="linear-regression-models-i.html#cb356-2" aria-hidden="true" tabindex="-1"></a>  regr.plot <span class="sc">+</span></span>
-<span id="cb356-3"><a href="linear-regression-models-i.html#cb356-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> regression<span class="sc">$</span>slope, <span class="at">intercept =</span> regression<span class="sc">$</span>intercept, <span class="at">color=</span><span class="st">&#39;red&#39;</span>)</span>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="linear-regression-models-i.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mean centered vectors</span></span>
+<span id="cb356-2"><a href="linear-regression-models-i.html#cb356-2" aria-hidden="true" tabindex="-1"></a>X.ctr <span class="ot">&lt;-</span> X <span class="sc">-</span> <span class="fu">mean</span>(X)</span>
+<span id="cb356-3"><a href="linear-regression-models-i.html#cb356-3" aria-hidden="true" tabindex="-1"></a>Y.ctr <span class="ot">&lt;-</span> Y <span class="sc">-</span> <span class="fu">mean</span>(Y)</span>
 <span id="cb356-4"><a href="linear-regression-models-i.html#cb356-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb356-5"><a href="linear-regression-models-i.html#cb356-5" aria-hidden="true" tabindex="-1"></a>regr.plot</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-353-1.png" width="576" /></p>
-<p>Finally, let’s add some dashed lines to represent the residuals:</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="linear-regression-models-i.html#cb357-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="sc">+</span> </span>
-<span id="cb357-2"><a href="linear-regression-models-i.html#cb357-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> X, <span class="at">yend =</span> fitted),</span>
-<span id="cb357-3"><a href="linear-regression-models-i.html#cb357-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="at">alpha=</span><span class="fl">0.35</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-354-1.png" width="576" /></p>
-<p>One final plot we can create since we’re using simulated data is to compare the estimated model (in red) to the “true” model (in blue). You won’t generally be able to do this for most biological data.</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="linear-regression-models-i.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X,Y)) <span class="sc">+</span> </span>
-<span id="cb358-2"><a href="linear-regression-models-i.html#cb358-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb358-3"><a href="linear-regression-models-i.html#cb358-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> regression<span class="sc">$</span>slope, <span class="at">intercept =</span> regression<span class="sc">$</span>intercept, <span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb358-4"><a href="linear-regression-models-i.html#cb358-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> b, <span class="at">intercept =</span> a, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-355-1.png" width="576" /></p>
-<div id="residual-plots" class="section level3" number="11.13.1">
-<h3><span class="header-section-number">11.13.1</span> Residual plots</h3>
-<p>Another common way to depict the residuals, is to plot the predictor values (the X’s) versus the corresponding residual values, like so:</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="linear-regression-models-i.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X, residuals)) <span class="sc">+</span> </span>
-<span id="cb359-2"><a href="linear-regression-models-i.html#cb359-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb359-3"><a href="linear-regression-models-i.html#cb359-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&#39;red&#39;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb359-4"><a href="linear-regression-models-i.html#cb359-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span>)  </span></code></pre></div>
+<span id="cb356-5"><a href="linear-regression-models-i.html#cb356-5" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate coefficients</span></span>
+<span id="cb356-6"><a href="linear-regression-models-i.html#cb356-6" aria-hidden="true" tabindex="-1"></a>b.est <span class="ot">&lt;-</span> (X.ctr <span class="sc">%*%</span> Y.ctr)<span class="sc">/</span>(X.ctr <span class="sc">%*%</span> X.ctr)</span>
+<span id="cb356-7"><a href="linear-regression-models-i.html#cb356-7" aria-hidden="true" tabindex="-1"></a>a.est <span class="ot">&lt;-</span> <span class="fu">mean</span>(Y) <span class="sc">-</span> b.est <span class="sc">*</span> <span class="fu">mean</span>(X)</span>
+<span id="cb356-8"><a href="linear-regression-models-i.html#cb356-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb356-9"><a href="linear-regression-models-i.html#cb356-9" aria-hidden="true" tabindex="-1"></a><span class="co"># I use `drop` here to turn this matrices back to scalar values</span></span>
+<span id="cb356-10"><a href="linear-regression-models-i.html#cb356-10" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">intercept =</span> <span class="fu">drop</span>(a.est), <span class="at">slope =</span> <span class="fu">drop</span>(b.est))</span>
+<span id="cb356-11"><a href="linear-regression-models-i.html#cb356-11" aria-hidden="true" tabindex="-1"></a>regression</span>
+<span id="cb356-12"><a href="linear-regression-models-i.html#cb356-12" aria-hidden="true" tabindex="-1"></a><span class="do">## $intercept</span></span>
+<span id="cb356-13"><a href="linear-regression-models-i.html#cb356-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.819327</span></span>
+<span id="cb356-14"><a href="linear-regression-models-i.html#cb356-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb356-15"><a href="linear-regression-models-i.html#cb356-15" aria-hidden="true" tabindex="-1"></a><span class="do">## $slope</span></span>
+<span id="cb356-16"><a href="linear-regression-models-i.html#cb356-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1.197603</span></span></code></pre></div>
+<div id="calculating-the-predicted-values-and-residuals" class="section level3 hasAnchor" number="11.12.1">
+<h3><span class="header-section-number">11.12.1</span> Calculating the predicted values and residuals<a href="linear-regression-models-i.html#calculating-the-predicted-values-and-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Having fit the model, the fitted (predicted) values <span class="math inline">\(\vec{\widehat{\mathbf{y}}}\)</span> and the residuals, <span class="math inline">\(\vec{\mathbf{e}}\)</span> can also be found easily.</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="linear-regression-models-i.html#cb357-1" aria-hidden="true" tabindex="-1"></a>Yhat <span class="ot">&lt;-</span> regression<span class="sc">$</span>intercept <span class="sc">+</span> regression<span class="sc">$</span>slope <span class="sc">*</span> X</span>
+<span id="cb357-2"><a href="linear-regression-models-i.html#cb357-2" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> Y <span class="sc">-</span> Yhat</span></code></pre></div>
+<p>Let’s create a new data frame that include the observed X and Y values plus the predicted and residual values for easy plotting:</p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="linear-regression-models-i.html#cb358-1" aria-hidden="true" tabindex="-1"></a>regression.df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">X =</span> X, <span class="at">Y =</span> Y, <span class="at">fitted =</span> Yhat, <span class="at">residuals =</span> e)</span></code></pre></div>
+</div>
+</div>
+<div id="plotting-various-aspects-of-a-regression" class="section level2 hasAnchor" number="11.13">
+<h2><span class="header-section-number">11.13</span> Plotting various aspects of a regression<a href="linear-regression-models-i.html#plotting-various-aspects-of-a-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now let’s visualize the observed values of X and Y (in black), as well as the predicted values of Y (in red). For every black point, representing the observed value of X and the corresponding observed value of Y, there is a corresponding red point that shows the observed value of X and the corresponding predicted value of Y from the regression model.</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="linear-regression-models-i.html#cb359-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="ot">&lt;-</span> </span>
+<span id="cb359-2"><a href="linear-regression-models-i.html#cb359-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X,Y)) <span class="sc">+</span></span>
+<span id="cb359-3"><a href="linear-regression-models-i.html#cb359-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb359-4"><a href="linear-regression-models-i.html#cb359-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(X, fitted), <span class="at">color=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb359-5"><a href="linear-regression-models-i.html#cb359-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb359-6"><a href="linear-regression-models-i.html#cb359-6" aria-hidden="true" tabindex="-1"></a>regr.plot</span></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-356-1.png" width="576" /></p>
+<p>We can use <code>geom_abline()</code> to add a straight line with a given slope and intercept</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="linear-regression-models-i.html#cb360-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="ot">&lt;-</span></span>
+<span id="cb360-2"><a href="linear-regression-models-i.html#cb360-2" aria-hidden="true" tabindex="-1"></a>  regr.plot <span class="sc">+</span></span>
+<span id="cb360-3"><a href="linear-regression-models-i.html#cb360-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> regression<span class="sc">$</span>slope, <span class="at">intercept =</span> regression<span class="sc">$</span>intercept, <span class="at">color=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb360-4"><a href="linear-regression-models-i.html#cb360-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb360-5"><a href="linear-regression-models-i.html#cb360-5" aria-hidden="true" tabindex="-1"></a>regr.plot</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-357-1.png" width="576" /></p>
+<p>Finally, let’s add some dashed lines to represent the residuals:</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="linear-regression-models-i.html#cb361-1" aria-hidden="true" tabindex="-1"></a>regr.plot <span class="sc">+</span> </span>
+<span id="cb361-2"><a href="linear-regression-models-i.html#cb361-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> X, <span class="at">yend =</span> fitted),</span>
+<span id="cb361-3"><a href="linear-regression-models-i.html#cb361-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>, <span class="at">alpha=</span><span class="fl">0.35</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-358-1.png" width="576" /></p>
+<p>One final plot we can create since we’re using simulated data is to compare the estimated model (in red) to the “true” model (in blue). You won’t generally be able to do this for most biological data.</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="linear-regression-models-i.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X,Y)) <span class="sc">+</span> </span>
+<span id="cb362-2"><a href="linear-regression-models-i.html#cb362-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb362-3"><a href="linear-regression-models-i.html#cb362-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> regression<span class="sc">$</span>slope, <span class="at">intercept =</span> regression<span class="sc">$</span>intercept, <span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb362-4"><a href="linear-regression-models-i.html#cb362-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> b, <span class="at">intercept =</span> a, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-359-1.png" width="576" /></p>
+<div id="residual-plots" class="section level3 hasAnchor" number="11.13.1">
+<h3><span class="header-section-number">11.13.1</span> Residual plots<a href="linear-regression-models-i.html#residual-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another common way to depict the residuals, is to plot the predictor values (the X’s) versus the corresponding residual values, like so:</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="linear-regression-models-i.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(regression.df, <span class="fu">aes</span>(X, residuals)) <span class="sc">+</span> </span>
+<span id="cb363-2"><a href="linear-regression-models-i.html#cb363-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb363-3"><a href="linear-regression-models-i.html#cb363-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&#39;red&#39;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb363-4"><a href="linear-regression-models-i.html#cb363-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Residuals&quot;</span>)  </span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-360-1.png" width="576" /></p>
 <p>When the linear regression model is appropriate, residuals should be normally distributed, centered around zero and should show no strong trends or extreme differences in spread (variance) for different values of X.</p>
 </div>
 </div>
-<div id="calculating-the-coefficient-of-determination" class="section level2" number="11.14">
-<h2><span class="header-section-number">11.14</span> Calculating the coefficient of determination</h2>
+<div id="calculating-the-coefficient-of-determination" class="section level2 hasAnchor" number="11.14">
+<h2><span class="header-section-number">11.14</span> Calculating the coefficient of determination<a href="linear-regression-models-i.html#calculating-the-coefficient-of-determination" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As described previously, the coefficient of determination is the standard measures of goodness of fit of a regression model. This can be calculated easily based on our previous calculations as so:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="linear-regression-models-i.html#cb360-1" aria-hidden="true" tabindex="-1"></a>Yhat.ctr <span class="ot">&lt;-</span> Yhat <span class="sc">-</span> <span class="fu">mean</span>(Yhat)</span>
-<span id="cb360-2"><a href="linear-regression-models-i.html#cb360-2" aria-hidden="true" tabindex="-1"></a>coeff.determination <span class="ot">&lt;-</span> <span class="fu">drop</span>(Yhat.ctr <span class="sc">%*%</span> Yhat.ctr) <span class="sc">/</span> <span class="fu">drop</span>(Y.ctr <span class="sc">%*%</span> Y.ctr)</span>
-<span id="cb360-3"><a href="linear-regression-models-i.html#cb360-3" aria-hidden="true" tabindex="-1"></a>coeff.determination</span>
-<span id="cb360-4"><a href="linear-regression-models-i.html#cb360-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4082507</span></span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="linear-regression-models-i.html#cb364-1" aria-hidden="true" tabindex="-1"></a>Yhat.ctr <span class="ot">&lt;-</span> Yhat <span class="sc">-</span> <span class="fu">mean</span>(Yhat)</span>
+<span id="cb364-2"><a href="linear-regression-models-i.html#cb364-2" aria-hidden="true" tabindex="-1"></a>coeff.determination <span class="ot">&lt;-</span> <span class="fu">drop</span>(Yhat.ctr <span class="sc">%*%</span> Yhat.ctr) <span class="sc">/</span> <span class="fu">drop</span>(Y.ctr <span class="sc">%*%</span> Y.ctr)</span>
+<span id="cb364-3"><a href="linear-regression-models-i.html#cb364-3" aria-hidden="true" tabindex="-1"></a>coeff.determination</span>
+<span id="cb364-4"><a href="linear-regression-models-i.html#cb364-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4082507</span></span></code></pre></div>
 <p>Approximately 41% of the variation in <span class="math inline">\(Y\)</span> is “explained” by the regression on X.</p>
 
 </div>
@@ -949,7 +954,6 @@ Figure 11.3: Vector geometric representations of bivariate linear least squares 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -968,6 +972,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -988,6 +993,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -1004,7 +1013,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

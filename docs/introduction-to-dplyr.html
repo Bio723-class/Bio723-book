@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Introduction to dplyr | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Introduction to dplyr | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="introduction-to-ggplot2.html"/>
 <link rel="next" href="data-wrangling.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,43 +623,38 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-dplyr" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Introduction to <code>dplyr</code></h1>
+<div id="introduction-to-dplyr" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Introduction to <code>dplyr</code><a href="introduction-to-dplyr.html#introduction-to-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In today’s class we introduce a new package, <code>dplyr</code>, which, along with ggplot2 will be used in almost every class session. We will also introduce the <code>readr</code> package, for reading tabular data.</p>
-<div id="libraries" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Libraries</h2>
+<div id="libraries" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Libraries<a href="introduction-to-dplyr.html#libraries" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Both <code>readr</code> and <code>dplyr</code> are members of the tidyverse, so a single invocation of <code>library()</code> makes the functions defined in these two packages available for our use:</p>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="introduction-to-dplyr.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  </span></code></pre></div>
 </div>
-<div id="reading-data-with-the-readr-package" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Reading data with the <code>readr</code> package</h2>
+<div id="reading-data-with-the-readr-package" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Reading data with the <code>readr</code> package<a href="introduction-to-dplyr.html#reading-data-with-the-readr-package" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <a href="http://readr.tidyverse.org"><code>readr</code></a> package defines a number of functions for reading data tables from common file formats like Comma-Separated-Value (CSV) and Tab-Separated-Value (TSV) files.</p>
 <p>The two most frequently used <code>readr</code> functions we’ll use in this class are <code>read_csv()</code> and <code>read_tsv()</code> for reading CSV and TSV files respectively. There are some variants of these basic function, which you can read about by invoking the help system (<code>?read_csv</code>).</p>
-<div id="reading-excel-files" class="section level3" number="7.2.1">
-<h3><span class="header-section-number">7.2.1</span> Reading Excel files</h3>
-<p>The tidyverse also includes a package called <a href="http://readxl.tidyverse.org"><code>readxl</code></a> which can be used to read Excel spreadsheets (recent versions with <code>.xls</code> and <code>.xlsx</code> extensions). Excel files are somewhat more complicated to deal with because they can include separate “sheets.” We won’t use <code>readxl</code> in this class, but documentation and examples of how <code>readxl</code> is used can be found at the page linked above.</p>
+<div id="reading-excel-files" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Reading Excel files<a href="introduction-to-dplyr.html#reading-excel-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The tidyverse also includes a package called <a href="http://readxl.tidyverse.org"><code>readxl</code></a> which can be used to read Excel spreadsheets (recent versions with <code>.xls</code> and <code>.xlsx</code> extensions). Excel files are somewhat more complicated to deal with because they can include separate “sheets”. We won’t use <code>readxl</code> in this class, but documentation and examples of how <code>readxl</code> is used can be found at the page linked above.</p>
 </div>
-<div id="example-data-nc-births" class="section level3" number="7.2.2">
-<h3><span class="header-section-number">7.2.2</span> Example data: NC Births</h3>
+<div id="example-data-nc-births" class="section level3 hasAnchor" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Example data: NC Births<a href="introduction-to-dplyr.html#example-data-nc-births" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For today’s hands on session we’ll use a data set that contains information on 150 cases of mothers and their newborns in North Carolina in 2004. This data set is available at the following URL:</p>
 <ul>
 <li><a href="https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt" class="uri">https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt</a></li>
 </ul>
 <p>The births data is a TSV file, so we’ll use the <code>read_tsv()</code> function to read it:</p>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="introduction-to-dplyr.html#cb202-1" aria-hidden="true" tabindex="-1"></a>births <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;https://github.com/Bio723-class/example-datasets/raw/master/nc-births.txt&quot;</span>)</span>
-<span id="cb202-2"><a href="introduction-to-dplyr.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb202-3"><a href="introduction-to-dplyr.html#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification ────────────────────────────────────────────────────────</span></span>
-<span id="cb202-4"><a href="introduction-to-dplyr.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="do">## cols(</span></span>
-<span id="cb202-5"><a href="introduction-to-dplyr.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   fAge = col_double(),</span></span>
-<span id="cb202-6"><a href="introduction-to-dplyr.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   mAge = col_double(),</span></span>
-<span id="cb202-7"><a href="introduction-to-dplyr.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   weeks = col_double(),</span></span>
-<span id="cb202-8"><a href="introduction-to-dplyr.html#cb202-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   premature = col_character(),</span></span>
-<span id="cb202-9"><a href="introduction-to-dplyr.html#cb202-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   visits = col_double(),</span></span>
-<span id="cb202-10"><a href="introduction-to-dplyr.html#cb202-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   gained = col_double(),</span></span>
-<span id="cb202-11"><a href="introduction-to-dplyr.html#cb202-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   weight = col_double(),</span></span>
-<span id="cb202-12"><a href="introduction-to-dplyr.html#cb202-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   sexBaby = col_character(),</span></span>
-<span id="cb202-13"><a href="introduction-to-dplyr.html#cb202-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke = col_character()</span></span>
-<span id="cb202-14"><a href="introduction-to-dplyr.html#cb202-14" aria-hidden="true" tabindex="-1"></a><span class="do">## )</span></span></code></pre></div>
+<span id="cb202-2"><a href="introduction-to-dplyr.html#cb202-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 150 Columns: 9</span></span>
+<span id="cb202-3"><a href="introduction-to-dplyr.html#cb202-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification ──────────────────</span></span>
+<span id="cb202-4"><a href="introduction-to-dplyr.html#cb202-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Delimiter: &quot;\t&quot;</span></span>
+<span id="cb202-5"><a href="introduction-to-dplyr.html#cb202-5" aria-hidden="true" tabindex="-1"></a><span class="do">## chr (3): premature, sexBaby, smoke</span></span>
+<span id="cb202-6"><a href="introduction-to-dplyr.html#cb202-6" aria-hidden="true" tabindex="-1"></a><span class="do">## dbl (6): fAge, mAge, weeks, visits, gained, weight</span></span>
+<span id="cb202-7"><a href="introduction-to-dplyr.html#cb202-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb202-8"><a href="introduction-to-dplyr.html#cb202-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb202-9"><a href="introduction-to-dplyr.html#cb202-9" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code></pre></div>
 <p>Notice that when you used <code>read_tsv()</code> the function printed information about how it “parsed” the data (i.e. the types it assigned to each of the columns).</p>
 <p>The variables in the data set are:</p>
 <ul>
@@ -674,22 +674,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb203-2"><a href="introduction-to-dplyr.html#cb203-2" aria-hidden="true" tabindex="-1"></a>births <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&quot;/Users/pmagwene/Downloads/nc-births.txt&quot;</span>)</span></code></pre></div>
 </div>
 </div>
-<div id="a-note-on-tibbles" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> A note on “tibbles”</h2>
-<p>You may have noticed that most of the functions defined in tidyverse related packages return not data frames, but rather something called a “tibble.” You can think about tibbles as light-weight data frames. In fact if you ask about the “class” of a tibble you’ll see that it includes <code>data.frame</code> as one of it’s classes as well as <code>tbl</code> and <code>tbl_df</code>.</p>
+<div id="a-note-on-tibbles" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> A note on “tibbles”<a href="introduction-to-dplyr.html#a-note-on-tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You may have noticed that most of the functions defined in tidyverse related packages return not data frames, but rather something called a “tibble”. You can think about tibbles as light-weight data frames. In fact if you ask about the “class” of a tibble you’ll see that it includes <code>data.frame</code> as one of it’s classes as well as <code>tbl</code> and <code>tbl_df</code>.</p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="introduction-to-dplyr.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(births)</span>
 <span id="cb204-2"><a href="introduction-to-dplyr.html#cb204-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</span></span></code></pre></div>
 <p>There are some minor differences between data frame and tibbles. For example, tibbles print differently in the console and don’t automatically change variable names and types in the same way that standard data frames do. Usually tibbles can be used wherever a standard data frame is expected, but you may occasionally find a function that only works with a standard data frame. It’s easy to convert a tibble to a standard data frame using the <code>as.data.frame</code> function:</p>
 <div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="introduction-to-dplyr.html#cb205-1" aria-hidden="true" tabindex="-1"></a>births.std.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(births)</span></code></pre></div>
 <p>For more details about tibbles, see the <a href="http://r4ds.had.co.nz/tibbles.html">Tibbles chapter in R for Data Analysis</a>.</p>
 </div>
-<div id="data-filtering-and-transformation-with-dplyr" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Data filtering and transformation with <code>dplyr</code></h2>
-<p><code>dplyr</code> is powerful tool for data filter and transformation. In the same way that <code>ggplot2</code> attempts to provide a “grammar of graphics,” <code>dplyr</code> aims to provide a “grammar of data manipulation.” In today’s material we will see how <code>dplyr</code> complements and simplifies standard data frame indexing and subsetting operations. However, <code>dplyr</code> is focused only on data frames and doesn’t completely replace the basic subsetting operations, and so being adept with both <code>dplyr</code> and the indexing approaches we’ve seen previously is important. If you’re curious about the name “dplyr,” the package’s originator Hadley Wickham says it’s supposed to invoke the idea of pliers for data frames (<a href="https://github.com/tidyverse/dplyr/issues/1857">Github: Meaning of dplyrs name</a>)</p>
+<div id="data-filtering-and-transformation-with-dplyr" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Data filtering and transformation with <code>dplyr</code><a href="introduction-to-dplyr.html#data-filtering-and-transformation-with-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>dplyr</code> is powerful tool for data filter and transformation. In the same way that <code>ggplot2</code> attempts to provide a “grammar of graphics”, <code>dplyr</code> aims to provide a “grammar of data manipulation”. In today’s material we will see how <code>dplyr</code> complements and simplifies standard data frame indexing and subsetting operations. However, <code>dplyr</code> is focused only on data frames and doesn’t completely replace the basic subsetting operations, and so being adept with both <code>dplyr</code> and the indexing approaches we’ve seen previously is important. If you’re curious about the name “dplyr”, the package’s originator Hadley Wickham says it’s supposed to invoke the idea of pliers for data frames (<a href="https://github.com/tidyverse/dplyr/issues/1857">Github: Meaning of dplyrs name</a>)</p>
 </div>
-<div id="dplyrs-verbs" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> dplyr’s “verbs”</h2>
-<p>The primary functions in the <code>dplyr</code> package can be thought of as a set of “verbs,” each verb corresponding to a common data manipulation task. Some of the most frequently used verbs/functions in <code>dplyr</code> include:</p>
+<div id="dplyrs-verbs" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> dplyr’s “verbs”<a href="introduction-to-dplyr.html#dplyrs-verbs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The primary functions in the <code>dplyr</code> package can be thought of as a set of “verbs”, each verb corresponding to a common data manipulation task. Some of the most frequently used verbs/functions in <code>dplyr</code> include:</p>
 <ul>
 <li><code>select</code> – select columns</li>
 <li><code>filter</code> – filter rows</li>
@@ -699,8 +699,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><code>group_by</code> – split data frame on some grouping variable. Can be powerfully combined with <code>summarize</code></li>
 </ul>
 <p>All of these functions return new data frames rather than modifying the existing data frame (though some of the functions support in place modification of data frames via optional arguments).We illustrate these below by example using the NC births data.</p>
-<div id="select" class="section level3" number="7.5.1">
-<h3><span class="header-section-number">7.5.1</span> <code>select</code></h3>
+<div id="select" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> <code>select</code><a href="introduction-to-dplyr.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>select</code> function subsets the columns (variables) of a data frame. For example, to select just the weeks and weight columns from the births data set we could do:</p>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="introduction-to-dplyr.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="co"># note I&#39;m prefixing select with the package name (dplyr)</span></span>
 <span id="cb206-2"><a href="introduction-to-dplyr.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to avoid name clashes with built-in select function</span></span>
@@ -708,7 +708,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb206-4"><a href="introduction-to-dplyr.html#cb206-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(wks.weight)  <span class="co"># dim should be 50 x 2</span></span>
 <span id="cb206-5"><a href="introduction-to-dplyr.html#cb206-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 150   2</span></span>
 <span id="cb206-6"><a href="introduction-to-dplyr.html#cb206-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wks.weight)</span>
-<span id="cb206-7"><a href="introduction-to-dplyr.html#cb206-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 2</span></span>
+<span id="cb206-7"><a href="introduction-to-dplyr.html#cb206-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 2</span></span>
 <span id="cb206-8"><a href="introduction-to-dplyr.html#cb206-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   weeks weight</span></span>
 <span id="cb206-9"><a href="introduction-to-dplyr.html#cb206-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span id="cb206-10"><a href="introduction-to-dplyr.html#cb206-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    39   6.88</span></span>
@@ -722,7 +722,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb207-2"><a href="introduction-to-dplyr.html#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(wks.wt.alt)</span>
 <span id="cb207-3"><a href="introduction-to-dplyr.html#cb207-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 150   2</span></span>
 <span id="cb207-4"><a href="introduction-to-dplyr.html#cb207-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(wks.wt.alt)</span>
-<span id="cb207-5"><a href="introduction-to-dplyr.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 2</span></span>
+<span id="cb207-5"><a href="introduction-to-dplyr.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 2</span></span>
 <span id="cb207-6"><a href="introduction-to-dplyr.html#cb207-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   weeks weight</span></span>
 <span id="cb207-7"><a href="introduction-to-dplyr.html#cb207-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span id="cb207-8"><a href="introduction-to-dplyr.html#cb207-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    39   6.88</span></span>
@@ -737,8 +737,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>When using functions defined in <code>dplyr</code> and <code>ggplot2</code> variable names are (usually) not quoted or used with the <code>$</code> operator. This is a design feature of these libraries and makes it easier to carry out interactive analyes because it saves a fair amount of typing.</li>
 </ul>
 </div>
-<div id="filter" class="section level3" number="7.5.2">
-<h3><span class="header-section-number">7.5.2</span> <code>filter</code></h3>
+<div id="filter" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> <code>filter</code><a href="introduction-to-dplyr.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>filter</code> function returns those rows of the data set that meet the given logical criterion.</p>
 <p>For example, to get all the premature babies in the data set we could use filter as so:</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="introduction-to-dplyr.html#cb208-1" aria-hidden="true" tabindex="-1"></a>premies <span class="ot">&lt;-</span> <span class="fu">filter</span>(births, premature <span class="sc">==</span> <span class="st">&quot;premie&quot;</span>)</span>
@@ -754,8 +754,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><code>filter</code> also accepts logical statements chained together using the standard Boolean operators. For example, to find babies who were premature <em>or</em> whose moms were older than 35 you could use the OR operator <code>|</code>:</p>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="introduction-to-dplyr.html#cb212-1" aria-hidden="true" tabindex="-1"></a>premies.or.oldmom <span class="ot">&lt;-</span> <span class="fu">filter</span>(births, premature <span class="sc">==</span> <span class="st">&quot;premie&quot;</span> <span class="sc">|</span> fAge <span class="sc">&gt;</span> <span class="dv">35</span>)</span></code></pre></div>
 </div>
-<div id="mutate" class="section level3" number="7.5.3">
-<h3><span class="header-section-number">7.5.3</span> <code>mutate</code></h3>
+<div id="mutate" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> <code>mutate</code><a href="introduction-to-dplyr.html#mutate" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>mutate</code> function creates a new data frame that is the same as input data frame but with additional variables (columns) as specified by the function arguments. In the example below, I create two new variables, <code>weight.in.kg</code> and a <code>mom.smoked</code>:</p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="introduction-to-dplyr.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># to make code more readable it&#39;s sometime useful to spread out</span></span>
 <span id="cb213-2"><a href="introduction-to-dplyr.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="co"># function arguments over multiple lines like I&#39;ve done here</span></span>
@@ -764,27 +764,27 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb213-5"><a href="introduction-to-dplyr.html#cb213-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">mom.smoked =</span> (smoke <span class="sc">==</span> <span class="st">&quot;smoker&quot;</span>))</span>
 <span id="cb213-6"><a href="introduction-to-dplyr.html#cb213-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb213-7"><a href="introduction-to-dplyr.html#cb213-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(births.plus)</span>
-<span id="cb213-8"><a href="introduction-to-dplyr.html#cb213-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 11</span></span>
-<span id="cb213-9"><a href="introduction-to-dplyr.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke weight.in.kg</span></span>
-<span id="cb213-10"><a href="introduction-to-dplyr.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;</span></span>
-<span id="cb213-11"><a href="introduction-to-dplyr.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    31    30    39 full term     13      1   6.88 male    smok…         3.13</span></span>
-<span id="cb213-12"><a href="introduction-to-dplyr.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    34    36    39 full term      5     35   7.69 male    nons…         3.50</span></span>
-<span id="cb213-13"><a href="introduction-to-dplyr.html#cb213-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3    36    35    40 full term     12     29   8.88 male    nons…         4.04</span></span>
-<span id="cb213-14"><a href="introduction-to-dplyr.html#cb213-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4    41    40    40 full term     13     30   9    female  nons…         4.09</span></span>
-<span id="cb213-15"><a href="introduction-to-dplyr.html#cb213-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    42    37    40 full term     NA     10   7.94 male    nons…         3.61</span></span>
-<span id="cb213-16"><a href="introduction-to-dplyr.html#cb213-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    37    28    40 full term     12     35   8.25 male    smok…         3.75</span></span>
-<span id="cb213-17"><a href="introduction-to-dplyr.html#cb213-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 1 more variable: mom.smoked &lt;lgl&gt;</span></span></code></pre></div>
+<span id="cb213-8"><a href="introduction-to-dplyr.html#cb213-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 11</span></span>
+<span id="cb213-9"><a href="introduction-to-dplyr.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke weigh…¹ mom.s…²</span></span>
+<span id="cb213-10"><a href="introduction-to-dplyr.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt;  </span></span>
+<span id="cb213-11"><a href="introduction-to-dplyr.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    31    30    39 full term     13      1   6.88 male    smok…    3.13 TRUE   </span></span>
+<span id="cb213-12"><a href="introduction-to-dplyr.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    34    36    39 full term      5     35   7.69 male    nons…    3.50 FALSE  </span></span>
+<span id="cb213-13"><a href="introduction-to-dplyr.html#cb213-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3    36    35    40 full term     12     29   8.88 male    nons…    4.04 FALSE  </span></span>
+<span id="cb213-14"><a href="introduction-to-dplyr.html#cb213-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4    41    40    40 full term     13     30   9    female  nons…    4.09 FALSE  </span></span>
+<span id="cb213-15"><a href="introduction-to-dplyr.html#cb213-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    42    37    40 full term     NA     10   7.94 male    nons…    3.61 FALSE  </span></span>
+<span id="cb213-16"><a href="introduction-to-dplyr.html#cb213-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    37    28    40 full term     12     35   8.25 male    smok…    3.75 TRUE   </span></span>
+<span id="cb213-17"><a href="introduction-to-dplyr.html#cb213-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​weight.in.kg, ²​mom.smoked</span></span></code></pre></div>
 <p>The equivalent using standard indexing would be to create a new data frame from <code>births</code>, appending the new variables to the end as so:</p>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="introduction-to-dplyr.html#cb214-1" aria-hidden="true" tabindex="-1"></a>births.plus.alt <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(births,</span>
 <span id="cb214-2"><a href="introduction-to-dplyr.html#cb214-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">weight.in.kg =</span> births<span class="sc">$</span>weight <span class="sc">/</span> <span class="fl">2.2</span>,</span>
 <span id="cb214-3"><a href="introduction-to-dplyr.html#cb214-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">mom.smoked =</span> (births<span class="sc">$</span>smoke <span class="sc">==</span> <span class="st">&quot;smoker&quot;</span>))</span></code></pre></div>
 </div>
-<div id="arrange" class="section level3" number="7.5.4">
-<h3><span class="header-section-number">7.5.4</span> <code>arrange</code></h3>
+<div id="arrange" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> <code>arrange</code><a href="introduction-to-dplyr.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Arrange creates a new data frame where the rows are sorted according to their values for one or more variables. For example, to sort by mothers age we could do:</p>
 <div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="introduction-to-dplyr.html#cb215-1" aria-hidden="true" tabindex="-1"></a>young.moms.first <span class="ot">&lt;-</span> <span class="fu">arrange</span>(births, mAge)</span>
 <span id="cb215-2"><a href="introduction-to-dplyr.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(young.moms.first)</span>
-<span id="cb215-3"><a href="introduction-to-dplyr.html#cb215-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb215-3"><a href="introduction-to-dplyr.html#cb215-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb215-4"><a href="introduction-to-dplyr.html#cb215-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb215-5"><a href="introduction-to-dplyr.html#cb215-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb215-6"><a href="introduction-to-dplyr.html#cb215-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    18    15    37 full term     12     76   8.44 male    nonsmoker</span></span>
@@ -796,7 +796,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>The equivalent to <code>arrange</code> using standard indexing would be to use the information returned by the <code>order</code> function:</p>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="introduction-to-dplyr.html#cb216-1" aria-hidden="true" tabindex="-1"></a>young.moms.first.alt <span class="ot">&lt;-</span> births[<span class="fu">order</span>(births<span class="sc">$</span>mAge),]</span>
 <span id="cb216-2"><a href="introduction-to-dplyr.html#cb216-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(young.moms.first.alt)</span>
-<span id="cb216-3"><a href="introduction-to-dplyr.html#cb216-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb216-3"><a href="introduction-to-dplyr.html#cb216-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb216-4"><a href="introduction-to-dplyr.html#cb216-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb216-5"><a href="introduction-to-dplyr.html#cb216-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb216-6"><a href="introduction-to-dplyr.html#cb216-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    18    15    37 full term     12     76   8.44 male    nonsmoker</span></span>
@@ -808,7 +808,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>When using <code>arrange</code>, multiple sorting variables can be specified:</p>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="introduction-to-dplyr.html#cb217-1" aria-hidden="true" tabindex="-1"></a>sorted.by.moms.and.dads <span class="ot">&lt;-</span> <span class="fu">arrange</span>(births, mAge, fAge)</span>
 <span id="cb217-2"><a href="introduction-to-dplyr.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sorted.by.moms.and.dads)</span>
-<span id="cb217-3"><a href="introduction-to-dplyr.html#cb217-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb217-3"><a href="introduction-to-dplyr.html#cb217-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb217-4"><a href="introduction-to-dplyr.html#cb217-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb217-5"><a href="introduction-to-dplyr.html#cb217-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb217-6"><a href="introduction-to-dplyr.html#cb217-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    18    15    37 full term     12     76   8.44 male    nonsmoker</span></span>
@@ -820,7 +820,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>If you want to sort in descending order, you can combing <code>arrange</code> with the <code>desc</code> (=descend) function, also defined in <code>dplyr</code>:</p>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="introduction-to-dplyr.html#cb218-1" aria-hidden="true" tabindex="-1"></a>old.moms.first <span class="ot">&lt;-</span> <span class="fu">arrange</span>(births, <span class="fu">desc</span>(mAge))</span>
 <span id="cb218-2"><a href="introduction-to-dplyr.html#cb218-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(old.moms.first)</span>
-<span id="cb218-3"><a href="introduction-to-dplyr.html#cb218-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb218-3"><a href="introduction-to-dplyr.html#cb218-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb218-4"><a href="introduction-to-dplyr.html#cb218-4" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb218-5"><a href="introduction-to-dplyr.html#cb218-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb218-6"><a href="introduction-to-dplyr.html#cb218-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    NA    41    33 premie        13      0   5.69 female  nonsmoker</span></span>
@@ -830,33 +830,33 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb218-10"><a href="introduction-to-dplyr.html#cb218-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    46    39    38 full term     10     35   6.75 male    smoker   </span></span>
 <span id="cb218-11"><a href="introduction-to-dplyr.html#cb218-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    NA    38    32 premie        10     16   2.19 female  smoker</span></span></code></pre></div>
 </div>
-<div id="summarize" class="section level3" number="7.5.5">
-<h3><span class="header-section-number">7.5.5</span> <code>summarize</code></h3>
+<div id="summarize" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> <code>summarize</code><a href="introduction-to-dplyr.html#summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>summarize</code> applies a function of interest to one or more variables in a data frame, reducing a vector of values to a single value and returning the results in a data frame. This is most often used to calculate statistics like means, medians, count, etc. As we’ll see below, this is powerful when combined with the <code>group_by</code> function.</p>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="introduction-to-dplyr.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(births, </span>
 <span id="cb219-2"><a href="introduction-to-dplyr.html#cb219-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean.wt =</span> <span class="fu">mean</span>(weight), </span>
 <span id="cb219-3"><a href="introduction-to-dplyr.html#cb219-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">median.wks =</span> <span class="fu">median</span>(weeks))</span>
-<span id="cb219-4"><a href="introduction-to-dplyr.html#cb219-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
+<span id="cb219-4"><a href="introduction-to-dplyr.html#cb219-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
 <span id="cb219-5"><a href="introduction-to-dplyr.html#cb219-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   mean.wt median.wks</span></span>
 <span id="cb219-6"><a href="introduction-to-dplyr.html#cb219-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span id="cb219-7"><a href="introduction-to-dplyr.html#cb219-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    7.05         39</span></span></code></pre></div>
 <p>You’ll need to be diligent if your data has missing values (NAs). For example, by default the <code>mean</code> function returns NA if any of the input values are NA:</p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="introduction-to-dplyr.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(births, </span>
 <span id="cb220-2"><a href="introduction-to-dplyr.html#cb220-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean.gained =</span> <span class="fu">mean</span>(gained))</span>
-<span id="cb220-3"><a href="introduction-to-dplyr.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 1</span></span>
+<span id="cb220-3"><a href="introduction-to-dplyr.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 1</span></span>
 <span id="cb220-4"><a href="introduction-to-dplyr.html#cb220-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   mean.gained</span></span>
 <span id="cb220-5"><a href="introduction-to-dplyr.html#cb220-5" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;</span></span>
 <span id="cb220-6"><a href="introduction-to-dplyr.html#cb220-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1          NA</span></span></code></pre></div>
 <p>However, if you read the <code>mean</code> docs (<code>?mean</code>) you’ll see that there is an <code>na.rm</code> argument that indicates whether NA values should be removed before computing the mean. This is what we want so we instead call summarize as follows:</p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="introduction-to-dplyr.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(births, </span>
 <span id="cb221-2"><a href="introduction-to-dplyr.html#cb221-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">mean.gained =</span> <span class="fu">mean</span>(gained, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb221-3"><a href="introduction-to-dplyr.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 1</span></span>
+<span id="cb221-3"><a href="introduction-to-dplyr.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 1</span></span>
 <span id="cb221-4"><a href="introduction-to-dplyr.html#cb221-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   mean.gained</span></span>
 <span id="cb221-5"><a href="introduction-to-dplyr.html#cb221-5" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;</span></span>
 <span id="cb221-6"><a href="introduction-to-dplyr.html#cb221-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        32.5</span></span></code></pre></div>
 </div>
-<div id="group_by" class="section level3" number="7.5.6">
-<h3><span class="header-section-number">7.5.6</span> <code>group_by</code></h3>
+<div id="group_by" class="section level3 hasAnchor" number="7.5.6">
+<h3><span class="header-section-number">7.5.6</span> <code>group_by</code><a href="introduction-to-dplyr.html#group_by" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>group_by</code> function implicitly adds grouping information to a data frame.</p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="introduction-to-dplyr.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group the births by whether mom smoked or not</span></span>
 <span id="cb222-2"><a href="introduction-to-dplyr.html#cb222-2" aria-hidden="true" tabindex="-1"></a>by_smoking <span class="ot">&lt;-</span> <span class="fu">group_by</span>(births, smoke)</span></code></pre></div>
@@ -865,7 +865,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb223-2"><a href="introduction-to-dplyr.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;grouped_df&quot; &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</span></span></code></pre></div>
 <p>Some functions, like <code>count()</code> and <code>summarize()</code> (see below) know how to use the grouping information. For example, to count the number of births conditional on mother smoking status we could do:</p>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="introduction-to-dplyr.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(by_smoking)</span>
-<span id="cb224-2"><a href="introduction-to-dplyr.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 2</span></span>
+<span id="cb224-2"><a href="introduction-to-dplyr.html#cb224-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
 <span id="cb224-3"><a href="introduction-to-dplyr.html#cb224-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke         n</span></span>
 <span id="cb224-4"><a href="introduction-to-dplyr.html#cb224-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;int&gt;</span></span>
 <span id="cb224-5"><a href="introduction-to-dplyr.html#cb224-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker   100</span></span>
@@ -873,37 +873,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><code>group_by</code> also works with multiple grouping variables, with each added grouping variable specified as an additional argument:</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="introduction-to-dplyr.html#cb225-1" aria-hidden="true" tabindex="-1"></a>by_smoking.and.mAge <span class="ot">&lt;-</span> <span class="fu">group_by</span>(births, smoke, mAge <span class="sc">&gt;</span> <span class="dv">35</span>)</span></code></pre></div>
 </div>
-<div id="combining-grouping-and-summarizing" class="section level3" number="7.5.7">
-<h3><span class="header-section-number">7.5.7</span> Combining grouping and summarizing</h3>
+<div id="combining-grouping-and-summarizing" class="section level3 hasAnchor" number="7.5.7">
+<h3><span class="header-section-number">7.5.7</span> Combining grouping and summarizing<a href="introduction-to-dplyr.html#combining-grouping-and-summarizing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Grouped data frames can be combined with the <code>summarize</code> function we saw above. For example, if we wanted to calculate mean birth weight, broken down by whether the baby’s mother smoked or not we could call <code>summarize</code> with our <code>by_smoking</code> grouped data frame:</p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="introduction-to-dplyr.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(by_smoking, <span class="at">mean.wt =</span> <span class="fu">mean</span>(weight))</span>
-<span id="cb226-2"><a href="introduction-to-dplyr.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 2</span></span>
+<span id="cb226-2"><a href="introduction-to-dplyr.html#cb226-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
 <span id="cb226-3"><a href="introduction-to-dplyr.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     mean.wt</span></span>
 <span id="cb226-4"><a href="introduction-to-dplyr.html#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;dbl&gt;</span></span>
 <span id="cb226-5"><a href="introduction-to-dplyr.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker    7.18</span></span>
 <span id="cb226-6"><a href="introduction-to-dplyr.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 smoker       6.78</span></span></code></pre></div>
 <p>Similarly to get the mean birth weight of children conditioned on mothers smoking status and age:</p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="introduction-to-dplyr.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(by_smoking.and.mAge, <span class="fu">mean</span>(weight))</span>
-<span id="cb227-2"><a href="introduction-to-dplyr.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by &#39;smoke&#39;. You can override using the `.groups` argument.</span></span>
-<span id="cb227-3"><a href="introduction-to-dplyr.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 x 3</span></span>
-<span id="cb227-4"><a href="introduction-to-dplyr.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     `mAge &gt; 35` `mean(weight)`</span></span>
-<span id="cb227-5"><a href="introduction-to-dplyr.html#cb227-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;lgl&gt;                &lt;dbl&gt;</span></span>
-<span id="cb227-6"><a href="introduction-to-dplyr.html#cb227-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker FALSE                 7.17</span></span>
-<span id="cb227-7"><a href="introduction-to-dplyr.html#cb227-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 nonsmoker TRUE                  7.26</span></span>
-<span id="cb227-8"><a href="introduction-to-dplyr.html#cb227-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 smoker    FALSE                 6.83</span></span>
-<span id="cb227-9"><a href="introduction-to-dplyr.html#cb227-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 smoker    TRUE                  6.30</span></span></code></pre></div>
+<span id="cb227-2"><a href="introduction-to-dplyr.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by</span></span>
+<span id="cb227-3"><a href="introduction-to-dplyr.html#cb227-3" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;smoke&#39;. You can override using the</span></span>
+<span id="cb227-4"><a href="introduction-to-dplyr.html#cb227-4" aria-hidden="true" tabindex="-1"></a><span class="do">## `.groups` argument.</span></span>
+<span id="cb227-5"><a href="introduction-to-dplyr.html#cb227-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 × 3</span></span>
+<span id="cb227-6"><a href="introduction-to-dplyr.html#cb227-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     `mAge &gt; 35` `mean(weight)`</span></span>
+<span id="cb227-7"><a href="introduction-to-dplyr.html#cb227-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;lgl&gt;                &lt;dbl&gt;</span></span>
+<span id="cb227-8"><a href="introduction-to-dplyr.html#cb227-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker FALSE                 7.17</span></span>
+<span id="cb227-9"><a href="introduction-to-dplyr.html#cb227-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 nonsmoker TRUE                  7.26</span></span>
+<span id="cb227-10"><a href="introduction-to-dplyr.html#cb227-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 smoker    FALSE                 6.83</span></span>
+<span id="cb227-11"><a href="introduction-to-dplyr.html#cb227-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 smoker    TRUE                  6.30</span></span></code></pre></div>
 </div>
-<div id="scoped-variants-of-mutate-and-summarize" class="section level3" number="7.5.8">
-<h3><span class="header-section-number">7.5.8</span> Scoped variants of <code>mutate</code> and <code>summarize</code></h3>
+<div id="scoped-variants-of-mutate-and-summarize" class="section level3 hasAnchor" number="7.5.8">
+<h3><span class="header-section-number">7.5.8</span> Scoped variants of <code>mutate</code> and <code>summarize</code><a href="introduction-to-dplyr.html#scoped-variants-of-mutate-and-summarize" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Both the <code>mutate()</code> and <code>summarize()</code> functions provide “scoped” alternatives, that allow us to apply the operation on a selection of variables. These variants are often used in combination with grouping. We’ll look at the <code>summarize</code> versions – <code>summarize_all()</code>, <code>summarize_at()</code>, and <code>summarize_if()</code>. See the documentation (<code>?mutate_all</code>) for descriptions of the <code>mutate</code> versions.</p>
-<div id="summarize_all" class="section level4" number="7.5.8.1">
-<h4><span class="header-section-number">7.5.8.1</span> <code>summarize_all()</code></h4>
+<div id="summarize_all" class="section level4 hasAnchor" number="7.5.8.1">
+<h4><span class="header-section-number">7.5.8.1</span> <code>summarize_all()</code><a href="introduction-to-dplyr.html#summarize_all" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>summarize_all()</code> applies a one or more functions to all columns in a data frame. Here we illustrate a simple version of this with the iris data:</p>
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="introduction-to-dplyr.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group by species</span></span>
 <span id="cb228-2"><a href="introduction-to-dplyr.html#cb228-2" aria-hidden="true" tabindex="-1"></a>by_species <span class="ot">&lt;-</span> <span class="fu">group_by</span>(iris, Species)</span>
 <span id="cb228-3"><a href="introduction-to-dplyr.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the mean of every variable, grouped by species</span></span>
 <span id="cb228-4"><a href="introduction-to-dplyr.html#cb228-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_all</span>(by_species, mean)  </span>
-<span id="cb228-5"><a href="introduction-to-dplyr.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 x 5</span></span>
+<span id="cb228-5"><a href="introduction-to-dplyr.html#cb228-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 5</span></span>
 <span id="cb228-6"><a href="introduction-to-dplyr.html#cb228-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
 <span id="cb228-7"><a href="introduction-to-dplyr.html#cb228-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></span>
 <span id="cb228-8"><a href="introduction-to-dplyr.html#cb228-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 setosa             5.01        3.43         1.46       0.246</span></span>
@@ -911,7 +913,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb228-10"><a href="introduction-to-dplyr.html#cb228-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 virginica          6.59        2.97         5.55       2.03</span></span></code></pre></div>
 <p>Note that if we try and apply <code>summarize_all()</code> in the same way to the grouped data frame <code>by_smoking</code> we’ll get a bunch of warning messages:</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="introduction-to-dplyr.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_all</span>(by_smoking, mean)</span>
-<span id="cb229-2"><a href="introduction-to-dplyr.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 9</span></span>
+<span id="cb229-2"><a href="introduction-to-dplyr.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 9</span></span>
 <span id="cb229-3"><a href="introduction-to-dplyr.html#cb229-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke      fAge  mAge weeks premature visits gained weight sexBaby</span></span>
 <span id="cb229-4"><a href="introduction-to-dplyr.html#cb229-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
 <span id="cb229-5"><a href="introduction-to-dplyr.html#cb229-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker    NA  26.9  38.6        NA   NA       NA   7.18      NA</span></span>
@@ -929,31 +931,31 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>If you examine the output above, you’ll see that there are several variables that are numeric, however we still got NAs when we calculated the grouped means. This is because those variables contain NA values. The <code>mean</code> function has an optional argument, <code>na.rm</code>, which tells the function to remove any missing data before calculating the mean. Thus we can modify our call to <code>summarize_all</code> as follows:</p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="introduction-to-dplyr.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean of all variables, grouped by smoking status</span></span>
 <span id="cb232-2"><a href="introduction-to-dplyr.html#cb232-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_all</span>(by_smoking, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb232-3"><a href="introduction-to-dplyr.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 9</span></span>
+<span id="cb232-3"><a href="introduction-to-dplyr.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 9</span></span>
 <span id="cb232-4"><a href="introduction-to-dplyr.html#cb232-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke      fAge  mAge weeks premature visits gained weight sexBaby</span></span>
 <span id="cb232-5"><a href="introduction-to-dplyr.html#cb232-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span></span>
 <span id="cb232-6"><a href="introduction-to-dplyr.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker  29.8  26.9  38.6        NA   11.9   32.5   7.18      NA</span></span>
 <span id="cb232-7"><a href="introduction-to-dplyr.html#cb232-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 smoker     29.7  26    38.5        NA   10.8   32.3   6.78      NA</span></span></code></pre></div>
 <p>Note that the non-numeric data columns still lead to NA values.</p>
 </div>
-<div id="summarize_if" class="section level4" number="7.5.8.2">
-<h4><span class="header-section-number">7.5.8.2</span> <code>summarize_if()</code></h4>
+<div id="summarize_if" class="section level4 hasAnchor" number="7.5.8.2">
+<h4><span class="header-section-number">7.5.8.2</span> <code>summarize_if()</code><a href="introduction-to-dplyr.html#summarize_if" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>summarize_if()</code> is similar to <code>summarize_all()</code>, except it only applies the function of interest to those variables that match a particular predicate (i.e. are TRUE for a particular TRUE/FALSE test).</p>
 <p>Here we use <code>summarize_if()</code> to apply the <code>mean()</code> function to only those variables (columns) that are numeric.</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="introduction-to-dplyr.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean of all numeric variables, grouped by smoking status</span></span>
 <span id="cb233-2"><a href="introduction-to-dplyr.html#cb233-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_if</span>(by_smoking, is.numeric, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb233-3"><a href="introduction-to-dplyr.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 7</span></span>
+<span id="cb233-3"><a href="introduction-to-dplyr.html#cb233-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 7</span></span>
 <span id="cb233-4"><a href="introduction-to-dplyr.html#cb233-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke      fAge  mAge weeks visits gained weight</span></span>
 <span id="cb233-5"><a href="introduction-to-dplyr.html#cb233-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span id="cb233-6"><a href="introduction-to-dplyr.html#cb233-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker  29.8  26.9  38.6   11.9   32.5   7.18</span></span>
 <span id="cb233-7"><a href="introduction-to-dplyr.html#cb233-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 smoker     29.7  26    38.5   10.8   32.3   6.78</span></span></code></pre></div>
 </div>
-<div id="summarize_at" class="section level4" number="7.5.8.3">
-<h4><span class="header-section-number">7.5.8.3</span> <code>summarize_at()</code></h4>
+<div id="summarize_at" class="section level4 hasAnchor" number="7.5.8.3">
+<h4><span class="header-section-number">7.5.8.3</span> <code>summarize_at()</code><a href="introduction-to-dplyr.html#summarize_at" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><code>summarize_at()</code> allows us to apply functions of interest only to specific variables.</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="introduction-to-dplyr.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean of gained and weight variables, grouped by smoking status</span></span>
 <span id="cb234-2"><a href="introduction-to-dplyr.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_at</span>(by_smoking, <span class="fu">c</span>(<span class="st">&quot;gained&quot;</span>, <span class="st">&quot;weight&quot;</span>), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb234-3"><a href="introduction-to-dplyr.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 3</span></span>
+<span id="cb234-3"><a href="introduction-to-dplyr.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 3</span></span>
 <span id="cb234-4"><a href="introduction-to-dplyr.html#cb234-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     gained weight</span></span>
 <span id="cb234-5"><a href="introduction-to-dplyr.html#cb234-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span id="cb234-6"><a href="introduction-to-dplyr.html#cb234-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker   32.5   7.18</span></span>
@@ -962,7 +964,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="introduction-to-dplyr.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean and std deviation of </span></span>
 <span id="cb235-2"><a href="introduction-to-dplyr.html#cb235-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gained and weight variables, grouped by smoking status</span></span>
 <span id="cb235-3"><a href="introduction-to-dplyr.html#cb235-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize_at</span>(by_smoking, <span class="fu">c</span>(<span class="st">&quot;gained&quot;</span>, <span class="st">&quot;weight&quot;</span>), <span class="fu">funs</span>(mean, sd), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb235-4"><a href="introduction-to-dplyr.html#cb235-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 5</span></span>
+<span id="cb235-4"><a href="introduction-to-dplyr.html#cb235-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
 <span id="cb235-5"><a href="introduction-to-dplyr.html#cb235-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     gained_mean weight_mean gained_sd weight_sd</span></span>
 <span id="cb235-6"><a href="introduction-to-dplyr.html#cb235-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb235-7"><a href="introduction-to-dplyr.html#cb235-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker        32.5        7.18      15.2      1.43</span></span>
@@ -973,15 +975,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb236-3"><a href="introduction-to-dplyr.html#cb236-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">vars</span>(gained, weight),</span>
 <span id="cb236-4"><a href="introduction-to-dplyr.html#cb236-4" aria-hidden="true" tabindex="-1"></a>             <span class="fu">funs</span>(mean, sd),</span>
 <span id="cb236-5"><a href="introduction-to-dplyr.html#cb236-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb236-6"><a href="introduction-to-dplyr.html#cb236-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 5</span></span>
+<span id="cb236-6"><a href="introduction-to-dplyr.html#cb236-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
 <span id="cb236-7"><a href="introduction-to-dplyr.html#cb236-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   smoke     gained_mean weight_mean gained_sd weight_sd</span></span>
 <span id="cb236-8"><a href="introduction-to-dplyr.html#cb236-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span id="cb236-9"><a href="introduction-to-dplyr.html#cb236-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 nonsmoker        32.5        7.18      15.2      1.43</span></span>
 <span id="cb236-10"><a href="introduction-to-dplyr.html#cb236-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 smoker           32.3        6.78      16.6      1.60</span></span></code></pre></div>
 </div>
 </div>
-<div id="combining-summarize-with-grouping-aesthetics-in-ggplot2" class="section level3" number="7.5.9">
-<h3><span class="header-section-number">7.5.9</span> Combining summarize with grouping aesthetics in <code>ggplot2</code></h3>
+<div id="combining-summarize-with-grouping-aesthetics-in-ggplot2" class="section level3 hasAnchor" number="7.5.9">
+<h3><span class="header-section-number">7.5.9</span> Combining summarize with grouping aesthetics in <code>ggplot2</code><a href="introduction-to-dplyr.html#combining-summarize-with-grouping-aesthetics-in-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’ve already seen an instance of grouping (conditioning) when we used aesthetics like color or fill to distinguish subgroups in different types of statistical graphics. Below is an example where we integrate information from a <code>group_by</code>/<code>summarize</code> operation into a plot:</p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="introduction-to-dplyr.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean weights, conditioned on smoking status</span></span>
 <span id="cb237-2"><a href="introduction-to-dplyr.html#cb237-2" aria-hidden="true" tabindex="-1"></a>wt.by.smoking <span class="ot">&lt;-</span> </span>
@@ -998,20 +1000,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-233-1.png" width="576" /></p>
 </div>
 </div>
-<div id="pipes" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Pipes</h2>
+<div id="pipes" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Pipes<a href="introduction-to-dplyr.html#pipes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>dplyr</code> includes a very useful operator available called a pipe available to us. Pipes are powerful because they allow us to chain together sets of operations in a very intuitive fashion while minimizing nested function calls. We can think of pipes as taking the output of one function and feeding it as the <em>first argument</em> to another function call, where we’ve already specified the subsequent arguments.</p>
 <p>Pipes are actually defined in another packaged called <code>magrittr</code>. We’ll look at the basic pipe operator and then look at a few additional “special” pipes that <code>magrittr</code> provides.</p>
-<div id="install-and-load-magrittr" class="section level3" number="7.6.1">
-<h3><span class="header-section-number">7.6.1</span> Install and load <code>magrittr</code></h3>
+<div id="install-and-load-magrittr" class="section level3 hasAnchor" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Install and load <code>magrittr</code><a href="introduction-to-dplyr.html#install-and-load-magrittr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In magrittr in not already installed, install it via the command line or the RStudio GUI. Having done so, you will need to load magrittr via the <code>library()</code> function:</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="introduction-to-dplyr.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
 </div>
-<div id="the-basic-pipe-operator" class="section level3" number="7.6.2">
-<h3><span class="header-section-number">7.6.2</span> The basic pipe operator</h3>
+<div id="the-basic-pipe-operator" class="section level3 hasAnchor" number="7.6.2">
+<h3><span class="header-section-number">7.6.2</span> The basic pipe operator<a href="introduction-to-dplyr.html#the-basic-pipe-operator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The pipe operator is designated by <code>%&gt;%</code>. Using pipes, the expression <code>x %&gt;% f()</code> is equivalent to <code>f(x)</code> and the expression <code>x %&gt;% f(y)</code> is equivalent to <code>f(x,y)</code>. The documentation on pipes (see <code>?magrittr</code>) uses the notation <code>lhs %&gt;% rhs</code> where <code>lhs</code> and <code>rhs</code> are short for “left-hand side” and “right-hand side” respectively. I’ll use this same notation in some of the explanations that follow.</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="introduction-to-dplyr.html#cb239-1" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span> <span class="fu">head</span>()   <span class="co"># same as head(births)</span></span>
-<span id="cb239-2"><a href="introduction-to-dplyr.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb239-2"><a href="introduction-to-dplyr.html#cb239-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb239-3"><a href="introduction-to-dplyr.html#cb239-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb239-4"><a href="introduction-to-dplyr.html#cb239-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb239-5"><a href="introduction-to-dplyr.html#cb239-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    31    30    39 full term     13      1   6.88 male    smoker   </span></span>
@@ -1021,7 +1023,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb239-9"><a href="introduction-to-dplyr.html#cb239-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    42    37    40 full term     NA     10   7.94 male    nonsmoker</span></span>
 <span id="cb239-10"><a href="introduction-to-dplyr.html#cb239-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    37    28    40 full term     12     35   8.25 male    smoker</span></span>
 <span id="cb239-11"><a href="introduction-to-dplyr.html#cb239-11" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span> head     <span class="co"># you can even leave the parentheses out</span></span>
-<span id="cb239-12"><a href="introduction-to-dplyr.html#cb239-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
+<span id="cb239-12"><a href="introduction-to-dplyr.html#cb239-12" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
 <span id="cb239-13"><a href="introduction-to-dplyr.html#cb239-13" aria-hidden="true" tabindex="-1"></a><span class="do">##    fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb239-14"><a href="introduction-to-dplyr.html#cb239-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb239-15"><a href="introduction-to-dplyr.html#cb239-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    31    30    39 full term     13      1   6.88 male    smoker   </span></span>
@@ -1031,7 +1033,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb239-19"><a href="introduction-to-dplyr.html#cb239-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    42    37    40 full term     NA     10   7.94 male    nonsmoker</span></span>
 <span id="cb239-20"><a href="introduction-to-dplyr.html#cb239-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    37    28    40 full term     12     35   8.25 male    smoker</span></span>
 <span id="cb239-21"><a href="introduction-to-dplyr.html#cb239-21" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) <span class="co"># same as head(births, 10)</span></span>
-<span id="cb239-22"><a href="introduction-to-dplyr.html#cb239-22" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 x 9</span></span>
+<span id="cb239-22"><a href="introduction-to-dplyr.html#cb239-22" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 × 9</span></span>
 <span id="cb239-23"><a href="introduction-to-dplyr.html#cb239-23" aria-hidden="true" tabindex="-1"></a><span class="do">##     fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb239-24"><a href="introduction-to-dplyr.html#cb239-24" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb239-25"><a href="introduction-to-dplyr.html#cb239-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  1    31    30    39 full term     13      1   6.88 male    smoker   </span></span>
@@ -1047,7 +1049,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Multiple pipes can be chained together, such that <code>x %&gt;% f() %&gt;% g() %&gt;% h()</code> is equivalent to <code>h(g(f(x)))</code>.</p>
 <div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="introduction-to-dplyr.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalent to: head(arrange(births, weight), 10)</span></span>
 <span id="cb240-2"><a href="introduction-to-dplyr.html#cb240-2" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(weight) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">10</span>) </span>
-<span id="cb240-3"><a href="introduction-to-dplyr.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 x 9</span></span>
+<span id="cb240-3"><a href="introduction-to-dplyr.html#cb240-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 × 9</span></span>
 <span id="cb240-4"><a href="introduction-to-dplyr.html#cb240-4" aria-hidden="true" tabindex="-1"></a><span class="do">##     fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb240-5"><a href="introduction-to-dplyr.html#cb240-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb240-6"><a href="introduction-to-dplyr.html#cb240-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  1    35    35    28 premie         6     29   1.63 female  nonsmoker</span></span>
@@ -1064,7 +1066,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="introduction-to-dplyr.html#cb241-1" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span></span>
 <span id="cb241-2"><a href="introduction-to-dplyr.html#cb241-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(weight) <span class="sc">%&gt;%</span></span>
 <span id="cb241-3"><a href="introduction-to-dplyr.html#cb241-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
-<span id="cb241-4"><a href="introduction-to-dplyr.html#cb241-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 x 9</span></span>
+<span id="cb241-4"><a href="introduction-to-dplyr.html#cb241-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 × 9</span></span>
 <span id="cb241-5"><a href="introduction-to-dplyr.html#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="do">##     fAge  mAge weeks premature visits gained weight sexBaby smoke    </span></span>
 <span id="cb241-6"><a href="introduction-to-dplyr.html#cb241-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    </span></span>
 <span id="cb241-7"><a href="introduction-to-dplyr.html#cb241-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1    35    35    28 premie         6     29   1.63 female  nonsmoker</span></span>
@@ -1078,8 +1080,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb241-15"><a href="introduction-to-dplyr.html#cb241-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9    30    25    35 premie        15     40   4.5  male    smoker   </span></span>
 <span id="cb241-16"><a href="introduction-to-dplyr.html#cb241-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    19    20    34 premie        13      6   4.5  male    nonsmoker</span></span></code></pre></div>
 </div>
-<div id="an-example-without-pipes" class="section level3" number="7.6.3">
-<h3><span class="header-section-number">7.6.3</span> An example without pipes</h3>
+<div id="an-example-without-pipes" class="section level3 hasAnchor" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> An example without pipes<a href="introduction-to-dplyr.html#an-example-without-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To illustrate how pipes help us, first let’s look at an example set of analysis steps without using pipes. Let’s say we wanted to explore the relationship between father’s age and baby’s birth weight. We’ll start this process of exploration by generating a bivariate scatter plot. Being good scientists we want to express our data in SI units, so we’ll need to converts pounds to kilograms. You’ll also recall that a number of the cases have missing data on father’s age, so we’ll want to remove those before we plot them. Here’s how we might accomplish these steps:</p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="introduction-to-dplyr.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add a new column for weight in kg</span></span>
 <span id="cb242-2"><a href="introduction-to-dplyr.html#cb242-2" aria-hidden="true" tabindex="-1"></a>births.kg <span class="ot">&lt;-</span> <span class="fu">mutate</span>(births, <span class="at">weight.kg =</span> weight <span class="sc">/</span> <span class="fl">2.2</span>)</span>
@@ -1100,8 +1102,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb243-5"><a href="introduction-to-dplyr.html#cb243-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb243-6"><a href="introduction-to-dplyr.html#cb243-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Father&#39;s Age (years)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Birth Weight (kg)&quot;</span>)</span></code></pre></div>
 </div>
-<div id="the-same-example-using-pipes" class="section level3" number="7.6.4">
-<h3><span class="header-section-number">7.6.4</span> The same example using pipes</h3>
+<div id="the-same-example-using-pipes" class="section level3 hasAnchor" number="7.6.4">
+<h3><span class="header-section-number">7.6.4</span> The same example using pipes<a href="introduction-to-dplyr.html#the-same-example-using-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The pipe operator makes the output of one statement (<code>lhs</code>) as the first input of a following function (<code>rhs</code>). This simplifies the above example to:</p>
 <div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="introduction-to-dplyr.html#cb244-1" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span></span>
 <span id="cb244-2"><a href="introduction-to-dplyr.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight.kg =</span> weight <span class="sc">/</span> <span class="fl">2.2</span>) <span class="sc">%&gt;%</span></span>
@@ -1113,8 +1115,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>In the example above, we feed the data frame into the <code>mutate</code> function. <code>mutate</code> expects a data frame as a first argument, and subsequent arguments specify the new variables to be created. <code>births %&gt;% mutate(weight.kg = weight / 2.2)</code> is thus equivalent to <code>mutate(births, weight.kg = weight / 2.2))</code>. We then pipe the output to <code>filter</code>, removing NA fathers, and then pipe that output as the input to ggplot.</p>
 <p>As mentioned previously, it’s good coding style to write each discrete step as its own line when using piping. This make it easier to understand what the steps of the analysis are as well as facilitating changes to the code (commenting out lines, adding lines, etc)</p>
 </div>
-<div id="assigning-the-output-of-a-statement-involving-pipes-to-a-variable" class="section level3" number="7.6.5">
-<h3><span class="header-section-number">7.6.5</span> Assigning the output of a statement involving pipes to a variable</h3>
+<div id="assigning-the-output-of-a-statement-involving-pipes-to-a-variable" class="section level3 hasAnchor" number="7.6.5">
+<h3><span class="header-section-number">7.6.5</span> Assigning the output of a statement involving pipes to a variable<a href="introduction-to-dplyr.html#assigning-the-output-of-a-statement-involving-pipes-to-a-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It’s important to recognize that pipes are simply a convenient way to chain together a series of expression. Just like any other compound expression, the output of a series of pipe statements can be assigned to a variable, like so:</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="introduction-to-dplyr.html#cb245-1" aria-hidden="true" tabindex="-1"></a>stats.old.moms <span class="ot">&lt;-</span></span>
 <span id="cb245-2"><a href="introduction-to-dplyr.html#cb245-2" aria-hidden="true" tabindex="-1"></a>  births <span class="sc">%&gt;%</span></span>
@@ -1123,29 +1125,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb245-5"><a href="introduction-to-dplyr.html#cb245-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean.weight =</span> <span class="fu">mean</span>(weight))</span>
 <span id="cb245-6"><a href="introduction-to-dplyr.html#cb245-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb245-7"><a href="introduction-to-dplyr.html#cb245-7" aria-hidden="true" tabindex="-1"></a>stats.old.moms</span>
-<span id="cb245-8"><a href="introduction-to-dplyr.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
+<span id="cb245-8"><a href="introduction-to-dplyr.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
 <span id="cb245-9"><a href="introduction-to-dplyr.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   median.gestation mean.weight</span></span>
 <span id="cb245-10"><a href="introduction-to-dplyr.html#cb245-10" aria-hidden="true" tabindex="-1"></a><span class="do">##              &lt;dbl&gt;       &lt;dbl&gt;</span></span>
 <span id="cb245-11"><a href="introduction-to-dplyr.html#cb245-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               38        6.94</span></span></code></pre></div>
 <p>Note that our summary table, <code>stats.old.moms</code>, is itself a data frame.</p>
 </div>
-<div id="compound-assignment-pipe-operator" class="section level3" number="7.6.6">
-<h3><span class="header-section-number">7.6.6</span> Compound assignment pipe operator</h3>
+<div id="compound-assignment-pipe-operator" class="section level3 hasAnchor" number="7.6.6">
+<h3><span class="header-section-number">7.6.6</span> Compound assignment pipe operator<a href="introduction-to-dplyr.html#compound-assignment-pipe-operator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A fairly common operation when working interactively in R is to update an existing data frame. <code>magrittr</code> defines another pipe operator – <code>%&lt;&gt;%</code> – called the “compound assignment” pipe operator, to facilitate this. The compound assignment pipe operator has the basic usage <code>lhs %&lt;&gt;% rhs</code>. This operator evaluates the function on the <code>rhs</code> using the <code>lhs</code> as the first argument, and <em>then</em> updates the <code>lhs</code> with the resulting value. This is simply shorthand for writing <code>lhs &lt;- lhs %&gt;% rhs</code>.</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="introduction-to-dplyr.html#cb246-1" aria-hidden="true" tabindex="-1"></a>stats.old.moms <span class="sc">%&lt;&gt;%</span>  <span class="co"># note compound pipe operator!</span></span>
 <span id="cb246-2"><a href="introduction-to-dplyr.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean.weight.kg =</span> mean.weight <span class="sc">/</span> <span class="fl">2.2</span>)</span></code></pre></div>
 </div>
-<div id="the-dot-operator-with-pipes" class="section level3" number="7.6.7">
-<h3><span class="header-section-number">7.6.7</span> The dot operator with pipes</h3>
+<div id="the-dot-operator-with-pipes" class="section level3 hasAnchor" number="7.6.7">
+<h3><span class="header-section-number">7.6.7</span> The dot operator with pipes<a href="introduction-to-dplyr.html#the-dot-operator-with-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>When working with pipes, sometimes you’ll want to use the <code>lhs</code> in multiple places on the <code>rhs</code>, or as something other than the first argument to the <code>rhs</code>. <code>magrittr</code> provides for this situation by using the dot (<code>.</code>) operator as a placeholder. Using the dot operator, the expression <code>y %&gt;% f(x, .)</code> is equivalent to <code>f(x,y)</code>.</p>
 <div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="introduction-to-dplyr.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cakes&quot;</span>, <span class="st">&quot;sauce&quot;</span>, <span class="st">&quot;house&quot;</span>) <span class="sc">%&gt;%</span>  <span class="co"># create a vector</span></span>
 <span id="cb247-2"><a href="introduction-to-dplyr.html#cb247-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># pick a random single element of that vector</span></span>
 <span id="cb247-3"><a href="introduction-to-dplyr.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="st">&quot;hot&quot;</span>, .)  <span class="co"># string concatenate the pick with the word &quot;hot&quot;</span></span>
-<span id="cb247-4"><a href="introduction-to-dplyr.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;hotsauce&quot;</span></span></code></pre></div>
+<span id="cb247-4"><a href="introduction-to-dplyr.html#cb247-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;hothouse&quot;</span></span></code></pre></div>
 </div>
-<div id="the-exposition-pipe-operator" class="section level3" number="7.6.8">
-<h3><span class="header-section-number">7.6.8</span> The exposition pipe operator</h3>
-<p><code>magrittr</code> defines another operator called the “exposition pipe operator,” designed <code>%$%</code>. This operator exposes the names in the <code>lhs</code> to the expression on the <code>rhs</code>.</p>
+<div id="the-exposition-pipe-operator" class="section level3 hasAnchor" number="7.6.8">
+<h3><span class="header-section-number">7.6.8</span> The exposition pipe operator<a href="introduction-to-dplyr.html#the-exposition-pipe-operator" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>magrittr</code> defines another operator called the “exposition pipe operator”, designed <code>%$%</code>. This operator exposes the names in the <code>lhs</code> to the expression on the <code>rhs</code>.</p>
 <p>Here is an example of using the exposition pipe operator to simply return the vector of weights:</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="introduction-to-dplyr.html#cb248-1" aria-hidden="true" tabindex="-1"></a>births <span class="sc">%&gt;%</span></span>
 <span id="cb248-2"><a href="introduction-to-dplyr.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(premature <span class="sc">==</span> <span class="st">&quot;premie&quot;</span>) <span class="sc">%$%</span>  <span class="co"># note the different pipe operator!</span></span>
@@ -1171,7 +1173,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1190,6 +1191,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1210,6 +1212,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -1226,7 +1232,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

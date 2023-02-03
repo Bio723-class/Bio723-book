@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Vector algebra | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Vector algebra | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="data-wrangling.html"/>
 <link rel="next" href="matrices-in-r.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,107 +623,107 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="vector-algebra" class="section level1" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Vector algebra</h1>
-<div id="libraries-2" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Libraries</h2>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="vector-algebra.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb317-2"><a href="vector-algebra.html#cb317-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
+<div id="vector-algebra" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Vector algebra<a href="vector-algebra.html#vector-algebra" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="libraries-2" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Libraries<a href="vector-algebra.html#libraries-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="vector-algebra.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb321-2"><a href="vector-algebra.html#cb321-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
 </div>
-<div id="vector-mathematics-in-r" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Vector Mathematics in R</h2>
+<div id="vector-mathematics-in-r" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Vector Mathematics in R<a href="vector-algebra.html#vector-mathematics-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R vectors support basic arithmetic operations that correspond to the same operations on geometric vectors. For example:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="vector-algebra.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span>
-<span id="cb318-2"><a href="vector-algebra.html#cb318-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">24</span></span>
-<span id="cb318-3"><a href="vector-algebra.html#cb318-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb318-4"><a href="vector-algebra.html#cb318-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</span></span>
-<span id="cb318-5"><a href="vector-algebra.html#cb318-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y</span>
-<span id="cb318-6"><a href="vector-algebra.html#cb318-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24</span></span>
-<span id="cb318-7"><a href="vector-algebra.html#cb318-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">+</span> y <span class="co"># vector addition</span></span>
-<span id="cb318-8"><a href="vector-algebra.html#cb318-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39</span></span>
-<span id="cb318-9"><a href="vector-algebra.html#cb318-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">-</span> y <span class="co"># vector subtraction</span></span>
-<span id="cb318-10"><a href="vector-algebra.html#cb318-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9</span></span>
-<span id="cb318-11"><a href="vector-algebra.html#cb318-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">*</span> <span class="dv">3</span> <span class="co"># multiplication by a scalar</span></span>
-<span id="cb318-12"><a href="vector-algebra.html#cb318-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  3  6  9 12 15 18 21 24 27 30 33 36 39 42 45</span></span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="vector-algebra.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb322-2"><a href="vector-algebra.html#cb322-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">24</span></span>
+<span id="cb322-3"><a href="vector-algebra.html#cb322-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb322-4"><a href="vector-algebra.html#cb322-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</span></span>
+<span id="cb322-5"><a href="vector-algebra.html#cb322-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y</span>
+<span id="cb322-6"><a href="vector-algebra.html#cb322-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24</span></span>
+<span id="cb322-7"><a href="vector-algebra.html#cb322-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">+</span> y <span class="co"># vector addition</span></span>
+<span id="cb322-8"><a href="vector-algebra.html#cb322-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39</span></span>
+<span id="cb322-9"><a href="vector-algebra.html#cb322-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">-</span> y <span class="co"># vector subtraction</span></span>
+<span id="cb322-10"><a href="vector-algebra.html#cb322-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9 -9</span></span>
+<span id="cb322-11"><a href="vector-algebra.html#cb322-11" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="sc">*</span> <span class="dv">3</span> <span class="co"># multiplication by a scalar</span></span>
+<span id="cb322-12"><a href="vector-algebra.html#cb322-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  3  6  9 12 15 18 21 24 27 30 33 36 39 42 45</span></span></code></pre></div>
 <p>R also has an operator for the dot product, denoted <code>%*%</code>.
 This operator also designates matrix multiplication, which we will
 discuss in the next chapter. By default this operator returns an object of the R
 matrix class. If you want a scalar (or the R equivalent of a scalar,
 i.e. a vector of length 1) you need to use the <code>drop()</code> function.</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="vector-algebra.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z <span class="ot">&lt;-</span> x <span class="sc">%*%</span> x</span>
-<span id="cb319-2"><a href="vector-algebra.html#cb319-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(z)      <span class="co"># note use of class() function</span></span>
-<span id="cb319-3"><a href="vector-algebra.html#cb319-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;matrix&quot; &quot;array&quot;</span></span>
-<span id="cb319-4"><a href="vector-algebra.html#cb319-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z</span>
-<span id="cb319-5"><a href="vector-algebra.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
-<span id="cb319-6"><a href="vector-algebra.html#cb319-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1240</span></span>
-<span id="cb319-7"><a href="vector-algebra.html#cb319-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">drop</span>(z)</span>
-<span id="cb319-8"><a href="vector-algebra.html#cb319-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1240</span></span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="vector-algebra.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z <span class="ot">&lt;-</span> x <span class="sc">%*%</span> x</span>
+<span id="cb323-2"><a href="vector-algebra.html#cb323-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">class</span>(z)      <span class="co"># note use of class() function</span></span>
+<span id="cb323-3"><a href="vector-algebra.html#cb323-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;matrix&quot; &quot;array&quot;</span></span>
+<span id="cb323-4"><a href="vector-algebra.html#cb323-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z</span>
+<span id="cb323-5"><a href="vector-algebra.html#cb323-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
+<span id="cb323-6"><a href="vector-algebra.html#cb323-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1240</span></span>
+<span id="cb323-7"><a href="vector-algebra.html#cb323-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">drop</span>(z)</span>
+<span id="cb323-8"><a href="vector-algebra.html#cb323-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1240</span></span></code></pre></div>
 <p>In lecture we saw that many useful geometric properties of vectors could be expressed in the form of dot products. Let’s start with some two-dimensional vectors where the geometry is easy to visualize:</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="vector-algebra.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)   <span class="co"># the point (2,0)</span></span>
-<span id="cb320-2"><a href="vector-algebra.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)   <span class="co"># the point (1,3)</span></span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="vector-algebra.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)   <span class="co"># the point (2,0)</span></span>
+<span id="cb324-2"><a href="vector-algebra.html#cb324-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)   <span class="co"># the point (1,3)</span></span></code></pre></div>
 <p>To draw our vectors using ggplot, we’ll need to create a data frame with columns representing the x,y coordinates of the end-points of our vectors:</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="vector-algebra.html#cb321-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x.end =</span> <span class="fu">c</span>(a[<span class="dv">1</span>], b[<span class="dv">1</span>]),</span>
-<span id="cb321-2"><a href="vector-algebra.html#cb321-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y.end =</span> <span class="fu">c</span>(a[<span class="dv">2</span>], b[<span class="dv">2</span>]),</span>
-<span id="cb321-3"><a href="vector-algebra.html#cb321-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>))</span>
-<span id="cb321-4"><a href="vector-algebra.html#cb321-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb321-5"><a href="vector-algebra.html#cb321-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> </span>
-<span id="cb321-6"><a href="vector-algebra.html#cb321-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> x.end, <span class="at">yend =</span> y.end, <span class="at">color=</span>label), </span>
-<span id="cb321-7"><a href="vector-algebra.html#cb321-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>()) <span class="sc">+</span></span>
-<span id="cb321-8"><a href="vector-algebra.html#cb321-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x-coordinate&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y-coordinate&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb321-9"><a href="vector-algebra.html#cb321-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># insures x and y axis scale are same</span></span>
-<span id="cb321-10"><a href="vector-algebra.html#cb321-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-316-1.png" width="576" /></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="vector-algebra.html#cb325-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x.end =</span> <span class="fu">c</span>(a[<span class="dv">1</span>], b[<span class="dv">1</span>]),</span>
+<span id="cb325-2"><a href="vector-algebra.html#cb325-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y.end =</span> <span class="fu">c</span>(a[<span class="dv">2</span>], b[<span class="dv">2</span>]),</span>
+<span id="cb325-3"><a href="vector-algebra.html#cb325-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&#39;a&#39;</span>, <span class="st">&#39;b&#39;</span>))</span>
+<span id="cb325-4"><a href="vector-algebra.html#cb325-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb325-5"><a href="vector-algebra.html#cb325-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df) <span class="sc">+</span> </span>
+<span id="cb325-6"><a href="vector-algebra.html#cb325-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> x.end, <span class="at">yend =</span> y.end, <span class="at">color=</span>label), </span>
+<span id="cb325-7"><a href="vector-algebra.html#cb325-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>()) <span class="sc">+</span></span>
+<span id="cb325-8"><a href="vector-algebra.html#cb325-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x-coordinate&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y-coordinate&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb325-9"><a href="vector-algebra.html#cb325-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># insures x and y axis scale are same</span></span>
+<span id="cb325-10"><a href="vector-algebra.html#cb325-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-320-1.png" width="576" /></p>
 <p>Let’s see what the dot product can tell us about these vectors. First recall that we can calculate the length of a vector as the square-root of the dot product of the vector with itself (<span class="math inline">\(\vert\vec{a}\vert^2 = \vec{a} \cdot \vec{a}\)</span>)</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="vector-algebra.html#cb322-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.a <span class="ot">&lt;-</span> <span class="fu">drop</span>(<span class="fu">sqrt</span>(a <span class="sc">%*%</span> a))</span>
-<span id="cb322-2"><a href="vector-algebra.html#cb322-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.a</span>
-<span id="cb322-3"><a href="vector-algebra.html#cb322-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span>
-<span id="cb322-4"><a href="vector-algebra.html#cb322-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.b <span class="ot">&lt;-</span> <span class="fu">drop</span>(<span class="fu">sqrt</span>(b <span class="sc">%*%</span> b))</span>
-<span id="cb322-5"><a href="vector-algebra.html#cb322-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.b</span>
-<span id="cb322-6"><a href="vector-algebra.html#cb322-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3.162278</span></span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="vector-algebra.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.a <span class="ot">&lt;-</span> <span class="fu">drop</span>(<span class="fu">sqrt</span>(a <span class="sc">%*%</span> a))</span>
+<span id="cb326-2"><a href="vector-algebra.html#cb326-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.a</span>
+<span id="cb326-3"><a href="vector-algebra.html#cb326-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span>
+<span id="cb326-4"><a href="vector-algebra.html#cb326-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.b <span class="ot">&lt;-</span> <span class="fu">drop</span>(<span class="fu">sqrt</span>(b <span class="sc">%*%</span> b))</span>
+<span id="cb326-5"><a href="vector-algebra.html#cb326-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.b</span>
+<span id="cb326-6"><a href="vector-algebra.html#cb326-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3.162278</span></span></code></pre></div>
 <p>How about the angle between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>? First we can use the dot product and the previously calculated lengths to calculate the cosine of the angle between the vectors:</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="vector-algebra.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cos.ab <span class="ot">&lt;-</span> (a <span class="sc">%*%</span> b)<span class="sc">/</span>(len.a <span class="sc">*</span> len.b)</span>
-<span id="cb323-2"><a href="vector-algebra.html#cb323-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cos.ab</span>
-<span id="cb323-3"><a href="vector-algebra.html#cb323-3" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb323-4"><a href="vector-algebra.html#cb323-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.3162278</span></span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="vector-algebra.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cos.ab <span class="ot">&lt;-</span> (a <span class="sc">%*%</span> b)<span class="sc">/</span>(len.a <span class="sc">*</span> len.b)</span>
+<span id="cb327-2"><a href="vector-algebra.html#cb327-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cos.ab</span>
+<span id="cb327-3"><a href="vector-algebra.html#cb327-3" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb327-4"><a href="vector-algebra.html#cb327-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.3162278</span></span></code></pre></div>
 <p>To go from the cosine of the angle to the angle (in radians) we need the arc-cosine function, <code>acos()</code>:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="vector-algebra.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">acos</span>(cos.ab)  <span class="co"># given angle in radians</span></span>
-<span id="cb324-2"><a href="vector-algebra.html#cb324-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
-<span id="cb324-3"><a href="vector-algebra.html#cb324-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1.249046</span></span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="vector-algebra.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">acos</span>(cos.ab)  <span class="co"># given angle in radians</span></span>
+<span id="cb328-2"><a href="vector-algebra.html#cb328-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
+<span id="cb328-3"><a href="vector-algebra.html#cb328-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1.249046</span></span></code></pre></div>
 </div>
-<div id="simple-statistics-in-vector-form" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Simple statistics in vector form</h2>
+<div id="simple-statistics-in-vector-form" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Simple statistics in vector form<a href="vector-algebra.html#simple-statistics-in-vector-form" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now let’s turn our attention to seeing how to calculate a variety of simple statistics such as the mean, variance, etc. in terms of vector operations.</p>
 <p>To illustrate these oeprations we’ll use the I. setosa data from the <code>iris</code> examplar data set.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="vector-algebra.html#cb325-1" aria-hidden="true" tabindex="-1"></a>setosa <span class="ot">&lt;-</span> <span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>)</span></code></pre></div>
-<div id="mean" class="section level3" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> Mean</h3>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="vector-algebra.html#cb329-1" aria-hidden="true" tabindex="-1"></a>setosa <span class="ot">&lt;-</span> <span class="fu">filter</span>(iris, Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span>)</span></code></pre></div>
+<div id="mean" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Mean<a href="vector-algebra.html#mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First let’s calculate the mean for the Sepal.Length variable. Referring back to the slides for today’s lecture, we see we can calculate the mean as:
 <span class="math display">\[
 \bar{x} = \frac{\vec{1} \cdot \vec{x}}{\vec{1} \cdot \vec{1}}
 \]</span></p>
 <p>Applying this formula in R:</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="vector-algebra.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sepal.length <span class="ot">&lt;-</span> setosa<span class="sc">$</span>Sepal.Length</span>
-<span id="cb326-2"><a href="vector-algebra.html#cb326-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> ones <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(sepal.length)) <span class="co"># 1-vector of length n</span></span>
-<span id="cb326-3"><a href="vector-algebra.html#cb326-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length <span class="ot">&lt;-</span> (ones <span class="sc">%*%</span> sepal.length)<span class="sc">/</span>(ones <span class="sc">%*%</span> ones)</span>
-<span id="cb326-4"><a href="vector-algebra.html#cb326-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length <span class="sc">%&lt;&gt;%</span> drop  <span class="co"># use drop to convert back to scalar</span></span>
-<span id="cb326-5"><a href="vector-algebra.html#cb326-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length</span>
-<span id="cb326-6"><a href="vector-algebra.html#cb326-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.006</span></span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="vector-algebra.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sepal.length <span class="ot">&lt;-</span> setosa<span class="sc">$</span>Sepal.Length</span>
+<span id="cb330-2"><a href="vector-algebra.html#cb330-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> ones <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(sepal.length)) <span class="co"># 1-vector of length n</span></span>
+<span id="cb330-3"><a href="vector-algebra.html#cb330-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length <span class="ot">&lt;-</span> (ones <span class="sc">%*%</span> sepal.length)<span class="sc">/</span>(ones <span class="sc">%*%</span> ones)</span>
+<span id="cb330-4"><a href="vector-algebra.html#cb330-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length <span class="sc">%&lt;&gt;%</span> drop  <span class="co"># use drop to convert back to scalar</span></span>
+<span id="cb330-5"><a href="vector-algebra.html#cb330-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> mean.sepal.length</span>
+<span id="cb330-6"><a href="vector-algebra.html#cb330-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.006</span></span></code></pre></div>
 <p>Let’s compare our calculation against the built-in mean function:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="vector-algebra.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(sepal.length)</span>
-<span id="cb327-2"><a href="vector-algebra.html#cb327-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.006</span></span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="vector-algebra.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">mean</span>(sepal.length)</span>
+<span id="cb331-2"><a href="vector-algebra.html#cb331-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.006</span></span></code></pre></div>
 </div>
-<div id="mean-centering" class="section level3" number="9.3.2">
-<h3><span class="header-section-number">9.3.2</span> Mean centering</h3>
+<div id="mean-centering" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Mean centering<a href="vector-algebra.html#mean-centering" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Mean centering a vector, means subtracting the mean from each element of that vector:</p>
 <p><span class="math display">\[
 \vec{x}_c = \vec{x} - \bar{x}\vec{1}
 \]</span></p>
 <p>Now let’s create a mean centered vector from sepal.length, which we’ll refer to as the vector of deviates about the mean:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="vector-algebra.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sepal.length.deviates <span class="ot">&lt;-</span> sepal.length <span class="sc">-</span> mean.sepal.length  </span></code></pre></div>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="vector-algebra.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sepal.length.deviates <span class="ot">&lt;-</span> sepal.length <span class="sc">-</span> mean.sepal.length  </span></code></pre></div>
 <p>Note that we didn’t have to explicitly multiply the a one vector by the mean, as R will automatically make the lengths of the <code>sepal.length</code> (a vector of length 150) and <code>mean.sepal.length</code> (a vector of length 1) match by vector recycling.</p>
 </div>
-<div id="variance-and-standard-deviation" class="section level3" number="9.3.3">
-<h3><span class="header-section-number">9.3.3</span> Variance and standard deviation</h3>
+<div id="variance-and-standard-deviation" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Variance and standard deviation<a href="vector-algebra.html#variance-and-standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Using the vector of deviates we can easily calculate the variance and standard deviation of a variable.</p>
 <p>The variance of a variable, in vector algebraic terms, is:</p>
 <p><span class="math display">\[
@@ -726,26 +731,26 @@ S_x^2 = \frac{\vec{x}_c \cdot \vec{x}_c}{n-1}
 \]</span></p>
 <p>The standard deviation is simply the square root of the variance</p>
 <p><span class="math display">\[
-S_x = \sqrt{S_x^2} 
+S_x = \sqrt{S_x^2}
 \]</span></p>
 <p>These calculations for the Sepal.Length variable:</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="vector-algebra.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> n <span class="ot">&lt;-</span> <span class="fu">length</span>(sepal.length.deviates)</span>
-<span id="cb329-2"><a href="vector-algebra.html#cb329-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> var.sepal.length <span class="ot">&lt;-</span> (sepal.length.deviates <span class="sc">%*%</span> sepal.length.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>) </span>
-<span id="cb329-3"><a href="vector-algebra.html#cb329-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> var.sepal.length</span>
-<span id="cb329-4"><a href="vector-algebra.html#cb329-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
-<span id="cb329-5"><a href="vector-algebra.html#cb329-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.124249</span></span>
-<span id="cb329-6"><a href="vector-algebra.html#cb329-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sd.sepal.length <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var.sepal.length)</span>
-<span id="cb329-7"><a href="vector-algebra.html#cb329-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sd.sepal.length</span>
-<span id="cb329-8"><a href="vector-algebra.html#cb329-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb329-9"><a href="vector-algebra.html#cb329-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.3524897</span></span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="vector-algebra.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> n <span class="ot">&lt;-</span> <span class="fu">length</span>(sepal.length.deviates)</span>
+<span id="cb333-2"><a href="vector-algebra.html#cb333-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> var.sepal.length <span class="ot">&lt;-</span> (sepal.length.deviates <span class="sc">%*%</span> sepal.length.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>) </span>
+<span id="cb333-3"><a href="vector-algebra.html#cb333-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> var.sepal.length</span>
+<span id="cb333-4"><a href="vector-algebra.html#cb333-4" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]</span></span>
+<span id="cb333-5"><a href="vector-algebra.html#cb333-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.124249</span></span>
+<span id="cb333-6"><a href="vector-algebra.html#cb333-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sd.sepal.length <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var.sepal.length)</span>
+<span id="cb333-7"><a href="vector-algebra.html#cb333-7" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> sd.sepal.length</span>
+<span id="cb333-8"><a href="vector-algebra.html#cb333-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb333-9"><a href="vector-algebra.html#cb333-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.3524897</span></span></code></pre></div>
 <p>Again, we can compare our calculations to the built-in <code>var()</code> and <code>sd()</code> functions:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="vector-algebra.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">var</span>(sepal.length)</span>
-<span id="cb330-2"><a href="vector-algebra.html#cb330-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.124249</span></span>
-<span id="cb330-3"><a href="vector-algebra.html#cb330-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sd</span>(sepal.length)</span>
-<span id="cb330-4"><a href="vector-algebra.html#cb330-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3524897</span></span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="vector-algebra.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">var</span>(sepal.length)</span>
+<span id="cb334-2"><a href="vector-algebra.html#cb334-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.124249</span></span>
+<span id="cb334-3"><a href="vector-algebra.html#cb334-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">sd</span>(sepal.length)</span>
+<span id="cb334-4"><a href="vector-algebra.html#cb334-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3524897</span></span></code></pre></div>
 </div>
-<div id="covariance-and-correlation" class="section level3" number="9.3.4">
-<h3><span class="header-section-number">9.3.4</span> Covariance and correlation</h3>
+<div id="covariance-and-correlation" class="section level3 hasAnchor" number="9.3.4">
+<h3><span class="header-section-number">9.3.4</span> Covariance and correlation<a href="vector-algebra.html#covariance-and-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now let’s consider the common measures of bivariate association, covariance and correlation.</p>
 <p>Covariance is:</p>
 <p><span class="math display">\[
@@ -756,33 +761,33 @@ S_{XY} = \frac{\vec{x} \cdot \vec{y}}{n-1}
 r_{XY} = \frac{\vec{x} \cdot \vec{y}}{|\vec{x}||\vec{y}|} = \frac{S_{XY}}{S_x S_Y}
 \]</span></p>
 <p>We’ll examine the relationship between sepal length and width:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="vector-algebra.html#cb331-1" aria-hidden="true" tabindex="-1"></a>sepal.width <span class="ot">&lt;-</span> setosa<span class="sc">$</span>Sepal.Width</span>
-<span id="cb331-2"><a href="vector-algebra.html#cb331-2" aria-hidden="true" tabindex="-1"></a>mean.sepal.width <span class="ot">&lt;-</span>  (ones <span class="sc">%*%</span> sepal.width)<span class="sc">/</span>(ones <span class="sc">%*%</span> ones) </span>
-<span id="cb331-3"><a href="vector-algebra.html#cb331-3" aria-hidden="true" tabindex="-1"></a>sepal.width.deviates <span class="ot">&lt;-</span> sepal.width <span class="sc">-</span> mean.sepal.width</span>
-<span id="cb331-4"><a href="vector-algebra.html#cb331-4" aria-hidden="true" tabindex="-1"></a>var.sepal.width <span class="ot">&lt;-</span> <span class="fu">drop</span>((sepal.width.deviates <span class="sc">%*%</span> sepal.width.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>))</span>
-<span id="cb331-5"><a href="vector-algebra.html#cb331-5" aria-hidden="true" tabindex="-1"></a>sd.sepal.width <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var.sepal.width)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="vector-algebra.html#cb335-1" aria-hidden="true" tabindex="-1"></a>sepal.width <span class="ot">&lt;-</span> setosa<span class="sc">$</span>Sepal.Width</span>
+<span id="cb335-2"><a href="vector-algebra.html#cb335-2" aria-hidden="true" tabindex="-1"></a>mean.sepal.width <span class="ot">&lt;-</span>  (ones <span class="sc">%*%</span> sepal.width)<span class="sc">/</span>(ones <span class="sc">%*%</span> ones) </span>
+<span id="cb335-3"><a href="vector-algebra.html#cb335-3" aria-hidden="true" tabindex="-1"></a>sepal.width.deviates <span class="ot">&lt;-</span> sepal.width <span class="sc">-</span> mean.sepal.width</span>
+<span id="cb335-4"><a href="vector-algebra.html#cb335-4" aria-hidden="true" tabindex="-1"></a>var.sepal.width <span class="ot">&lt;-</span> <span class="fu">drop</span>((sepal.width.deviates <span class="sc">%*%</span> sepal.width.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>))</span>
+<span id="cb335-5"><a href="vector-algebra.html#cb335-5" aria-hidden="true" tabindex="-1"></a>sd.sepal.width <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(var.sepal.width)</span></code></pre></div>
 <p>With the vector of sepal width deviates in hand we can now calculate covariances:</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="vector-algebra.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength <span class="ot">&lt;-</span> (sepal.length.deviates <span class="sc">%*%</span> sepal.width.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>)</span>
-<span id="cb332-2"><a href="vector-algebra.html#cb332-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength</span>
-<span id="cb332-3"><a href="vector-algebra.html#cb332-3" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]</span></span>
-<span id="cb332-4"><a href="vector-algebra.html#cb332-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.09921633</span></span>
-<span id="cb332-5"><a href="vector-algebra.html#cb332-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cov</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in covariance</span></span>
-<span id="cb332-6"><a href="vector-algebra.html#cb332-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.09921633</span></span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="vector-algebra.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength <span class="ot">&lt;-</span> (sepal.length.deviates <span class="sc">%*%</span> sepal.width.deviates)<span class="sc">/</span>(n<span class="dv">-1</span>)</span>
+<span id="cb336-2"><a href="vector-algebra.html#cb336-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength</span>
+<span id="cb336-3"><a href="vector-algebra.html#cb336-3" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]</span></span>
+<span id="cb336-4"><a href="vector-algebra.html#cb336-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.09921633</span></span>
+<span id="cb336-5"><a href="vector-algebra.html#cb336-5" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cov</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in covariance</span></span>
+<span id="cb336-6"><a href="vector-algebra.html#cb336-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.09921633</span></span></code></pre></div>
 <p>And correlations:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="vector-algebra.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.sepal.length <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sepal.length.deviates <span class="sc">%*%</span> sepal.length.deviates)</span>
-<span id="cb333-2"><a href="vector-algebra.html#cb333-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.sepal.width <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sepal.width.deviates <span class="sc">%*%</span> sepal.width.deviates) </span>
-<span id="cb333-3"><a href="vector-algebra.html#cb333-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb333-4"><a href="vector-algebra.html#cb333-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr.swidth.slength <span class="ot">&lt;-</span> </span>
-<span id="cb333-5"><a href="vector-algebra.html#cb333-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   (sepal.length.deviates <span class="sc">%*%</span> sepal.width.deviates) <span class="sc">/</span> (len.sepal.length <span class="sc">*</span> len.sepal.width)</span>
-<span id="cb333-6"><a href="vector-algebra.html#cb333-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> corr.swidth.slength</span>
-<span id="cb333-7"><a href="vector-algebra.html#cb333-7" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb333-8"><a href="vector-algebra.html#cb333-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.7425467</span></span>
-<span id="cb333-9"><a href="vector-algebra.html#cb333-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cor</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in correlation</span></span>
-<span id="cb333-10"><a href="vector-algebra.html#cb333-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7425467</span></span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="vector-algebra.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.sepal.length <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sepal.length.deviates <span class="sc">%*%</span> sepal.length.deviates)</span>
+<span id="cb337-2"><a href="vector-algebra.html#cb337-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> len.sepal.width <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sepal.width.deviates <span class="sc">%*%</span> sepal.width.deviates) </span>
+<span id="cb337-3"><a href="vector-algebra.html#cb337-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb337-4"><a href="vector-algebra.html#cb337-4" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> corr.swidth.slength <span class="ot">&lt;-</span> </span>
+<span id="cb337-5"><a href="vector-algebra.html#cb337-5" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span>   (sepal.length.deviates <span class="sc">%*%</span> sepal.width.deviates) <span class="sc">/</span> (len.sepal.length <span class="sc">*</span> len.sepal.width)</span>
+<span id="cb337-6"><a href="vector-algebra.html#cb337-6" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> corr.swidth.slength</span>
+<span id="cb337-7"><a href="vector-algebra.html#cb337-7" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb337-8"><a href="vector-algebra.html#cb337-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.7425467</span></span>
+<span id="cb337-9"><a href="vector-algebra.html#cb337-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">cor</span>(sepal.length, sepal.width) <span class="co"># and compare to built-in correlation</span></span>
+<span id="cb337-10"><a href="vector-algebra.html#cb337-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.7425467</span></span></code></pre></div>
 <p>Alternately, we could have calculated the correlation more simply as follows:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="vector-algebra.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength<span class="sc">/</span>(sd.sepal.length <span class="sc">*</span> sd.sepal.width)</span>
-<span id="cb334-2"><a href="vector-algebra.html#cb334-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb334-3"><a href="vector-algebra.html#cb334-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.7425467</span></span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="vector-algebra.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> cov.swidth.slength<span class="sc">/</span>(sd.sepal.length <span class="sc">*</span> sd.sepal.width)</span>
+<span id="cb338-2"><a href="vector-algebra.html#cb338-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb338-3"><a href="vector-algebra.html#cb338-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.7425467</span></span></code></pre></div>
 
 </div>
 </div>
@@ -797,7 +802,6 @@ r_{XY} = \frac{\vec{x} \cdot \vec{y}}{|\vec{x}||\vec{y}|} = \frac{S_{XY}}{S_x S_
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -816,6 +820,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -836,6 +841,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -852,7 +861,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

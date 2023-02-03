@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Matrices in R | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Matrices in R | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="vector-algebra.html"/>
 <link rel="next" href="linear-regression-models-i.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,8 +623,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="matrices-in-r" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Matrices in R</h1>
+<div id="matrices-in-r" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Matrices in R<a href="matrices-in-r.html#matrices-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In R matrices are two-dimensional collections of elements all of which
 have the same mode or type. This is different than a data frame in which
 the columns of the frame can hold elements of different type (but all of
@@ -628,29 +633,29 @@ type and length. Matrices are more efficient for carrying out most
 numerical operations, so if you’re working with a very large data set
 that is amenable to representation by a matrix you should consider using
 this data structure.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="matrices-in-r.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<div id="creating-matrices-in-r" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Creating matrices in R</h2>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="matrices-in-r.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="creating-matrices-in-r" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Creating matrices in R<a href="matrices-in-r.html#creating-matrices-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are a number of different ways to create matrices in R. For
 creating small matrices at the command line you can use the
 <code>matrix()</code> function.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="matrices-in-r.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></span>
-<span id="cb336-2"><a href="matrices-in-r.html#cb336-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
-<span id="cb336-3"><a href="matrices-in-r.html#cb336-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
-<span id="cb336-4"><a href="matrices-in-r.html#cb336-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1</span></span>
-<span id="cb336-5"><a href="matrices-in-r.html#cb336-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2</span></span>
-<span id="cb336-6"><a href="matrices-in-r.html#cb336-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3</span></span>
-<span id="cb336-7"><a href="matrices-in-r.html#cb336-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4</span></span>
-<span id="cb336-8"><a href="matrices-in-r.html#cb336-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]    5</span></span>
-<span id="cb336-9"><a href="matrices-in-r.html#cb336-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></span>
-<span id="cb336-10"><a href="matrices-in-r.html#cb336-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X</span>
-<span id="cb336-11"><a href="matrices-in-r.html#cb336-11" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb336-12"><a href="matrices-in-r.html#cb336-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
-<span id="cb336-13"><a href="matrices-in-r.html#cb336-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
-<span id="cb336-14"><a href="matrices-in-r.html#cb336-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
-<span id="cb336-15"><a href="matrices-in-r.html#cb336-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
-<span id="cb336-16"><a href="matrices-in-r.html#cb336-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(X) <span class="co"># give the shape of the matrix</span></span>
-<span id="cb336-17"><a href="matrices-in-r.html#cb336-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 4 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="matrices-in-r.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="co"># creates a column vector</span></span>
+<span id="cb340-2"><a href="matrices-in-r.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span>
+<span id="cb340-3"><a href="matrices-in-r.html#cb340-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
+<span id="cb340-4"><a href="matrices-in-r.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1</span></span>
+<span id="cb340-5"><a href="matrices-in-r.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2</span></span>
+<span id="cb340-6"><a href="matrices-in-r.html#cb340-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3</span></span>
+<span id="cb340-7"><a href="matrices-in-r.html#cb340-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4</span></span>
+<span id="cb340-8"><a href="matrices-in-r.html#cb340-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]    5</span></span>
+<span id="cb340-9"><a href="matrices-in-r.html#cb340-9" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>) <span class="co"># creates a matrix</span></span>
+<span id="cb340-10"><a href="matrices-in-r.html#cb340-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X</span>
+<span id="cb340-11"><a href="matrices-in-r.html#cb340-11" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb340-12"><a href="matrices-in-r.html#cb340-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
+<span id="cb340-13"><a href="matrices-in-r.html#cb340-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
+<span id="cb340-14"><a href="matrices-in-r.html#cb340-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
+<span id="cb340-15"><a href="matrices-in-r.html#cb340-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
+<span id="cb340-16"><a href="matrices-in-r.html#cb340-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(X) <span class="co"># give the shape of the matrix</span></span>
+<span id="cb340-17"><a href="matrices-in-r.html#cb340-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 4 3</span></span></code></pre></div>
 <p><code>matrix()</code> takes a data vector as input and the shape of the
 matrix to be created is specified by using the <code>nrow</code> and
 <code>ncol</code> arguments. If the number of elements in the input data
@@ -662,67 +667,67 @@ function fills in the matrix in a column-wise fashion. To fill in the
 matrix in a row-wise fashion use the argument <code>byrow=T</code>.</p>
 <p>If you have a pre-existing data set in a list or data frame you can use
 the <code>as.matrix()</code> function to convert it to a matrix.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="matrices-in-r.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> iris.mtx <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(iris)</span>
-<span id="cb337-2"><a href="matrices-in-r.html#cb337-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></span>
-<span id="cb337-3"><a href="matrices-in-r.html#cb337-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></span>
-<span id="cb337-4"><a href="matrices-in-r.html#cb337-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
-<span id="cb337-5"><a href="matrices-in-r.html#cb337-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
-<span id="cb337-6"><a href="matrices-in-r.html#cb337-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
-<span id="cb337-7"><a href="matrices-in-r.html#cb337-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
-<span id="cb337-8"><a href="matrices-in-r.html#cb337-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
-<span id="cb337-9"><a href="matrices-in-r.html#cb337-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="matrices-in-r.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> iris.mtx <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(iris)</span>
+<span id="cb341-2"><a href="matrices-in-r.html#cb341-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris.mtx) <span class="co"># </span><span class="al">NOTE</span><span class="co">: the elements were all converted to character</span></span>
+<span id="cb341-3"><a href="matrices-in-r.html#cb341-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      Sepal.Length Sepal.Width Petal.Length Petal.Width Species </span></span>
+<span id="cb341-4"><a href="matrices-in-r.html#cb341-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] &quot;5.1&quot;        &quot;3.5&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
+<span id="cb341-5"><a href="matrices-in-r.html#cb341-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] &quot;4.9&quot;        &quot;3.0&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
+<span id="cb341-6"><a href="matrices-in-r.html#cb341-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] &quot;4.7&quot;        &quot;3.2&quot;       &quot;1.3&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
+<span id="cb341-7"><a href="matrices-in-r.html#cb341-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] &quot;4.6&quot;        &quot;3.1&quot;       &quot;1.5&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
+<span id="cb341-8"><a href="matrices-in-r.html#cb341-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,] &quot;5.0&quot;        &quot;3.6&quot;       &quot;1.4&quot;        &quot;0.2&quot;       &quot;setosa&quot;</span></span>
+<span id="cb341-9"><a href="matrices-in-r.html#cb341-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,] &quot;5.4&quot;        &quot;3.9&quot;       &quot;1.7&quot;        &quot;0.4&quot;       &quot;setosa&quot;</span></span></code></pre></div>
 <p>Since all elements of an R matrix must be of the same type, when we passed the iris data frame to <code>as.matrix()</code>, everything was converted to a character due to the presence of the Species column in the data frame.</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="matrices-in-r.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># This is probably more along the lines of what you want</span></span>
-<span id="cb338-2"><a href="matrices-in-r.html#cb338-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> iris.mtx <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> as.matrix</span>
-<span id="cb338-3"><a href="matrices-in-r.html#cb338-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris.mtx)</span>
-<span id="cb338-4"><a href="matrices-in-r.html#cb338-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
-<span id="cb338-5"><a href="matrices-in-r.html#cb338-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]          5.1         3.5          1.4         0.2</span></span>
-<span id="cb338-6"><a href="matrices-in-r.html#cb338-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]          4.9         3.0          1.4         0.2</span></span>
-<span id="cb338-7"><a href="matrices-in-r.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]          4.7         3.2          1.3         0.2</span></span>
-<span id="cb338-8"><a href="matrices-in-r.html#cb338-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]          4.6         3.1          1.5         0.2</span></span>
-<span id="cb338-9"><a href="matrices-in-r.html#cb338-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]          5.0         3.6          1.4         0.2</span></span>
-<span id="cb338-10"><a href="matrices-in-r.html#cb338-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,]          5.4         3.9          1.7         0.4</span></span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="matrices-in-r.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="co"># This is probably more along the lines of what you want</span></span>
+<span id="cb342-2"><a href="matrices-in-r.html#cb342-2" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> iris.mtx <span class="ot">&lt;-</span> iris <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> as.matrix</span>
+<span id="cb342-3"><a href="matrices-in-r.html#cb342-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">head</span>(iris.mtx)</span>
+<span id="cb342-4"><a href="matrices-in-r.html#cb342-4" aria-hidden="true" tabindex="-1"></a><span class="do">##      Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb342-5"><a href="matrices-in-r.html#cb342-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]          5.1         3.5          1.4         0.2</span></span>
+<span id="cb342-6"><a href="matrices-in-r.html#cb342-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]          4.9         3.0          1.4         0.2</span></span>
+<span id="cb342-7"><a href="matrices-in-r.html#cb342-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]          4.7         3.2          1.3         0.2</span></span>
+<span id="cb342-8"><a href="matrices-in-r.html#cb342-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]          4.6         3.1          1.5         0.2</span></span>
+<span id="cb342-9"><a href="matrices-in-r.html#cb342-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]          5.0         3.6          1.4         0.2</span></span>
+<span id="cb342-10"><a href="matrices-in-r.html#cb342-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [6,]          5.4         3.9          1.7         0.4</span></span></code></pre></div>
 <p>You can use the various indexing operations to get particular rows,
 columns, or elements. Here are some examples:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="matrices-in-r.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb339-2"><a href="matrices-in-r.html#cb339-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X</span>
-<span id="cb339-3"><a href="matrices-in-r.html#cb339-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb339-4"><a href="matrices-in-r.html#cb339-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
-<span id="cb339-5"><a href="matrices-in-r.html#cb339-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
-<span id="cb339-6"><a href="matrices-in-r.html#cb339-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
-<span id="cb339-7"><a href="matrices-in-r.html#cb339-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
-<span id="cb339-8"><a href="matrices-in-r.html#cb339-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[<span class="dv">1</span>,] <span class="co"># get the first row</span></span>
-<span id="cb339-9"><a href="matrices-in-r.html#cb339-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 5 9</span></span>
-<span id="cb339-10"><a href="matrices-in-r.html#cb339-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[,<span class="dv">1</span>] <span class="co"># get the first column</span></span>
-<span id="cb339-11"><a href="matrices-in-r.html#cb339-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 4</span></span>
-<span id="cb339-12"><a href="matrices-in-r.html#cb339-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></span>
-<span id="cb339-13"><a href="matrices-in-r.html#cb339-13" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb339-14"><a href="matrices-in-r.html#cb339-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
-<span id="cb339-15"><a href="matrices-in-r.html#cb339-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
-<span id="cb339-16"><a href="matrices-in-r.html#cb339-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></span>
-<span id="cb339-17"><a href="matrices-in-r.html#cb339-17" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb339-18"><a href="matrices-in-r.html#cb339-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    5    9</span></span>
-<span id="cb339-19"><a href="matrices-in-r.html#cb339-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    6   10</span></span>
-<span id="cb339-20"><a href="matrices-in-r.html#cb339-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    7   11</span></span>
-<span id="cb339-21"><a href="matrices-in-r.html#cb339-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    8   12</span></span>
-<span id="cb339-22"><a href="matrices-in-r.html#cb339-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb339-23"><a href="matrices-in-r.html#cb339-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y</span>
-<span id="cb339-24"><a href="matrices-in-r.html#cb339-24" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb339-25"><a href="matrices-in-r.html#cb339-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    2    3</span></span>
-<span id="cb339-26"><a href="matrices-in-r.html#cb339-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    4    5    6</span></span>
-<span id="cb339-27"><a href="matrices-in-r.html#cb339-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    7    8    9</span></span>
-<span id="cb339-28"><a href="matrices-in-r.html#cb339-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]   10   11   12</span></span>
-<span id="cb339-29"><a href="matrices-in-r.html#cb339-29" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></span>
-<span id="cb339-30"><a href="matrices-in-r.html#cb339-30" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10</span></span>
-<span id="cb339-31"><a href="matrices-in-r.html#cb339-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">5</span>]</span>
-<span id="cb339-32"><a href="matrices-in-r.html#cb339-32" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span>
-<span id="cb339-33"><a href="matrices-in-r.html#cb339-33" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(Y) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></span>
-<span id="cb339-34"><a href="matrices-in-r.html#cb339-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y</span>
-<span id="cb339-35"><a href="matrices-in-r.html#cb339-35" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></span>
-<span id="cb339-36"><a href="matrices-in-r.html#cb339-36" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    7    2    8    3    9</span></span>
-<span id="cb339-37"><a href="matrices-in-r.html#cb339-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    4   10    5   11    6   12</span></span>
-<span id="cb339-38"><a href="matrices-in-r.html#cb339-38" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">5</span>]</span>
-<span id="cb339-39"><a href="matrices-in-r.html#cb339-39" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="matrices-in-r.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
+<span id="cb343-2"><a href="matrices-in-r.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X</span>
+<span id="cb343-3"><a href="matrices-in-r.html#cb343-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb343-4"><a href="matrices-in-r.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
+<span id="cb343-5"><a href="matrices-in-r.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
+<span id="cb343-6"><a href="matrices-in-r.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
+<span id="cb343-7"><a href="matrices-in-r.html#cb343-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
+<span id="cb343-8"><a href="matrices-in-r.html#cb343-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[<span class="dv">1</span>,] <span class="co"># get the first row</span></span>
+<span id="cb343-9"><a href="matrices-in-r.html#cb343-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 5 9</span></span>
+<span id="cb343-10"><a href="matrices-in-r.html#cb343-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[,<span class="dv">1</span>] <span class="co"># get the first column</span></span>
+<span id="cb343-11"><a href="matrices-in-r.html#cb343-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 4</span></span>
+<span id="cb343-12"><a href="matrices-in-r.html#cb343-12" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,] <span class="co"># get the first two rows</span></span>
+<span id="cb343-13"><a href="matrices-in-r.html#cb343-13" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb343-14"><a href="matrices-in-r.html#cb343-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
+<span id="cb343-15"><a href="matrices-in-r.html#cb343-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
+<span id="cb343-16"><a href="matrices-in-r.html#cb343-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> X[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># get the second and third columns</span></span>
+<span id="cb343-17"><a href="matrices-in-r.html#cb343-17" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb343-18"><a href="matrices-in-r.html#cb343-18" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    5    9</span></span>
+<span id="cb343-19"><a href="matrices-in-r.html#cb343-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    6   10</span></span>
+<span id="cb343-20"><a href="matrices-in-r.html#cb343-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    7   11</span></span>
+<span id="cb343-21"><a href="matrices-in-r.html#cb343-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    8   12</span></span>
+<span id="cb343-22"><a href="matrices-in-r.html#cb343-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">byrow=</span>T, <span class="at">nrow=</span><span class="dv">4</span>)</span>
+<span id="cb343-23"><a href="matrices-in-r.html#cb343-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y</span>
+<span id="cb343-24"><a href="matrices-in-r.html#cb343-24" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb343-25"><a href="matrices-in-r.html#cb343-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    2    3</span></span>
+<span id="cb343-26"><a href="matrices-in-r.html#cb343-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    4    5    6</span></span>
+<span id="cb343-27"><a href="matrices-in-r.html#cb343-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    7    8    9</span></span>
+<span id="cb343-28"><a href="matrices-in-r.html#cb343-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]   10   11   12</span></span>
+<span id="cb343-29"><a href="matrices-in-r.html#cb343-29" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">4</span>] <span class="co"># see explanation below</span></span>
+<span id="cb343-30"><a href="matrices-in-r.html#cb343-30" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10</span></span>
+<span id="cb343-31"><a href="matrices-in-r.html#cb343-31" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">5</span>]</span>
+<span id="cb343-32"><a href="matrices-in-r.html#cb343-32" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span>
+<span id="cb343-33"><a href="matrices-in-r.html#cb343-33" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">dim</span>(Y) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)  <span class="co"># reshape Y</span></span>
+<span id="cb343-34"><a href="matrices-in-r.html#cb343-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y</span>
+<span id="cb343-35"><a href="matrices-in-r.html#cb343-35" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5] [,6]</span></span>
+<span id="cb343-36"><a href="matrices-in-r.html#cb343-36" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    7    2    8    3    9</span></span>
+<span id="cb343-37"><a href="matrices-in-r.html#cb343-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    4   10    5   11    6   12</span></span>
+<span id="cb343-38"><a href="matrices-in-r.html#cb343-38" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Y[<span class="dv">5</span>]</span>
+<span id="cb343-39"><a href="matrices-in-r.html#cb343-39" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2</span></span></code></pre></div>
 <p>The example above where we create a matrix <code>Y</code> is meant to
 show that matrices are stored internally in a column wise fashion (think
 of the columns stacked one atop the other), regardless of whether we use
@@ -734,93 +739,93 @@ in memory hasn’t changed so <code>Y[5]</code> still gives the same
 element.</p>
 <p>You can use the <code>diag()</code> function to get the diagonal of a
 matrix or to create a diagonal matrix as show below:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="matrices-in-r.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">ncol=</span><span class="dv">4</span>)</span>
-<span id="cb340-2"><a href="matrices-in-r.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Z</span>
-<span id="cb340-3"><a href="matrices-in-r.html#cb340-3" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]      [,2]       [,3]       [,4]</span></span>
-<span id="cb340-4"><a href="matrices-in-r.html#cb340-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  2.0251885 2.0174258 -0.6052043  1.4415494</span></span>
-<span id="cb340-5"><a href="matrices-in-r.html#cb340-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] -0.3728585 0.3460140 -1.3688444 -0.1282668</span></span>
-<span id="cb340-6"><a href="matrices-in-r.html#cb340-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] -0.3033103 0.2451794 -0.4126611 -0.4608993</span></span>
-<span id="cb340-7"><a href="matrices-in-r.html#cb340-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]  1.7492453 1.1036075  0.4314619  0.4923353</span></span>
-<span id="cb340-8"><a href="matrices-in-r.html#cb340-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(Z)</span>
-<span id="cb340-9"><a href="matrices-in-r.html#cb340-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  2.0251885  0.3460140 -0.4126611  0.4923353</span></span>
-<span id="cb340-10"><a href="matrices-in-r.html#cb340-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></span>
-<span id="cb340-11"><a href="matrices-in-r.html#cb340-11" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span id="cb340-12"><a href="matrices-in-r.html#cb340-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0    0    0    0</span></span>
-<span id="cb340-13"><a href="matrices-in-r.html#cb340-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1    0    0    0</span></span>
-<span id="cb340-14"><a href="matrices-in-r.html#cb340-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    0    0    1    0    0</span></span>
-<span id="cb340-15"><a href="matrices-in-r.html#cb340-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    0    0    1    0</span></span>
-<span id="cb340-16"><a href="matrices-in-r.html#cb340-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]    0    0    0    0    1</span></span>
-<span id="cb340-17"><a href="matrices-in-r.html#cb340-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">13</span>)</span>
-<span id="cb340-18"><a href="matrices-in-r.html#cb340-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(s)</span>
-<span id="cb340-19"><a href="matrices-in-r.html#cb340-19" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]     [,2]     [,3]     [,4]</span></span>
-<span id="cb340-20"><a href="matrices-in-r.html#cb340-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 3.162278 0.000000 0.000000 0.000000</span></span>
-<span id="cb340-21"><a href="matrices-in-r.html#cb340-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.000000 3.316625 0.000000 0.000000</span></span>
-<span id="cb340-22"><a href="matrices-in-r.html#cb340-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 0.000000 0.000000 3.464102 0.000000</span></span>
-<span id="cb340-23"><a href="matrices-in-r.html#cb340-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 0.000000 0.000000 0.000000 3.605551</span></span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="matrices-in-r.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Z <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>), <span class="at">ncol=</span><span class="dv">4</span>)</span>
+<span id="cb344-2"><a href="matrices-in-r.html#cb344-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Z</span>
+<span id="cb344-3"><a href="matrices-in-r.html#cb344-3" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]         [,2]       [,3]       [,4]</span></span>
+<span id="cb344-4"><a href="matrices-in-r.html#cb344-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.2523397  0.729350262  0.4769644 -2.0207988</span></span>
+<span id="cb344-5"><a href="matrices-in-r.html#cb344-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]  0.1238106  0.002260243  0.6107511 -0.2396683</span></span>
+<span id="cb344-6"><a href="matrices-in-r.html#cb344-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] -0.6292392 -0.356499431 -2.0468266  0.4721059</span></span>
+<span id="cb344-7"><a href="matrices-in-r.html#cb344-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]  3.4700328  2.466565189 -1.3042726  0.7572256</span></span>
+<span id="cb344-8"><a href="matrices-in-r.html#cb344-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(Z)</span>
+<span id="cb344-9"><a href="matrices-in-r.html#cb344-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  0.252339744  0.002260243 -2.046826558  0.757225599</span></span>
+<span id="cb344-10"><a href="matrices-in-r.html#cb344-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(<span class="dv">5</span>) <span class="co"># create the 5 x 5 identity matrix</span></span>
+<span id="cb344-11"><a href="matrices-in-r.html#cb344-11" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb344-12"><a href="matrices-in-r.html#cb344-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0    0    0    0</span></span>
+<span id="cb344-13"><a href="matrices-in-r.html#cb344-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1    0    0    0</span></span>
+<span id="cb344-14"><a href="matrices-in-r.html#cb344-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    0    0    1    0    0</span></span>
+<span id="cb344-15"><a href="matrices-in-r.html#cb344-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    0    0    1    0</span></span>
+<span id="cb344-16"><a href="matrices-in-r.html#cb344-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]    0    0    0    0    1</span></span>
+<span id="cb344-17"><a href="matrices-in-r.html#cb344-17" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">13</span>)</span>
+<span id="cb344-18"><a href="matrices-in-r.html#cb344-18" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">diag</span>(s)</span>
+<span id="cb344-19"><a href="matrices-in-r.html#cb344-19" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]     [,2]     [,3]     [,4]</span></span>
+<span id="cb344-20"><a href="matrices-in-r.html#cb344-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 3.162278 0.000000 0.000000 0.000000</span></span>
+<span id="cb344-21"><a href="matrices-in-r.html#cb344-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.000000 3.316625 0.000000 0.000000</span></span>
+<span id="cb344-22"><a href="matrices-in-r.html#cb344-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 0.000000 0.000000 3.464102 0.000000</span></span>
+<span id="cb344-23"><a href="matrices-in-r.html#cb344-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 0.000000 0.000000 0.000000 3.605551</span></span></code></pre></div>
 </div>
-<div id="matrix-arithmetic-operations-in-r" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Matrix arithmetic operations in R</h2>
+<div id="matrix-arithmetic-operations-in-r" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Matrix arithmetic operations in R<a href="matrices-in-r.html#matrix-arithmetic-operations-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The standard mathematical operations of addition and subtraction and
 scalar multiplication work element-wise for matrices in the same way as
 they did for vectors. Matrix multiplication uses the operator
 <code>%*%</code> which you saw last week for the dot product. To get the
 transpose of a matrix use the function <code>t()</code>.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="matrices-in-r.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb341-2"><a href="matrices-in-r.html#cb341-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A</span>
-<span id="cb341-3"><a href="matrices-in-r.html#cb341-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb341-4"><a href="matrices-in-r.html#cb341-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
-<span id="cb341-5"><a href="matrices-in-r.html#cb341-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
-<span id="cb341-6"><a href="matrices-in-r.html#cb341-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
-<span id="cb341-7"><a href="matrices-in-r.html#cb341-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
-<span id="cb341-8"><a href="matrices-in-r.html#cb341-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb341-9"><a href="matrices-in-r.html#cb341-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb341-10"><a href="matrices-in-r.html#cb341-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> B</span>
-<span id="cb341-11"><a href="matrices-in-r.html#cb341-11" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]       [,2]        [,3]</span></span>
-<span id="cb341-12"><a href="matrices-in-r.html#cb341-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.2685323  0.7264978  1.16234345</span></span>
-<span id="cb341-13"><a href="matrices-in-r.html#cb341-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] -1.1877063  0.5425726  0.02106534</span></span>
-<span id="cb341-14"><a href="matrices-in-r.html#cb341-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]  0.1142667 -1.4874033 -0.98231868</span></span>
-<span id="cb341-15"><a href="matrices-in-r.html#cb341-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] -0.4246680  0.8533398 -0.09887401</span></span>
-<span id="cb341-16"><a href="matrices-in-r.html#cb341-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
-<span id="cb341-17"><a href="matrices-in-r.html#cb341-17" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">t</span>(A)  <span class="co"># transpose</span></span>
-<span id="cb341-18"><a href="matrices-in-r.html#cb341-18" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb341-19"><a href="matrices-in-r.html#cb341-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    2    3    4</span></span>
-<span id="cb341-20"><a href="matrices-in-r.html#cb341-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    5    6    7    8</span></span>
-<span id="cb341-21"><a href="matrices-in-r.html#cb341-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    9   10   11   12</span></span>
-<span id="cb341-22"><a href="matrices-in-r.html#cb341-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">+</span> B  <span class="co"># matrix addition</span></span>
-<span id="cb341-23"><a href="matrices-in-r.html#cb341-23" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]     [,2]     [,3]</span></span>
-<span id="cb341-24"><a href="matrices-in-r.html#cb341-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1.2685323 5.726498 10.16234</span></span>
-<span id="cb341-25"><a href="matrices-in-r.html#cb341-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.8122937 6.542573 10.02107</span></span>
-<span id="cb341-26"><a href="matrices-in-r.html#cb341-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 3.1142667 5.512597 10.01768</span></span>
-<span id="cb341-27"><a href="matrices-in-r.html#cb341-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 3.5753320 8.853340 11.90113</span></span>
-<span id="cb341-28"><a href="matrices-in-r.html#cb341-28" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">-</span> B  <span class="co"># matrix subtraction</span></span>
-<span id="cb341-29"><a href="matrices-in-r.html#cb341-29" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]     [,2]      [,3]</span></span>
-<span id="cb341-30"><a href="matrices-in-r.html#cb341-30" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.7314677 4.273502  7.837657</span></span>
-<span id="cb341-31"><a href="matrices-in-r.html#cb341-31" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 3.1877063 5.457427  9.978935</span></span>
-<span id="cb341-32"><a href="matrices-in-r.html#cb341-32" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 2.8857333 8.487403 11.982319</span></span>
-<span id="cb341-33"><a href="matrices-in-r.html#cb341-33" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 4.4246680 7.146660 12.098874</span></span>
-<span id="cb341-34"><a href="matrices-in-r.html#cb341-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">*</span> A  <span class="co"># multiplication by a scalar</span></span>
-<span id="cb341-35"><a href="matrices-in-r.html#cb341-35" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
-<span id="cb341-36"><a href="matrices-in-r.html#cb341-36" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    5   25   45</span></span>
-<span id="cb341-37"><a href="matrices-in-r.html#cb341-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]   10   30   50</span></span>
-<span id="cb341-38"><a href="matrices-in-r.html#cb341-38" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]   15   35   55</span></span>
-<span id="cb341-39"><a href="matrices-in-r.html#cb341-39" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]   20   40   60</span></span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="matrices-in-r.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
+<span id="cb345-2"><a href="matrices-in-r.html#cb345-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A</span>
+<span id="cb345-3"><a href="matrices-in-r.html#cb345-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb345-4"><a href="matrices-in-r.html#cb345-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9</span></span>
+<span id="cb345-5"><a href="matrices-in-r.html#cb345-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10</span></span>
+<span id="cb345-6"><a href="matrices-in-r.html#cb345-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11</span></span>
+<span id="cb345-7"><a href="matrices-in-r.html#cb345-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12</span></span>
+<span id="cb345-8"><a href="matrices-in-r.html#cb345-8" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb345-9"><a href="matrices-in-r.html#cb345-9" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> B <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">12</span>), <span class="at">nrow=</span><span class="dv">4</span>)</span>
+<span id="cb345-10"><a href="matrices-in-r.html#cb345-10" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> B</span>
+<span id="cb345-11"><a href="matrices-in-r.html#cb345-11" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]        [,2]       [,3]</span></span>
+<span id="cb345-12"><a href="matrices-in-r.html#cb345-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.9290181  1.06809094 -0.3345056</span></span>
+<span id="cb345-13"><a href="matrices-in-r.html#cb345-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] -1.5126220 -0.41861130 -0.2329943</span></span>
+<span id="cb345-14"><a href="matrices-in-r.html#cb345-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] -1.1397590  0.03192664 -0.9134459</span></span>
+<span id="cb345-15"><a href="matrices-in-r.html#cb345-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] -1.1113718 -0.69490935 -1.5228054</span></span>
+<span id="cb345-16"><a href="matrices-in-r.html#cb345-16" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> </span>
+<span id="cb345-17"><a href="matrices-in-r.html#cb345-17" aria-hidden="true" tabindex="-1"></a><span class="er">&gt;</span> <span class="fu">t</span>(A)  <span class="co"># transpose</span></span>
+<span id="cb345-18"><a href="matrices-in-r.html#cb345-18" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb345-19"><a href="matrices-in-r.html#cb345-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    2    3    4</span></span>
+<span id="cb345-20"><a href="matrices-in-r.html#cb345-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    5    6    7    8</span></span>
+<span id="cb345-21"><a href="matrices-in-r.html#cb345-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    9   10   11   12</span></span>
+<span id="cb345-22"><a href="matrices-in-r.html#cb345-22" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">+</span> B  <span class="co"># matrix addition</span></span>
+<span id="cb345-23"><a href="matrices-in-r.html#cb345-23" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]     [,2]      [,3]</span></span>
+<span id="cb345-24"><a href="matrices-in-r.html#cb345-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 1.929018 6.068091  8.665494</span></span>
+<span id="cb345-25"><a href="matrices-in-r.html#cb345-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.487378 5.581389  9.767006</span></span>
+<span id="cb345-26"><a href="matrices-in-r.html#cb345-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 1.860241 7.031927 10.086554</span></span>
+<span id="cb345-27"><a href="matrices-in-r.html#cb345-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 2.888628 7.305091 10.477195</span></span>
+<span id="cb345-28"><a href="matrices-in-r.html#cb345-28" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">-</span> B  <span class="co"># matrix subtraction</span></span>
+<span id="cb345-29"><a href="matrices-in-r.html#cb345-29" aria-hidden="true" tabindex="-1"></a><span class="do">##            [,1]     [,2]      [,3]</span></span>
+<span id="cb345-30"><a href="matrices-in-r.html#cb345-30" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.07098188 3.931909  9.334506</span></span>
+<span id="cb345-31"><a href="matrices-in-r.html#cb345-31" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 3.51262199 6.418611 10.232994</span></span>
+<span id="cb345-32"><a href="matrices-in-r.html#cb345-32" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 4.13975904 6.968073 11.913446</span></span>
+<span id="cb345-33"><a href="matrices-in-r.html#cb345-33" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 5.11137177 8.694909 13.522805</span></span>
+<span id="cb345-34"><a href="matrices-in-r.html#cb345-34" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">*</span> A  <span class="co"># multiplication by a scalar</span></span>
+<span id="cb345-35"><a href="matrices-in-r.html#cb345-35" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3]</span></span>
+<span id="cb345-36"><a href="matrices-in-r.html#cb345-36" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    5   25   45</span></span>
+<span id="cb345-37"><a href="matrices-in-r.html#cb345-37" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]   10   30   50</span></span>
+<span id="cb345-38"><a href="matrices-in-r.html#cb345-38" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]   15   35   55</span></span>
+<span id="cb345-39"><a href="matrices-in-r.html#cb345-39" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]   20   40   60</span></span></code></pre></div>
 <p>When applying matrix multiplication, the dimensions of the matrices involved must be conformable. For example, you can’t do this:</p>
 <pre><code>A %*% B  # do you understand why this generates an error?</code></pre>
 <p>But this works:</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="matrices-in-r.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">%*%</span> <span class="fu">t</span>(B)</span>
-<span id="cb343-2"><a href="matrices-in-r.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]       [,2]      [,3]     [,4]</span></span>
-<span id="cb343-3"><a href="matrices-in-r.html#cb343-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 14.36211  1.7147450 -16.16362 2.952165</span></span>
-<span id="cb343-4"><a href="matrices-in-r.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 16.51949  1.0906767 -18.51907 3.281963</span></span>
-<span id="cb343-5"><a href="matrices-in-r.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 18.67686  0.4666084 -20.87453 3.611761</span></span>
-<span id="cb343-6"><a href="matrices-in-r.html#cb343-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 20.83423 -0.1574599 -23.22998 3.941558</span></span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="matrices-in-r.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> A <span class="sc">%*%</span> <span class="fu">t</span>(B)</span>
+<span id="cb347-2"><a href="matrices-in-r.html#cb347-2" aria-hidden="true" tabindex="-1"></a><span class="do">##          [,1]       [,2]       [,3]      [,4]</span></span>
+<span id="cb347-3"><a href="matrices-in-r.html#cb347-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 3.258923  -5.702627  -9.201139 -18.29117</span></span>
+<span id="cb347-4"><a href="matrices-in-r.html#cb347-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 4.921526  -7.866855 -11.222417 -21.62025</span></span>
+<span id="cb347-5"><a href="matrices-in-r.html#cb347-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] 6.584130 -10.031083 -13.243695 -24.94934</span></span>
+<span id="cb347-6"><a href="matrices-in-r.html#cb347-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,] 8.246733 -12.195310 -15.264974 -28.27843</span></span></code></pre></div>
 </div>
-<div id="descriptive-statistics-as-matrix-functions" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions</h2>
+<div id="descriptive-statistics-as-matrix-functions" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Descriptive statistics as matrix functions<a href="matrices-in-r.html#descriptive-statistics-as-matrix-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Assume you have a data set represented as a <span class="math inline">\(n \times p\)</span> matrix, <span class="math inline">\(X\)</span>, with
 observations in rows and variables in columns. Below I give formulae for
 calculating some descriptive statistics as matrix functions.</p>
-<div id="mean-vector-and-matrix" class="section level3" number="10.3.1">
-<h3><span class="header-section-number">10.3.1</span> Mean vector and matrix</h3>
+<div id="mean-vector-and-matrix" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Mean vector and matrix<a href="matrices-in-r.html#mean-vector-and-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You can calculate a row vector of means, <span class="math inline">\(\mathbf{m}\)</span>, as:
 <span class="math display">\[
 \mathbf{m} = \frac{1}{n} \mathbf{1}^T  X
@@ -832,8 +837,8 @@ value for that column is:
 M = \mathbf{1}\mathbf{m}
 \]</span></p>
 </div>
-<div id="deviation-matrix" class="section level3" number="10.3.2">
-<h3><span class="header-section-number">10.3.2</span> Deviation matrix</h3>
+<div id="deviation-matrix" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Deviation matrix<a href="matrices-in-r.html#deviation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To re-express each value as the deviation from the variable means
 (i.e.~each columns is a mean centered vector) we calculate a deviation
 matrix:
@@ -841,15 +846,15 @@ matrix:
 D = X - M
 \]</span></p>
 </div>
-<div id="covariance-matrix" class="section level3" number="10.3.3">
-<h3><span class="header-section-number">10.3.3</span> Covariance matrix</h3>
+<div id="covariance-matrix" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Covariance matrix<a href="matrices-in-r.html#covariance-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <span class="math inline">\(p \times p\)</span> covariance matrix can be expressed as a matrix product of the deviation matrix:
 <span class="math display">\[
 S = \frac{1}{n-1} D^T D
 \]</span></p>
 </div>
-<div id="correlation-matrix" class="section level3" number="10.3.4">
-<h3><span class="header-section-number">10.3.4</span> Correlation matrix</h3>
+<div id="correlation-matrix" class="section level3 hasAnchor" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> Correlation matrix<a href="matrices-in-r.html#correlation-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The correlation matrix, <span class="math inline">\(R\)</span>, can be calculated from the covariance
 matrix by:
 <span class="math display">\[
@@ -859,43 +864,43 @@ R = V S V
 <span class="math inline">\(V_{ii} = 1/\sqrt{S_{ii}}\)</span>.</p>
 </div>
 </div>
-<div id="matrix-inverse" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Matrix Inverse</h2>
+<div id="matrix-inverse" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Matrix Inverse<a href="matrices-in-r.html#matrix-inverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The function <code>solve()</code> can be used to find matrix inverses in R.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="matrices-in-r.html#cb344-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb344-2"><a href="matrices-in-r.html#cb344-2" aria-hidden="true" tabindex="-1"></a>A</span>
-<span id="cb344-3"><a href="matrices-in-r.html#cb344-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb344-4"><a href="matrices-in-r.html#cb344-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    3</span></span>
-<span id="cb344-5"><a href="matrices-in-r.html#cb344-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    4</span></span>
-<span id="cb344-6"><a href="matrices-in-r.html#cb344-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb344-7"><a href="matrices-in-r.html#cb344-7" aria-hidden="true" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
-<span id="cb344-8"><a href="matrices-in-r.html#cb344-8" aria-hidden="true" tabindex="-1"></a>Ainv</span>
-<span id="cb344-9"><a href="matrices-in-r.html#cb344-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb344-10"><a href="matrices-in-r.html#cb344-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]   -2  1.5</span></span>
-<span id="cb344-11"><a href="matrices-in-r.html#cb344-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1 -0.5</span></span>
-<span id="cb344-12"><a href="matrices-in-r.html#cb344-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb344-13"><a href="matrices-in-r.html#cb344-13" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> Ainv   <span class="co"># should give identity matrix</span></span>
-<span id="cb344-14"><a href="matrices-in-r.html#cb344-14" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb344-15"><a href="matrices-in-r.html#cb344-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0</span></span>
-<span id="cb344-16"><a href="matrices-in-r.html#cb344-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1</span></span>
-<span id="cb344-17"><a href="matrices-in-r.html#cb344-17" aria-hidden="true" tabindex="-1"></a>Ainv <span class="sc">%*%</span> A   <span class="co"># should also result in identity matrix</span></span>
-<span id="cb344-18"><a href="matrices-in-r.html#cb344-18" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb344-19"><a href="matrices-in-r.html#cb344-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0</span></span>
-<span id="cb344-20"><a href="matrices-in-r.html#cb344-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1</span></span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="matrices-in-r.html#cb348-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb348-2"><a href="matrices-in-r.html#cb348-2" aria-hidden="true" tabindex="-1"></a>A</span>
+<span id="cb348-3"><a href="matrices-in-r.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb348-4"><a href="matrices-in-r.html#cb348-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    3</span></span>
+<span id="cb348-5"><a href="matrices-in-r.html#cb348-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    4</span></span>
+<span id="cb348-6"><a href="matrices-in-r.html#cb348-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-7"><a href="matrices-in-r.html#cb348-7" aria-hidden="true" tabindex="-1"></a>Ainv <span class="ot">&lt;-</span> <span class="fu">solve</span>(A)</span>
+<span id="cb348-8"><a href="matrices-in-r.html#cb348-8" aria-hidden="true" tabindex="-1"></a>Ainv</span>
+<span id="cb348-9"><a href="matrices-in-r.html#cb348-9" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb348-10"><a href="matrices-in-r.html#cb348-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]   -2  1.5</span></span>
+<span id="cb348-11"><a href="matrices-in-r.html#cb348-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1 -0.5</span></span>
+<span id="cb348-12"><a href="matrices-in-r.html#cb348-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb348-13"><a href="matrices-in-r.html#cb348-13" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> Ainv   <span class="co"># should give identity matrix</span></span>
+<span id="cb348-14"><a href="matrices-in-r.html#cb348-14" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb348-15"><a href="matrices-in-r.html#cb348-15" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0</span></span>
+<span id="cb348-16"><a href="matrices-in-r.html#cb348-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1</span></span>
+<span id="cb348-17"><a href="matrices-in-r.html#cb348-17" aria-hidden="true" tabindex="-1"></a>Ainv <span class="sc">%*%</span> A   <span class="co"># should also result in identity matrix</span></span>
+<span id="cb348-18"><a href="matrices-in-r.html#cb348-18" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb348-19"><a href="matrices-in-r.html#cb348-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    0</span></span>
+<span id="cb348-20"><a href="matrices-in-r.html#cb348-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0    1</span></span></code></pre></div>
 <p>Keep in mind that not all square matrices are invertible:</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="matrices-in-r.html#cb345-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
-<span id="cb345-2"><a href="matrices-in-r.html#cb345-2" aria-hidden="true" tabindex="-1"></a>C</span>
-<span id="cb345-3"><a href="matrices-in-r.html#cb345-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb345-4"><a href="matrices-in-r.html#cb345-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9   13</span></span>
-<span id="cb345-5"><a href="matrices-in-r.html#cb345-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10   14</span></span>
-<span id="cb345-6"><a href="matrices-in-r.html#cb345-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11   15</span></span>
-<span id="cb345-7"><a href="matrices-in-r.html#cb345-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12   16</span></span>
-<span id="cb345-8"><a href="matrices-in-r.html#cb345-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb345-9"><a href="matrices-in-r.html#cb345-9" aria-hidden="true" tabindex="-1"></a>Cinv <span class="ot">&lt;-</span> <span class="fu">solve</span>(C)</span>
-<span id="cb345-10"><a href="matrices-in-r.html#cb345-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[3,3] = 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="matrices-in-r.html#cb349-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">16</span>, <span class="at">nrow=</span><span class="dv">4</span>)</span>
+<span id="cb349-2"><a href="matrices-in-r.html#cb349-2" aria-hidden="true" tabindex="-1"></a>C</span>
+<span id="cb349-3"><a href="matrices-in-r.html#cb349-3" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb349-4"><a href="matrices-in-r.html#cb349-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1    5    9   13</span></span>
+<span id="cb349-5"><a href="matrices-in-r.html#cb349-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    2    6   10   14</span></span>
+<span id="cb349-6"><a href="matrices-in-r.html#cb349-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    3    7   11   15</span></span>
+<span id="cb349-7"><a href="matrices-in-r.html#cb349-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    4    8   12   16</span></span>
+<span id="cb349-8"><a href="matrices-in-r.html#cb349-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb349-9"><a href="matrices-in-r.html#cb349-9" aria-hidden="true" tabindex="-1"></a>Cinv <span class="ot">&lt;-</span> <span class="fu">solve</span>(C)</span>
+<span id="cb349-10"><a href="matrices-in-r.html#cb349-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in solve.default(C): Lapack routine dgesv: system is exactly singular: U[4,4] = 0</span></span></code></pre></div>
 </div>
-<div id="solving-sets-of-simultaneous-equations" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Solving sets of simultaneous equations</h2>
+<div id="solving-sets-of-simultaneous-equations" class="section level2 hasAnchor" number="10.5">
+<h2><span class="header-section-number">10.5</span> Solving sets of simultaneous equations<a href="matrices-in-r.html#solving-sets-of-simultaneous-equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>solve()</code> function introduced above can also be used to solve sets of simultaneous equations.</p>
 <p>For example, given the set of equations below:</p>
 <p><span class="math display">\[
@@ -907,52 +912,52 @@ x_1 + 3x_2 + 2x_3 &amp; = &amp; 3\\
 \]</span></p>
 <p>We can rewrite this in vector form as:</p>
 <p><span class="math display">\[x_1 \begin{bmatrix}
- 1 \\ -1 \\ 2
-\end{bmatrix} + 
+1 \\ -1 \\ 2
+\end{bmatrix} +
 x_2 \begin{bmatrix}
- 3 \\ 1 \\ 4
-\end{bmatrix} + 
+3 \\ 1 \\ 4
+\end{bmatrix} +
 x_3 \begin{bmatrix}
- 2 \\ 2 \\ 1
-\end{bmatrix}  = 
+2 \\ 2 \\ 1
+\end{bmatrix}  =
 \begin{bmatrix}
- 3 \\ -2 \\ 10
-\end{bmatrix} 
+3 \\ -2 \\ 10
+\end{bmatrix}
 \]</span>
 which is equivalent to the matrix form:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
 1 &amp; 3 &amp; 2  \\
 -1 &amp; 1 &amp; 2\\
-2 &amp; 4 &amp; 1 
-\end{bmatrix} 
+2 &amp; 4 &amp; 1
+\end{bmatrix}
 \begin{bmatrix}
- x_1 \\ x_2 \\ x_3
-\end{bmatrix}  = 
+x_1 \\ x_2 \\ x_3
+\end{bmatrix}  =
 \begin{bmatrix}
- 3 \\ -2 \\ 10
-\end{bmatrix} 
+3 \\ -2 \\ 10
+\end{bmatrix}
 \]</span>
 <code>solve()</code> takes two arguments:
 - <code>a</code> – a square numeric matrix containing the coefficients of the linear equations (the left-most matrix above)
 - <code>b</code> – a vector (or matrix) giving the right hand side of the linear equations</p>
 <p>First let’s create the matrix of coefficients on the left and right sides:</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="matrices-in-r.html#cb346-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span> , <span class="dv">2</span>),</span>
-<span id="cb346-2"><a href="matrices-in-r.html#cb346-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb346-3"><a href="matrices-in-r.html#cb346-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>)), </span>
-<span id="cb346-4"><a href="matrices-in-r.html#cb346-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb346-5"><a href="matrices-in-r.html#cb346-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb346-6"><a href="matrices-in-r.html#cb346-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="matrices-in-r.html#cb350-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span> , <span class="dv">2</span>),</span>
+<span id="cb350-2"><a href="matrices-in-r.html#cb350-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb350-3"><a href="matrices-in-r.html#cb350-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">1</span>)), </span>
+<span id="cb350-4"><a href="matrices-in-r.html#cb350-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb350-5"><a href="matrices-in-r.html#cb350-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb350-6"><a href="matrices-in-r.html#cb350-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">10</span>)</span></code></pre></div>
 <p>Now we solve the equations:</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="matrices-in-r.html#cb347-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">solve</span>(A,b)</span>
-<span id="cb347-2"><a href="matrices-in-r.html#cb347-2" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb347-3"><a href="matrices-in-r.html#cb347-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -2.25  4.75 -4.50</span></span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="matrices-in-r.html#cb351-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">solve</span>(A,b)</span>
+<span id="cb351-2"><a href="matrices-in-r.html#cb351-2" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb351-3"><a href="matrices-in-r.html#cb351-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -2.25  4.75 -4.50</span></span></code></pre></div>
 <p>Let’s confirm the solution works by multiplying <code>A</code> by <code>x</code>:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="matrices-in-r.html#cb348-1" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> x</span>
-<span id="cb348-2"><a href="matrices-in-r.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
-<span id="cb348-3"><a href="matrices-in-r.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    3</span></span>
-<span id="cb348-4"><a href="matrices-in-r.html#cb348-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]   -2</span></span>
-<span id="cb348-5"><a href="matrices-in-r.html#cb348-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]   10</span></span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="matrices-in-r.html#cb352-1" aria-hidden="true" tabindex="-1"></a>A <span class="sc">%*%</span> x</span>
+<span id="cb352-2"><a href="matrices-in-r.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1]</span></span>
+<span id="cb352-3"><a href="matrices-in-r.html#cb352-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    3</span></span>
+<span id="cb352-4"><a href="matrices-in-r.html#cb352-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]   -2</span></span>
+<span id="cb352-5"><a href="matrices-in-r.html#cb352-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]   10</span></span></code></pre></div>
 <p>Voila!</p>
 
 </div>
@@ -967,7 +972,6 @@ which is equivalent to the matrix form:</p>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -986,6 +990,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1006,6 +1011,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -1022,7 +1031,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

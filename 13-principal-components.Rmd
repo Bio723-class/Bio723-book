@@ -230,11 +230,11 @@ bioenv <- read_tsv('https://github.com/Bio723-class/example-datasets/raw/master/
 names(bioenv)
 ```
 
-Notice that the first column got assigned the generic name `X1`. This is because there is a missing column header in the `bioenv.txt` file.  This first column corresponds to the sampling sites.  Before we move on let's give this column a more meaningful name:
+Notice that the first column got assigned the generic name `...1`. This is because there is a missing column header in the `bioenv.txt` file.  This first column corresponds to the sampling sites.  Before we move on let's give this column a more meaningful name:
 
 ```{r}
 bioenv <-
-  bioenv %>% rename(Site = X1)
+  bioenv %>% rename(Site = "...1")
 
 names(bioenv)
 ```

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 13 Principal Components Analysis | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 13 Principal Components Analysis | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="linear-regression-models-ii.html"/>
 <link rel="next" href="canonical-variates-analysis.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,406 +623,404 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="principal-components-analysis" class="section level1" number="13">
-<h1><span class="header-section-number">Chapter 13</span> Principal Components Analysis</h1>
-<div id="libraries-3" class="section level2" number="13.1">
-<h2><span class="header-section-number">13.1</span> Libraries</h2>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="principal-components-analysis.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb403-2"><a href="principal-components-analysis.html#cb403-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb403-3"><a href="principal-components-analysis.html#cb403-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb403-4"><a href="principal-components-analysis.html#cb403-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
+<div id="principal-components-analysis" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Principal Components Analysis<a href="principal-components-analysis.html#principal-components-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="libraries-3" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> Libraries<a href="principal-components-analysis.html#libraries-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="principal-components-analysis.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb407-2"><a href="principal-components-analysis.html#cb407-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb407-3"><a href="principal-components-analysis.html#cb407-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb407-4"><a href="principal-components-analysis.html#cb407-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span></code></pre></div>
 </div>
-<div id="matrices-as-linear-transformations" class="section level2" number="13.2">
-<h2><span class="header-section-number">13.2</span> Matrices as linear transformations</h2>
+<div id="matrices-as-linear-transformations" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> Matrices as linear transformations<a href="principal-components-analysis.html#matrices-as-linear-transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In lecture we introduced the notion that pre-multiplying a vector, <span class="math inline">\(x\)</span>, by a matrix <span class="math inline">\(\mathbf{A}\)</span> represents a linear transformation of <span class="math inline">\(x\)</span>. Let’s explore that visually for 2D vectors.</p>
 <p>For illustration let’s generate a 2D vector representing the coordinates of points on the sine function.</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="principal-components-analysis.html#cb404-1" aria-hidden="true" tabindex="-1"></a>sin.xy <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out =</span> <span class="dv">50</span>) <span class="sc">-</span> pi,</span>
-<span id="cb404-2"><a href="principal-components-analysis.html#cb404-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="fu">sin</span>(x))</span>
-<span id="cb404-3"><a href="principal-components-analysis.html#cb404-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb404-4"><a href="principal-components-analysis.html#cb404-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sin.xy, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-401-1.png" width="576" /></p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="principal-components-analysis.html#cb408-1" aria-hidden="true" tabindex="-1"></a>sin.xy <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">2</span><span class="sc">*</span>pi, <span class="at">length.out =</span> <span class="dv">50</span>) <span class="sc">-</span> pi,</span>
+<span id="cb408-2"><a href="principal-components-analysis.html#cb408-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="fu">sin</span>(x))</span>
+<span id="cb408-3"><a href="principal-components-analysis.html#cb408-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb408-4"><a href="principal-components-analysis.html#cb408-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sin.xy, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-405-1.png" width="576" /></p>
 <p>Let’s start with some of the transformations we discussed in lecture. First we look at reflection about the x-axis:</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="principal-components-analysis.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this matrix represents reflection about the x-axis</span></span>
-<span id="cb405-2"><a href="principal-components-analysis.html#cb405-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,</span>
-<span id="cb405-3"><a href="principal-components-analysis.html#cb405-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb405-4"><a href="principal-components-analysis.html#cb405-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-5"><a href="principal-components-analysis.html#cb405-5" aria-hidden="true" tabindex="-1"></a><span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span></span>
-<span id="cb405-6"><a href="principal-components-analysis.html#cb405-6" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
-<span id="cb405-7"><a href="principal-components-analysis.html#cb405-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-8"><a href="principal-components-analysis.html#cb405-8" aria-hidden="true" tabindex="-1"></a><span class="co"># creae a data frame from this transformation</span></span>
-<span id="cb405-9"><a href="principal-components-analysis.html#cb405-9" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
-<span id="cb405-10"><a href="principal-components-analysis.html#cb405-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb405-11"><a href="principal-components-analysis.html#cb405-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the transformed points</span></span>
-<span id="cb405-12"><a href="principal-components-analysis.html#cb405-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-402-1.png" width="576" /></p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="principal-components-analysis.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this matrix represents reflection about the x-axis</span></span>
+<span id="cb409-2"><a href="principal-components-analysis.html#cb409-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,  <span class="dv">0</span>,</span>
+<span id="cb409-3"><a href="principal-components-analysis.html#cb409-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb409-4"><a href="principal-components-analysis.html#cb409-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-5"><a href="principal-components-analysis.html#cb409-5" aria-hidden="true" tabindex="-1"></a><span class="co"># apply this transformation to each of the points in our vector `sin.xy`</span></span>
+<span id="cb409-6"><a href="principal-components-analysis.html#cb409-6" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
+<span id="cb409-7"><a href="principal-components-analysis.html#cb409-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-8"><a href="principal-components-analysis.html#cb409-8" aria-hidden="true" tabindex="-1"></a><span class="co"># creae a data frame from this transformation</span></span>
+<span id="cb409-9"><a href="principal-components-analysis.html#cb409-9" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
+<span id="cb409-10"><a href="principal-components-analysis.html#cb409-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-11"><a href="principal-components-analysis.html#cb409-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the transformed points</span></span>
+<span id="cb409-12"><a href="principal-components-analysis.html#cb409-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-406-1.png" width="576" /></p>
 <p>If instead we apply a matrix that represents a shear in the x-axis we get:</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="principal-components-analysis.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shear parallel to the x-axis</span></span>
-<span id="cb406-2"><a href="principal-components-analysis.html#cb406-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, </span>
-<span id="cb406-3"><a href="principal-components-analysis.html#cb406-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb406-4"><a href="principal-components-analysis.html#cb406-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb406-5"><a href="principal-components-analysis.html#cb406-5" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
-<span id="cb406-6"><a href="principal-components-analysis.html#cb406-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb406-7"><a href="principal-components-analysis.html#cb406-7" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
-<span id="cb406-8"><a href="principal-components-analysis.html#cb406-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-403-1.png" width="576" /></p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="principal-components-analysis.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shear parallel to the x-axis</span></span>
+<span id="cb410-2"><a href="principal-components-analysis.html#cb410-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, </span>
+<span id="cb410-3"><a href="principal-components-analysis.html#cb410-3" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb410-4"><a href="principal-components-analysis.html#cb410-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb410-5"><a href="principal-components-analysis.html#cb410-5" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
+<span id="cb410-6"><a href="principal-components-analysis.html#cb410-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb410-7"><a href="principal-components-analysis.html#cb410-7" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
+<span id="cb410-8"><a href="principal-components-analysis.html#cb410-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-407-1.png" width="576" /></p>
 <p>And finally rotation:</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="principal-components-analysis.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rotation by pi/2 radians (90 degrees)</span></span>
-<span id="cb407-2"><a href="principal-components-analysis.html#cb407-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">cos</span>(pi<span class="sc">/</span><span class="dv">2</span>), <span class="sc">-</span><span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>), </span>
-<span id="cb407-3"><a href="principal-components-analysis.html#cb407-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>), <span class="fu">cos</span>(pi<span class="sc">/</span><span class="dv">2</span>)), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb407-4"><a href="principal-components-analysis.html#cb407-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb407-5"><a href="principal-components-analysis.html#cb407-5" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
-<span id="cb407-6"><a href="principal-components-analysis.html#cb407-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb407-7"><a href="principal-components-analysis.html#cb407-7" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
-<span id="cb407-8"><a href="principal-components-analysis.html#cb407-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-404-1.png" width="576" /></p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="principal-components-analysis.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rotation by pi/2 radians (90 degrees)</span></span>
+<span id="cb411-2"><a href="principal-components-analysis.html#cb411-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">cos</span>(pi<span class="sc">/</span><span class="dv">2</span>), <span class="sc">-</span><span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>), </span>
+<span id="cb411-3"><a href="principal-components-analysis.html#cb411-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>), <span class="fu">cos</span>(pi<span class="sc">/</span><span class="dv">2</span>)), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb411-4"><a href="principal-components-analysis.html#cb411-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb411-5"><a href="principal-components-analysis.html#cb411-5" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
+<span id="cb411-6"><a href="principal-components-analysis.html#cb411-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb411-7"><a href="principal-components-analysis.html#cb411-7" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
+<span id="cb411-8"><a href="principal-components-analysis.html#cb411-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Ax.df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y=</span> y)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-408-1.png" width="576" /></p>
 </div>
-<div id="eigenanalysis-in-r" class="section level2" number="13.3">
-<h2><span class="header-section-number">13.3</span> Eigenanalysis in R</h2>
+<div id="eigenanalysis-in-r" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> Eigenanalysis in R<a href="principal-components-analysis.html#eigenanalysis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>As we discussed in lecture, the eigenvectors of a square matrix, <span class="math inline">\(\mathbf{A}\)</span>, point in the directions that are unchanged by the transformation specified by <span class="math inline">\(\mathbf{A}\)</span>.</p>
 <p>Let’s start with yet another transformation matrix, <span class="math inline">\(\mathbf{A}\)</span>, the effects of which are illustrated below:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="principal-components-analysis.html#cb408-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,</span>
-<span id="cb408-2"><a href="principal-components-analysis.html#cb408-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb408-3"><a href="principal-components-analysis.html#cb408-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb408-4"><a href="principal-components-analysis.html#cb408-4" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
-<span id="cb408-5"><a href="principal-components-analysis.html#cb408-5" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
-<span id="cb408-6"><a href="principal-components-analysis.html#cb408-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb408-7"><a href="principal-components-analysis.html#cb408-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb408-8"><a href="principal-components-analysis.html#cb408-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sin.xy, <span class="at">shape=</span><span class="dv">16</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb408-9"><a href="principal-components-analysis.html#cb408-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> Ax.df, <span class="at">shape=</span><span class="dv">17</span>, <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>) </span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-405-1.png" width="576" /></p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="principal-components-analysis.html#cb412-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.5</span>,</span>
+<span id="cb412-2"><a href="principal-components-analysis.html#cb412-2" aria-hidden="true" tabindex="-1"></a>              <span class="dv">0</span>,   <span class="fl">2.0</span>), <span class="at">byrow=</span><span class="cn">TRUE</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb412-3"><a href="principal-components-analysis.html#cb412-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb412-4"><a href="principal-components-analysis.html#cb412-4" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(sin.xy)</span>
+<span id="cb412-5"><a href="principal-components-analysis.html#cb412-5" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
+<span id="cb412-6"><a href="principal-components-analysis.html#cb412-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb412-7"><a href="principal-components-analysis.html#cb412-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb412-8"><a href="principal-components-analysis.html#cb412-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sin.xy, <span class="at">shape=</span><span class="dv">16</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb412-9"><a href="principal-components-analysis.html#cb412-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> Ax.df, <span class="at">shape=</span><span class="dv">17</span>, <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>) </span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-409-1.png" width="576" /></p>
 <p>This transformation is a combination of stretching (dilation) in the Y-axis, and shear parallel to the x-axis.</p>
 <p>The <code>eigen()</code> function computes the eigenvalues and eigenvectors of a square matrix:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="principal-components-analysis.html#cb409-1" aria-hidden="true" tabindex="-1"></a>eigen.A <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
-<span id="cb409-2"><a href="principal-components-analysis.html#cb409-2" aria-hidden="true" tabindex="-1"></a>eigen.A</span>
-<span id="cb409-3"><a href="principal-components-analysis.html#cb409-3" aria-hidden="true" tabindex="-1"></a><span class="do">## eigen() decomposition</span></span>
-<span id="cb409-4"><a href="principal-components-analysis.html#cb409-4" aria-hidden="true" tabindex="-1"></a><span class="do">## $values</span></span>
-<span id="cb409-5"><a href="principal-components-analysis.html#cb409-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2 1</span></span>
-<span id="cb409-6"><a href="principal-components-analysis.html#cb409-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb409-7"><a href="principal-components-analysis.html#cb409-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $vectors</span></span>
-<span id="cb409-8"><a href="principal-components-analysis.html#cb409-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1] [,2]</span></span>
-<span id="cb409-9"><a href="principal-components-analysis.html#cb409-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503    1</span></span>
-<span id="cb409-10"><a href="principal-components-analysis.html#cb409-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.5547002    0</span></span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="principal-components-analysis.html#cb413-1" aria-hidden="true" tabindex="-1"></a>eigen.A <span class="ot">&lt;-</span> <span class="fu">eigen</span>(A)</span>
+<span id="cb413-2"><a href="principal-components-analysis.html#cb413-2" aria-hidden="true" tabindex="-1"></a>eigen.A</span>
+<span id="cb413-3"><a href="principal-components-analysis.html#cb413-3" aria-hidden="true" tabindex="-1"></a><span class="do">## eigen() decomposition</span></span>
+<span id="cb413-4"><a href="principal-components-analysis.html#cb413-4" aria-hidden="true" tabindex="-1"></a><span class="do">## $values</span></span>
+<span id="cb413-5"><a href="principal-components-analysis.html#cb413-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2 1</span></span>
+<span id="cb413-6"><a href="principal-components-analysis.html#cb413-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb413-7"><a href="principal-components-analysis.html#cb413-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $vectors</span></span>
+<span id="cb413-8"><a href="principal-components-analysis.html#cb413-8" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1] [,2]</span></span>
+<span id="cb413-9"><a href="principal-components-analysis.html#cb413-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503    1</span></span>
+<span id="cb413-10"><a href="principal-components-analysis.html#cb413-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.5547002    0</span></span></code></pre></div>
 <p>The following relationships relate <span class="math inline">\(\mathbf{A}\)</span> to it’s eigenvectors and eigenvalues:</p>
 <p><span class="math display">\[\mathbf{V}^{-1}\mathbf{A}\mathbf{V}  =  \mathbf{D} \]</span></p>
 <p><span class="math display">\[\mathbf{A}  =  \mathbf{V}\mathbf{D}\mathbf{V}^{-1}\]</span></p>
 <p>where <span class="math inline">\(\mathbf{V}\)</span> is a matrix where the columns represent the eigenvectors, and <span class="math inline">\(\mathbf{D}\)</span> is a diagonal matrix of eigenvalues.</p>
 <p>Let’s confirm that those relationships hold for our example:</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="principal-components-analysis.html#cb410-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> eigen.A<span class="sc">$</span>vectors</span>
-<span id="cb410-2"><a href="principal-components-analysis.html#cb410-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">diag</span>(eigen.A<span class="sc">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span></span>
-<span id="cb410-3"><a href="principal-components-analysis.html#cb410-3" aria-hidden="true" tabindex="-1"></a>Vinv <span class="ot">&lt;-</span> <span class="fu">solve</span>(V)</span>
-<span id="cb410-4"><a href="principal-components-analysis.html#cb410-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb410-5"><a href="principal-components-analysis.html#cb410-5" aria-hidden="true" tabindex="-1"></a>V <span class="sc">%*%</span> D <span class="sc">%*%</span> Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span></span>
-<span id="cb410-6"><a href="principal-components-analysis.html#cb410-6" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
-<span id="cb410-7"><a href="principal-components-analysis.html#cb410-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1  1.5</span></span>
-<span id="cb410-8"><a href="principal-components-analysis.html#cb410-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0  2.0</span></span></code></pre></div>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="principal-components-analysis.html#cb411-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(Vinv <span class="sc">%*%</span> A <span class="sc">%*%</span> V, D) <span class="co"># test &#39;near equality&#39;</span></span>
-<span id="cb411-2"><a href="principal-components-analysis.html#cb411-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="principal-components-analysis.html#cb412-1" aria-hidden="true" tabindex="-1"></a>V[,<span class="dv">1</span>] <span class="sc">%*%</span> V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span></span>
-<span id="cb412-2"><a href="principal-components-analysis.html#cb412-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
-<span id="cb412-3"><a href="principal-components-analysis.html#cb412-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503</span></span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="principal-components-analysis.html#cb414-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> eigen.A<span class="sc">$</span>vectors</span>
+<span id="cb414-2"><a href="principal-components-analysis.html#cb414-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">diag</span>(eigen.A<span class="sc">$</span>values) <span class="co"># diagonal matrix of eigenvalues</span></span>
+<span id="cb414-3"><a href="principal-components-analysis.html#cb414-3" aria-hidden="true" tabindex="-1"></a>Vinv <span class="ot">&lt;-</span> <span class="fu">solve</span>(V)</span>
+<span id="cb414-4"><a href="principal-components-analysis.html#cb414-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb414-5"><a href="principal-components-analysis.html#cb414-5" aria-hidden="true" tabindex="-1"></a>V <span class="sc">%*%</span> D <span class="sc">%*%</span> Vinv  <span class="co"># reconstruct our original matrix (see lecture slides)</span></span>
+<span id="cb414-6"><a href="principal-components-analysis.html#cb414-6" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2]</span></span>
+<span id="cb414-7"><a href="principal-components-analysis.html#cb414-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    1  1.5</span></span>
+<span id="cb414-8"><a href="principal-components-analysis.html#cb414-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    0  2.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="principal-components-analysis.html#cb415-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(Vinv <span class="sc">%*%</span> A <span class="sc">%*%</span> V, D) <span class="co"># test &#39;near equality&#39;</span></span>
+<span id="cb415-2"><a href="principal-components-analysis.html#cb415-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="principal-components-analysis.html#cb416-1" aria-hidden="true" tabindex="-1"></a>V[,<span class="dv">1</span>] <span class="sc">%*%</span> V[,<span class="dv">2</span>] <span class="co"># note that the eigenvectors are NOT orthogonal. Why?</span></span>
+<span id="cb416-2"><a href="principal-components-analysis.html#cb416-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1]</span></span>
+<span id="cb416-3"><a href="principal-components-analysis.html#cb416-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503</span></span></code></pre></div>
 <p>Since we’re dealing with a 2D transformation matrix, we can easily calculate the slopes of the eigenvectors:</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="principal-components-analysis.html#cb413-1" aria-hidden="true" tabindex="-1"></a>eigenvec.A.slope1 <span class="ot">=</span> eigen.A<span class="sc">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">/</span>eigen.A<span class="sc">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb413-2"><a href="principal-components-analysis.html#cb413-2" aria-hidden="true" tabindex="-1"></a>eigenvec.A.slope2 <span class="ot">=</span> eigen.A<span class="sc">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">/</span>eigen.A<span class="sc">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="principal-components-analysis.html#cb417-1" aria-hidden="true" tabindex="-1"></a>eigenvec.A.slope1 <span class="ot">=</span> eigen.A<span class="sc">$</span>vectors[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">/</span>eigen.A<span class="sc">$</span>vectors[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb417-2"><a href="principal-components-analysis.html#cb417-2" aria-hidden="true" tabindex="-1"></a>eigenvec.A.slope2 <span class="ot">=</span> eigen.A<span class="sc">$</span>vectors[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">/</span>eigen.A<span class="sc">$</span>vectors[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <p>Now we plot the eigenvectors to show the directions that are unaffected by the transformation represented by the matrix <span class="math inline">\(\mathbf{A}\)</span>:</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="principal-components-analysis.html#cb414-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb414-2"><a href="principal-components-analysis.html#cb414-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span></span>
-<span id="cb414-3"><a href="principal-components-analysis.html#cb414-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span></span>
-<span id="cb414-4"><a href="principal-components-analysis.html#cb414-4" aria-hidden="true" tabindex="-1"></a>geom_ab_or_vline <span class="ot">&lt;-</span> <span class="cf">function</span>(slope, intercept, ...) {</span>
-<span id="cb414-5"><a href="principal-components-analysis.html#cb414-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.infinite</span>(slope)) {</span>
-<span id="cb414-6"><a href="principal-components-analysis.html#cb414-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">geom_vline</span>(<span class="at">yintercept =</span> intercept, ...))</span>
-<span id="cb414-7"><a href="principal-components-analysis.html#cb414-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb414-8"><a href="principal-components-analysis.html#cb414-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">geom_abline</span>(<span class="at">slope=</span>slope, <span class="at">intercept=</span>intercept, ...))</span>
-<span id="cb414-9"><a href="principal-components-analysis.html#cb414-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb414-10"><a href="principal-components-analysis.html#cb414-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb414-11"><a href="principal-components-analysis.html#cb414-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb414-12"><a href="principal-components-analysis.html#cb414-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb414-13"><a href="principal-components-analysis.html#cb414-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb414-14"><a href="principal-components-analysis.html#cb414-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sin.xy, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb414-15"><a href="principal-components-analysis.html#cb414-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> Ax.df, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb414-16"><a href="principal-components-analysis.html#cb414-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ab_or_vline</span>(<span class="at">slope =</span> eigenvec.A.slope1,<span class="at">intercept=</span><span class="dv">0</span>,</span>
-<span id="cb414-17"><a href="principal-components-analysis.html#cb414-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&#39;red&#39;</span>,<span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
-<span id="cb414-18"><a href="principal-components-analysis.html#cb414-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ab_or_vline</span>(<span class="at">slope =</span> eigenvec.A.slope2,<span class="at">intercept=</span><span class="dv">0</span>,</span>
-<span id="cb414-19"><a href="principal-components-analysis.html#cb414-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&#39;red&#39;</span>,<span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb414-20"><a href="principal-components-analysis.html#cb414-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-411-1.png" width="576" /></p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="principal-components-analysis.html#cb418-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb418-2"><a href="principal-components-analysis.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the slopes can be infinite (inf), indicating a vertical eigenvector (parallel to y-axis)</span></span>
+<span id="cb418-3"><a href="principal-components-analysis.html#cb418-3" aria-hidden="true" tabindex="-1"></a><span class="co"># this function is to draw the eigenvectors correctly regardless of the slope</span></span>
+<span id="cb418-4"><a href="principal-components-analysis.html#cb418-4" aria-hidden="true" tabindex="-1"></a>geom_ab_or_vline <span class="ot">&lt;-</span> <span class="cf">function</span>(slope, intercept, ...) {</span>
+<span id="cb418-5"><a href="principal-components-analysis.html#cb418-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.infinite</span>(slope)) {</span>
+<span id="cb418-6"><a href="principal-components-analysis.html#cb418-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">geom_vline</span>(<span class="at">yintercept =</span> intercept, ...))</span>
+<span id="cb418-7"><a href="principal-components-analysis.html#cb418-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb418-8"><a href="principal-components-analysis.html#cb418-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">geom_abline</span>(<span class="at">slope=</span>slope, <span class="at">intercept=</span>intercept, ...))</span>
+<span id="cb418-9"><a href="principal-components-analysis.html#cb418-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb418-10"><a href="principal-components-analysis.html#cb418-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb418-11"><a href="principal-components-analysis.html#cb418-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb418-12"><a href="principal-components-analysis.html#cb418-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb418-13"><a href="principal-components-analysis.html#cb418-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb418-14"><a href="principal-components-analysis.html#cb418-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sin.xy, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb418-15"><a href="principal-components-analysis.html#cb418-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> Ax.df, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb418-16"><a href="principal-components-analysis.html#cb418-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ab_or_vline</span>(<span class="at">slope =</span> eigenvec.A.slope1,<span class="at">intercept=</span><span class="dv">0</span>,</span>
+<span id="cb418-17"><a href="principal-components-analysis.html#cb418-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&#39;red&#39;</span>,<span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
+<span id="cb418-18"><a href="principal-components-analysis.html#cb418-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ab_or_vline</span>(<span class="at">slope =</span> eigenvec.A.slope2,<span class="at">intercept=</span><span class="dv">0</span>,</span>
+<span id="cb418-19"><a href="principal-components-analysis.html#cb418-19" aria-hidden="true" tabindex="-1"></a>              <span class="at">color=</span><span class="st">&#39;red&#39;</span>,<span class="at">linetype=</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb418-20"><a href="principal-components-analysis.html#cb418-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-415-1.png" width="576" /></p>
 <p>Referring back to the eigenvectors, we see that it’s the second eigenvector that is represented by the horizontal line:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="principal-components-analysis.html#cb415-1" aria-hidden="true" tabindex="-1"></a>eigen.A<span class="sc">$</span>vectors</span>
-<span id="cb415-2"><a href="principal-components-analysis.html#cb415-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1] [,2]</span></span>
-<span id="cb415-3"><a href="principal-components-analysis.html#cb415-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503    1</span></span>
-<span id="cb415-4"><a href="principal-components-analysis.html#cb415-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.5547002    0</span></span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="principal-components-analysis.html#cb419-1" aria-hidden="true" tabindex="-1"></a>eigen.A<span class="sc">$</span>vectors</span>
+<span id="cb419-2"><a href="principal-components-analysis.html#cb419-2" aria-hidden="true" tabindex="-1"></a><span class="do">##           [,1] [,2]</span></span>
+<span id="cb419-3"><a href="principal-components-analysis.html#cb419-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,] 0.8320503    1</span></span>
+<span id="cb419-4"><a href="principal-components-analysis.html#cb419-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,] 0.5547002    0</span></span></code></pre></div>
 <p>The implies that lines pointing in the horizontal are unchanged in the direction by the transformation represented by A. To drive home this point, here’s another configuration of points and the corresponding points under the same transformation:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="principal-components-analysis.html#cb416-1" aria-hidden="true" tabindex="-1"></a>horiz.x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
-<span id="cb416-2"><a href="principal-components-analysis.html#cb416-2" aria-hidden="true" tabindex="-1"></a>horiz.y <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(horiz.x))</span>
-<span id="cb416-3"><a href="principal-components-analysis.html#cb416-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-4"><a href="principal-components-analysis.html#cb416-4" aria-hidden="true" tabindex="-1"></a>horiz.x2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
-<span id="cb416-5"><a href="principal-components-analysis.html#cb416-5" aria-hidden="true" tabindex="-1"></a>horiz.y2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(horiz.x2))</span>
-<span id="cb416-6"><a href="principal-components-analysis.html#cb416-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-7"><a href="principal-components-analysis.html#cb416-7" aria-hidden="true" tabindex="-1"></a>horiz.x3 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
-<span id="cb416-8"><a href="principal-components-analysis.html#cb416-8" aria-hidden="true" tabindex="-1"></a>horiz.y3 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fu">length</span>(horiz.x3))</span>
-<span id="cb416-9"><a href="principal-components-analysis.html#cb416-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-10"><a href="principal-components-analysis.html#cb416-10" aria-hidden="true" tabindex="-1"></a>vert.y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
-<span id="cb416-11"><a href="principal-components-analysis.html#cb416-11" aria-hidden="true" tabindex="-1"></a>vert.x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(vert.y))</span>
-<span id="cb416-12"><a href="principal-components-analysis.html#cb416-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-13"><a href="principal-components-analysis.html#cb416-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)</span>
-<span id="cb416-14"><a href="principal-components-analysis.html#cb416-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)</span>
-<span id="cb416-15"><a href="principal-components-analysis.html#cb416-15" aria-hidden="true" tabindex="-1"></a>cross.df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
-<span id="cb416-16"><a href="principal-components-analysis.html#cb416-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-17"><a href="principal-components-analysis.html#cb416-17" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(cross.df)</span>
-<span id="cb416-18"><a href="principal-components-analysis.html#cb416-18" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
-<span id="cb416-19"><a href="principal-components-analysis.html#cb416-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-20"><a href="principal-components-analysis.html#cb416-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb416-21"><a href="principal-components-analysis.html#cb416-21" aria-hidden="true" tabindex="-1"></a>plot.A <span class="ot">&lt;-</span> </span>
-<span id="cb416-22"><a href="principal-components-analysis.html#cb416-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(cross.df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y)) <span class="sc">+</span> </span>
-<span id="cb416-23"><a href="principal-components-analysis.html#cb416-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb416-24"><a href="principal-components-analysis.html#cb416-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb416-25"><a href="principal-components-analysis.html#cb416-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
-<span id="cb416-26"><a href="principal-components-analysis.html#cb416-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="at">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)</span>
-<span id="cb416-27"><a href="principal-components-analysis.html#cb416-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb416-28"><a href="principal-components-analysis.html#cb416-28" aria-hidden="true" tabindex="-1"></a>plot.B <span class="ot">&lt;-</span> </span>
-<span id="cb416-29"><a href="principal-components-analysis.html#cb416-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(Ax.df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y)) <span class="sc">+</span> </span>
-<span id="cb416-30"><a href="principal-components-analysis.html#cb416-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
-<span id="cb416-31"><a href="principal-components-analysis.html#cb416-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb416-32"><a href="principal-components-analysis.html#cb416-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
-<span id="cb416-33"><a href="principal-components-analysis.html#cb416-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="at">title=</span><span class="st">&quot;Points after transformation&quot;</span>)</span>
-<span id="cb416-34"><a href="principal-components-analysis.html#cb416-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb416-35"><a href="principal-components-analysis.html#cb416-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(plot.A, plot.B)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-413-1.png" width="576" /></p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="principal-components-analysis.html#cb420-1" aria-hidden="true" tabindex="-1"></a>horiz.x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb420-2"><a href="principal-components-analysis.html#cb420-2" aria-hidden="true" tabindex="-1"></a>horiz.y <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(horiz.x))</span>
+<span id="cb420-3"><a href="principal-components-analysis.html#cb420-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-4"><a href="principal-components-analysis.html#cb420-4" aria-hidden="true" tabindex="-1"></a>horiz.x2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb420-5"><a href="principal-components-analysis.html#cb420-5" aria-hidden="true" tabindex="-1"></a>horiz.y2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">0.5</span>, <span class="fu">length</span>(horiz.x2))</span>
+<span id="cb420-6"><a href="principal-components-analysis.html#cb420-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-7"><a href="principal-components-analysis.html#cb420-7" aria-hidden="true" tabindex="-1"></a>horiz.x3 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb420-8"><a href="principal-components-analysis.html#cb420-8" aria-hidden="true" tabindex="-1"></a>horiz.y3 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fu">length</span>(horiz.x3))</span>
+<span id="cb420-9"><a href="principal-components-analysis.html#cb420-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-10"><a href="principal-components-analysis.html#cb420-10" aria-hidden="true" tabindex="-1"></a>vert.y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb420-11"><a href="principal-components-analysis.html#cb420-11" aria-hidden="true" tabindex="-1"></a>vert.x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(vert.y))</span>
+<span id="cb420-12"><a href="principal-components-analysis.html#cb420-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-13"><a href="principal-components-analysis.html#cb420-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(horiz.x, horiz.x2, horiz.x3, vert.x)</span>
+<span id="cb420-14"><a href="principal-components-analysis.html#cb420-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(horiz.y, horiz.y2, horiz.y3, vert.y)</span>
+<span id="cb420-15"><a href="principal-components-analysis.html#cb420-15" aria-hidden="true" tabindex="-1"></a>cross.df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)</span>
+<span id="cb420-16"><a href="principal-components-analysis.html#cb420-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-17"><a href="principal-components-analysis.html#cb420-17" aria-hidden="true" tabindex="-1"></a>Ax <span class="ot">&lt;-</span> A <span class="sc">%*%</span> <span class="fu">t</span>(cross.df)</span>
+<span id="cb420-18"><a href="principal-components-analysis.html#cb420-18" aria-hidden="true" tabindex="-1"></a>Ax.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">t</span>(Ax)) <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">x =</span> V1, <span class="at">y =</span> V2)</span>
+<span id="cb420-19"><a href="principal-components-analysis.html#cb420-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-20"><a href="principal-components-analysis.html#cb420-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb420-21"><a href="principal-components-analysis.html#cb420-21" aria-hidden="true" tabindex="-1"></a>plot.A <span class="ot">&lt;-</span> </span>
+<span id="cb420-22"><a href="principal-components-analysis.html#cb420-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(cross.df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y)) <span class="sc">+</span> </span>
+<span id="cb420-23"><a href="principal-components-analysis.html#cb420-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb420-24"><a href="principal-components-analysis.html#cb420-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb420-25"><a href="principal-components-analysis.html#cb420-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
+<span id="cb420-26"><a href="principal-components-analysis.html#cb420-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="at">title=</span><span class="st">&quot;Points prior to transformation&quot;</span>)</span>
+<span id="cb420-27"><a href="principal-components-analysis.html#cb420-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb420-28"><a href="principal-components-analysis.html#cb420-28" aria-hidden="true" tabindex="-1"></a>plot.B <span class="ot">&lt;-</span> </span>
+<span id="cb420-29"><a href="principal-components-analysis.html#cb420-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(Ax.df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y)) <span class="sc">+</span> </span>
+<span id="cb420-30"><a href="principal-components-analysis.html#cb420-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
+<span id="cb420-31"><a href="principal-components-analysis.html#cb420-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>,<span class="fl">1.5</span>), <span class="at">y=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>,<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb420-32"><a href="principal-components-analysis.html#cb420-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span> </span>
+<span id="cb420-33"><a href="principal-components-analysis.html#cb420-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;X&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Y&quot;</span>, <span class="at">title=</span><span class="st">&quot;Points after transformation&quot;</span>)</span>
+<span id="cb420-34"><a href="principal-components-analysis.html#cb420-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb420-35"><a href="principal-components-analysis.html#cb420-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(plot.A, plot.B)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-417-1.png" width="576" /></p>
 </div>
-<div id="principal-components-analysis-in-r" class="section level2" number="13.4">
-<h2><span class="header-section-number">13.4</span> Principal Components Analysis in R</h2>
+<div id="principal-components-analysis-in-r" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> Principal Components Analysis in R<a href="principal-components-analysis.html#principal-components-analysis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are two functions in R for carrying out PCA - <code>princomp()</code> and
 <code>prcomp()</code>. The <code>princomp()</code> function uses the
 <code>eigen()</code> function to carry out the analysis on the covariance
-matrix or correlation matrix, while  carries out an
+matrix or correlation matrix, while carries out an
 equivalent analysis, starting from a data matrix, using a technique called
 singular value decomposition (SVD). The SVD routine has greater numerical
 accuracy, so the <code>prcomp()</code> function should generally be preferred. The
 <code>princomp()</code> function is useful when you don’t have access to
 the original data, but you do have a covariance or correlation matrix (a
 frequent situation when re-analyzing data from the literature). We’ll concentrate on using the <code>prcomp()</code> function.</p>
-<div id="bioenv-dataset" class="section level3" number="13.4.1">
-<h3><span class="header-section-number">13.4.1</span> Bioenv dataset</h3>
+<div id="bioenv-dataset" class="section level3 hasAnchor" number="13.4.1">
+<h3><span class="header-section-number">13.4.1</span> Bioenv dataset<a href="principal-components-analysis.html#bioenv-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To demonstrate PCA we’ll use a dataset called `bioenv.txt’ (see class wiki), obtained from a book called “Biplots in Practice” (M. Greenacre, 2010). Here is Greenacre’s description of the dataset:</p>
 <blockquote>
-<p>The context is in marine biology and the data consist of two sets of variables observed at the same locations on the sea-bed: the first is a set of biological variables, the counts of five groups of species, and the second is a set of four environmental variables. The data set, called “bioenv,” is shown in Exhibit 2.1. The species groups are abbreviated as “a” to “e.” The environmental variables are “pollution,” a composite index of pollution combining measurements of heavy metal concentrations and hydrocarbons; depth, the depth in metres of the sea-bed where the sample was taken; “temperature,” the temperature of the water at the sampling point; and “sediment,” a classification of the substrate of the sample into one of three sediment categories.</p>
+<p>The context is in marine biology and the data consist of two sets of variables observed at the same locations on the sea-bed: the first is a set of biological variables, the counts of five groups of species, and the second is a set of four environmental variables. The data set, called “bioenv”, is shown in Exhibit 2.1. The species groups are abbreviated as “a” to “e”. The environmental variables are “pollution”, a composite index of pollution combining measurements of heavy metal concentrations and hydrocarbons; depth, the depth in metres of the sea-bed where the sample was taken; “temperature”, the temperature of the water at the sampling point; and “sediment”, a classification of the substrate of the sample into one of three sediment categories.</p>
 </blockquote>
 <p>We’ll start by reading the <code>bioenv.txt</code> data set from the Github repository:</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="principal-components-analysis.html#cb417-1" aria-hidden="true" tabindex="-1"></a>bioenv <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) </span>
-<span id="cb417-2"><a href="principal-components-analysis.html#cb417-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb417-3"><a href="principal-components-analysis.html#cb417-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification ────────────────────────────────────────────────────────</span></span>
-<span id="cb417-4"><a href="principal-components-analysis.html#cb417-4" aria-hidden="true" tabindex="-1"></a><span class="do">## cols(</span></span>
-<span id="cb417-5"><a href="principal-components-analysis.html#cb417-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   X1 = col_character(),</span></span>
-<span id="cb417-6"><a href="principal-components-analysis.html#cb417-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   a = col_double(),</span></span>
-<span id="cb417-7"><a href="principal-components-analysis.html#cb417-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   b = col_double(),</span></span>
-<span id="cb417-8"><a href="principal-components-analysis.html#cb417-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   c = col_double(),</span></span>
-<span id="cb417-9"><a href="principal-components-analysis.html#cb417-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   d = col_double(),</span></span>
-<span id="cb417-10"><a href="principal-components-analysis.html#cb417-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   e = col_double(),</span></span>
-<span id="cb417-11"><a href="principal-components-analysis.html#cb417-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollution = col_double(),</span></span>
-<span id="cb417-12"><a href="principal-components-analysis.html#cb417-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   Depth = col_double(),</span></span>
-<span id="cb417-13"><a href="principal-components-analysis.html#cb417-13" aria-hidden="true" tabindex="-1"></a><span class="do">##   Temperature = col_double(),</span></span>
-<span id="cb417-14"><a href="principal-components-analysis.html#cb417-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   Sediment = col_character()</span></span>
-<span id="cb417-15"><a href="principal-components-analysis.html#cb417-15" aria-hidden="true" tabindex="-1"></a><span class="do">## )</span></span>
-<span id="cb417-16"><a href="principal-components-analysis.html#cb417-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bioenv)</span>
-<span id="cb417-17"><a href="principal-components-analysis.html#cb417-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;X1&quot;          &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></span>
-<span id="cb417-18"><a href="principal-components-analysis.html#cb417-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></span></code></pre></div>
-<p>Notice that the first column got assigned the generic name <code>X1</code>. This is because there is a missing column header in the <code>bioenv.txt</code> file. This first column corresponds to the sampling sites. Before we move on let’s give this column a more meaningful name:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="principal-components-analysis.html#cb418-1" aria-hidden="true" tabindex="-1"></a>bioenv <span class="ot">&lt;-</span></span>
-<span id="cb418-2"><a href="principal-components-analysis.html#cb418-2" aria-hidden="true" tabindex="-1"></a>  bioenv <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Site =</span> X1)</span>
-<span id="cb418-3"><a href="principal-components-analysis.html#cb418-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb418-4"><a href="principal-components-analysis.html#cb418-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bioenv)</span>
-<span id="cb418-5"><a href="principal-components-analysis.html#cb418-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></span>
-<span id="cb418-6"><a href="principal-components-analysis.html#cb418-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="principal-components-analysis.html#cb421-1" aria-hidden="true" tabindex="-1"></a>bioenv <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/bioenv.txt&#39;</span>) </span>
+<span id="cb421-2"><a href="principal-components-analysis.html#cb421-2" aria-hidden="true" tabindex="-1"></a><span class="do">## New names:</span></span>
+<span id="cb421-3"><a href="principal-components-analysis.html#cb421-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 30 Columns: 10</span></span>
+<span id="cb421-4"><a href="principal-components-analysis.html#cb421-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification</span></span>
+<span id="cb421-5"><a href="principal-components-analysis.html#cb421-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ────────────────── Delimiter: &quot;\t&quot; chr</span></span>
+<span id="cb421-6"><a href="principal-components-analysis.html#cb421-6" aria-hidden="true" tabindex="-1"></a><span class="do">## (2): ...1, Sediment dbl (8): a, b, c, d,</span></span>
+<span id="cb421-7"><a href="principal-components-analysis.html#cb421-7" aria-hidden="true" tabindex="-1"></a><span class="do">## e, Pollution, Depth, Temperature</span></span>
+<span id="cb421-8"><a href="principal-components-analysis.html#cb421-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Use `spec()` to retrieve the full</span></span>
+<span id="cb421-9"><a href="principal-components-analysis.html#cb421-9" aria-hidden="true" tabindex="-1"></a><span class="do">## column specification for this data. ℹ</span></span>
+<span id="cb421-10"><a href="principal-components-analysis.html#cb421-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Specify the column types or set</span></span>
+<span id="cb421-11"><a href="principal-components-analysis.html#cb421-11" aria-hidden="true" tabindex="-1"></a><span class="do">## `show_col_types = FALSE` to quiet this</span></span>
+<span id="cb421-12"><a href="principal-components-analysis.html#cb421-12" aria-hidden="true" tabindex="-1"></a><span class="do">## message.</span></span>
+<span id="cb421-13"><a href="principal-components-analysis.html#cb421-13" aria-hidden="true" tabindex="-1"></a><span class="do">## • `` -&gt; `...1`</span></span>
+<span id="cb421-14"><a href="principal-components-analysis.html#cb421-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bioenv)</span>
+<span id="cb421-15"><a href="principal-components-analysis.html#cb421-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;...1&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></span>
+<span id="cb421-16"><a href="principal-components-analysis.html#cb421-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></span></code></pre></div>
+<p>Notice that the first column got assigned the generic name <code>...1</code>. This is because there is a missing column header in the <code>bioenv.txt</code> file. This first column corresponds to the sampling sites. Before we move on let’s give this column a more meaningful name:</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="principal-components-analysis.html#cb422-1" aria-hidden="true" tabindex="-1"></a>bioenv <span class="ot">&lt;-</span></span>
+<span id="cb422-2"><a href="principal-components-analysis.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  bioenv <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">Site =</span> <span class="st">&quot;...1&quot;</span>)</span>
+<span id="cb422-3"><a href="principal-components-analysis.html#cb422-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb422-4"><a href="principal-components-analysis.html#cb422-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(bioenv)</span>
+<span id="cb422-5"><a href="principal-components-analysis.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;Site&quot;        &quot;a&quot;           &quot;b&quot;           &quot;c&quot;           &quot;d&quot;          </span></span>
+<span id="cb422-6"><a href="principal-components-analysis.html#cb422-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] &quot;e&quot;           &quot;Pollution&quot;   &quot;Depth&quot;       &quot;Temperature&quot; &quot;Sediment&quot;</span></span></code></pre></div>
 <p>The columns labeled <code>a</code> to <code>e</code> contain the counts of the five species at each site, while the remaining columns give additional information about the physical properties of each sampling site. For our purposes today we’ll confine our attention to the abundance data.</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="principal-components-analysis.html#cb419-1" aria-hidden="true" tabindex="-1"></a>abundance <span class="ot">&lt;-</span> </span>
-<span id="cb419-2"><a href="principal-components-analysis.html#cb419-2" aria-hidden="true" tabindex="-1"></a>  bioenv <span class="sc">%&gt;%</span></span>
-<span id="cb419-3"><a href="principal-components-analysis.html#cb419-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Site, a, b, c, d, e)</span>
-<span id="cb419-4"><a href="principal-components-analysis.html#cb419-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb419-5"><a href="principal-components-analysis.html#cb419-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(abundance)</span>
-<span id="cb419-6"><a href="principal-components-analysis.html#cb419-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 6</span></span>
-<span id="cb419-7"><a href="principal-components-analysis.html#cb419-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Site      a     b     c     d     e</span></span>
-<span id="cb419-8"><a href="principal-components-analysis.html#cb419-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb419-9"><a href="principal-components-analysis.html#cb419-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 s1        0     2     9    14     2</span></span>
-<span id="cb419-10"><a href="principal-components-analysis.html#cb419-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 s2       26     4    13    11     0</span></span>
-<span id="cb419-11"><a href="principal-components-analysis.html#cb419-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 s3        0    10     9     8     0</span></span>
-<span id="cb419-12"><a href="principal-components-analysis.html#cb419-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 s4        0     0    15     3     0</span></span>
-<span id="cb419-13"><a href="principal-components-analysis.html#cb419-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 s5       13     5     3    10     7</span></span>
-<span id="cb419-14"><a href="principal-components-analysis.html#cb419-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 s6       31    21    13    16     5</span></span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="principal-components-analysis.html#cb423-1" aria-hidden="true" tabindex="-1"></a>abundance <span class="ot">&lt;-</span> </span>
+<span id="cb423-2"><a href="principal-components-analysis.html#cb423-2" aria-hidden="true" tabindex="-1"></a>  bioenv <span class="sc">%&gt;%</span></span>
+<span id="cb423-3"><a href="principal-components-analysis.html#cb423-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Site, a, b, c, d, e)</span>
+<span id="cb423-4"><a href="principal-components-analysis.html#cb423-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb423-5"><a href="principal-components-analysis.html#cb423-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(abundance)</span>
+<span id="cb423-6"><a href="principal-components-analysis.html#cb423-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 6</span></span>
+<span id="cb423-7"><a href="principal-components-analysis.html#cb423-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Site      a     b     c     d     e</span></span>
+<span id="cb423-8"><a href="principal-components-analysis.html#cb423-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb423-9"><a href="principal-components-analysis.html#cb423-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 s1        0     2     9    14     2</span></span>
+<span id="cb423-10"><a href="principal-components-analysis.html#cb423-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 s2       26     4    13    11     0</span></span>
+<span id="cb423-11"><a href="principal-components-analysis.html#cb423-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 s3        0    10     9     8     0</span></span>
+<span id="cb423-12"><a href="principal-components-analysis.html#cb423-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 s4        0     0    15     3     0</span></span>
+<span id="cb423-13"><a href="principal-components-analysis.html#cb423-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 s5       13     5     3    10     7</span></span>
+<span id="cb423-14"><a href="principal-components-analysis.html#cb423-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 s6       31    21    13    16     5</span></span></code></pre></div>
 <p>The data is currently in a “wide” format. For the purposes of plotting it will be more convenient to generate a “long” version of the data using functions from the tidyr library (see the Data Wrangling chapter).</p>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="principal-components-analysis.html#cb420-1" aria-hidden="true" tabindex="-1"></a>long.abundance <span class="ot">&lt;-</span></span>
-<span id="cb420-2"><a href="principal-components-analysis.html#cb420-2" aria-hidden="true" tabindex="-1"></a>  abundance <span class="sc">%&gt;%</span></span>
-<span id="cb420-3"><a href="principal-components-analysis.html#cb420-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>(Species, Count, <span class="sc">-</span>Site)</span>
-<span id="cb420-4"><a href="principal-components-analysis.html#cb420-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb420-5"><a href="principal-components-analysis.html#cb420-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(long.abundance)</span>
-<span id="cb420-6"><a href="principal-components-analysis.html#cb420-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
-<span id="cb420-7"><a href="principal-components-analysis.html#cb420-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Site  Species Count</span></span>
-<span id="cb420-8"><a href="principal-components-analysis.html#cb420-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
-<span id="cb420-9"><a href="principal-components-analysis.html#cb420-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 s1    a           0</span></span>
-<span id="cb420-10"><a href="principal-components-analysis.html#cb420-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 s2    a          26</span></span>
-<span id="cb420-11"><a href="principal-components-analysis.html#cb420-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 s3    a           0</span></span>
-<span id="cb420-12"><a href="principal-components-analysis.html#cb420-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 s4    a           0</span></span>
-<span id="cb420-13"><a href="principal-components-analysis.html#cb420-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 s5    a          13</span></span>
-<span id="cb420-14"><a href="principal-components-analysis.html#cb420-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 s6    a          31</span></span></code></pre></div>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="principal-components-analysis.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long.abundance, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
-<span id="cb421-2"><a href="principal-components-analysis.html#cb421-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb421-3"><a href="principal-components-analysis.html#cb421-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="at">title=</span><span class="st">&quot;Distribution of</span><span class="sc">\n</span><span class="st">Species Counts per Site&quot;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-418-1.png" width="576" /></p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="principal-components-analysis.html#cb424-1" aria-hidden="true" tabindex="-1"></a>long.abundance <span class="ot">&lt;-</span></span>
+<span id="cb424-2"><a href="principal-components-analysis.html#cb424-2" aria-hidden="true" tabindex="-1"></a>  abundance <span class="sc">%&gt;%</span></span>
+<span id="cb424-3"><a href="principal-components-analysis.html#cb424-3" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">gather</span>(Species, Count, <span class="sc">-</span>Site)</span>
+<span id="cb424-4"><a href="principal-components-analysis.html#cb424-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb424-5"><a href="principal-components-analysis.html#cb424-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(long.abundance)</span>
+<span id="cb424-6"><a href="principal-components-analysis.html#cb424-6" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 3</span></span>
+<span id="cb424-7"><a href="principal-components-analysis.html#cb424-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   Site  Species Count</span></span>
+<span id="cb424-8"><a href="principal-components-analysis.html#cb424-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;</span></span>
+<span id="cb424-9"><a href="principal-components-analysis.html#cb424-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 s1    a           0</span></span>
+<span id="cb424-10"><a href="principal-components-analysis.html#cb424-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 s2    a          26</span></span>
+<span id="cb424-11"><a href="principal-components-analysis.html#cb424-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 s3    a           0</span></span>
+<span id="cb424-12"><a href="principal-components-analysis.html#cb424-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 s4    a           0</span></span>
+<span id="cb424-13"><a href="principal-components-analysis.html#cb424-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 s5    a          13</span></span>
+<span id="cb424-14"><a href="principal-components-analysis.html#cb424-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 s6    a          31</span></span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="principal-components-analysis.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long.abundance, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Count)) <span class="sc">+</span></span>
+<span id="cb425-2"><a href="principal-components-analysis.html#cb425-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb425-3"><a href="principal-components-analysis.html#cb425-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Species&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Count&quot;</span>, <span class="at">title=</span><span class="st">&quot;Distribution of</span><span class="sc">\n</span><span class="st">Species Counts per Site&quot;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-422-1.png" width="576" /></p>
 <p>From the boxplot it looks like the counts for species `e’ are smaller on average, and less variable. The mean and variance functions confirm that.</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="principal-components-analysis.html#cb422-1" aria-hidden="true" tabindex="-1"></a>long.abundance <span class="sc">%&gt;%</span></span>
-<span id="cb422-2"><a href="principal-components-analysis.html#cb422-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
-<span id="cb422-3"><a href="principal-components-analysis.html#cb422-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(Count), <span class="fu">var</span>(Count))</span>
-<span id="cb422-4"><a href="principal-components-analysis.html#cb422-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 x 3</span></span>
-<span id="cb422-5"><a href="principal-components-analysis.html#cb422-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   Species `mean(Count)` `var(Count)`</span></span>
-<span id="cb422-6"><a href="principal-components-analysis.html#cb422-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span id="cb422-7"><a href="principal-components-analysis.html#cb422-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 a               13.5         158. </span></span>
-<span id="cb422-8"><a href="principal-components-analysis.html#cb422-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 b                8.73         83.4</span></span>
-<span id="cb422-9"><a href="principal-components-analysis.html#cb422-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 c                8.4          73.6</span></span>
-<span id="cb422-10"><a href="principal-components-analysis.html#cb422-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 d               10.9          44.4</span></span>
-<span id="cb422-11"><a href="principal-components-analysis.html#cb422-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 e                2.97         15.7</span></span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="principal-components-analysis.html#cb426-1" aria-hidden="true" tabindex="-1"></a>long.abundance <span class="sc">%&gt;%</span></span>
+<span id="cb426-2"><a href="principal-components-analysis.html#cb426-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb426-3"><a href="principal-components-analysis.html#cb426-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(Count), <span class="fu">var</span>(Count))</span>
+<span id="cb426-4"><a href="principal-components-analysis.html#cb426-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 3</span></span>
+<span id="cb426-5"><a href="principal-components-analysis.html#cb426-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   Species `mean(Count)` `var(Count)`</span></span>
+<span id="cb426-6"><a href="principal-components-analysis.html#cb426-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb426-7"><a href="principal-components-analysis.html#cb426-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 a               13.5         158. </span></span>
+<span id="cb426-8"><a href="principal-components-analysis.html#cb426-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 b                8.73         83.4</span></span>
+<span id="cb426-9"><a href="principal-components-analysis.html#cb426-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 c                8.4          73.6</span></span>
+<span id="cb426-10"><a href="principal-components-analysis.html#cb426-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 d               10.9          44.4</span></span>
+<span id="cb426-11"><a href="principal-components-analysis.html#cb426-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 e                2.97         15.7</span></span></code></pre></div>
 <p>A correlation matrix suggests weak to moderate associations between the variables:</p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="principal-components-analysis.html#cb423-1" aria-hidden="true" tabindex="-1"></a>abundance.only <span class="ot">&lt;-</span></span>
-<span id="cb423-2"><a href="principal-components-analysis.html#cb423-2" aria-hidden="true" tabindex="-1"></a>  abundance <span class="sc">%&gt;%</span></span>
-<span id="cb423-3"><a href="principal-components-analysis.html#cb423-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Site) <span class="co"># drop the Site column</span></span>
-<span id="cb423-4"><a href="principal-components-analysis.html#cb423-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb423-5"><a href="principal-components-analysis.html#cb423-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(abundance.only)</span>
-<span id="cb423-6"><a href="principal-components-analysis.html#cb423-6" aria-hidden="true" tabindex="-1"></a><span class="do">##            a           b           c            d            e</span></span>
-<span id="cb423-7"><a href="principal-components-analysis.html#cb423-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span></span>
-<span id="cb423-8"><a href="principal-components-analysis.html#cb423-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span></span>
-<span id="cb423-9"><a href="principal-components-analysis.html#cb423-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span></span>
-<span id="cb423-10"><a href="principal-components-analysis.html#cb423-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span></span>
-<span id="cb423-11"><a href="principal-components-analysis.html#cb423-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="principal-components-analysis.html#cb427-1" aria-hidden="true" tabindex="-1"></a>abundance.only <span class="ot">&lt;-</span></span>
+<span id="cb427-2"><a href="principal-components-analysis.html#cb427-2" aria-hidden="true" tabindex="-1"></a>  abundance <span class="sc">%&gt;%</span></span>
+<span id="cb427-3"><a href="principal-components-analysis.html#cb427-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Site) <span class="co"># drop the Site column</span></span>
+<span id="cb427-4"><a href="principal-components-analysis.html#cb427-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb427-5"><a href="principal-components-analysis.html#cb427-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(abundance.only)</span>
+<span id="cb427-6"><a href="principal-components-analysis.html#cb427-6" aria-hidden="true" tabindex="-1"></a><span class="do">##            a           b           c            d            e</span></span>
+<span id="cb427-7"><a href="principal-components-analysis.html#cb427-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a  1.0000000  0.67339954 -0.23992888  0.358192050  0.273522301</span></span>
+<span id="cb427-8"><a href="principal-components-analysis.html#cb427-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  0.6733995  1.00000000 -0.08041947  0.501834036  0.036914702</span></span>
+<span id="cb427-9"><a href="principal-components-analysis.html#cb427-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -0.2399289 -0.08041947  1.00000000  0.081504483 -0.343540453</span></span>
+<span id="cb427-10"><a href="principal-components-analysis.html#cb427-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  0.3581921  0.50183404  0.08150448  1.000000000 -0.004048517</span></span>
+<span id="cb427-11"><a href="principal-components-analysis.html#cb427-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.2735223  0.03691470 -0.34354045 -0.004048517  1.000000000</span></span></code></pre></div>
 <p>However a scatterplot matrix generated by the <code>GGally::ggapirs()</code> function suggests that many of the relationships have a strong non-linear element.</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="principal-components-analysis.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(abundance.only)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-421-1.png" width="576" /></p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="principal-components-analysis.html#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(abundance.only)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-425-1.png" width="576" /></p>
 </div>
-<div id="pca-of-the-bioenv-dataset" class="section level3" number="13.4.2">
-<h3><span class="header-section-number">13.4.2</span> PCA of the Bioenv dataset</h3>
+<div id="pca-of-the-bioenv-dataset" class="section level3 hasAnchor" number="13.4.2">
+<h3><span class="header-section-number">13.4.2</span> PCA of the Bioenv dataset<a href="principal-components-analysis.html#pca-of-the-bioenv-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Linearity is not a requirement for PCA, as it’s simply a rigid rotation of the original data. So we’ll continue with our analysis after taking a moment to read the help on the <code>prcomp()</code> function that is used to carry-out PCA in R.</p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="principal-components-analysis.html#cb425-1" aria-hidden="true" tabindex="-1"></a>abundance.pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(abundance.only, <span class="at">center=</span><span class="cn">TRUE</span>, <span class="at">retx=</span><span class="cn">TRUE</span>)</span>
-<span id="cb425-2"><a href="principal-components-analysis.html#cb425-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># center=TRUE mean centers the data</span></span>
-<span id="cb425-3"><a href="principal-components-analysis.html#cb425-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># retx=TRUE returns the PC scores</span></span>
-<span id="cb425-4"><a href="principal-components-analysis.html#cb425-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span></span>
-<span id="cb425-5"><a href="principal-components-analysis.html#cb425-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    -- notice the period after scale!</span></span>
-<span id="cb425-6"><a href="principal-components-analysis.html#cb425-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb425-7"><a href="principal-components-analysis.html#cb425-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abundance.pca)</span>
-<span id="cb425-8"><a href="principal-components-analysis.html#cb425-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Importance of components:</span></span>
-<span id="cb425-9"><a href="principal-components-analysis.html#cb425-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                            PC1    PC2    PC3     PC4     PC5</span></span>
-<span id="cb425-10"><a href="principal-components-analysis.html#cb425-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span></span>
-<span id="cb425-11"><a href="principal-components-analysis.html#cb425-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span></span>
-<span id="cb425-12"><a href="principal-components-analysis.html#cb425-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="principal-components-analysis.html#cb429-1" aria-hidden="true" tabindex="-1"></a>abundance.pca <span class="ot">&lt;-</span> <span class="fu">prcomp</span>(abundance.only, <span class="at">center=</span><span class="cn">TRUE</span>, <span class="at">retx=</span><span class="cn">TRUE</span>)</span>
+<span id="cb429-2"><a href="principal-components-analysis.html#cb429-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># center=TRUE mean centers the data</span></span>
+<span id="cb429-3"><a href="principal-components-analysis.html#cb429-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># retx=TRUE returns the PC scores</span></span>
+<span id="cb429-4"><a href="principal-components-analysis.html#cb429-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if you want to do PCA on the correlation matrix set scale.=TRUE</span></span>
+<span id="cb429-5"><a href="principal-components-analysis.html#cb429-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    -- notice the period after scale!</span></span>
+<span id="cb429-6"><a href="principal-components-analysis.html#cb429-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb429-7"><a href="principal-components-analysis.html#cb429-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(abundance.pca)</span>
+<span id="cb429-8"><a href="principal-components-analysis.html#cb429-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Importance of components:</span></span>
+<span id="cb429-9"><a href="principal-components-analysis.html#cb429-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                            PC1    PC2    PC3     PC4     PC5</span></span>
+<span id="cb429-10"><a href="principal-components-analysis.html#cb429-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard deviation     14.8653 8.8149 6.2193 5.03477 3.48231</span></span>
+<span id="cb429-11"><a href="principal-components-analysis.html#cb429-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Proportion of Variance  0.5895 0.2073 0.1032 0.06763 0.03235</span></span>
+<span id="cb429-12"><a href="principal-components-analysis.html#cb429-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Cumulative Proportion   0.5895 0.7968 0.9000 0.96765 1.00000</span></span></code></pre></div>
 <p>We see that approximately 59% of the variance in the data is capture by the first PC, and approximately 90% by the first three PCs.</p>
 <p>Let’s compare the values return by PCA to what we would get if we carried out eigenanalysis of the covariance matrix that corresponds to our data.</p>
 <p>First the list object return by <code>prcomp()</code>:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="principal-components-analysis.html#cb426-1" aria-hidden="true" tabindex="-1"></a>abundance.pca</span>
-<span id="cb426-2"><a href="principal-components-analysis.html#cb426-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard deviations (1, .., p=5):</span></span>
-<span id="cb426-3"><a href="principal-components-analysis.html#cb426-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></span>
-<span id="cb426-4"><a href="principal-components-analysis.html#cb426-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb426-5"><a href="principal-components-analysis.html#cb426-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Rotation (n x k) = (5 x 5):</span></span>
-<span id="cb426-6"><a href="principal-components-analysis.html#cb426-6" aria-hidden="true" tabindex="-1"></a><span class="do">##           PC1         PC2         PC3         PC4         PC5</span></span>
-<span id="cb426-7"><a href="principal-components-analysis.html#cb426-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span></span>
-<span id="cb426-8"><a href="principal-components-analysis.html#cb426-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span></span>
-<span id="cb426-9"><a href="principal-components-analysis.html#cb426-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span></span>
-<span id="cb426-10"><a href="principal-components-analysis.html#cb426-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span></span>
-<span id="cb426-11"><a href="principal-components-analysis.html#cb426-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="principal-components-analysis.html#cb430-1" aria-hidden="true" tabindex="-1"></a>abundance.pca</span>
+<span id="cb430-2"><a href="principal-components-analysis.html#cb430-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Standard deviations (1, .., p=5):</span></span>
+<span id="cb430-3"><a href="principal-components-analysis.html#cb430-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></span>
+<span id="cb430-4"><a href="principal-components-analysis.html#cb430-4" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb430-5"><a href="principal-components-analysis.html#cb430-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Rotation (n x k) = (5 x 5):</span></span>
+<span id="cb430-6"><a href="principal-components-analysis.html#cb430-6" aria-hidden="true" tabindex="-1"></a><span class="do">##           PC1         PC2         PC3         PC4         PC5</span></span>
+<span id="cb430-7"><a href="principal-components-analysis.html#cb430-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a  0.81064462  0.07052882 -0.53108427  0.18442140 -0.14771336</span></span>
+<span id="cb430-8"><a href="principal-components-analysis.html#cb430-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  0.51264394 -0.27799671  0.47711910 -0.63418946  0.17342177</span></span>
+<span id="cb430-9"><a href="principal-components-analysis.html#cb430-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -0.16235135 -0.88665551 -0.40897655 -0.01149647  0.14173943</span></span>
+<span id="cb430-10"><a href="principal-components-analysis.html#cb430-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  0.22207108 -0.31665237  0.56250980  0.72941223 -0.04422938</span></span>
+<span id="cb430-11"><a href="principal-components-analysis.html#cb430-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.06616623  0.17696554 -0.08141111  0.17781482  0.96231977</span></span></code></pre></div>
 <p>And now the corresponding values returned by eigenanaysis of the covariance matrix generated from the abundance data:</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="principal-components-analysis.html#cb427-1" aria-hidden="true" tabindex="-1"></a>eig.abundance <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">cov</span>(abundance.only))</span>
-<span id="cb427-2"><a href="principal-components-analysis.html#cb427-2" aria-hidden="true" tabindex="-1"></a>eig.abundance<span class="sc">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span></span>
-<span id="cb427-3"><a href="principal-components-analysis.html#cb427-3" aria-hidden="true" tabindex="-1"></a><span class="do">##             [,1]        [,2]        [,3]        [,4]        [,5]</span></span>
-<span id="cb427-4"><a href="principal-components-analysis.html#cb427-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span></span>
-<span id="cb427-5"><a href="principal-components-analysis.html#cb427-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span></span>
-<span id="cb427-6"><a href="principal-components-analysis.html#cb427-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span></span>
-<span id="cb427-7"><a href="principal-components-analysis.html#cb427-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span></span>
-<span id="cb427-8"><a href="principal-components-analysis.html#cb427-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span></span>
-<span id="cb427-9"><a href="principal-components-analysis.html#cb427-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(eig.abundance<span class="sc">$</span>values) <span class="co"># compare to sdev of PCA</span></span>
-<span id="cb427-10"><a href="principal-components-analysis.html#cb427-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="principal-components-analysis.html#cb431-1" aria-hidden="true" tabindex="-1"></a>eig.abundance <span class="ot">&lt;-</span> <span class="fu">eigen</span>(<span class="fu">cov</span>(abundance.only))</span>
+<span id="cb431-2"><a href="principal-components-analysis.html#cb431-2" aria-hidden="true" tabindex="-1"></a>eig.abundance<span class="sc">$</span>vectors  <span class="co"># compare to rotation matrix of PCA</span></span>
+<span id="cb431-3"><a href="principal-components-analysis.html#cb431-3" aria-hidden="true" tabindex="-1"></a><span class="do">##             [,1]        [,2]        [,3]        [,4]        [,5]</span></span>
+<span id="cb431-4"><a href="principal-components-analysis.html#cb431-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]  0.81064462 -0.07052882  0.53108427  0.18442140 -0.14771336</span></span>
+<span id="cb431-5"><a href="principal-components-analysis.html#cb431-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]  0.51264394  0.27799671 -0.47711910 -0.63418946  0.17342177</span></span>
+<span id="cb431-6"><a href="principal-components-analysis.html#cb431-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,] -0.16235135  0.88665551  0.40897655 -0.01149647  0.14173943</span></span>
+<span id="cb431-7"><a href="principal-components-analysis.html#cb431-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]  0.22207108  0.31665237 -0.56250980  0.72941223 -0.04422938</span></span>
+<span id="cb431-8"><a href="principal-components-analysis.html#cb431-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]  0.06616623 -0.17696554  0.08141111  0.17781482  0.96231977</span></span>
+<span id="cb431-9"><a href="principal-components-analysis.html#cb431-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(eig.abundance<span class="sc">$</span>values) <span class="co"># compare to sdev of PCA</span></span>
+<span id="cb431-10"><a href="principal-components-analysis.html#cb431-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 14.865306  8.814912  6.219250  5.034774  3.482308</span></span></code></pre></div>
 <p>Notice that the <code>rotation</code> object returned by the <code>prcomp()</code> represents the scaled eigenvectors (scaled to have length 1). The standard deviations of the PCA are the square roots of the eigenvalues of the covariance matrix.</p>
 </div>
-<div id="calculating-factor-loadings" class="section level3" number="13.4.3">
-<h3><span class="header-section-number">13.4.3</span> Calculating Factor Loadings</h3>
+<div id="calculating-factor-loadings" class="section level3 hasAnchor" number="13.4.3">
+<h3><span class="header-section-number">13.4.3</span> Calculating Factor Loadings<a href="principal-components-analysis.html#calculating-factor-loadings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s calculate the “factor loadings” associated with the PCs:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="principal-components-analysis.html#cb428-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> abundance.pca<span class="sc">$</span>rotation <span class="co"># eigenvectors</span></span>
-<span id="cb428-2"><a href="principal-components-analysis.html#cb428-2" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">diag</span>(abundance.pca<span class="sc">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span></span>
-<span id="cb428-3"><a href="principal-components-analysis.html#cb428-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb428-4"><a href="principal-components-analysis.html#cb428-4" aria-hidden="true" tabindex="-1"></a>abundance.loadings <span class="ot">&lt;-</span> V <span class="sc">%*%</span> L</span>
-<span id="cb428-5"><a href="principal-components-analysis.html#cb428-5" aria-hidden="true" tabindex="-1"></a>abundance.loadings</span>
-<span id="cb428-6"><a href="principal-components-analysis.html#cb428-6" aria-hidden="true" tabindex="-1"></a><span class="do">##         [,1]       [,2]       [,3]        [,4]       [,5]</span></span>
-<span id="cb428-7"><a href="principal-components-analysis.html#cb428-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span></span>
-<span id="cb428-8"><a href="principal-components-analysis.html#cb428-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span></span>
-<span id="cb428-9"><a href="principal-components-analysis.html#cb428-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span></span>
-<span id="cb428-10"><a href="principal-components-analysis.html#cb428-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span></span>
-<span id="cb428-11"><a href="principal-components-analysis.html#cb428-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="principal-components-analysis.html#cb432-1" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> abundance.pca<span class="sc">$</span>rotation <span class="co"># eigenvectors</span></span>
+<span id="cb432-2"><a href="principal-components-analysis.html#cb432-2" aria-hidden="true" tabindex="-1"></a>L <span class="ot">&lt;-</span> <span class="fu">diag</span>(abundance.pca<span class="sc">$</span>sdev) <span class="co"># diag mtx w/sqrts of eigenvalues on diag.</span></span>
+<span id="cb432-3"><a href="principal-components-analysis.html#cb432-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb432-4"><a href="principal-components-analysis.html#cb432-4" aria-hidden="true" tabindex="-1"></a>abundance.loadings <span class="ot">&lt;-</span> V <span class="sc">%*%</span> L</span>
+<span id="cb432-5"><a href="principal-components-analysis.html#cb432-5" aria-hidden="true" tabindex="-1"></a>abundance.loadings</span>
+<span id="cb432-6"><a href="principal-components-analysis.html#cb432-6" aria-hidden="true" tabindex="-1"></a><span class="do">##         [,1]       [,2]       [,3]        [,4]       [,5]</span></span>
+<span id="cb432-7"><a href="principal-components-analysis.html#cb432-7" aria-hidden="true" tabindex="-1"></a><span class="do">## a 12.0504801  0.6217053 -3.3029460  0.92852016 -0.5143835</span></span>
+<span id="cb432-8"><a href="principal-components-analysis.html#cb432-8" aria-hidden="true" tabindex="-1"></a><span class="do">## b  7.6206090 -2.4505164  2.9673232 -3.19300085  0.6039081</span></span>
+<span id="cb432-9"><a href="principal-components-analysis.html#cb432-9" aria-hidden="true" tabindex="-1"></a><span class="do">## c -2.4134024 -7.8157898 -2.5435276 -0.05788214  0.4935804</span></span>
+<span id="cb432-10"><a href="principal-components-analysis.html#cb432-10" aria-hidden="true" tabindex="-1"></a><span class="do">## d  3.3011545 -2.7912626  3.4983893  3.67242602 -0.1540203</span></span>
+<span id="cb432-11"><a href="principal-components-analysis.html#cb432-11" aria-hidden="true" tabindex="-1"></a><span class="do">## e  0.9835813  1.5599356 -0.5063161  0.89525751  3.3510942</span></span></code></pre></div>
 <p>The magnitude of the factor loadings is what you want to focus on. For example, species <code>a</code> and <code>b</code> contribute most to the first PC, while species <code>c</code> has the largest influence on PC2.</p>
 <p>You can think of the factor loadings, as defined above, as the components (i.e lengths of the projected vectors) of the original variables with respect to the PC basis vectors. Since vector length is proportional to the standard deviation of the variables they represent, you can think of the loadings as giving the standard deviation of the original variables with respect the PC axes. This implies that the loadings squared sum to the total variance in the original data, as illustrated below.</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="principal-components-analysis.html#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(abundance.loadings<span class="sc">**</span><span class="dv">2</span>)</span>
-<span id="cb429-2"><a href="principal-components-analysis.html#cb429-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 374.8345</span></span>
-<span id="cb429-3"><a href="principal-components-analysis.html#cb429-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb429-4"><a href="principal-components-analysis.html#cb429-4" aria-hidden="true" tabindex="-1"></a>abundance.only <span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(var) <span class="sc">%&gt;%</span> sum</span>
-<span id="cb429-5"><a href="principal-components-analysis.html#cb429-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 374.8345</span></span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="principal-components-analysis.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(abundance.loadings<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb433-2"><a href="principal-components-analysis.html#cb433-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 374.8345</span></span>
+<span id="cb433-3"><a href="principal-components-analysis.html#cb433-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb433-4"><a href="principal-components-analysis.html#cb433-4" aria-hidden="true" tabindex="-1"></a>abundance.only <span class="sc">%&gt;%</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(var) <span class="sc">%&gt;%</span> sum</span>
+<span id="cb433-5"><a href="principal-components-analysis.html#cb433-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 374.8345</span></span></code></pre></div>
 </div>
 </div>
-<div id="drawing-figures-to-represent-pca" class="section level2" number="13.5">
-<h2><span class="header-section-number">13.5</span> Drawing Figures to Represent PCA</h2>
-<div id="pc-score-plots" class="section level3" number="13.5.1">
-<h3><span class="header-section-number">13.5.1</span> PC Score Plots</h3>
+<div id="drawing-figures-to-represent-pca" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Drawing Figures to Represent PCA<a href="principal-components-analysis.html#drawing-figures-to-represent-pca" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="pc-score-plots" class="section level3 hasAnchor" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> PC Score Plots<a href="principal-components-analysis.html#pc-score-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The simplest PCA figure is to depict the PC scores, i.e. the projection of the observations into the space defined by the PC axes. Let’s make a figure with three subplots, depicting PC1 vs PC2, PC1 vs PC3, and PC2 vs. PC3.</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="principal-components-analysis.html#cb430-1" aria-hidden="true" tabindex="-1"></a>pca.scores.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(abundance.pca<span class="sc">$</span>x)</span>
-<span id="cb430-2"><a href="principal-components-analysis.html#cb430-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb430-3"><a href="principal-components-analysis.html#cb430-3" aria-hidden="true" tabindex="-1"></a>coord.system <span class="ot">&lt;-</span> <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>))</span>
-<span id="cb430-4"><a href="principal-components-analysis.html#cb430-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb430-5"><a href="principal-components-analysis.html#cb430-5" aria-hidden="true" tabindex="-1"></a>pc1v2 <span class="ot">&lt;-</span></span>
-<span id="cb430-6"><a href="principal-components-analysis.html#cb430-6" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
-<span id="cb430-7"><a href="principal-components-analysis.html#cb430-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y=</span> PC2)) <span class="sc">+</span></span>
-<span id="cb430-8"><a href="principal-components-analysis.html#cb430-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb430-9"><a href="principal-components-analysis.html#cb430-9" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
-<span id="cb430-10"><a href="principal-components-analysis.html#cb430-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb430-11"><a href="principal-components-analysis.html#cb430-11" aria-hidden="true" tabindex="-1"></a>pc1v3 <span class="ot">&lt;-</span></span>
-<span id="cb430-12"><a href="principal-components-analysis.html#cb430-12" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
-<span id="cb430-13"><a href="principal-components-analysis.html#cb430-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y=</span> PC3)) <span class="sc">+</span></span>
-<span id="cb430-14"><a href="principal-components-analysis.html#cb430-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb430-15"><a href="principal-components-analysis.html#cb430-15" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
-<span id="cb430-16"><a href="principal-components-analysis.html#cb430-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb430-17"><a href="principal-components-analysis.html#cb430-17" aria-hidden="true" tabindex="-1"></a>pc2v3 <span class="ot">&lt;-</span></span>
-<span id="cb430-18"><a href="principal-components-analysis.html#cb430-18" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
-<span id="cb430-19"><a href="principal-components-analysis.html#cb430-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC2, <span class="at">y=</span> PC3)) <span class="sc">+</span></span>
-<span id="cb430-20"><a href="principal-components-analysis.html#cb430-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb430-21"><a href="principal-components-analysis.html#cb430-21" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
-<span id="cb430-22"><a href="principal-components-analysis.html#cb430-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb430-23"><a href="principal-components-analysis.html#cb430-23" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="at">align=</span><span class="st">&quot;hv&quot;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-427-1.png" width="576" /></p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="principal-components-analysis.html#cb434-1" aria-hidden="true" tabindex="-1"></a>pca.scores.df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(abundance.pca<span class="sc">$</span>x)</span>
+<span id="cb434-2"><a href="principal-components-analysis.html#cb434-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-3"><a href="principal-components-analysis.html#cb434-3" aria-hidden="true" tabindex="-1"></a>coord.system <span class="ot">&lt;-</span> <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">30</span>,<span class="dv">30</span>))</span>
+<span id="cb434-4"><a href="principal-components-analysis.html#cb434-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-5"><a href="principal-components-analysis.html#cb434-5" aria-hidden="true" tabindex="-1"></a>pc1v2 <span class="ot">&lt;-</span></span>
+<span id="cb434-6"><a href="principal-components-analysis.html#cb434-6" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
+<span id="cb434-7"><a href="principal-components-analysis.html#cb434-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y=</span> PC2)) <span class="sc">+</span></span>
+<span id="cb434-8"><a href="principal-components-analysis.html#cb434-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb434-9"><a href="principal-components-analysis.html#cb434-9" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
+<span id="cb434-10"><a href="principal-components-analysis.html#cb434-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-11"><a href="principal-components-analysis.html#cb434-11" aria-hidden="true" tabindex="-1"></a>pc1v3 <span class="ot">&lt;-</span></span>
+<span id="cb434-12"><a href="principal-components-analysis.html#cb434-12" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
+<span id="cb434-13"><a href="principal-components-analysis.html#cb434-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y=</span> PC3)) <span class="sc">+</span></span>
+<span id="cb434-14"><a href="principal-components-analysis.html#cb434-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb434-15"><a href="principal-components-analysis.html#cb434-15" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
+<span id="cb434-16"><a href="principal-components-analysis.html#cb434-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-17"><a href="principal-components-analysis.html#cb434-17" aria-hidden="true" tabindex="-1"></a>pc2v3 <span class="ot">&lt;-</span></span>
+<span id="cb434-18"><a href="principal-components-analysis.html#cb434-18" aria-hidden="true" tabindex="-1"></a>  pca.scores.df <span class="sc">%&gt;%</span></span>
+<span id="cb434-19"><a href="principal-components-analysis.html#cb434-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC2, <span class="at">y=</span> PC3)) <span class="sc">+</span></span>
+<span id="cb434-20"><a href="principal-components-analysis.html#cb434-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb434-21"><a href="principal-components-analysis.html#cb434-21" aria-hidden="true" tabindex="-1"></a>  coord.system</span>
+<span id="cb434-22"><a href="principal-components-analysis.html#cb434-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb434-23"><a href="principal-components-analysis.html#cb434-23" aria-hidden="true" tabindex="-1"></a>cowplot<span class="sc">::</span><span class="fu">plot_grid</span>(pc1v2, pc1v3, pc2v3, <span class="at">align=</span><span class="st">&quot;hv&quot;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-431-1.png" width="576" /></p>
 <p>When plotting PC scores, it is <strong>very important</strong> to keep the aspect ratio with a value of 1, so that the distance between points in the plot is an accurate representation of the distance in the PC space. Note too that I used the <code>xlim</code> and <code>ylim</code> arguments to keep the axis limits the same in all plots; comparable scaling of axes is important when comparing plots. Also note the use of the <code>align="hv"</code> argument to <code>plot_grid()</code> to keep my plots the same size when combining them into a single figure.</p>
 </div>
-<div id="simultaneous-depiction-of-observations-and-variables-in-the-pc-space" class="section level3" number="13.5.2">
-<h3><span class="header-section-number">13.5.2</span> Simultaneous Depiction of Observations and Variables in the PC Space</h3>
+<div id="simultaneous-depiction-of-observations-and-variables-in-the-pc-space" class="section level3 hasAnchor" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> Simultaneous Depiction of Observations and Variables in the PC Space<a href="principal-components-analysis.html#simultaneous-depiction-of-observations-and-variables-in-the-pc-space" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s return to our simple PC score plot. As we discussed above, the loadings are components of the original variables in the space of the PCs. This implies we can depict those loadings in the same PC basis that we use to depict the scores.</p>
 <p>First let’s create a data frame with the loadings from the first two PCs as well as a column representation the variable names:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="principal-components-analysis.html#cb431-1" aria-hidden="true" tabindex="-1"></a>loadings<span class="fl">.1</span>and2 <span class="ot">&lt;-</span></span>
-<span id="cb431-2"><a href="principal-components-analysis.html#cb431-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="sc">%&gt;%</span></span>
-<span id="cb431-3"><a href="principal-components-analysis.html#cb431-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PC1.loading =</span> X1, <span class="at">PC2.loading =</span> X2) <span class="sc">%&gt;%</span></span>
-<span id="cb431-4"><a href="principal-components-analysis.html#cb431-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">row.names</span>(abundance.loadings))</span>
-<span id="cb431-5"><a href="principal-components-analysis.html#cb431-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb431-6"><a href="principal-components-analysis.html#cb431-6" aria-hidden="true" tabindex="-1"></a>loadings<span class="fl">.1</span>and2</span>
-<span id="cb431-7"><a href="principal-components-analysis.html#cb431-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 x 3</span></span>
-<span id="cb431-8"><a href="principal-components-analysis.html#cb431-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   PC1.loading PC2.loading variable</span></span>
-<span id="cb431-9"><a href="principal-components-analysis.html#cb431-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span></span>
-<span id="cb431-10"><a href="principal-components-analysis.html#cb431-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      12.1         0.622 a       </span></span>
-<span id="cb431-11"><a href="principal-components-analysis.html#cb431-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       7.62       -2.45  b       </span></span>
-<span id="cb431-12"><a href="principal-components-analysis.html#cb431-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      -2.41       -7.82  c       </span></span>
-<span id="cb431-13"><a href="principal-components-analysis.html#cb431-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4       3.30       -2.79  d       </span></span>
-<span id="cb431-14"><a href="principal-components-analysis.html#cb431-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5       0.984       1.56  e</span></span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="principal-components-analysis.html#cb435-1" aria-hidden="true" tabindex="-1"></a>loadings<span class="fl">.1</span>and2 <span class="ot">&lt;-</span></span>
+<span id="cb435-2"><a href="principal-components-analysis.html#cb435-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(abundance.loadings[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="sc">%&gt;%</span></span>
+<span id="cb435-3"><a href="principal-components-analysis.html#cb435-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">PC1.loading =</span> X1, <span class="at">PC2.loading =</span> X2) <span class="sc">%&gt;%</span></span>
+<span id="cb435-4"><a href="principal-components-analysis.html#cb435-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">row.names</span>(abundance.loadings))</span>
+<span id="cb435-5"><a href="principal-components-analysis.html#cb435-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb435-6"><a href="principal-components-analysis.html#cb435-6" aria-hidden="true" tabindex="-1"></a>loadings<span class="fl">.1</span>and2</span>
+<span id="cb435-7"><a href="principal-components-analysis.html#cb435-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 5 × 3</span></span>
+<span id="cb435-8"><a href="principal-components-analysis.html#cb435-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   PC1.loading PC2.loading variable</span></span>
+<span id="cb435-9"><a href="principal-components-analysis.html#cb435-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;   </span></span>
+<span id="cb435-10"><a href="principal-components-analysis.html#cb435-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      12.1         0.622 a       </span></span>
+<span id="cb435-11"><a href="principal-components-analysis.html#cb435-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       7.62       -2.45  b       </span></span>
+<span id="cb435-12"><a href="principal-components-analysis.html#cb435-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      -2.41       -7.82  c       </span></span>
+<span id="cb435-13"><a href="principal-components-analysis.html#cb435-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4       3.30       -2.79  d       </span></span>
+<span id="cb435-14"><a href="principal-components-analysis.html#cb435-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5       0.984       1.56  e</span></span></code></pre></div>
 <p>With this data frame in hand, we can now draw a set of vector to represent the original variables projected into the subspace defined by PCs 1 and 2:</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="principal-components-analysis.html#cb432-1" aria-hidden="true" tabindex="-1"></a>pc1v2.biplot <span class="ot">&lt;-</span></span>
-<span id="cb432-2"><a href="principal-components-analysis.html#cb432-2" aria-hidden="true" tabindex="-1"></a>  pc1v2 <span class="sc">+</span></span>
-<span id="cb432-3"><a href="principal-components-analysis.html#cb432-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>loadings<span class="fl">.1</span>and2,</span>
-<span id="cb432-4"><a href="principal-components-analysis.html#cb432-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> PC1.loading, <span class="at">yend =</span> PC2.loading),</span>
-<span id="cb432-5"><a href="principal-components-analysis.html#cb432-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&#39;red&#39;</span>, </span>
-<span id="cb432-6"><a href="principal-components-analysis.html#cb432-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">15</span>, <span class="at">length=</span><span class="fu">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb432-7"><a href="principal-components-analysis.html#cb432-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>loadings<span class="fl">.1</span>and2,</span>
-<span id="cb432-8"><a href="principal-components-analysis.html#cb432-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> PC1.loading, <span class="at">y =</span> PC2.loading, <span class="at">label=</span>variable),</span>
-<span id="cb432-9"><a href="principal-components-analysis.html#cb432-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">nudge_x =</span> <span class="dv">1</span>, <span class="at">nudge_y =</span> <span class="dv">1</span>)</span>
-<span id="cb432-10"><a href="principal-components-analysis.html#cb432-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb432-11"><a href="principal-components-analysis.html#cb432-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb432-12"><a href="principal-components-analysis.html#cb432-12" aria-hidden="true" tabindex="-1"></a>pc1v2.biplot</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-429-1.png" width="768" /></p>
-<p>The figure above is called a “biplot”", as it simultaneously depicts both the observations and variables in the same space. From this biplot we can immediately see that variable <code>a</code> is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable <code>c</code> is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves – for example <code>b</code> and <code>d</code> are fairly strongly correlated, but weakly correlated with <code>c</code>. Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="principal-components-analysis.html#cb436-1" aria-hidden="true" tabindex="-1"></a>pc1v2.biplot <span class="ot">&lt;-</span></span>
+<span id="cb436-2"><a href="principal-components-analysis.html#cb436-2" aria-hidden="true" tabindex="-1"></a>  pc1v2 <span class="sc">+</span></span>
+<span id="cb436-3"><a href="principal-components-analysis.html#cb436-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="at">data=</span>loadings<span class="fl">.1</span>and2,</span>
+<span id="cb436-4"><a href="principal-components-analysis.html#cb436-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xend =</span> PC1.loading, <span class="at">yend =</span> PC2.loading),</span>
+<span id="cb436-5"><a href="principal-components-analysis.html#cb436-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">color=</span><span class="st">&#39;red&#39;</span>, </span>
+<span id="cb436-6"><a href="principal-components-analysis.html#cb436-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">angle=</span><span class="dv">15</span>, <span class="at">length=</span><span class="fu">unit</span>(<span class="fl">0.1</span>,<span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb436-7"><a href="principal-components-analysis.html#cb436-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>loadings<span class="fl">.1</span>and2,</span>
+<span id="cb436-8"><a href="principal-components-analysis.html#cb436-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> PC1.loading, <span class="at">y =</span> PC2.loading, <span class="at">label=</span>variable),</span>
+<span id="cb436-9"><a href="principal-components-analysis.html#cb436-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">nudge_x =</span> <span class="dv">1</span>, <span class="at">nudge_y =</span> <span class="dv">1</span>)</span>
+<span id="cb436-10"><a href="principal-components-analysis.html#cb436-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-11"><a href="principal-components-analysis.html#cb436-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-12"><a href="principal-components-analysis.html#cb436-12" aria-hidden="true" tabindex="-1"></a>pc1v2.biplot</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-433-1.png" width="768" /></p>
+<p>The figure above is called a “biplot”“, as it simultaneously depicts both the observations and variables in the same space. From this biplot we can immediately see that variable <code>a</code> is highly correlated with PC1, but only weakly associated with PC2. Conversely, variable <code>c</code> is strongly correlated with PC2 but only weakly so with PC1. We can also approximate the correlations among the variables themselves – for example <code>b</code> and <code>d</code> are fairly strongly correlated, but weakly correlated with <code>c</code>. Keep in mind however that with respect to the relationships among the variables, this visualization is a 2D projection of a 5D space so the geometry is approximate.</p>
 <p>The biplot is a generally useful tool for multivariate analyses and there are a number of different ways to define biplots. We’ll study biplots more formally in a few weeks after we’ve covered singular value decomposition.</p>
 
 </div>
@@ -1033,7 +1036,6 @@ frequent situation when re-analyzing data from the literature). We’ll concentr
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -1052,6 +1054,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1072,6 +1075,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -1088,7 +1095,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

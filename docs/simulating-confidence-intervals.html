@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B Simulating confidence intervals | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B Simulating confidence intervals | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="simulating-sampling-distributions.html"/>
 
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,32 +623,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="simulating-confidence-intervals" class="section level1" number="19">
-<h1><span class="header-section-number">B</span> Simulating confidence intervals</h1>
+<div id="simulating-confidence-intervals" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">B</span> Simulating confidence intervals<a href="simulating-confidence-intervals.html#simulating-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Recall the concept of the <strong>sampling distribution of a statistic</strong> – this is simply the probability distribution of the statistic of interest you would observe if you took a large number of random samples of a given size from a population of interest and calculated that statistic for each of the samples.</p>
 <p>You learned that the standard deviation of the sampling distribution of a statistic has a special name – the <strong>standard error</strong> of that statistic. The standard error of a statistic provides a way to quantify the uncertainty of a statistic across random samples. Here we show how to use information about the standard error of a statistic to calculate plausible ranges for a statistic of interest that take into account the uncertainty of our estimates. We call such plausible ranges <strong>Confidence Intervals</strong>.</p>
-<div id="confidence-intervals" class="section level2" number="19.1">
-<h2><span class="header-section-number">B.1</span> Confidence intervals</h2>
+<div id="confidence-intervals" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">B.1</span> Confidence intervals<a href="simulating-confidence-intervals.html#confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We know that given a random sample from a population of interest, the value of a statistic of interest is unlikely to be exactly equally to the true population value of that statistic. However, our simulations have taught us a number of things:</p>
 <ol style="list-style-type: decimal">
 <li><p>As sample size increases, the <em>sample estimate</em> of the given statistic is more likely to be close to the true value of that statistic</p></li>
 <li><p>As sample size increases, the standard error of the statistic decreases</p></li>
 </ol>
-<p>We will define an “X% percent confidence interval for a statistic of interest,” as an interval (upper and lower bound) that when calculated from a random sample, would include the true population value of the statistic of interest, X% of the time.</p>
+<p>We will define an “X% percent confidence interval for a statistic of interest”, as an interval (upper and lower bound) that when calculated from a random sample, would include the true population value of the statistic of interest, X% of the time.</p>
 <p>This quote from the <a href="http://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm">NIST page on confidence intervals</a>, which I’ve adapted to refer to any statistic, helps to make this concrete regarding confidence intervals:</p>
 <blockquote>
 <p>As a technical note, a 95% confidence interval does not mean that there is a 95% probability that the interval contains the true [statistic]. The interval computed from a given sample either contains the true [statistic] or it does not. Instead, <strong>the level of confidence is associated with the method of calculating the interval</strong> … That is, for a 95% confidence interval, if many samples are collected and the confidence interval computed, in the long run about 95% of these intervals would contain the true [statistic].</p>
 </blockquote>
 <p>The idea behind a 95% confidence interval is illustrated in the following figure:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-585"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-589"></span>
 <img src="figures/fig-CIs.png" alt="Point estimates and confidence intervals for a theoretical statistic of interest." width="60%" />
 <p class="caption">
 Figure B.1: Point estimates and confidence intervals for a theoretical statistic of interest.
 </p>
 </div>
 </div>
-<div id="generic-formulation-for-confidence-intervals" class="section level2" number="19.2">
-<h2><span class="header-section-number">B.2</span> Generic formulation for confidence intervals</h2>
+<div id="generic-formulation-for-confidence-intervals" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">B.2</span> Generic formulation for confidence intervals<a href="simulating-confidence-intervals.html#generic-formulation-for-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We define the <span class="math inline">\((100\times\beta)\)</span>% confidence interval for the statistic <span class="math inline">\(\phi\)</span> as the interval:</p>
 <p><span class="math display">\[
 CI_\beta = \phi_{n} \pm (z \times {SE}_{\phi,n})
@@ -659,81 +664,81 @@ CI_\beta = \phi_{n} \pm (z \times {SE}_{\phi,n})
 </ul>
 <p>So rather than estimating a single value of <span class="math inline">\(\phi\)</span> from our data, we will use our observed data plus knowledge about the sampling distribution of <span class="math inline">\(\phi\)</span> to estimate a range of plausible values for <span class="math inline">\(\phi\)</span>. The size of this interval will be chosen so that if we considered many possible random samples, the true population value of <span class="math inline">\(\phi\)</span> would be bracketed by the interval in <span class="math inline">\((100\times\beta)\)</span>% of the samples.</p>
 </div>
-<div id="example-confidence-intervals-for-the-mean" class="section level2" number="19.3">
-<h2><span class="header-section-number">B.3</span> Example: Confidence intervals for the mean</h2>
+<div id="example-confidence-intervals-for-the-mean" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">B.3</span> Example: Confidence intervals for the mean<a href="simulating-confidence-intervals.html#example-confidence-intervals-for-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To make the idea of a confidence interval more concrete, let’s consider confidence intervals for the mean of a normally distributed variable.</p>
 <p>Recall that if a variable <span class="math inline">\(X\)</span> is normally distributed in a population of interest, <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>, then the sampling distribution of the mean of <span class="math inline">\(X\)</span> is also normally distributed with mean <span class="math inline">\(\mu\)</span>, and standard error <span class="math inline">\({SE}_{\overline{X}} = \frac{\sigma}{\sqrt{n}}\)</span>:</p>
 <p><span class="math display">\[
 \overline{X} \sim N \left( \mu, \frac{\sigma}{\sqrt{n}}\ \right)
 \]</span>
 In our simulation we will explore how varying the value of <span class="math inline">\(z\)</span> in the formula <span class="math inline">\(CI_\beta = \phi_{n} \pm (z \times {SE}_{\phi,n})\)</span> changes the percentage of times that the confidence interval brackets the true population mean.</p>
-<div id="simulation-of-means" class="section level3" number="19.3.1">
-<h3><span class="header-section-number">B.3.1</span> Simulation of means</h3>
+<div id="simulation-of-means" class="section level3 hasAnchor" number="19.3.1">
+<h3><span class="header-section-number">B.3.1</span> Simulation of means<a href="simulating-confidence-intervals.html#simulation-of-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In our simulation we’re going to generate a large number of samples, and for each sample we will calculate the sample estimate of the mean, and then quantify how much each sample mean differs from the true mean in terms of units of the population standard error of the mean. We’ll then use this information to calibrate the wide of our confidence intervals.</p>
 <p>For the sake of simplicity we’ll simulate sampling from the “Standard Normal Distribution” – a normal distribution with mean <span class="math inline">\(\mu=0\)</span>, and standard deviation <span class="math inline">\(\sigma=1\)</span>.</p>
 <p>First we load our standard libraries:</p>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="simulating-confidence-intervals.html#cb589-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb589-2"><a href="simulating-confidence-intervals.html#cb589-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb589-3"><a href="simulating-confidence-intervals.html#cb589-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb589-4"><a href="simulating-confidence-intervals.html#cb589-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb589-5"><a href="simulating-confidence-intervals.html#cb589-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190416</span>)  <span class="co"># initialize RNG</span></span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="simulating-confidence-intervals.html#cb593-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb593-2"><a href="simulating-confidence-intervals.html#cb593-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb593-3"><a href="simulating-confidence-intervals.html#cb593-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb593-4"><a href="simulating-confidence-intervals.html#cb593-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb593-5"><a href="simulating-confidence-intervals.html#cb593-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20190416</span>)  <span class="co"># initialize RNG</span></span></code></pre></div>
 <p>Then we write our basic framework for our simulations:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="simulating-confidence-intervals.html#cb590-1" aria-hidden="true" tabindex="-1"></a>rnorm.stats <span class="ot">&lt;-</span> <span class="cf">function</span>(n, mu, sigma) {</span>
-<span id="cb590-2"><a href="simulating-confidence-intervals.html#cb590-2" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
-<span id="cb590-3"><a href="simulating-confidence-intervals.html#cb590-3" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> n,</span>
-<span id="cb590-4"><a href="simulating-confidence-intervals.html#cb590-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.mean =</span> <span class="fu">mean</span>(s),</span>
-<span id="cb590-5"><a href="simulating-confidence-intervals.html#cb590-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.sd =</span> <span class="fu">sd</span>(s),</span>
-<span id="cb590-6"><a href="simulating-confidence-intervals.html#cb590-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pop.SE =</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
-<span id="cb590-7"><a href="simulating-confidence-intervals.html#cb590-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="simulating-confidence-intervals.html#cb594-1" aria-hidden="true" tabindex="-1"></a>rnorm.stats <span class="ot">&lt;-</span> <span class="cf">function</span>(n, mu, sigma) {</span>
+<span id="cb594-2"><a href="simulating-confidence-intervals.html#cb594-2" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
+<span id="cb594-3"><a href="simulating-confidence-intervals.html#cb594-3" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> n,</span>
+<span id="cb594-4"><a href="simulating-confidence-intervals.html#cb594-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.mean =</span> <span class="fu">mean</span>(s),</span>
+<span id="cb594-5"><a href="simulating-confidence-intervals.html#cb594-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.sd =</span> <span class="fu">sd</span>(s),</span>
+<span id="cb594-6"><a href="simulating-confidence-intervals.html#cb594-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pop.SE =</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb594-7"><a href="simulating-confidence-intervals.html#cb594-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>And then use this to simulate samples of size 50.</p>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="simulating-confidence-intervals.html#cb591-1" aria-hidden="true" tabindex="-1"></a>true.mean <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb591-2"><a href="simulating-confidence-intervals.html#cb591-2" aria-hidden="true" tabindex="-1"></a>true.sd <span class="ot">&lt;-</span> <span class="dv">11</span></span>
-<span id="cb591-3"><a href="simulating-confidence-intervals.html#cb591-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb591-4"><a href="simulating-confidence-intervals.html#cb591-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb591-5"><a href="simulating-confidence-intervals.html#cb591-5" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span> </span>
-<span id="cb591-6"><a href="simulating-confidence-intervals.html#cb591-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(n, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
-<span id="cb591-7"><a href="simulating-confidence-intervals.html#cb591-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="simulating-confidence-intervals.html#cb595-1" aria-hidden="true" tabindex="-1"></a>true.mean <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb595-2"><a href="simulating-confidence-intervals.html#cb595-2" aria-hidden="true" tabindex="-1"></a>true.sd <span class="ot">&lt;-</span> <span class="dv">11</span></span>
+<span id="cb595-3"><a href="simulating-confidence-intervals.html#cb595-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb595-4"><a href="simulating-confidence-intervals.html#cb595-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb595-5"><a href="simulating-confidence-intervals.html#cb595-5" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span> </span>
+<span id="cb595-6"><a href="simulating-confidence-intervals.html#cb595-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(n, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
+<span id="cb595-7"><a href="simulating-confidence-intervals.html#cb595-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code></pre></div>
 </div>
-<div id="distance-between-sample-means-and-true-means" class="section level3" number="19.3.2">
-<h3><span class="header-section-number">B.3.2</span> Distance between sample means and true means</h3>
+<div id="distance-between-sample-means-and-true-means" class="section level3 hasAnchor" number="19.3.2">
+<h3><span class="header-section-number">B.3.2</span> Distance between sample means and true means<a href="simulating-confidence-intervals.html#distance-between-sample-means-and-true-means" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We append a new column to our <code>samples.50</code> data frame, which is the result of calculating the distance of each sample mean from the true mean, expressed in terms of units of the population standard error of the mean:</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="simulating-confidence-intervals.html#cb592-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
-<span id="cb592-2"><a href="simulating-confidence-intervals.html#cb592-2" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb592-3"><a href="simulating-confidence-intervals.html#cb592-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.pop =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>pop.SE)</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="simulating-confidence-intervals.html#cb596-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
+<span id="cb596-2"><a href="simulating-confidence-intervals.html#cb596-2" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb596-3"><a href="simulating-confidence-intervals.html#cb596-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.pop =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>pop.SE)</span></code></pre></div>
 <p>Since the sampling distribution of the mean of a normally distributed variable (<span class="math inline">\(N(\mu,\sigma)\)</span>) is itself normally distributed (<span class="math inline">\(N(\mu, SE_{\overline{X}})\)</span>), then the distribution of <span class="math inline">\(z = \frac{\overline{X} - \mu}{SE}\)</span> is <span class="math inline">\(N(0,1)\)</span>. This is illustrated in the figure below where we compare our simulated z-scores to the theoretical expectation:</p>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="simulating-confidence-intervals.html#cb593-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb593-2"><a href="simulating-confidence-intervals.html#cb593-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samples<span class="fl">.50</span>) <span class="sc">+</span></span>
-<span id="cb593-3"><a href="simulating-confidence-intervals.html#cb593-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> z.pop, <span class="at">y=</span>..density..), <span class="at">bins=</span><span class="dv">50</span>) <span class="sc">+</span> </span>
-<span id="cb593-4"><a href="simulating-confidence-intervals.html#cb593-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x){<span class="fu">dnorm</span>(x, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span>SE)}, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-590-1.png" width="576" /></p>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="simulating-confidence-intervals.html#cb597-1" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb597-2"><a href="simulating-confidence-intervals.html#cb597-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(samples<span class="fl">.50</span>) <span class="sc">+</span></span>
+<span id="cb597-3"><a href="simulating-confidence-intervals.html#cb597-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> z.pop, <span class="at">y=</span>..density..), <span class="at">bins=</span><span class="dv">50</span>) <span class="sc">+</span> </span>
+<span id="cb597-4"><a href="simulating-confidence-intervals.html#cb597-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> <span class="cf">function</span>(x){<span class="fu">dnorm</span>(x, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span>SE)}, <span class="at">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-594-1.png" width="576" /></p>
 <p>For a given value of <span class="math inline">\(z\)</span> we can ask what fraction of our simulated means fall within <span class="math inline">\(\pm z\)</span> standard errors of the true mean.</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="simulating-confidence-intervals.html#cb594-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb594-2"><a href="simulating-confidence-intervals.html#cb594-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">frac.win.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.pop) <span class="sc">&lt;=</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb594-3"><a href="simulating-confidence-intervals.html#cb594-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">frac.win.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.pop) <span class="sc">&lt;=</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
-<span id="cb594-4"><a href="simulating-confidence-intervals.html#cb594-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
-<span id="cb594-5"><a href="simulating-confidence-intervals.html#cb594-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   frac.win.1SE frac.win.2SE</span></span>
-<span id="cb594-6"><a href="simulating-confidence-intervals.html#cb594-6" aria-hidden="true" tabindex="-1"></a><span class="do">##          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span id="cb594-7"><a href="simulating-confidence-intervals.html#cb594-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        0.683        0.957</span></span></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="simulating-confidence-intervals.html#cb598-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb598-2"><a href="simulating-confidence-intervals.html#cb598-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">frac.win.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.pop) <span class="sc">&lt;=</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb598-3"><a href="simulating-confidence-intervals.html#cb598-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">frac.win.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.pop) <span class="sc">&lt;=</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
+<span id="cb598-4"><a href="simulating-confidence-intervals.html#cb598-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 2</span></span>
+<span id="cb598-5"><a href="simulating-confidence-intervals.html#cb598-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   frac.win.1SE frac.win.2SE</span></span>
+<span id="cb598-6"><a href="simulating-confidence-intervals.html#cb598-6" aria-hidden="true" tabindex="-1"></a><span class="do">##          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb598-7"><a href="simulating-confidence-intervals.html#cb598-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        0.683        0.957</span></span></code></pre></div>
 <p>We see that roughly 68% of our sample means are within 1 SE of the true mean; ~95% are within 2 SEs.</p>
 <p>If we wanted to get exact multiples of the SE corresponding to different percentiles of the distribution of z-scores, based on the theoretical result (z scores ~ <span class="math inline">\(N(0,1)\)</span>), we can use the <code>qnorm()</code> function:</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="simulating-confidence-intervals.html#cb595-1" aria-hidden="true" tabindex="-1"></a>frac.of.interest <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.68</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)</span>
-<span id="cb595-2"><a href="simulating-confidence-intervals.html#cb595-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb595-3"><a href="simulating-confidence-intervals.html#cb595-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we use 1 - frac to get left most critical value</span></span>
-<span id="cb595-4"><a href="simulating-confidence-intervals.html#cb595-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we divide by two here two account for area under left and right tails</span></span>
-<span id="cb595-5"><a href="simulating-confidence-intervals.html#cb595-5" aria-hidden="true" tabindex="-1"></a>left.critical.value <span class="ot">&lt;-</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> frac.of.interest)<span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
-<span id="cb595-6"><a href="simulating-confidence-intervals.html#cb595-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb595-7"><a href="simulating-confidence-intervals.html#cb595-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data_frame</span>(<span class="at">Percentile =</span> frac.of.interest <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb595-8"><a href="simulating-confidence-intervals.html#cb595-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">Critical.value =</span> <span class="fu">abs</span>(left.critical.value))</span>
-<span id="cb595-9"><a href="simulating-confidence-intervals.html#cb595-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 x 2</span></span>
-<span id="cb595-10"><a href="simulating-confidence-intervals.html#cb595-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Percentile Critical.value</span></span>
-<span id="cb595-11"><a href="simulating-confidence-intervals.html#cb595-11" aria-hidden="true" tabindex="-1"></a><span class="do">##        &lt;dbl&gt;          &lt;dbl&gt;</span></span>
-<span id="cb595-12"><a href="simulating-confidence-intervals.html#cb595-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         68          0.994</span></span>
-<span id="cb595-13"><a href="simulating-confidence-intervals.html#cb595-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         90          1.64 </span></span>
-<span id="cb595-14"><a href="simulating-confidence-intervals.html#cb595-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3         95          1.96 </span></span>
-<span id="cb595-15"><a href="simulating-confidence-intervals.html#cb595-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 4         99          2.58</span></span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="simulating-confidence-intervals.html#cb599-1" aria-hidden="true" tabindex="-1"></a>frac.of.interest <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.68</span>, <span class="fl">0.90</span>, <span class="fl">0.95</span>, <span class="fl">0.99</span>)</span>
+<span id="cb599-2"><a href="simulating-confidence-intervals.html#cb599-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb599-3"><a href="simulating-confidence-intervals.html#cb599-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we use 1 - frac to get left most critical value</span></span>
+<span id="cb599-4"><a href="simulating-confidence-intervals.html#cb599-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we divide by two here two account for area under left and right tails</span></span>
+<span id="cb599-5"><a href="simulating-confidence-intervals.html#cb599-5" aria-hidden="true" tabindex="-1"></a>left.critical.value <span class="ot">&lt;-</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> frac.of.interest)<span class="sc">/</span><span class="dv">2</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>) </span>
+<span id="cb599-6"><a href="simulating-confidence-intervals.html#cb599-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb599-7"><a href="simulating-confidence-intervals.html#cb599-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data_frame</span>(<span class="at">Percentile =</span> frac.of.interest <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb599-8"><a href="simulating-confidence-intervals.html#cb599-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">Critical.value =</span> <span class="fu">abs</span>(left.critical.value))</span>
+<span id="cb599-9"><a href="simulating-confidence-intervals.html#cb599-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 4 × 2</span></span>
+<span id="cb599-10"><a href="simulating-confidence-intervals.html#cb599-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   Percentile Critical.value</span></span>
+<span id="cb599-11"><a href="simulating-confidence-intervals.html#cb599-11" aria-hidden="true" tabindex="-1"></a><span class="do">##        &lt;dbl&gt;          &lt;dbl&gt;</span></span>
+<span id="cb599-12"><a href="simulating-confidence-intervals.html#cb599-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         68          0.994</span></span>
+<span id="cb599-13"><a href="simulating-confidence-intervals.html#cb599-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         90          1.64 </span></span>
+<span id="cb599-14"><a href="simulating-confidence-intervals.html#cb599-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3         95          1.96 </span></span>
+<span id="cb599-15"><a href="simulating-confidence-intervals.html#cb599-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 4         99          2.58</span></span></code></pre></div>
 </div>
-<div id="calculating-a-ci" class="section level3" number="19.3.3">
-<h3><span class="header-section-number">B.3.3</span> Calculating a CI</h3>
+<div id="calculating-a-ci" class="section level3 hasAnchor" number="19.3.3">
+<h3><span class="header-section-number">B.3.3</span> Calculating a CI<a href="simulating-confidence-intervals.html#calculating-a-ci" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If we knew the standard error of the mean for variable of interest, in order to a confidence interval we could simply look up the corresponding critical value for our percentile of interst in a table like the one above and calculate our CI as:</p>
 <p><span class="math display">\[
 \overline{X} \pm \text{critical value} \times SE_{\overline{X}}
@@ -741,8 +746,8 @@ In our simulation we will explore how varying the value of <span class="math inl
 <p>For example, we see that the critical value for 95% CIs is ~1.96.</p>
 </div>
 </div>
-<div id="a-problem-arises" class="section level2" number="19.4">
-<h2><span class="header-section-number">B.4</span> A problem arises!</h2>
+<div id="a-problem-arises" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">B.4</span> A problem arises!<a href="simulating-confidence-intervals.html#a-problem-arises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If you’re a critical reader you should have noticed that calculating confidence intervals using the above formula presumes we know the standard error of the mean for the variable of interest. If we knew the standard deviation, <span class="math inline">\(\sigma\)</span>, of our variable, we could calculate this as <span class="math inline">\(SE_{\overline{x}} = \frac{\sigma}{\sqrt{n}}\)</span> but in general we do not know <span class="math inline">\(\sigma\)</span> either.</p>
 <p>Instead we must estimate the standard error of the mean using our sample standard deviation:</p>
 <p><span class="math display">\[
@@ -750,158 +755,158 @@ In our simulation we will explore how varying the value of <span class="math inl
 \]</span></p>
 <p>This introduces another level of uncertainty and also a complication. The complication is due to the fact that for small samples, sample estimates of the standard deviation tend to be biased (smaller) relative to the true population standard deviation (see previous chapter).</p>
 </div>
-<div id="confidence-intervals-under-sample-estimates-of-standard-errors" class="section level2" number="19.5">
-<h2><span class="header-section-number">B.5</span> Confidence intervals under sample estimates of standard errors</h2>
+<div id="confidence-intervals-under-sample-estimates-of-standard-errors" class="section level2 hasAnchor" number="19.5">
+<h2><span class="header-section-number">B.5</span> Confidence intervals under sample estimates of standard errors<a href="simulating-confidence-intervals.html#confidence-intervals-under-sample-estimates-of-standard-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s extend our simulations to gain insight into how using sample estimates of standard errors affect our calculations of confidence interval. First we’ll rewrite our <code>rnorm.stats</code> function to include columns for both the true values of the mean, standard deviation, and standard error of the mean as well as the sample estimates of those statistics.</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="simulating-confidence-intervals.html#cb596-1" aria-hidden="true" tabindex="-1"></a>rnorm.stats <span class="ot">&lt;-</span> <span class="cf">function</span>(n, mu, sigma) {</span>
-<span id="cb596-2"><a href="simulating-confidence-intervals.html#cb596-2" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
-<span id="cb596-3"><a href="simulating-confidence-intervals.html#cb596-3" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> n,</span>
-<span id="cb596-4"><a href="simulating-confidence-intervals.html#cb596-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.mean =</span> mu,</span>
-<span id="cb596-5"><a href="simulating-confidence-intervals.html#cb596-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.sd =</span> sigma,</span>
-<span id="cb596-6"><a href="simulating-confidence-intervals.html#cb596-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.se =</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb596-7"><a href="simulating-confidence-intervals.html#cb596-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.mean =</span> <span class="fu">mean</span>(s),</span>
-<span id="cb596-8"><a href="simulating-confidence-intervals.html#cb596-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.sd =</span> <span class="fu">sd</span>(s),</span>
-<span id="cb596-9"><a href="simulating-confidence-intervals.html#cb596-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimated.se =</span> sample.sd<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
-<span id="cb596-10"><a href="simulating-confidence-intervals.html#cb596-10" aria-hidden="true" tabindex="-1"></a>  df</span>
-<span id="cb596-11"><a href="simulating-confidence-intervals.html#cb596-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div id="the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses" class="section level3" number="19.5.1">
-<h3><span class="header-section-number">B.5.1</span> The spread of sample estimates of the mean in units of true and estimates SEs</h3>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="simulating-confidence-intervals.html#cb600-1" aria-hidden="true" tabindex="-1"></a>rnorm.stats <span class="ot">&lt;-</span> <span class="cf">function</span>(n, mu, sigma) {</span>
+<span id="cb600-2"><a href="simulating-confidence-intervals.html#cb600-2" aria-hidden="true" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
+<span id="cb600-3"><a href="simulating-confidence-intervals.html#cb600-3" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> n,</span>
+<span id="cb600-4"><a href="simulating-confidence-intervals.html#cb600-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.mean =</span> mu,</span>
+<span id="cb600-5"><a href="simulating-confidence-intervals.html#cb600-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.sd =</span> sigma,</span>
+<span id="cb600-6"><a href="simulating-confidence-intervals.html#cb600-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">true.se =</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb600-7"><a href="simulating-confidence-intervals.html#cb600-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.mean =</span> <span class="fu">mean</span>(s),</span>
+<span id="cb600-8"><a href="simulating-confidence-intervals.html#cb600-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sample.sd =</span> <span class="fu">sd</span>(s),</span>
+<span id="cb600-9"><a href="simulating-confidence-intervals.html#cb600-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">estimated.se =</span> sample.sd<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb600-10"><a href="simulating-confidence-intervals.html#cb600-10" aria-hidden="true" tabindex="-1"></a>  df</span>
+<span id="cb600-11"><a href="simulating-confidence-intervals.html#cb600-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div id="the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses" class="section level3 hasAnchor" number="19.5.1">
+<h3><span class="header-section-number">B.5.1</span> The spread of sample estimates of the mean in units of true and estimates SEs<a href="simulating-confidence-intervals.html#the-spread-of-sample-estimates-of-the-mean-in-units-of-true-and-estimates-ses" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now we run simulations for samples of size 5 and 50, and calculate z-scores for the sample means relative to the true mean in terms of units of standard error (both true and estiamted).</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="simulating-confidence-intervals.html#cb597-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="ot">&lt;-</span></span>
-<span id="cb597-2"><a href="simulating-confidence-intervals.html#cb597-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(<span class="dv">5</span>, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
-<span id="cb597-3"><a href="simulating-confidence-intervals.html#cb597-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb597-4"><a href="simulating-confidence-intervals.html#cb597-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb597-5"><a href="simulating-confidence-intervals.html#cb597-5" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="ot">&lt;-</span></span>
-<span id="cb597-6"><a href="simulating-confidence-intervals.html#cb597-6" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
-<span id="cb597-7"><a href="simulating-confidence-intervals.html#cb597-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.true =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>true.se,</span>
-<span id="cb597-8"><a href="simulating-confidence-intervals.html#cb597-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">z.est =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>estimated.se)</span>
-<span id="cb597-9"><a href="simulating-confidence-intervals.html#cb597-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb597-10"><a href="simulating-confidence-intervals.html#cb597-10" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
-<span id="cb597-11"><a href="simulating-confidence-intervals.html#cb597-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(<span class="dv">50</span>, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
-<span id="cb597-12"><a href="simulating-confidence-intervals.html#cb597-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb597-13"><a href="simulating-confidence-intervals.html#cb597-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb597-14"><a href="simulating-confidence-intervals.html#cb597-14" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
-<span id="cb597-15"><a href="simulating-confidence-intervals.html#cb597-15" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb597-16"><a href="simulating-confidence-intervals.html#cb597-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.true =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>true.se,</span>
-<span id="cb597-17"><a href="simulating-confidence-intervals.html#cb597-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">z.est =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>estimated.se)    </span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="simulating-confidence-intervals.html#cb601-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="ot">&lt;-</span></span>
+<span id="cb601-2"><a href="simulating-confidence-intervals.html#cb601-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(<span class="dv">5</span>, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
+<span id="cb601-3"><a href="simulating-confidence-intervals.html#cb601-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb601-4"><a href="simulating-confidence-intervals.html#cb601-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb601-5"><a href="simulating-confidence-intervals.html#cb601-5" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="ot">&lt;-</span></span>
+<span id="cb601-6"><a href="simulating-confidence-intervals.html#cb601-6" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
+<span id="cb601-7"><a href="simulating-confidence-intervals.html#cb601-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.true =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>true.se,</span>
+<span id="cb601-8"><a href="simulating-confidence-intervals.html#cb601-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">z.est =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>estimated.se)</span>
+<span id="cb601-9"><a href="simulating-confidence-intervals.html#cb601-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb601-10"><a href="simulating-confidence-intervals.html#cb601-10" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
+<span id="cb601-11"><a href="simulating-confidence-intervals.html#cb601-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rerun</span>(<span class="dv">10000</span>, <span class="fu">rnorm.stats</span>(<span class="dv">50</span>, true.mean, true.sd)) <span class="sc">%&gt;%</span></span>
+<span id="cb601-12"><a href="simulating-confidence-intervals.html#cb601-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb601-13"><a href="simulating-confidence-intervals.html#cb601-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb601-14"><a href="simulating-confidence-intervals.html#cb601-14" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="ot">&lt;-</span></span>
+<span id="cb601-15"><a href="simulating-confidence-intervals.html#cb601-15" aria-hidden="true" tabindex="-1"></a>  samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb601-16"><a href="simulating-confidence-intervals.html#cb601-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z.true =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>true.se,</span>
+<span id="cb601-17"><a href="simulating-confidence-intervals.html#cb601-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">z.est =</span> (sample.mean <span class="sc">-</span> true.mean)<span class="sc">/</span>estimated.se)    </span></code></pre></div>
 <p>First we’ll look at the distribution of z-scores for samples of size 50:</p>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="simulating-confidence-intervals.html#cb598-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb598-2"><a href="simulating-confidence-intervals.html#cb598-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb598-3"><a href="simulating-confidence-intervals.html#cb598-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.true), <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb598-4"><a href="simulating-confidence-intervals.html#cb598-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.est), <span class="at">alpha=</span><span class="fl">0.25</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">fill=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb598-5"><a href="simulating-confidence-intervals.html#cb598-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="sc">\n</span><span class="st">for 10,000 samples of size 50&quot;</span>) </span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-595-1.png" width="576" /></p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="simulating-confidence-intervals.html#cb602-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb602-2"><a href="simulating-confidence-intervals.html#cb602-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb602-3"><a href="simulating-confidence-intervals.html#cb602-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.true), <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb602-4"><a href="simulating-confidence-intervals.html#cb602-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.est), <span class="at">alpha=</span><span class="fl">0.25</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">fill=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb602-5"><a href="simulating-confidence-intervals.html#cb602-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="sc">\n</span><span class="st">for 10,000 samples of size 50&quot;</span>) </span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-599-1.png" width="576" /></p>
 <p>We see that the distributions are similar whether we used the true SE of the mean, or the estimated SEs. This reflects the fact that the sample estimate of the SE of the mean is a good estimator when sample sizes are relatively large.</p>
 <p>Now we do the same for samples of size 5:</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="simulating-confidence-intervals.html#cb599-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
-<span id="cb599-2"><a href="simulating-confidence-intervals.html#cb599-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb599-3"><a href="simulating-confidence-intervals.html#cb599-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.true), <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb599-4"><a href="simulating-confidence-intervals.html#cb599-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.est), <span class="at">alpha=</span><span class="fl">0.25</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">fill=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb599-5"><a href="simulating-confidence-intervals.html#cb599-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="sc">\n</span><span class="st">for 10,000 samples of size 5&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb599-6"><a href="simulating-confidence-intervals.html#cb599-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-596-1.png" width="576" /></p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="simulating-confidence-intervals.html#cb603-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
+<span id="cb603-2"><a href="simulating-confidence-intervals.html#cb603-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb603-3"><a href="simulating-confidence-intervals.html#cb603-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.true), <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">color=</span><span class="st">&#39;blue&#39;</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb603-4"><a href="simulating-confidence-intervals.html#cb603-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x=</span>z.est), <span class="at">alpha=</span><span class="fl">0.25</span>, <span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">fill=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb603-5"><a href="simulating-confidence-intervals.html#cb603-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Distribution of z.true(blue) and z.est(red)</span><span class="sc">\n</span><span class="st">for 10,000 samples of size 5&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb603-6"><a href="simulating-confidence-intervals.html#cb603-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">10</span>,<span class="dv">10</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-600-1.png" width="576" /></p>
 <p>Unlike in the previous case, for samples of sie 5 we find that the distribution of z-scores is significantly wider based on samples estimates of the SE of the mean, rather than the true value of the SE of the mean. This reflects the fact that our sample estimates of the SE of the mean systematically underestimate the true value when sample sizes are small.</p>
 </div>
-<div id="quantifying-deviations-of-sample-estimates-of-the-mean" class="section level3" number="19.5.2">
-<h3><span class="header-section-number">B.5.2</span> Quantifying deviations of sample estimates of the mean</h3>
+<div id="quantifying-deviations-of-sample-estimates-of-the-mean" class="section level3 hasAnchor" number="19.5.2">
+<h3><span class="header-section-number">B.5.2</span> Quantifying deviations of sample estimates of the mean<a href="simulating-confidence-intervals.html#quantifying-deviations-of-sample-estimates-of-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To quantify the patterns that is apparent in the figures we generated previously, we can ask, “What fraction of sample means are less than on, two, and three standard errors away from the true mean?” We will ask this question using z-scores based on both the true SE of the mean as well as the estimated SEs of the mean.</p>
-<div id="samples-of-size-5" class="section level4" number="19.5.2.1">
-<h4><span class="header-section-number">B.5.2.1</span> Samples of size 5</h4>
+<div id="samples-of-size-5" class="section level4 hasAnchor" number="19.5.2.1">
+<h4><span class="header-section-number">B.5.2.1</span> Samples of size 5<a href="simulating-confidence-intervals.html#samples-of-size-5" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>First for samples of size 5, based on the true SEs:</p>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="simulating-confidence-intervals.html#cb600-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
-<span id="cb600-2"><a href="simulating-confidence-intervals.html#cb600-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb600-3"><a href="simulating-confidence-intervals.html#cb600-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb600-4"><a href="simulating-confidence-intervals.html#cb600-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
-<span id="cb600-5"><a href="simulating-confidence-intervals.html#cb600-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 3</span></span>
-<span id="cb600-6"><a href="simulating-confidence-intervals.html#cb600-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
-<span id="cb600-7"><a href="simulating-confidence-intervals.html#cb600-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb600-8"><a href="simulating-confidence-intervals.html#cb600-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.686    0.953    0.997</span></span></code></pre></div>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="simulating-confidence-intervals.html#cb604-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
+<span id="cb604-2"><a href="simulating-confidence-intervals.html#cb604-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb604-3"><a href="simulating-confidence-intervals.html#cb604-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb604-4"><a href="simulating-confidence-intervals.html#cb604-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
+<span id="cb604-5"><a href="simulating-confidence-intervals.html#cb604-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb604-6"><a href="simulating-confidence-intervals.html#cb604-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
+<span id="cb604-7"><a href="simulating-confidence-intervals.html#cb604-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb604-8"><a href="simulating-confidence-intervals.html#cb604-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.686    0.953    0.997</span></span></code></pre></div>
 <p>Now for the same samples of size 5, based on the estimated SEs:</p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="simulating-confidence-intervals.html#cb601-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
-<span id="cb601-2"><a href="simulating-confidence-intervals.html#cb601-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb601-3"><a href="simulating-confidence-intervals.html#cb601-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb601-4"><a href="simulating-confidence-intervals.html#cb601-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
-<span id="cb601-5"><a href="simulating-confidence-intervals.html#cb601-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 3</span></span>
-<span id="cb601-6"><a href="simulating-confidence-intervals.html#cb601-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
-<span id="cb601-7"><a href="simulating-confidence-intervals.html#cb601-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb601-8"><a href="simulating-confidence-intervals.html#cb601-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.624    0.886    0.966</span></span></code></pre></div>
-<p><strong>Interpretation</strong>: For samples of size 5, if we use sample estimates of the standard error of the mean as our “ruler,” we must use an interval of about 3 SE units to capture 95% of the distribution of sample means. Contrast this with the situation in which we knew the true SE; in that case we only had to consider a spread of approximately +/- 2 SE units to capture 95% of the sampling distribution of the mean.</p>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="simulating-confidence-intervals.html#cb605-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.5</span> <span class="sc">%&gt;%</span></span>
+<span id="cb605-2"><a href="simulating-confidence-intervals.html#cb605-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb605-3"><a href="simulating-confidence-intervals.html#cb605-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb605-4"><a href="simulating-confidence-intervals.html#cb605-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
+<span id="cb605-5"><a href="simulating-confidence-intervals.html#cb605-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb605-6"><a href="simulating-confidence-intervals.html#cb605-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
+<span id="cb605-7"><a href="simulating-confidence-intervals.html#cb605-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb605-8"><a href="simulating-confidence-intervals.html#cb605-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.624    0.886    0.966</span></span></code></pre></div>
+<p><strong>Interpretation</strong>: For samples of size 5, if we use sample estimates of the standard error of the mean as our “ruler”, we must use an interval of about 3 SE units to capture 95% of the distribution of sample means. Contrast this with the situation in which we knew the true SE; in that case we only had to consider a spread of approximately +/- 2 SE units to capture 95% of the sampling distribution of the mean.</p>
 </div>
-<div id="samples-of-size-50" class="section level4" number="19.5.2.2">
-<h4><span class="header-section-number">B.5.2.2</span> Samples of size 50</h4>
+<div id="samples-of-size-50" class="section level4 hasAnchor" number="19.5.2.2">
+<h4><span class="header-section-number">B.5.2.2</span> Samples of size 50<a href="simulating-confidence-intervals.html#samples-of-size-50" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Now we ask the same questions for samples of size 50:</p>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="simulating-confidence-intervals.html#cb602-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb602-2"><a href="simulating-confidence-intervals.html#cb602-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb602-3"><a href="simulating-confidence-intervals.html#cb602-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb602-4"><a href="simulating-confidence-intervals.html#cb602-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
-<span id="cb602-5"><a href="simulating-confidence-intervals.html#cb602-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 3</span></span>
-<span id="cb602-6"><a href="simulating-confidence-intervals.html#cb602-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
-<span id="cb602-7"><a href="simulating-confidence-intervals.html#cb602-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb602-8"><a href="simulating-confidence-intervals.html#cb602-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.683    0.956    0.997</span></span></code></pre></div>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="simulating-confidence-intervals.html#cb603-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
-<span id="cb603-2"><a href="simulating-confidence-intervals.html#cb603-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb603-3"><a href="simulating-confidence-intervals.html#cb603-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb603-4"><a href="simulating-confidence-intervals.html#cb603-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
-<span id="cb603-5"><a href="simulating-confidence-intervals.html#cb603-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 3</span></span>
-<span id="cb603-6"><a href="simulating-confidence-intervals.html#cb603-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
-<span id="cb603-7"><a href="simulating-confidence-intervals.html#cb603-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb603-8"><a href="simulating-confidence-intervals.html#cb603-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.681    0.949    0.995</span></span></code></pre></div>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="simulating-confidence-intervals.html#cb606-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb606-2"><a href="simulating-confidence-intervals.html#cb606-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb606-3"><a href="simulating-confidence-intervals.html#cb606-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb606-4"><a href="simulating-confidence-intervals.html#cb606-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.true) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
+<span id="cb606-5"><a href="simulating-confidence-intervals.html#cb606-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb606-6"><a href="simulating-confidence-intervals.html#cb606-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
+<span id="cb606-7"><a href="simulating-confidence-intervals.html#cb606-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb606-8"><a href="simulating-confidence-intervals.html#cb606-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.683    0.956    0.997</span></span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="simulating-confidence-intervals.html#cb607-1" aria-hidden="true" tabindex="-1"></a>samples<span class="fl">.50</span> <span class="sc">%&gt;%</span></span>
+<span id="cb607-2"><a href="simulating-confidence-intervals.html#cb607-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">less.1SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb607-3"><a href="simulating-confidence-intervals.html#cb607-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.2SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">2</span>)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb607-4"><a href="simulating-confidence-intervals.html#cb607-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">less.3SE =</span> <span class="fu">sum</span>(<span class="fu">abs</span>(z.est) <span class="sc">&lt;</span> <span class="dv">3</span>)<span class="sc">/</span><span class="fu">n</span>())</span>
+<span id="cb607-5"><a href="simulating-confidence-intervals.html#cb607-5" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 × 3</span></span>
+<span id="cb607-6"><a href="simulating-confidence-intervals.html#cb607-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   less.1SE less.2SE less.3SE</span></span>
+<span id="cb607-7"><a href="simulating-confidence-intervals.html#cb607-7" aria-hidden="true" tabindex="-1"></a><span class="do">##      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb607-8"><a href="simulating-confidence-intervals.html#cb607-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    0.681    0.949    0.995</span></span></code></pre></div>
 <p><strong>Interpretation</strong>: For samples of size 50, we get similar estimats of the spread of the sampling distribution of the mean regardless of whether we use the true SE or the estiamted SEs.</p>
 </div>
 </div>
 </div>
-<div id="t-distribution-for-confidence-intervals-of-the-mean" class="section level2" number="19.6">
-<h2><span class="header-section-number">B.6</span> t-distribution for confidence intervals of the mean</h2>
+<div id="t-distribution-for-confidence-intervals-of-the-mean" class="section level2 hasAnchor" number="19.6">
+<h2><span class="header-section-number">B.6</span> t-distribution for confidence intervals of the mean<a href="simulating-confidence-intervals.html#t-distribution-for-confidence-intervals-of-the-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The “Student’s t-distribution” is the appropriate distribution to use when we want to estimate the sampling distribution of the mean of a normally distributed variable when samples sizes are small (very frequently) and/or the standard deviation of the population we’re sampling from is unknown (almost always the case). You can think of values of <span class="math inline">\(t\)</span> as multiples of the estimated standard error.</p>
 <p>The t-distribution is specified by a single parameter, called degrees of freedom (<span class="math inline">\(df\)</span>) where <span class="math inline">\({df} = n - 1\)</span>. As <span class="math inline">\(df\)</span> increases, the t-distribution becomes more and more like the “standard normal distribution” (<span class="math inline">\(N(0,1)\)</span>.</p>
 <p>You can use the function <code>dt()</code> to calculate the t-distribution for appropriate degrees of freedom. For example, here we compare the t-distributions with 4 and 49 degrees of freedom, corresponding to samples of size 5 and 50:</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="simulating-confidence-intervals.html#cb604-1" aria-hidden="true" tabindex="-1"></a>npts <span class="ot">&lt;-</span> <span class="dv">500</span></span>
-<span id="cb604-2"><a href="simulating-confidence-intervals.html#cb604-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb604-3"><a href="simulating-confidence-intervals.html#cb604-3" aria-hidden="true" tabindex="-1"></a>df.t5 <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> <span class="fu">rep</span>(<span class="dv">5</span>, npts),</span>
-<span id="cb604-4"><a href="simulating-confidence-intervals.html#cb604-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
-<span id="cb604-5"><a href="simulating-confidence-intervals.html#cb604-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">density =</span> <span class="fu">dt</span>(t, <span class="at">df=</span><span class="dv">4</span>))</span>
-<span id="cb604-6"><a href="simulating-confidence-intervals.html#cb604-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb604-7"><a href="simulating-confidence-intervals.html#cb604-7" aria-hidden="true" tabindex="-1"></a>df.t50 <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> <span class="fu">rep</span>(<span class="dv">50</span>, npts),</span>
-<span id="cb604-8"><a href="simulating-confidence-intervals.html#cb604-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
-<span id="cb604-9"><a href="simulating-confidence-intervals.html#cb604-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">density =</span> <span class="fu">dt</span>(t, <span class="at">df=</span><span class="dv">49</span>))</span>
-<span id="cb604-10"><a href="simulating-confidence-intervals.html#cb604-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb604-11"><a href="simulating-confidence-intervals.html#cb604-11" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df.t5, df.t50)</span>
-<span id="cb604-12"><a href="simulating-confidence-intervals.html#cb604-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb604-13"><a href="simulating-confidence-intervals.html#cb604-13" aria-hidden="true" tabindex="-1"></a>df.t <span class="sc">%&gt;%</span></span>
-<span id="cb604-14"><a href="simulating-confidence-intervals.html#cb604-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density, <span class="at">color=</span><span class="fu">as.factor</span>(sample.size))) <span class="sc">+</span> </span>
-<span id="cb604-15"><a href="simulating-confidence-intervals.html#cb604-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-601-1.png" width="768" /></p>
-<div id="t-distribution-vs-standard-normal-distribution" class="section level3" number="19.6.1">
-<h3><span class="header-section-number">B.6.1</span> t-distribution vs standard normal distribution</h3>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="simulating-confidence-intervals.html#cb608-1" aria-hidden="true" tabindex="-1"></a>npts <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb608-2"><a href="simulating-confidence-intervals.html#cb608-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb608-3"><a href="simulating-confidence-intervals.html#cb608-3" aria-hidden="true" tabindex="-1"></a>df.t5 <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> <span class="fu">rep</span>(<span class="dv">5</span>, npts),</span>
+<span id="cb608-4"><a href="simulating-confidence-intervals.html#cb608-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
+<span id="cb608-5"><a href="simulating-confidence-intervals.html#cb608-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">density =</span> <span class="fu">dt</span>(t, <span class="at">df=</span><span class="dv">4</span>))</span>
+<span id="cb608-6"><a href="simulating-confidence-intervals.html#cb608-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb608-7"><a href="simulating-confidence-intervals.html#cb608-7" aria-hidden="true" tabindex="-1"></a>df.t50 <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">sample.size =</span> <span class="fu">rep</span>(<span class="dv">50</span>, npts),</span>
+<span id="cb608-8"><a href="simulating-confidence-intervals.html#cb608-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
+<span id="cb608-9"><a href="simulating-confidence-intervals.html#cb608-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">density =</span> <span class="fu">dt</span>(t, <span class="at">df=</span><span class="dv">49</span>))</span>
+<span id="cb608-10"><a href="simulating-confidence-intervals.html#cb608-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb608-11"><a href="simulating-confidence-intervals.html#cb608-11" aria-hidden="true" tabindex="-1"></a>df.t <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df.t5, df.t50)</span>
+<span id="cb608-12"><a href="simulating-confidence-intervals.html#cb608-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb608-13"><a href="simulating-confidence-intervals.html#cb608-13" aria-hidden="true" tabindex="-1"></a>df.t <span class="sc">%&gt;%</span></span>
+<span id="cb608-14"><a href="simulating-confidence-intervals.html#cb608-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density, <span class="at">color=</span><span class="fu">as.factor</span>(sample.size))) <span class="sc">+</span> </span>
+<span id="cb608-15"><a href="simulating-confidence-intervals.html#cb608-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-605-1.png" width="768" /></p>
+<div id="t-distribution-vs-standard-normal-distribution" class="section level3 hasAnchor" number="19.6.1">
+<h3><span class="header-section-number">B.6.1</span> t-distribution vs standard normal distribution<a href="simulating-confidence-intervals.html#t-distribution-vs-standard-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For large degrees of freedom, the t-distribution and the standard normal distribution are very similar. For example, let’s compare these disetributions when df=49:</p>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="simulating-confidence-intervals.html#cb605-1" aria-hidden="true" tabindex="-1"></a>df.norm <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
-<span id="cb605-2"><a href="simulating-confidence-intervals.html#cb605-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">density =</span> <span class="fu">dnorm</span>(t))</span>
-<span id="cb605-3"><a href="simulating-confidence-intervals.html#cb605-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb605-4"><a href="simulating-confidence-intervals.html#cb605-4" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df49 <span class="ot">&lt;-</span> </span>
-<span id="cb605-5"><a href="simulating-confidence-intervals.html#cb605-5" aria-hidden="true" tabindex="-1"></a>  df.t50 <span class="sc">%&gt;%</span></span>
-<span id="cb605-6"><a href="simulating-confidence-intervals.html#cb605-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density)) <span class="sc">+</span> </span>
-<span id="cb605-7"><a href="simulating-confidence-intervals.html#cb605-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
-<span id="cb605-8"><a href="simulating-confidence-intervals.html#cb605-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>df.norm, <span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb605-9"><a href="simulating-confidence-intervals.html#cb605-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=49) distn.&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb605-10"><a href="simulating-confidence-intervals.html#cb605-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span>
-<span id="cb605-11"><a href="simulating-confidence-intervals.html#cb605-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb605-12"><a href="simulating-confidence-intervals.html#cb605-12" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df49 </span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-602-1.png" width="768" /></p>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="simulating-confidence-intervals.html#cb609-1" aria-hidden="true" tabindex="-1"></a>df.norm <span class="ot">&lt;-</span> <span class="fu">data_frame</span>(<span class="at">t =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> npts),</span>
+<span id="cb609-2"><a href="simulating-confidence-intervals.html#cb609-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">density =</span> <span class="fu">dnorm</span>(t))</span>
+<span id="cb609-3"><a href="simulating-confidence-intervals.html#cb609-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb609-4"><a href="simulating-confidence-intervals.html#cb609-4" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df49 <span class="ot">&lt;-</span> </span>
+<span id="cb609-5"><a href="simulating-confidence-intervals.html#cb609-5" aria-hidden="true" tabindex="-1"></a>  df.t50 <span class="sc">%&gt;%</span></span>
+<span id="cb609-6"><a href="simulating-confidence-intervals.html#cb609-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density)) <span class="sc">+</span> </span>
+<span id="cb609-7"><a href="simulating-confidence-intervals.html#cb609-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
+<span id="cb609-8"><a href="simulating-confidence-intervals.html#cb609-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>df.norm, <span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb609-9"><a href="simulating-confidence-intervals.html#cb609-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=49) distn.&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb609-10"><a href="simulating-confidence-intervals.html#cb609-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span>
+<span id="cb609-11"><a href="simulating-confidence-intervals.html#cb609-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb609-12"><a href="simulating-confidence-intervals.html#cb609-12" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df49 </span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-606-1.png" width="768" /></p>
 <p>However, when the degrees of freedom is small, the t-distribution and the standard normal distribution differ appreciably.</p>
 <pre><code>b) Draw a figure comparing the t-distribution for samples of size 5 to the standard normal distribution. Draw another figure comparing the t-distribution for samples of size 50 to the standard normal distribution. Use cowplot to display these two figure as &quot;A&quot; and &quot;B&quot; subfigures. [3 pts]</code></pre>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="simulating-confidence-intervals.html#cb607-1" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df4<span class="ot">&lt;-</span> </span>
-<span id="cb607-2"><a href="simulating-confidence-intervals.html#cb607-2" aria-hidden="true" tabindex="-1"></a>  df.t5 <span class="sc">%&gt;%</span></span>
-<span id="cb607-3"><a href="simulating-confidence-intervals.html#cb607-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density)) <span class="sc">+</span> </span>
-<span id="cb607-4"><a href="simulating-confidence-intervals.html#cb607-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
-<span id="cb607-5"><a href="simulating-confidence-intervals.html#cb607-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>df.norm, <span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb607-6"><a href="simulating-confidence-intervals.html#cb607-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=4) distn.&quot;</span>) <span class="sc">+</span></span>
-<span id="cb607-7"><a href="simulating-confidence-intervals.html#cb607-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span>
-<span id="cb607-8"><a href="simulating-confidence-intervals.html#cb607-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb607-9"><a href="simulating-confidence-intervals.html#cb607-9" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df4</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-603-1.png" width="768" /></p>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="simulating-confidence-intervals.html#cb611-1" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df4<span class="ot">&lt;-</span> </span>
+<span id="cb611-2"><a href="simulating-confidence-intervals.html#cb611-2" aria-hidden="true" tabindex="-1"></a>  df.t5 <span class="sc">%&gt;%</span></span>
+<span id="cb611-3"><a href="simulating-confidence-intervals.html#cb611-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> density)) <span class="sc">+</span> </span>
+<span id="cb611-4"><a href="simulating-confidence-intervals.html#cb611-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>) <span class="sc">+</span></span>
+<span id="cb611-5"><a href="simulating-confidence-intervals.html#cb611-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>df.norm, <span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb611-6"><a href="simulating-confidence-intervals.html#cb611-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Standard normal distribution (blue) vs t(df=4) distn.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb611-7"><a href="simulating-confidence-intervals.html#cb611-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span>
+<span id="cb611-8"><a href="simulating-confidence-intervals.html#cb611-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb611-9"><a href="simulating-confidence-intervals.html#cb611-9" aria-hidden="true" tabindex="-1"></a>t.vs.normal.df4</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-607-1.png" width="768" /></p>
 </div>
-<div id="formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution" class="section level3" number="19.6.2">
-<h3><span class="header-section-number">B.6.2</span> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution</h3>
+<div id="formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution" class="section level3 hasAnchor" number="19.6.2">
+<h3><span class="header-section-number">B.6.2</span> Formula for confidence intervals of the mean based on sample estimates of the SE and the t-distribution<a href="simulating-confidence-intervals.html#formula-for-confidence-intervals-of-the-mean-based-on-sample-estimates-of-the-se-and-the-t-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To calculate the lower and upper bounds of the 95% confidence intervals for the mean based on the t-distribution, for a sample of size <span class="math inline">\(n\)</span>, we can use the following formulas:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -930,7 +935,6 @@ In our simulation we will explore how varying the value of <span class="math inl
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -949,6 +953,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -969,6 +974,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -985,7 +994,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

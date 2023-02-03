@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 R Markdown and R Notebooks | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 R Markdown and R Notebooks | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="getting-started-with-r.html"/>
 <link rel="next" href="data-structures.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,8 +623,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-markdown-and-r-notebooks" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> R Markdown and R Notebooks</h1>
+<div id="r-markdown-and-r-notebooks" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> R Markdown and R Notebooks<a href="r-markdown-and-r-notebooks.html#r-markdown-and-r-notebooks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>RStudio comes with a useful set of tools, collectively called R Markdown, for generating “literate” statistical analyses. The idea behind literate statistical computing is that we should try to carry out our analyses in a manner that is transparent, self-explanatory, and reproducible. Literate statistical computing helps to ensure your research is reproducible because:</p>
 <ol style="list-style-type: decimal">
 <li>The steps of your analyses are explicitly described, both as written text and the code and function calls used.</li>
@@ -628,22 +633,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>As we’ll see, R Markdown will allow us to produce statistical documents that integrate prose, code, figures, and nicely formatted mathematics so that we can share and explain our analyses to others. Sometimes those “others” are advisors, supervisors, or collaborators; sometimes the “other” is you six months from now. For the purposes of this class, you will be asked to complete problem sets in the form of R Markdown documents.</p>
 <p>R Markdown documents are written in a light-weight markup language called Markdown. Markdown provides simple plain text “formatting” commands for specifying the structured elements of a document. Markdown was invented as a lightweight markup language for creating web pages and blogs, and has been adopted to a variety of different purposes. This chaptern provides a brief introduction to the capabilities of R Markdown. For more complete details, including lots of examples, see the <a href="http://rmarkdown.rstudio.com/index.html">R Markdown Website</a>.</p>
-<div id="r-notebooks" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> R Notebooks</h2>
-<p>We’re going to create a type of R Markdown document called an “R Notebook.” The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
+<div id="r-notebooks" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> R Notebooks<a href="r-markdown-and-r-notebooks.html#r-notebooks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We’re going to create a type of R Markdown document called an “R Notebook”. The <a href="http://rmarkdown.rstudio.com/r_notebooks.html">R Notebook Documentation</a> describes R Notebooks as so: “An R Notebook is an R Markdown document with code chunks that can be executed independently and interactively, with output visible immediately beneath the input.”</p>
 </div>
-<div id="creating-an-r-notebook" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Creating an R Notebook</h2>
+<div id="creating-an-r-notebook" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Creating an R Notebook<a href="r-markdown-and-r-notebooks.html#creating-an-r-notebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To create an R Notebook select <code>File &gt; New File &gt; R Notebook</code> from the files menu in RStudio.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-37"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
 <img src="figures/fig-create-rnotebook.png" alt="Using the File menu to create a new R Notebook." width="75%" />
 <p class="caption">
 Figure 3.1: Using the File menu to create a new R Notebook.
 </p>
 </div>
 </div>
-<div id="the-default-r-notebook-template" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> The default R Notebook template</h2>
+<div id="the-default-r-notebook-template" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> The default R Notebook template<a href="r-markdown-and-r-notebooks.html#the-default-r-notebook-template" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The standard template that RStudio creates for you includes a header section like the following where you can specify document properties such as the title, author, and change the look and feel of the generated HTML document.</p>
 <pre><code>---
 title: &quot;R Notebook&quot;
@@ -651,11 +656,11 @@ output: html_notebook
 ---</code></pre>
 <p>The header is followed by several example sections that illustrate a few of the capabilities of R Markdown. Delete these and replace them with your own code as necessary.</p>
 </div>
-<div id="code-and-non-code-blocks" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Code and Non-code blocks</h2>
+<div id="code-and-non-code-blocks" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Code and Non-code blocks<a href="r-markdown-and-r-notebooks.html#code-and-non-code-blocks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R Markdown documents are divided into code blocks (also called “chunks”) and non-code blocks. Code blocks are sets of R commands that will be evalauted when the R Markdown document is run or “knitted” (see below). Non-code blocks include explanatory text, embedded images, etc. The default notebook template includes both code and non-code blocks.</p>
-<div id="non-code-blocks" class="section level3" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> Non-code blocks</h3>
+<div id="non-code-blocks" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Non-code blocks<a href="r-markdown-and-r-notebooks.html#non-code-blocks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The first bit of text in the default notebook template is a non-code block that tells you how to use the notebook:</p>
 <pre><code>This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
 When you execute code within the notebook, the results appear
@@ -696,8 +701,8 @@ like so:  $x^2 + y^2 = z^2$.
 </code></pre>
 <p>Notice from the example above that R Markdown supports LaTeX style formatting of mathematical equations. For example, <code>$x^2 + y^2 = z^2$</code> appears as <span class="math inline">\(x^2 + y^2 = z^2\)</span>.</p>
 </div>
-<div id="code-blocks" class="section level3" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Code blocks</h3>
+<div id="code-blocks" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Code blocks<a href="r-markdown-and-r-notebooks.html#code-blocks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Code blocks are delimited by matching sets of three backward ticks (```). Everything within a code block is interpretted as an R command and is evaluated by the R interpretter. Here’s the first code block in the default notebook template:</p>
 <pre><code>```
 {r}
@@ -705,10 +710,10 @@ plot(cars)
 ```</code></pre>
 </div>
 </div>
-<div id="running-a-code-chunk" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Running a code chunk</h2>
+<div id="running-a-code-chunk" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Running a code chunk<a href="r-markdown-and-r-notebooks.html#running-a-code-chunk" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You can run a single code block by clicking the small green “Run” button in the upper right hand corner of the code block as shown in the image below.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-38"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-38"></span>
 <img src="figures/fig-run-code-chunk.png" alt="Click the Run button to execute a code chunk." width="75%" />
 <p class="caption">
 Figure 3.2: Click the Run button to execute a code chunk.
@@ -716,37 +721,37 @@ Figure 3.2: Click the Run button to execute a code chunk.
 </div>
 <p>If you click this button the commands within this code block are executed, and any generated output is shown below the code block.</p>
 <p>Try running the first code block in the default template now. After the code chunk is executed you should see a plot embedded in your R Notebook as shown below:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-39"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
 <img src="figures/fig-rstudio-after-run-chunk.png" alt="An R Notebook showing an embedded plot after executing a code chunk." width="60%" />
 <p class="caption">
 Figure 3.3: An R Notebook showing an embedded plot after executing a code chunk.
 </p>
 </div>
 </div>
-<div id="running-all-code-chunks-above" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Running all code chunks above</h2>
+<div id="running-all-code-chunks-above" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Running all code chunks above<a href="r-markdown-and-r-notebooks.html#running-all-code-chunks-above" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Next to the “Run” button in each code chunk is a button for “Run all chunks above” (see figure below). This is useful when the code chunk you’re working on depends on calculations in earlier code chunks, and you want to evaluated those earlier code chunks prior to running the focal code chunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-40"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-40"></span>
 <img src="figures/fig-code-chunk-runall.png" alt="Use the 'Run all chunks above' button to evaluate all previous code chunks." width="75%" />
 <p class="caption">
 Figure 3.4: Use the ‘Run all chunks above’ button to evaluate all previous code chunks.
 </p>
 </div>
 </div>
-<div id="knitting-r-markdown-to-html" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> “Knitting” R Markdown to HTML</h2>
+<div id="knitting-r-markdown-to-html" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> “Knitting” R Markdown to HTML<a href="r-markdown-and-r-notebooks.html#knitting-r-markdown-to-html" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Save your R Notebook as <code>first_rnotebook.Rmd</code> (RStudio will automatically add the <code>.Rmd</code> extension so you don’t need to type it). You can generate an HTML version of your notebook by clicking the “Preview” menu on the Notebook taskbar and then choosing “Knit to HTML” (see image below).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-41"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-41"></span>
 <img src="figures/fig-rstudio-knit-to-html.png" alt="Use the 'Knit to HTML' menu to generate HTML output from your R Notebook" width="75%" />
 <p class="caption">
 Figure 3.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R Notebook
 </p>
 </div>
-<p>When an RMarkdown document is “knit,” all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
+<p>When an RMarkdown document is “knit”, all of the code and non-code blocks are executed in a “clean” environment, in order from top to bottom. An output file is generated (HTML or one of the other available output types) that shows the results of executing the notebook. By default RStudio will pop-up a window showing you the HTML output you generated.</p>
 <p>Knitting a document is a good way to make sure your analysis is reproducible. If your code compiles correctly when the document is knit, and produces the expected output, there’s a good chance that someone else will be able to reproduce your analyses independently starting with your R Notebook document (after accounting for differences in file locations).</p>
 </div>
-<div id="sharing-your-reproducible-r-notebook" class="section level2" number="3.8">
-<h2><span class="header-section-number">3.8</span> Sharing your reproducible R Notebook</h2>
+<div id="sharing-your-reproducible-r-notebook" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Sharing your reproducible R Notebook<a href="r-markdown-and-r-notebooks.html#sharing-your-reproducible-r-notebook" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To share your R Notebook with someone else you just need to send them the source R Markdown file (i.e. the file with the <code>.Rmd</code> extension). Assuming they have access to the same source data, another user should be able to open the notebook file in RStudio and regenerate your analyses by evaluating the individual code chunks or knitting the document.</p>
 <p>In this course you will be submitting homework assignments in the form of R Notebook markdown files.</p>
 
@@ -762,7 +767,6 @@ Figure 3.5: Use the ‘Knit to HTML’ menu to generate HTML output from your R 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -781,6 +785,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -801,6 +806,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -817,7 +826,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

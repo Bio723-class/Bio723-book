@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Canonical Variates Analysis | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="principal-components-analysis.html"/>
 <link rel="next" href="clustering-in-r.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,231 +623,233 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="canonical-variates-analysis" class="section level1" number="14">
-<h1><span class="header-section-number">Chapter 14</span> Canonical Variates Analysis</h1>
+<div id="canonical-variates-analysis" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Canonical Variates Analysis<a href="canonical-variates-analysis.html#canonical-variates-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Canonical Variates Analysis (CVA) is also referred to in the literature as “Linear Discrimination Analysis” (LDA). Confusingly, there is also a technique usualled called Canonical Correlation Analysis that is sometimes referred to as “Canonical Variates Analysis” in the literature.</p>
 <p>Canonical variate analysis is used for analyzing group structure in multivariate data. Canonical variate axes are directions in multivariate space that maximally separate (discriminate) the pre-defined groups of interest specified in the data.</p>
 <p>Unlike PCA, canonical variate axes are not, in general, orthogonal in the space of the original variables.</p>
-<div id="libraries-4" class="section level2" number="14.1">
-<h2><span class="header-section-number">14.1</span> Libraries</h2>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="canonical-variates-analysis.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb433-2"><a href="canonical-variates-analysis.html#cb433-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb433-3"><a href="canonical-variates-analysis.html#cb433-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb433-4"><a href="canonical-variates-analysis.html#cb433-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
+<div id="libraries-4" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Libraries<a href="canonical-variates-analysis.html#libraries-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="canonical-variates-analysis.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb437-2"><a href="canonical-variates-analysis.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb437-3"><a href="canonical-variates-analysis.html#cb437-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb437-4"><a href="canonical-variates-analysis.html#cb437-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span></code></pre></div>
 </div>
-<div id="discriminant-analysis-in-r" class="section level2" number="14.2">
-<h2><span class="header-section-number">14.2</span> Discriminant Analysis in R</h2>
+<div id="discriminant-analysis-in-r" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Discriminant Analysis in R<a href="canonical-variates-analysis.html#discriminant-analysis-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The function <code>lda()</code>, found in the R library <code>MASS</code>, carries out linear discriminant analysis (i.e. canonical variates analysis).</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="canonical-variates-analysis.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb434-2"><a href="canonical-variates-analysis.html#cb434-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-3"><a href="canonical-variates-analysis.html#cb434-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;MASS&#39;</span></span>
-<span id="cb434-4"><a href="canonical-variates-analysis.html#cb434-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:dplyr&#39;:</span></span>
-<span id="cb434-5"><a href="canonical-variates-analysis.html#cb434-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-6"><a href="canonical-variates-analysis.html#cb434-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     select</span></span>
-<span id="cb434-7"><a href="canonical-variates-analysis.html#cb434-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb434-8"><a href="canonical-variates-analysis.html#cb434-8" aria-hidden="true" tabindex="-1"></a>lda.iris <span class="ot">&lt;-</span><span class="fu">lda</span>(Species <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Length <span class="sc">+</span> Petal.Width,</span>
-<span id="cb434-9"><a href="canonical-variates-analysis.html#cb434-9" aria-hidden="true" tabindex="-1"></a>               iris, <span class="at">prior=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb434-10"><a href="canonical-variates-analysis.html#cb434-10" aria-hidden="true" tabindex="-1"></a>lda.iris</span>
-<span id="cb434-11"><a href="canonical-variates-analysis.html#cb434-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb434-12"><a href="canonical-variates-analysis.html#cb434-12" aria-hidden="true" tabindex="-1"></a><span class="do">## lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, </span></span>
-<span id="cb434-13"><a href="canonical-variates-analysis.html#cb434-13" aria-hidden="true" tabindex="-1"></a><span class="do">##     data = iris, prior = c(1, 1, 1)/3)</span></span>
-<span id="cb434-14"><a href="canonical-variates-analysis.html#cb434-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-15"><a href="canonical-variates-analysis.html#cb434-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Prior probabilities of groups:</span></span>
-<span id="cb434-16"><a href="canonical-variates-analysis.html#cb434-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     setosa versicolor  virginica </span></span>
-<span id="cb434-17"><a href="canonical-variates-analysis.html#cb434-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3333333  0.3333333  0.3333333 </span></span>
-<span id="cb434-18"><a href="canonical-variates-analysis.html#cb434-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-19"><a href="canonical-variates-analysis.html#cb434-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Group means:</span></span>
-<span id="cb434-20"><a href="canonical-variates-analysis.html#cb434-20" aria-hidden="true" tabindex="-1"></a><span class="do">##            Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
-<span id="cb434-21"><a href="canonical-variates-analysis.html#cb434-21" aria-hidden="true" tabindex="-1"></a><span class="do">## setosa            5.006       3.428        1.462       0.246</span></span>
-<span id="cb434-22"><a href="canonical-variates-analysis.html#cb434-22" aria-hidden="true" tabindex="-1"></a><span class="do">## versicolor        5.936       2.770        4.260       1.326</span></span>
-<span id="cb434-23"><a href="canonical-variates-analysis.html#cb434-23" aria-hidden="true" tabindex="-1"></a><span class="do">## virginica         6.588       2.974        5.552       2.026</span></span>
-<span id="cb434-24"><a href="canonical-variates-analysis.html#cb434-24" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-25"><a href="canonical-variates-analysis.html#cb434-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients of linear discriminants:</span></span>
-<span id="cb434-26"><a href="canonical-variates-analysis.html#cb434-26" aria-hidden="true" tabindex="-1"></a><span class="do">##                     LD1         LD2</span></span>
-<span id="cb434-27"><a href="canonical-variates-analysis.html#cb434-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Length  0.8293776  0.02410215</span></span>
-<span id="cb434-28"><a href="canonical-variates-analysis.html#cb434-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Width   1.5344731  2.16452123</span></span>
-<span id="cb434-29"><a href="canonical-variates-analysis.html#cb434-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Length -2.2012117 -0.93192121</span></span>
-<span id="cb434-30"><a href="canonical-variates-analysis.html#cb434-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Width  -2.8104603  2.83918785</span></span>
-<span id="cb434-31"><a href="canonical-variates-analysis.html#cb434-31" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb434-32"><a href="canonical-variates-analysis.html#cb434-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Proportion of trace:</span></span>
-<span id="cb434-33"><a href="canonical-variates-analysis.html#cb434-33" aria-hidden="true" tabindex="-1"></a><span class="do">##    LD1    LD2 </span></span>
-<span id="cb434-34"><a href="canonical-variates-analysis.html#cb434-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9912 0.0088</span></span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="canonical-variates-analysis.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb438-2"><a href="canonical-variates-analysis.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-3"><a href="canonical-variates-analysis.html#cb438-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;MASS&#39;</span></span>
+<span id="cb438-4"><a href="canonical-variates-analysis.html#cb438-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:dplyr&#39;:</span></span>
+<span id="cb438-5"><a href="canonical-variates-analysis.html#cb438-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-6"><a href="canonical-variates-analysis.html#cb438-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     select</span></span>
+<span id="cb438-7"><a href="canonical-variates-analysis.html#cb438-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb438-8"><a href="canonical-variates-analysis.html#cb438-8" aria-hidden="true" tabindex="-1"></a>lda.iris <span class="ot">&lt;-</span><span class="fu">lda</span>(Species <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Length <span class="sc">+</span> Petal.Width,</span>
+<span id="cb438-9"><a href="canonical-variates-analysis.html#cb438-9" aria-hidden="true" tabindex="-1"></a>               iris, <span class="at">prior=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb438-10"><a href="canonical-variates-analysis.html#cb438-10" aria-hidden="true" tabindex="-1"></a>lda.iris</span>
+<span id="cb438-11"><a href="canonical-variates-analysis.html#cb438-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb438-12"><a href="canonical-variates-analysis.html#cb438-12" aria-hidden="true" tabindex="-1"></a><span class="do">## lda(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, </span></span>
+<span id="cb438-13"><a href="canonical-variates-analysis.html#cb438-13" aria-hidden="true" tabindex="-1"></a><span class="do">##     data = iris, prior = c(1, 1, 1)/3)</span></span>
+<span id="cb438-14"><a href="canonical-variates-analysis.html#cb438-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-15"><a href="canonical-variates-analysis.html#cb438-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Prior probabilities of groups:</span></span>
+<span id="cb438-16"><a href="canonical-variates-analysis.html#cb438-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     setosa versicolor  virginica </span></span>
+<span id="cb438-17"><a href="canonical-variates-analysis.html#cb438-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  0.3333333  0.3333333  0.3333333 </span></span>
+<span id="cb438-18"><a href="canonical-variates-analysis.html#cb438-18" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-19"><a href="canonical-variates-analysis.html#cb438-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Group means:</span></span>
+<span id="cb438-20"><a href="canonical-variates-analysis.html#cb438-20" aria-hidden="true" tabindex="-1"></a><span class="do">##            Sepal.Length Sepal.Width Petal.Length Petal.Width</span></span>
+<span id="cb438-21"><a href="canonical-variates-analysis.html#cb438-21" aria-hidden="true" tabindex="-1"></a><span class="do">## setosa            5.006       3.428        1.462       0.246</span></span>
+<span id="cb438-22"><a href="canonical-variates-analysis.html#cb438-22" aria-hidden="true" tabindex="-1"></a><span class="do">## versicolor        5.936       2.770        4.260       1.326</span></span>
+<span id="cb438-23"><a href="canonical-variates-analysis.html#cb438-23" aria-hidden="true" tabindex="-1"></a><span class="do">## virginica         6.588       2.974        5.552       2.026</span></span>
+<span id="cb438-24"><a href="canonical-variates-analysis.html#cb438-24" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-25"><a href="canonical-variates-analysis.html#cb438-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients of linear discriminants:</span></span>
+<span id="cb438-26"><a href="canonical-variates-analysis.html#cb438-26" aria-hidden="true" tabindex="-1"></a><span class="do">##                     LD1         LD2</span></span>
+<span id="cb438-27"><a href="canonical-variates-analysis.html#cb438-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Length  0.8293776  0.02410215</span></span>
+<span id="cb438-28"><a href="canonical-variates-analysis.html#cb438-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Width   1.5344731  2.16452123</span></span>
+<span id="cb438-29"><a href="canonical-variates-analysis.html#cb438-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Length -2.2012117 -0.93192121</span></span>
+<span id="cb438-30"><a href="canonical-variates-analysis.html#cb438-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Width  -2.8104603  2.83918785</span></span>
+<span id="cb438-31"><a href="canonical-variates-analysis.html#cb438-31" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb438-32"><a href="canonical-variates-analysis.html#cb438-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Proportion of trace:</span></span>
+<span id="cb438-33"><a href="canonical-variates-analysis.html#cb438-33" aria-hidden="true" tabindex="-1"></a><span class="do">##    LD1    LD2 </span></span>
+<span id="cb438-34"><a href="canonical-variates-analysis.html#cb438-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.9912 0.0088</span></span></code></pre></div>
 <p>When using <code>lda()</code> we specify a formula, with the grouping variable on the left and the quantitative variables on which you want to bases the discriminant axes, on the left. The <code>prior</code> argument given in the <code>lda()</code> function call isn’t strictly necessary because by default the <code>lda()</code> function will assign equal probabilities among the groups. However I included this argument call to illustrate how to change the prior if you wanted. The output give some simple summary statistics for the group means for each of the variables and then gives the coefficients of the canonical variates. The `Proportion of trace’ output above tells us that 99.12% of the between-group variance is captured along the first discriminant axis.</p>
-<div id="shorthand-formulae-in-r" class="section level3" number="14.2.1">
-<h3><span class="header-section-number">14.2.1</span> Shorthand Formulae in R</h3>
+<div id="shorthand-formulae-in-r" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Shorthand Formulae in R<a href="canonical-variates-analysis.html#shorthand-formulae-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You’ve encountered the use of model formulae in R throughout the course.
 Relevant to our current example is a shorthand way for specifying multiple variables in a formula. In the example above we called the |lda()| function with a formula of the form:</p>
 <pre><code>Species ~ Sepal.Length + Sepal.Width + ....</code></pre>
 <p>Writing the names of all those variables is tedious and error prone and would be unmanageable if we were analyzing a data set with tens or hundreds of variables. Luckily we can use the shorthand name <code>.</code> to specify all other variables in the data frame except the variable on the left. For example, we can rewrite the <code>lda()</code> call above as:</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="canonical-variates-analysis.html#cb436-1" aria-hidden="true" tabindex="-1"></a>iris.lda <span class="ot">&lt;-</span> <span class="fu">lda</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="canonical-variates-analysis.html#cb440-1" aria-hidden="true" tabindex="-1"></a>iris.lda <span class="ot">&lt;-</span> <span class="fu">lda</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span></code></pre></div>
 </div>
-<div id="working-with-the-output-of-lda" class="section level3" number="14.2.2">
-<h3><span class="header-section-number">14.2.2</span> Working with the output of <code>lda()</code></h3>
+<div id="working-with-the-output-of-lda" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Working with the output of <code>lda()</code><a href="canonical-variates-analysis.html#working-with-the-output-of-lda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The object returned by <code>lda()</code> is of class “lda” with a number of components (see <code>?lda</code> for details):</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="canonical-variates-analysis.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris.lda)</span>
-<span id="cb437-2"><a href="canonical-variates-analysis.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;lda&quot;</span></span>
-<span id="cb437-3"><a href="canonical-variates-analysis.html#cb437-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris.lda)</span>
-<span id="cb437-4"><a href="canonical-variates-analysis.html#cb437-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;prior&quot;   &quot;counts&quot;  &quot;means&quot;   &quot;scaling&quot; &quot;lev&quot;     &quot;svd&quot;     &quot;N&quot;      </span></span>
-<span id="cb437-5"><a href="canonical-variates-analysis.html#cb437-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8] &quot;call&quot;    &quot;terms&quot;   &quot;xlevels&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="canonical-variates-analysis.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(iris.lda)</span>
+<span id="cb441-2"><a href="canonical-variates-analysis.html#cb441-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;lda&quot;</span></span>
+<span id="cb441-3"><a href="canonical-variates-analysis.html#cb441-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(iris.lda)</span>
+<span id="cb441-4"><a href="canonical-variates-analysis.html#cb441-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;prior&quot;   &quot;counts&quot;  &quot;means&quot;   &quot;scaling&quot; &quot;lev&quot;     &quot;svd&quot;     &quot;N&quot;      </span></span>
+<span id="cb441-5"><a href="canonical-variates-analysis.html#cb441-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8] &quot;call&quot;    &quot;terms&quot;   &quot;xlevels&quot;</span></span></code></pre></div>
 <p>The <code>scaling</code> component gives the coefficients of the CVA that we can use to calculate the “scores” of the observations in the space of the canonical variates.</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="canonical-variates-analysis.html#cb438-1" aria-hidden="true" tabindex="-1"></a>iris.lda<span class="sc">$</span>scaling</span>
-<span id="cb438-2"><a href="canonical-variates-analysis.html#cb438-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                     LD1         LD2</span></span>
-<span id="cb438-3"><a href="canonical-variates-analysis.html#cb438-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Length  0.8293776  0.02410215</span></span>
-<span id="cb438-4"><a href="canonical-variates-analysis.html#cb438-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Width   1.5344731  2.16452123</span></span>
-<span id="cb438-5"><a href="canonical-variates-analysis.html#cb438-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Length -2.2012117 -0.93192121</span></span>
-<span id="cb438-6"><a href="canonical-variates-analysis.html#cb438-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Width  -2.8104603  2.83918785</span></span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="canonical-variates-analysis.html#cb442-1" aria-hidden="true" tabindex="-1"></a>iris.lda<span class="sc">$</span>scaling</span>
+<span id="cb442-2"><a href="canonical-variates-analysis.html#cb442-2" aria-hidden="true" tabindex="-1"></a><span class="do">##                     LD1         LD2</span></span>
+<span id="cb442-3"><a href="canonical-variates-analysis.html#cb442-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Length  0.8293776  0.02410215</span></span>
+<span id="cb442-4"><a href="canonical-variates-analysis.html#cb442-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Sepal.Width   1.5344731  2.16452123</span></span>
+<span id="cb442-5"><a href="canonical-variates-analysis.html#cb442-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Length -2.2012117 -0.93192121</span></span>
+<span id="cb442-6"><a href="canonical-variates-analysis.html#cb442-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Petal.Width  -2.8104603  2.83918785</span></span></code></pre></div>
 <p>The columns <code>LD1</code> and <code>LD2</code> give the coffiecients, <span class="math inline">\(\bf{a}\)</span>, that we can use in the formula <span class="math inline">\(\bf{y}_\text{discrim} = \bf{Xa}\)</span></p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="canonical-variates-analysis.html#cb439-1" aria-hidden="true" tabindex="-1"></a>iris.sub <span class="ot">&lt;-</span> </span>
-<span id="cb439-2"><a href="canonical-variates-analysis.html#cb439-2" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span> </span>
-<span id="cb439-3"><a href="canonical-variates-analysis.html#cb439-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> <span class="co"># drop Species column </span></span>
-<span id="cb439-4"><a href="canonical-variates-analysis.html#cb439-4" aria-hidden="true" tabindex="-1"></a>  as.matrix  <span class="co"># cast to matrix for calculations</span></span>
-<span id="cb439-5"><a href="canonical-variates-analysis.html#cb439-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb439-6"><a href="canonical-variates-analysis.html#cb439-6" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate CV scores</span></span>
-<span id="cb439-7"><a href="canonical-variates-analysis.html#cb439-7" aria-hidden="true" tabindex="-1"></a>CVA.scores <span class="ot">&lt;-</span> iris.sub <span class="sc">%*%</span> iris.lda<span class="sc">$</span>scaling</span>
-<span id="cb439-8"><a href="canonical-variates-analysis.html#cb439-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb439-9"><a href="canonical-variates-analysis.html#cb439-9" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame with scores</span></span>
-<span id="cb439-10"><a href="canonical-variates-analysis.html#cb439-10" aria-hidden="true" tabindex="-1"></a>iris.CV <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(CVA.scores)</span>
-<span id="cb439-11"><a href="canonical-variates-analysis.html#cb439-11" aria-hidden="true" tabindex="-1"></a>iris.CV<span class="sc">$</span>Species <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="canonical-variates-analysis.html#cb443-1" aria-hidden="true" tabindex="-1"></a>iris.sub <span class="ot">&lt;-</span> </span>
+<span id="cb443-2"><a href="canonical-variates-analysis.html#cb443-2" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span> </span>
+<span id="cb443-3"><a href="canonical-variates-analysis.html#cb443-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> <span class="co"># drop Species column </span></span>
+<span id="cb443-4"><a href="canonical-variates-analysis.html#cb443-4" aria-hidden="true" tabindex="-1"></a>  as.matrix  <span class="co"># cast to matrix for calculations</span></span>
+<span id="cb443-5"><a href="canonical-variates-analysis.html#cb443-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-6"><a href="canonical-variates-analysis.html#cb443-6" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate CV scores</span></span>
+<span id="cb443-7"><a href="canonical-variates-analysis.html#cb443-7" aria-hidden="true" tabindex="-1"></a>CVA.scores <span class="ot">&lt;-</span> iris.sub <span class="sc">%*%</span> iris.lda<span class="sc">$</span>scaling</span>
+<span id="cb443-8"><a href="canonical-variates-analysis.html#cb443-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb443-9"><a href="canonical-variates-analysis.html#cb443-9" aria-hidden="true" tabindex="-1"></a><span class="co"># create data frame with scores</span></span>
+<span id="cb443-10"><a href="canonical-variates-analysis.html#cb443-10" aria-hidden="true" tabindex="-1"></a>iris.CV <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(CVA.scores)</span>
+<span id="cb443-11"><a href="canonical-variates-analysis.html#cb443-11" aria-hidden="true" tabindex="-1"></a>iris.CV<span class="sc">$</span>Species <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species</span></code></pre></div>
 <p>Having calculated the CVA scores we can now generate a plot:</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="canonical-variates-analysis.html#cb440-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot <span class="ot">&lt;-</span></span>
-<span id="cb440-2"><a href="canonical-variates-analysis.html#cb440-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(iris.CV, <span class="fu">aes</span>(<span class="at">x =</span> LD1, <span class="at">y =</span> LD2)) <span class="sc">+</span> </span>
-<span id="cb440-3"><a href="canonical-variates-analysis.html#cb440-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">shape=</span>Species), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb440-4"><a href="canonical-variates-analysis.html#cb440-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;CV1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;CV2&quot;</span>) <span class="sc">+</span></span>
-<span id="cb440-5"><a href="canonical-variates-analysis.html#cb440-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>)  <span class="co"># keep the unit scaling of the plot fixed at 1</span></span>
-<span id="cb440-6"><a href="canonical-variates-analysis.html#cb440-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb440-7"><a href="canonical-variates-analysis.html#cb440-7" aria-hidden="true" tabindex="-1"></a>iris.cva.plot</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-436-1.png" width="768" /></p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="canonical-variates-analysis.html#cb444-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot <span class="ot">&lt;-</span></span>
+<span id="cb444-2"><a href="canonical-variates-analysis.html#cb444-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(iris.CV, <span class="fu">aes</span>(<span class="at">x =</span> LD1, <span class="at">y =</span> LD2)) <span class="sc">+</span> </span>
+<span id="cb444-3"><a href="canonical-variates-analysis.html#cb444-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">shape=</span>Species), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb444-4"><a href="canonical-variates-analysis.html#cb444-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;CV1&quot;</span>, <span class="at">y =</span> <span class="st">&quot;CV2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb444-5"><a href="canonical-variates-analysis.html#cb444-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>)  <span class="co"># keep the unit scaling of the plot fixed at 1</span></span>
+<span id="cb444-6"><a href="canonical-variates-analysis.html#cb444-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb444-7"><a href="canonical-variates-analysis.html#cb444-7" aria-hidden="true" tabindex="-1"></a>iris.cva.plot</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-440-1.png" width="768" /></p>
 <p>Since most of the between group variation is captured by CV1, a density plot is an alternative in this case:</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="canonical-variates-analysis.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris.CV, <span class="fu">aes</span>(<span class="at">x =</span> LD1)) <span class="sc">+</span></span>
-<span id="cb441-2"><a href="canonical-variates-analysis.html#cb441-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species)) <span class="sc">+</span></span>
-<span id="cb441-3"><a href="canonical-variates-analysis.html#cb441-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;CV1&quot;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-437-1.png" width="768" /></p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="canonical-variates-analysis.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris.CV, <span class="fu">aes</span>(<span class="at">x =</span> LD1)) <span class="sc">+</span></span>
+<span id="cb445-2"><a href="canonical-variates-analysis.html#cb445-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species)) <span class="sc">+</span></span>
+<span id="cb445-3"><a href="canonical-variates-analysis.html#cb445-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;CV1&quot;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-441-1.png" width="768" /></p>
 <p>The density plot of CV1 makes it clear how well the first canonical variate does in separating the three groups.</p>
 </div>
 </div>
-<div id="estimating-confidence-regions-for-group-means-in-cva" class="section level2" number="14.3">
-<h2><span class="header-section-number">14.3</span> Estimating confidence regions for group means in CVA</h2>
+<div id="estimating-confidence-regions-for-group-means-in-cva" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Estimating confidence regions for group means in CVA<a href="canonical-variates-analysis.html#estimating-confidence-regions-for-group-means-in-cva" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I stated in lecture that for the canonical variate diagram we can estimate the <span class="math inline">\(100(1-\alpha)\)</span> confidence region for a group mean as a circle centered at the mean having a radius <span class="math inline">\((\chi^{2}_{\alpha,r}/n_i)^{1/2}\)</span> where <span class="math inline">\(r\)</span> is the number of canonical variate dimensions considered.</p>
 <p>Using similar reasoning the <span class="math inline">\(100(1-\alpha)\)</span> “tolerance regions” for the whole population is given by a hypersphere centered at the mean with radius <span class="math inline">\((\chi^{2}_{\alpha,r})^{1/2}\)</span>. These tolerance regions are the regions in the CVA space where we expect approximately <span class="math inline">\(100(1-\alpha)\)</span> percent of samples belong to a given group to be found.</p>
 <p>To calculate these confidence regions you could look up the appropriate value of the the <span class="math inline">\(\chi^2\)</span> distribution in a book of statistical tables, or we can use the |qchisq()| function which gives the inverse cumulative probability distribution for the <span class="math inline">\(\chi^2\)</span> function:</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="canonical-variates-analysis.html#cb442-1" aria-hidden="true" tabindex="-1"></a>chi2 <span class="ot">=</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>,<span class="dv">2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
-<span id="cb442-2"><a href="canonical-variates-analysis.html#cb442-2" aria-hidden="true" tabindex="-1"></a>chi2</span>
-<span id="cb442-3"><a href="canonical-variates-analysis.html#cb442-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.991465</span></span>
-<span id="cb442-4"><a href="canonical-variates-analysis.html#cb442-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb442-5"><a href="canonical-variates-analysis.html#cb442-5" aria-hidden="true" tabindex="-1"></a>CIregions.mean.and.pop <span class="ot">&lt;-</span></span>
-<span id="cb442-6"><a href="canonical-variates-analysis.html#cb442-6" aria-hidden="true" tabindex="-1"></a>  iris.CV <span class="sc">%&gt;%</span></span>
-<span id="cb442-7"><a href="canonical-variates-analysis.html#cb442-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
-<span id="cb442-8"><a href="canonical-variates-analysis.html#cb442-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">CV1.mean =</span> <span class="fu">mean</span>(LD1),</span>
-<span id="cb442-9"><a href="canonical-variates-analysis.html#cb442-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">CV2.mean =</span> <span class="fu">mean</span>(LD2),</span>
-<span id="cb442-10"><a href="canonical-variates-analysis.html#cb442-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean.radii =</span> <span class="fu">sqrt</span>(chi2<span class="sc">/</span><span class="fu">n</span>()),</span>
-<span id="cb442-11"><a href="canonical-variates-analysis.html#cb442-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">popn.radii =</span> <span class="fu">sqrt</span>(chi2))</span>
-<span id="cb442-12"><a href="canonical-variates-analysis.html#cb442-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb442-13"><a href="canonical-variates-analysis.html#cb442-13" aria-hidden="true" tabindex="-1"></a>CIregions.mean.and.pop</span>
-<span id="cb442-14"><a href="canonical-variates-analysis.html#cb442-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 x 5</span></span>
-<span id="cb442-15"><a href="canonical-variates-analysis.html#cb442-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   Species    CV1.mean CV2.mean mean.radii popn.radii</span></span>
-<span id="cb442-16"><a href="canonical-variates-analysis.html#cb442-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span id="cb442-17"><a href="canonical-variates-analysis.html#cb442-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 setosa         5.50     6.88      0.346       2.45</span></span>
-<span id="cb442-18"><a href="canonical-variates-analysis.html#cb442-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 versicolor    -3.93     5.93      0.346       2.45</span></span>
-<span id="cb442-19"><a href="canonical-variates-analysis.html#cb442-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 virginica     -7.89     7.17      0.346       2.45</span></span></code></pre></div>
-<div id="drawing-the-cva-confidence-regions" class="section level3" number="14.3.1">
-<h3><span class="header-section-number">14.3.1</span> Drawing the CVA confidence regions</h3>
-<p>Surprisingly, <code>ggplot2</code> has no built-in functions for drawing circles, despite having <code>geom_rect()</code> and <code>geom_polygon()</code> functions. Instead we turn to a package called <a href="https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html">ggforce</a> which provides a convenient <code>geom_circle()</code> function as well as a number of other useful extensions of ggplot. Install “ggforce” through the normal package installation mechanism and then load it.</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="canonical-variates-analysis.html#cb443-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span></code></pre></div>
-<p>We can then use <code>ggforce::geom_circle()</code> to draw confidence regions for the mean and population in our 2D CVA plot:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="canonical-variates-analysis.html#cb444-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2 <span class="ot">&lt;-</span></span>
-<span id="cb444-2"><a href="canonical-variates-analysis.html#cb444-2" aria-hidden="true" tabindex="-1"></a>  iris.cva.plot <span class="sc">+</span> </span>
-<span id="cb444-3"><a href="canonical-variates-analysis.html#cb444-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_circle</span>(<span class="at">data =</span> CIregions.mean.and.pop,</span>
-<span id="cb444-4"><a href="canonical-variates-analysis.html#cb444-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x0 =</span> CV1.mean, <span class="at">y0 =</span> CV2.mean, <span class="at">r =</span> mean.radii),</span>
-<span id="cb444-5"><a href="canonical-variates-analysis.html#cb444-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb444-6"><a href="canonical-variates-analysis.html#cb444-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_circle</span>(<span class="at">data =</span> CIregions.mean.and.pop,</span>
-<span id="cb444-7"><a href="canonical-variates-analysis.html#cb444-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x0 =</span> CV1.mean, <span class="at">y0 =</span> CV2.mean, <span class="at">r =</span> popn.radii),</span>
-<span id="cb444-8"><a href="canonical-variates-analysis.html#cb444-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </span>
-<span id="cb444-9"><a href="canonical-variates-analysis.html#cb444-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) </span>
-<span id="cb444-10"><a href="canonical-variates-analysis.html#cb444-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb444-11"><a href="canonical-variates-analysis.html#cb444-11" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-440-1.png" width="768" /></p>
-<p>Let’s put the finishing touch on our plots by adding some color coded rug plots to the first CV axis.</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="canonical-variates-analysis.html#cb445-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2 <span class="sc">+</span> </span>
-<span id="cb445-2"><a href="canonical-variates-analysis.html#cb445-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species),</span>
-<span id="cb445-3"><a href="canonical-variates-analysis.html#cb445-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sides =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-441-1.png" width="768" /></p>
-</div>
-</div>
-<div id="calculating-the-within-and-between-group-covariance-matrices" class="section level2" number="14.4">
-<h2><span class="header-section-number">14.4</span> Calculating the Within and Between Group Covariance Matrices</h2>
-<p>The <code>lda()</code> function conveniently carries out the key steps of a canonical variates analysis for you. However, what if we wanted some of the intermediate matrices relevant to the analysis such as the within- and between group covariances matrices? The code below shows you how to calculate these:</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="canonical-variates-analysis.html#cb446-1" aria-hidden="true" tabindex="-1"></a>nobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(iris)</span>
-<span id="cb446-2"><a href="canonical-variates-analysis.html#cb446-2" aria-hidden="true" tabindex="-1"></a>ngroups <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(iris<span class="sc">$</span>Species)</span>
-<span id="cb446-3"><a href="canonical-variates-analysis.html#cb446-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-4"><a href="canonical-variates-analysis.html#cb446-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate deviations around grand mean</span></span>
-<span id="cb446-5"><a href="canonical-variates-analysis.html#cb446-5" aria-hidden="true" tabindex="-1"></a>tot.deviates <span class="ot">&lt;-</span></span>
-<span id="cb446-6"><a href="canonical-variates-analysis.html#cb446-6" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span></span>
-<span id="cb446-7"><a href="canonical-variates-analysis.html#cb446-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
-<span id="cb446-8"><a href="canonical-variates-analysis.html#cb446-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># review the course notes on dplyr to remind</span></span>
-<span id="cb446-9"><a href="canonical-variates-analysis.html#cb446-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># yourself about how the mutate_all() and funs() fxns work</span></span>
-<span id="cb446-10"><a href="canonical-variates-analysis.html#cb446-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb446-11"><a href="canonical-variates-analysis.html#cb446-11" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="canonical-variates-analysis.html#cb446-1" aria-hidden="true" tabindex="-1"></a>chi2 <span class="ot">=</span> <span class="fu">qchisq</span>(<span class="fl">0.05</span>,<span class="dv">2</span>, <span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb446-2"><a href="canonical-variates-analysis.html#cb446-2" aria-hidden="true" tabindex="-1"></a>chi2</span>
+<span id="cb446-3"><a href="canonical-variates-analysis.html#cb446-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 5.991465</span></span>
+<span id="cb446-4"><a href="canonical-variates-analysis.html#cb446-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb446-5"><a href="canonical-variates-analysis.html#cb446-5" aria-hidden="true" tabindex="-1"></a>CIregions.mean.and.pop <span class="ot">&lt;-</span></span>
+<span id="cb446-6"><a href="canonical-variates-analysis.html#cb446-6" aria-hidden="true" tabindex="-1"></a>  iris.CV <span class="sc">%&gt;%</span></span>
+<span id="cb446-7"><a href="canonical-variates-analysis.html#cb446-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb446-8"><a href="canonical-variates-analysis.html#cb446-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">CV1.mean =</span> <span class="fu">mean</span>(LD1),</span>
+<span id="cb446-9"><a href="canonical-variates-analysis.html#cb446-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">CV2.mean =</span> <span class="fu">mean</span>(LD2),</span>
+<span id="cb446-10"><a href="canonical-variates-analysis.html#cb446-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean.radii =</span> <span class="fu">sqrt</span>(chi2<span class="sc">/</span><span class="fu">n</span>()),</span>
+<span id="cb446-11"><a href="canonical-variates-analysis.html#cb446-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">popn.radii =</span> <span class="fu">sqrt</span>(chi2))</span>
 <span id="cb446-12"><a href="canonical-variates-analysis.html#cb446-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-13"><a href="canonical-variates-analysis.html#cb446-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Total SSQ and covariance matrix</span></span>
-<span id="cb446-14"><a href="canonical-variates-analysis.html#cb446-14" aria-hidden="true" tabindex="-1"></a>ssq.tot <span class="ot">&lt;-</span> <span class="fu">t</span>(tot.deviates) <span class="sc">%*%</span> tot.deviates</span>
-<span id="cb446-15"><a href="canonical-variates-analysis.html#cb446-15" aria-hidden="true" tabindex="-1"></a>cov.tot <span class="ot">&lt;-</span> ssq.tot<span class="sc">/</span>nobs  </span>
-<span id="cb446-16"><a href="canonical-variates-analysis.html#cb446-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-17"><a href="canonical-variates-analysis.html#cb446-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate deviations around group means</span></span>
-<span id="cb446-18"><a href="canonical-variates-analysis.html#cb446-18" aria-hidden="true" tabindex="-1"></a>win.deviates <span class="ot">&lt;-</span></span>
-<span id="cb446-19"><a href="canonical-variates-analysis.html#cb446-19" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span></span>
-<span id="cb446-20"><a href="canonical-variates-analysis.html#cb446-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
-<span id="cb446-21"><a href="canonical-variates-analysis.html#cb446-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb446-22"><a href="canonical-variates-analysis.html#cb446-22" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb446-23"><a href="canonical-variates-analysis.html#cb446-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
-<span id="cb446-24"><a href="canonical-variates-analysis.html#cb446-24" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
-<span id="cb446-25"><a href="canonical-variates-analysis.html#cb446-25" aria-hidden="true" tabindex="-1"></a><span class="do">## `mutate_all()` ignored the following grouping variables:</span></span>
-<span id="cb446-26"><a href="canonical-variates-analysis.html#cb446-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Column `Species`</span></span>
-<span id="cb446-27"><a href="canonical-variates-analysis.html#cb446-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Use `mutate_at(df, vars(-group_cols()), myoperation)` to silence the message.</span></span>
-<span id="cb446-28"><a href="canonical-variates-analysis.html#cb446-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-29"><a href="canonical-variates-analysis.html#cb446-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Within group SSQ and covariance</span></span>
-<span id="cb446-30"><a href="canonical-variates-analysis.html#cb446-30" aria-hidden="true" tabindex="-1"></a>ssq.win <span class="ot">&lt;-</span> <span class="fu">t</span>(win.deviates) <span class="sc">%*%</span> win.deviates</span>
-<span id="cb446-31"><a href="canonical-variates-analysis.html#cb446-31" aria-hidden="true" tabindex="-1"></a>cov.win <span class="ot">&lt;-</span> ssq.win<span class="sc">/</span>(nobs <span class="sc">-</span> ngroups)</span>
-<span id="cb446-32"><a href="canonical-variates-analysis.html#cb446-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-33"><a href="canonical-variates-analysis.html#cb446-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Between group deviates</span></span>
-<span id="cb446-34"><a href="canonical-variates-analysis.html#cb446-34" aria-hidden="true" tabindex="-1"></a>btw.deviates <span class="ot">&lt;-</span></span>
-<span id="cb446-35"><a href="canonical-variates-analysis.html#cb446-35" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span> </span>
-<span id="cb446-36"><a href="canonical-variates-analysis.html#cb446-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb446-37"><a href="canonical-variates-analysis.html#cb446-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(mean) <span class="sc">%&gt;%</span> </span>
-<span id="cb446-38"><a href="canonical-variates-analysis.html#cb446-38" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> </span>
-<span id="cb446-39"><a href="canonical-variates-analysis.html#cb446-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span></span>
-<span id="cb446-40"><a href="canonical-variates-analysis.html#cb446-40" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
-<span id="cb446-41"><a href="canonical-variates-analysis.html#cb446-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb446-42"><a href="canonical-variates-analysis.html#cb446-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Between group SSQ and covariance</span></span>
-<span id="cb446-43"><a href="canonical-variates-analysis.html#cb446-43" aria-hidden="true" tabindex="-1"></a>ssq.btw <span class="ot">&lt;-</span> ngroups <span class="sc">*</span> <span class="fu">t</span>(btw.deviates) <span class="sc">%*%</span> btw.deviates</span>
-<span id="cb446-44"><a href="canonical-variates-analysis.html#cb446-44" aria-hidden="true" tabindex="-1"></a>cov.btw <span class="ot">&lt;-</span> ssq.btw<span class="sc">/</span>(ngroups<span class="dv">-1</span>)</span></code></pre></div>
-<div id="recapitulating-the-cva-analysis-of-lda" class="section level3" number="14.4.1">
-<h3><span class="header-section-number">14.4.1</span> Recapitulating the CVA analysis of <code>lda()</code></h3>
-<p>If we wanted to recapitulate the calculations that the <code>lda()</code> function carries out, we can do so based on the within- and between-group covariance matrices we estimated in the previous code block:</p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="canonical-variates-analysis.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cacluate the  eigenvectors of W^{-1}B</span></span>
-<span id="cb447-2"><a href="canonical-variates-analysis.html#cb447-2" aria-hidden="true" tabindex="-1"></a>WinvB <span class="ot">=</span> <span class="fu">solve</span>(cov.win) <span class="sc">%*%</span> cov.btw</span>
-<span id="cb447-3"><a href="canonical-variates-analysis.html#cb447-3" aria-hidden="true" tabindex="-1"></a>eigin.WinvB <span class="ot">=</span> <span class="fu">eigen</span>(WinvB)</span>
-<span id="cb447-4"><a href="canonical-variates-analysis.html#cb447-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-5"><a href="canonical-variates-analysis.html#cb447-5" aria-hidden="true" tabindex="-1"></a>cva.vecs <span class="ot">&lt;-</span> <span class="fu">Re</span>(eigin.WinvB<span class="sc">$</span>vectors)[,<span class="dv">1</span><span class="sc">:</span>ngroups<span class="dv">-1</span>]</span>
-<span id="cb447-6"><a href="canonical-variates-analysis.html#cb447-6" aria-hidden="true" tabindex="-1"></a>cva.vals <span class="ot">&lt;-</span> <span class="fu">Re</span>(eigin.WinvB<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span>ngroups<span class="dv">-1</span>]</span>
-<span id="cb447-7"><a href="canonical-variates-analysis.html#cb447-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-8"><a href="canonical-variates-analysis.html#cb447-8" aria-hidden="true" tabindex="-1"></a>unscaled.scores <span class="ot">&lt;-</span> win.deviates <span class="sc">%*%</span> cva.vecs</span>
-<span id="cb447-9"><a href="canonical-variates-analysis.html#cb447-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-10"><a href="canonical-variates-analysis.html#cb447-10" aria-hidden="true" tabindex="-1"></a><span class="co"># figure out scaling so group covariance matrix is spherical</span></span>
-<span id="cb447-11"><a href="canonical-variates-analysis.html#cb447-11" aria-hidden="true" tabindex="-1"></a>scaling <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>((<span class="fu">t</span>(unscaled.scores) <span class="sc">%*%</span> unscaled.scores)<span class="sc">/</span>(nobs<span class="sc">-</span>ngroups)))</span>
-<span id="cb447-12"><a href="canonical-variates-analysis.html#cb447-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-13"><a href="canonical-variates-analysis.html#cb447-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to &quot;scaling&quot; component object returned by lda()</span></span>
-<span id="cb447-14"><a href="canonical-variates-analysis.html#cb447-14" aria-hidden="true" tabindex="-1"></a>scaled.cva.vecs <span class="ot">&lt;-</span> cva.vecs <span class="sc">%*%</span> <span class="fu">diag</span>(scaling) </span>
-<span id="cb447-15"><a href="canonical-variates-analysis.html#cb447-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-16"><a href="canonical-variates-analysis.html#cb447-16" aria-hidden="true" tabindex="-1"></a>cva.scores <span class="ot">&lt;-</span> iris.sub <span class="sc">%*%</span> scaled.cva.vecs</span>
-<span id="cb447-17"><a href="canonical-variates-analysis.html#cb447-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-18"><a href="canonical-variates-analysis.html#cb447-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cva.scores) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;CV1&quot;</span>,<span class="st">&quot;CV2&quot;</span>)</span>
-<span id="cb447-19"><a href="canonical-variates-analysis.html#cb447-19" aria-hidden="true" tabindex="-1"></a>cva.scores <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cva.scores)</span>
-<span id="cb447-20"><a href="canonical-variates-analysis.html#cb447-20" aria-hidden="true" tabindex="-1"></a>cva.scores<span class="sc">$</span>Species <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species</span></code></pre></div>
-<p>Let’s plot the set of CVA scores that we calculated “by hand” to visually confirm our analysis produced similar results to the <code>lda()</code> function:</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="canonical-variates-analysis.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cva.scores, <span class="fu">aes</span>(<span class="at">x =</span> CV1, <span class="at">y =</span> CV2)) <span class="sc">+</span> </span>
-<span id="cb448-2"><a href="canonical-variates-analysis.html#cb448-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">shape=</span>Species)) <span class="sc">+</span> </span>
-<span id="cb448-3"><a href="canonical-variates-analysis.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>)</span></code></pre></div>
+<span id="cb446-13"><a href="canonical-variates-analysis.html#cb446-13" aria-hidden="true" tabindex="-1"></a>CIregions.mean.and.pop</span>
+<span id="cb446-14"><a href="canonical-variates-analysis.html#cb446-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 × 5</span></span>
+<span id="cb446-15"><a href="canonical-variates-analysis.html#cb446-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   Species    CV1.mean CV2.mean mean.radii popn.radii</span></span>
+<span id="cb446-16"><a href="canonical-variates-analysis.html#cb446-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb446-17"><a href="canonical-variates-analysis.html#cb446-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 setosa         5.50     6.88      0.346       2.45</span></span>
+<span id="cb446-18"><a href="canonical-variates-analysis.html#cb446-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 versicolor    -3.93     5.93      0.346       2.45</span></span>
+<span id="cb446-19"><a href="canonical-variates-analysis.html#cb446-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 virginica     -7.89     7.17      0.346       2.45</span></span></code></pre></div>
+<div id="drawing-the-cva-confidence-regions" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> Drawing the CVA confidence regions<a href="canonical-variates-analysis.html#drawing-the-cva-confidence-regions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Surprisingly, <code>ggplot2</code> has no built-in functions for drawing circles, despite having <code>geom_rect()</code> and <code>geom_polygon()</code> functions. Instead we turn to a package called <a href="https://cran.r-project.org/web/packages/ggforce/vignettes/Visual_Guide.html">ggforce</a> which provides a convenient <code>geom_circle()</code> function as well as a number of other useful extensions of ggplot. Install “ggforce” through the normal package installation mechanism and then load it.</p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="canonical-variates-analysis.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span></code></pre></div>
+<p>We can then use <code>ggforce::geom_circle()</code> to draw confidence regions for the mean and population in our 2D CVA plot:</p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="canonical-variates-analysis.html#cb448-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2 <span class="ot">&lt;-</span></span>
+<span id="cb448-2"><a href="canonical-variates-analysis.html#cb448-2" aria-hidden="true" tabindex="-1"></a>  iris.cva.plot <span class="sc">+</span> </span>
+<span id="cb448-3"><a href="canonical-variates-analysis.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_circle</span>(<span class="at">data =</span> CIregions.mean.and.pop,</span>
+<span id="cb448-4"><a href="canonical-variates-analysis.html#cb448-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x0 =</span> CV1.mean, <span class="at">y0 =</span> CV2.mean, <span class="at">r =</span> mean.radii),</span>
+<span id="cb448-5"><a href="canonical-variates-analysis.html#cb448-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb448-6"><a href="canonical-variates-analysis.html#cb448-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_circle</span>(<span class="at">data =</span> CIregions.mean.and.pop,</span>
+<span id="cb448-7"><a href="canonical-variates-analysis.html#cb448-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x0 =</span> CV1.mean, <span class="at">y0 =</span> CV2.mean, <span class="at">r =</span> popn.radii),</span>
+<span id="cb448-8"><a href="canonical-variates-analysis.html#cb448-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </span>
+<span id="cb448-9"><a href="canonical-variates-analysis.html#cb448-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb448-10"><a href="canonical-variates-analysis.html#cb448-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-11"><a href="canonical-variates-analysis.html#cb448-11" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2</span></code></pre></div>
 <p><img src="bio723-book_files/figure-html/unnamed-chunk-444-1.png" width="768" /></p>
+<p>Let’s put the finishing touch on our plots by adding some color coded rug plots to the first CV axis.</p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="canonical-variates-analysis.html#cb449-1" aria-hidden="true" tabindex="-1"></a>iris.cva.plot2 <span class="sc">+</span> </span>
+<span id="cb449-2"><a href="canonical-variates-analysis.html#cb449-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rug</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species),</span>
+<span id="cb449-3"><a href="canonical-variates-analysis.html#cb449-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">sides =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-445-1.png" width="768" /></p>
+</div>
+</div>
+<div id="calculating-the-within-and-between-group-covariance-matrices" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Calculating the Within and Between Group Covariance Matrices<a href="canonical-variates-analysis.html#calculating-the-within-and-between-group-covariance-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>lda()</code> function conveniently carries out the key steps of a canonical variates analysis for you. However, what if we wanted some of the intermediate matrices relevant to the analysis such as the within- and between group covariances matrices? The code below shows you how to calculate these:</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="canonical-variates-analysis.html#cb450-1" aria-hidden="true" tabindex="-1"></a>nobs <span class="ot">&lt;-</span> <span class="fu">nrow</span>(iris)</span>
+<span id="cb450-2"><a href="canonical-variates-analysis.html#cb450-2" aria-hidden="true" tabindex="-1"></a>ngroups <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(iris<span class="sc">$</span>Species)</span>
+<span id="cb450-3"><a href="canonical-variates-analysis.html#cb450-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-4"><a href="canonical-variates-analysis.html#cb450-4" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate deviations around grand mean</span></span>
+<span id="cb450-5"><a href="canonical-variates-analysis.html#cb450-5" aria-hidden="true" tabindex="-1"></a>tot.deviates <span class="ot">&lt;-</span></span>
+<span id="cb450-6"><a href="canonical-variates-analysis.html#cb450-6" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span></span>
+<span id="cb450-7"><a href="canonical-variates-analysis.html#cb450-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb450-8"><a href="canonical-variates-analysis.html#cb450-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># review the course notes on dplyr to remind</span></span>
+<span id="cb450-9"><a href="canonical-variates-analysis.html#cb450-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># yourself about how the mutate_all() and funs() fxns work</span></span>
+<span id="cb450-10"><a href="canonical-variates-analysis.html#cb450-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb450-11"><a href="canonical-variates-analysis.html#cb450-11" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
+<span id="cb450-12"><a href="canonical-variates-analysis.html#cb450-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-13"><a href="canonical-variates-analysis.html#cb450-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Total SSQ and covariance matrix</span></span>
+<span id="cb450-14"><a href="canonical-variates-analysis.html#cb450-14" aria-hidden="true" tabindex="-1"></a>ssq.tot <span class="ot">&lt;-</span> <span class="fu">t</span>(tot.deviates) <span class="sc">%*%</span> tot.deviates</span>
+<span id="cb450-15"><a href="canonical-variates-analysis.html#cb450-15" aria-hidden="true" tabindex="-1"></a>cov.tot <span class="ot">&lt;-</span> ssq.tot<span class="sc">/</span>nobs  </span>
+<span id="cb450-16"><a href="canonical-variates-analysis.html#cb450-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-17"><a href="canonical-variates-analysis.html#cb450-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate deviations around group means</span></span>
+<span id="cb450-18"><a href="canonical-variates-analysis.html#cb450-18" aria-hidden="true" tabindex="-1"></a>win.deviates <span class="ot">&lt;-</span></span>
+<span id="cb450-19"><a href="canonical-variates-analysis.html#cb450-19" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span></span>
+<span id="cb450-20"><a href="canonical-variates-analysis.html#cb450-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span></span>
+<span id="cb450-21"><a href="canonical-variates-analysis.html#cb450-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb450-22"><a href="canonical-variates-analysis.html#cb450-22" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb450-23"><a href="canonical-variates-analysis.html#cb450-23" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span></span>
+<span id="cb450-24"><a href="canonical-variates-analysis.html#cb450-24" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
+<span id="cb450-25"><a href="canonical-variates-analysis.html#cb450-25" aria-hidden="true" tabindex="-1"></a><span class="do">## `mutate_all()` ignored the following</span></span>
+<span id="cb450-26"><a href="canonical-variates-analysis.html#cb450-26" aria-hidden="true" tabindex="-1"></a><span class="do">## grouping variables:</span></span>
+<span id="cb450-27"><a href="canonical-variates-analysis.html#cb450-27" aria-hidden="true" tabindex="-1"></a><span class="do">## • Column `Species`</span></span>
+<span id="cb450-28"><a href="canonical-variates-analysis.html#cb450-28" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Use `mutate_at(df, vars(-group_cols()),</span></span>
+<span id="cb450-29"><a href="canonical-variates-analysis.html#cb450-29" aria-hidden="true" tabindex="-1"></a><span class="do">##   myoperation)` to silence the message.</span></span>
+<span id="cb450-30"><a href="canonical-variates-analysis.html#cb450-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-31"><a href="canonical-variates-analysis.html#cb450-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Within group SSQ and covariance</span></span>
+<span id="cb450-32"><a href="canonical-variates-analysis.html#cb450-32" aria-hidden="true" tabindex="-1"></a>ssq.win <span class="ot">&lt;-</span> <span class="fu">t</span>(win.deviates) <span class="sc">%*%</span> win.deviates</span>
+<span id="cb450-33"><a href="canonical-variates-analysis.html#cb450-33" aria-hidden="true" tabindex="-1"></a>cov.win <span class="ot">&lt;-</span> ssq.win<span class="sc">/</span>(nobs <span class="sc">-</span> ngroups)</span>
+<span id="cb450-34"><a href="canonical-variates-analysis.html#cb450-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-35"><a href="canonical-variates-analysis.html#cb450-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Between group deviates</span></span>
+<span id="cb450-36"><a href="canonical-variates-analysis.html#cb450-36" aria-hidden="true" tabindex="-1"></a>btw.deviates <span class="ot">&lt;-</span></span>
+<span id="cb450-37"><a href="canonical-variates-analysis.html#cb450-37" aria-hidden="true" tabindex="-1"></a>  iris <span class="sc">%&gt;%</span> </span>
+<span id="cb450-38"><a href="canonical-variates-analysis.html#cb450-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb450-39"><a href="canonical-variates-analysis.html#cb450-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(mean) <span class="sc">%&gt;%</span> </span>
+<span id="cb450-40"><a href="canonical-variates-analysis.html#cb450-40" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Species) <span class="sc">%&gt;%</span> </span>
+<span id="cb450-41"><a href="canonical-variates-analysis.html#cb450-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="fu">funs</span>(. <span class="sc">-</span> <span class="fu">mean</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb450-42"><a href="canonical-variates-analysis.html#cb450-42" aria-hidden="true" tabindex="-1"></a>  as.matrix</span>
+<span id="cb450-43"><a href="canonical-variates-analysis.html#cb450-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb450-44"><a href="canonical-variates-analysis.html#cb450-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Between group SSQ and covariance</span></span>
+<span id="cb450-45"><a href="canonical-variates-analysis.html#cb450-45" aria-hidden="true" tabindex="-1"></a>ssq.btw <span class="ot">&lt;-</span> ngroups <span class="sc">*</span> <span class="fu">t</span>(btw.deviates) <span class="sc">%*%</span> btw.deviates</span>
+<span id="cb450-46"><a href="canonical-variates-analysis.html#cb450-46" aria-hidden="true" tabindex="-1"></a>cov.btw <span class="ot">&lt;-</span> ssq.btw<span class="sc">/</span>(ngroups<span class="dv">-1</span>)</span></code></pre></div>
+<div id="recapitulating-the-cva-analysis-of-lda" class="section level3 hasAnchor" number="14.4.1">
+<h3><span class="header-section-number">14.4.1</span> Recapitulating the CVA analysis of <code>lda()</code><a href="canonical-variates-analysis.html#recapitulating-the-cva-analysis-of-lda" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If we wanted to recapitulate the calculations that the <code>lda()</code> function carries out, we can do so based on the within- and between-group covariance matrices we estimated in the previous code block:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="canonical-variates-analysis.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cacluate the  eigenvectors of W^{-1}B</span></span>
+<span id="cb451-2"><a href="canonical-variates-analysis.html#cb451-2" aria-hidden="true" tabindex="-1"></a>WinvB <span class="ot">=</span> <span class="fu">solve</span>(cov.win) <span class="sc">%*%</span> cov.btw</span>
+<span id="cb451-3"><a href="canonical-variates-analysis.html#cb451-3" aria-hidden="true" tabindex="-1"></a>eigin.WinvB <span class="ot">=</span> <span class="fu">eigen</span>(WinvB)</span>
+<span id="cb451-4"><a href="canonical-variates-analysis.html#cb451-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-5"><a href="canonical-variates-analysis.html#cb451-5" aria-hidden="true" tabindex="-1"></a>cva.vecs <span class="ot">&lt;-</span> <span class="fu">Re</span>(eigin.WinvB<span class="sc">$</span>vectors)[,<span class="dv">1</span><span class="sc">:</span>ngroups<span class="dv">-1</span>]</span>
+<span id="cb451-6"><a href="canonical-variates-analysis.html#cb451-6" aria-hidden="true" tabindex="-1"></a>cva.vals <span class="ot">&lt;-</span> <span class="fu">Re</span>(eigin.WinvB<span class="sc">$</span>values)[<span class="dv">1</span><span class="sc">:</span>ngroups<span class="dv">-1</span>]</span>
+<span id="cb451-7"><a href="canonical-variates-analysis.html#cb451-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-8"><a href="canonical-variates-analysis.html#cb451-8" aria-hidden="true" tabindex="-1"></a>unscaled.scores <span class="ot">&lt;-</span> win.deviates <span class="sc">%*%</span> cva.vecs</span>
+<span id="cb451-9"><a href="canonical-variates-analysis.html#cb451-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-10"><a href="canonical-variates-analysis.html#cb451-10" aria-hidden="true" tabindex="-1"></a><span class="co"># figure out scaling so group covariance matrix is spherical</span></span>
+<span id="cb451-11"><a href="canonical-variates-analysis.html#cb451-11" aria-hidden="true" tabindex="-1"></a>scaling <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>((<span class="fu">t</span>(unscaled.scores) <span class="sc">%*%</span> unscaled.scores)<span class="sc">/</span>(nobs<span class="sc">-</span>ngroups)))</span>
+<span id="cb451-12"><a href="canonical-variates-analysis.html#cb451-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-13"><a href="canonical-variates-analysis.html#cb451-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to &quot;scaling&quot; component object returned by lda()</span></span>
+<span id="cb451-14"><a href="canonical-variates-analysis.html#cb451-14" aria-hidden="true" tabindex="-1"></a>scaled.cva.vecs <span class="ot">&lt;-</span> cva.vecs <span class="sc">%*%</span> <span class="fu">diag</span>(scaling) </span>
+<span id="cb451-15"><a href="canonical-variates-analysis.html#cb451-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-16"><a href="canonical-variates-analysis.html#cb451-16" aria-hidden="true" tabindex="-1"></a>cva.scores <span class="ot">&lt;-</span> iris.sub <span class="sc">%*%</span> scaled.cva.vecs</span>
+<span id="cb451-17"><a href="canonical-variates-analysis.html#cb451-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-18"><a href="canonical-variates-analysis.html#cb451-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cva.scores) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;CV1&quot;</span>,<span class="st">&quot;CV2&quot;</span>)</span>
+<span id="cb451-19"><a href="canonical-variates-analysis.html#cb451-19" aria-hidden="true" tabindex="-1"></a>cva.scores <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cva.scores)</span>
+<span id="cb451-20"><a href="canonical-variates-analysis.html#cb451-20" aria-hidden="true" tabindex="-1"></a>cva.scores<span class="sc">$</span>Species <span class="ot">&lt;-</span> iris<span class="sc">$</span>Species</span></code></pre></div>
+<p>Let’s plot the set of CVA scores that we calculated “by hand” to visually confirm our analysis produced similar results to the <code>lda()</code> function:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="canonical-variates-analysis.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cva.scores, <span class="fu">aes</span>(<span class="at">x =</span> CV1, <span class="at">y =</span> CV2)) <span class="sc">+</span> </span>
+<span id="cb452-2"><a href="canonical-variates-analysis.html#cb452-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>Species, <span class="at">shape=</span>Species)) <span class="sc">+</span> </span>
+<span id="cb452-3"><a href="canonical-variates-analysis.html#cb452-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>(<span class="at">ratio=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-448-1.png" width="768" /></p>
 <p>Note that the CVA ordination above is “flipped” left-right relative to our earlier CVA figures. Canonical variates, like principal components, are identical with respect to reflection.</p>
 
 </div>
@@ -858,7 +865,6 @@ Relevant to our current example is a shorthand way for specifying multiple varia
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -877,6 +883,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -897,6 +904,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -913,7 +924,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

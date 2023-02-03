@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 16 Non-linear regression models | Biology 723: Statistical Computing for Biologists</title>
   <meta name="description" content="Hands-on materials for Bio 723 course at Duke University." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 16 Non-linear regression models | Biology 723: Statistical Computing for Biologists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Hands-on materials for Bio 723 course at Duke University." />
   
@@ -24,7 +23,7 @@
 <meta name="author" content="Paul M. Magwene" />
 
 
-<meta name="date" content="2021-04-19" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="clustering-in-r.html"/>
 <link rel="next" href="randomization-jackknife-and-bootstrap.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,13 +49,16 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -326,35 +329,37 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#libraries-1"><i class="fa fa-check"></i><b>8.1</b> Libraries</a></li>
 <li class="chapter" data-level="8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#data"><i class="fa fa-check"></i><b>8.2</b> Data</a></li>
-<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.3</b> Renaming data frame columms</a></li>
-<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.4</b> Dropping unneeded columns</a>
+<li class="chapter" data-level="8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#loading-the-data"><i class="fa fa-check"></i><b>8.3</b> Loading the data</a></li>
+<li class="chapter" data-level="8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#check-your-data"><i class="fa fa-check"></i><b>8.4</b> Check your data!</a></li>
+<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#renaming-data-frame-columms"><i class="fa fa-check"></i><b>8.5</b> Renaming data frame columms</a></li>
+<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-unneeded-columns"><i class="fa fa-check"></i><b>8.6</b> Dropping unneeded columns</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.4.1</b> Finding all empty columns</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.4.2</b> Dropping columns by matching names</a></li>
+<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-all-empty-columns"><i class="fa fa-check"></i><b>8.6.1</b> Finding all empty columns</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#dropping-columns-by-matching-names"><i class="fa fa-check"></i><b>8.6.2</b> Dropping columns by matching names</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.5</b> Merging data frames</a></li>
-<li class="chapter" data-level="8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.6</b> Reshaping data with tidyr</a>
+<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#merging-data-frames"><i class="fa fa-check"></i><b>8.7</b> Merging data frames</a></li>
+<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#reshaping-data-with-tidyr"><i class="fa fa-check"></i><b>8.8</b> Reshaping data with tidyr</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-tidyrgather"><i class="fa fa-check"></i><b>8.6.1</b> Wide to long conversions using <code>tidyr::gather</code></a></li>
-<li class="chapter" data-level="8.6.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-tidyrextract"><i class="fa fa-check"></i><b>8.6.2</b> Extracting information from combined variables using <code>tidyr::extract</code></a></li>
-<li class="chapter" data-level="8.6.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.6.3</b> Subsetting rows</a></li>
-<li class="chapter" data-level="8.6.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.6.4</b> Splitting columns</a></li>
-<li class="chapter" data-level="8.6.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.6.5</b> Combining data frames</a></li>
-<li class="chapter" data-level="8.6.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.6.6</b> Sorting data frame rows</a></li>
+<li class="chapter" data-level="8.8.1" data-path="data-wrangling.html"><a href="data-wrangling.html#wide-to-long-conversions-using-pivot_longer"><i class="fa fa-check"></i><b>8.8.1</b> Wide to long conversions using <code>pivot_longer()</code></a></li>
+<li class="chapter" data-level="8.8.2" data-path="data-wrangling.html"><a href="data-wrangling.html#extracting-information-from-combined-variables-using-extract"><i class="fa fa-check"></i><b>8.8.2</b> Extracting information from combined variables using <code>extract()</code></a></li>
+<li class="chapter" data-level="8.8.3" data-path="data-wrangling.html"><a href="data-wrangling.html#subsetting-rows"><i class="fa fa-check"></i><b>8.8.3</b> Subsetting rows</a></li>
+<li class="chapter" data-level="8.8.4" data-path="data-wrangling.html"><a href="data-wrangling.html#splitting-columns"><i class="fa fa-check"></i><b>8.8.4</b> Splitting columns</a></li>
+<li class="chapter" data-level="8.8.5" data-path="data-wrangling.html"><a href="data-wrangling.html#combining-data-frames"><i class="fa fa-check"></i><b>8.8.5</b> Combining data frames</a></li>
+<li class="chapter" data-level="8.8.6" data-path="data-wrangling.html"><a href="data-wrangling.html#sorting-data-frame-rows"><i class="fa fa-check"></i><b>8.8.6</b> Sorting data frame rows</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.7</b> Using your tidy data</a>
+<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#using-your-tidy-data"><i class="fa fa-check"></i><b>8.9</b> Using your tidy data</a>
 <ul>
-<li class="chapter" data-level="8.7.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.7.1</b> Visualizing gene expression time series</a></li>
-<li class="chapter" data-level="8.7.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.7.2</b> Finding the most variable genes</a></li>
-<li class="chapter" data-level="8.7.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.7.3</b> Heat maps</a></li>
+<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#visualizing-gene-expression-time-series"><i class="fa fa-check"></i><b>8.9.1</b> Visualizing gene expression time series</a></li>
+<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#finding-the-most-variable-genes"><i class="fa fa-check"></i><b>8.9.2</b> Finding the most variable genes</a></li>
+<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#heat-maps"><i class="fa fa-check"></i><b>8.9.3</b> Heat maps</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-tidyrspread"><i class="fa fa-check"></i><b>8.8</b> Long-to-wide conversion using <code>tidyr::spread</code></a></li>
-<li class="chapter" data-level="8.9" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.9</b> Exploring bivariate relationships using “wide” data</a>
+<li class="chapter" data-level="8.10" data-path="data-wrangling.html"><a href="data-wrangling.html#long-to-wide-conversion-using-pivot_wider"><i class="fa fa-check"></i><b>8.10</b> Long-to-wide conversion using <code>pivot_wider()</code></a></li>
+<li class="chapter" data-level="8.11" data-path="data-wrangling.html"><a href="data-wrangling.html#exploring-bivariate-relationships-using-wide-data"><i class="fa fa-check"></i><b>8.11</b> Exploring bivariate relationships using “wide” data</a>
 <ul>
-<li class="chapter" data-level="8.9.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.9.1</b> Large scale patterns of correlations</a></li>
-<li class="chapter" data-level="8.9.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.9.2</b> Adding new columns and combining filtered data frames</a></li>
-<li class="chapter" data-level="8.9.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.9.3</b> A heat mapped sorted by correlations</a></li>
-<li class="chapter" data-level="8.9.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.9.4</b> A “fancy” figure</a></li>
+<li class="chapter" data-level="8.11.1" data-path="data-wrangling.html"><a href="data-wrangling.html#large-scale-patterns-of-correlations"><i class="fa fa-check"></i><b>8.11.1</b> Large scale patterns of correlations</a></li>
+<li class="chapter" data-level="8.11.2" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-new-columns-and-combining-filtered-data-frames"><i class="fa fa-check"></i><b>8.11.2</b> Adding new columns and combining filtered data frames</a></li>
+<li class="chapter" data-level="8.11.3" data-path="data-wrangling.html"><a href="data-wrangling.html#a-heat-mapped-sorted-by-correlations"><i class="fa fa-check"></i><b>8.11.3</b> A heat mapped sorted by correlations</a></li>
+<li class="chapter" data-level="8.11.4" data-path="data-wrangling.html"><a href="data-wrangling.html#a-fancy-figure"><i class="fa fa-check"></i><b>8.11.4</b> A “fancy” figure</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="vector-algebra.html"><a href="vector-algebra.html"><i class="fa fa-check"></i><b>9</b> Vector algebra</a>
@@ -618,8 +623,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="non-linear-regression-models" class="section level1" number="16">
-<h1><span class="header-section-number">Chapter 16</span> Non-linear regression models</h1>
+<div id="non-linear-regression-models" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Non-linear regression models<a href="non-linear-regression-models.html#non-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <!-- ## Curvilinear regression -->
 <!-- In the previous chapter we used the built-in `trees` data set, which consists of measurements of the girth, height, and volume of 31 black cherry trees, to illustrate the fitting of multiple regression models. -->
 <!-- After exploring the data set and examining residuals from the model fit we realized that:  -->
@@ -640,14 +645,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <!--               se = FALSE) -->
 <!-- ``` -->
 <!-- The `I()` function used above requires a little explanation.  Normally, the R formula syntax (see `?formula`) treats the carat symbol, `^`, as short-hand for factor crossing to the specified degree.  For example, the formula `(a+b+c)^2` would be interpretted as the model with main effects and all second order interaction terms, i.e. `a + b + c + a:b + a:c + b:c` where the colons indicate interactions.  The `I()` function `protects' the object in it's argument; in this case telling the regression function to treat this as Girth raised to the third power as opposed to trying to construct interaction terms for Girth. -->
-<div id="loess-regression" class="section level2" number="16.1">
-<h2><span class="header-section-number">16.1</span> LOESS regression</h2>
+<div id="loess-regression" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> LOESS regression<a href="non-linear-regression-models.html#loess-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>LOESS (`Locally estimated scatterplot smoothing’, aka LOWESS; ‘Locally weighted scatterplot smoothing’) is a
 modeling technique that fits a curve (or surface) to a set of data using
 a large number of local linear regressions. Local weighted regressions are fit
 at numerous regions across the data range, using a weighting function
 that drops off as you move away from the center of the fitting region
-(hence the "local aspect). LOESS combines the simplicity of least
+(hence the “local aspect). LOESS combines the simplicity of least
 squares fitting with the flexibility of non-linear techniques and
 doesn’t require the user to specify a functional form ahead of time in
 order to fit the model. It does however require relatively dense
@@ -672,100 +677,111 @@ should the weight function drop to zero). This is referred to as the
 the papers that discuss LOESS. The appropriate span can be determined by
 experimentation or, more rigorously by cross-validation.</p>
 <p>We’ll illustrate fitting a Loess model using data on Barack Obama’s approval ratings over the period from 2008 to 2001 (<a href="https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt"><code>obama-polls.txt</code></a>).</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="non-linear-regression-models.html#cb488-1" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt&#39;</span>,</span>
-<span id="cb488-2"><a href="non-linear-regression-models.html#cb488-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">delim=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">trim_ws=</span><span class="cn">TRUE</span>)</span>
-<span id="cb488-3"><a href="non-linear-regression-models.html#cb488-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we needed to use &quot;trim_ws&quot; above because there were </span></span>
-<span id="cb488-4"><a href="non-linear-regression-models.html#cb488-4" aria-hidden="true" tabindex="-1"></a><span class="co"># some lurking spaces in the fields of that tab delimited data file</span></span>
-<span id="cb488-5"><a href="non-linear-regression-models.html#cb488-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb488-6"><a href="non-linear-regression-models.html#cb488-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
-<span id="cb488-7"><a href="non-linear-regression-models.html#cb488-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 6</span></span>
-<span id="cb488-8"><a href="non-linear-regression-models.html#cb488-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollster         Dates      `N/Pop` Approve Disapprove Undecided</span></span>
-<span id="cb488-9"><a href="non-linear-regression-models.html#cb488-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span id="cb488-10"><a href="non-linear-regression-models.html#cb488-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmussen        9/17-19/11 1500 LV      46         52 -        </span></span>
-<span id="cb488-11"><a href="non-linear-regression-models.html#cb488-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmussen        9/14-16/11 1500 LV      45         55 -        </span></span>
-<span id="cb488-12"><a href="non-linear-regression-models.html#cb488-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup           9/13-15/11 1500 A       39         52 -        </span></span>
-<span id="cb488-13"><a href="non-linear-regression-models.html#cb488-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Times        9/10-15/11 1452 A       43         50 7        </span></span>
-<span id="cb488-14"><a href="non-linear-regression-models.html#cb488-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist/McClatchy 9/13-14/11 825 RV       39         52 9        </span></span>
-<span id="cb488-15"><a href="non-linear-regression-models.html#cb488-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmussen        9/11-13/11 1500 LV      45         54 -</span></span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="non-linear-regression-models.html#cb492-1" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&#39;https://github.com/Bio723-class/example-datasets/raw/master/obama-polls-2008-2011.txt&#39;</span>,</span>
+<span id="cb492-2"><a href="non-linear-regression-models.html#cb492-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">delim=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">trim_ws=</span><span class="cn">TRUE</span>)</span>
+<span id="cb492-3"><a href="non-linear-regression-models.html#cb492-3" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we needed to use &quot;trim_ws&quot; above because there were </span></span>
+<span id="cb492-4"><a href="non-linear-regression-models.html#cb492-4" aria-hidden="true" tabindex="-1"></a><span class="co"># some lurking spaces in the fields of that tab delimited data file</span></span>
+<span id="cb492-5"><a href="non-linear-regression-models.html#cb492-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-6"><a href="non-linear-regression-models.html#cb492-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
+<span id="cb492-7"><a href="non-linear-regression-models.html#cb492-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 6</span></span>
+<span id="cb492-8"><a href="non-linear-regression-models.html#cb492-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollster         Dates      `N/Pop` Approve Disapprove Undecided</span></span>
+<span id="cb492-9"><a href="non-linear-regression-models.html#cb492-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></span>
+<span id="cb492-10"><a href="non-linear-regression-models.html#cb492-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmussen        9/17-19/11 1500 LV      46         52 -        </span></span>
+<span id="cb492-11"><a href="non-linear-regression-models.html#cb492-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmussen        9/14-16/11 1500 LV      45         55 -        </span></span>
+<span id="cb492-12"><a href="non-linear-regression-models.html#cb492-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup           9/13-15/11 1500 A       39         52 -        </span></span>
+<span id="cb492-13"><a href="non-linear-regression-models.html#cb492-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Times        9/10-15/11 1452 A       43         50 7        </span></span>
+<span id="cb492-14"><a href="non-linear-regression-models.html#cb492-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist/McClatchy 9/13-14/11 825 RV       39         52 9        </span></span>
+<span id="cb492-15"><a href="non-linear-regression-models.html#cb492-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmussen        9/11-13/11 1500 LV      45         54 -</span></span></code></pre></div>
 <p>Notice that the <code>Dates</code> column is not very tidy. Each “date” is actually a range of dates of the form <code>Month/DayStart-DayEnd/Year</code> (e.g. “9/1/09” is September 01, 2009). Even nastier, some dates are in the form <code>Month/Day/Year</code> (only a single day) or <code>MonthStart/DayStart-MonthEnd/DayEnd/Year</code> (e.g. “2/26-3/1/11” is February 26,2011 to March 01, 2011) . Whoever formatted the data in this fashion must really hate tidy data! To deal with this nightmare we’re going to use the <code>tidyr::extract()</code> function to employ regular expressions (regex) to parse this complicated data field into it’s constituent parts. For more details on regular expression see the <a href="https://github.com/rstudio/cheatsheets/raw/master/regex.pdf">R Regular Expession Cheat Sheet</a> and <a href="https://r4ds.had.co.nz/strings.html#matching-patterns-with-regular-expressions">R for Data Science</a>.</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="non-linear-regression-models.html#cb489-1" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span> </span>
-<span id="cb489-2"><a href="non-linear-regression-models.html#cb489-2" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span> </span>
-<span id="cb489-3"><a href="non-linear-regression-models.html#cb489-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb489-4"><a href="non-linear-regression-models.html#cb489-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># first separate left most and right most fields as month and year respectively</span></span>
-<span id="cb489-5"><a href="non-linear-regression-models.html#cb489-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">extract</span>(<span class="st">&quot;Dates&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;month&quot;</span>, <span class="st">&quot;day.range&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="at">regex=</span><span class="st">&quot;(</span><span class="sc">\\</span><span class="st">d+)/(.+)/(</span><span class="sc">\\</span><span class="st">d+$)&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb489-6"><a href="non-linear-regression-models.html#cb489-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb489-7"><a href="non-linear-regression-models.html#cb489-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># now deal with the complicated middle field. For simplicities sake we&#39;re just</span></span>
-<span id="cb489-8"><a href="non-linear-regression-models.html#cb489-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># going to focus on extracting the start day</span></span>
-<span id="cb489-9"><a href="non-linear-regression-models.html#cb489-9" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">extract</span>(<span class="st">&quot;day.range&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;day.start&quot;</span>, <span class="st">&quot;day.other&quot;</span>), <span class="at">regex =</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">d+)(.+)&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb489-10"><a href="non-linear-regression-models.html#cb489-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb489-11"><a href="non-linear-regression-models.html#cb489-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># finally convert YY to 20YY</span></span>
-<span id="cb489-12"><a href="non-linear-regression-models.html#cb489-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="dv">2000</span> <span class="sc">+</span> year) </span>
-<span id="cb489-13"><a href="non-linear-regression-models.html#cb489-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb489-14"><a href="non-linear-regression-models.html#cb489-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
-<span id="cb489-15"><a href="non-linear-regression-models.html#cb489-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 9</span></span>
-<span id="cb489-16"><a href="non-linear-regression-models.html#cb489-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollster  month day.start day.other  year `N/Pop` Approve Disapprove Undecided</span></span>
-<span id="cb489-17"><a href="non-linear-regression-models.html#cb489-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;     &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span id="cb489-18"><a href="non-linear-regression-models.html#cb489-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmussen     9        17 -19        2011 1500 LV      46         52 -        </span></span>
-<span id="cb489-19"><a href="non-linear-regression-models.html#cb489-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmussen     9        14 -16        2011 1500 LV      45         55 -        </span></span>
-<span id="cb489-20"><a href="non-linear-regression-models.html#cb489-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup        9        13 -15        2011 1500 A       39         52 -        </span></span>
-<span id="cb489-21"><a href="non-linear-regression-models.html#cb489-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Times     9        10 -15        2011 1452 A       43         50 7        </span></span>
-<span id="cb489-22"><a href="non-linear-regression-models.html#cb489-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist/M…     9        13 -14        2011 825 RV       39         52 9        </span></span>
-<span id="cb489-23"><a href="non-linear-regression-models.html#cb489-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmussen     9        11 -13        2011 1500 LV      45         54 -</span></span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="non-linear-regression-models.html#cb493-1" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span> </span>
+<span id="cb493-2"><a href="non-linear-regression-models.html#cb493-2" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span> </span>
+<span id="cb493-3"><a href="non-linear-regression-models.html#cb493-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb493-4"><a href="non-linear-regression-models.html#cb493-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># first separate left most and right most fields as month and year respectively</span></span>
+<span id="cb493-5"><a href="non-linear-regression-models.html#cb493-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">extract</span>(<span class="st">&quot;Dates&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;month&quot;</span>, <span class="st">&quot;day.range&quot;</span>, <span class="st">&quot;year&quot;</span>), <span class="at">regex=</span><span class="st">&quot;(</span><span class="sc">\\</span><span class="st">d+)/(.+)/(</span><span class="sc">\\</span><span class="st">d+$)&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb493-6"><a href="non-linear-regression-models.html#cb493-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb493-7"><a href="non-linear-regression-models.html#cb493-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># now deal with the complicated middle field. For simplicities sake we&#39;re just</span></span>
+<span id="cb493-8"><a href="non-linear-regression-models.html#cb493-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># going to focus on extracting the start day</span></span>
+<span id="cb493-9"><a href="non-linear-regression-models.html#cb493-9" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">extract</span>(<span class="st">&quot;day.range&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;day.start&quot;</span>, <span class="st">&quot;day.other&quot;</span>), <span class="at">regex =</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">d+)(.+)&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb493-10"><a href="non-linear-regression-models.html#cb493-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb493-11"><a href="non-linear-regression-models.html#cb493-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># finally convert YY to 20YY</span></span>
+<span id="cb493-12"><a href="non-linear-regression-models.html#cb493-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="dv">2000</span> <span class="sc">+</span> year) </span>
+<span id="cb493-13"><a href="non-linear-regression-models.html#cb493-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb493-14"><a href="non-linear-regression-models.html#cb493-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
+<span id="cb493-15"><a href="non-linear-regression-models.html#cb493-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 9</span></span>
+<span id="cb493-16"><a href="non-linear-regression-models.html#cb493-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollster         month day.start day.o…¹  year `N/Pop` Approve Disap…² Undec…³</span></span>
+<span id="cb493-17"><a href="non-linear-regression-models.html#cb493-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;            &lt;int&gt;     &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  </span></span>
+<span id="cb493-18"><a href="non-linear-regression-models.html#cb493-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmussen            9        17 -19      2011 1500 LV      46      52 -      </span></span>
+<span id="cb493-19"><a href="non-linear-regression-models.html#cb493-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmussen            9        14 -16      2011 1500 LV      45      55 -      </span></span>
+<span id="cb493-20"><a href="non-linear-regression-models.html#cb493-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup               9        13 -15      2011 1500 A       39      52 -      </span></span>
+<span id="cb493-21"><a href="non-linear-regression-models.html#cb493-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Times            9        10 -15      2011 1452 A       43      50 7      </span></span>
+<span id="cb493-22"><a href="non-linear-regression-models.html#cb493-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist/McClatchy     9        13 -14      2011 825 RV       39      52 9      </span></span>
+<span id="cb493-23"><a href="non-linear-regression-models.html#cb493-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmussen            9        11 -13      2011 1500 LV      45      54 -      </span></span>
+<span id="cb493-24"><a href="non-linear-regression-models.html#cb493-24" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​day.other, ²​Disapprove, ³​Undecided</span></span></code></pre></div>
 <p>For the next steps we’ll need the <code>lubridate</code> library (install if needed):</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="non-linear-regression-models.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb490-2"><a href="non-linear-regression-models.html#cb490-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-3"><a href="non-linear-regression-models.html#cb490-3" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span></span>
-<span id="cb490-4"><a href="non-linear-regression-models.html#cb490-4" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span></span>
-<span id="cb490-5"><a href="non-linear-regression-models.html#cb490-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(<span class="at">year =</span> year, <span class="at">month=</span>month, <span class="at">day =</span> day.start))</span>
-<span id="cb490-6"><a href="non-linear-regression-models.html#cb490-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-7"><a href="non-linear-regression-models.html#cb490-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
-<span id="cb490-8"><a href="non-linear-regression-models.html#cb490-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 10</span></span>
-<span id="cb490-9"><a href="non-linear-regression-models.html#cb490-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   Pollster month day.start day.other  year `N/Pop` Approve Disapprove Undecided</span></span>
-<span id="cb490-10"><a href="non-linear-regression-models.html#cb490-10" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;    &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;    </span></span>
-<span id="cb490-11"><a href="non-linear-regression-models.html#cb490-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmuss…     9        17 -19        2011 1500 LV      46         52 -        </span></span>
-<span id="cb490-12"><a href="non-linear-regression-models.html#cb490-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmuss…     9        14 -16        2011 1500 LV      45         55 -        </span></span>
-<span id="cb490-13"><a href="non-linear-regression-models.html#cb490-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup       9        13 -15        2011 1500 A       39         52 -        </span></span>
-<span id="cb490-14"><a href="non-linear-regression-models.html#cb490-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Tim…     9        10 -15        2011 1452 A       43         50 7        </span></span>
-<span id="cb490-15"><a href="non-linear-regression-models.html#cb490-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist/…     9        13 -14        2011 825 RV       39         52 9        </span></span>
-<span id="cb490-16"><a href="non-linear-regression-models.html#cb490-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmuss…     9        11 -13        2011 1500 LV      45         54 -        </span></span>
-<span id="cb490-17"><a href="non-linear-regression-models.html#cb490-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 1 more variable: date &lt;date&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="non-linear-regression-models.html#cb491-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="ot">&lt;-</span></span>
-<span id="cb491-2"><a href="non-linear-regression-models.html#cb491-2" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span></span>
-<span id="cb491-3"><a href="non-linear-regression-models.html#cb491-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> Approve)) <span class="sc">+</span></span>
-<span id="cb491-4"><a href="non-linear-regression-models.html#cb491-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">pch=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb491-5"><a href="non-linear-regression-models.html#cb491-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Approval Rating&quot;</span>,</span>
-<span id="cb491-6"><a href="non-linear-regression-models.html#cb491-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Barack Obama&#39;s Approval Ratings, 2008-2011&quot;</span>)</span>
-<span id="cb491-7"><a href="non-linear-regression-models.html#cb491-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb491-8"><a href="non-linear-regression-models.html#cb491-8" aria-hidden="true" tabindex="-1"></a>polls.plot</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-487-1.png" width="576" /></p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="non-linear-regression-models.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb494-2"><a href="non-linear-regression-models.html#cb494-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading required package: timechange</span></span>
+<span id="cb494-3"><a href="non-linear-regression-models.html#cb494-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb494-4"><a href="non-linear-regression-models.html#cb494-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;lubridate&#39;</span></span>
+<span id="cb494-5"><a href="non-linear-regression-models.html#cb494-5" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:cowplot&#39;:</span></span>
+<span id="cb494-6"><a href="non-linear-regression-models.html#cb494-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb494-7"><a href="non-linear-regression-models.html#cb494-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     stamp</span></span>
+<span id="cb494-8"><a href="non-linear-regression-models.html#cb494-8" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb494-9"><a href="non-linear-regression-models.html#cb494-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb494-10"><a href="non-linear-regression-models.html#cb494-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     date, intersect, setdiff, union</span></span>
+<span id="cb494-11"><a href="non-linear-regression-models.html#cb494-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb494-12"><a href="non-linear-regression-models.html#cb494-12" aria-hidden="true" tabindex="-1"></a>polls <span class="ot">&lt;-</span></span>
+<span id="cb494-13"><a href="non-linear-regression-models.html#cb494-13" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span></span>
+<span id="cb494-14"><a href="non-linear-regression-models.html#cb494-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(<span class="at">year =</span> year, <span class="at">month=</span>month, <span class="at">day =</span> day.start))</span>
+<span id="cb494-15"><a href="non-linear-regression-models.html#cb494-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb494-16"><a href="non-linear-regression-models.html#cb494-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(polls)</span>
+<span id="cb494-17"><a href="non-linear-regression-models.html#cb494-17" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 10</span></span>
+<span id="cb494-18"><a href="non-linear-regression-models.html#cb494-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   Polls…¹ month day.s…² day.o…³  year `N/Pop` Approve Disap…⁴ Undec…⁵ date      </span></span>
+<span id="cb494-19"><a href="non-linear-regression-models.html#cb494-19" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;int&gt;   &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;date&gt;    </span></span>
+<span id="cb494-20"><a href="non-linear-regression-models.html#cb494-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Rasmus…     9      17 -19      2011 1500 LV      46      52 -       2011-09-17</span></span>
+<span id="cb494-21"><a href="non-linear-regression-models.html#cb494-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Rasmus…     9      14 -16      2011 1500 LV      45      55 -       2011-09-14</span></span>
+<span id="cb494-22"><a href="non-linear-regression-models.html#cb494-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Gallup      9      13 -15      2011 1500 A       39      52 -       2011-09-13</span></span>
+<span id="cb494-23"><a href="non-linear-regression-models.html#cb494-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 CBS/Ti…     9      10 -15      2011 1452 A       43      50 7       2011-09-10</span></span>
+<span id="cb494-24"><a href="non-linear-regression-models.html#cb494-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Marist…     9      13 -14      2011 825 RV       39      52 9       2011-09-13</span></span>
+<span id="cb494-25"><a href="non-linear-regression-models.html#cb494-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Rasmus…     9      11 -13      2011 1500 LV      45      54 -       2011-09-11</span></span>
+<span id="cb494-26"><a href="non-linear-regression-models.html#cb494-26" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with abbreviated variable names ¹​Pollster, ²​day.start, ³​day.other,</span></span>
+<span id="cb494-27"><a href="non-linear-regression-models.html#cb494-27" aria-hidden="true" tabindex="-1"></a><span class="do">## #   ⁴​Disapprove, ⁵​Undecided</span></span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="non-linear-regression-models.html#cb495-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="ot">&lt;-</span></span>
+<span id="cb495-2"><a href="non-linear-regression-models.html#cb495-2" aria-hidden="true" tabindex="-1"></a>  polls <span class="sc">%&gt;%</span></span>
+<span id="cb495-3"><a href="non-linear-regression-models.html#cb495-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> Approve)) <span class="sc">+</span></span>
+<span id="cb495-4"><a href="non-linear-regression-models.html#cb495-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">pch=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb495-5"><a href="non-linear-regression-models.html#cb495-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Approval Rating&quot;</span>,</span>
+<span id="cb495-6"><a href="non-linear-regression-models.html#cb495-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Barack Obama&#39;s Approval Ratings, 2008-2011&quot;</span>)</span>
+<span id="cb495-7"><a href="non-linear-regression-models.html#cb495-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb495-8"><a href="non-linear-regression-models.html#cb495-8" aria-hidden="true" tabindex="-1"></a>polls.plot</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-491-1.png" width="576" /></p>
 <p>We can fit the LOESS as so, and get back the predicted values using the <code>predict()</code> function:</p>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="non-linear-regression-models.html#cb492-1" aria-hidden="true" tabindex="-1"></a>loess.approval <span class="ot">&lt;-</span> <span class="fu">loess</span>(Approve <span class="sc">~</span> <span class="fu">as.numeric</span>(date), <span class="at">data =</span> polls)</span>
-<span id="cb492-2"><a href="non-linear-regression-models.html#cb492-2" aria-hidden="true" tabindex="-1"></a>loess.predicted.values <span class="ot">&lt;-</span> <span class="fu">predict</span>(loess.approval)</span>
-<span id="cb492-3"><a href="non-linear-regression-models.html#cb492-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(loess.predicted.values)</span>
-<span id="cb492-4"><a href="non-linear-regression-models.html#cb492-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 44.55653 44.59349 44.60572 44.64216 44.60572 44.63006</span></span></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="non-linear-regression-models.html#cb496-1" aria-hidden="true" tabindex="-1"></a>loess.approval <span class="ot">&lt;-</span> <span class="fu">loess</span>(Approve <span class="sc">~</span> <span class="fu">as.numeric</span>(date), <span class="at">data =</span> polls)</span>
+<span id="cb496-2"><a href="non-linear-regression-models.html#cb496-2" aria-hidden="true" tabindex="-1"></a>loess.predicted.values <span class="ot">&lt;-</span> <span class="fu">predict</span>(loess.approval)</span>
+<span id="cb496-3"><a href="non-linear-regression-models.html#cb496-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(loess.predicted.values)</span>
+<span id="cb496-4"><a href="non-linear-regression-models.html#cb496-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 44.55653 44.59349 44.60572 44.64216 44.60572 44.63006</span></span></code></pre></div>
 <p>Usually we’ll want to visualize the LOESS regression, which we can conveniently do with <code>ggplot::geom_smooth</code> without having to explicitly calculate the LOESS:</p>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="non-linear-regression-models.html#cb493-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
-<span id="cb493-2"><a href="non-linear-regression-models.html#cb493-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>)</span>
-<span id="cb493-3"><a href="non-linear-regression-models.html#cb493-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-489-1.png" width="576" /></p>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="non-linear-regression-models.html#cb497-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
+<span id="cb497-2"><a href="non-linear-regression-models.html#cb497-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>)</span>
+<span id="cb497-3"><a href="non-linear-regression-models.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-493-1.png" width="576" /></p>
 <p>Here’s the same data fit with a smaller <code>span</code> (the paramater that controls the “local neighborhood” size in LOESS):</p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="non-linear-regression-models.html#cb494-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
-<span id="cb494-2"><a href="non-linear-regression-models.html#cb494-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">span=</span><span class="fl">0.1</span>)</span>
-<span id="cb494-3"><a href="non-linear-regression-models.html#cb494-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-490-1.png" width="576" /></p>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="non-linear-regression-models.html#cb498-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
+<span id="cb498-2"><a href="non-linear-regression-models.html#cb498-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">span=</span><span class="fl">0.1</span>)</span>
+<span id="cb498-3"><a href="non-linear-regression-models.html#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-494-1.png" width="576" /></p>
 <p>The high density of the polling justifies the smaller span, and the additional deviations apparent when the LOESS is fit with the smaller span likely reflect real world changes in approval, induced by a variety of political and other news events.</p>
 <p>For example, we can zoom in on 2011:</p>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="non-linear-regression-models.html#cb495-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
-<span id="cb495-2"><a href="non-linear-regression-models.html#cb495-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">span=</span><span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb495-3"><a href="non-linear-regression-models.html#cb495-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">ymd</span>(<span class="dv">20110101</span>), <span class="fu">ymd</span>(<span class="dv">20110901</span>)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">35</span>,<span class="dv">65</span>)) <span class="sc">+</span> </span>
-<span id="cb495-4"><a href="non-linear-regression-models.html#cb495-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="at">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb495-5"><a href="non-linear-regression-models.html#cb495-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</span>
-<span id="cb495-6"><a href="non-linear-regression-models.html#cb495-6" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-491-1.png" width="576" /></p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="non-linear-regression-models.html#cb499-1" aria-hidden="true" tabindex="-1"></a>polls.plot <span class="sc">+</span></span>
+<span id="cb499-2"><a href="non-linear-regression-models.html#cb499-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color=</span><span class="st">&#39;red&#39;</span>, <span class="at">method=</span><span class="st">&quot;loess&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">span=</span><span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb499-3"><a href="non-linear-regression-models.html#cb499-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">ymd</span>(<span class="dv">20110101</span>), <span class="fu">ymd</span>(<span class="dv">20110901</span>)), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">35</span>,<span class="dv">65</span>)) <span class="sc">+</span> </span>
+<span id="cb499-4"><a href="non-linear-regression-models.html#cb499-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_breaks=</span><span class="st">&quot;1 month&quot;</span>, <span class="at">date_label=</span><span class="st">&quot;%B&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb499-5"><a href="non-linear-regression-models.html#cb499-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Barack Obama&#39;s Approval Ratings, Jan - Sep 2011&quot;</span>)</span>
+<span id="cb499-6"><a href="non-linear-regression-models.html#cb499-6" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-495-1.png" width="576" /></p>
 <p>Increased approval ratings in January coincide with the approval of a tax deal and a speech to the nation following the shooting of congresswoman Gabbie Giffords in Tuscson, AZ (<a href="https://www.cnbc.com/id/41139968" class="uri">https://www.cnbc.com/id/41139968</a>). The spike apparent in early May coincides with the death of Osama Bin Laden. You might take a look at major policitcal events in other years to see if you can identify drivers behind other approval rating shifts.</p>
 </div>
-<div id="logistic-regression" class="section level2" number="16.2">
-<h2><span class="header-section-number">16.2</span> Logistic regression</h2>
+<div id="logistic-regression" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Logistic regression<a href="non-linear-regression-models.html#logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Logistic regression is used when the dependent variable is discrete (often binary). The explanatory variables may be either continuous or discrete.</p>
 <p>Examples:</p>
 <ul>
@@ -787,168 +803,168 @@ f(z) = \frac{e^z}{1+e^z} = \frac{1}{1 + e^{-z}}
 P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
 \]</span></p>
 <p>Note that <span class="math inline">\(\beta_0\)</span> here is akin to the intercept in our standard linear regression.</p>
-<div id="a-web-app-to-explore-the-logistic-regression-equation" class="section level3" number="16.2.1">
-<h3><span class="header-section-number">16.2.1</span> A web app to explore the logistic regression equation</h3>
+<div id="a-web-app-to-explore-the-logistic-regression-equation" class="section level3 hasAnchor" number="16.2.1">
+<h3><span class="header-section-number">16.2.1</span> A web app to explore the logistic regression equation<a href="non-linear-regression-models.html#a-web-app-to-explore-the-logistic-regression-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To help you develop an intuition for the logistic regression equation, I’ve developed <a href="https://magwenelab.shinyapps.io/exploring_logistic_regression/">a small web app</a>, that allows you to explore how the shape of the regression curve responds to changes in the regression coefficients <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Open the app in another browser window and play with the sliders that control the coeffients <span class="math inline">\(B_0\)</span> and <span class="math inline">\(B_1\)</span>. In the assignment associated with today’s class you’ll be asked to answer some specific questions based on this app.</p>
 </div>
-<div id="titanic-data-set" class="section level3" number="16.2.2">
-<h3><span class="header-section-number">16.2.2</span> Titanic data set</h3>
+<div id="titanic-data-set" class="section level3 hasAnchor" number="16.2.2">
+<h3><span class="header-section-number">16.2.2</span> Titanic data set<a href="non-linear-regression-models.html#titanic-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><a href="http://bit.ly/bio304-titanic-data"><code>titanic.csv</code></a> contains information about passengers on the Titanic. Variables in this data set include information such as sex, age, passenger class (1st, 2nd, 3rd), and whether or not they survived the sinking of the ship (0 = died, 1 = survived).</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="non-linear-regression-models.html#cb496-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb496-2"><a href="non-linear-regression-models.html#cb496-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb496-3"><a href="non-linear-regression-models.html#cb496-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb496-4"><a href="non-linear-regression-models.html#cb496-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code></pre></div>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="non-linear-regression-models.html#cb497-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)</span>
-<span id="cb497-2"><a href="non-linear-regression-models.html#cb497-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(titanic)</span>
-<span id="cb497-3"><a href="non-linear-regression-models.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;       &quot;sibsp&quot;    </span></span>
-<span id="cb497-4"><a href="non-linear-regression-models.html#cb497-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;     &quot;embarked&quot;  &quot;boat&quot;     </span></span>
-<span id="cb497-5"><a href="non-linear-regression-models.html#cb497-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] &quot;body&quot;      &quot;home.dest&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="non-linear-regression-models.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb500-2"><a href="non-linear-regression-models.html#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb500-3"><a href="non-linear-regression-models.html#cb500-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
+<span id="cb500-4"><a href="non-linear-regression-models.html#cb500-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="non-linear-regression-models.html#cb501-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;http://bit.ly/bio304-titanic-data&quot;</span>)</span>
+<span id="cb501-2"><a href="non-linear-regression-models.html#cb501-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(titanic)</span>
+<span id="cb501-3"><a href="non-linear-regression-models.html#cb501-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] &quot;pclass&quot;    &quot;survived&quot;  &quot;name&quot;      &quot;sex&quot;       &quot;age&quot;       &quot;sibsp&quot;    </span></span>
+<span id="cb501-4"><a href="non-linear-regression-models.html#cb501-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [7] &quot;parch&quot;     &quot;ticket&quot;    &quot;fare&quot;      &quot;cabin&quot;     &quot;embarked&quot;  &quot;boat&quot;     </span></span>
+<span id="cb501-5"><a href="non-linear-regression-models.html#cb501-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] &quot;body&quot;      &quot;home.dest&quot;</span></span></code></pre></div>
 </div>
-<div id="subsetting-the-data" class="section level3" number="16.2.3">
-<h3><span class="header-section-number">16.2.3</span> Subsetting the data</h3>
-<p>We’ve all heard the phrase, “Women and children first,” so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age. Let’s create separate data subsets for male and female passengers.</p>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="non-linear-regression-models.html#cb498-1" aria-hidden="true" tabindex="-1"></a>male <span class="ot">&lt;-</span> <span class="fu">filter</span>(titanic, sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>)</span>
-<span id="cb498-2"><a href="non-linear-regression-models.html#cb498-2" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">filter</span>(titanic, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+<div id="subsetting-the-data" class="section level3 hasAnchor" number="16.2.3">
+<h3><span class="header-section-number">16.2.3</span> Subsetting the data<a href="non-linear-regression-models.html#subsetting-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ve all heard the phrase, “Women and children first”, so we might expect that the probability that a passenger survived the sinking of the Titanic is related to their sex and/or age. Let’s create separate data subsets for male and female passengers.</p>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="non-linear-regression-models.html#cb502-1" aria-hidden="true" tabindex="-1"></a>male <span class="ot">&lt;-</span> <span class="fu">filter</span>(titanic, sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>)</span>
+<span id="cb502-2"><a href="non-linear-regression-models.html#cb502-2" aria-hidden="true" tabindex="-1"></a>female <span class="ot">&lt;-</span> <span class="fu">filter</span>(titanic, sex <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
 </div>
-<div id="visualizing-survival-as-a-function-of-age" class="section level3" number="16.2.4">
-<h3><span class="header-section-number">16.2.4</span> Visualizing survival as a function of age</h3>
+<div id="visualizing-survival-as-a-function-of-age" class="section level3 hasAnchor" number="16.2.4">
+<h3><span class="header-section-number">16.2.4</span> Visualizing survival as a function of age<a href="non-linear-regression-models.html#visualizing-survival-as-a-function-of-age" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let’s create visualizations of survival as a function of age for the male and female passengers.</p>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="non-linear-regression-models.html#cb499-1" aria-hidden="true" tabindex="-1"></a>fcolor <span class="ot">=</span> <span class="st">&quot;lightcoral&quot;</span></span>
-<span id="cb499-2"><a href="non-linear-regression-models.html#cb499-2" aria-hidden="true" tabindex="-1"></a>mcolor <span class="ot">=</span> <span class="st">&quot;lightsteelblue&quot;</span></span>
-<span id="cb499-3"><a href="non-linear-regression-models.html#cb499-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-4"><a href="non-linear-regression-models.html#cb499-4" aria-hidden="true" tabindex="-1"></a>female.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(female, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived)) <span class="sc">+</span> </span>
-<span id="cb499-5"><a href="non-linear-regression-models.html#cb499-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">color =</span> fcolor) <span class="sc">+</span></span>
-<span id="cb499-6"><a href="non-linear-regression-models.html#cb499-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)</span>
-<span id="cb499-7"><a href="non-linear-regression-models.html#cb499-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-8"><a href="non-linear-regression-models.html#cb499-8" aria-hidden="true" tabindex="-1"></a>male.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(male, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived)) <span class="sc">+</span> </span>
-<span id="cb499-9"><a href="non-linear-regression-models.html#cb499-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">color =</span> mcolor) <span class="sc">+</span> </span>
-<span id="cb499-10"><a href="non-linear-regression-models.html#cb499-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)</span>
-<span id="cb499-11"><a href="non-linear-regression-models.html#cb499-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb499-12"><a href="non-linear-regression-models.html#cb499-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(female.plot, male.plot)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-495-1.png" width="864" /></p>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="non-linear-regression-models.html#cb503-1" aria-hidden="true" tabindex="-1"></a>fcolor <span class="ot">=</span> <span class="st">&quot;lightcoral&quot;</span></span>
+<span id="cb503-2"><a href="non-linear-regression-models.html#cb503-2" aria-hidden="true" tabindex="-1"></a>mcolor <span class="ot">=</span> <span class="st">&quot;lightsteelblue&quot;</span></span>
+<span id="cb503-3"><a href="non-linear-regression-models.html#cb503-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb503-4"><a href="non-linear-regression-models.html#cb503-4" aria-hidden="true" tabindex="-1"></a>female.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(female, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived)) <span class="sc">+</span> </span>
+<span id="cb503-5"><a href="non-linear-regression-models.html#cb503-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">color =</span> fcolor) <span class="sc">+</span></span>
+<span id="cb503-6"><a href="non-linear-regression-models.html#cb503-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Female Passengers&quot;</span>)</span>
+<span id="cb503-7"><a href="non-linear-regression-models.html#cb503-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb503-8"><a href="non-linear-regression-models.html#cb503-8" aria-hidden="true" tabindex="-1"></a>male.plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(male, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> survived)) <span class="sc">+</span> </span>
+<span id="cb503-9"><a href="non-linear-regression-models.html#cb503-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>, <span class="at">color =</span> mcolor) <span class="sc">+</span> </span>
+<span id="cb503-10"><a href="non-linear-regression-models.html#cb503-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Male Passengers&quot;</span>)</span>
+<span id="cb503-11"><a href="non-linear-regression-models.html#cb503-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb503-12"><a href="non-linear-regression-models.html#cb503-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(female.plot, male.plot)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-499-1.png" width="864" /></p>
 <p>The jittered points with Y-axis value around one are passengers who survived, the point jittered around zero are those who died.</p>
 </div>
-<div id="fitting-the-logistic-regression-model" class="section level3" number="16.2.5">
-<h3><span class="header-section-number">16.2.5</span> Fitting the logistic regression model</h3>
+<div id="fitting-the-logistic-regression-model" class="section level3 hasAnchor" number="16.2.5">
+<h3><span class="header-section-number">16.2.5</span> Fitting the logistic regression model<a href="non-linear-regression-models.html#fitting-the-logistic-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The function <code>glm</code> (generalized linear model) can be used to fit the logistic regression model (as well as other models). Setting the argument <code>family = binomial</code> gives us logistic regression. Note that when fitting the model the dependent variable needs to be numeric, so if the data is provided as Boolean (logical) TRUE/FALSE values, they should be converted to integers using <code>as.numeric()</code>.</p>
 <p>First we fit the regression for the famale passengers.</p>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="non-linear-regression-models.html#cb500-1" aria-hidden="true" tabindex="-1"></a>fit.female <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, female)</span>
-<span id="cb500-2"><a href="non-linear-regression-models.html#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit.female)</span>
-<span id="cb500-3"><a href="non-linear-regression-models.html#cb500-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 5</span></span>
-<span id="cb500-4"><a href="non-linear-regression-models.html#cb500-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic p.value</span></span>
-<span id="cb500-5"><a href="non-linear-regression-models.html#cb500-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb500-6"><a href="non-linear-regression-models.html#cb500-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   0.493    0.254        1.94 0.0523 </span></span>
-<span id="cb500-7"><a href="non-linear-regression-models.html#cb500-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age           0.0225   0.00854      2.64 0.00834</span></span></code></pre></div>
-<p>The column “estimate” gives the coefficients of the model. The “intercept”" estimate corresponds to <span class="math inline">\(B_0\)</span> in the logistic regression equation, the “age” estimate corresponds to the coefficient <span class="math inline">\(B_1\)</span> in the equation.</p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="non-linear-regression-models.html#cb504-1" aria-hidden="true" tabindex="-1"></a>fit.female <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, female)</span>
+<span id="cb504-2"><a href="non-linear-regression-models.html#cb504-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit.female)</span>
+<span id="cb504-3"><a href="non-linear-regression-models.html#cb504-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb504-4"><a href="non-linear-regression-models.html#cb504-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic p.value</span></span>
+<span id="cb504-5"><a href="non-linear-regression-models.html#cb504-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb504-6"><a href="non-linear-regression-models.html#cb504-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   0.493    0.254        1.94 0.0523 </span></span>
+<span id="cb504-7"><a href="non-linear-regression-models.html#cb504-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age           0.0225   0.00854      2.64 0.00834</span></span></code></pre></div>
+<p>The column “estimate” gives the coefficients of the model. The “intercept”” estimate corresponds to <span class="math inline">\(B_0\)</span> in the logistic regression equation, the “age” estimate corresponds to the coefficient <span class="math inline">\(B_1\)</span> in the equation.</p>
 <p>Now we repeat the same step for the male passengers.</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="non-linear-regression-models.html#cb501-1" aria-hidden="true" tabindex="-1"></a>fit.male <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, male)</span>
-<span id="cb501-2"><a href="non-linear-regression-models.html#cb501-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit.male)</span>
-<span id="cb501-3"><a href="non-linear-regression-models.html#cb501-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 5</span></span>
-<span id="cb501-4"><a href="non-linear-regression-models.html#cb501-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic p.value</span></span>
-<span id="cb501-5"><a href="non-linear-regression-models.html#cb501-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb501-6"><a href="non-linear-regression-models.html#cb501-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)  -0.661    0.225       -2.94 0.00329</span></span>
-<span id="cb501-7"><a href="non-linear-regression-models.html#cb501-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age          -0.0238   0.00728     -3.27 0.00109</span></span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="non-linear-regression-models.html#cb505-1" aria-hidden="true" tabindex="-1"></a>fit.male <span class="ot">&lt;-</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, male)</span>
+<span id="cb505-2"><a href="non-linear-regression-models.html#cb505-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(fit.male)</span>
+<span id="cb505-3"><a href="non-linear-regression-models.html#cb505-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb505-4"><a href="non-linear-regression-models.html#cb505-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic p.value</span></span>
+<span id="cb505-5"><a href="non-linear-regression-models.html#cb505-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb505-6"><a href="non-linear-regression-models.html#cb505-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)  -0.661    0.225       -2.94 0.00329</span></span>
+<span id="cb505-7"><a href="non-linear-regression-models.html#cb505-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age          -0.0238   0.00728     -3.27 0.00109</span></span></code></pre></div>
 <p>Notice that the female coefficients are both positive, while the male coefficients are negative. We’ll visualize what this means in terms of the model below.</p>
 </div>
-<div id="visualizing-the-logistic-regression" class="section level3" number="16.2.6">
-<h3><span class="header-section-number">16.2.6</span> Visualizing the logistic regression</h3>
+<div id="visualizing-the-logistic-regression" class="section level3 hasAnchor" number="16.2.6">
+<h3><span class="header-section-number">16.2.6</span> Visualizing the logistic regression<a href="non-linear-regression-models.html#visualizing-the-logistic-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To visualize the logistic regression fit, we first use the <code>predict</code> function to generate the model predictions about probability of survival as a function of age.</p>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="non-linear-regression-models.html#cb502-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span></span>
-<span id="cb502-2"><a href="non-linear-regression-models.html#cb502-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb502-3"><a href="non-linear-regression-models.html#cb502-3" aria-hidden="true" tabindex="-1"></a>predicted.female <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.female, </span>
-<span id="cb502-4"><a href="non-linear-regression-models.html#cb502-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages),</span>
-<span id="cb502-5"><a href="non-linear-regression-models.html#cb502-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb502-6"><a href="non-linear-regression-models.html#cb502-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb502-7"><a href="non-linear-regression-models.html#cb502-7" aria-hidden="true" tabindex="-1"></a>predicted.male <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.male,</span>
-<span id="cb502-8"><a href="non-linear-regression-models.html#cb502-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages),</span>
-<span id="cb502-9"><a href="non-linear-regression-models.html#cb502-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb502-10"><a href="non-linear-regression-models.html#cb502-10" aria-hidden="true" tabindex="-1"></a>                            </span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="non-linear-regression-models.html#cb506-1" aria-hidden="true" tabindex="-1"></a>ages <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">75</span>, <span class="dv">1</span>) <span class="co"># predict survival for ages 0 to 75</span></span>
+<span id="cb506-2"><a href="non-linear-regression-models.html#cb506-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb506-3"><a href="non-linear-regression-models.html#cb506-3" aria-hidden="true" tabindex="-1"></a>predicted.female <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.female, </span>
+<span id="cb506-4"><a href="non-linear-regression-models.html#cb506-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages),</span>
+<span id="cb506-5"><a href="non-linear-regression-models.html#cb506-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb506-6"><a href="non-linear-regression-models.html#cb506-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb506-7"><a href="non-linear-regression-models.html#cb506-7" aria-hidden="true" tabindex="-1"></a>predicted.male <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit.male,</span>
+<span id="cb506-8"><a href="non-linear-regression-models.html#cb506-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages),</span>
+<span id="cb506-9"><a href="non-linear-regression-models.html#cb506-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb506-10"><a href="non-linear-regression-models.html#cb506-10" aria-hidden="true" tabindex="-1"></a>                            </span></code></pre></div>
 <p>Having generated the predicted probabilities of survival we can then add these prediction lines to our previous plot using <code>geom_line</code>.</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="non-linear-regression-models.html#cb503-1" aria-hidden="true" tabindex="-1"></a>female.logistic.plot <span class="ot">&lt;-</span> female.plot <span class="sc">+</span> </span>
-<span id="cb503-2"><a href="non-linear-regression-models.html#cb503-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages, <span class="at">survived =</span> predicted.female),</span>
-<span id="cb503-3"><a href="non-linear-regression-models.html#cb503-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> fcolor, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb503-4"><a href="non-linear-regression-models.html#cb503-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb503-5"><a href="non-linear-regression-models.html#cb503-5" aria-hidden="true" tabindex="-1"></a>male.logistic.plot <span class="ot">&lt;-</span> male.plot <span class="sc">+</span> </span>
-<span id="cb503-6"><a href="non-linear-regression-models.html#cb503-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages, <span class="at">survived =</span> predicted.male),</span>
-<span id="cb503-7"><a href="non-linear-regression-models.html#cb503-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> mcolor, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb503-8"><a href="non-linear-regression-models.html#cb503-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb503-9"><a href="non-linear-regression-models.html#cb503-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(female.logistic.plot, male.logistic.plot)</span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-499-1.png" width="864" /></p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="non-linear-regression-models.html#cb507-1" aria-hidden="true" tabindex="-1"></a>female.logistic.plot <span class="ot">&lt;-</span> female.plot <span class="sc">+</span> </span>
+<span id="cb507-2"><a href="non-linear-regression-models.html#cb507-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages, <span class="at">survived =</span> predicted.female),</span>
+<span id="cb507-3"><a href="non-linear-regression-models.html#cb507-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> fcolor, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb507-4"><a href="non-linear-regression-models.html#cb507-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-5"><a href="non-linear-regression-models.html#cb507-5" aria-hidden="true" tabindex="-1"></a>male.logistic.plot <span class="ot">&lt;-</span> male.plot <span class="sc">+</span> </span>
+<span id="cb507-6"><a href="non-linear-regression-models.html#cb507-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">age =</span> ages, <span class="at">survived =</span> predicted.male),</span>
+<span id="cb507-7"><a href="non-linear-regression-models.html#cb507-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> mcolor, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb507-8"><a href="non-linear-regression-models.html#cb507-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-9"><a href="non-linear-regression-models.html#cb507-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(female.logistic.plot, male.logistic.plot)</span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-503-1.png" width="864" /></p>
 <p>We see that for the female passengers, the logistic regression predicts that the probability of survival <em>increases</em> with passenger age. In contrast, the model fit to the male passengers suggests that the probability of survival decreases with passenger age. For the male passengers, the data is consistent with “children first”; for female passengers this model doesn’t seem to hold. However, there are other factors to consider as we’ll see below.</p>
 </div>
-<div id="quick-and-easy-visualization" class="section level3" number="16.2.7">
-<h3><span class="header-section-number">16.2.7</span> Quick and easy visualization</h3>
+<div id="quick-and-easy-visualization" class="section level3 hasAnchor" number="16.2.7">
+<h3><span class="header-section-number">16.2.7</span> Quick and easy visualization<a href="non-linear-regression-models.html#quick-and-easy-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here’s an alternative “quick and easy” way to generate the plot above using the awesome power of ggplot. The downside of this approach is we don’t generate the detailed information on the model, which is something you’d certainly want to have in any real analysis.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="non-linear-regression-models.html#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(titanic, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>survived, <span class="at">color=</span>sex)) <span class="sc">+</span> </span>
-<span id="cb504-2"><a href="non-linear-regression-models.html#cb504-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb504-3"><a href="non-linear-regression-models.html#cb504-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="sc">+</span> </span>
-<span id="cb504-4"><a href="non-linear-regression-models.html#cb504-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb504-5"><a href="non-linear-regression-models.html#cb504-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> sex) <span class="sc">+</span></span>
-<span id="cb504-6"><a href="non-linear-regression-models.html#cb504-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(fcolor, mcolor))</span>
-<span id="cb504-7"><a href="non-linear-regression-models.html#cb504-7" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-500-1.png" width="864" /></p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="non-linear-regression-models.html#cb508-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(titanic, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>survived, <span class="at">color=</span>sex)) <span class="sc">+</span> </span>
+<span id="cb508-2"><a href="non-linear-regression-models.html#cb508-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb508-3"><a href="non-linear-regression-models.html#cb508-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="sc">+</span> </span>
+<span id="cb508-4"><a href="non-linear-regression-models.html#cb508-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb508-5"><a href="non-linear-regression-models.html#cb508-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> sex) <span class="sc">+</span></span>
+<span id="cb508-6"><a href="non-linear-regression-models.html#cb508-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(fcolor, mcolor))</span>
+<span id="cb508-7"><a href="non-linear-regression-models.html#cb508-7" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-504-1.png" width="864" /></p>
 </div>
-<div id="impact-of-sex-and-passenger-class-on-the-models" class="section level3" number="16.2.8">
-<h3><span class="header-section-number">16.2.8</span> Impact of sex and passenger class on the models</h3>
+<div id="impact-of-sex-and-passenger-class-on-the-models" class="section level3 hasAnchor" number="16.2.8">
+<h3><span class="header-section-number">16.2.8</span> Impact of sex and passenger class on the models<a href="non-linear-regression-models.html#impact-of-sex-and-passenger-class-on-the-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In our previous analysis we considered the relationship between survival and age, conditioned (facted) on passenger sex. In a complex data set like this one, it is often useful to condition on multiple variables simultaneously. Lets extend our visualization to look at the regression faceted on both class and sex, using <code>facet_grid</code>:</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="non-linear-regression-models.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(titanic, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>survived, <span class="at">color=</span>sex)) <span class="sc">+</span> </span>
-<span id="cb505-2"><a href="non-linear-regression-models.html#cb505-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
-<span id="cb505-3"><a href="non-linear-regression-models.html#cb505-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="sc">+</span> </span>
-<span id="cb505-4"><a href="non-linear-regression-models.html#cb505-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="sc">+</span>  </span>
-<span id="cb505-5"><a href="non-linear-regression-models.html#cb505-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(pclass <span class="sc">~</span> sex) <span class="sc">+</span></span>
-<span id="cb505-6"><a href="non-linear-regression-models.html#cb505-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(fcolor, mcolor)) <span class="sc">+</span> </span>
-<span id="cb505-7"><a href="non-linear-regression-models.html#cb505-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>()</span>
-<span id="cb505-8"><a href="non-linear-regression-models.html#cb505-8" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<p><img src="bio723-book_files/figure-html/unnamed-chunk-501-1.png" width="864" /></p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="non-linear-regression-models.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(titanic, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>survived, <span class="at">color=</span>sex)) <span class="sc">+</span> </span>
+<span id="cb509-2"><a href="non-linear-regression-models.html#cb509-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="dv">0</span>, <span class="at">height =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb509-3"><a href="non-linear-regression-models.html#cb509-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">&quot;glm&quot;</span>,  <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span><span class="st">&quot;binomial&quot;</span>))  <span class="sc">+</span> </span>
+<span id="cb509-4"><a href="non-linear-regression-models.html#cb509-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">y =</span> <span class="st">&quot;P(Survival)&quot;</span>) <span class="sc">+</span>  </span>
+<span id="cb509-5"><a href="non-linear-regression-models.html#cb509-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(pclass <span class="sc">~</span> sex) <span class="sc">+</span></span>
+<span id="cb509-6"><a href="non-linear-regression-models.html#cb509-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(fcolor, mcolor)) <span class="sc">+</span> </span>
+<span id="cb509-7"><a href="non-linear-regression-models.html#cb509-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_few</span>()</span>
+<span id="cb509-8"><a href="non-linear-regression-models.html#cb509-8" aria-hidden="true" tabindex="-1"></a><span class="do">## `geom_smooth()` using formula = &#39;y ~ x&#39;</span></span></code></pre></div>
+<p><img src="bio723-book_files/figure-html/unnamed-chunk-505-1.png" width="864" /></p>
 <p>Having conditioned on both sex and ticket class, our figure now reveals a much more complex relationship between age and survival. Almost all first class female passengers survived, regardless of age. For second calss female passengers, the logistic regression suggests a very modest decrease in survival with increasing age. The negative relationship between age and survival is stronger still for third class females. Male passengers on the other hand show a negative relationship between sex and survival, regardless of class, but the models suggest that there are still class specific differences in this relationship.</p>
 </div>
-<div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level3" number="16.2.9">
-<h3><span class="header-section-number">16.2.9</span> Fitting multiple models based on groupings use <code>dplyr::do</code></h3>
+<div id="fitting-multiple-models-based-on-groupings-use-dplyrdo" class="section level3 hasAnchor" number="16.2.9">
+<h3><span class="header-section-number">16.2.9</span> Fitting multiple models based on groupings use <code>dplyr::do</code><a href="non-linear-regression-models.html#fitting-multiple-models-based-on-groupings-use-dplyrdo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the figure above we used <code>ggplot</code> and <code>facet_grid</code> to visualize logistic regression of survival on age, conditioned on both sex and class. What if we wanted to calculate the terms of the logistic regressions for each combination of these two categorical variables? There are three passenger classes and two sexes, meaning we’d have to create six data subsets and fit the model six times if we used the same approach we used previously. Luckily, <code>dplyr</code> provides a powerful function called <code>do()</code> that allows us to carry out arbitrary computations on grouped data.</p>
 <p>There are two ways to use <code>do()</code>. The first way is to give the expressions you evaluate in <code>do()</code> a name, in which case <code>do()</code> will store the results in a column. The second way to use <code>do()</code> is for the expression to return a data frame.</p>
 <p>In this first example, the model fits are stored in the <code>fits</code> column. When using <code>do()</code> you can refer to the groupings using a period (<code>.</code>):</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="non-linear-regression-models.html#cb506-1" aria-hidden="true" tabindex="-1"></a>grouped.models <span class="ot">&lt;-</span></span>
-<span id="cb506-2"><a href="non-linear-regression-models.html#cb506-2" aria-hidden="true" tabindex="-1"></a>  titanic <span class="sc">%&gt;%</span></span>
-<span id="cb506-3"><a href="non-linear-regression-models.html#cb506-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, pclass) <span class="sc">%&gt;%</span></span>
-<span id="cb506-4"><a href="non-linear-regression-models.html#cb506-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="at">fits =</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, <span class="at">data =</span> .))</span>
-<span id="cb506-5"><a href="non-linear-regression-models.html#cb506-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb506-6"><a href="non-linear-regression-models.html#cb506-6" aria-hidden="true" tabindex="-1"></a>grouped.models</span>
-<span id="cb506-7"><a href="non-linear-regression-models.html#cb506-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
-<span id="cb506-8"><a href="non-linear-regression-models.html#cb506-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   sex    pclass fits  </span></span>
-<span id="cb506-9"><a href="non-linear-regression-models.html#cb506-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;</span></span>
-<span id="cb506-10"><a href="non-linear-regression-models.html#cb506-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 female      1 &lt;glm&gt; </span></span>
-<span id="cb506-11"><a href="non-linear-regression-models.html#cb506-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 female      2 &lt;glm&gt; </span></span>
-<span id="cb506-12"><a href="non-linear-regression-models.html#cb506-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 female      3 &lt;glm&gt; </span></span>
-<span id="cb506-13"><a href="non-linear-regression-models.html#cb506-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 male        1 &lt;glm&gt; </span></span>
-<span id="cb506-14"><a href="non-linear-regression-models.html#cb506-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 male        2 &lt;glm&gt; </span></span>
-<span id="cb506-15"><a href="non-linear-regression-models.html#cb506-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 male        3 &lt;glm&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="non-linear-regression-models.html#cb510-1" aria-hidden="true" tabindex="-1"></a>grouped.models <span class="ot">&lt;-</span></span>
+<span id="cb510-2"><a href="non-linear-regression-models.html#cb510-2" aria-hidden="true" tabindex="-1"></a>  titanic <span class="sc">%&gt;%</span></span>
+<span id="cb510-3"><a href="non-linear-regression-models.html#cb510-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, pclass) <span class="sc">%&gt;%</span></span>
+<span id="cb510-4"><a href="non-linear-regression-models.html#cb510-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="at">fits =</span> <span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, <span class="at">data =</span> .))</span>
+<span id="cb510-5"><a href="non-linear-regression-models.html#cb510-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb510-6"><a href="non-linear-regression-models.html#cb510-6" aria-hidden="true" tabindex="-1"></a>grouped.models</span>
+<span id="cb510-7"><a href="non-linear-regression-models.html#cb510-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 3</span></span>
+<span id="cb510-8"><a href="non-linear-regression-models.html#cb510-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   sex    pclass fits  </span></span>
+<span id="cb510-9"><a href="non-linear-regression-models.html#cb510-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;   &lt;dbl&gt; &lt;list&gt;</span></span>
+<span id="cb510-10"><a href="non-linear-regression-models.html#cb510-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 female      1 &lt;glm&gt; </span></span>
+<span id="cb510-11"><a href="non-linear-regression-models.html#cb510-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 female      2 &lt;glm&gt; </span></span>
+<span id="cb510-12"><a href="non-linear-regression-models.html#cb510-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 female      3 &lt;glm&gt; </span></span>
+<span id="cb510-13"><a href="non-linear-regression-models.html#cb510-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 male        1 &lt;glm&gt; </span></span>
+<span id="cb510-14"><a href="non-linear-regression-models.html#cb510-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 male        2 &lt;glm&gt; </span></span>
+<span id="cb510-15"><a href="non-linear-regression-models.html#cb510-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 male        3 &lt;glm&gt;</span></span></code></pre></div>
 <p>Notice that the “fits” column doesn’t explicitly print out the details of the model. The object returned by <code>glm()</code> can’t be simply represented as text string (it’s a list), so we seea place holder string that tells us that there is data here represented a glm object. However, we can access the the columns with the fits just like any other variable:</p>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="non-linear-regression-models.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span></span>
-<span id="cb507-2"><a href="non-linear-regression-models.html#cb507-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(grouped.models<span class="sc">$</span>fits[[<span class="dv">2</span>]])</span>
-<span id="cb507-3"><a href="non-linear-regression-models.html#cb507-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 x 5</span></span>
-<span id="cb507-4"><a href="non-linear-regression-models.html#cb507-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic  p.value</span></span>
-<span id="cb507-5"><a href="non-linear-regression-models.html#cb507-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb507-6"><a href="non-linear-regression-models.html#cb507-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   3.49      0.904       3.86 0.000112</span></span>
-<span id="cb507-7"><a href="non-linear-regression-models.html#cb507-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age          -0.0450    0.0255     -1.77 0.0773</span></span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="non-linear-regression-models.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the summary of the second logistic regression (Female, 2nd Class) </span></span>
+<span id="cb511-2"><a href="non-linear-regression-models.html#cb511-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(grouped.models<span class="sc">$</span>fits[[<span class="dv">2</span>]])</span>
+<span id="cb511-3"><a href="non-linear-regression-models.html#cb511-3" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 5</span></span>
+<span id="cb511-4"><a href="non-linear-regression-models.html#cb511-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   term        estimate std.error statistic  p.value</span></span>
+<span id="cb511-5"><a href="non-linear-regression-models.html#cb511-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb511-6"><a href="non-linear-regression-models.html#cb511-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 (Intercept)   3.49      0.904       3.86 0.000112</span></span>
+<span id="cb511-7"><a href="non-linear-regression-models.html#cb511-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 age          -0.0450    0.0255     -1.77 0.0773</span></span></code></pre></div>
 <p>Now we illustrate the second approach to using <code>do()</code>. When no name is provided, <code>do()</code> expects its expression to return a dataframe. Here we use the <code>broom::tidy()</code> function to get the key results of each fit model into a data frame:</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="non-linear-regression-models.html#cb508-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span></span>
-<span id="cb508-2"><a href="non-linear-regression-models.html#cb508-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, pclass) <span class="sc">%&gt;%</span></span>
-<span id="cb508-3"><a href="non-linear-regression-models.html#cb508-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">tidy</span>(<span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, <span class="at">data =</span> .)))</span>
-<span id="cb508-4"><a href="non-linear-regression-models.html#cb508-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 12 x 7</span></span>
-<span id="cb508-5"><a href="non-linear-regression-models.html#cb508-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    sex    pclass term        estimate std.error statistic    p.value</span></span>
-<span id="cb508-6"><a href="non-linear-regression-models.html#cb508-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span id="cb508-7"><a href="non-linear-regression-models.html#cb508-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 female      1 (Intercept)  2.90       1.24       2.34  0.0193    </span></span>
-<span id="cb508-8"><a href="non-linear-regression-models.html#cb508-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 female      1 age          0.00960    0.0326     0.294 0.769     </span></span>
-<span id="cb508-9"><a href="non-linear-regression-models.html#cb508-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 female      2 (Intercept)  3.49       0.904      3.86  0.000112  </span></span>
-<span id="cb508-10"><a href="non-linear-regression-models.html#cb508-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 female      2 age         -0.0450     0.0255    -1.77  0.0773    </span></span>
-<span id="cb508-11"><a href="non-linear-regression-models.html#cb508-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 female      3 (Intercept)  0.289      0.341      0.846 0.398     </span></span>
-<span id="cb508-12"><a href="non-linear-regression-models.html#cb508-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 female      3 age         -0.0178     0.0136    -1.31  0.190     </span></span>
-<span id="cb508-13"><a href="non-linear-regression-models.html#cb508-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 male        1 (Intercept)  0.880      0.527      1.67  0.0951    </span></span>
-<span id="cb508-14"><a href="non-linear-regression-models.html#cb508-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 male        1 age         -0.0374     0.0128    -2.93  0.00335   </span></span>
-<span id="cb508-15"><a href="non-linear-regression-models.html#cb508-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 male        2 (Intercept)  1.04       0.599      1.74  0.0818    </span></span>
-<span id="cb508-16"><a href="non-linear-regression-models.html#cb508-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 male        2 age         -0.112      0.0249    -4.50  0.00000672</span></span>
-<span id="cb508-17"><a href="non-linear-regression-models.html#cb508-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 male        3 (Intercept) -0.761      0.342     -2.23  0.0259    </span></span>
-<span id="cb508-18"><a href="non-linear-regression-models.html#cb508-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 male        3 age         -0.0339     0.0134    -2.53  0.0113</span></span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="non-linear-regression-models.html#cb512-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">%&gt;%</span></span>
+<span id="cb512-2"><a href="non-linear-regression-models.html#cb512-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, pclass) <span class="sc">%&gt;%</span></span>
+<span id="cb512-3"><a href="non-linear-regression-models.html#cb512-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">tidy</span>(<span class="fu">glm</span>(survived <span class="sc">~</span> age, <span class="at">family =</span> binomial, <span class="at">data =</span> .)))</span>
+<span id="cb512-4"><a href="non-linear-regression-models.html#cb512-4" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 12 × 7</span></span>
+<span id="cb512-5"><a href="non-linear-regression-models.html#cb512-5" aria-hidden="true" tabindex="-1"></a><span class="do">##    sex    pclass term        estimate std.error statistic    p.value</span></span>
+<span id="cb512-6"><a href="non-linear-regression-models.html#cb512-6" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb512-7"><a href="non-linear-regression-models.html#cb512-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 female      1 (Intercept)  2.90       1.24       2.34  0.0193    </span></span>
+<span id="cb512-8"><a href="non-linear-regression-models.html#cb512-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 female      1 age          0.00960    0.0326     0.294 0.769     </span></span>
+<span id="cb512-9"><a href="non-linear-regression-models.html#cb512-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 female      2 (Intercept)  3.49       0.904      3.86  0.000112  </span></span>
+<span id="cb512-10"><a href="non-linear-regression-models.html#cb512-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 female      2 age         -0.0450     0.0255    -1.77  0.0773    </span></span>
+<span id="cb512-11"><a href="non-linear-regression-models.html#cb512-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 female      3 (Intercept)  0.289      0.341      0.846 0.398     </span></span>
+<span id="cb512-12"><a href="non-linear-regression-models.html#cb512-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 female      3 age         -0.0178     0.0136    -1.31  0.190     </span></span>
+<span id="cb512-13"><a href="non-linear-regression-models.html#cb512-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 male        1 (Intercept)  0.880      0.527      1.67  0.0951    </span></span>
+<span id="cb512-14"><a href="non-linear-regression-models.html#cb512-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 male        1 age         -0.0374     0.0128    -2.93  0.00335   </span></span>
+<span id="cb512-15"><a href="non-linear-regression-models.html#cb512-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 male        2 (Intercept)  1.04       0.599      1.74  0.0818    </span></span>
+<span id="cb512-16"><a href="non-linear-regression-models.html#cb512-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 male        2 age         -0.112      0.0249    -4.50  0.00000672</span></span>
+<span id="cb512-17"><a href="non-linear-regression-models.html#cb512-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 male        3 (Intercept) -0.761      0.342     -2.23  0.0259    </span></span>
+<span id="cb512-18"><a href="non-linear-regression-models.html#cb512-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 male        3 age         -0.0339     0.0134    -2.53  0.0113</span></span></code></pre></div>
 <p>Using this approach we get a nice data frame showing the logistic regression coefficients, and associated statistics (standard error, P-values, etc) for the regression of survival on age, for each combination of sex and class.</p>
 
 </div>
@@ -964,7 +980,6 @@ P(Y = 1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -983,6 +998,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -1003,6 +1019,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 },
@@ -1019,7 +1039,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

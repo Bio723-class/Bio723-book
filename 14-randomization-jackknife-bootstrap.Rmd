@@ -334,7 +334,7 @@ c(mean(bstar)-ci.multiplier*sd(bstar),
 
 Another approach is to use "percentile confidence limits" based on percentiles of the bootstrap distribution itself:
 
-````{r}
+```{r}
 # estimate the bootstrap percentile confidence limits
 quantile(b$thetastar,c(0.025,0.975))
 ```

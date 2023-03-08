@@ -11,8 +11,8 @@ fig:unnamed-chunk-294
 fig:unnamed-chunk-347
 fig:unnamed-chunk-348
 fig:unnamed-chunk-349
-fig:unnamed-chunk-370
-fig:unnamed-chunk-589
+fig:unnamed-chunk-371
+fig:unnamed-chunk-590
 introduction
 accessing-older-versions-of-the-course-notes
 how-to-use-these-lecture-notes
@@ -239,6 +239,8 @@ linear-regression-models-ii
 new-libraries-to-install
 standard-libraries
 specifying-regression-models-in-r
+example-data
+fitting-the-model-using-lm
 interpretting-summary-output-from-lm
 quick-bivariate-regression-plots-in-ggplot
 more-about-the-data-structure-returned-by-lm

@@ -21,14 +21,31 @@ library(tidyverse)
 
 As one would expect, R has a built-in function for fitting linear regression models. The function `lm()` can be used to fit bivariate and multiple regression models, as well asanalysis of variance, analysis of covariance, and other linear models.  
 
-We'll start by illustrating bivariate regression with the [lion nose pigmentation data set](https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv) introduced in the assignment for the previous class session. Let's load the lion data and remind ourselves of the basic structure:
+### Example data
+
+A study by Whitman et al. (2004) showed that the amount of black coloring on the nose of male lions increases with age, and suggested that this might be used to estimate the age of unknown lions.  To establish the relationship between these variables they measured the black coloring on the noses of male lions of known age (represented as a proportion).
+
+The variables in this data file are `proportionBlack` and `ageInYears` giving the proportion of black pigmentation on the nose of each lion used in the study and the corresponding age of each lion.
+
+Data from this study is available in CSV format at: https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv
+
+Let's load the lion data and look at the basic structure:
 
 ```{r}
 lions <- read_csv("https://github.com/Bio723-class/example-datasets/raw/master/ABD-lion-noses.csv")
 head(lions)
+```  
+
+```{r}
+glimpse(lions)
 ```
 
-Recall that our predictor (explanatory) variable is `proportionBlack` and our outcome (response) variable is `ageInYears`. We use the `lm()` function to fit the regression of `proportionBlack` on `ageInYears` as so:
+
+### Fitting the model using `lm()`
+
+
+
+The predictor (explanatory) variable is `proportionBlack` and the outcome (response) variable is `ageInYears`. We use the `lm()` function to fit the regression of `proportionBlack` on `ageInYears` as so:
 
 ```{r}
 fit.lions <- lm(ageInYears ~ proportionBlack, lions)

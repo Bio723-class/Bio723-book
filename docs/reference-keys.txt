@@ -11,8 +11,8 @@ fig:unnamed-chunk-294
 fig:unnamed-chunk-347
 fig:unnamed-chunk-348
 fig:unnamed-chunk-349
-fig:unnamed-chunk-371
-fig:unnamed-chunk-590
+fig:unnamed-chunk-372
+fig:unnamed-chunk-591
 introduction
 accessing-older-versions-of-the-course-notes
 how-to-use-these-lecture-notes

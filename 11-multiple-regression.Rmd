@@ -40,6 +40,14 @@ head(lions)
 glimpse(lions)
 ```
 
+Since we want to relate lion age to nose pigmentation, it would be a good idea to look at the bivariate relationship to convince ourselves that a linear model may be appropriate.
+
+```{r}
+ggplot(lions, aes(x = proportionBlack, y = ageInYears)) +
+  geom_point()
+```
+
+
 
 ### Fitting the model using `lm()`
 
